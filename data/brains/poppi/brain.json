@@ -1,0 +1,81 @@
+{
+  "name": "Poppi",
+  "category": "Functional soda / prebiotic beverage",
+  "audience": "Health-conscious millennials and Gen Z consumers who want a fun, flavorful alternative to traditional soda with less sugar and added gut-health benefits",
+  "vibe": "Bright, playful, colorful, upbeat, social-media-friendly, wellness-meets-pop-culture",
+  "productType": "Canned prebiotic soda made with fruit flavors, apple cider vinegar, and low sugar",
+  "purpose": "To offer a better-for-you soda that delivers nostalgic, craveable flavors while supporting gut health and reducing sugar compared with conventional soft drinks",
+  "ideology": "Soda can be fun and indulgent without being loaded with sugar; everyday beverages should combine taste, wellness, and modern lifestyle appeal",
+  "research": {
+    "summary": "Poppi is an established prebiotic soda brand positioned as a colorful, gut-health-forward alternative to traditional soda, blending wellness claims with pop-culture energy, nostalgic flavors, and playful social-first branding.",
+    "essence": "",
+    "voice": "",
+    "competitors": [
+      "Olipop",
+      "Wildwonder",
+      "Culture Pop Soda",
+      "Daytrip"
+    ],
+    "ambassadors": [
+      "Allison Ellsworth",
+      "Stephen Ellsworth",
+      "Post Malone",
+      "Hailey Bieber",
+      "Kylie Jenner",
+      "Billie Eilish",
+      "Russell Westbrook",
+      "Jennifer Lopez",
+      "Olivia Munn",
+      "Alix Earle",
+      "Jake Shane",
+      "Olandria"
+    ],
+    "instagram": "@drinkpoppi",
+    "website": "https://drinkpoppi.com",
+    "palette": [
+      {
+        "hex": "#F9AEC7",
+        "role": "primary bright pink"
+      },
+      {
+        "hex": "#FFD7BE",
+        "role": "soft peach background"
+      },
+      {
+        "hex": "#BEE9F4",
+        "role": "sky blue flavor/background accent"
+      },
+      {
+        "hex": "#D8F5DB",
+        "role": "light mint green flavor/background accent"
+      },
+      {
+        "hex": "#FFF2B4",
+        "role": "sunny yellow highlight"
+      },
+      {
+        "hex": "#FF8D69",
+        "role": "vibrant orange accent"
+      },
+      {
+        "hex": "#DA2525",
+        "role": "red-orange call-to-action accent"
+      }
+    ],
+    "aesthetic": "Shoot Poppi cans on seamless pastel or bright solid-color backdrops, clean white/off-white counters, glossy acrylic surfaces, poolside/beach settings, modern kitchens, cafes, and colorful urban lifestyle locations. Use a bright, high-saturation color grade with clean whites, soft shadows, and flavor-matched pink, peach, blue, mint, yellow, orange, and red accents; styling is moderate to prop-rich with condensation, ice, fruit slices, glassware, splashes, effervescence, sunglasses, magazines, and other youthful lifestyle props. Lighting should be soft, even, and daylight-like, usually front or three-quarter front lit with minimal hard shadow; compose for square and vertical social crops with centered hero cans, tight label close-ups, flat lays, dynamic splash/motion packshots, and wider lifestyle frames featuring diverse Gen Z/millennial models holding or drinking the product alongside product-only shots.",
+    "foundReal": false,
+    "logo": "https://drinkpoppi.com/cdn/shop/files/poppi-fav_32x32.png?v=1696350422",
+    "productImages": [
+      "http://drinkpoppi.com/cdn/shop/files/PREVIEW_IMAGE.png?v=1779892162",
+      "https://drinkpoppi.com/cdn/shop/files/PREVIEW_IMAGE.png?v=1779892162",
+      "https://drinkpoppi.com/cdn/shop/files/PunchPop2026Front_Condensation.png?v=1777302926&width=1256",
+      "https://drinkpoppi.com/cdn/shop/files/image_26.png?v=1766440875&width=1257",
+      "https://drinkpoppi.com/cdn/shop/files/OrangeCreamFront_Condensation.png?v=1740696717&width=1261",
+      "https://drinkpoppi.com/cdn/shop/files/StrawberryLemonFront_Condensation.png?v=1740695913&width=1258",
+      "https://drinkpoppi.com/cdn/shop/files/CreamSoda_withCondensation.png?v=1736127725&width=1257",
+      "https://drinkpoppi.com/cdn/shop/files/GingerLimeFront_Condensation.png?v=1740695081&width=1261"
+    ],
+    "sources": 23
+  },
+  "ready": true
+}

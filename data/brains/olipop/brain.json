@@ -1,0 +1,70 @@
+{
+  "category": "Functional soda / better-for-you beverages",
+  "productType": "Prebiotic sparkling tonic soda with fiber, botanicals, and low sugar",
+  "name": "Olipop",
+  "audience": "Health-conscious soda drinkers, millennials and Gen Z consumers, wellness-oriented shoppers, and people seeking lower-sugar alternatives to traditional soft drinks",
+  "vibe": "Bright, playful, nostalgic, modern wellness-focused, colorful, friendly, and slightly retro",
+  "purpose": "To offer a healthier alternative to conventional soda that supports digestive health while delivering familiar, nostalgic soda flavors",
+  "ideology": "Soda can be fun and indulgent without being loaded with sugar; everyday treats should combine taste, gut health, and better-for-you ingredients",
+  "research": {
+    "summary": "Olipop is an established prebiotic soda brand positioned as a nostalgic, better-for-you alternative to classic soft drinks, combining playful retro cues with modern wellness messaging. Its visual world is bright, colorful, flavor-led, and highly approachable, with cans treated as the hero across clean product photography, ingredient-led flat lays, and sunny lifestyle scenes.",
+    "essence": "",
+    "voice": "",
+    "competitors": [
+      "Poppi",
+      "Zevia",
+      "Culture Pop",
+      "Simply Pop"
+    ],
+    "ambassadors": [
+      "Ben Goodwin",
+      "David Lester",
+      "Gwyneth Paltrow",
+      "Mindy Kaling"
+    ],
+    "instagram": "@drinkolipop",
+    "website": "https://drinkolipop.com",
+    "palette": [
+      {
+        "hex": "#FDFCEF",
+        "role": "soft creamy white background neutral"
+      },
+      {
+        "hex": "#EB547C",
+        "role": "vibrant pinkish-red flavor accent"
+      },
+      {
+        "hex": "#FF9540",
+        "role": "sunny orange flavor accent"
+      },
+      {
+        "hex": "#98D25E",
+        "role": "fresh lime green flavor accent"
+      },
+      {
+        "hex": "#8A6CCF",
+        "role": "playful purple flavor accent"
+      },
+      {
+        "hex": "#63C1D1",
+        "role": "aqua teal secondary accent"
+      }
+    ],
+    "aesthetic": "Shoot colorful Olipop cans on seamless white, cream, or pastel studio backgrounds, clean countertops, picnic blankets, grass, beach sand, and bright patio or home surfaces, with fruit slices, herbs, ice, simple glassware, linen napkins, and flavor-matched props used sparingly. The colour grade is high-key, creamy, and optimistic: soft whites, pastel grounds, and saturated can/fruit colors with minimal contrast and gentle shadows. Lighting should be soft diffused daylight or large softbox light from the front/side, with compositions alternating between centered hero packshots, tight can-and-ingredient crops, overhead flat lays, and wider lifestyle frames. The feed mixes product-only shots with candid models, usually diverse young adults drinking or holding cans at picnics, beaches, casual gatherings, and bright kitchens, always keeping the can clearly visible as the focal point.",
+    "foundReal": false,
+    "logo": "https://drinkolipop.com/cdn/shop/files/favicon_32x32.png?v=1613174610",
+    "productImages": [
+      "https://cdn.shopify.com/s/files/1/0034/6610/0806/files/Website_-_Social_-_Share_-_V1.png?v=1639521624",
+      "https://drinkolipop.com/cdn/shop/files/blackberry-vanilla-9g-olipop_gallery-image_single-can_new_asset.webp?crop=center&height=362&v=1779162450&width=272",
+      "https://drinkolipop.com/cdn/shop/files/crisp-apple-9g-olipop_gallery-image_single-can_new_asset.webp?crop=center&height=362&v=1779163593&width=272",
+      "https://drinkolipop.com/cdn/shop/files/raspberry-sherbert_omni-pdp_single.webp?crop=center&height=362&v=1775754912&width=272",
+      "https://drinkolipop.com/cdn/shop/files/shirley-temple-6g-olipop_gallery-image_single-can_new_asset.webp?crop=center&height=362&v=1778804138&width=272",
+      "https://drinkolipop.com/cdn/shop/files/classic-grape-9g-olipop_gallery-image_single-can_new_asset.webp?crop=center&height=362&v=1779163040&width=272",
+      "https://drinkolipop.com/cdn/shop/files/classic-root-beer-9g-olipop_gallery-image_single-can_new_asset.webp?crop=center&height=362&v=1779161742&width=272",
+      "https://drinkolipop.com/cdn/shop/files/vintage-cola-9g-olipop_gallery-image_single-can_new_asset.webp?crop=center&height=362&v=1779161590&width=272"
+    ],
+    "sources": 12
+  },
+  "ready": true,
+  "palette": "existing OLIPOP branding"
+}

@@ -1,0 +1,314 @@
+{
+  "name": "wear comet",
+  "category": "shoe/sneaker brand",
+  "research": {
+    "summary": "Comet (Wear Comet) is an Indian lifestyle sneaker brand making elevated everyday sneakers with clean silhouettes, earthy-neutrals and occasional bold colour pops, designed for Indian city life. Their positioning blends comfort and craftsmanship with a confident, expressive attitude summed up in lines like “Never Shy, Never Sorry” and “Designed to Defy,” targeting style‑conscious youth and everyday explorers.",
+    "essence": "",
+    "voice": "",
+    "competitors": [
+      "Gully Labs",
+      "RapidBox",
+      "CHK",
+      "Puma",
+      "Adidas"
+    ],
+    "ambassadors": [],
+    "instagram": "https://www.instagram.com/wearcomet",
+    "website": "https://wearcomet.com",
+    "palette": [
+      {
+        "hex": "#6F4E37",
+        "role": "primary brand neutral – Cortado / Chestnut coffee-brown used across key sneakers and accents"
+      },
+      {
+        "hex": "#A9A9A9",
+        "role": "secondary neutral – Greyscale mid-grey for versatile uppers and UI elements"
+      },
+      {
+        "hex": "#F8F8F8",
+        "role": "base background – Snow off‑white for site backgrounds and clean layouts"
+      },
+      {
+        "hex": "#000000",
+        "role": "text and deep accent – Black / Blackcurrant for typography and high-contrast details"
+      },
+      {
+        "hex": "#E12A3E",
+        "role": "accent – Picnic Red pop colour for highlight sneakers and CTAs"
+      },
+      {
+        "hex": "#0047AB",
+        "role": "accent – Cobalt blue for bold editions and highlight graphics"
+      },
+      {
+        "hex": "#F4C2C2",
+        "role": "accent – Rosé soft pink for select colourways and supportive UI elements"
+      },
+      {
+        "hex": "#D2B48C",
+        "role": "supporting neutral – Oatmilk / Hazelnut tan for lifestyle surfaces and uppers"
+      }
+    ],
+    "aesthetic": "Feed images alternate between clean studio packshots and urban lifestyle looks. BACKGROUNDS are mostly seamless off‑white or light grey sweeps (#F8F8F8, #EDEDED) and warm beige boards (#D2B48C), plus real locations like concrete pavements, steps, metro platforms and textured city walls; surfaces are flat boards, rough concrete and occasionally fabric drapes. Colour grade is clean and natural with slightly warm skin tones, true‑to‑product neutrals and controlled pops of red/blue; blacks stay rich, whites are soft rather than blown out. Styling is medium-density: lifestyle shots show full outfits but few extra props, while product frames stay prop-light with the shoe sometimes paired with a single chair, block or textured fabric; recurring props include stairs, railings, crosswalks and simple studio cubes. LIGHTING is a mix of soft natural daylight outdoors (open shade or late-afternoon sidelight) and controlled studio softboxes placed at 45°–90° for gentle, low-contrast shadows on the ground; specular highlights on leather/fabric are present but not harsh. Compositions favour low, ground-level angles, 3/4 views of the sneakers, leading lines in streets, and tight crops around the ankle/foot; carousels often mix a wide establishing shot with detail macros of textures and soles. They shoot heavily with models (feet/legs and occasional half-body), with occasional product-only shots for e-commerce and drop announcements.",
+    "foundReal": false,
+    "logo": "https://www.wearcomet.com/cdn/shop/files/comet_tshirt-05_1.png?crop=center&height=32&v=1685961704&width=32",
+    "productImages": [
+      "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Sold_Out.jpg?v=1782361023",
+      "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/PDP_picnic_blue_flap__1.jpg?v=1782128706",
+      "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/PDP_picnic_red_flap__1.jpg?v=1782128944",
+      "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Untitled-7-Recovered.jpg?v=1781268520",
+      "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Lateral-view-min_39317707-dec2-41d0-aec7-8fd786c515c3.jpg?v=1708611242",
+      "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/0008_Vulcan-min.jpg?v=1754657616",
+      "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/0004_Titan-min.jpg?v=1754657658",
+      "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/0003_Waldorf-min.jpg?v=1754657858",
+      "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/0002_Trickster-min.jpg?v=1754657895",
+      "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/0006_Maverick-min.jpg?v=1754657934",
+      "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/lateralds.jpg?v=1771262284",
+      "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/whitepeanutsnewlateral-min.png?v=1766391180"
+    ],
+    "products": [
+      {
+        "name": "MAACHIS",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Sold_Out.jpg?v=1782361023"
+      },
+      {
+        "name": "Aeres PICNIC BLUE",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/PDP_picnic_blue_flap__1.jpg?v=1782128706"
+      },
+      {
+        "name": "Aeres PICNIC RED",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/PDP_picnic_red_flap__1.jpg?v=1782128944"
+      },
+      {
+        "name": "Official FAFO 2026 REFEREE KIT",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Untitled-7-Recovered.jpg?v=1781268520"
+      },
+      {
+        "name": "Aeon TURQUOISE",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Lateral-view-min_39317707-dec2-41d0-aec7-8fd786c515c3.jpg?v=1708611242"
+      },
+      {
+        "name": "Alter VULCAN",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/0008_Vulcan-min.jpg?v=1754657616"
+      },
+      {
+        "name": "Alter TITAN",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/0004_Titan-min.jpg?v=1754657658"
+      },
+      {
+        "name": "Alter WALDORF",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/0003_Waldorf-min.jpg?v=1754657858"
+      },
+      {
+        "name": "Alter TRICKSTER",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/0002_Trickster-min.jpg?v=1754657895"
+      },
+      {
+        "name": "Alter MAVERICK",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/0006_Maverick-min.jpg?v=1754657934"
+      },
+      {
+        "name": "Alter CINNAMON",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/lateralds.jpg?v=1771262284"
+      },
+      {
+        "name": "COMET x PEANUTS “SKY\"",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/whitepeanutsnewlateral-min.png?v=1766391180"
+      },
+      {
+        "name": "COMET x PEANUTS “SPACE\"",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/black_peanuts_new_lateral-min.png?v=1766389086"
+      },
+      {
+        "name": "Alter HUKUM BLACK",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/black_lateral_DS_1_-min_main.jpg?v=1759563896"
+      },
+      {
+        "name": "Alter HUKUM IVORY",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/LATERAL_MAIN_DS_1_-min_main.jpg?v=1759563921"
+      },
+      {
+        "name": "COMET x NARU",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/lateral-min_cf53a3c7-3512-4188-bf6a-8927180f450e.jpg?v=1753942010"
+      },
+      {
+        "name": "Aeres MINT",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Lateral_5_16bc0681-11f4-4a53-a0dd-7ebcc1facf00.jpg?v=1780056911"
+      },
+      {
+        "name": "Aeres ROSÉ",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Lateral_4.jpg?v=1780056801"
+      },
+      {
+        "name": "Aeres HAZE",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Lateral_3_d39c306f-0d32-4a89-9981-4fb510170d32.jpg?v=1780056520"
+      },
+      {
+        "name": "Aeres HALO",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Lateral_2_fa79ceb6-5d60-4d1b-8634-b4b19d1269b5.jpg?v=1780056106"
+      },
+      {
+        "name": "Aeres INFERNO",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Lateral_1_ba08689f-0f11-4d68-885c-690b503e96b7.jpg?v=1780055976"
+      },
+      {
+        "name": "Aeres OAKWOOD",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/NewLateral_3.jpg?v=1780055689"
+      },
+      {
+        "name": "Aeres MIST",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/NewLateral_2.jpg?v=1780055382"
+      },
+      {
+        "name": "Aeres NOIR",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/NewLateral_1_d6e77143-bfd4-486f-9fb5-18f652758969.jpg?v=1780055123"
+      },
+      {
+        "name": "Aeres COBALT",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/NewLateral_31bb85d9-d638-4bc3-b2cb-04daf261a0a2.jpg?v=1780052519"
+      },
+      {
+        "name": "GET DUCK'D",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/the_vault.jpg?v=1779171037"
+      },
+      {
+        "name": "LACES",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/lace6_5e306e91-00c8-4e00-a800-8323b9e6112c.jpg?v=1692603055"
+      },
+      {
+        "name": "X Lows MALIBU",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Lateralnew.jpg?v=1778672031"
+      },
+      {
+        "name": "Apex NIMBU PAANI",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Artboard_1_copy_4_1_a0165cbb-3d98-44a4-ba60-d2e6be996e2d.jpg?v=1778758398"
+      },
+      {
+        "name": "Apex CYBERPUNK",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/cyberpunk_lateral_1.jpg?v=1778482879"
+      },
+      {
+        "name": "X Lows POPSTAR",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Untitled-6_15.jpg?v=1778048082"
+      },
+      {
+        "name": "Apex EVERGREEN",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Silver_GreenLateral_1.jpg?v=1778475796"
+      },
+      {
+        "name": "Apex MIRAGE",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/grey_white_1.jpg?v=1778475796"
+      },
+      {
+        "name": "Apex DUNE",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/brown_1.jpg?v=1778475796"
+      },
+      {
+        "name": "Apex ONYX",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Silver_Gold_Lateral_1.jpg?v=1778475796"
+      },
+      {
+        "name": "Apex SHOCKWAVE",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/silver_blue_1.jpg?v=1778475796"
+      },
+      {
+        "name": "Apex DARKMATTER",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Black_Lateral_1.jpg?v=1778475796"
+      },
+      {
+        "name": "COMET x VERONICA'S",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/1_1_a005acde-9cbd-42bf-99dd-b9962f196e9b.jpg?v=1776671468"
+      },
+      {
+        "name": "X Lows COSMO",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/designer_special_placement.jpg?v=1775626146"
+      },
+      {
+        "name": "X Lows MEZCAL",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/designer_special_placement_green_croc.jpg?v=1775626170"
+      },
+      {
+        "name": "X Lows WITH LOVE",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/lateral.1jpg.jpg?v=1774262362"
+      },
+      {
+        "name": "X Lows MOROCCO",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Lateral_7.jpg?v=1773829406"
+      },
+      {
+        "name": "Aeon V2 WOODPECKER",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Lateral_1_253e065d-72de-43f0-bf65-f3b0ff1e8dd5.jpg?v=1773746365"
+      },
+      {
+        "name": "Aeon V2 PHANTOM",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/lat2.jpg?v=1773242960"
+      },
+      {
+        "name": "Aeon V2 OYSTER",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Lateralwhite.jpg?v=1773387233"
+      },
+      {
+        "name": "ORANGE",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/01.jpg?v=1772786014"
+      },
+      {
+        "name": "Aeon V2 PRIMROSE",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Lateral_5.jpg?v=1772714530"
+      },
+      {
+        "name": "X Lows REWIND",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Lateral_4_1_da4a0672-4105-402c-8c09-79e65b7b668a.jpg?v=1772442647"
+      },
+      {
+        "name": "X Lows SADDLE BROWN",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Untitledjpg.jpg?v=1772195016"
+      },
+      {
+        "name": "X Lows CEDAR GREEN",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Untitled-4_8.jpg?v=1772183623"
+      },
+      {
+        "name": "X Lows PIANO BLACK",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Untitled-4_9_2a1f807b-3fa5-4b06-bc29-61bd73137940.jpg?v=1772195178"
+      },
+      {
+        "name": "X Lows POLARIS",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Untitled-2_2_1.jpg?v=1771571363"
+      },
+      {
+        "name": "Apex BUTTERCREAM",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/new_lat.jpg?v=1771499881"
+      },
+      {
+        "name": "SKRIBBLE",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/skribble_final_lateral_1-min.jpg?v=1765877068"
+      },
+      {
+        "name": "Apex KATANA",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Untitled-2_6_1.jpg?v=1778484556"
+      },
+      {
+        "name": "COMET X ODDNOTEVEN",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Untitled-1.jpg?v=1770121908"
+      },
+      {
+        "name": "Apex STARFIRE",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Starfire_1_42ca6d20-afe6-41f9-bf13-28ba11f21318.jpg?v=1778483693"
+      },
+      {
+        "name": "Apex STRATOS",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Lateral_1_1_1.jpg?v=1778484411"
+      },
+      {
+        "name": "Apex PHOTON",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Untitled-1_6.jpg?v=1778483160"
+      },
+      {
+        "name": "Apex MOONWALKER",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/grey_runner_1.jpg?v=1778483217"
+      }
+    ],
+    "sources": 9
+  },
+  "ready": true
+}

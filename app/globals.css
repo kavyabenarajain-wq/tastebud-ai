@@ -1,0 +1,36 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --canvas: #ffffff;
+  --surface: #f5f5f7;
+  --ink: #1d1d1f;
+  --muted: #6e6e73;
+  --hairline: #d2d2d7;
+}
+.dark {
+  --canvas: #000000;
+  --surface: #0a0a0a;
+  --ink: #f5f5f7;
+  --muted: #8a8a8f;
+  --hairline: #1f1f1f;
+}
+
+html,
+body {
+  background: var(--canvas);
+  color: var(--ink);
+}
+body {
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* thin near-black focus ring (spec §3) */
+*:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px var(--canvas), 0 0 0 3.5px var(--ink);
+}
+
+::selection { background: var(--ink); color: var(--canvas); }

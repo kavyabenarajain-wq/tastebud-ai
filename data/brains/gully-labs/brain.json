@@ -1,0 +1,1790 @@
+{
+  "name": "gully labs",
+  "research": {
+    "summary": "Gully Labs is a Delhi-born premium sneaker brand that handcrafts culturally rich, Indian-first footwear, fusing indigenous craftsmanship, narrative-led design, and contemporary street style to redefine what aspirational Indian sneakers can be at home and worldwide.",
+    "essence": "Wearable stories of India’s vibrant soul, hand-lasted into globally coveted sneakers.",
+    "voice": "Authentic, culturally proud, aspirational yet grounded, craft-obsessed and detail-forward, speaking in contemporary streetwear language while spotlighting Indian narratives, artisans, and materials with confidence and clarity.",
+    "competitors": [
+      "Comet",
+      "Thaely",
+      "Neeman's",
+      "7-10.in"
+    ],
+    "ambassadors": [
+      "Arjun Singh",
+      "Animesh Mishra"
+    ],
+    "instagram": "https://www.instagram.com/gullylabs",
+    "website": "https://global.gullylabs.com",
+    "palette": [
+      {
+        "hex": "#1C1C1C",
+        "role": "Primary text, deep accents, high-contrast UI elements, and grounding base in photography."
+      },
+      {
+        "hex": "#F7F7F7",
+        "role": "Core background for website, product pages, and clean studio surfaces in imagery."
+      },
+      {
+        "hex": "#6B0F1A",
+        "role": "Hero accent for culturally themed drops, premium details, and callouts (e.g., Barfi Burgundy)."
+      },
+      {
+        "hex": "#36454F",
+        "role": "Secondary accent echoing indigo/navy tones in key sneakers and lifestyle visuals."
+      },
+      {
+        "hex": "#A0836E",
+        "role": "Warm neutral for leather, craft cues, and occasional background or prop tones."
+      }
+    ],
+    "aesthetic": "Studio-first, story-backed sneaker photography with clean, neutral grounds and sharp detail. Products are typically shot on seamless off-white or very light grey backdrops, sometimes using muted coloured papers or simple pedestals that echo the shoe’s palette. Surfaces stay minimal—smooth studio floors, low-texture plinths, and occasionally warm-toned wood or concrete to nod to craft and street. Colour grading is natural with a slight warmth: whites remain clean, skin tones rich but not saturated, and leather textures rendered with clear contrast so stitching, dyes, and pattern work (Kantha, Rangoli-inspired motifs) read crisply. Styling density is low for product-only shots: shoes are isolated, occasionally paired with one or two props tied to the narrative (dessert cues for Kulfi/Barfi, subtle textile or craft elements) but never cluttered. Lifestyle content introduces contemporary Indian streetwear—loose pants, graphic tees, utility jackets—styled for movement and everyday wear rather than high-fashion theatrics. Props in these scenes are environmental: streets, stairwells, bikes, café corners, and urban nooks that feel recognisably ‘gully’ without heavy set dressing. Lighting in the studio is soft and even, coming from front and slight 3/4 angles to minimise harsh shadows and emphasise material depth; outdoor and in-store shots rely on natural or practical light, embracing gentle directional shadows for a candid, documentary feel while keeping the sneaker clearly lit. Composition alternates between full-profile product views, overhead and 3/4 angles, tight macro crops on textures and details (toe box, stitching, sole patterns, motif placements), and dynamic lifestyle frames showing feet in motion—walking, jumping, dancing, riding—often cropped mid-shin to keep focus on the sneakers. There is a balanced mix of pure product imagery for e-commerce and model-based storytelling shots for social: roughly half the feed is shoe-only, half shows people inhabiting the brand’s world, ensuring the photography signature feels both premium and lived-in, deeply Indian yet globally legible.",
+    "foundReal": true,
+    "logo": "https://global.gullylabs.com/cdn/shop/files/Artboard_1_bcd39e0f-0f43-4be4-9634-c1de346c8ff1.png?crop=center&height=32&v=1777280536&width=32",
+    "productImages": [
+      "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/086A0588.jpg?v=1781959609",
+      "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/086A9620.jpg?v=1781959603",
+      "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/086A0158_f3c98b2a-4834-468c-a340-80148770cdea.jpg?v=1781958996",
+      "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GL_April0045-2.jpg?v=1776839524",
+      "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GLApril0047-2_8859b14c-0ab5-49c5-b520-0b244137f218.jpg?v=1776839508",
+      "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GLApril0049-2.jpg?v=1776839511",
+      "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GLApril0049-2_6a3b8f24-173a-4986-8dbf-0f0bc9fc01a2.jpg?v=1776839512",
+      "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GLApril0057-2.jpg?v=1776839517",
+      "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GLApril0057-2_eadeb8c1-bb0f-4889-a5d7-77b12289e8cb.jpg?v=1776839519",
+      "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GL_April0045-2_86f3d46c-e3da-4b0c-a50f-7e2e5549fcd3.jpg?v=1776839525",
+      "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GLApril0047-2_5b923c45-79fd-4ff5-a15a-c51ee1dc8689.jpg?v=1776839507",
+      "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/086A6737mergededitedcopy.jpg?v=1780725860"
+    ],
+    "products": [
+      {
+        "name": "Gully 17 Trousers",
+        "image": "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/086A0588.jpg?v=1781959609"
+      },
+      {
+        "name": "Gully 17 Jersey",
+        "image": "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/086A9620.jpg?v=1781959603"
+      },
+      {
+        "name": "Gully Number 002",
+        "image": "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/086A0158_f3c98b2a-4834-468c-a340-80148770cdea.jpg?v=1781958996"
+      },
+      {
+        "name": "Gully Number 004- Suva Green",
+        "image": "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GL_April0045-2.jpg?v=1776839524"
+      },
+      {
+        "name": "Gully Number 004- Saaya Blue For Women",
+        "image": "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GLApril0047-2_8859b14c-0ab5-49c5-b520-0b244137f218.jpg?v=1776839508"
+      },
+      {
+        "name": "Gully Number 004- Khakhi Beige",
+        "image": "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GLApril0049-2.jpg?v=1776839511"
+      },
+      {
+        "name": "Gully Number 004- Khakhi Beige For Women",
+        "image": "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GLApril0049-2_6a3b8f24-173a-4986-8dbf-0f0bc9fc01a2.jpg?v=1776839512"
+      },
+      {
+        "name": "Gully Number 004- Koyar Black",
+        "image": "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GLApril0057-2.jpg?v=1776839517"
+      },
+      {
+        "name": "Gully Number 004- Koyar Black For Women",
+        "image": "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GLApril0057-2_eadeb8c1-bb0f-4889-a5d7-77b12289e8cb.jpg?v=1776839519"
+      },
+      {
+        "name": "Gully Number 004- Suva Green For Women",
+        "image": "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GL_April0045-2_86f3d46c-e3da-4b0c-a50f-7e2e5549fcd3.jpg?v=1776839525"
+      },
+      {
+        "name": "Gully Number 004- Saaya Blue",
+        "image": "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GLApril0047-2_5b923c45-79fd-4ff5-a15a-c51ee1dc8689.jpg?v=1776839507"
+      },
+      {
+        "name": "Gully Number 005",
+        "image": "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/086A6737mergededitedcopy.jpg?v=1780725860"
+      },
+      {
+        "name": "Gully Number 003",
+        "image": "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GL_April0062-2.jpg?v=1779693243"
+      },
+      {
+        "name": "Gully Number 001",
+        "image": "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/syaahi-blue-white-sneakers-women-gully-labs-1.jpg?v=1771238336"
+      },
+      {
+        "name": "Asmani Blue socks",
+        "image": "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/IMG_6851_61c32a25-05df-40fe-9b9e-390abb95cf2c.jpg?v=1771573805"
+      },
+      {
+        "name": "Chhatai Yellow Socks",
+        "image": "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/IMG_6850_10c6eea4-748c-46bc-87fc-ec44c4960cfb.jpg?v=1771573405"
+      },
+      {
+        "name": "Gully Number 001 Xoloni Orange for Women",
+        "image": "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC04112.jpg?v=1771236595"
+      },
+      {
+        "name": "Gully Number 001 Xoloni Orange",
+        "image": "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC04082.jpg?v=1771236625"
+      },
+      {
+        "name": "Gully Labs X Nivia",
+        "image": "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/2B0A0005.jpg?v=1771236642"
+      },
+      {
+        "name": "Gully Number 002 Aangan Blue",
+        "image": "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC09463_618ac430-5ad2-4aa1-bd1c-dd31da0a0bb6.jpg?v=1773315383"
+      },
+      {
+        "name": "Gully Number 002 Aangan Blue for Women",
+        "image": "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC09463_618ac430-5ad2-4aa1-bd1c-dd31da0a0bb6.jpg?v=1773315383"
+      },
+      {
+        "name": "Gully Number 001 Khoj Green",
+        "image": "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC09465_2.jpg?v=1773990404"
+      },
+      {
+        "name": "Gully Number 001 Buransh Red for Women",
+        "image": "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC09462_1.jpg?v=1773582473"
+      },
+      {
+        "name": "Gully Number 001 Khoj Green for Women",
+        "image": "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC09464_1.jpg?v=1773990453"
+      },
+      {
+        "name": "Gully Number 001 Buransh Red",
+        "image": "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC09461_3.jpg?v=1773582441"
+      },
+      {
+        "name": "Gully 17",
+        "image": "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/MG2.jpg?v=1771236881"
+      },
+      {
+        "name": "GULLY NUMBER 001 X RAGA",
+        "image": "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC08303_1.jpg?v=1773573368"
+      },
+      {
+        "name": "Gully Number 004",
+        "image": "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/1_f59871b5-cea0-4aa7-992b-001eb05a8fac.jpg?v=1771237096"
+      },
+      {
+        "name": "Kumkum Red Socks",
+        "image": "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/IMG_6852_954c35c9-d303-45bc-9696-3874dc653c5d.jpg?v=1771237623"
+      },
+      {
+        "name": "GL001 Class Rebels",
+        "image": "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC01483_1.jpg?v=1773316900"
+      },
+      {
+        "name": "GL001 Kulfi Badaam",
+        "image": "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC09611_1.jpg?v=1773321684"
+      },
+      {
+        "name": "GL001 Kulfi Pista",
+        "image": "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC09943_33be3d53-2a49-43a9-a3f7-c8091da8bf0b.jpg?v=1771237954"
+      },
+      {
+        "name": "GL001 Kulfi Kesar",
+        "image": "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC09924_1534a038-4cd2-4597-a459-731bd4954061.jpg?v=1773401799"
+      },
+      {
+        "name": "GL001 Kulfi Rabri",
+        "image": "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC09916_f8c4710f-b8b3-41ee-ac80-7f587fca9bb4.jpg?v=1771237849"
+      },
+      {
+        "name": "Gully Number 001 x Royal Enfield Hunter 350",
+        "image": "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC09687_11888d1a-3d30-418a-a507-a05a1e8303e9.jpg?v=1771238047"
+      },
+      {
+        "name": "Gully Number 002 “Migration”",
+        "image": "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC02481e.jpg?v=1771238199"
+      },
+      {
+        "name": "Gully Number 001 “Migration”",
+        "image": "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC02493e.jpg?v=1771238237"
+      },
+      {
+        "name": "The Traveller",
+        "image": "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC09694.jpg?v=1771330998"
+      },
+      {
+        "name": "Calico White"
+      },
+      {
+        "name": "Barfi Burgundy"
+      },
+      {
+        "name": "Baaz Indrani"
+      },
+      {
+        "name": "Kulfi Badaam"
+      },
+      {
+        "name": "Kulfi Rabri"
+      },
+      {
+        "name": "Buransh Red"
+      },
+      {
+        "name": "Baaz Noor Yellow"
+      },
+      {
+        "name": "Gully Labs X Raga Aandhi Kobicha"
+      },
+      {
+        "name": "Baaz Kopal Green"
+      },
+      {
+        "name": "Saaj Orange"
+      },
+      {
+        "name": "Turf Olive"
+      },
+      {
+        "name": "Baaz Indrani for Women"
+      }
+    ],
+    "sources": 24
+  },
+  "ready": true,
+  "category": "Footwear",
+  "intelligence": {
+    "overview": "Gully Labs is an Indian footwear brand crafting premium, hand-lasted sneakers that fuse traditional Indian craftsmanship and cultural narratives with contemporary design. Founded in August 2023 by Arjun Singh and Animesh Mishra, the brand champions an unapologetically Indian sneaker culture that aspires to global relevance while remaining deeply rooted in local streets and crafts.",
+    "purpose": "To redefine Indian sneaker culture by infusing local streets, crafts, and culture into high-quality, handcrafted footwear, making Indian identity aspirational on a global stage.",
+    "mission": "To inspire self-expression and creativity through innovative sneaker design, envisioning a world where every sneaker tells a unique story, connecting communities and cultures.",
+    "vision": "To build a household sneaker brand from Delhi that is truly and unapologetically Indian, creating cultural currency rather than just products.",
+    "story": "While living abroad, former investment banker Arjun Singh noticed India’s sneaker obsession was fixated on Western brands, overlooking its own rich cultural heritage. Returning home, he set out to build a brand that would put India’s authentic culture on the global map through sneakers. Partnering with co-founder and execution-focused former Bain consultant Animesh Mishra, they started humbly with an auntie and her two karigars working out of a garage before scaling into their own factory. From day one, Gully Labs has committed to hand-lasted construction, predominantly local sourcing, and weaving Indian stories, crafts, and symbolism into every pair of sneakers.",
+    "values": [
+      "Sustainability",
+      "Creativity",
+      "Community engagement",
+      "Authenticity",
+      "Quality craftsmanship",
+      "Celebrating Indian identity",
+      "Local sourcing and production",
+      "Story-driven design"
+    ],
+    "positioning": "Handcrafted Indian sneakers, culturally rooted and globally aspirational.",
+    "audience": "Young, trend-conscious individuals aged 18–35 who value style, cultural authenticity, individuality, and craftsmanship, including sneaker enthusiasts, artists, influencers, dancers, skateboarders, and urban explorers in India and globally who seek meaningful, enduring alternatives to fast fashion.",
+    "persona": "Aarav, 28, is a graphic designer in Bengaluru who proudly embraces his Indian heritage while absorbing global streetwear and design trends. He hunts for unique, story-rich pieces that let him express both individuality and cultural roots, often feeling a disconnect with brands that lack authenticity. Aarav prefers investing in well-crafted sneakers over disposable fashion, paying attention to details like Kantha stitches, Rangoli-inspired patterns, and premium materials that age well. He commutes across the city, attends art shows and creative workshops, and documents his life on Instagram, following artists, designers, and culture-forward brands. Comfort is essential for long days on his feet, but he refuses to compromise on narrative, design integrity, and a clear connection to India’s visual language.",
+    "toneOfVoice": "Authentic, cultural, aspirational, craft-focused, contemporary.",
+    "personality": [
+      "Visionary",
+      "Artistic",
+      "Rooted",
+      "Pioneering",
+      "Expressive",
+      "Community-driven",
+      "Proudly Indian",
+      "Story-obsessed"
+    ],
+    "palette": [
+      {
+        "hex": "#1C1C1C",
+        "role": "Primary text, deep accents, high-contrast UI elements, and grounding base in photography."
+      },
+      {
+        "hex": "#F7F7F7",
+        "role": "Core background for website, product pages, and clean studio surfaces in imagery."
+      },
+      {
+        "hex": "#6B0F1A",
+        "role": "Hero accent for culturally themed drops, premium details, and callouts (e.g., Barfi Burgundy)."
+      },
+      {
+        "hex": "#36454F",
+        "role": "Secondary accent echoing indigo/navy tones in key sneakers and lifestyle visuals."
+      },
+      {
+        "hex": "#A0836E",
+        "role": "Warm neutral for leather, craft cues, and occasional background or prop tones."
+      }
+    ],
+    "typography": {
+      "display": "Modern, clean geometric sans-serif, bold and often all caps, similar in feel to Montserrat or Gotham, used for impactful headlines and brand statements.",
+      "text": "Neutral, highly legible sans-serif akin to Lato or Open Sans for product descriptions, stories, and interface copy, optimized for digital readability.",
+      "note": "Typeface selection should balance a contemporary streetwear aesthetic with enough neutrality to foreground rich product photography and narrative visuals."
+    },
+    "logo": "https://global.gullylabs.com/cdn/shop/files/Artboard_1_bcd39e0f-0f43-4be4-9634-c1de346c8ff1.png?crop=center&height=32&v=1777280536&width=32",
+    "logoSystem": "A primary wordmark reading GULLY LABS set in a distinctive, stylized sans-serif, typically in uppercase and used in black or dark tones on light backgrounds. The system is occasionally supported by a minimalist icon or monogram and by dual-language executions where “Gully” appears in Hindi script paired with “Labs” in English, reinforcing the blend of Indian roots and modernity. The logo is used flexibly across sneakers, packaging, and digital touchpoints, with lockups adapted for horizontal, stacked, and small-space applications.",
+    "photographyStyle": "Product photography alternates between clean studio shots on solid light backgrounds (white, light grey, muted neutrals) and contextual urban backdrops like concrete, brick, and streets that evoke Indian gullies. Color grading is natural with slightly warm or cool shifts depending on the collection, prioritizing rich, true-to-life representation of materials and hues without heavy filters. Styling is minimal for product-only shots, focusing on silhouette, stitching, and textures, while lifestyle imagery features models in contemporary streetwear with subtle cultural cues, often captured mid-movement to emphasize comfort and dynamism. Lighting is soft and even in studio, angled to highlight texture and construction, with natural light used outdoors for candid, energetic scenes. Compositions mix full profiles, tight detail macros, and dynamic crops that keep the sneaker as the focal point within a lived-in, culturally resonant environment.",
+    "packagingStyle": "Packaging is premium, narrative-driven, and thematically linked to each sneaker concept, with boxes often reflecting specific inspirations such as dessert-themed graphics for Kulfi pairs. Materials and print treatments feel substantial and giftable, and unboxing is elevated through thoughtful touches like custom interior prints and branded dust bags. Overall, the packaging reinforces Gully Labs’ cultural storytelling and craftsmanship, positioning each pair as a collectible cultural object rather than just a product.",
+    "visualIdentity": "Gully Labs’ visual identity combines a restrained, premium design framework with culturally rich, collection-specific storytelling. A base palette of dark grey/black, off-white, deep burgundy, muted indigo, and earthy browns anchors the brand in contemporary streetwear, while typography, iconography, patterns, and packaging flex to express Indian motifs and narratives in modern, minimal ways rather than overt folk pastiche.",
+    "competitors": [
+      {
+        "name": "Comet",
+        "note": "Indian sneaker brand known for trendy, sleek, minimalist designs at accessible price points blending everyday comfort and style."
+      },
+      {
+        "name": "Thaely",
+        "note": "Sustainability-focused brand turning plastic waste into clean, minimal sneakers with a strong eco-conscious positioning."
+      },
+      {
+        "name": "Neeman's",
+        "note": "Indian footwear brand offering sustainable sneakers made from innovative materials like merino wool, emphasizing lightness, breathability, and comfort."
+      },
+      {
+        "name": "7-10.in",
+        "note": "Online sneaker brand offering a range of styles for men and women, including customization options, targeting value and variety."
+      }
+    ],
+    "social": [
+      {
+        "platform": "Instagram",
+        "handle": "@gullylabs",
+        "url": "https://www.instagram.com/gullylabs",
+        "note": "Highly active, visually led feed featuring product drops, lifestyle shoots, behind-the-scenes craftsmanship, cultural inspiration, and collaborations; reels highlight dynamic unveilings and influencer content with an energetic, aspirational voice and frequent posting cadence, especially around new releases."
+      },
+      {
+        "platform": "YouTube",
+        "handle": "Gully Labs",
+        "url": "",
+        "note": "Hosts longer-form content such as founder interviews, brand story films, and detailed product reviews; cadence is moderate, focusing on higher-production videos for major announcements and narrative deep dives with an authentic, storytelling tone."
+      },
+      {
+        "platform": "Facebook",
+        "handle": "Gully Labs",
+        "url": "",
+        "note": "Shares adapted versions of Instagram content, including product visuals and brand updates, targeting a broader and slightly older audience with a mix of imagery and links."
+      },
+      {
+        "platform": "X",
+        "handle": "",
+        "url": "",
+        "note": "Used primarily for brand announcements, collaboration news, and sharing articles or press mentions, participating in broader conversations around Indian brands and sneaker culture."
+      },
+      {
+        "platform": "LinkedIn",
+        "handle": "Gully Labs",
+        "url": "",
+        "note": "Professional presence focused on company milestones, funding or partnership news, hiring, and culture-building posts that position Gully Labs as a leading Indian design and manufacturing story."
+      }
+    ],
+    "press": [
+      {
+        "title": "How Gully Labs Redefines Indian Sneaker Culture",
+        "source": "",
+        "url": ""
+      },
+      {
+        "title": "The Cultural Shift: How Gully Labs is Rewriting India's Premium Brand Playbook",
+        "source": "",
+        "url": ""
+      },
+      {
+        "title": "Top 7 Indian sneaker brands offering the best value for money",
+        "source": "",
+        "url": ""
+      },
+      {
+        "title": "Starting From Scratch podcast – Interview with Arjun Singh",
+        "source": "Starting From Scratch",
+        "url": ""
+      },
+      {
+        "title": "Gully Labs on Shark Tank India Season 5 – Aman Gupta Deal",
+        "source": "",
+        "url": ""
+      }
+    ],
+    "insights": [
+      "Cultural authenticity is Gully Labs’ primary edge: by centering unapologetically Indian stories, aesthetics, and language, the brand becomes a cultural movement rather than just a footwear label, clearly differentiated from both Western giants and copycat local players.",
+      "Treating each sneaker as a crafted cultural object – through hand-lasted construction, high local material content, and narrative details like Kantha stitches or Rangoli-inspired panels – allows pricing and positioning to sit firmly in the premium, collectible tier.",
+      "A community-first operating model, where collaborations with artists, filmmakers, niche creators, and customers directly influence design and product evolution, turns Gully Labs into a participatory platform for Indian creative expression.",
+      "Physical spaces that function as baithak-style hangouts, with customization studios and coffee bars, transform retail into a living gallery of Indian street culture and dramatically deepen emotional connection and content creation.",
+      "By confidently owning a premium price band and refusing to compete on discounts or mass appeal, Gully Labs attracts consumers who equate story, craft, and cultural pride with value, building a tighter but more devoted core audience.",
+      "The shift from “Made in India” to “Made from India” reframes the brand’s narrative: India is not merely the production location but the creative source code, making every design decision an act of cultural authorship that resonates locally and intrigues globally."
+    ],
+    "website": "https://global.gullylabs.com",
+    "instagram": "https://www.instagram.com/gullylabs",
+    "sources": 24,
+    "foundReal": true,
+    "inferred": false
+  },
+  "catalog": [
+    {
+      "id": "shopify-7962936180779",
+      "name": "Gully 17 Trousers",
+      "collection": "Men",
+      "description": "Features Unisex Straight fit 100% Cotton Twill Custom Gully Labs Button Double pleated trousers Features Phulkari Embroidery on pocket edge Wash Care Instructions Gentle machine wash Iron inside out using steam Do not bleach Air dry in shade",
+      "variants": [
+        "XS",
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "sizes": [
+        "XS",
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "price": "100.00",
+      "url": "https://global.gullylabs.com/products/gully-17-trousers-josh-black",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/086A0588.jpg?v=1781959609",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/086A0594.jpg?v=1781959611",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/086A0590.jpg?v=1781959612",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/086A0596.jpg?v=1781959611",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/086A9713.jpg?v=1781959605",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/086A9719.jpg?v=1781959607",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/086A9714.jpg?v=1781959608",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/086A9720.jpg?v=1781959609"
+      ]
+    },
+    {
+      "id": "gully-17-jersey",
+      "name": "Gully 17 Jersey",
+      "collection": "Men",
+      "description": "Features Unisex 100% Polyester Relaxed Athletic Fit Gradient stripes Inspired by vintage Indian track silhouettes Crew neck with contrast half-rib collar Contrast piping across panels A detailed runner emblem embroidered on the chest HD print branding Phulkari inspired embroidery on Raglan sleeve Wash Care Instructions 100% Polyester Wash Inside out Machine wash cold Do not bleach Do not Iron on motif Do not tumble dry Do not dry clean",
+      "variants": [
+        "XS",
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "sizes": [
+        "XS",
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "price": "75.00",
+      "url": "https://global.gullylabs.com/products/gully-17-jersey-udaan-blue-crew-neck",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/086A9620.jpg?v=1781959603",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/086A9635.jpg?v=1781959605",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/086A9644.jpg?v=1781959606",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/086A9669.jpg?v=1781959606",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/086A9640.jpg?v=1781959606",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/086A9618.jpg?v=1781959604",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/086A9654.jpg?v=1781959604",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/086A9593_1.jpg?v=1781959601"
+      ]
+    },
+    {
+      "id": "gully-number-002",
+      "name": "Gully Number 002",
+      "category": "Sneakers",
+      "collection": "Men",
+      "description": "1928. Amsterdam. India's hockey team took the Olympic field for the first time and left with gold, the first of eight they would claim over the next five decades, a run of dominance that remains one of sport's great untold stories. The Turf Olive is built in that colour: the exact shade of the grass they conquered, rendered in olive suede and off white leather on a vintage runner silhouette that wears the year on its chest. The Phulkari embroidery running through the design i",
+      "variants": [
+        "Men / US 7",
+        "Men / US 8",
+        "Men / US 9",
+        "Men / US 10",
+        "Men / US 11",
+        "Men / US 12",
+        "Men / US 13",
+        "Men / US 14"
+      ],
+      "sizes": [
+        "US 7",
+        "US 8",
+        "US 9",
+        "US 10",
+        "US 11",
+        "US 12",
+        "US 13",
+        "US 14"
+      ],
+      "price": "132.00",
+      "url": "https://global.gullylabs.com/products/gully-number-002-1928-turf-olive-unisex",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/086A0158_f3c98b2a-4834-468c-a340-80148770cdea.jpg?v=1781958996",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/086A0017A_72a7901b-8e9e-48a1-958a-1e4c8e80eb77.jpg?v=1781958997",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/086A9769A_71710955-6dbc-41f8-abc4-879e8a45fdc1.jpg?v=1781958997",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/086A0047A_670b0acb-9b55-49c6-8373-6e108210d941.jpg?v=1781958997",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/086A0114A_4f31264f-25aa-4e82-a4be-76940844b83c.jpg?v=1781958997",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/086A0167A_0a9b0faa-1b6e-45ad-890d-abdc1bc7feda.jpg?v=1781958997",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/086A0228A_79657881-f293-4c7c-9259-f3b755767b4d.jpg?v=1781958997",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/086A0185A_e7b0161a-b587-46be-9be2-d98be23e3e7f.jpg?v=1781958997"
+      ]
+    },
+    {
+      "id": "shopify-7890343460907",
+      "name": "Gully Number 004- Suva Green",
+      "collection": "Gully Number 004",
+      "description": "A tribute to timeless Kolhapuri design and the easy elegance of everyday rituals. Green soft leather upper with contrast hand stitched details Traditional toe-ring braid detail inspired by classic Kolhapuri chappals Solid grip outsole for daily wear Green nappa leather on the footbed Leather embossed welt for a seamless look Comes with dice as a collectible CARE INSTRUCTIONS Wipe with a cloth to remove dust Air-dry naturally; avoid heat exposure Store with paper stuffing to m",
+      "variants": [
+        "US 7 / Men",
+        "US 8 / Men",
+        "US 9 / Men",
+        "US 10 / Men",
+        "US 11 / Men",
+        "US 12 / Men",
+        "US 13 / Men"
+      ],
+      "sizes": [
+        "US 7",
+        "US 8",
+        "US 9",
+        "US 10",
+        "US 11",
+        "US 12",
+        "US 13"
+      ],
+      "price": "88.00",
+      "url": "https://global.gullylabs.com/products/gully-number-004-suva-green",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GL_April0045-2.jpg?v=1776839524",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GLApril0297-2.jpg?v=1776839525",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GL_April0133-2.jpg?v=1776839525",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GL_April0199-2.jpg?v=1776839525",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GL_April0108-2.jpg?v=1776839525",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GL_April0158-2.jpg?v=1776839525",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GLApril0392-2.jpg?v=1776839524",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GLApril0323-2.jpg?v=1776839525"
+      ]
+    },
+    {
+      "id": "shopify-7890342805547",
+      "name": "Gully Number 004- Saaya Blue For Women",
+      "collection": "Gully Number 004",
+      "description": "A tribute to timeless Kolhapuri design and the easy elegance of everyday rituals. Green soft leather upper with contrast hand stitched details Traditional toe-ring braid detail inspired by classic Kolhapuri chappals Solid grip outsole for daily wear Green nappa leather on the footbed Leather embossed welt for a seamless look Comes with dice as a collectible CARE INSTRUCTIONS Wipe with a cloth to remove dust Air-dry naturally; avoid heat exposure Store with paper stuffing to m",
+      "variants": [
+        "Female / US 7",
+        "Female / US 8",
+        "Female / US 9.5",
+        "Female / US 10.5",
+        "Female / US 5",
+        "Female / US 6"
+      ],
+      "sizes": [
+        "US 7",
+        "US 8",
+        "US 9.5",
+        "US 10.5",
+        "US 5",
+        "US 6"
+      ],
+      "price": "88.00",
+      "url": "https://global.gullylabs.com/products/gully-number-004-saaya-blue-for-women",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GLApril0047-2_8859b14c-0ab5-49c5-b520-0b244137f218.jpg?v=1776839508",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GL_April0166-2_d17728ec-d737-4ed2-afec-b756c3ed43af.jpg?v=1776839508",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GL_April0142-2_14dc8f7a-df9e-4c57-a3f7-d13224eca0e6.jpg?v=1776839508",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GL_April0200-2_058f0c16-e8e0-4f8d-aa21-b5d76897b201.jpg?v=1776839508",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GL_April0112-2_3bfc8997-51ca-41aa-bb4e-b97ce6dd77a7.jpg?v=1776839508",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GL_April0293-2_174af30e-4ceb-4664-8353-313c03c17530.jpg?v=1776839508",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GL_April0389-2_3a92c401-8670-43c3-b190-19916d52300c.jpg?v=1776839508",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GL_April0330-2_ddb98831-c0cb-4b21-affe-d3881b4fc1c2.jpg?v=1776839508"
+      ]
+    },
+    {
+      "id": "shopify-7890342838315",
+      "name": "Gully Number 004- Khakhi Beige",
+      "collection": "Gully Number 004",
+      "description": "A tribute to timeless Kolhapuri design and the easy elegance of everyday rituals. Green soft leather upper with contrast hand stitched details Traditional toe-ring braid detail inspired by classic Kolhapuri chappals Solid grip outsole for daily wear Green nappa leather on the footbed Leather embossed welt for a seamless look Comes with dice as a collectible CARE INSTRUCTIONS Wipe with a cloth to remove dust Air-dry naturally; avoid heat exposure Store with paper stuffing to m",
+      "variants": [
+        "Male / US 7",
+        "Male / US 8",
+        "Male / US 9",
+        "Male / US 10",
+        "Male / US 11",
+        "Male / US 12",
+        "Male / US 13"
+      ],
+      "sizes": [
+        "US 7",
+        "US 8",
+        "US 9",
+        "US 10",
+        "US 11",
+        "US 12",
+        "US 13"
+      ],
+      "price": "88.00",
+      "url": "https://global.gullylabs.com/products/gully-number-004-khakhi-beige",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GLApril0049-2.jpg?v=1776839511",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GLApril0299-2.jpg?v=1776839512",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GL_April0146-2.jpg?v=1776839512",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GLApril0202-2.jpg?v=1776839511",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GLApril0110-2.jpg?v=1776839512",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GLApril0155-2.jpg?v=1776839511",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GLApril0384-2.jpg?v=1776839511",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GLApril0328-2.jpg?v=1776839512"
+      ]
+    },
+    {
+      "id": "shopify-7890342936619",
+      "name": "Gully Number 004- Khakhi Beige For Women",
+      "collection": "Gully Number 004",
+      "description": "A tribute to timeless Kolhapuri design and the easy elegance of everyday rituals. Green soft leather upper with contrast hand stitched details Traditional toe-ring braid detail inspired by classic Kolhapuri chappals Solid grip outsole for daily wear Green nappa leather on the footbed Leather embossed welt for a seamless look Comes with dice as a collectible CARE INSTRUCTIONS Wipe with a cloth to remove dust Air-dry naturally; avoid heat exposure Store with paper stuffing to m",
+      "variants": [
+        "US 5 / Women",
+        "US 6 / Women",
+        "US 7 / Women",
+        "US 8 / Women",
+        "US 9.5 / Women",
+        "US 10.5 / Women"
+      ],
+      "sizes": [
+        "US 5",
+        "US 6",
+        "US 7",
+        "US 8",
+        "US 9.5",
+        "US 10.5"
+      ],
+      "price": "88.00",
+      "url": "https://global.gullylabs.com/products/gully-number-004-khakhi-beige-for-women",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GLApril0049-2_6a3b8f24-173a-4986-8dbf-0f0bc9fc01a2.jpg?v=1776839512",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GLApril0299-2_865eb361-7d23-45c7-b472-a0b9b16c7d3e.jpg?v=1776839513",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GL_April0146-2_c71e410c-94f3-4517-8c81-9dd3f5d85e67.jpg?v=1776839512",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GLApril0202-2_8ba4781f-12c8-4d86-94fa-97d8f53e12fa.jpg?v=1776839512",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GLApril0110-2_649d3c82-1a62-42e7-b360-de34c3bf8235.jpg?v=1776839512",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GLApril0155-2_32c0c806-8967-4c58-a992-6ad7e19a6b9e.jpg?v=1776839513",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GLApril0384-2_36d1c828-61ea-4d5a-af37-f9ea2614d402.jpg?v=1776839512",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GLApril0328-2_95b9c0e8-b163-40cf-9135-331495e02f8e.jpg?v=1776839512"
+      ]
+    },
+    {
+      "id": "shopify-7890343034923",
+      "name": "Gully Number 004- Koyar Black",
+      "collection": "Gully Number 004",
+      "description": "A tribute to timeless Kolhapuri design and the easy elegance of everyday rituals. Green soft leather upper with contrast hand stitched details Traditional toe-ring braid detail inspired by classic Kolhapuri chappals Solid grip outsole for daily wear Green nappa leather on the footbed Leather embossed welt for a seamless look Comes with dice as a collectible CARE INSTRUCTIONS Wipe with a cloth to remove dust Air-dry naturally; avoid heat exposure Store with paper stuffing to m",
+      "variants": [
+        "US 7 / Male",
+        "US 8 / Male",
+        "US 9 / Male",
+        "US 10 / Male",
+        "US 11 / Male",
+        "US 12 / Male",
+        "US 13 / Male"
+      ],
+      "sizes": [
+        "US 7",
+        "US 8",
+        "US 9",
+        "US 10",
+        "US 11",
+        "US 12",
+        "US 13"
+      ],
+      "price": "88.00",
+      "url": "https://global.gullylabs.com/products/gully-number-004-koyar-black",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GLApril0057-2.jpg?v=1776839517",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GLApril0296-2.jpg?v=1776839517",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GLApril0135-2.jpg?v=1776839517",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GLApril0203-2.jpg?v=1776839517",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GLApril0117-2.jpg?v=1776839517",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GLApril0174-2.jpg?v=1776839517",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GLApril0387-2.jpg?v=1776839517",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GLApril0333-2.jpg?v=1776839517"
+      ]
+    },
+    {
+      "id": "shopify-7890343198763",
+      "name": "Gully Number 004- Koyar Black For Women",
+      "collection": "Gully Number 004",
+      "description": "A tribute to timeless Kolhapuri design and the easy elegance of everyday rituals. Green soft leather upper with contrast hand stitched details Traditional toe-ring braid detail inspired by classic Kolhapuri chappals Solid grip outsole for daily wear Green nappa leather on the footbed Leather embossed welt for a seamless look Comes with dice as a collectible CARE INSTRUCTIONS Wipe with a cloth to remove dust Air-dry naturally; avoid heat exposure Store with paper stuffing to m",
+      "variants": [
+        "US 5 / Women",
+        "US 6 / Women",
+        "US 7 / Women",
+        "US 8 / Women",
+        "US 9.5 / Women",
+        "US 10.5 / Women"
+      ],
+      "sizes": [
+        "US 5",
+        "US 6",
+        "US 7",
+        "US 8",
+        "US 9.5",
+        "US 10.5"
+      ],
+      "price": "88.00",
+      "url": "https://global.gullylabs.com/products/gully-number-004-koyar-black-for-women",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GLApril0057-2_eadeb8c1-bb0f-4889-a5d7-77b12289e8cb.jpg?v=1776839519",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GLApril0296-2_0f1257c4-59b9-4395-9546-f34ea7732faa.jpg?v=1776839519",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GLApril0135-2_661ffe5e-3d53-4435-8720-b5ef6c626caf.jpg?v=1776839519",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GLApril0203-2_47d00a0c-0503-4a25-8bf3-67df6565d9f5.jpg?v=1776839519",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GLApril0117-2_1c8b0299-7e9a-4014-bae9-9e3ec6da575a.jpg?v=1776839519",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GLApril0174-2_1cc8edc6-b9c2-4d94-a30b-65e131226bec.jpg?v=1776839519",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GLApril0387-2_c6851225-dc7f-48d3-8d02-17c9109acddd.jpg?v=1776839519",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GLApril0333-2_4b859ada-bf22-47df-b5de-3fb612ade091.jpg?v=1776839520"
+      ]
+    },
+    {
+      "id": "shopify-7890343559211",
+      "name": "Gully Number 004- Suva Green For Women",
+      "collection": "Gully Number 004",
+      "description": "A tribute to timeless Kolhapuri design and the easy elegance of everyday rituals. Green soft leather upper with contrast hand stitched details Traditional toe-ring braid detail inspired by classic Kolhapuri chappals Solid grip outsole for daily wear Green nappa leather on the footbed Leather embossed welt for a seamless look Comes with dice as a collectible CARE INSTRUCTIONS Wipe with a cloth to remove dust Air-dry naturally; avoid heat exposure Store with paper stuffing to m",
+      "variants": [
+        "US 5 / Female",
+        "US 6 / Female",
+        "US 7 / Female",
+        "US 8 / Female",
+        "US 9.5 / Female",
+        "US 10.5 / Female"
+      ],
+      "sizes": [
+        "US 5",
+        "US 6",
+        "US 7",
+        "US 8",
+        "US 9.5",
+        "US 10.5"
+      ],
+      "price": "88.00",
+      "url": "https://global.gullylabs.com/products/gully-number-004-suva-green-for-women",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GL_April0045-2_86f3d46c-e3da-4b0c-a50f-7e2e5549fcd3.jpg?v=1776839525",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GLApril0297-2_3508fd6d-8247-4383-b3fc-5c623800c4f5.jpg?v=1776839525",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GL_April0133-2_2c485b2f-3c38-4085-928d-0a5470dd39b9.jpg?v=1776839526",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GL_April0199-2_e2ae4ca0-07e4-4d71-bd64-83313d580119.jpg?v=1776839525",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GL_April0108-2_8bfdcd99-53f2-416d-bd7c-296acc8eb99a.jpg?v=1776839525",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GL_April0158-2_91517154-6c89-4309-9a4f-e147413940cd.jpg?v=1776839525",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GLApril0392-2_9b9f1a3e-44f9-436a-a8ff-609f16161da8.jpg?v=1776839525",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GLApril0323-2_b85d2fda-fc12-4758-a68a-0ec3675be311.jpg?v=1776839526"
+      ]
+    },
+    {
+      "id": "shopify-7890342772779",
+      "name": "Gully Number 004- Saaya Blue",
+      "collection": "Gully Number 004",
+      "description": "A tribute to timeless Kolhapuri design and the easy elegance of everyday rituals. Green soft leather upper with contrast hand stitched details Traditional toe-ring braid detail inspired by classic Kolhapuri chappals Solid grip outsole for daily wear Green nappa leather on the footbed Leather embossed welt for a seamless look Comes with dice as a collectible CARE INSTRUCTIONS Wipe with a cloth to remove dust Air-dry naturally; avoid heat exposure Store with paper stuffing to m",
+      "variants": [
+        "US 7 / Men",
+        "US 8 / Men",
+        "US 9 / Men",
+        "US 10 / Men",
+        "US 11 / Men",
+        "US 12 / Men",
+        "US 13 / Men"
+      ],
+      "sizes": [
+        "US 7",
+        "US 8",
+        "US 9",
+        "US 10",
+        "US 11",
+        "US 12",
+        "US 13"
+      ],
+      "price": "88.00",
+      "url": "https://global.gullylabs.com/products/gully-number-004-saaya-blue",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GLApril0047-2_5b923c45-79fd-4ff5-a15a-c51ee1dc8689.jpg?v=1776839507",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GL_April0142-2.jpg?v=1776839508",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GL_April0293-2.jpg?v=1776839507",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GL_April0112-2.jpg?v=1776839508",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GL_April0166-2.jpg?v=1776839507",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GL_April0200-2.jpg?v=1776839507",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GL_April0389-2.jpg?v=1776839507",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GL_April0330-2.jpg?v=1776839507"
+      ]
+    },
+    {
+      "id": "gully-number-005",
+      "name": "Gully Number 005",
+      "collection": "Men",
+      "description": "Details Black synthetic leather upper for everyday durability Moulded EVA midsole with Gully Labs branding on the heel and built in arch support Flexible EVA outsole for all-day comfort Cross-hatch embossed EVA footbed for enhanced grip Comes with collectible and dust bag Care Instructions Wipe with a soft cloth to remove dust Air dry naturally; avoid direct heat exposure Store with paper stuffing to help maintain shape Keep away from water and excessive moisture Water exposu",
+      "variants": [
+        "US 7",
+        "US 8",
+        "US 9",
+        "US 10",
+        "US 11",
+        "US 12",
+        "US 13"
+      ],
+      "sizes": [
+        "US 7",
+        "US 8",
+        "US 9",
+        "US 10",
+        "US 11",
+        "US 12",
+        "US 13"
+      ],
+      "price": "59.00",
+      "url": "https://global.gullylabs.com/products/gully-number-005-atlas-black",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/086A6737mergededitedcopy.jpg?v=1780725860",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/086A6792MERGEDEDITED7.06.19PM.jpg?v=1780725861",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/086A6813_1.jpg?v=1780725860",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/086A6848merged7.06.19PM.jpg?v=1780725860",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/086A6883_1.jpg?v=1780725861",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/086A6990_1.jpg?v=1780725861",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/086A6917_1.jpg?v=1780725861",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/086A6751MERGEDedited_1.jpg?v=1780725710"
+      ]
+    },
+    {
+      "id": "shopify-7816490450987",
+      "name": "Gully Number 003",
+      "category": "Sneakers",
+      "collection": "Men",
+      "description": "Introducing Gully Number 003 - Loam Java The Loam Java is made for the new kind of royalty-the artists, dreamers and creators. Key Features Full grain tumbled leather upper Mojari-inspired toe box detail Monogram embroidery on tongue and back tab Hand stitched detailing",
+      "variants": [
+        "Men / US 7",
+        "Men / US 8",
+        "Men / US 9",
+        "Men / US 10",
+        "Men / US 11",
+        "Men / US 12",
+        "Men / US 13",
+        "Men / US 14 (made on order)"
+      ],
+      "sizes": [
+        "US 7",
+        "US 8",
+        "US 9",
+        "US 10",
+        "US 11",
+        "US 12",
+        "US 13",
+        "US 14 (made on order)"
+      ],
+      "price": "140.00",
+      "url": "https://global.gullylabs.com/products/gully-number-003-loam-java",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GL_April0062-2.jpg?v=1779693243",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GL_April0250-2.jpg?v=1779693244",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GL_April0105-2.jpg?v=1779693245",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GL_April0235-2.jpg?v=1779693245",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GL_April0124-2.jpg?v=1779693245",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GL_April0076-2.jpg?v=1779693244",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GL_April0286-2.jpg?v=1779693245",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GL_April0287-2.jpg?v=1779693244"
+      ]
+    },
+    {
+      "id": "shopify-7816517025835",
+      "name": "Gully Number 001",
+      "category": "Sneakers",
+      "collection": "Gully 001 Drops",
+      "description": "Introducing DVAITA Calico White Dvaita is one of Hinduism's oldest philosophical frameworks the idea that the self and the divine are distinct, and that tension between two truths is not a contradiction but a condition of existence. The Calico White embodies its quieter side: clean lines, restrained craft, the kind of shoe that holds its ground without raising its voice. Features: Durable thick-grain leather upper Kantha-inspired embroidery, referencing a hand-stitch traditio",
+      "variants": [
+        "men / US 7",
+        "men / US 8",
+        "men / US 9",
+        "men / US 10",
+        "men / US 11",
+        "men / US 11.5",
+        "men / US 12",
+        "men / US 13"
+      ],
+      "sizes": [
+        "US 7",
+        "US 8",
+        "US 9",
+        "US 10",
+        "US 11",
+        "US 11.5",
+        "US 12",
+        "US 13"
+      ],
+      "price": "156.00",
+      "url": "https://global.gullylabs.com/products/gully-number-001-dvaita-calico-white-men",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/syaahi-blue-white-sneakers-women-gully-labs-1.jpg?v=1771238336",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/syaahi-blue-white-sneakers-women-gully-labs-5.jpg?v=1771238336",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/syaahi-blue-white-sneakers-women-gully-labs-8.jpg?v=1771238336",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/syaahi-blue-white-sneakers-women-gully-labs-7.jpg?v=1771238336",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/syaahi-blue-white-sneakers-women-gully-labs-3.jpg?v=1771238338",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/syaahi-blue-white-sneakers-women-gully-labs-6.jpg?v=1771238336",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/syaahi-blue-white-sneakers-women-gully-labs-2.jpg?v=1771238336",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/syaahi-blue-white-sneakers-women-gully-labs-4.jpg?v=1771238336"
+      ]
+    },
+    {
+      "id": "shopify-7819250597931",
+      "name": "Asmani Blue socks",
+      "collection": "Apparel",
+      "description": "Type: Crew socks, Non-terry Size: Free length, best suited for sizes UK 6-11 Elastic: Full length of the shin Details: Gully Labs logo on the shin with detailing on ankles and toes",
+      "price": "30.00",
+      "url": "https://global.gullylabs.com/products/asmani-blue-socks",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/IMG_6851_61c32a25-05df-40fe-9b9e-390abb95cf2c.jpg?v=1771573805",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/IMG_6849_e860e807-68a2-44e3-9b16-715728a9ed50.jpg?v=1771573806"
+      ]
+    },
+    {
+      "id": "shopify-7819250008107",
+      "name": "Chhatai Yellow Socks",
+      "category": "Socks",
+      "collection": "Apparel",
+      "description": "Type: Crew socks, Non-terry Size: Free length, best suited for sizes UK 6-11 Elastic: Full length of the shin Details: Gully Labs logo on the shin with detailing on ankles and toes",
+      "price": "30.00",
+      "url": "https://global.gullylabs.com/products/chhatai-yellow-socks",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/IMG_6850_10c6eea4-748c-46bc-87fc-ec44c4960cfb.jpg?v=1771573405",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/IMG_6847_a1fd6e05-4fe9-4baf-a943-0ab6f47deffa.jpg?v=1771573406"
+      ]
+    },
+    {
+      "id": "shopify-7816486682667",
+      "name": "Gully Number 001 Xoloni Orange for Women",
+      "category": "Sneakers",
+      "collection": "women",
+      "description": "Built at the intersection of tech, craft, and community . This concept sneaker celebrates the coming together of CMF by Nothing’s playful, modular design philosophy and Gully Labs’ craft-driven Indian sneaker culture. Every element is intentional- from the modular components to the refined hardware cues. Key features include: Detachable quarter panel for personalisation in Black/orange/mint/grey suede Sneaker made from orange suede, orange softy and black softy leather. Gully",
+      "variants": [
+        "US 5",
+        "US 6",
+        "US 7",
+        "US 8",
+        "US 9.5",
+        "US 10.5"
+      ],
+      "sizes": [
+        "US 5",
+        "US 6",
+        "US 7",
+        "US 8",
+        "US 9.5",
+        "US 10.5"
+      ],
+      "price": "112.00",
+      "url": "https://global.gullylabs.com/products/gully-labs-x-cmf-by-nothing-xoloni-orange-for-women",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC04112.jpg?v=1771236595",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC04106.jpg?v=1771236595",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC04114.jpg?v=1771236595",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC04110.jpg?v=1771236594",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC04113.jpg?v=1771236595",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC04111.jpg?v=1771236595",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC04116.jpg?v=1771236595",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC04109.jpg?v=1771236595"
+      ]
+    },
+    {
+      "id": "shopify-7816486846507",
+      "name": "Gully Number 001 Xoloni Orange",
+      "category": "Sneakers",
+      "collection": "Men",
+      "description": "Built at the intersection of tech, craft, and community . This concept sneaker celebrates the coming together of CMF by Nothing’s playful, modular design philosophy and Gully Labs’ craft-driven Indian sneaker culture. Every element is intentional- from the modular components to the refined hardware cues. Key features include: Detachable quarter panel for personalisation in Black/orange/mint/grey suede Sneaker made from orange suede, orange softy and black softy leather. Gully",
+      "variants": [
+        "UK 6",
+        "UK 7",
+        "UK 8",
+        "UK 9",
+        "UK 10",
+        "UK 11",
+        "UK 12"
+      ],
+      "sizes": [
+        "UK 6",
+        "UK 7",
+        "UK 8",
+        "UK 9",
+        "UK 10",
+        "UK 11",
+        "UK 12"
+      ],
+      "price": "112.00",
+      "url": "https://global.gullylabs.com/products/gully-labs-x-cmf-by-nothing-xoloni-orange",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC04082.jpg?v=1771236625",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC04085.jpg?v=1771236625",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC04086.jpg?v=1771236625",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC04087.jpg?v=1771236626",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC04083.jpg?v=1771236625",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC04088.jpg?v=1771236625",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC04089.jpg?v=1771236626",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC04135.jpg?v=1771236625"
+      ]
+    },
+    {
+      "id": "shopify-7816487239723",
+      "name": "Gully Labs X Nivia",
+      "category": "Sneakers",
+      "collection": "nivia",
+      "description": "The cleanest colourway in the Maidaan collection. Sova White strips everything back to matte white and black, the way a fresh kit feels before the first match, before the first muddy slide tackle, before the ground claims it. Wear it while it lasts. Features: Softie leather upper in matte white and black Light honey gum Futsal outsole for grip and durability Quilted upper referencing Nivia's classic leather football construction Detachable tongue flap with Gully FC embroidery",
+      "variants": [
+        "UK 5",
+        "UK 6",
+        "UK 7",
+        "UK 8",
+        "UK 9",
+        "UK 10"
+      ],
+      "sizes": [
+        "UK 5",
+        "UK 6",
+        "UK 7",
+        "UK 8",
+        "UK 9",
+        "UK 10"
+      ],
+      "price": "99.00",
+      "url": "https://global.gullylabs.com/products/gully-labs-x-nivia-sova-white",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/2B0A0005.jpg?v=1771236642",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/2B0A9973.jpg?v=1771236642",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/2B0A0006.jpg?v=1771236642",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/2B0A9990.jpg?v=1771236643",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/2B0A0041.jpg?v=1771236658",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/2B0A0047.jpg?v=1771236657",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/2B0A0034.jpg?v=1771236657",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/2B0A0038.jpg?v=1771236657"
+      ]
+    },
+    {
+      "id": "shopify-7816487272491",
+      "name": "Gully Number 002 Aangan Blue",
+      "category": "Sneakers",
+      "collection": "Men",
+      "description": "Aangan is the courtyard at the centre of a traditional Indian home, the space between inside and outside where the day begins and ends. The Aangan Blue was made for exactly that threshold: premium softie leather, suede overlays in the open sky tones of Shoja, and a fur lined interior that feels like you never quite left the house. The embroidered Machhli patch is a tribute to Jatin's dog and the quiet soul of Ghar itself. Features: Premium softie leather upper Suede overlays ",
+      "variants": [
+        "UK 6",
+        "UK 7",
+        "UK 8",
+        "UK 9",
+        "UK 10",
+        "UK 11",
+        "UK 12"
+      ],
+      "sizes": [
+        "UK 6",
+        "UK 7",
+        "UK 8",
+        "UK 9",
+        "UK 10",
+        "UK 11",
+        "UK 12"
+      ],
+      "price": "132.00",
+      "url": "https://global.gullylabs.com/products/gl002-aangan-blue-1",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC09463_618ac430-5ad2-4aa1-bd1c-dd31da0a0bb6.jpg?v=1773315383",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC09476_75618e39-c326-4b2d-9d41-d5055f89b1b3.jpg?v=1773315383",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/056A9978.jpg?v=1773313901",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/056A9980.jpg?v=1773313901",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/056A9984.jpg?v=1773313901",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/056A9986.jpg?v=1773313901",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/056A9990.jpg?v=1773313901",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GL00020.jpg?v=1773313901"
+      ]
+    },
+    {
+      "id": "shopify-7816487370795",
+      "name": "Gully Number 002 Aangan Blue for Women",
+      "category": "Sneakers",
+      "collection": "women",
+      "description": "Aangan is the courtyard at the centre of a traditional Indian home, the space between inside and outside where the day begins and ends. The Aangan Blue was made for exactly that threshold: premium softie leather, suede overlays in the open sky tones of Shoja, and a fur lined interior that feels like you never quite left the house. The embroidered Machhli patch is a tribute to Jatin's dog and the quiet soul of Ghar itself. Features: Premium softie leather upper Suede overlays ",
+      "variants": [
+        "US 5",
+        "US 6",
+        "US 7",
+        "US 8",
+        "US 9.5",
+        "US 10.5"
+      ],
+      "sizes": [
+        "US 5",
+        "US 6",
+        "US 7",
+        "US 8",
+        "US 9.5",
+        "US 10.5"
+      ],
+      "price": "132.00",
+      "url": "https://global.gullylabs.com/products/gl002-aangan-blue",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC09463_618ac430-5ad2-4aa1-bd1c-dd31da0a0bb6.jpg?v=1773315383",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC09476_75618e39-c326-4b2d-9d41-d5055f89b1b3.jpg?v=1773315383",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/056A0028.jpg?v=1773315383",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/056A9978_3788ae35-53ce-4f54-a68c-58c0de452043.jpg?v=1773315383",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/056A0036.jpg?v=1773315383",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/056A0030.jpg?v=1773315383",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/056A0032.jpg?v=1773315383",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/GL00020_0b1a5659-4f97-42da-838e-9c4c429914bf.jpg?v=1773315383"
+      ]
+    },
+    {
+      "id": "shopify-7816487403563",
+      "name": "Gully Number 001 Khoj Green",
+      "category": "Sneakers",
+      "collection": "Men",
+      "description": "Khoj means search and this shoe was made for someone always looking for the next place, the next story, the next reason to move. Commissioned for Satvik, the Khoj Green takes the muggu, a geometric floor pattern drawn at the threshold of homes across Telangana and Andhra Pradesh, and abstracts it into something wearable. What was once chalked onto stone is now stitched into leather: a symbol of place, carried wherever you go. Features: Abstracted muggu pattern on the quarter ",
+      "variants": [
+        "US 7",
+        "US 8",
+        "US 9",
+        "US 10",
+        "US 11",
+        "US 12",
+        "US 13"
+      ],
+      "sizes": [
+        "US 7",
+        "US 8",
+        "US 9",
+        "US 10",
+        "US 11",
+        "US 12",
+        "US 13"
+      ],
+      "price": "148.00",
+      "url": "https://global.gullylabs.com/products/gl001-khoj-green",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC09465_2.jpg?v=1773990404",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC09481_2.jpg?v=1773990404",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/056A0020.jpg?v=1773990404",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/056A0016.jpg?v=1773990404",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/056A9998.jpg?v=1773990404",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/056A0004.jpg?v=1773990404",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/056A0008.jpg?v=1773990404"
+      ]
+    },
+    {
+      "id": "shopify-7816487469099",
+      "name": "Gully Number 001 Buransh Red for Women",
+      "category": "Sneakers",
+      "collection": "women",
+      "description": "Gully Labs X Aryan Katoch Gully Number 001 Buransh Red A maximalist sneaker woven from the cultural fabric of Himachal Pradesh, co-crafted with musician and artist Aryan Katoch. High in the western Himalayas, the Kullu valley has its own visual language bold geometric weaves, saturated colour, and a craft tradition passed down through generations of hill communities. The Buransh Red borrows that language directly: the fabric on this shoe isn't inspired by Kullu weaving, it is",
+      "variants": [
+        "US 5",
+        "US 6",
+        "US 7",
+        "US 8",
+        "US 9.5",
+        "US 10.5"
+      ],
+      "sizes": [
+        "US 5",
+        "US 6",
+        "US 7",
+        "US 8",
+        "US 9.5",
+        "US 10.5"
+      ],
+      "price": "164.00",
+      "url": "https://global.gullylabs.com/products/gl001-buransh-red-for-women",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC09462_1.jpg?v=1773582473",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC09477_2.jpg?v=1773582473",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/056A9921.jpg?v=1773582473",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/056A9925.jpg?v=1773582473",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/056A9927.jpg?v=1773582473",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/056A9933.jpg?v=1773582473",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/056A9939.jpg?v=1773582473",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/056A9941.jpg?v=1773582473"
+      ]
+    },
+    {
+      "id": "shopify-7816487436331",
+      "name": "Gully Number 001 Khoj Green for Women",
+      "category": "Sneakers",
+      "collection": "women",
+      "description": "Khoj means search and this shoe was made for someone always looking for the next place, the next story, the next reason to move. Commissioned for Satvik, the Khoj Green takes the muggu, a geometric floor pattern drawn at the threshold of homes across Telangana and Andhra Pradesh, and abstracts it into something wearable. What was once chalked onto stone is now stitched into leather: a symbol of place, carried wherever you go. Features: Abstracted muggu pattern on the quarter ",
+      "variants": [
+        "US 5",
+        "US 6",
+        "US 7",
+        "US 8",
+        "US 9.5",
+        "US 10.5"
+      ],
+      "sizes": [
+        "US 5",
+        "US 6",
+        "US 7",
+        "US 8",
+        "US 9.5",
+        "US 10.5"
+      ],
+      "price": "148.00",
+      "url": "https://global.gullylabs.com/products/gl001-khoj-green-for-women",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC09464_1.jpg?v=1773990453",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC09483_1.jpg?v=1773990453",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/056A9958.jpg?v=1773990453",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/056A9960.jpg?v=1773990453",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/056A9964.jpg?v=1773990453",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/056A9966.jpg?v=1773990453",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/056A9967.jpg?v=1773990453"
+      ]
+    },
+    {
+      "id": "shopify-7816487501867",
+      "name": "Gully Number 001 Buransh Red",
+      "category": "Sneakers",
+      "collection": "Men",
+      "description": "Gully Labs X Aryan Katoch Gully Number 001 – Buransh Red A maximalist sneaker woven from the cultural fabric of Himachal Pradesh, co-crafted with musician and artist Aryan Katoch. High in the western Himalayas, the Kullu valley has its own visual language bold geometric weaves, saturated colour, and a craft tradition passed down through generations of hill communities. The Buransh Red borrows that language directly: the fabric on this shoe isn't inspired by Kullu weaving, it ",
+      "variants": [
+        "US 7",
+        "US 8",
+        "US 9",
+        "US 10",
+        "US 11",
+        "US 12",
+        "US 13"
+      ],
+      "sizes": [
+        "US 7",
+        "US 8",
+        "US 9",
+        "US 10",
+        "US 11",
+        "US 12",
+        "US 13"
+      ],
+      "price": "164.00",
+      "url": "https://global.gullylabs.com/products/gl001-buransh-red",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC09461_3.jpg?v=1773582441",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC09477_1.jpg?v=1773582441",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC09498.jpg?v=1773582441",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC09506.jpg?v=1773582441",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC09474.jpg?v=1773582441",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC09487.jpg?v=1773582441",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSCF7251_f0ea8af4-5438-45aa-8ee5-f9aed3d8eadb.jpg?v=1773582441",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSCF7305_fccbc770-a3cd-4e2b-9cd5-540bbd1e75f6.jpg?v=1773582441"
+      ]
+    },
+    {
+      "id": "shopify-7816487534635",
+      "name": "Gully 17",
+      "category": "Shirt",
+      "collection": "Apparel",
+      "description": "The Gully Labs Vintage Hockey Jersey Collection extends the legacy of the Vintage Trainer series -transforming the stories behind India’s greatest hockey victories into wearable symbols of heritage and street sport culture. Features - Contrast stripes in light blue and navy - HD printing at the back - Embroidered patch on chest - Phulkari inspired embroidery on Raglan sleeve - Hockey inspired woven label - 100% polyester - Oversize fit Wash care Gentle Cold wash Do not iron o",
+      "variants": [
+        "XS",
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "sizes": [
+        "XS",
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "price": "60.00",
+      "url": "https://global.gullylabs.com/products/gully-17-blue",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/MG2.jpg?v=1771236881",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/Artboard24.jpg?v=1771236881",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/Artboard25.jpg?v=1771236881",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/Artboard26.jpg?v=1771236881",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/Artboard27.jpg?v=1771236881",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/MR1.jpg?v=1771236868",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/Artboard28.jpg?v=1771236867",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/Artboard29.jpg?v=1771236867"
+      ]
+    },
+    {
+      "id": "shopify-7816487829547",
+      "name": "GULLY NUMBER 001 X RAGA",
+      "category": "Sneakers",
+      "collection": "Men",
+      "description": "Aandhi means storm. And RAGA the New Delhi artist who clawed his way out of the underground hip-hop scene knows what it takes to move like one. This shoe doesn't reference his world from a distance. It's built from the same material: rough jute, East Delhi coordinates, lyrics pressed into the insole where only the wearer knows they're standing on them. \"Muh se Nikle Aandhi.\" Let the storm come from the mouth. Features: Jute and suede leather upper with jute knitted laces for ",
+      "variants": [
+        "US 7",
+        "US 8",
+        "US 9",
+        "US 10",
+        "US 11",
+        "US 12",
+        "US 13"
+      ],
+      "sizes": [
+        "US 7",
+        "US 8",
+        "US 9",
+        "US 10",
+        "US 11",
+        "US 12",
+        "US 13"
+      ],
+      "price": "124.00",
+      "url": "https://global.gullylabs.com/products/raga-shoe-m",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC08303_1.jpg?v=1773573368",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/5_3.jpg?v=1773573368",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC08307.jpg?v=1773573368",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/1_d6be949b-b0cd-4c91-a4e8-1817addf84a6.jpg?v=1773573368",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/2_750e3cab-1dd4-477a-aa03-07d4e1b54a33.jpg?v=1773573368",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/4_36024a9c-3186-455a-9785-fd65e87ac2ba.jpg?v=1773573368",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/3_81a64f41-19db-4a8a-99d0-14ad45e6dad1.jpg?v=1773573368",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC08325.jpg?v=1773573368"
+      ]
+    },
+    {
+      "id": "shopify-7816490287147",
+      "name": "Gully Number 004",
+      "category": "Sneakers",
+      "collection": "Gully Number 004",
+      "description": "Introducing Gully Number 004 - Sebal Black The Kolhapuri has been made by hand in the same region of western India for centuries: thick leather soles, braided toe rings, and a construction that outlasts most things in your wardrobe. The Sebal Black takes that silhouette and brings it forward, built for the artists, dreamers, and creators who understand that the most considered things are often the simplest. Features: Full grain black leather upper Kolhapuri inspired toe ring ",
+      "variants": [
+        "men / US 7",
+        "men / US 8",
+        "men / US 9",
+        "men / US 10",
+        "men / US 11",
+        "men / US 12",
+        "men / US 13"
+      ],
+      "sizes": [
+        "US 7",
+        "US 8",
+        "US 9",
+        "US 10",
+        "US 11",
+        "US 12",
+        "US 13"
+      ],
+      "price": "88.00",
+      "url": "https://global.gullylabs.com/products/gully-number-004-sebal-black",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/1_f59871b5-cea0-4aa7-992b-001eb05a8fac.jpg?v=1771237096",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/3_1.jpg?v=1771333446",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/7-3.jpg?v=1771237100",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/3_d2ea54f8-c096-45dd-8446-b8a5f57ed636.jpg?v=1771237103",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/4_62bda311-f542-4b8e-aee1-e0d079b5c56b.jpg?v=1771237105",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/6_af2c4d89-f36c-4284-8381-7ce96e5dcddf.jpg?v=1771237107",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/5_498d6299-060d-423a-a030-f57f5516c5c3.jpg?v=1771237109",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/3_1_1f8b2765-4d5c-4fcb-8833-4729c391520a.jpg?v=1771237111"
+      ]
+    },
+    {
+      "id": "shopify-7816491827243",
+      "name": "Kumkum Red Socks",
+      "category": "Socks",
+      "collection": "Apparel",
+      "description": "Type: Crew socks, Non-terry Size: Free length, best suited for sizes UK 6-11 Elastic: Full length of the shin Details: Gully Labs logo on the shin with detailing on ankles and toes",
+      "price": "30.00",
+      "url": "https://global.gullylabs.com/products/kumkum-red-socks",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/IMG_6852_954c35c9-d303-45bc-9696-3874dc653c5d.jpg?v=1771237623",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/IMG_6848_e85adf6a-9a9e-4bb2-a4db-9fce81df9c28.jpg?v=1771237623"
+      ]
+    },
+    {
+      "id": "shopify-7816492482603",
+      "name": "GL001 Class Rebels",
+      "category": "Sneakers",
+      "collection": "Men",
+      "description": "Introducing Gully Number 001 - Class Rebels Black Slate A tribute to the kids who defied the rules and stood out in a sea of uniforms. Inspired by the iconic black velcro school shoe, it reimagines this classic with premium materials, bold details, and a rebellious edge—celebrating those who dared to be different. Key Features: • Crafted from premium softy leather, quilted velvety suede, and patent leather for a luxurious and textured finish • Padded insole and durable rubber",
+      "variants": [
+        "Men / UK 6",
+        "Men / UK 7",
+        "Men / UK 8",
+        "Men / UK 9",
+        "Men / UK 10",
+        "Men / UK 11",
+        "Men / UK 12"
+      ],
+      "sizes": [
+        "UK 6",
+        "UK 7",
+        "UK 8",
+        "UK 9",
+        "UK 10",
+        "UK 11",
+        "UK 12"
+      ],
+      "price": "96.00",
+      "url": "https://global.gullylabs.com/products/gl001-back-to-school-black-slate",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC01483_1.jpg?v=1773316900",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC01485_1.jpg?v=1773316900",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC01481.jpg?v=1773316900",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC01482.jpg?v=1773316900",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC01488.jpg?v=1773316900",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC01484.jpg?v=1773316900",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC01512_341d1f4b-eb9a-4212-8e38-0588e1753837.jpg?v=1773316900",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC01515_345061ff-4f38-4216-b820-d7d6159ecf1b.jpg?v=1773316900"
+      ]
+    },
+    {
+      "id": "shopify-7816493105195",
+      "name": "GL001 Kulfi Badaam",
+      "category": "Sneakers",
+      "collection": "Gully 001 Drops",
+      "description": "GL001 Kulfi Badaam Badaam Kulfi is almond ice cream the slow way: dense, hand packed into moulds, and frozen overnight in earthen pots. The kind of thing that only exists in summer, only tastes right on a hot afternoon, and only comes in that specific shade of warm cream. The Kulfi Badaam wears those tones with the same unhurried confidence. Features: Crackle finish softy leather upper Suede panels to resist surface scuffing and creasing Kantha stitched detailing in warm almo",
+      "variants": [
+        "men / US 7",
+        "men / US 8",
+        "men / US 9",
+        "men / US 10",
+        "men / US 11",
+        "men / US 12",
+        "men / US 13"
+      ],
+      "sizes": [
+        "US 7",
+        "US 8",
+        "US 9",
+        "US 10",
+        "US 11",
+        "US 12",
+        "US 13"
+      ],
+      "price": "116.00",
+      "url": "https://global.gullylabs.com/products/gl001-kulfi-badaam-men",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC09611_1.jpg?v=1773321684",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC09612_dee755ca-762a-4f03-b49f-8b0a72ec03dc.jpg?v=1773321684",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC09510.jpg?v=1773321684",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC09614.jpg?v=1773321684",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC09618.jpg?v=1773321684",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC09615_fd95fbfd-0db6-41f2-a14e-587a3a512779.jpg?v=1773321684",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/1_f8ddd37a-becc-48b7-aa3f-ba9018244d1f.jpg?v=1773321684",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC09932_1.jpg?v=1773321645"
+      ]
+    },
+    {
+      "id": "shopify-7816492843051",
+      "name": "GL001 Kulfi Pista",
+      "category": "Sneakers",
+      "collection": "Gully 001 Drops",
+      "description": "GL001 Kulfi Pista – Women Pista Kulfi is pistachio ice cream made the long way: slow frozen, hand packed, and served in a colour that sits somewhere between sage and cream. Cool without trying. The Kulfi Pista wears those tones with the same quiet confidence, Kantha stitching worked in soft greens against a crackle leather upper that only gets better with wear. Features: Crackle finish softy leather upper Suede panels to resist surface scuffing and creasing Kantha stitched de",
+      "variants": [
+        "women / US 5",
+        "women / US 6",
+        "women / US 7",
+        "women / US 8",
+        "women / US 9.5",
+        "women / US 10.5"
+      ],
+      "sizes": [
+        "US 5",
+        "US 6",
+        "US 7",
+        "US 8",
+        "US 9.5",
+        "US 10.5"
+      ],
+      "price": "116.00",
+      "url": "https://global.gullylabs.com/products/gl001-kulfi-pista-women",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC09943_33be3d53-2a49-43a9-a3f7-c8091da8bf0b.jpg?v=1771237954",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC09946.jpg?v=1771330488",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC00086.jpg?v=1771330483",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC09942_651f3ebf-9ca2-404c-8792-a7de03213b11.jpg?v=1771237954",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC09948.jpg?v=1771330494",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC09940.jpg?v=1771330496",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC09944.jpg?v=1771237954",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/5_293ecb7b-79c6-4d58-9ba8-e0b13beb1d76.jpg?v=1771237954"
+      ]
+    },
+    {
+      "id": "shopify-7816492810283",
+      "name": "GL001 Kulfi Kesar",
+      "category": "Sneakers",
+      "collection": "Gully 001 Drops",
+      "description": "GL001 Kulfi Kesar - Women Kesar is saffron, and in India it touches everything worth celebrating: rice dishes, sweets, milk warmed at night. Kesar Kulfi carries that warmth in a colour that glows rather than shouts, a deep golden cream that tastes like a summer afternoon. The Kulfi Kesar translates those tones directly into leather and stitch. Features: Crackle finish softy leather upper Suede panels to resist surface scuffing and creasing Kantha stitched detailing in warm sa",
+      "variants": [
+        "women / US 5",
+        "women / US 6",
+        "women / US 7",
+        "women / US 8",
+        "women / US 9.5",
+        "women / US 10.5"
+      ],
+      "sizes": [
+        "US 5",
+        "US 6",
+        "US 7",
+        "US 8",
+        "US 9.5",
+        "US 10.5"
+      ],
+      "price": "116.00",
+      "url": "https://global.gullylabs.com/products/gl001-kulfi-kesar-women",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC09924_1534a038-4cd2-4597-a459-731bd4954061.jpg?v=1773401799",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC09926_490915a4-3c01-4e95-b0c3-674bbfc042d6.jpg?v=1773401799",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC00087.jpg?v=1773401757",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC09931.jpg?v=1773401757",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC09928_73af0acb-93ad-41e8-8ec6-ebd4910b7a88.jpg?v=1773401757",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC09930_97c19097-e03f-4860-8400-06dbe4518f0e.jpg?v=1773401757",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC09925.jpg?v=1773401757",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/3_17c5e19a-d5c5-4ca1-8ff4-6b24096306db.jpg?v=1773401757"
+      ]
+    },
+    {
+      "id": "shopify-7816492679211",
+      "name": "GL001 Kulfi Rabri",
+      "category": "Sneakers",
+      "collection": "Gully 001 Drops",
+      "description": "GL001 Kulfi Rabri – Women Rabri is slow cooked sweetened milk, reduced over hours until it thickens into something rich, layered, and deeply comforting. It is the base that makes Kulfi what it is. The Kulfi Rabri honours that foundational warmth in soft off white tones and Kantha stitching that rewards a second look, the quietest colourway in the collection and arguably the most considered. Features: Crackle finish softy leather upper Suede panels to resist surface scuffing a",
+      "variants": [
+        "women / US 5",
+        "women / US 6",
+        "women / US 7",
+        "women / US 8",
+        "women / US 9.5",
+        "women / US 10.5"
+      ],
+      "sizes": [
+        "US 5",
+        "US 6",
+        "US 7",
+        "US 8",
+        "US 9.5",
+        "US 10.5"
+      ],
+      "price": "116.00",
+      "url": "https://global.gullylabs.com/products/gl001-kulfi-rabri-women",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC09916_f8c4710f-b8b3-41ee-ac80-7f587fca9bb4.jpg?v=1771237849",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC09918.jpg?v=1771330445",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC00084.jpg?v=1771330443",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC09923_339b20b2-08bb-470c-ab2c-3018e9e75591.jpg?v=1771237849",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC09920_486a1522-e3a0-4779-9368-fd4cb586ee08.jpg?v=1771237849",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC09921_bb154280-3b82-4df7-aed1-ecb992814d40.jpg?v=1771237849",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC09917.jpg?v=1771237849",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/7_4109a7bf-21c9-4f44-a877-527c3f45570e.jpg?v=1771237849"
+      ]
+    },
+    {
+      "id": "shopify-7816493695019",
+      "name": "Gully Number 001 x Royal Enfield Hunter 350",
+      "category": "Sneakers",
+      "collection": "Gully 001 Drops",
+      "description": "Gully Labs x Royal Enfield Hunter 350 — First Indian sneaker collab with a motorbike brand. Kaal means time in Hindi. Shire roots it somewhere specific. Together they land exactly where this shoe does: a full blackout build with red detailing that mirrors the Hunter 350's London Edition, a colourway built for the city rider who wants nothing superfluous and nothing left out. Features: Black milled leather upper for durability and all day comfort Red suede accents for contrast",
+      "variants": [
+        "Men / US 7",
+        "Men / US 8",
+        "Men / US 9",
+        "Men / US 10",
+        "Men / US 11",
+        "Men / US 12",
+        "Men / US 13"
+      ],
+      "sizes": [
+        "US 7",
+        "US 8",
+        "US 9",
+        "US 10",
+        "US 11",
+        "US 12",
+        "US 13"
+      ],
+      "price": "92.00",
+      "url": "https://global.gullylabs.com/products/gully-number-001-x-royal-enfield-hunter-350-kaalshire-uk",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC09687_11888d1a-3d30-418a-a507-a05a1e8303e9.jpg?v=1771238047",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC09688.jpg?v=1771330503",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC09538.jpg?v=1771330504",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC09690.jpg?v=1771330498",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC09691.jpg?v=1771330509",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC09685.jpg?v=1771238047",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC09659.jpg?v=1771330507",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC09657_1.jpg?v=1771238047"
+      ]
+    },
+    {
+      "id": "shopify-7816493727787",
+      "name": "Gully Number 002 “Migration”",
+      "category": "Sneakers",
+      "collection": "Gully Number 001",
+      "description": "Gully Labs' first ever MULE The Turaco is mystery in motion. Named after the elusive African bird known for its rich plumage, this black and violet mule makes a strong statement. Made in collaboration with Creative Director and Designer Sagal Singh of Lead-A, this sneaker features a luxe faux fur upper meets a bold black footbed for a silhouette that stands out in quiet confidence. PS: Each pair takes 2 weeks to dispatch Highlights: New Gully Number 002 silhouette Rich purple",
+      "variants": [
+        "men / UK 3",
+        "men / UK 4",
+        "men / UK 5",
+        "men / UK 6",
+        "men / UK 7",
+        "men / UK 8",
+        "men / UK 9",
+        "men / UK 10",
+        "men / UK 11",
+        "men / UK 12",
+        "women / UK 3",
+        "women / UK 4",
+        "women / UK 5",
+        "women / UK 6",
+        "women / UK 7",
+        "women / UK 8",
+        "women / UK 9",
+        "women / UK 10",
+        "women / UK 11",
+        "women / UK 12"
+      ],
+      "sizes": [
+        "UK 3",
+        "UK 4",
+        "UK 5",
+        "UK 6",
+        "UK 7",
+        "UK 8",
+        "UK 9",
+        "UK 10",
+        "UK 11",
+        "UK 12"
+      ],
+      "price": "216.00",
+      "url": "https://global.gullylabs.com/products/gully-number-001-migration-turaco",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC02481e.jpg?v=1771238199",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC02565e.jpg?v=1771238199",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC02621e.jpg?v=1771238199",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC02611e.jpg?v=1771238199"
+      ]
+    },
+    {
+      "id": "shopify-7816493826091",
+      "name": "Gully Number 001 “Migration”",
+      "category": "Sneakers",
+      "collection": "Gully Number 001",
+      "description": "Presenting the Golden Bird — a loud, sun-soaked homage to India’s radiance. This fuzzy yellow sneaker is the hero of the “Migration” collection, crafted in collaboration with Creative Director and Designer Sagal Singh of Lead-A. PS: Each pair takes 2 weeks to dispatch Highlights: Faux Fur upper in Radiant Yellow Signature Gully Number 001 Sneaker sole Orange Contrasted Lining for intricate of depth Designed for Comfort, built to shine Gully x Lead-A Collaboration design ethos",
+      "variants": [
+        "men / UK 3",
+        "men / UK 4",
+        "men / UK 5",
+        "men / UK 6",
+        "men / UK 7",
+        "men / UK 8",
+        "men / UK 9",
+        "men / UK 10",
+        "men / UK 11",
+        "men / UK 12",
+        "women / UK 3",
+        "women / UK 4",
+        "women / UK 5",
+        "women / UK 6",
+        "women / UK 7",
+        "women / UK 8",
+        "women / UK 9",
+        "women / UK 10",
+        "women / UK 11",
+        "women / UK 12"
+      ],
+      "sizes": [
+        "UK 3",
+        "UK 4",
+        "UK 5",
+        "UK 6",
+        "UK 7",
+        "UK 8",
+        "UK 9",
+        "UK 10",
+        "UK 11",
+        "UK 12"
+      ],
+      "price": "264.00",
+      "url": "https://global.gullylabs.com/products/gully-number-001-migration-golden-bird",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC02493e.jpg?v=1771238237",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC02580e.jpg?v=1771238237",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC02619e.jpg?v=1771238237",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC02614_e.jpg?v=1771238236",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC02494e.jpg?v=1771238273",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC02603e.jpg?v=1771238273",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC02627e.jpg?v=1771238273",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC02590e.jpg?v=1771238273"
+      ]
+    },
+    {
+      "id": "shopify-7816511094827",
+      "name": "The Traveller",
+      "category": "Sneakers",
+      "collection": "GullyCollab [X]",
+      "description": "Gully Labs is launching \"The Traveller\" in collaboration with Yatin Srivastava. This release will have the initial 48 pairs numbered. The shoes feature: Three types of black leather Upper made from soft nappa and grain leather Lining from breathable black leather padded with high density foam Extra light EVA soles \"Kantha\" inspired welt on the sole in Icy Blue colorway Matt Black embroidered \"Gully Labs\" near the ankle ⁠Insole is made from soft PU foam with textile sock liner",
+      "variants": [
+        "women / UK 4",
+        "women / UK 5",
+        "women / UK 6",
+        "women / UK 7",
+        "women / UK 8",
+        "men / UK 6",
+        "men / UK 7",
+        "men / UK 8",
+        "men / UK 9",
+        "men / UK 10",
+        "men / UK 11"
+      ],
+      "sizes": [
+        "UK 4",
+        "UK 5",
+        "UK 6",
+        "UK 7",
+        "UK 8",
+        "UK 9",
+        "UK 10",
+        "UK 11"
+      ],
+      "price": "212.00",
+      "url": "https://global.gullylabs.com/products/the-traveller-icy-blue-unisex",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC09694.jpg?v=1771330998",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC09795.jpg?v=1771331002",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC09531.jpg?v=1771330994",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC09915.jpg?v=1771239279",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC09799.jpg?v=1771331006",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC09802.jpg?v=1771331011",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC09794_1.jpg?v=1771239279",
+        "https://cdn.shopify.com/s/files/1/0633/2360/2987/files/DSC09663.jpg?v=1771330995"
+      ]
+    },
+    {
+      "id": "calico-white",
+      "name": "Calico White",
+      "images": []
+    },
+    {
+      "id": "barfi-burgundy",
+      "name": "Barfi Burgundy",
+      "images": []
+    },
+    {
+      "id": "baaz-indrani",
+      "name": "Baaz Indrani",
+      "images": []
+    },
+    {
+      "id": "kulfi-badaam",
+      "name": "Kulfi Badaam",
+      "images": []
+    },
+    {
+      "id": "kulfi-rabri",
+      "name": "Kulfi Rabri",
+      "images": []
+    },
+    {
+      "id": "buransh-red",
+      "name": "Buransh Red",
+      "images": []
+    },
+    {
+      "id": "baaz-noor-yellow",
+      "name": "Baaz Noor Yellow",
+      "images": []
+    },
+    {
+      "id": "gully-labs-x-raga-aandhi-kobicha",
+      "name": "Gully Labs X Raga Aandhi Kobicha",
+      "images": []
+    },
+    {
+      "id": "baaz-kopal-green",
+      "name": "Baaz Kopal Green",
+      "images": []
+    },
+    {
+      "id": "saaj-orange",
+      "name": "Saaj Orange",
+      "images": []
+    },
+    {
+      "id": "turf-olive",
+      "name": "Turf Olive",
+      "images": []
+    },
+    {
+      "id": "baaz-indrani-for-women",
+      "name": "Baaz Indrani for Women",
+      "images": []
+    }
+  ]
+}

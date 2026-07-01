@@ -1,0 +1,60 @@
+{
+  "name": "bas paani",
+  "category": "water brand",
+  "productType": "plain water",
+  "purpose": "make ordinary water desirable",
+  "audience": "Urban Gen Z, premium minimalists",
+  "vibe": "quiet premium, anti-hype cool",
+  "ideology": "status without shouting, ordinary done obsessively",
+  "research": {
+    "summary": "Bas Paani is an established Indian water brand selling naturally alkaline mineral water in minimalist aluminium cans. The brand positions itself around purity, sustainability, microplastic-free packaging, and a quiet premium alternative to traditional bottled water. Its identity is sleek, modern, understated, and intentionally different, with a focus on water as it should be: simple, clean, and considered.",
+    "essence": "",
+    "voice": "",
+    "competitors": [
+      "Himalayan Natural Mineral Water",
+      "Bisleri Vedica",
+      "Alkind WTR",
+      "Liquid Death"
+    ],
+    "ambassadors": [],
+    "instagram": "@baspaani",
+    "website": "https://baspaani.com/",
+    "palette": [
+      {
+        "hex": "#FFFFFF",
+        "role": "primary clean white base"
+      },
+      {
+        "hex": "#F5F5F5",
+        "role": "soft off-white background"
+      },
+      {
+        "hex": "#1A1A1A",
+        "role": "charcoal typography and contrast"
+      },
+      {
+        "hex": "#C8C8C8",
+        "role": "aluminium silver product cue"
+      },
+      {
+        "hex": "#E0E8E8",
+        "role": "subtle cool water-toned accent"
+      }
+    ],
+    "aesthetic": "Quiet premium minimalism with clean product-led photography, generous negative space, soft natural light, muted cool tones, raw concrete, aluminium, ceramic, glass, pale stone, and natural wood textures. Art direction should feel calm, intentional, and modern: cans placed in serene interiors, creative studios, minimalist cafes, or vast natural settings, with sparse styling and a focus on purity, clarity, sustainability, and understated ritual.",
+    "foundReal": false,
+    "logo": "https://baspaani.com/cdn/shop/files/Bas_Paani_Logo_1.png?crop=center&height=32&v=1751982822&width=32",
+    "productImages": [
+      "http://baspaani.com/cdn/shop/files/WhatsApp_Image_2025-07-07_at_17.17.15_2.jpg?v=1753179775",
+      "https://baspaani.com/cdn/shop/files/WhatsApp_Image_2025-07-07_at_17.17.15_2.jpg?v=1753179775",
+      "https://baspaani.com/cdn/shop/files/preview_images/2053abbd69804eae890dd7d3c6e9eded.thumbnail.0000000000.jpg?v=1779885626&amp;width=3840",
+      "https://baspaani.com/cdn/shop/files/Artboard_1.png?v=1781379551&amp;width=1600",
+      "https://baspaani.com/cdn/shop/files/WhatsAppImage2025-07-07at17.17.16.jpg?v=1752003731&amp;width=3840",
+      "https://baspaani.com/cdn/shop/files/handholdingcan.png?v=1781123717&amp;width=3840",
+      "https://baspaani.com/cdn/shop/files/try_3.png?v=1781376840&amp;width=352",
+      "https://baspaani.com/cdn/shop/files/try_3.png?v=1781376840&amp;width=500"
+    ],
+    "sources": 12
+  },
+  "ready": true
+}

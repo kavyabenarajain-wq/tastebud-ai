@@ -1,0 +1,49 @@
+{
+  "name": "saras che",
+  "research": {
+    "summary": "Saras Che is a modern Indian snack brand that reimagines traditional khakhra, bhakhri and ragi-based snacks into convenient, healthier formats with bold global and Indian flavours. Their positioning focuses on whole ingredients, no palm oil, and an easy, mess-free snacking experience, emphasizing both taste and everyday convenience.",
+    "essence": "",
+    "voice": "",
+    "competitors": [
+      "Haldiram's",
+      "Bikaji Foods International Ltd.",
+      "Balaji Wafers",
+      "Cornitos"
+    ],
+    "ambassadors": [],
+    "instagram": "https://www.instagram.com/sarasche",
+    "website": "https://sarasche.com",
+    "palette": [
+      {
+        "hex": "#D9534F",
+        "role": "primary accent — spice red/orange used in highlights, CTAs and key flavour cues"
+      },
+      {
+        "hex": "#6B8E23",
+        "role": "secondary accent — earthy olive green for natural/health cues and badges"
+      },
+      {
+        "hex": "#F8F8F8",
+        "role": "background — creamy off‑white for clean layouts and seamless backdrops"
+      },
+      {
+        "hex": "#333333",
+        "role": "text — dark grey for body copy and high-contrast UI text"
+      },
+      {
+        "hex": "#FFA94D",
+        "role": "supporting accent — warm snack/cheese orange used in flavour blocks and props"
+      },
+      {
+        "hex": "#8B5A2B",
+        "role": "supporting accent — toasted brown for grain/spice cues and secondary typography"
+      }
+    ],
+    "aesthetic": "Saras Che’s feed mixes packshots on light seamless backdrops with snack-in-use moments and ingredient flat-lays. Backgrounds and surfaces are primarily matte cream/off-white sweeps (#F8F8F8), light wood tabletops, and pale stone/concrete, occasionally swapped for soft colour fields keyed to flavour (warm reds, olives, and oranges) with minimal visible horizon lines. The colour grade is warm and food-forward: slightly boosted saturation in the reds, oranges and greens, neutral-to-warm whites, and gentle contrast so snacks look crisp but still soft and inviting; the overall palette leans to spice reds (#D9534F), earthy greens (#6B8E23), creams and toasted browns. Styling density is low to medium: hero packs and bowls of coin khakhra are kept clean with a few well-chosen props like small katoris of spices, chillies, herb sprigs, grain flour, tea/coffee cups and simple ceramic plates, avoiding clutter and busy linens; recurring props include hands reaching for or holding individual coins, small serving boards, and occasional laptops/books to signal modern snacking moments. Lighting is soft, diffused and directional from one side (window-like daylight or softbox), with short, soft shadows that define texture without harshness; highlights are controlled to keep packaging readable and oil sheen minimal. Compositions favour straightforward front-on packshots and overhead flat-lays, often centred or on rule-of-thirds with consistent negative space; crops alternate between tight close-ups of stacked coins/chips and medium frames showing packs plus bowls. Models appear mainly as anonymous hands and partial torsos interacting with the snacks rather than full portrait-focused shoots, keeping the product as the clear hero while still conveying human usage.",
+    "foundReal": false,
+    "productImages": [],
+    "products": [],
+    "sources": 6
+  },
+  "ready": true
+}

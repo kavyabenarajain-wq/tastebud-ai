@@ -1,0 +1,49 @@
+{
+  "name": "Oli Pop",
+  "category": "prebiotic wellness brand",
+  "productType": "sparkling soda",
+  "audience": "wellness millennials, young families",
+  "vibe": "bright, playful",
+  "purpose": "make soda feel good again, bring gut health into everyday life",
+  "ideology": "wellness should feel fun, no guilty pleasures",
+  "research": {
+    "summary": "OLIPOP is an established prebiotic sparkling soda brand positioned around “feel good soda”: nostalgic, playful, flavorful, and gut-health-forward without feeling clinical. Its refreshed identity leans into brighter colors, stronger contrast, visible flavor cues, expressive icons, pop-art details, and late-60s/70s-inspired illustration to create a more energetic and emotionally driven brand world.",
+    "competitors": [
+      "Poppi",
+      "SunSip by Health-Ade",
+      "Culture Pop"
+    ],
+    "ambassadors": [
+      "Gwyneth Paltrow",
+      "Mindy Kaling",
+      "Jonas Brothers"
+    ],
+    "instagram": "https://www.instagram.com/drinkolipop",
+    "website": "https://drinkolipop.com",
+    "palette": [
+      {
+        "hex": "#FF69B4",
+        "role": "hot pink for playful flavor energy and social-first vibrancy"
+      },
+      {
+        "hex": "#FF4500",
+        "role": "orange-red for bold contrast, appetite appeal, and soda-pop excitement"
+      },
+      {
+        "hex": "#8A2BE2",
+        "role": "blue violet for retro psychedelic depth and premium wellness cues"
+      },
+      {
+        "hex": "#FFD700",
+        "role": "sunny gold for optimism, nostalgia, and refreshing brightness"
+      },
+      {
+        "hex": "#00CED1",
+        "role": "turquoise accent for freshness, fizz, and modern wellness"
+      }
+    ],
+    "aesthetic": "Bright, saturated, playful retro-pop product photography with late-60s/70s nostalgia, expressive ingredient cues, colorful graphic backdrops, dynamic can compositions, fizzy refreshment moments, and lifestyle scenes such as retro diner counters, sunny picnics, and casual social settings. The art direction should feel joyful, approachable, and culturally current, emphasizing taste and emotional indulgence while subtly supporting gut-health benefits.",
+    "sources": 20
+  },
+  "ready": true
+}

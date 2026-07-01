@@ -1,0 +1,41 @@
+{
+  "id": "lumen",
+  "name": "Lumen",
+  "positioning": "Clinical skincare for people who read the ingredient list. Quiet, exact, dermatology-grade — results without theatre. Premium through restraint, never through noise.",
+  "audience": "Considered 28–45 buyers who treat skincare as maintenance, not ritual cosplay. They value evidence, finish, and calm.",
+  "palette": [
+    { "name": "Paper", "hex": "#F4F1EC", "role": "primary ground / packaging", "material": "matte uncoated card, soft plaster wall" },
+    { "name": "Ink", "hex": "#15140F", "role": "text, deep contrast", "material": "near-black, warm" },
+    { "name": "Clay", "hex": "#C7B8A3", "role": "secondary surface / staging", "material": "unglazed ceramic, raw stone" },
+    { "name": "Sage Glass", "hex": "#9AA690", "role": "accent — the bottle glass tint", "material": "frosted tinted glass" },
+    { "name": "Amber", "hex": "#B07A3C", "role": "the product liquid", "material": "translucent oil/serum" }
+  ],
+  "typography": {
+    "display": { "family": "Canela / Editorial New (serif)", "weights": "300–500", "tracking": "-0.02em" },
+    "text": { "family": "Suisse Int'l / Inter (sans)", "weights": "400–500", "tracking": "0" }
+  },
+  "rulebook": {
+    "negativeSpaceRatio": "generous — roughly half the frame is empty, calm space",
+    "heroPlacement": "product slightly off-centre on a third; never dead-centre except the straight-on hero",
+    "composition": [
+      "One subject, one idea per frame",
+      "Deliberate, uncluttered staging — props are rare and intentional",
+      "Eye-level or slight angles; the low hero used sparingly for impact"
+    ],
+    "lighting": {
+      "language": "soft directional daylight, cool-neutral white balance, gentle falloff",
+      "default": "a single large soft key from the side, soft fill, one controlled highlight on the glass shoulder",
+      "avoid": "hard flash, warm yellow cast, flat even box light"
+    },
+    "surfaces": ["soft plaster", "raw stone", "unglazed ceramic", "matte paper", "still water"],
+    "props": ["a single dropper", "a smear of serum on stone", "a water droplet", "a folded linen edge"],
+    "mood": ["clinical calm", "quiet luxury", "editorial restraint", "honest, evidence-led"]
+  },
+  "doNot": [
+    "No warm yellow/amber colour cast on the scene (the amber is the liquid only)",
+    "No clutter, no busy props, no lifestyle theatre",
+    "No hard on-camera flash or party energy",
+    "No floating product, no CGI/plastic render look",
+    "No 'crafted with love', no heritage nostalgia, no wellness-cliché styling"
+  ]
+}

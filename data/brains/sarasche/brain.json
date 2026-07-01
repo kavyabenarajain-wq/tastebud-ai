@@ -1,0 +1,48 @@
+{
+  "name": "sarasche",
+  "category": "better-for-you Indian snacks",
+  "vibe": "clean, light, crunchy, playful",
+  "productType": "coin khakhra snacks",
+  "purpose": "make khakhra snackable and healthier than chips",
+  "ideology": "better snacking without guilt",
+  "audience": "Gen Z chip lovers, office desk snackers, health-aware snackers, urban Indian families",
+  "palette": "natural, earthy",
+  "research": {
+    "summary": "Saras Che is a Bengaluru-run better-for-you Indian snack brand focused on roasted, not fried coin khakhra and related crunchy snacks. The brand stands for guilt-free snacking with real spices, whole wheat, no palm oil, and a clean, light, crunchy, playful personality aimed at Gen Z chip lovers, office snackers, health-aware consumers, and urban Indian families.",
+    "competitors": [
+      "Jagdish Farshan",
+      "Govindjee Store",
+      "Kandoi Bhogilal Mulchand",
+      "The Whole Truth",
+      "Yoga Bar"
+    ],
+    "ambassadors": [],
+    "instagram": "https://www.instagram.com/sarasche",
+    "website": "https://sarasche.com",
+    "palette": [
+      {
+        "hex": "#F5EBDD",
+        "role": "natural warm base"
+      },
+      {
+        "hex": "#D8C3A5",
+        "role": "earthy neutral packaging tone"
+      },
+      {
+        "hex": "#8B5E34",
+        "role": "roasted khakhra brown"
+      },
+      {
+        "hex": "#6B7D3A",
+        "role": "natural health accent"
+      },
+      {
+        "hex": "#C97B38",
+        "role": "spice and playful flavour accent"
+      }
+    ],
+    "aesthetic": "Clean, bright, natural-light product photography with airy beige and earthy backdrops, crisp close-ups that show crunch and roasted texture, minimal ingredient styling with real spices and grains, and playful snack arrangements for office desks, on-the-go moments, and modern urban family snacking.",
+    "sources": 7
+  },
+  "ready": true
+}

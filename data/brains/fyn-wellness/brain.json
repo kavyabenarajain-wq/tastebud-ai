@@ -1,0 +1,259 @@
+{
+  "name": "fyn wellness",
+  "research": {
+    "summary": "FYN Wellness is an Indian wellness brand focused on cellular hydration via Blue Spirulina, bioactive peptides, and coconut electrolytes, offering clean, science-backed supplementation for energy, skin, and immunity.",
+    "essence": "Intelligent, highly absorbable cellular nutrition that transforms everyday hydration into sustained energy and radiant well-being.",
+    "voice": "Informative, empowering, clean, efficacious, optimistic; educational yet accessible, with a calm, science-backed tone.",
+    "competitors": [
+      "OZiva",
+      "Fast&Up",
+      "Power Gummies",
+      "Herbalife Nutrition"
+    ],
+    "ambassadors": [],
+    "instagram": "https://www.instagram.com/fyn.wellness",
+    "website": "https://www.fynwellness.com",
+    "palette": [
+      {
+        "hex": "#00C4CC",
+        "role": "primary accent (Blue Spirulina, product liquid, key highlights)"
+      },
+      {
+        "hex": "#2B6CB0",
+        "role": "secondary accent (text emphasis, UI elements, some backgrounds)"
+      },
+      {
+        "hex": "#FFFFFF",
+        "role": "core background (clean canvas, negative space, purity signal)"
+      },
+      {
+        "hex": "#F5F5F5",
+        "role": "soft secondary background (cards, sections, subtle surfaces)"
+      },
+      {
+        "hex": "#111827",
+        "role": "primary text (body copy, headings, high-contrast legibility)"
+      }
+    ],
+    "aesthetic": "Product-led, minimal daylight studio photography with a crisp wellness feel. Backgrounds and surfaces are predominantly matte white or very pale grey, occasionally light beige, using simple flat or slightly textured surfaces (tabletops, counters) that keep attention on the blue drink and sachets. Colour grade is bright and clean with a subtly cool bias: whites stay neutral-to-cool, the Hydra liquid renders as saturated cyan/blue, and overall contrast is moderately high to make packaging and glassware pop without looking harsh. Styling density is low: compositions feature one or two hero elements (glass of blue drink, sachet or box) with sparse props such as clear glass tumblers, carafes of water, ice cubes, laptops, notebooks, or soft greenery; props are utilitarian and tidy, arranged to imply a daily ritual at home or in an office rather than an elaborate set. Lighting is soft, diffused natural-daylight mimic, coming from one dominant direction (typically side or three-quarter front), producing gentle shadows and clear specular highlights on glass and liquid; there are no dramatic hard shadows or coloured gels. Crops favor medium and close-up frames: straight-on or slightly elevated perspectives showing a full glass alongside the sachet or pack, occasional tighter crops on the vivid blue liquid swirling in water, and some lifestyle frames that include hands or partial torsos; compositions use generous negative space and simple rule-of-thirds layouts. Imagery is primarily product-only, with intermittent model presence used sparingly—models are shown in relaxed, aspirational contexts (holding a glass, at a desk or kitchen counter, in light leisurewear) rather than fitness extremes. Overall, the signature is: bright white surfaces, neutral-cool colour grade, minimal props, soft directional daylight, and clean, centered compositions that hero the striking cyan drink and slim sachet packaging.",
+    "foundReal": true,
+    "logo": "https://www.fynwellness.com/cdn/shop/files/FYN_Main_Logo.png?v=1775122006&width=480",
+    "productImages": [
+      "https://cdn.shopify.com/s/files/1/0709/3564/2303/files/Hero.png?v=1775135619",
+      "https://www.fynwellness.com/cdn/shop/files/FINALLLLLL.png?height=108&amp;v=1764536941",
+      "https://www.fynwellness.com/cdn/shop/files/AI_Model_images_4fe99f1e-0289-43ec-b038-68cf06fa3adf.png?v=1766674049&amp;width=800",
+      "https://www.fynwellness.com/cdn/shop/files/AI_Model_images_1.png?v=1766513686&amp;width=800",
+      "https://www.fynwellness.com/cdn/shop/files/AI_Model_images_1_599a5e7b-3d79-4c39-9d98-5a6668fac969.png?v=1766674052&amp;width=800",
+      "https://www.fynwellness.com/cdn/shop/files/AI_Model_images_4.png?v=1766817535&amp;width=800",
+      "https://www.fynwellness.com/cdn/shop/files/Untitled_design_5.png?v=1764526715&amp;width=80",
+      "https://www.fynwellness.com/cdn/shop/files/Untitled_design_10.png?v=1764529344&amp;width=80",
+      "https://www.fynwellness.com/cdn/shop/files/Untitled_design_12.png?v=1764529834&amp;width=80",
+      "https://www.fynwellness.com/cdn/shop/files/Packaging_Sides_1.png?v=1765309300&amp;width=800",
+      "https://www.fynwellness.com/cdn/shop/files/Untitled_design_11.png?v=1764529533&amp;width=80",
+      "https://www.fynwellness.com/cdn/shop/files/Untitled_design_7.png?v=1764526880&amp;width=80"
+    ],
+    "products": [
+      {
+        "name": "Hydra",
+        "image": "https://cdn.shopify.com/s/files/1/0709/3564/2303/files/Hero.png?v=1775135619"
+      }
+    ],
+    "sources": 20
+  },
+  "ready": true,
+  "category": "Wellness",
+  "intelligence": {
+    "overview": "FYN Wellness is an Indian nutritional supplements brand focused on cellular hydration and bioavailable nutrition. Its flagship product, Hydra, combines Blue Spirulina, bioactive peptides, and coconut electrolytes to deliver clean, science-backed daily wellness benefits beyond conventional hydration.",
+    "purpose": "To enable the body to effectively utilize the nutrition it consumes, supporting modern lifestyles with enhanced energy, improved immunity, and better skin health through superior cellular hydration and activation.",
+    "mission": "To provide clean, simple, and highly bioavailable nutritional solutions, free from artificial additives, that empower individuals to achieve optimal health and vitality at a cellular level.",
+    "vision": "A future where effective, natural cellular nutrition is accessible and integrated into daily routines, leading to a population with sustained natural energy and robust overall well-being.",
+    "story": "FYN Wellness was created to solve the gap between what people consume and what their cells can actually use. Framing hydration as a cellular process rather than just fluid intake, the brand built its core offering around Blue Spirulina, highlighting its lack of a cell wall and 95% direct absorption versus the ~30% absorption of many nutrients. By combining this with bioactive peptides for cellular repair and coconut water-derived electrolytes that the body naturally recognizes, FYN developed Hydra, a daily ritual meant to move hydration and nutrition from surface-level to truly cellular.",
+    "values": [
+      "Efficacy (science-backed absorption)",
+      "Purity (no added sugar, artificial color, or caffeine)",
+      "Simplicity (easy integration into routine)",
+      "Holistic well-being (energy, skin, immunity, gut-skin axis, detoxification)",
+      "Transparency"
+    ],
+    "positioning": "FYN Wellness: Unlock Your Cells' Full Potential.",
+    "audience": "Health-conscious Millennials and Gen Z in their late 20s to late 40s living in urban India, seeking natural, effective, science-backed solutions for sustained energy, better skin, immunity support, and inflammation management, and preferring clean nutrition that easily fits into a busy routine.",
+    "persona": "Anya is 32 and lives in a metro city in India, working in a demanding professional role while trying to maintain her yoga practice and clean eating habits. She often feels fatigued and notices occasional skin dullness despite her efforts, and she is skeptical of quick-fix or overly stimulant-based products. Anya follows wellness influencers on Instagram, reads up on nutritional science, and looks for transparent labels and brands that explain the why behind their formulations. She wants a simple, daily ritual that gives her natural, crash-free energy, supports her skin and immunity, and aligns with her preference for clean, no-nonsense ingredients—making a cellular hydration mix like Hydra an appealing part of her routine.",
+    "toneOfVoice": "Informative, empowering, clean, efficacious, optimistic.",
+    "personality": [
+      "Trustworthy",
+      "Modern",
+      "Scientific",
+      "Nurturing",
+      "Progressive"
+    ],
+    "palette": [
+      {
+        "hex": "#00C4CC",
+        "role": "primary accent (Blue Spirulina, product liquid, key highlights)"
+      },
+      {
+        "hex": "#2B6CB0",
+        "role": "secondary accent (text emphasis, UI elements, some backgrounds)"
+      },
+      {
+        "hex": "#FFFFFF",
+        "role": "core background (clean canvas, negative space, purity signal)"
+      },
+      {
+        "hex": "#F5F5F5",
+        "role": "soft secondary background (cards, sections, subtle surfaces)"
+      },
+      {
+        "hex": "#111827",
+        "role": "primary text (body copy, headings, high-contrast legibility)"
+      }
+    ],
+    "typography": {
+      "display": "Clean, modern sans-serif with a slightly geometric or humanist feel, similar in spirit to Montserrat or Open Sans, emphasizing approachability and expertise.",
+      "text": "Highly readable, straightforward sans-serif prioritizing clarity and ease of information consumption across product pages and educational content.",
+      "note": "Type choices support a clinical-but-friendly aesthetic, pairing bold, clear headlines with simple, legible body copy to reinforce trust and scientific credibility."
+    },
+    "logo": "https://www.fynwellness.com/cdn/shop/files/FYN_Main_Logo.png?v=1775122006&width=480",
+    "logoSystem": "A clean wordmark centered on \"FYN\" in a modern sans-serif, often extended to \"FYN Wellness\" and sometimes paired with a subtle hydration-related motif such as a droplet or wave in the signature blue. The logo system is minimal, flexible across digital and packaging touchpoints, and leans on negative space and color to signal premium, science-led wellness.",
+    "photographyStyle": "Photography uses bright white or light neutral backgrounds with minimal props, focusing on the vibrant blue drink and sleek sachets. Images are shot in bright, slightly cool daylight-style lighting with soft, even illumination and high contrast to highlight the product’s color and clarity. Styling is sparse and functional—clear glass tumblers, water, ice, and occasional subtle natural elements like greenery—framing the product as a clean, modern ritual. Compositions mix close-up product details with simple lifestyle scenes at eye-level or slightly elevated angles, with occasional models interacting gently with the drink to convey calm, holistic well-being.",
+    "packagingStyle": "Packaging centers on minimalist, elegant sachets for the Hydra daily cellular hydration mix, emphasizing convenience and ritual. The vibrant Blue Spirulina hue is a key visual element, paired with ample white space and concise, benefit-led copy highlighting Blue Spirulina, bioactive peptides, and coconut electrolytes. The design feels fresh and modern, balancing scientific claims with cues of purity and cleanliness.",
+    "visualIdentity": "FYN Wellness employs a clean, modern design language anchored by vibrant blue hues, abundant white space, and simple sans-serif typography to communicate natural, science-backed efficacy. The overall system balances clinical credibility with lifestyle warmth, using minimal layouts, clear ingredient callouts, and luminous product imagery to position Hydra as a premium, everyday wellness ritual.",
+    "competitors": [
+      {
+        "name": "OZiva",
+        "note": "India-based plant-focused nutrition brand offering collagen builders, gut health products, and other supplements targeting similar health-conscious consumers."
+      },
+      {
+        "name": "Fast&Up",
+        "note": "Indian brand known for effervescent tablets for hydration, energy, and performance, appealing to active individuals and everyday wellness users."
+      },
+      {
+        "name": "Power Gummies",
+        "note": "Supplement brand focusing on chewable vitamin gummies for benefits like hair, sleep, and gut health, positioned as convenient and palatable nutrition."
+      },
+      {
+        "name": "Herbalife Nutrition",
+        "note": "Global direct-selling company with a strong presence in India, offering meal replacements, shakes, and supplements via a different, distributor-led sales model."
+      }
+    ],
+    "social": [
+      {
+        "platform": "Instagram",
+        "handle": "@fyn.wellness",
+        "url": "https://www.instagram.com/fyn.wellness",
+        "note": "Visually driven feed with high-quality product photography featuring the blue drink, educational infographics on Blue Spirulina and cellular hydration, testimonials, and aspirational lifestyle content; posts appear several times a week with an educational, supportive, and slightly scientific voice."
+      }
+    ],
+    "press": [],
+    "insights": [
+      "Leaning harder into the science of Blue Spirulina’s 95 percent absorption and “no cell wall” story can give FYN a distinct, ownable narrative in a crowded wellness category obsessed with ingredients but not utilization.",
+      "The concept of cellular hydration is still nascent for many consumers, so turning complex ideas like bioavailability and gut-skin axis into simple, repeatable educational formats will be critical to building trust and perceived value.",
+      "The vivid blue color of Hydra is a powerful visual mnemonic; consistently anchoring brand experiences, packaging, and social content in this ‘blue ritual’ can create instant shelf and scroll recognition.",
+      "Positioning Hydra as a plug-and-play daily ritual for busy urban professionals reframes it from a niche supplement to an essential, habit-forming wellness staple.",
+      "With a single hero product, FYN can over-index on community-building—using stories, UGC, and shared health goals (energy, skin, immunity) to turn early adopters into advocates and reduce reliance on broad product ranges.",
+      "Balancing modern scientific language with subtle nods to Indian wellness culture and preferences can make the brand feel both globally sophisticated and locally resonant, strengthening relevance across India."
+    ],
+    "website": "https://www.fynwellness.com",
+    "instagram": "https://www.instagram.com/fyn.wellness",
+    "sources": 20,
+    "foundReal": true,
+    "inferred": false
+  },
+  "catalog": [
+    {
+      "id": "shopify-8379704148159",
+      "name": "Hydra",
+      "category": "Hydration Mix",
+      "collection": "antioxidant",
+      "description": "Normal hydration stops at the surface. Hydra reaches your cells. Supercharged by Blue Spirulina, the only superfood with no cell wall. That means 95% of it absorbs directly, compared to 30% from most things you consume. Nothing locked out. Nothing wasted. The blue pigment inside, Phycocyanin, acts as a cellular antioxidant, protecting and repairing at the deepest level. Bioactive peptides reach your cells directly, no conversion needed. And the electrolytes come straight from",
+      "price": "3000.00",
+      "url": "https://www.fynwellness.com/products/hydra-monthly-pack-cellular-hydration-mix",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0709/3564/2303/files/Hero.png?v=1775135619",
+        "https://cdn.shopify.com/s/files/1/0709/3564/2303/files/3.png?v=1775135619",
+        "https://cdn.shopify.com/s/files/1/0709/3564/2303/files/6.png?v=1775135619",
+        "https://cdn.shopify.com/s/files/1/0709/3564/2303/files/Nutritional_Info_e8e33aa1-caf7-4df8-ad65-d02cafad8372.png?v=1775135619"
+      ]
+    }
+  ],
+  "memory": {
+    "approvedShots": [],
+    "rejectedShots": [],
+    "heroShots": [
+      {
+        "id": "1782937858444-2-g024s",
+        "url": "/api/img/1782937858444-2-g024s.png",
+        "angle": "Macro close-up branding detail bold colour-block",
+        "prompt": "Shot on a Canon EOS R5 with a Canon RF 85mm f/2 macro lens at f/3.2, ISO 100, 1/200s, framed as a tight macro close-up that focuses on the upper front portion of the product exactly as in the reference image. The camera is positioned straight-on at eye level, filling most of the frame with the product’s royal blue surface and key branding area so that the logo and main text are crisply legible and occupy the visual centre. The seamless studio background remains a single uniform colour field in the same royal blue as the packaging (#1C4CA8), fractionally lighter than in the hero shot to subtly separate the product while preserving a cohesive colour-block look. Lighting matches the first shot for set coherence: bright, slightly cool daylight-style, soft and directional from front-left, creating a gentle falloff to the right and a small, controlled specular highlight that follows the product’s real gloss without blowing out any text. Depth of field is shallow in a considered way: the focal plane sits on the logo and primary label text, which appear razor-sharp, while the edges of the product and the royal blue backdrop softly blur, giving a tactile sense of the glossy carton material and reinforcing a real-camera macro feel. The macro composition includes a hint of the product’s edges to avoid an abstract flat-blue field and to show authentic curvature or panel lines, but keeps the crop tight enough to read as a detail/branding shot rather than a secondary packshot. The entire frame stays within the royal blue colour world; no props, water, ice, or greenery are introduced, maintaining a clean, minimal, campaign-grade studio treatment that spotlights FYN Wellness’s branding and typography while remaining physically plausible and photographically real.",
+        "negatives": [
+          "No reshaping or restyling of the product form",
+          "No invented logos, icons, or decorative elements",
+          "No misaligned, mirrored, or duplicated text",
+          "No humans, hands, or any body parts",
+          "No props, ingredients, or additional objects",
+          "No secondary colours or contrasting backdrops — stay in royal blue",
+          "No gradient, vignette, spotlight, or textured background",
+          "No floating product without a believable contact shadow (even if subtle)",
+          "No lens-induced warping of straight lines or edges",
+          "No extreme blur that makes branding illegible",
+          "No over-smoothed, waxy, or plastic CGI appearance",
+          "No mixed colour temperatures that tint the blue strangely",
+          "No reflections or highlights that contradict the light direction",
+          "No noise, banding, or compression artifacts in the solid colour field"
+        ],
+        "panel": {
+          "background": "Match the product",
+          "surface": "",
+          "vibe": "",
+          "composition": "",
+          "lighting": "",
+          "styling": "",
+          "format": "",
+          "numAngles": 2,
+          "shotsPerAngle": 1
+        },
+        "mode": "product-photoshoot",
+        "decision": "hero",
+        "at": "2026-07-01T20:37:44.590Z"
+      },
+      {
+        "id": "1782937858444-1-x59bb",
+        "url": "/api/img/1782937858444-1-x59bb.png",
+        "angle": "Front, straight-on eye-level bold colour-block",
+        "prompt": "Shot on a Canon EOS R5 with a 50mm f/1.8 prime at f/4, ISO 100, 1/200s, framed as a clean front, straight-on eye-level hero. Colour treated in a crisp, modern digital daylight look inspired by Fujifilm Pro 400H but cleaner, with slightly cool white balance, soft highlight roll-off, and minimal fine grain to keep the product sharp and clinical. The composition places the product exactly as in the reference image standing upright at the centre of the frame against a seamless studio backdrop. The entire background is a single uniform colour field matching the product’s dominant royal blue packaging hue (#1C4CA8), shifted very slightly deeper for separation, filling edge-to-edge with no horizon line or surface break, so the product sits visually grounded by a subtle contact shadow directly beneath it. Lighting is bright, soft, directional daylight-style coming from front-left, creating gentle, natural shadows that fall to the right and a subtle, crisp but not harsh highlight along the product’s edges and any glossy surfaces, making the royal blue and white text feel vibrant and legible. The set is ultra-minimal, true to FYN Wellness’s studio signature: no props, no humans, no glassware, just the product exactly as in the reference image against the colour-matched royal blue sweep, with ample negative space around it for campaign use. Depth of field is moderately shallow so the background is smooth and slightly blurred, while every edge of the product, its logo, and text remains perfectly sharp and readable, avoiding any CGI look. The overall mood is clean, modern wellness, with high contrast between the rich blue background and the white elements on the packaging, presenting the product as a sleek, science-backed ritual object while strictly maintaining product fidelity and a real photographic feel.",
+        "negatives": [
+          "No change to product shape, structure, or packaging layout",
+          "No alteration of the product’s colours beyond faithful reproduction",
+          "No invented or warped text or logos on the packaging",
+          "No humans, hands, fingers, arms, legs, or any body parts",
+          "No props, glassware, ice, greenery, or ingredients",
+          "No gradients, vignettes, or spotlight halos in the background",
+          "No podiums, plinths, risers, or floating product",
+          "No scattered geometric shapes, cubes, spheres, or confetti",
+          "No CGI/3D-rendered plastic look or unrealistic reflections",
+          "No mixed or multiple light sources with conflicting shadows",
+          "No excessive noise, HDR, or over-sharpening",
+          "No background colour that differs from the product’s royal blue world",
+          "No tilt or Dutch angle — keep the product perfectly upright",
+          "No cropping that cuts off any part of the product",
+          "No lens distortion that warps the product geometry"
+        ],
+        "panel": {
+          "background": "Match the product",
+          "surface": "",
+          "vibe": "",
+          "composition": "",
+          "lighting": "",
+          "styling": "",
+          "format": "",
+          "numAngles": 2,
+          "shotsPerAngle": 1
+        },
+        "mode": "product-photoshoot",
+        "decision": "hero",
+        "at": "2026-07-01T20:37:42.676Z"
+      }
+    ],
+    "updatedAt": "2026-07-01T20:37:44.601Z"
+  }
+}

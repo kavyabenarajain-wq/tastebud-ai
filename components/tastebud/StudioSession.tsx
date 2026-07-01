@@ -1,0 +1,205 @@
+"use client";
+
+import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
+import type { BrandBrain, StudioProduct } from "@/lib/types";
+
+/**
+ * The Asset Studio onboarding session — the working Brand Brain carried across the
+ * page-based flow (Source → About → Focus → Building → Intelligence → Products →
+ * Shoot). Mounted once in app/studio/layout.tsx so it survives navigation between
+ * child routes without prop-drilling, and mirrored to localStorage["cc.activeBrand"]
+ * — the same handoff key the generation workspaces already read.
+ *
+ * Crucially, the brand RESEARCH runs here (not on a single page): the moment the user
+ * pastes their site it streams in the BACKGROUND while they answer the questionnaire,
+ * exactly like the "we'll build your brand kit while you answer a couple of quick
+ * questions" promise. Any onboarding screen can read `research` for a live panel.
+ */
+
+const KEY = "cc.activeBrand";
+
+export type ResearchDetails = {
+  website?: string;
+  instagram?: string;
+  competitors?: string[];
+  productCount?: number;
+  imageCount?: number;
+  palette?: { hex: string; role?: string }[];
+};
+
+export type ResearchState = {
+  started: boolean;
+  running: boolean;
+  done: boolean;
+  error: boolean;
+  details: ResearchDetails;
+};
+
+interface StudioCtx {
+  brain: BrandBrain;
+  hydrated: boolean;
+  catalog: StudioProduct[];
+  selectedIds: string[];
+  selectedProducts: StudioProduct[];
+  research: ResearchState;
+  setName: (name: string) => void;
+  setCategory: (category: string) => void;
+  setBrain: (b: BrandBrain) => void;
+  patch: (p: Partial<BrandBrain>) => void;
+  toggleProduct: (id: string) => void;
+  selectAll: () => void;
+  clearSelection: () => void;
+  /** Kick off (or resume) background research. Safe to call more than once — runs once. */
+  startResearch: (opts?: { website?: string; name?: string; category?: string }) => void;
+}
+
+const Ctx = createContext<StudioCtx | null>(null);
+
+export function StudioProvider({ children }: { children: React.ReactNode }) {
+  const [brain, setBrainState] = useState<BrandBrain>({});
+  const [hydrated, setHydrated] = useState(false);
+  const [research, setResearch] = useState<ResearchState>({
+    started: false, running: false, done: false, error: false, details: {},
+  });
+  const researchRan = useRef(false);
+
+  // Hydrate once from the shared session key.
+  useEffect(() => {
+    try {
+      const raw = localStorage.getItem(KEY);
+      if (raw) {
+        const b = JSON.parse(raw) as BrandBrain;
+        if (b && typeof b === "object") {
+          setBrainState(b);
+          if (b.ready) setResearch((r) => ({ ...r, started: true, done: true }));
+        }
+      }
+    } catch {
+      /* ignore */
+    }
+    setHydrated(true);
+  }, []);
+
+  // Persist on every change (after hydration, so we never clobber saved state with {}).
+  useEffect(() => {
+    if (!hydrated) return;
+    try { localStorage.setItem(KEY, JSON.stringify(brain)); } catch { /* ignore */ }
+  }, [brain, hydrated]);
+
+  const patch = useCallback((p: Partial<BrandBrain>) => setBrainState((b) => ({ ...b, ...p })), []);
+  const setBrain = useCallback((b: BrandBrain) => setBrainState(b), []);
+  const setName = useCallback((name: string) => setBrainState((b) => ({ ...b, name })), []);
+  const setCategory = useCallback((category: string) => setBrainState((b) => ({ ...b, category })), []);
+
+  const startResearch = useCallback((opts?: { website?: string; name?: string; category?: string }) => {
+    if (researchRan.current) return;
+    researchRan.current = true;
+    setResearch((r) => ({ ...r, started: true, running: true }));
+
+    (async () => {
+      // Pull latest identity from state at call time.
+      let name = opts?.name;
+      let category = opts?.category;
+      let website = opts?.website;
+      setBrainState((b) => {
+        name = name ?? b.name;
+        category = category ?? b.category;
+        website = website ?? b.website;
+        return b;
+      });
+
+      try {
+        const res = await fetch("/api/studio/research", {
+          method: "POST",
+          headers: { "content-type": "application/json" },
+          body: JSON.stringify({ name, category, website }),
+        });
+        const reader = res.body!.getReader();
+        const dec = new TextDecoder();
+        let buf = "";
+        for (;;) {
+          const { value, done } = await reader.read();
+          if (done) break;
+          buf += dec.decode(value, { stream: true });
+          let nl: number;
+          while ((nl = buf.indexOf("\n")) >= 0) {
+            const line = buf.slice(0, nl).trim();
+            buf = buf.slice(nl + 1);
+            if (!line) continue;
+            let m: any;
+            try { m = JSON.parse(line); } catch { continue; }
+            if (m.type === "meta") {
+              setResearch((r) => ({ ...r, details: { ...r.details, website: m.website || r.details.website, instagram: m.instagram || r.details.instagram, competitors: m.competitors?.length ? m.competitors : r.details.competitors } }));
+            } else if (m.type === "detail" && m.key === "catalog") {
+              setResearch((r) => ({ ...r, details: { ...r.details, productCount: m.productCount } }));
+            } else if (m.type === "detail" && m.key === "images") {
+              setResearch((r) => ({ ...r, details: { ...r.details, imageCount: m.imageCount, palette: m.palette?.length ? m.palette : r.details.palette } }));
+            } else if (m.type === "done") {
+              const fb = m.brain as BrandBrain;
+              // MERGE — never replace: the user's questionnaire answers landed after research started.
+              setBrainState((b) => ({ ...b, research: fb.research, intelligence: fb.intelligence, catalog: fb.catalog, ready: true }));
+              setResearch((r) => ({ ...r, running: false, done: true }));
+            } else if (m.type === "error") {
+              setResearch((r) => ({ ...r, running: false, done: true, error: true }));
+            }
+          }
+        }
+        setResearch((r) => (r.done ? r : { ...r, running: false, done: true }));
+      } catch {
+        setResearch((r) => ({ ...r, running: false, done: true, error: true }));
+      }
+    })();
+  }, []);
+
+  // Resume research after a mid-flow refresh: the provider remounts, but the pasted
+  // site is still in the persisted brain — pick it back up so the live panel keeps filling.
+  useEffect(() => {
+    if (!hydrated) return;
+    if (brain.website && !brain.ready && !brain.skippedResearch && !researchRan.current) {
+      startResearch();
+    }
+  }, [hydrated, brain.website, brain.ready, brain.skippedResearch, startResearch]);
+
+  const catalog = brain.catalog ?? [];
+  const selectedIds = brain.selectedProductIds ?? [];
+
+  const toggleProduct = useCallback((id: string) => {
+    setBrainState((b) => {
+      const cur = b.selectedProductIds ?? [];
+      const next = cur.includes(id) ? cur.filter((x) => x !== id) : [...cur, id];
+      return { ...b, selectedProductIds: next };
+    });
+  }, []);
+  const selectAll = useCallback(() => setBrainState((b) => ({ ...b, selectedProductIds: (b.catalog ?? []).map((p) => p.id) })), []);
+  const clearSelection = useCallback(() => setBrainState((b) => ({ ...b, selectedProductIds: [] })), []);
+
+  const selectedProducts = useMemo(
+    () => catalog.filter((p) => selectedIds.includes(p.id)),
+    [catalog, selectedIds]
+  );
+
+  const value: StudioCtx = {
+    brain, hydrated, catalog, selectedIds, selectedProducts, research,
+    setName, setCategory, setBrain, patch, toggleProduct, selectAll, clearSelection, startResearch,
+  };
+  return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
+}
+
+export function useStudio(): StudioCtx {
+  const c = useContext(Ctx);
+  if (!c) throw new Error("useStudio must be used within <StudioProvider>");
+  return c;
+}
+
+/** Derive a clean brand name from a pasted URL: fynwellness.com → "Fynwellness". */
+export function nameFromUrl(url: string): string {
+  try {
+    let u = url.trim();
+    if (!/^https?:\/\//.test(u)) u = "https://" + u;
+    const host = new URL(u).hostname.replace(/^www\./, "");
+    const base = host.split(".")[0] || host;
+    return base.replace(/[-_]+/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
+  } catch {
+    return url.trim();
+  }
+}

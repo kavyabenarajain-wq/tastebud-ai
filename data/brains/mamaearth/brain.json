@@ -1,0 +1,71 @@
+{
+  "name": "Mamaearth",
+  "category": "personal care & beauty",
+  "audience": "health-conscious and ingredient-aware consumers, especially young parents and families in India and other emerging markets who prefer gentle, toxin-free products",
+  "vibe": "clean, family-friendly, trustworthy, and slightly playful with an emphasis on safety, natural ingredients, and environmental responsibility",
+  "productType": "skin care, hair care, baby care, and personal care products formulated to be free from many conventional cosmetic chemicals (e.g., parabens, sulfates, silicones)",
+  "purpose": "to offer safe, gentle, and effective personal care products for both adults and children, positioned as toxin-free and dermatologically tested, filling the gap for trustworthy family-oriented care in the mass market",
+  "ideology": "promotes ‘toxin-free’, natural-leaning formulations, transparency about ingredients, and eco-conscious practices such as cruelty-free testing and initiatives like tree planting for orders; frames itself as a brand that protects the health of families and the planet while making better-for-you products accessible at scale",
+  "research": {
+    "summary": "Mamaearth is an Indian personal care and beauty brand focused on safe, toxin-free, MadeSafe-certified products for babies, families, and adults, spanning baby care, skincare, hair care, body care, and makeup. Its identity combines a nature-first, eco-conscious positioning with a warm, family-centric feel, using soft greens and warm neutrals to communicate trust, gentleness, and natural efficacy.",
+    "essence": "",
+    "voice": "",
+    "competitors": [
+      "WOW Skin Science",
+      "Plum Goodness",
+      "The Moms Co.",
+      "Purplle"
+    ],
+    "ambassadors": [
+      "Shilpa Shetty Kundra",
+      "Sara Ali Khan",
+      "Samantha Ruth Prabhu"
+    ],
+    "instagram": "https://www.instagram.com/mamaearth.in",
+    "website": "https://mamaearth.in",
+    "palette": [
+      {
+        "hex": "#8FB266",
+        "role": "primary soft sage green (logo/accents, nature cue)"
+      },
+      {
+        "hex": "#A7C596",
+        "role": "secondary light sage green (backgrounds, UI fills)"
+      },
+      {
+        "hex": "#6B9A57",
+        "role": "deep accent green (buttons, emphasis text, key CTAs)"
+      },
+      {
+        "hex": "#F9F9F9",
+        "role": "primary off-white background (site/packshot backdrop)"
+      },
+      {
+        "hex": "#F5F5DC",
+        "role": "light beige neutral (section blocks, photo surfaces)"
+      },
+      {
+        "hex": "#C6A58B",
+        "role": "soft brown accent (typography accents, props, wood tones)"
+      },
+      {
+        "hex": "#FFBF87",
+        "role": "soft peach/orange accent (highlight badges, playful details)"
+      },
+      {
+        "hex": "#ADD8E6",
+        "role": "soft baby blue accent (baby-care range cues and backgrounds)"
+      }
+    ],
+    "aesthetic": "On the website and @mamaearth.in, product imagery is either on seamless white or light beige tabletops and backdrops, or placed in bright, airy home spaces with pale walls, wooden or neutral linen surfaces, and occasional garden/park greenery; surfaces include smooth white plinths, light wood, ceramics, and folded towels/blankets. The colour grade is clean and slightly warm with medium contrast and true-to-life hues; greens, off-whites, and soft beiges dominate, with pops of brand green, peach, and baby blue from packaging, and the styling density is moderate—hero product plus a small cluster of raw ingredients (onion slices, aloe leaves, rice grains, flowers, herbs) and a few tactile props like wooden spoons or glass bowls. Lighting is soft, diffused daylight or daylight-mimicking studio light coming from one side (often 45° from left or right) with gentle shadows and minimal specular highlights, and compositions mix centered hero shots, 3/4 angle product shots, and simple flat-lays, cropped fairly tight on products but looser on lifestyle scenes. The feed alternates between product-only frames and lifestyle images featuring models—primarily mothers, babies, and families—shot in candid-feeling, eye-level compositions that show application moments, smiling interactions, and occasional over-the-shoulder detail shots.",
+    "foundReal": false,
+    "logo": "https://images.mamaearth.in/wysiwyg/cropped-Favicon-2-150x150.png",
+    "productImages": [
+      "https://st-images.honasa.in/Flash_Sale_GIF_Mobile_1205c307bb.gif",
+      "https://st-images.honasa.in/Flash_Sale_GIF_8394413e39.gif?width=&amp;qualilty="
+    ],
+    "products": [],
+    "sources": 19
+  },
+  "ready": true
+}

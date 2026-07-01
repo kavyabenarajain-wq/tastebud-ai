@@ -1,0 +1,135 @@
+{
+  "brandName": "fyn wellness",
+  "monogram": "FW",
+  "tagline": "",
+  "category": "",
+  "isApparel": false,
+  "mission": "",
+  "vision": "",
+  "positioning": "",
+  "purpose": "",
+  "manifesto": [],
+  "identityIntro": [],
+  "world": [],
+  "statement": [],
+  "beliefs": [],
+  "quotes": [],
+  "logo": {
+    "concept": [
+      "wordmark built from a single continuous line, where the y gently loops upward to suggest metabolism rising and a stir in a glass",
+      "soft, rounded lowercase letterforms with a subtle inner cut on the n that hints at a capsule cross-section",
+      "the mark stays purely typographic so it can sit comfortably on sachets, bottles and café menus without competing with the vivid blue liquid"
+    ],
+    "colorNote": "default logo uses the hero spirulina blue on light bases and reverses to coconut-white on dark grounds, so the wordmark always reads as a bright, crisp signal of hydration.",
+    "variations": [
+      {
+        "name": "Primary Wordmark",
+        "use": "hero use on packs, website masthead and education assets; fyn in hero spirulina blue on coconut base or clean photography."
+      },
+      {
+        "name": "Reversed Wordmark",
+        "use": "white wordmark on midnight ground for lids, seals, shippers and digital headers where the background is dark or saturated."
+      },
+      {
+        "name": "Monoline Outline",
+        "use": "single-line outline version in metabolic lime for merch, café collaborations and light-touch, playful applications where the brand wants to feel airy."
+      },
+      {
+        "name": "Horizontal Lockup with Descriptor",
+        "use": "wordmark paired with a small “spirulina wellness” line below, for new markets, B2B decks and café menus where clarity is critical."
+      }
+    ],
+    "safety": [
+      "keep at least the x-height of the letter y as clear space on all sides of the logo.",
+      "never place the logo directly on busy textures or gradients; always anchor it on a solid colour or a calm area of photography.",
+      "maintain minimum digital size of 80px width and print width of 20mm to preserve the inner cuts and rounded terminals."
+    ],
+    "donts": [
+      "Never redraw or modify the letterforms or turn the wordmark into a generic sans-serif.",
+      "Never apply drop shadows, bevels, glows or metallic effects to the logo.",
+      "Never stretch, compress or warp the logo to fit awkward spaces; scale proportionally only.",
+      "Never place the logo on colours outside the core palette, especially muddy greens that confuse the spirulina story.",
+      "Never use the metabolic lime version on very light bases where contrast is lost.",
+      "Never add extra words, taglines or icons inside the logo itself; keep any descriptors in the approved lockup only."
+    ]
+  },
+  "color": {
+    "philosophy": [
+      "fyn’s colour system is built around the moment the drink hits water: a cool, mineral blue bloom against a clean, coconut-white glass, sparked by a flash of neon metabolism. This palette stays mostly blue yet shifts away from generic sports hydration by leaning into inky spirulina depths and a singular electric lime accent.",
+      "Every shade has a job: dark tones ground the science, light tones express clarity and hydration, while a single bold accent signals energy and fun. The result is a palette that can live confidently on a single sachet today and still stretch to desserts, cafés and education content tomorrow without ever feeling like another copy-paste wellness brand."
+    ],
+    "palette": [
+      {
+        "name": "midnight spirulina",
+        "hex": "#021824",
+        "role": "near-dark ground primary",
+        "meaning": "a deep, inky blue-green that evokes spirulina ponds at night and anchors the brand’s scientific, trustworthy side."
+      },
+      {
+        "name": "hero bloom blue",
+        "hex": "#117CFF",
+        "role": "brand hero; primary blue",
+        "meaning": "the exact moment the drink turns vivid blue in water, used wherever fyn needs to feel instantly recognisable and own the spirulina glass."
+      },
+      {
+        "name": "cellular aqua",
+        "hex": "#2AD1C8",
+        "role": "supporting brand; hydration cues",
+        "meaning": "a cool aqua that speaks to cellular hydration and electrolytes, bridging the science of water with the joy of a pool day."
+      },
+      {
+        "name": "metabolic lime",
+        "hex": "#C3FF4D",
+        "role": "mid accent energy",
+        "meaning": "a sharp, almost neon lime used sparingly to signify metabolic activation, call-to-actions and playful sparks in layouts."
+      },
+      {
+        "name": "coconut chalk",
+        "hex": "#F6FBFA",
+        "role": "near-light base canvas",
+        "meaning": "a soft, coconut-infused white that feels clean yet warm, like a ceramic cup in a bright kitchen rather than a cold clinic."
+      },
+      {
+        "name": "dessert coral",
+        "hex": "#FF7A6C",
+        "role": "secondary brand warmth",
+        "meaning": "a juicy coral that hints at future spirulina desserts and café treats, adding human warmth and appetite without overpowering the blues."
+      }
+    ],
+    "hierarchy": [
+      {
+        "title": "STRUCTURE",
+        "sub": "midnight spirulina, coconut chalk",
+        "body": "use midnight spirulina for navigation bars, key headings on light backgrounds and solid grounds in packaging blocks; it’s the visual anchor of the system. pair it with coconut chalk as the default base for pages, labels and diagrams so all education content feels clear and breathable."
+      },
+      {
+        "title": "ABUNDANCE",
+        "sub": "hero bloom blue, cellular aqua",
+        "body": "let hero bloom blue carry most brand colour weight in charts, illustrations, icons and key product cues; this is the colour people should recall when they think “fyn.” use cellular aqua as a secondary wash for backgrounds, infographics and hydration-related elements, especially where you need softer contrast than pure blue offers."
+      },
+      {
+        "title": "HIGHLIGHT",
+        "sub": "metabolic lime, dessert coral",
+        "body": "reserve metabolic lime for accents: CTAs, key stats, dosage highlights and small UI details that signal action and metabolism. apply dessert coral to human moments—photography frames, dessert cues, tiny badges or café collaborations—so warmth and appetite appear intentionally, without diluting the blue-first identity."
+      }
+    ]
+  },
+  "typography": {
+    "philosophy": [],
+    "displayFont": "Bodoni Moda",
+    "sansFont": "Jost",
+    "fonts": [],
+    "scale": [],
+    "rules": [],
+    "inUse": []
+  },
+  "intentIntro": [],
+  "waxSeal": null,
+  "patternSystem": [],
+  "photography": {
+    "philosophy": [],
+    "inUse": []
+  },
+  "applications": [],
+  "intent": []
+}

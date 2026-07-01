@@ -1,0 +1,99 @@
+{
+  "name": "daily objects",
+  "research": {
+    "summary": "DailyObjects is a design-led Indian lifestyle accessories brand that turns everyday essentials like phone cases, bags, work tools and chargers into style-forward, functional objects. Their identity blends bold, modern colour accents with warm, earthy neutrals, supported by clean typography and soft, aspirational photography that shows products in real daily routines. The brand champions intentional living and self-expression through meticulously crafted accessories designed for tech, work, and on-the-go life.",
+    "essence": "",
+    "voice": "",
+    "competitors": [
+      "Chumbak",
+      "Spigen",
+      "Casetify",
+      "Bewakoof"
+    ],
+    "ambassadors": [
+      "Pankaj Garg (Founder & CEO)",
+      "Saurav Adlakha (Co-Founder & COO)"
+    ],
+    "instagram": "https://www.instagram.com/dailyobjects",
+    "website": "https://www.dailyobjects.com",
+    "palette": [
+      {
+        "hex": "#F57C1F",
+        "role": "accent tangerine (bold highlight for key products, CTA accents, and lifestyle pops)"
+      },
+      {
+        "hex": "#C24A37",
+        "role": "accent terracotta red (rich warm accent for cases, bags, and hero blocks)"
+      },
+      {
+        "hex": "#A9E5D0",
+        "role": "accent mint (fresh tech accent, especially in phone cases and small accessories)"
+      },
+      {
+        "hex": "#274C77",
+        "role": "accent indigo (deep cool anchor colour for tech accessories and UI elements)"
+      },
+      {
+        "hex": "#222426",
+        "role": "primary carbon (charcoal/black for text, key UI, and core product colourway)"
+      },
+      {
+        "hex": "#E0C29B",
+        "role": "supporting tan (backgrounds, bags, and lifestyle surfaces; warm neutral)"
+      },
+      {
+        "hex": "#8B5A2B",
+        "role": "supporting brown (leather/vegan leather products, trims, and props)"
+      },
+      {
+        "hex": "#F5F5F7",
+        "role": "background light neutral (seamless packshot backdrops and negative space)"
+      }
+    ],
+    "aesthetic": "DailyObjects’ feed mixes clean packshots and lifestyle scenes. BACKGROUNDS are mostly matte, seamless surfaces in light neutrals (off-white, warm grey) or solid brand colours (tangerine, mint, indigo) with occasional warm wood desks, concrete, and soft furnishings for lifestyle; surfaces include tidy workstations, tabletops, and floor drops for bags. COLOUR GRADE is bright and neutral-to-warm with medium contrast and slightly muted saturation so bold product colours stay rich but not oversaturated; palette leans to warm tans, browns, and charcoals with controlled pops of bright accent hues. STYLING is medium-density: products are heroed with a few purposeful props such as laptops, phones, cables, notebooks, coffee cups, plants and travel elements, arranged in tidy grids or gentle overlaps; clutter is avoided and negative space is preserved. LIGHTING is soft and even, mimicking diffused daylight from one side (often front/side), with gentle shadows and minimal specular highlights; reflections on screens and cases are controlled, giving a matte, approachable feel. COMPOSITIONS favor top-down and 45° angle shots for desk and tech scenes, straight-on or slightly low-angle for bags, with frequent close-up crops on textures and functional details; framing often centers or uses subtle rule-of-thirds with lots of breathing room and occasional multi-product flatlays. They regularly shoot both product-only and lifestyle-with-models: product-only for clean grids, packshots and colour-lineups, and models or hands in frame for carry moments, desk usage, and travel scenes to show scale and real-world use.",
+    "foundReal": false,
+    "logo": "https://www.dailyobjects.com/favicon.png",
+    "productImages": [
+      "https://www.dailyobjects.com/blog/wp-content/uploads/2026/02/loop-magnetic-wireless-powerbank-stand-charging.jpg",
+      "https://www.dailyobjects.com/blog/wp-content/uploads/2026/02/stack-samsung-accessories-ecosystem-s26.jpg.jpg",
+      "https://www.dailyobjects.com/blog/wp-content/uploads/2026/02/how-to-choose-laptop-stand-for-bed-setup.jpg.jpg",
+      "https://www.dailyobjects.com/blog/wp-content/uploads/2026/02/best-phone-wallet-stand-for-travel-airport-setup.jpg.jpg",
+      "https://images.dailyobjects.com/marche/assets/images/other-2/OG-1image.jpg?tr=cm-pad_crop,v-4,w-300,h-200",
+      "https://images.dailyobjects.com/marche/assets/images/other/new-collections.jpg?tr=cm-pad_crop,v-3?tr=cm-pad_resize,v-3,q-auto,f-auto,w-140,h-140,dpr-2",
+      "https://images.dailyobjects.com/marche/assets/images/other-2/birthday-offer-strip-desktop-v6.jpg?tr=cm-pad_crop,v-3",
+      "https://images.dailyobjects.com/marche/assets/images/other/features-desktops.png?tr=cm-pad_resize,v-3,dpr-2,q-80"
+    ],
+    "products": [
+      {
+        "name": "The Celebrated Stack Ecosystem Arrives for Samsung"
+      },
+      {
+        "name": "The Art of Tech Organisation: Meet the DailyObjects Trio"
+      },
+      {
+        "name": "How to Get the Best Out of Your Loop Powerbank",
+        "image": "https://www.dailyobjects.com/blog/wp-content/uploads/2026/02/loop-magnetic-wireless-powerbank-stand-charging.jpg"
+      },
+      {
+        "name": "Portable, Foldable or Adjustable? Picking the Right Laptop Stand for Bed Use"
+      },
+      {
+        "name": "Minimal Travel Wallet Ideas for People Who Hate Carrying Too Much"
+      },
+      {
+        "name": "DailyObjects Stack for Samsung S26 Series",
+        "image": "https://www.dailyobjects.com/blog/wp-content/uploads/2026/02/stack-samsung-accessories-ecosystem-s26.jpg.jpg"
+      },
+      {
+        "name": "How to Choose Laptop Stand for Bed Comfort &amp; Support",
+        "image": "https://www.dailyobjects.com/blog/wp-content/uploads/2026/02/how-to-choose-laptop-stand-for-bed-setup.jpg.jpg"
+      },
+      {
+        "name": "Best Phone Wallet Stand for Travel: Minimal Ideas",
+        "image": "https://www.dailyobjects.com/blog/wp-content/uploads/2026/02/best-phone-wallet-stand-for-travel-airport-setup.jpg.jpg"
+      }
+    ],
+    "sources": 2
+  },
+  "ready": true
+}

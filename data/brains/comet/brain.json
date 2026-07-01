@@ -1,0 +1,3033 @@
+{
+  "name": "comet",
+  "research": {
+    "summary": "Comet is a fast-growing homegrown Indian lifestyle sneaker brand (founded 2023) focused on unisex, design-led drops that fuse bold aesthetics, Indian cultural storytelling, and immersive unboxing experiences for Gen Z and millennial trailblazers.",
+    "essence": "Comet is India's cultural supernova, igniting individuality and fearless self-expression through meticulously crafted sneakers that are designed not just to be worn, but to be experienced.",
+    "voice": "Bold, unapologetic, disruptive, passionate, and expressive, speaking in confident, culture-first language that rallies a community of trailblazers and “Cometeers” to cut through, break the pattern, and live never shy, never sorry.",
+    "competitors": [
+      "Gully Labs",
+      "Thaely",
+      "Neeman's",
+      "CHNKS"
+    ],
+    "ambassadors": [
+      "Utkarsh Gupta",
+      "Dishant Daryani",
+      "Santanu Hazarika"
+    ],
+    "instagram": "https://www.instagram.com/thecometuniverse",
+    "website": "https://wearcomet.com",
+    "palette": [
+      {
+        "hex": "#2765fa",
+        "role": "Primary brand blue – used in digital interfaces, accents and graphic elements."
+      },
+      {
+        "hex": "#ef426f",
+        "role": "Accent berry – highlights, buttons, pop details on sneakers and graphics."
+      },
+      {
+        "hex": "#eaef29",
+        "role": "Highlight yellow – energetic contrast in drops, packaging and backgrounds."
+      },
+      {
+        "hex": "#f2f1f0",
+        "role": "Base light grey – product backdrops, UI backgrounds and negative space."
+      },
+      {
+        "hex": "#000000",
+        "role": "Core black – typography, outlines, sneaker uppers and urban settings."
+      }
+    ],
+    "aesthetic": "Photography is punchy drop-focused sneaker and lifestyle imagery with a strong culture-first narrative. Backgrounds and surfaces alternate between clean studio setups (light grey, off-white or bold solid colour backdrops, simple seamless paper, minimal platforms) and urban Indian textures (streets, concrete, metal shutters, tiled floors, matchbox walls, everyday objects) that ground the story. Colour grade is high-contrast and vibrant with saturated blues, yellows and berries, crisp whites and deep blacks; images lean slightly warm in skin tones while keeping sneaker colours true and punchy, often with subtle filmic grain rather than flat commercial polish. Styling density is medium-to-high: sneakers are paired with contemporary streetwear fits (oversized tees, cargos, denim, hoodies) and locally resonant props that tie into each drop’s concept—vintage Indian matchboxes, mangoes and fruit crates, firecrackers, glow elements, knives for peel-away uppers, packaging boxes and tissue—arranged to feel intentional but still spontaneous. Lighting mixes controlled studio light (soft but directional from one key side, sometimes with harder shadows for drama and specular highlights on leather, mesh and soles) with natural daylight for on-street and lifestyle shots; studio images often use overhead or three-quarter front lighting to emphasise textures, while outdoor shots use available light with occasional backlit flares. Crops and compositions favour dynamic angles and close-ups of uppers, soles, textures, stitching and special features (matchbox striker strip, peel layers, sharkfin plate), intercut with mid and full-body portraits of diverse models in motion—walking, jumping, leaning, interacting with props—often shot slightly low angle to give sneakers dominance. Framing frequently puts the shoe in the foreground with the model blurred behind, or uses tight crops on feet and lower legs to emphasise silhouette. There is a deliberate mix of product-only shots (shoes floating, on plinths, against flat coloured or textured backdrops) and lifestyle/model-driven imagery, with roughly equal weight; hero drops get cinematic product stills plus campaign-style sequences that showcase the broader “Comet universe” rather than isolated catalogue shots.",
+    "foundReal": true,
+    "logo": "https://www.wearcomet.com/cdn/shop/files/comet_tshirt-05_1.png?v=1685961704&width=480",
+    "productImages": [
+      "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Lateral_9_eb31b7ba-b368-43d3-a138-6023e5ce47d3.jpg?v=1782806103",
+      "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/NewLateral_3_e4e8ae15-5489-40b1-9807-dccc89cf3935.jpg?v=1782736249",
+      "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Sold_Out.jpg?v=1782361023",
+      "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/PDP_picnic_blue_flap__1.jpg?v=1782128706",
+      "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/PDP_picnic_red_flap__1.jpg?v=1782128944",
+      "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Untitled-7-Recovered.jpg?v=1781268520",
+      "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Lateral-view-min_39317707-dec2-41d0-aec7-8fd786c515c3.jpg?v=1708611242",
+      "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/0008_Vulcan-min.jpg?v=1754657616",
+      "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/0004_Titan-min.jpg?v=1754657658",
+      "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/0003_Waldorf-min.jpg?v=1754657858",
+      "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/0002_Trickster-min.jpg?v=1754657895",
+      "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/0006_Maverick-min.jpg?v=1754657934"
+    ],
+    "products": [
+      {
+        "name": "X Lows SNAPBACK",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Lateral_9_eb31b7ba-b368-43d3-a138-6023e5ce47d3.jpg?v=1782806103"
+      },
+      {
+        "name": "X Lows VIPER",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/NewLateral_3_e4e8ae15-5489-40b1-9807-dccc89cf3935.jpg?v=1782736249"
+      },
+      {
+        "name": "MAACHIS",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Sold_Out.jpg?v=1782361023"
+      },
+      {
+        "name": "Aeres PICNIC BLUE",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/PDP_picnic_blue_flap__1.jpg?v=1782128706"
+      },
+      {
+        "name": "Aeres PICNIC RED",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/PDP_picnic_red_flap__1.jpg?v=1782128944"
+      },
+      {
+        "name": "Official FAFO 2026 REFEREE KIT",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Untitled-7-Recovered.jpg?v=1781268520"
+      },
+      {
+        "name": "Aeon TURQUOISE",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Lateral-view-min_39317707-dec2-41d0-aec7-8fd786c515c3.jpg?v=1708611242"
+      },
+      {
+        "name": "Alter VULCAN",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/0008_Vulcan-min.jpg?v=1754657616"
+      },
+      {
+        "name": "Alter TITAN",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/0004_Titan-min.jpg?v=1754657658"
+      },
+      {
+        "name": "Alter WALDORF",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/0003_Waldorf-min.jpg?v=1754657858"
+      },
+      {
+        "name": "Alter TRICKSTER",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/0002_Trickster-min.jpg?v=1754657895"
+      },
+      {
+        "name": "Alter MAVERICK",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/0006_Maverick-min.jpg?v=1754657934"
+      },
+      {
+        "name": "Alter CINNAMON",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/lateralds.jpg?v=1771262284"
+      },
+      {
+        "name": "COMET x PEANUTS “SKY\"",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/whitepeanutsnewlateral-min.png?v=1766391180"
+      },
+      {
+        "name": "COMET x PEANUTS “SPACE\"",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/black_peanuts_new_lateral-min.png?v=1766389086"
+      },
+      {
+        "name": "Alter HUKUM BLACK",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/black_lateral_DS_1_-min_main.jpg?v=1759563896"
+      },
+      {
+        "name": "Alter HUKUM IVORY",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/LATERAL_MAIN_DS_1_-min_main.jpg?v=1759563921"
+      },
+      {
+        "name": "COMET x NARU",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/lateral-min_cf53a3c7-3512-4188-bf6a-8927180f450e.jpg?v=1753942010"
+      },
+      {
+        "name": "Aeres MINT",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Lateral_5_16bc0681-11f4-4a53-a0dd-7ebcc1facf00.jpg?v=1780056911"
+      },
+      {
+        "name": "Aeres ROSÉ",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Lateral_4.jpg?v=1780056801"
+      },
+      {
+        "name": "Aeres HAZE",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Lateral_3_d39c306f-0d32-4a89-9981-4fb510170d32.jpg?v=1780056520"
+      },
+      {
+        "name": "Aeres HALO",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Lateral_2_fa79ceb6-5d60-4d1b-8634-b4b19d1269b5.jpg?v=1780056106"
+      },
+      {
+        "name": "Aeres INFERNO",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Lateral_1_ba08689f-0f11-4d68-885c-690b503e96b7.jpg?v=1780055976"
+      },
+      {
+        "name": "Aeres OAKWOOD",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/NewLateral_3.jpg?v=1780055689"
+      },
+      {
+        "name": "Aeres MIST",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/NewLateral_2.jpg?v=1780055382"
+      },
+      {
+        "name": "Aeres NOIR",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/NewLateral_1_d6e77143-bfd4-486f-9fb5-18f652758969.jpg?v=1780055123"
+      },
+      {
+        "name": "Aeres COBALT",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/NewLateral_31bb85d9-d638-4bc3-b2cb-04daf261a0a2.jpg?v=1780052519"
+      },
+      {
+        "name": "GET DUCK'D",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/the_vault.jpg?v=1779171037"
+      },
+      {
+        "name": "LACES",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/lace6_5e306e91-00c8-4e00-a800-8323b9e6112c.jpg?v=1692603055"
+      },
+      {
+        "name": "X Lows MALIBU",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Lateralnew.jpg?v=1778672031"
+      },
+      {
+        "name": "Apex NIMBU PAANI",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Artboard_1_copy_4_1_a0165cbb-3d98-44a4-ba60-d2e6be996e2d.jpg?v=1778758398"
+      },
+      {
+        "name": "Apex CYBERPUNK",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/cyberpunk_lateral_1.jpg?v=1778482879"
+      },
+      {
+        "name": "X Lows POPSTAR",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Untitled-6_15.jpg?v=1778048082"
+      },
+      {
+        "name": "Apex EVERGREEN",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Silver_GreenLateral_1.jpg?v=1778475796"
+      },
+      {
+        "name": "Apex MIRAGE",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/grey_white_1.jpg?v=1778475796"
+      },
+      {
+        "name": "Apex DUNE",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/brown_1.jpg?v=1778475796"
+      },
+      {
+        "name": "Apex ONYX",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Silver_Gold_Lateral_1.jpg?v=1778475796"
+      },
+      {
+        "name": "Apex SHOCKWAVE",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/silver_blue_1.jpg?v=1778475796"
+      },
+      {
+        "name": "Apex DARKMATTER",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Black_Lateral_1.jpg?v=1778475796"
+      },
+      {
+        "name": "COMET x VERONICA'S",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/1_1_a005acde-9cbd-42bf-99dd-b9962f196e9b.jpg?v=1776671468"
+      },
+      {
+        "name": "X Lows COSMO",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/designer_special_placement.jpg?v=1775626146"
+      },
+      {
+        "name": "X Lows MEZCAL",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/designer_special_placement_green_croc.jpg?v=1775626170"
+      },
+      {
+        "name": "X Lows WITH LOVE",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/lateral.1jpg.jpg?v=1774262362"
+      },
+      {
+        "name": "X Lows MOROCCO",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Lateral_7.jpg?v=1773829406"
+      },
+      {
+        "name": "Aeon V2 WOODPECKER",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Lateral_1_253e065d-72de-43f0-bf65-f3b0ff1e8dd5.jpg?v=1773746365"
+      },
+      {
+        "name": "Aeon V2 PHANTOM",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/lat2.jpg?v=1773242960"
+      },
+      {
+        "name": "Aeon V2 OYSTER",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Lateralwhite.jpg?v=1773387233"
+      },
+      {
+        "name": "ORANGE",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/01.jpg?v=1772786014"
+      },
+      {
+        "name": "Aeon V2 PRIMROSE",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Lateral_5.jpg?v=1772714530"
+      },
+      {
+        "name": "X Lows REWIND",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Lateral_4_1_da4a0672-4105-402c-8c09-79e65b7b668a.jpg?v=1772442647"
+      },
+      {
+        "name": "X Lows SADDLE BROWN",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Untitledjpg.jpg?v=1772195016"
+      },
+      {
+        "name": "X Lows CEDAR GREEN",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Untitled-4_8.jpg?v=1772183623"
+      },
+      {
+        "name": "X Lows PIANO BLACK",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Untitled-4_9_2a1f807b-3fa5-4b06-bc29-61bd73137940.jpg?v=1772195178"
+      },
+      {
+        "name": "X Lows POLARIS",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Untitled-2_2_1.jpg?v=1771571363"
+      },
+      {
+        "name": "Apex BUTTERCREAM",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/new_lat.jpg?v=1771499881"
+      },
+      {
+        "name": "SKRIBBLE",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/skribble_final_lateral_1-min.jpg?v=1765877068"
+      },
+      {
+        "name": "Apex KATANA",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Untitled-2_6_1.jpg?v=1778484556"
+      },
+      {
+        "name": "COMET X ODDNOTEVEN",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Untitled-1.jpg?v=1770121908"
+      },
+      {
+        "name": "Apex STARFIRE",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Starfire_1_42ca6d20-afe6-41f9-bf13-28ba11f21318.jpg?v=1778483693"
+      },
+      {
+        "name": "Apex STRATOS",
+        "image": "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Lateral_1_1_1.jpg?v=1778484411"
+      }
+    ],
+    "sources": 25
+  },
+  "ready": true,
+  "category": "Footwear",
+  "intelligence": {
+    "overview": "Comet is a homegrown Indian lifestyle brand specializing in unisex sneakers, founded in 2023 to disrupt the conventional sneaker market with fearless design and narrative-led product experiences. It fuses bold cultural storytelling, quality craftsmanship, and drop-driven releases to create sneakers that are as much about expression and experience as they are about comfort.",
+    "purpose": "To create a homegrown brand with products that speak for themselves, prioritizing design, quality, craftsmanship, and storytelling.",
+    "mission": "To build a community of trailblazers who live unapologetically, inspire, aspire, and give their all, proving that passion takes you places.",
+    "vision": "To leave a mark as bright as a comet streaking across the night sky, disrupting monotony and fostering a culture within India that has not been seen before.",
+    "story": "Comet was founded in 2023 by Utkarsh Gupta and Dishant Daryani, who, after years in the corporate world in Chicago and Boston, felt that global sneaker culture was unrelatable to India. They returned home to fill this gap, building Comet out of passion as a brand that speaks to Indian cultural realities and aspirations. The name and shooting star logo symbolize breaking patterns, cutting through, and living on one’s own terms, much like a comet streaking through the night sky. Their debut drop, Mango, launched in July 2023, drew directly from Indian cultural references and set the tone for a culture-first, narrative-led sneaker brand.",
+    "values": [
+      "Craftsmanship",
+      "Design-first",
+      "Quality",
+      "Storytelling",
+      "Disrupting the pattern",
+      "Fearlessness",
+      "Uninhibited living",
+      "Community-led",
+      "Passion"
+    ],
+    "positioning": "Be a Comet. Never Shy, Never Sorry. Some people follow paths. Some people cut through and break the pattern.",
+    "audience": "Young, fashion-forward millennials and Gen-Z consumers in urban India who seek unique, high-quality, comfortable unisex sneakers that express individuality and a fearless, uninhibited lifestyle, especially those who identify as trailblazers and Cometeers.",
+    "persona": "Rohan or Priya is 24–29, living in a metro like Bengaluru, Mumbai, or Delhi, and working in a creative field, running a small venture, or finishing university. Their feed is full of streetwear moodboards, indie music, art, and homegrown brands; they care about conscious consumption and love discovering Indian labels that feel global but still culturally rooted. They go from co-working spaces to gigs to late-night drives, wanting sneakers that are comfortable, durable, and make a statement. Standing out matters: they challenge norms, experiment with bold fits, and use Comet drops and their storytelling packaging as extensions of their identity, happily filming unboxings and sharing them with their circle.",
+    "toneOfVoice": "Bold, unapologetic, disruptive, passionate, expressive.",
+    "personality": [
+      "Trailblazing",
+      "Innovative",
+      "Confident",
+      "Authentic",
+      "Energetic",
+      "Experimental"
+    ],
+    "palette": [
+      {
+        "hex": "#2765fa",
+        "role": "Primary brand blue – used in digital interfaces, accents and graphic elements."
+      },
+      {
+        "hex": "#ef426f",
+        "role": "Accent berry – highlights, buttons, pop details on sneakers and graphics."
+      },
+      {
+        "hex": "#eaef29",
+        "role": "Highlight yellow – energetic contrast in drops, packaging and backgrounds."
+      },
+      {
+        "hex": "#f2f1f0",
+        "role": "Base light grey – product backdrops, UI backgrounds and negative space."
+      },
+      {
+        "hex": "#000000",
+        "role": "Core black – typography, outlines, sneaker uppers and urban settings."
+      }
+    ],
+    "typography": {
+      "display": "Space Grotesk, modern, bold sans-serif used for headings and sub-headings.",
+      "text": "Montserrat, clean, contemporary sans-serif used for paragraph copy, headings, and highlights.",
+      "note": "Overall typography feels modern, sans-serif, clean, and bold, reinforcing a futuristic yet approachable streetwear aesthetic."
+    },
+    "logo": "https://www.wearcomet.com/cdn/shop/files/comet_tshirt-05_1.png?v=1685961704&width=480",
+    "logoSystem": "A stylized shooting star or comet graphic that can be rendered as a mark, pattern, or tactile element on footwear, designed to be versatile across stitches, textures, and materials so the logo itself defines the product’s style and perception.",
+    "photographyStyle": "Vibrant, dynamic, fashion-forward imagery that blends culture-first storytelling with streetwear sensibility. Products are shot against urban, textured, or culturally resonant backdrops, with energetic and bold color grading that emphasizes contrasting pops and diverse colorways. Styling leans into contemporary Indian streetwear and narrative props such as vintage matchboxes or fruit for the Mango drop, using a mix of dramatic studio lighting for detail shots and natural light for lifestyle scenes. Compositions alternate between tight macro angles on soles, textures, and special features and full-body shots with diverse models, maintaining a strong balance of product-only and model-driven content to broadcast a Gen Z-friendly, community-led culture.",
+    "packagingStyle": "Highly innovative, experiential, and storytelling-led, turning every unboxing into an event. Signature executions include life-sized Comet matchbox packaging for the Maachis sneaker with a functional striker strip under the heel tab, and a sneaker with a peel-away outer layer accompanied by a utility knife in the box to reveal a hidden color. Standard packaging adds a dust bag and an envelope with care instructions and stickers, all designed to be shareable and to encourage customers to film and post their unboxing moments.",
+    "visualIdentity": "A bold, culture-forward design system built around saturated primary and neon-adjacent colors, modern grotesk typography, and the comet shooting-star icon deployed as both mark and material detail. Visuals lean into high contrast, narrative motifs, and drop-specific storytelling—matchbox art, fruit, fireflies, fireworks—creating a cohesive yet constantly evolving universe that feels futuristic, Indian, and unapologetically expressive.",
+    "competitors": [
+      {
+        "name": "Gully Labs",
+        "note": "Premium homegrown Indian sneaker brand with designs rooted in Indian cultural storytelling, appealing to similar culture-first, design-conscious consumers."
+      },
+      {
+        "name": "Thaely",
+        "note": "Indian sneaker brand known for sustainability, making shoes from recycled plastic bags and targeting eco-conscious buyers in the same lifestyle space."
+      },
+      {
+        "name": "Neeman's",
+        "note": "Comfort-focused, eco-friendly footwear brand using natural materials like merino wool and recycled PET, competing for everyday wear and value in the mass-premium segment."
+      },
+      {
+        "name": "CHNKS",
+        "note": "Minimalist sneaker brand prioritizing clean form and function, offering a quieter alternative to Comet’s bold, narrative-heavy sneakers."
+      }
+    ],
+    "social": [
+      {
+        "platform": "Instagram",
+        "handle": "@thecometuniverse",
+        "url": "https://www.instagram.com/thecometuniverse",
+        "note": "Primary platform with frequent, visually driven posts featuring high-quality product shots, lifestyle imagery with diverse models, bold graphics, and content that highlights drops, innovative packaging, and Indian cultural inspiration; voice is bold, confident, and community-focused, actively engaging Cometeers around the Never Shy, Never Sorry ethos."
+      }
+    ],
+    "press": [],
+    "insights": [
+      "Cultural storytelling is Comet’s core differentiator: by embedding distinctly Indian references into silhouettes, colorways, naming, and packaging, the brand makes sneaker culture feel locally relevant and emotionally resonant for an audience long catered to by imported narratives.",
+      "Experience-led product and packaging design turns every release into a shareable moment, deliberately engineering unboxings and tactile interactions that convert customers into content creators and amplify organic reach around each drop.",
+      "A direct-to-consumer model combined with a named community (Cometeers) gives Comet tight control over narrative, pricing, and experience while enabling rapid feedback loops and deep loyalty that are critical for a challenger brand in the mass-premium segment.",
+      "Mastery of drop culture—limited, narrative-led releases with strong visual identity—drives urgency, scarcity, and repeat engagement, positioning Comet closer to global hype-sneaker behavior while staying rooted in Indian stories.",
+      "By occupying the ₹4,000–₹5,000 price band, Comet smartly targets a gap where global brands struggle to compete without diluting their premium tiers and budget brands cannot match on design, storytelling, or perceived cool factor.",
+      "Sustaining long-term brand equity will depend on balancing hype with hard performance: proactively addressing concerns around creasing, material choice, and comfort consistency will be essential to convert buzz and aspiration into durable trust."
+    ],
+    "website": "https://wearcomet.com",
+    "instagram": "https://www.instagram.com/thecometuniverse",
+    "sources": 25,
+    "foundReal": true,
+    "inferred": false
+  },
+  "catalog": [
+    {
+      "id": "x-lows-snapback",
+      "name": "X Lows SNAPBACK",
+      "category": "X Lows",
+      "collection": "Active",
+      "description": "Snapback is proof that good design never goes out of style. Inspired by an era when sporting style extended well beyond the game, Snapback captures that timeless energy in a modern silhouette. Built on the X Lows, this pair combines a crisp white canvas upper with a maroon shooting star, bringing an old-school attitude into the present. Designed to be worn on repeat, Snapback is an everyday staple you'll reach for, time and again. - Ever-soft and ever-snug grip - A roomier to",
+      "variants": [
+        "Maroon Beige / 3",
+        "Maroon Beige / 4",
+        "Maroon Beige / 5",
+        "Maroon Beige / 6",
+        "Maroon Beige / 7",
+        "Maroon Beige / 8",
+        "Maroon Beige / 9",
+        "Maroon Beige / 10",
+        "Maroon Beige / 11",
+        "Maroon Beige / 12"
+      ],
+      "sizes": [
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12"
+      ],
+      "colours": [
+        "Maroon Beige"
+      ],
+      "price": "4299.00",
+      "url": "https://wearcomet.com/products/x-lows-snapback",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Lateral_9_eb31b7ba-b368-43d3-a138-6023e5ce47d3.jpg?v=1782806103",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Zoom_2.jpg?v=1782806103",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Front3_4_15_3cecec6b-0ee8-47be-b06f-31f3f4c050de.jpg?v=1782806103",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/OnFeet_2_0832cfe5-536e-4c9f-bed2-2a5043a96a3f.jpg?v=1782806103",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Sole_14.jpg?v=1782806105",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Angle2_13.jpg?v=1782806103",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/BackZoom_14_c47fb846-a2a9-4d59-af1c-3e20cc8b06a8.jpg?v=1782806103",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Angle1_14.jpg?v=1782806103"
+      ]
+    },
+    {
+      "id": "x-lows-viper",
+      "name": "X Lows VIPER",
+      "category": "X Lows",
+      "collection": "Active",
+      "description": "There's power in knowing exactly when to stand out. Viper does that perfectly. Built on the X Lows, Viper is designed with clean lines, classic contrast and a sharp focus on the details that actually matter. The shoe pairs premium white microfibre upper and a dark green shooting star bringing a fresh edge to an everyday classic. True to its name, Viper proves that the sharpest presence is often the most understated. - Ever-soft and ever-snug grip - Roomy toe box lets our broa",
+      "variants": [
+        "Green Beige / 3",
+        "Green Beige / 4",
+        "Green Beige / 5",
+        "Green Beige / 6",
+        "Green Beige / 7",
+        "Green Beige / 8",
+        "Green Beige / 9",
+        "Green Beige / 10",
+        "Green Beige / 11",
+        "Green Beige / 12"
+      ],
+      "sizes": [
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12"
+      ],
+      "colours": [
+        "Green Beige"
+      ],
+      "price": "4299.00",
+      "url": "https://wearcomet.com/products/x-lows-viper",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/NewLateral_3_e4e8ae15-5489-40b1-9807-dccc89cf3935.jpg?v=1782736249",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Zoom_3_5dac91ce-4728-4ee6-8295-16a11d4e586c.jpg?v=1782736249",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Front3_4_17_ee253d97-13cf-4ee4-b27c-9a5d58da56d1.jpg?v=1782736250",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/OnFeet_3_3c915a5e-13b3-4206-a4a0-c5b54d33c1ef.jpg?v=1782736250",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Sole_15_17d43690-a034-4563-9163-b9bdcb2d3a92.jpg?v=1782736250",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Angle2_14_caa3da5d-8ccd-4fe5-b004-68edc42ba500.jpg?v=1782736250",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/BackZoom_15_bc919799-5aca-42a7-b18b-457077c0337f.jpg?v=1782736250",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Angle1_15_e1a90840-ca73-4746-a539-f3cb399a5d9a.jpg?v=1782736250"
+      ]
+    },
+    {
+      "id": "shopify-10242148172083",
+      "name": "MAACHIS",
+      "category": "The Vault",
+      "collection": "Active",
+      "description": "Built on the Aeres silhouette, Maachis is inspired by India’s vintage matchbox art the absolute thrill of lighting a match! The shoe comes packaged in a life-sized Comet matchbox. Tucked beneath the back tab is a functional striker strip that can actually light a match - literal fire at your heel. The upper combines soft microfibre and suede overlays, while the inner is lined with rich matchbox art. The signature shooting star is re-lit with bold reds, striking typography and",
+      "variants": [
+        "Multi Beige / 4",
+        "Multi Beige / 5",
+        "Multi Beige / 6",
+        "Multi Beige / 7",
+        "Multi Beige / 8",
+        "Multi Beige / 9",
+        "Multi Beige / 10",
+        "Multi Beige / 11",
+        "Multi Beige / 12"
+      ],
+      "sizes": [
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12"
+      ],
+      "colours": [
+        "Multi Beige"
+      ],
+      "price": "5899.00",
+      "url": "https://wearcomet.com/products/aeres-maachis",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Sold_Out.jpg?v=1782361023",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Shot_1_vault_1_mobile.jpg?v=1782195175",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/FrontZoom_0b0ecb81-248d-4a72-b121-58bf0d201022.jpg?v=1781865073",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Untitled-10_1_25529e49-7bab-40f3-aeff-eb85a53f1817.jpg?v=1781870319",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Front3_4_cc8b9bd9-1712-45ea-8fdb-2d2c35bfd5bc.jpg?v=1781865073",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Shot2.jpg?v=1781865074",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/OnFeet_1ac2c16e-bd59-404f-b061-1c47603524f1.jpg?v=1781865073",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Back3_4_a0d641ac-aeb3-478c-b8d4-89d9660531c5.jpg?v=1781865073"
+      ]
+    },
+    {
+      "id": "shopify-10227462373683",
+      "name": "Aeres PICNIC BLUE",
+      "category": "Aeres",
+      "collection": "Active",
+      "description": "There was a specific kind of magic to childhood picnics - Fresh mangoes dusted with chilli powder, good company and afternoons that felt endless. Introducing Picnic: Our newest Designer Special. Built on the Aeres, Picnic is our ode to those slow-moving summer memories, captured through meticulous craftsmanship. Built on a microfibre base, the shoe combines basket-weave textures with a classic gingham lining within. The standout element is a detachable gingham fold-over tongu",
+      "variants": [
+        "Picnic Blue / 3",
+        "Picnic Blue / 4",
+        "Picnic Blue / 5",
+        "Picnic Blue / 6",
+        "Picnic Blue / 7",
+        "Picnic Blue / 8",
+        "Picnic Blue / 9",
+        "Picnic Blue / 10",
+        "Picnic Blue / 11",
+        "Picnic Blue / 12"
+      ],
+      "sizes": [
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12"
+      ],
+      "colours": [
+        "Picnic Blue"
+      ],
+      "price": "5499.00",
+      "url": "https://wearcomet.com/products/aeres-picnic-blue",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/PDP_picnic_blue_flap__1.jpg?v=1782128706",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/PDP_picnic_blue_flap_top_6833ca11-5aee-4a33-ac49-5b3c1d2745c6.jpg?v=1782113400",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/OnFeet2_05efcdb6-413b-40a2-b9ae-89644af751ea.jpg?v=1781097006",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/OnFeet_63dca1bb-a97b-4ca9-bc8c-06906100546e.jpg?v=1781097005",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Untitled-1_7fccc2df-61c1-420a-9a57-8f42080c20ee.jpg?v=1782113401",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/PDP_both_picnic_blue_wo_flap_top_copy_e6596fc1-8d8c-4f64-a667-c25af7b18624.jpg?v=1782113400",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/PDP_picnic_blue_flap_back_7fd405ae-fac1-4651-932e-5c2460c6fdb4.jpg?v=1782113400",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/PDP_both_picnic_blue_wo_flap_top_back_both_copy_501e0f40-25f5-4acd-ab72-1e339efe7a19.jpg?v=1782113398"
+      ]
+    },
+    {
+      "id": "aeres-picnic-red",
+      "name": "Aeres PICNIC RED",
+      "category": "Aeres",
+      "collection": "Active",
+      "description": "There was a specific kind of magic to childhood picnics - Fresh mangoes dusted with chilli powder, good company and afternoons that felt endless. Introducing Picnic: Our newest Designer Special. Built on the Aeres, Picnic is our ode to those slow-moving summer memories, captured through meticulous craftsmanship. Built on a microfibre base, the shoe combines basket-weave textures with a classic gingham lining within. The standout element is a detachable gingham fold-over tongu",
+      "variants": [
+        "Picnic Red / 3",
+        "Picnic Red / 4",
+        "Picnic Red / 5",
+        "Picnic Red / 6",
+        "Picnic Red / 7",
+        "Picnic Red / 8",
+        "Picnic Red / 9",
+        "Picnic Red / 10",
+        "Picnic Red / 11",
+        "Picnic Red / 12"
+      ],
+      "sizes": [
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12"
+      ],
+      "colours": [
+        "Picnic Red"
+      ],
+      "price": "5499.00",
+      "url": "https://wearcomet.com/products/aeres-picnic-red",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/PDP_picnic_red_flap__1.jpg?v=1782128944",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/PDP_picnic_blue_flap_top.jpg?v=1782113159",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/OnFeet3_223f95b0-76ad-4dad-bc5f-4e5292ca0b59.jpg?v=1781095625",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/OnFeet_1.jpg?v=1781095626",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Untitled-1_70bd7e30-fefe-4ed7-9b1f-9514e400edc2.jpg?v=1782113158",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/PDP_picnic_red_flap_back_6fce3041-70d1-46d8-baf7-de594b01e8c3.jpg?v=1782113159",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/PDP_both_picnic_red_wo_flap_top_copy_e620c6f7-8b2f-4c1c-9773-1795a9b8bc95.jpg?v=1782113159",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/PDP_both_picnic_red_wo_flap_top_back_both_copy_7ee836d4-c739-4605-9750-8ce01e19f7a4.jpg?v=1782113159"
+      ]
+    },
+    {
+      "id": "shopify-10211553837363",
+      "name": "Official FAFO 2026 REFEREE KIT",
+      "category": "Jersey",
+      "collection": "Active",
+      "description": "Some follow the rules. Some make them. Introducing the “F*** Around And Find Out” jersey. Inspired by classic referee jerseys, this drop shoulder silhouette comes in bold black and grey stripes, built for the ones who make the rules. Each jersey comes with a Comet-branded whistle, along with matching red and yellow cards, bringing the authority of the sidelines straight to your wardrobe. The back carries our Never Shy Never Sorry graphic as a reminder that playing it safe was",
+      "variants": [
+        "Jersey / XS",
+        "Jersey / S",
+        "Jersey / M",
+        "Jersey / L",
+        "Jersey / XL"
+      ],
+      "sizes": [
+        "XS",
+        "S",
+        "M",
+        "L",
+        "XL"
+      ],
+      "colours": [
+        "Jersey"
+      ],
+      "price": "2499.00",
+      "url": "https://wearcomet.com/products/fafo-referee-kit",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Untitled-7-Recovered.jpg?v=1781268520",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Untitled-12_eece2cc1-6cb3-4094-bf3d-b93038d414fe.jpg?v=1781268535",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Untitled-10_5a56d959-9ea9-48c5-b37b-c2ccfd4b86b4.jpg?v=1781268528",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Untitled-11_44106206-e480-4294-b648-29d9a51f4b24.jpg?v=1781268520",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Untitled-14_8033ffae-f207-437c-a0bb-7c1bdde124c7.jpg?v=1781268525",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Untitled-16_b83c3b2a-b3fa-415f-97b9-6144af2da6ee.jpg?v=1781268520",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Untitled-15_59d5ef27-9b92-498e-84ca-e2da03afcd62.jpg?v=1781268519"
+      ]
+    },
+    {
+      "id": "shopify-8897931641139",
+      "name": "Aeon TURQUOISE",
+      "category": "Aeon",
+      "collection": "Active",
+      "description": "A cool symphony. A whisper of pale green and tranquil blue. TURQUOISE is a breeze of calm in the playbook of style. With a unique blend of colours, this one carries a hint of freedom that comes with an unapologetic way of living. Making a sophisticated statement or effortlessly turning heads around—this one does it all. The colorblock palette, paired with sharp aesthetics, lends it a flair compared to none. The upper exterior in nylon backed with mesh underlays helps you keep",
+      "variants": [
+        "Turquoise / 6",
+        "Turquoise / 7",
+        "Turquoise / 8",
+        "Turquoise / 9",
+        "Turquoise / 10",
+        "Turquoise / 11",
+        "Turquoise / 12"
+      ],
+      "sizes": [
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12"
+      ],
+      "colours": [
+        "Turquoise"
+      ],
+      "price": "3359.00",
+      "url": "https://wearcomet.com/products/aeon-turquoise",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Lateral-view-min_39317707-dec2-41d0-aec7-8fd786c515c3.jpg?v=1708611242",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/zoom-1-min.jpg?v=1708611242",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/front-3-4-min_e0d2352e-5aa3-43df-825f-8d1854a78453.jpg?v=1708611242",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/extralookbook1.png?v=1775199676",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Back-3-4-min_95de6331-dbe0-469a-823a-99c6bb503c18.jpg?v=1775199676",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/extralacingshot_2_-min.jpg?v=1708668499",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Back-view-min_09de0fb4-9181-4bdf-aa87-f371e03f9417.jpg?v=1708668499"
+      ]
+    },
+    {
+      "id": "shopify-9802704650547",
+      "name": "Alter VULCAN",
+      "category": "Alter",
+      "collection": "Active",
+      "description": "Forged in pressure, tempered by time. Like molten metal shaped by flame, Vulcan’s been refined by every challenge. While others melt under pressure, this one uses it to create something legendary. Fire runs through its veins, steel strengthens its spine. Born to burn bright, destined to forge empires. SpaceWalk is light, airy, and cloud-like, and is named so for all the right reasons. What you'll be stepping into is a long-lasting insole placed on top of an ultra-cushioned sh",
+      "variants": [
+        "Alter Red Brown / 3",
+        "Alter Red Brown / 4",
+        "Alter Red Brown / 5",
+        "Alter Red Brown / 6",
+        "Alter Red Brown / 7",
+        "Alter Red Brown / 8",
+        "Alter Red Brown / 9",
+        "Alter Red Brown / 10",
+        "Alter Red Brown / 11",
+        "Alter Red Brown / 12"
+      ],
+      "sizes": [
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12"
+      ],
+      "colours": [
+        "Alter Red Brown"
+      ],
+      "price": "3439.00",
+      "url": "https://wearcomet.com/products/alter-vulcan",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/0008_Vulcan-min.jpg?v=1754657616",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/zoom_daa29b8f-2c57-4f61-9e3b-dd90423e0024.jpg?v=1754657616",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/front-main.jpg?v=1754657616",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/on_feet_ratiovulcan_1_-min.jpg?v=1775199414",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/sole-main.jpg?v=1775199414",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/extralace_14b40059-4e65-43db-8c89-290014c84a10.jpg?v=1756449205",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/sole_zoom_23554207-fa55-4fb8-93dd-7394a48a3e72.jpg?v=1756449205",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Back_1a23d837-ca5b-4c9e-b7a3-2b063a061bb8.jpg?v=1756449205"
+      ]
+    },
+    {
+      "id": "shopify-9676828934451",
+      "name": "Alter TITAN",
+      "category": "Alter",
+      "collection": "Active",
+      "description": "The Titan is a commanding shoe exhibiting the strength and dominance of its mythological namesake. Its olive green palette evokes the earthy, primal nature of the ancient deities known for their immense power and connection to the natural world. The Titan’s robust silhouette captures the brooding, formidable presence of these primordial beings as the precursors to the Olympian gods. - Hugs the feet yet lets them breathe. - Snug Secure feet for your every movement. - Easy to s",
+      "variants": [
+        "Alter Olive White / 3",
+        "Alter Olive White / 4",
+        "Alter Olive White / 5",
+        "Alter Olive White / 6",
+        "Alter Olive White / 7",
+        "Alter Olive White / 8",
+        "Alter Olive White / 9",
+        "Alter Olive White / 10",
+        "Alter Olive White / 11",
+        "Alter Olive White / 12"
+      ],
+      "sizes": [
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12"
+      ],
+      "colours": [
+        "Alter Olive White"
+      ],
+      "price": "3439.00",
+      "url": "https://wearcomet.com/products/alter-titan",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/0004_Titan-min.jpg?v=1754657658",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/zoom_front-min_11138611-ad93-4fa2-8707-a5b1e040abe3.jpg?v=1754657658",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/front_2_-min_4bd5c3a6-2888-495e-9bfa-fdbd74ee2e0e.jpg?v=1754657658",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/lifestyle_shots_HD1-min.jpg?v=1775199834",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/sole_4_-min_a9f57abb-f697-4818-b00d-beb3111f0c02.jpg?v=1775199834",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/new-min_4e87fe45-0eb5-41fd-922d-a496b9b82dbb.jpg?v=1754657658",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/extra-lacing_5_-min_028db1dc-ff19-4c8d-84c2-ffc43a041983.jpg?v=1754657658",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/zoom_3_-min_b00c0349-69d1-4267-bf28-82405b0315f9.jpg?v=1754657658"
+      ]
+    },
+    {
+      "id": "shopify-9649593090355",
+      "name": "Alter WALDORF",
+      "category": "Alter",
+      "collection": "Active",
+      "description": "The epitome of old-money discretion, The Waldorf with its refined tri-colour palette—cream, chestnut brown, and deep black—echoes the understated elegance of inherited wealth that never needs to announce itself. The distinguished silhouette pays homage to those who understand that true luxury lies in subtlety. For the discerning few who appreciate that good taste isn't acquired overnight, but cultivated across generations. - Hugs the feet yet lets them breathe. - Snug Secure ",
+      "variants": [
+        "Alter Brown Cream / 3",
+        "Alter Brown Cream / 4",
+        "Alter Brown Cream / 5",
+        "Alter Brown Cream / 6",
+        "Alter Brown Cream / 7",
+        "Alter Brown Cream / 8",
+        "Alter Brown Cream / 9",
+        "Alter Brown Cream / 10",
+        "Alter Brown Cream / 11",
+        "Alter Brown Cream / 12"
+      ],
+      "sizes": [
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12"
+      ],
+      "colours": [
+        "Alter Brown Cream"
+      ],
+      "price": "3439.00",
+      "url": "https://wearcomet.com/products/alter-waldorf",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/0003_Waldorf-min.jpg?v=1754657858",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/zoom_2_2_-min_d42c6061-0fc7-4588-896d-e6b1a015823e.jpg?v=1754657858",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/front_2_-min_f7953bc2-a9c3-4b80-b2ba-db355455c7ab.jpg?v=1754657858",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/white_brown-min.jpg?v=1754657858",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Artboard_6-min.png?v=1754657858",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/extra-lacing_5_-min_d1cf611a-70bb-4fd4-9b6b-49c298af3346.jpg?v=1754657858",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/new_-min_f876eaa5-a68b-4d77-aa42-e4575893d827.jpg?v=1754657858",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/back_5_-min_b98b3703-8556-433b-a8d1-1c9beecbb4d0.jpg?v=1754657858"
+      ]
+    },
+    {
+      "id": "shopify-9649584046387",
+      "name": "Alter TRICKSTER",
+      "category": "Alter",
+      "collection": "Active",
+      "description": "The Trickster is a subtle nod to those who delight in transformation and surprise. The vibrant yellow upper hints at the sunny, cheerful nature of a trickster, while the navy accent adds a twist – much like the clever and unpredictable nature of a well-timed prank. Like its namesake, who walks between worlds, the shoe balances casual and refined elements, grounded by a sophisticated brown sole. - Hugs the feet yet lets them breathe. - Snug Secure feet for your every movement.",
+      "variants": [
+        "Alter Yellow White / 3",
+        "Alter Yellow White / 4",
+        "Alter Yellow White / 5",
+        "Alter Yellow White / 6",
+        "Alter Yellow White / 7",
+        "Alter Yellow White / 8",
+        "Alter Yellow White / 9",
+        "Alter Yellow White / 10",
+        "Alter Yellow White / 11",
+        "Alter Yellow White / 12"
+      ],
+      "sizes": [
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12"
+      ],
+      "colours": [
+        "Alter Yellow White"
+      ],
+      "price": "3439.00",
+      "url": "https://wearcomet.com/products/alter-trickster",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/0002_Trickster-min.jpg?v=1754657895",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/zoom_1-min_f164974c-f9b2-47eb-a3c9-76eac961271c.jpg?v=1754657895",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/front_2_-min_44dc706b-14bf-4cc7-9e91-c7471667f084.jpg?v=1754657895",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/on_feet_ratiotrickster_1_-min.jpg?v=1775199430",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/yellow-min.jpg?v=1775199430",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/extra-lacing_5_-min_92b4d25d-041f-4378-a287-1bf693868216.jpg?v=1756448444",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/new_-min.jpg?v=1756448444",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/back_5_-min_b3c07c10-ca31-4a52-bab0-463e5135db2f.jpg?v=1756448444"
+      ]
+    },
+    {
+      "id": "shopify-9649525489971",
+      "name": "Alter MAVERICK",
+      "category": "Alter",
+      "collection": "Active",
+      "description": "The Maverick lives up to its name with a bold and unconventional colour combination. Like its namesake, the dark green upper represents an independent spirit that forges its own path through uncharted territory, while the clean white accent creates a striking contrast against the deep green, demanding attention without trying too hard. The Maverick has no qualms about being an anomaly in the crowd. - Hugs the feet yet lets them breathe. - Snug Secure feet for your every movem",
+      "variants": [
+        "Alter Green White / 3",
+        "Alter Green White / 4",
+        "Alter Green White / 5",
+        "Alter Green White / 6",
+        "Alter Green White / 7",
+        "Alter Green White / 8",
+        "Alter Green White / 9",
+        "Alter Green White / 10",
+        "Alter Green White / 11",
+        "Alter Green White / 12"
+      ],
+      "sizes": [
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12"
+      ],
+      "colours": [
+        "Alter Green White"
+      ],
+      "price": "3439.00",
+      "url": "https://wearcomet.com/products/alter-maverick",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/0006_Maverick-min.jpg?v=1754657934",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/zoom2_2_-min.jpg?v=1754657934",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/front_2_-min_bc613391-c978-4c21-9317-970738a51643.jpg?v=1754657934",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Maverick-min.jpg?v=1775199442",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/green-min.jpg?v=1775199442",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/extra-lacing_5_-min_1857bba5-17d3-4c91-958f-612557374d6a.jpg?v=1762495870",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/new2-min.jpg?v=1762495870",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/back_5_-min.jpg?v=1762495870"
+      ]
+    },
+    {
+      "id": "shopify-10082660483379",
+      "name": "Alter CINNAMON",
+      "category": "Alter",
+      "collection": "Active",
+      "description": "This designer special is built with Knitted material and synthetic suede, taking shape through a deliberate exploration of texture and colour. Cinnamon brings warmth with a quiet kick, adding character to your everyday fit. There’s depth in its tone, texture in its build, and just enough edge to keep things interesting. Think of it as the final note that pulls everything together. SpaceWalk is light, airy, and cloud-like, and is named so for all the right reasons. What you'll",
+      "variants": [
+        "Alter Brown Textured / 7",
+        "Alter Brown Textured / 8",
+        "Alter Brown Textured / 9",
+        "Alter Brown Textured / 10",
+        "Alter Brown Textured / 11",
+        "Alter Brown Textured / 12"
+      ],
+      "sizes": [
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12"
+      ],
+      "colours": [
+        "Alter Brown Textured"
+      ],
+      "price": "4299.00",
+      "url": "https://wearcomet.com/products/alter-cinnamon",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/lateralds.jpg?v=1771262284",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/zoom_cb1af841-9a9c-4d35-9306-8f19eafcde35.jpg?v=1771262284",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Image_3_4.jpg?v=1771307921",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/onfeet_af3d6363-c9cd-49cc-98c9-06a88ce10cfa.jpg?v=1775199325",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/sole_4075c89c-7728-4f7d-a087-b5461b828a33.jpg?v=1775199325",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/n.jpg?v=1771307921",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/solezoom_72194ff0-1597-4a67-9176-0b9171bbf00b.jpg?v=1771307921",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/back_fb111c18-da02-47de-8284-90f33ed57e75.jpg?v=1771307921"
+      ]
+    },
+    {
+      "id": "shopify-10033378525491",
+      "name": "COMET x PEANUTS “SKY\"",
+      "category": "Alter",
+      "collection": "Active",
+      "description": "Holiday Special: Sky This Holiday Special captures the calm confidence of flight. Drawing from Snoopy’s iconic Flying Ace days, this white colourway places him high in the open sky, where imagination feels limitless and hope comes easy. The crisp white upper is paired with soft, sky-inspired prints that keep the design light and uplifting. A comic strip–inspired sole adds a layer of storytelling below, while thoughtful 75th anniversary details honour 75 years of Peanuts’ endu",
+      "variants": [
+        "Snoopy white / 3",
+        "Snoopy white / 4",
+        "Snoopy white / 5",
+        "Snoopy white / 6",
+        "Snoopy white / 7",
+        "Snoopy white / 8",
+        "Snoopy white / 9",
+        "Snoopy white / 10",
+        "Snoopy white / 11",
+        "Snoopy white / 12"
+      ],
+      "sizes": [
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12"
+      ],
+      "colours": [
+        "Snoopy white"
+      ],
+      "price": "5299.00",
+      "url": "https://wearcomet.com/products/comet-x-peanuts-sky",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/whitepeanutsnewlateral-min.png?v=1766391180",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/zoom_4_-min_259ef283-6f0d-43ee-9750-d4413c11ffe9.png?v=1766399614",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/3_4-min_c2ee36bf-9d35-45a7-ac62-c3c4246c9dba.png?v=1766399614",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/onfeet_7_-min.png?v=1766399614",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/sole_5_-min.png?v=1766399614",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/splatter_5_-min.png?v=1766399614",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/back_5_-min.png?v=1766399614",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/3_4black-min.png?v=1766399614"
+      ]
+    },
+    {
+      "id": "shopify-10030302560563",
+      "name": "COMET x PEANUTS “SPACE\"",
+      "category": "Alter",
+      "collection": "Active",
+      "description": "Holiday Special: Space This Holiday Special captures the thrill of dreaming beyond gravity. Celebrating 75 years of Peanuts, this black colourway sends Snoopy into space, still looking up, still dreaming. Set against a deep black base, the print leans into a starry, galactic mood, letting Snoopy’s imagination take flight. Peanuts comic strip inspired artwork lines the insole, turning every step into a quiet nod to his timeless philosophy. About our SpaceWalk sole SpaceWalk is",
+      "variants": [
+        "snoopy black / 3",
+        "snoopy black / 4",
+        "snoopy black / 5",
+        "snoopy black / 6",
+        "snoopy black / 7",
+        "snoopy black / 8",
+        "snoopy black / 9",
+        "snoopy black / 10",
+        "snoopy black / 11",
+        "snoopy black / 12"
+      ],
+      "sizes": [
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12"
+      ],
+      "colours": [
+        "snoopy black"
+      ],
+      "price": "5299.00",
+      "url": "https://wearcomet.com/products/comet-x-peanuts-space",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/black_peanuts_new_lateral-min.png?v=1766389086",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/zoom_3_-min_5c087aea-c771-4066-aa10-d0417d695098.png?v=1766389086",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/3_4front-min.png?v=1766389086",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/onfeet_6_-min.png?v=1766389086",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/sole_4_-min.png?v=1766389086",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/splatter_4_-min.png?v=1766389086",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/back_4_-min.png?v=1766389086",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/3_4_back-min.png?v=1766399715"
+      ]
+    },
+    {
+      "id": "shopify-9887443714355",
+      "name": "Alter HUKUM BLACK",
+      "category": "Alter",
+      "collection": "Active",
+      "description": "This designer special in striking black captures the essence of celebration with bold blooms and elegant artwork sweeping across the silhouette. Subtle embossing gives the design texture and dimension. The translucent sole adds a clean, modern edge that commands attention with every step. It’s the centerpiece of celebration, designed to turn moments into memories. SpaceWalk is light, airy, and cloud-like, and is named so for all the right reasons. What you'll be stepping into",
+      "variants": [
+        "Alter Black Gold / 7",
+        "Alter Black Gold / 8",
+        "Alter Black Gold / 9",
+        "Alter Black Gold / 10",
+        "Alter Black Gold / 11",
+        "Alter Black Gold / 12"
+      ],
+      "sizes": [
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12"
+      ],
+      "colours": [
+        "Alter Black Gold"
+      ],
+      "price": "5299.00",
+      "url": "https://wearcomet.com/products/alter-hukum-black",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/black_lateral_DS_1_-min_main.jpg?v=1759563896",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/ZOOM-min_714ce45a-f0d9-4b87-bb9e-1e5f3a86eb93.jpg?v=1759563896",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/FRONT-min_13fbc235-7e99-400c-ac00-c43fbb83aa1f.jpg?v=1759563896",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/onfeetblack-min.jpg?v=1759563896",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/SOLE-min_ad104cd2-0690-4f9c-9a5e-668a968d667e.jpg?v=1759563896",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/BlackBox-2-min_0c4dbf93-dc1f-4054-9a94-8e7a2023624c.jpg?v=1759563896",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/NEW-min_abae78da-6d44-4410-b15c-420323818c9d.jpg?v=1759563896",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/SOLEZOOM-min_a720d307-30c2-484e-a3cc-dd9dfaa2840c.jpg?v=1759563896"
+      ]
+    },
+    {
+      "id": "shopify-9887283052851",
+      "name": "Alter HUKUM IVORY",
+      "category": "Alter",
+      "collection": "Active",
+      "description": "This designer special captures the essence of celebration with delicate blooms and elegant artwork that flow across the silhouette. Subtle embossing adds depth and detail to the design. The translucent sole gives it a clean, modern finish that stands out with every step. It’s the centerpiece of celebration, designed to turn moments into memories. SpaceWalk is light, airy, and cloud-like, and is named so for all the right reasons. What you'll be stepping into is a long-lasting",
+      "variants": [
+        "Alter Cream Gold / 4",
+        "Alter Cream Gold / 5",
+        "Alter Cream Gold / 6",
+        "Alter Cream Gold / 7",
+        "Alter Cream Gold / 8",
+        "Alter Cream Gold / 9",
+        "Alter Cream Gold / 10",
+        "Alter Cream Gold / 11",
+        "Alter Cream Gold / 12"
+      ],
+      "sizes": [
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12"
+      ],
+      "colours": [
+        "Alter Cream Gold"
+      ],
+      "price": "5299.00",
+      "url": "https://wearcomet.com/products/alter-hukum-ivory",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/LATERAL_MAIN_DS_1_-min_main.jpg?v=1759563921",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/ZOOM-min_9179bb37-f744-4cae-9eb3-b02063fbe342.jpg?v=1759563921",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/FRONT-min_00254e4c-c0be-41ba-9600-25b76ed92b23.jpg?v=1759563921",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/onfeetwhite-min.jpg?v=1759563921",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/SOLE-min_b7de61ef-ed12-451f-9995-c73ca3e3f83e.jpg?v=1759563921",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/NEW-min_beb6e017-afa9-49b7-b08c-f6e310a3908c.jpg?v=1759563921",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Whitebox-1_1_-min.jpg?v=1759563921",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/SOLE_ZOOM-min_ba844e2a-b8f0-4eb4-b14d-16bfee8bca83.jpg?v=1759563921"
+      ]
+    },
+    {
+      "id": "shopify-9817291260211",
+      "name": "COMET x NARU",
+      "category": "The Vault",
+      "collection": "Active",
+      "description": "The Comet x Naru sneaker is a convergence of parallel journeys. Both born in Bangalore, shaped by its rhythm, and grounded in its creative spirit - it brings together two brands that obsess over the details, honour their craft, and share a deep mutual respect for how the other builds. It draws from the world Naru has carefully cultivated - layered, precise, and full of intent. Signature embroidery, chopstick detailing, the ramen bowl artwork, and the iconic mascot all take th",
+      "variants": [
+        "Alter Black Salmon / 4",
+        "Alter Black Salmon / 5",
+        "Alter Black Salmon / 6",
+        "Alter Black Salmon / 7",
+        "Alter Black Salmon / 8",
+        "Alter Black Salmon / 9",
+        "Alter Black Salmon / 10",
+        "Alter Black Salmon / 11",
+        "Alter Black Salmon / 12"
+      ],
+      "sizes": [
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12"
+      ],
+      "colours": [
+        "Alter Black Salmon"
+      ],
+      "price": "5899.00",
+      "url": "https://wearcomet.com/products/comet-x-naru",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/lateral-min_cf53a3c7-3512-4188-bf6a-8927180f450e.jpg?v=1753942010",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/zoom-min_9c33b38f-5e03-4674-842c-c23c9fa750b6.jpg?v=1753942010",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/front-min_7a889d1f-69f4-49ad-81ef-70fa5d7bf71a.jpg?v=1753942010",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/sole-min_803baf37-d9e4-4eac-92b5-4e8ae769d1b0.jpg?v=1753942010",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/bag01-min.jpg?v=1753942010",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/new-01_1_-min.jpg?v=1753960804",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/el-01-min.jpg?v=1753960804",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/backmain-min.jpg?v=1753960804"
+      ]
+    },
+    {
+      "id": "shopify-10191935209779",
+      "name": "Aeres MINT",
+      "category": "Aeres",
+      "collection": "Active",
+      "description": "Aeres is our retro court inspired low top silhouette. This design stays true to its roots with a sleek, iconic shape and a vintage-style T-toe panel, while the inside is completely engineered for a snug, comfortable fit. Finished with a durable, 100% pure rubber sole, Aeres delivers timeless court style that effortlessly elevates every outfit. Fresh, clean, and uplifting. Channeling the crisp, cooling energy of its namesake, Mint brings a bright and revitalizing look to your ",
+      "variants": [
+        "Aeres Green White / 3",
+        "Aeres Green White / 4",
+        "Aeres Green White / 5",
+        "Aeres Green White / 6",
+        "Aeres Green White / 7",
+        "Aeres Green White / 8",
+        "Aeres Green White / 9",
+        "Aeres Green White / 10",
+        "Aeres Green White / 11",
+        "Aeres Green White / 12"
+      ],
+      "sizes": [
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12"
+      ],
+      "colours": [
+        "Aeres Green White"
+      ],
+      "price": "5299.00",
+      "url": "https://wearcomet.com/products/aeres-mint",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Lateral_5_16bc0681-11f4-4a53-a0dd-7ebcc1facf00.jpg?v=1780056911",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/FrontZoom_11.jpg?v=1780056911",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Front3_4_8_eda6f681-2119-4e35-86c0-1db21acffab1.jpg?v=1780056911",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/FINAL_FEET.jpg?v=1780406725",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/ANgle3_10.jpg?v=1780056911",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/BackZoom_10_dba236ac-9f6d-4b3e-bb99-e7758637320f.jpg?v=1780056912",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Angle1_10.jpg?v=1780056911",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Back3_4_2_7dedb656-b863-42c8-80e4-8f20164f40d9.jpg?v=1780056912"
+      ]
+    },
+    {
+      "id": "aeres-ros",
+      "name": "Aeres ROSÉ",
+      "category": "Aeres",
+      "collection": "Active",
+      "description": "Aeres is our retro court inspired low top silhouette. This design stays true to its roots with a sleek, iconic shape and a vintage-style T-toe panel, while the inside is completely engineered for a snug, comfortable fit. Finished with a durable, 100% pure rubber sole, Aeres delivers timeless court style that effortlessly elevates every outfit. Soft in colour but full of character. True to its name, Rosé draws inspiration from the rich, refined tones of rosé wine, balancing so",
+      "variants": [
+        "Aeres Pink White / 3",
+        "Aeres Pink White / 4",
+        "Aeres Pink White / 5",
+        "Aeres Pink White / 6",
+        "Aeres Pink White / 7",
+        "Aeres Pink White / 8",
+        "Aeres Pink White / 9",
+        "Aeres Pink White / 10",
+        "Aeres Pink White / 11"
+      ],
+      "sizes": [
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11"
+      ],
+      "colours": [
+        "Aeres Pink White"
+      ],
+      "price": "5299.00",
+      "url": "https://wearcomet.com/products/aeres-rose",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Lateral_4.jpg?v=1780056801",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/FrontZoom_10.jpg?v=1780056801",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Front3_4_7_ad2de41b-1f66-4e18-a1a3-1058bf14f2ba.jpg?v=1780056801",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/ON_FEET_58d80576-d2b5-44a0-ae2e-d130364c7494.jpg?v=1780463623",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Angle3_9.jpg?v=1780056801",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/BackZoom_9_17ce93bd-cbc3-4ed8-8969-93ea4bd91d90.jpg?v=1780056801",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Angle1_9_3dee9720-404b-434d-9225-c68109f8d3b7.jpg?v=1780056801",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Back3_4_7_b57e5e98-f750-47c4-a9f1-08a5dee193ca.jpg?v=1780056801"
+      ]
+    },
+    {
+      "id": "shopify-10191928623411",
+      "name": "Aeres HAZE",
+      "category": "Aeres",
+      "collection": "Active",
+      "description": "Aeres is our retro court inspired low top silhouette. This design stays true to its roots with a sleek, iconic shape and a vintage-style T-toe panel, while the inside is completely engineered for a snug, comfortable fit. Finished with a durable, 100% pure rubber sole, Aeres delivers timeless court style that effortlessly elevates every outfit. Easygoing with a playful twist. Haze layers soft light blue suede over a clean microfibre upper, bringing a fresh, relaxed feel to eve",
+      "variants": [
+        "Aeres Blue White / 3",
+        "Aeres Blue White / 4",
+        "Aeres Blue White / 5",
+        "Aeres Blue White / 6",
+        "Aeres Blue White / 7",
+        "Aeres Blue White / 8",
+        "Aeres Blue White / 9",
+        "Aeres Blue White / 10",
+        "Aeres Blue White / 11",
+        "Aeres Blue White / 12"
+      ],
+      "sizes": [
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12"
+      ],
+      "colours": [
+        "Aeres Blue White"
+      ],
+      "price": "5299.00",
+      "url": "https://wearcomet.com/products/aeres-haze",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Lateral_3_d39c306f-0d32-4a89-9981-4fb510170d32.jpg?v=1780056520",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Front_zoom_9.jpg?v=1780056520",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Front3_4_6_fd870609-1952-42ce-bf2d-6666ba74d305.jpg?v=1780056497",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Artboard_8_1.jpg?v=1780406774",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/angle3_8.jpg?v=1780056497",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/BackZoom_8_772ddfba-ffdd-4156-b868-99c9ae137152.jpg?v=1780056497",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Angle1_7_964b8fde-00d4-4494-8b7f-4cb273532a22.jpg?v=1780056497",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Back3_4_6_2e9bce03-199c-4013-ac38-aea78b87f6ab.jpg?v=1780056497"
+      ]
+    },
+    {
+      "id": "shopify-10191927968051",
+      "name": "Aeres HALO",
+      "category": "Aeres",
+      "collection": "Active",
+      "description": "Aeres is our retro court inspired low top silhouette. This design stays true to its roots with a sleek, iconic shape and a vintage-style T-toe panel, while the inside is completely engineered for a snug, comfortable fit. Finished with a durable, 100% pure rubber sole, Aeres delivers timeless court style that effortlessly elevates every outfit. Clean, soft, and elevated. Halo relies on a premium neutral palette, pairing a textured cream synthetic fabric with clean microfibre p",
+      "variants": [
+        "Aeres Cream Textured / 3",
+        "Aeres Cream Textured / 4",
+        "Aeres Cream Textured / 5",
+        "Aeres Cream Textured / 6",
+        "Aeres Cream Textured / 7",
+        "Aeres Cream Textured / 8",
+        "Aeres Cream Textured / 9",
+        "Aeres Cream Textured / 10",
+        "Aeres Cream Textured / 11",
+        "Aeres Cream Textured / 12"
+      ],
+      "sizes": [
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12"
+      ],
+      "colours": [
+        "Aeres Cream Textured"
+      ],
+      "price": "5299.00",
+      "url": "https://wearcomet.com/products/aeres-halo",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Lateral_2_fa79ceb6-5d60-4d1b-8634-b4b19d1269b5.jpg?v=1780056106",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/FrontZoom_8.jpg?v=1780056106",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Front3_4_5.jpg?v=1780056106",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Artboard_7_2.jpg?v=1780406773",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Angle3_7.jpg?v=1780056106",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/BackZoom_7_6b513a44-2f01-4200-9710-4b71ae34dcff.jpg?v=1780056106",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Angle1_6_0cd1ef61-2d2c-487c-bc61-097f4c637538.jpg?v=1780056106",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Back3_4_5.jpg?v=1780056106"
+      ]
+    },
+    {
+      "id": "shopify-10191926591795",
+      "name": "Aeres INFERNO",
+      "category": "Aeres",
+      "collection": "Active",
+      "description": "Aeres is our retro court inspired low top silhouette. This design stays true to its roots with a sleek, iconic shape and a vintage-style T-toe panel, while the inside is completely engineered for a snug, comfortable fit. Finished with a durable, 100% pure rubber sole, Aeres delivers timeless court style that effortlessly elevates every outfit. Built with a textured black upper, Inferno carries a darker, more aggressive personality. The upper features a unique criss-cross patt",
+      "variants": [
+        "Aeres Black Textured / 3",
+        "Aeres Black Textured / 4",
+        "Aeres Black Textured / 5",
+        "Aeres Black Textured / 6",
+        "Aeres Black Textured / 7",
+        "Aeres Black Textured / 8",
+        "Aeres Black Textured / 9",
+        "Aeres Black Textured / 10",
+        "Aeres Black Textured / 11",
+        "Aeres Black Textured / 12"
+      ],
+      "sizes": [
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12"
+      ],
+      "colours": [
+        "Aeres Black Textured"
+      ],
+      "price": "5299.00",
+      "url": "https://wearcomet.com/products/aeres-inferno",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Lateral_1_ba08689f-0f11-4d68-885c-690b503e96b7.jpg?v=1780055976",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/FrontZoom_7.jpg?v=1780055976",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Front3_4_4.jpg?v=1780055976",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Artboard_6_2.jpg?v=1780406774",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Angle3_6.jpg?v=1780055976",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/BackZoom_6_c9c7cbe2-674c-4b49-955d-ae6b7a88a8b7.jpg?v=1780055976",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Angle1_5_8d9f06ef-8ebf-4dc9-9c35-677258686675.jpg?v=1780055976",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Back3_4_4.jpg?v=1780055976"
+      ]
+    },
+    {
+      "id": "shopify-10191925051699",
+      "name": "Aeres OAKWOOD",
+      "category": "Aeres",
+      "collection": "Active",
+      "description": "Aeres is our retro court inspired low top silhouette. This design stays true to its roots with a sleek, iconic shape and a vintage-style T-toe panel, while the inside is completely engineered for a snug, comfortable fit. Finished with a durable, 100% pure rubber sole, Aeres delivers timeless court style that effortlessly elevates every outfit. Rooted in earthy tones and classic design, Oakwood pairs a rich brown suede upper with a crisp white shooting star, an ensemble inspir",
+      "variants": [
+        "Aeres Brown White / 3",
+        "Aeres Brown White / 4",
+        "Aeres Brown White / 5",
+        "Aeres Brown White / 6",
+        "Aeres Brown White / 7",
+        "Aeres Brown White / 8",
+        "Aeres Brown White / 9",
+        "Aeres Brown White / 10",
+        "Aeres Brown White / 11",
+        "Aeres Brown White / 12"
+      ],
+      "sizes": [
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12"
+      ],
+      "colours": [
+        "Aeres Brown White"
+      ],
+      "price": "5299.00",
+      "url": "https://wearcomet.com/products/aeres-oakwood",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/NewLateral_3.jpg?v=1780055689",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Front_ZOom_12.jpg?v=1780464429",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Front3_4_3.jpg?v=1780055689",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Artboard_2_4.jpg?v=1780406774",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Angle3_5.jpg?v=1780055689",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/BackZoom_5.jpg?v=1780055689",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Angle1_4_dc89e792-6cee-4839-babe-b59ad0c57589.jpg?v=1780055689",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Back_3_4_3.jpg?v=1780055738"
+      ]
+    },
+    {
+      "id": "shopify-10191923314995",
+      "name": "Aeres MIST",
+      "category": "Aeres",
+      "collection": "Active",
+      "description": "Aeres is our retro court inspired low top silhouette. This design stays true to its roots with a sleek, iconic shape and a vintage-style T-toe panel, while the inside is completely engineered for a snug, comfortable fit. Finished with a durable, 100% pure rubber sole, Aeres delivers timeless court style that effortlessly elevates every outfit. Relaxed and endlessly wearable. Mist pairs cool grey suede overlays with white canvas and a blue shooting star to create a shoe that f",
+      "variants": [
+        "Aeres Grey Blue / 3",
+        "Aeres Grey Blue / 4",
+        "Aeres Grey Blue / 5",
+        "Aeres Grey Blue / 6",
+        "Aeres Grey Blue / 7",
+        "Aeres Grey Blue / 8",
+        "Aeres Grey Blue / 9",
+        "Aeres Grey Blue / 10",
+        "Aeres Grey Blue / 11",
+        "Aeres Grey Blue / 12"
+      ],
+      "sizes": [
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12"
+      ],
+      "colours": [
+        "Aeres Grey Blue"
+      ],
+      "price": "5299.00",
+      "url": "https://wearcomet.com/products/aeres-mist",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/NewLateral_2.jpg?v=1780055382",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/FrontZOom_4_99265bf5-886c-4917-9e60-d3fadcdd4224.jpg?v=1780055382",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Front3_4_2.jpg?v=1780055382",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Artboard_4_2_300e9ed5-eeae-407a-91da-309d3a18ff77.jpg?v=1780406774",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Angle3_4.jpg?v=1780055382",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/BackZoom_4.jpg?v=1780055382",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Angle1_3_ef4cd399-3be4-4a2f-a661-088bb0f691c9.jpg?v=1780055382",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Back3_4_2.jpg?v=1780055382"
+      ]
+    },
+    {
+      "id": "shopify-10191919939891",
+      "name": "Aeres NOIR",
+      "category": "Aeres",
+      "collection": "Active",
+      "description": "Aeres is our retro court inspired low top silhouette. This design stays true to its roots with a sleek, iconic shape and a vintage-style T-toe panel, while the inside is completely engineered for a snug, comfortable fit. Finished with a durable, 100% pure rubber sole, Aeres delivers timeless court style that effortlessly elevates every outfit. The quiet powerhouse of the lineup. Noir frames its sharp black-and-white contrast through a rich interplay of materials - deep, light",
+      "variants": [
+        "Aeres Black White / 3",
+        "Aeres Black White / 4",
+        "Aeres Black White / 5",
+        "Aeres Black White / 6",
+        "Aeres Black White / 7",
+        "Aeres Black White / 8",
+        "Aeres Black White / 9",
+        "Aeres Black White / 10",
+        "Aeres Black White / 11",
+        "Aeres Black White / 12"
+      ],
+      "sizes": [
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12"
+      ],
+      "colours": [
+        "Aeres Black White"
+      ],
+      "price": "5299.00",
+      "url": "https://wearcomet.com/products/aeres-noir",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/NewLateral_1_d6e77143-bfd4-486f-9fb5-18f652758969.jpg?v=1780055123",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/FrontZoom_3_48e22d17-c5c0-4ded-b76f-e676c86ac438.jpg?v=1780055123",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Front3_4_1.jpg?v=1780055123",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Artboard_3_2_51d3815e-d044-46eb-b6d7-e5b36f1718d7.jpg?v=1780406774",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Angle3_3.jpg?v=1780055123",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/BackZoom_3.jpg?v=1780055123",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/ANgle1_2.jpg?v=1780055123",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Back3_4_1.jpg?v=1780055123"
+      ]
+    },
+    {
+      "id": "shopify-10191860695347",
+      "name": "Aeres COBALT",
+      "category": "Aeres",
+      "collection": "Active",
+      "description": "Aeres is our retro court inspired low top silhouette. This design stays true to its roots with a sleek, iconic shape and a vintage-style T-toe panel, while the inside is completely engineered for a snug, comfortable fit. Finished with a durable, 100% pure rubber sole, Aeres delivers timeless court style that effortlessly elevates every outfit. Sporty energy with a refined finish. Cobalt balances athletic inspiration with a clean, everyday design by layering deep navy suede ov",
+      "variants": [
+        "Aeres Navy White / 3",
+        "Aeres Navy White / 4",
+        "Aeres Navy White / 5",
+        "Aeres Navy White / 6",
+        "Aeres Navy White / 7",
+        "Aeres Navy White / 8",
+        "Aeres Navy White / 9",
+        "Aeres Navy White / 10",
+        "Aeres Navy White / 11",
+        "Aeres Navy White / 12"
+      ],
+      "sizes": [
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12"
+      ],
+      "colours": [
+        "Aeres Navy White"
+      ],
+      "price": "5299.00",
+      "url": "https://wearcomet.com/products/aeres-cobalt",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/NewLateral_31bb85d9-d638-4bc3-b2cb-04daf261a0a2.jpg?v=1780052519",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Front_Zoom_1.jpg?v=1780052685",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Ftonr3_4_596180b1-c17b-4a78-a138-0fd609d4d10b.jpg?v=1780052519",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Artboard_5_2.jpg?v=1780406774",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/ANgle3_6dd17c58-c0a2-4875-bcf1-25a6966e4412.jpg?v=1780052519",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Back_Zoom_1.jpg?v=1780052684",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Angle1_da0df21b-84a2-446f-be70-a9683af00769.jpg?v=1780052519",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Back3_4_3932e301-6a5f-4706-89c8-f9a41738647d.jpg?v=1780052519"
+      ]
+    },
+    {
+      "id": "shopify-10176044499251",
+      "name": "GET DUCK'D",
+      "category": "Drops",
+      "collection": "Active",
+      "description": "Introducing “Get Duck’d”, a drop inspired by the one creature that never cared about fitting in: The Rubber Ducky. The perfect shoe for sunday brunches, an icecream in the park, a whimsical day out. Built in loud yellows and deep blues with a striking red shooting star, these X Lows are made for people who take whimsy seriously. The kind who know life’s better when things are a little unreasonable. The story goes like this: the ducky used to live a normal 9-to-5 life, until i",
+      "variants": [
+        "Yellow Blue / 3",
+        "Yellow Blue / 4",
+        "Yellow Blue / 5",
+        "Yellow Blue / 6",
+        "Yellow Blue / 7",
+        "Yellow Blue / 8",
+        "Yellow Blue / 9",
+        "Yellow Blue / 10",
+        "Yellow Blue / 11",
+        "Yellow Blue / 12"
+      ],
+      "sizes": [
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12"
+      ],
+      "colours": [
+        "Yellow Blue"
+      ],
+      "price": "5299.00",
+      "url": "https://wearcomet.com/products/x-lows-get-duckd",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/the_vault.jpg?v=1779171037",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/2_1_0d3eeb4b-e863-49c5-9f69-2f10b1b4d9ca.jpg?v=1778862166",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/3_1.jpg?v=1778862167",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/On_Feet_16.jpg?v=1779105452",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/4_2.jpg?v=1778862166",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/5_763b2dfb-47ff-4ef5-b9d6-bf45c52689fc.jpg?v=1778862166",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/On_Feet_3_2_4c2289fd-4b70-48fd-a7d5-ae75eb607e2b.jpg?v=1779105451",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/6_1ba9ef1d-7f7a-4167-b0a0-f19f8daf2a48.jpg?v=1778862166"
+      ]
+    },
+    {
+      "id": "shopify-8534065873203",
+      "name": "LACES",
+      "category": "Laces",
+      "collection": "Active",
+      "description": "Elevate your footwear game with our brand-new line of premium shoe laces, meticulously designed to complement your Comet sneakers while adding a touch of style and functionality. These laces are a statement of your unique taste and an enhancement of your overall sneaker experience. Transform the entire aesthetic of your shoes and breathe new life into your collection without breaking the bank. It's the perfect way to express your personality and stay ahead of the style curve.",
+      "variants": [
+        "Electric Orange",
+        "Electric Pink",
+        "Lagoon Camo",
+        "Mango Red",
+        "Candy"
+      ],
+      "colours": [
+        "Electric Orange",
+        "Electric Pink",
+        "Lagoon Camo",
+        "Mango Red",
+        "Candy"
+      ],
+      "price": "399.00",
+      "url": "https://wearcomet.com/products/shoelaces",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/lace6_5e306e91-00c8-4e00-a800-8323b9e6112c.jpg?v=1692603055",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/lace1_9e622ce0-fa6c-43fb-8c86-3e28ea1aa92d.jpg?v=1692603055",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/lace2_7401b8a5-3c8b-4fa9-af8c-9484c4f844db.jpg?v=1692603055",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/lace4_f8849b84-f6e0-4487-8c9d-110d7697047b.jpg?v=1692603055",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/lace7.jpg?v=1692603055",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/1_3_-min.jpg?v=1725349778",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/2_1_-min_36ca5534-ddde-4a23-b3ea-9c2caab33c17.jpg?v=1725349778",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/3_1_-min_9060e59e-c130-499a-b6ad-202e4acaec9d.jpg?v=1725349779"
+      ]
+    },
+    {
+      "id": "shopify-10174009278771",
+      "name": "X Lows MALIBU",
+      "category": "X Lows",
+      "collection": "Active",
+      "description": "Life is fantastic when the gloss is on point. Straight out of the box and into the spotlight, Malibu brings a high-shine finish to a classic daydream. We’ve dipped the X Lows in a glossy pink patent and anchored it with a sharp green shooting star for that perfect pop of contrast. Party-bound or just grabbing coffee, the world is your runway in Malibu. - Ever-soft and ever-snug grip - Roomy toe box lets our broad Indian toes breathe. - Irresistible comfort, thanks to SpaceWal",
+      "variants": [
+        "Pink Green / 3",
+        "Pink Green / 4",
+        "Pink Green / 5",
+        "Pink Green / 6",
+        "Pink Green / 7"
+      ],
+      "sizes": [
+        "3",
+        "4",
+        "5",
+        "6",
+        "7"
+      ],
+      "colours": [
+        "Pink Green"
+      ],
+      "price": "4299.00",
+      "url": "https://wearcomet.com/products/x-lows-malibu",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Lateralnew.jpg?v=1778672031",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Zoom_14_17ad56fa-0222-4f2e-9d72-62deddbea5c5.jpg?v=1778672031",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/front3_4_15_bf2a54bb-016e-43c5-b65b-66e80470b69d.jpg?v=1778672031",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/new_on_feet_3.jpg?v=1778837623",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/BackZoom_14.jpg?v=1778672031",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Sole_4_6542638e-3f1d-48c9-8c8f-b44b1ee02972.jpg?v=1778672031",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Angle2_4_14189991-441c-4dc3-b50a-ef9c9392b240.jpg?v=1778672031",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Angle1_6_12916d8a-7f12-4c84-a2b5-71a8d5152bd7.jpg?v=1778672030"
+      ]
+    },
+    {
+      "id": "shopify-10169717653811",
+      "name": "Apex NIMBU PAANI",
+      "category": "APEX",
+      "collection": "Active",
+      "description": "Apex is built using 49 individually stitched components on each shoe of a pair. The upper combines layered materials with breathable mesh to create a rich, textured finish. The four-component sole consists of our most comfortable foam technology yet, SpacewalkX Foam Midsole and is anchored by a Sharkfin Stability Plate, adding both structure and a distinctive design detail. Want to know more about the story of Apex : Blog Link Sharp, chilled and instantly reviving. Introducin",
+      "variants": [
+        "Gradient Yellow / 3",
+        "Gradient Yellow / 4",
+        "Gradient Yellow / 5",
+        "Gradient Yellow / 6",
+        "Gradient Yellow / 7",
+        "Gradient Yellow / 8",
+        "Gradient Yellow / 9",
+        "Gradient Yellow / 10",
+        "Gradient Yellow / 11",
+        "Gradient Yellow / 12"
+      ],
+      "sizes": [
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12"
+      ],
+      "colours": [
+        "Gradient Yellow"
+      ],
+      "price": "6299.00",
+      "url": "https://wearcomet.com/products/apex-nimbu-paani",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Artboard_1_copy_4_1_a0165cbb-3d98-44a4-ba60-d2e6be996e2d.jpg?v=1778758398",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Frontzoom_2_150624b1-9677-410c-bfec-4869011c1208.jpg?v=1778152296",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/NewAngle_c53b5344-37e0-4311-837d-373d4b63c4bc.jpg?v=1778152296",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Untitled-5_15.jpg?v=1778479821",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/front3_4_13_c5d3f1ad-ee41-4913-a414-dc3f9679d635.jpg?v=1778152296",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Angle1_5_02d88916-5833-441b-952d-b82af1380409.jpg?v=1778152296",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/BackZoom_12_7c4642ac-d87b-4d7b-874d-074c09fb6536.jpg?v=1778152296",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Angle2_3_a623d2d9-c25d-4923-87a3-0be217b5f50b.jpg?v=1778152296"
+      ]
+    },
+    {
+      "id": "shopify-10169946046771",
+      "name": "Apex CYBERPUNK",
+      "category": "APEX",
+      "collection": "Active",
+      "description": "Apex is built using 49 individually stitched components on each shoe of a pair. The upper combines layered materials with breathable mesh to create a rich, textured finish. The four-component sole pairs our most comfortable foam to date, the SpacewalkX Foam Midsole, with the Sharkfin Stability Plate for added structure and balance. Want to know more about the story of Apex : Blog Link Cyberpunk is a sport-inspired lifestyle shoe born from underground scenes and digital rebell",
+      "variants": [
+        "Blue Black / 3",
+        "Blue Black / 4",
+        "Blue Black / 5",
+        "Blue Black / 6",
+        "Blue Black / 7",
+        "Blue Black / 8",
+        "Blue Black / 9",
+        "Blue Black / 10",
+        "Blue Black / 11",
+        "Blue Black / 12"
+      ],
+      "sizes": [
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12"
+      ],
+      "colours": [
+        "Blue Black"
+      ],
+      "price": "6299.00",
+      "url": "https://wearcomet.com/products/apex-cyberpunk",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/cyberpunk_lateral_1.jpg?v=1778482879",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Frontzoom_3_8a6f5291-9b00-464e-931a-e96dccbea773.jpg?v=1778248737",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/NewAngle_1.jpg?v=1778248737",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/onfeet_b3004fb4-9293-48a9-9fe4-69827319e3c7.jpg?v=1778248737",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/front3_4_14_e3af514e-e2e9-4e49-8600-d2488e35a10e.jpg?v=1778248737",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Angle1_1_1.jpg?v=1778248737",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/BackZoom_13.jpg?v=1778248737",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Angle2_1_1.jpg?v=1778248737"
+      ]
+    },
+    {
+      "id": "shopify-10168673993011",
+      "name": "X Lows POPSTAR",
+      "category": "X Lows",
+      "collection": "Active",
+      "description": "Iconic. Electric. Essential. Meet X Lows POPSTAR. We took the iconic silhouette and dialed up the attitude with a midnight black base and sharp white microfibre overlays. The finishing touch? A baby pink shooting star slicing through the frame. The stage is set, the lights are dimmed and the spotlight is waiting. Step up and take it. - Ever-soft and ever-snug grip - Roomy toe box lets our broad Indian toes breathe. - Irresistible comfort, thanks to SpaceWalk, our signature 3-",
+      "variants": [
+        "Black Pink / 3",
+        "Black Pink / 4",
+        "Black Pink / 5",
+        "Black Pink / 6",
+        "Black Pink / 7"
+      ],
+      "sizes": [
+        "3",
+        "4",
+        "5",
+        "6",
+        "7"
+      ],
+      "colours": [
+        "Black Pink"
+      ],
+      "price": "4299.00",
+      "url": "https://wearcomet.com/products/x-lows-popstar",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Untitled-6_15.jpg?v=1778048082",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Zoom_14_312134e5-7427-4676-93d7-305f1f43af2d.jpg?v=1778048081",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Front3_4_13.jpg?v=1778048082",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Untitled-11_3.jpg?v=1778066016",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Sole_4_5d2964c9-fd92-4219-b130-0a70dce669e1.jpg?v=1778048082",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/BackZoom_12.jpg?v=1778048082",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Angle1_5.jpg?v=1778048082",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Angle2_3.jpg?v=1778048081"
+      ]
+    },
+    {
+      "id": "shopify-10161992859955",
+      "name": "Apex EVERGREEN",
+      "category": "APEX",
+      "collection": "Active",
+      "description": "Apex is built using 49 individually stitched components on each shoe of a pair. The upper combines layered materials with breathable mesh to create a rich, textured finish. The four-component sole consists of our most comfortable foam technology yet, SpacewalkX Foam Midsole and is anchored by a Sharkfin Stability Plate, adding both structure and a distinctive design detail. Want to know more about the story of Apex : Blog Link Evergreen is a sport-inspired lifestyle sneaker t",
+      "variants": [
+        "Green Silver / 3",
+        "Green Silver / 4",
+        "Green Silver / 5",
+        "Green Silver / 6",
+        "Green Silver / 7",
+        "Green Silver / 8",
+        "Green Silver / 9",
+        "Green Silver / 10",
+        "Green Silver / 11",
+        "Green Silver / 12"
+      ],
+      "sizes": [
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12"
+      ],
+      "colours": [
+        "Green Silver"
+      ],
+      "price": "6299.00",
+      "url": "https://wearcomet.com/products/apex-evergreen",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Silver_GreenLateral_1.jpg?v=1778475796",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Zoom_858cb8e3-a77c-4ea6-8475-f1b293a529d5_1.jpg?v=1777639234",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/New_Shot_e5bdebf1-0d98-4087-a8b0-059c45db2efd_1.jpg?v=1777639234",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Untitled-614.jpg?v=1777639234",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/New_2_6.jpg?v=1777659867",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Front_3_4_c9a19ac4-b541-4699-82cc-ce5115aaa14d.jpg?v=1777528425",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Angle_1_2b601895-3d34-43bd-9bd8-08fa1ca3664b.jpg?v=1777528425",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Back_Zoom_45e52102-7487-4257-b6d1-274823299e4b.jpg?v=1777528426"
+      ]
+    },
+    {
+      "id": "shopify-10161990992179",
+      "name": "Apex MIRAGE",
+      "category": "APEX",
+      "collection": "Active",
+      "description": "Apex is built using 49 individually stitched components on each shoe of a pair. The upper combines layered materials with breathable mesh to create a rich, textured finish. The four-component sole consists of our most comfortable foam technology yet, SpacewalkX Foam Midsole and is anchored by a Sharkfin Stability Plate, adding both structure and a distinctive design detail. Want to know more about the story of Apex : Blog Link A sport-inspired lifestyle sneaker, the Mirage is",
+      "variants": [
+        "Beige Grey / 3",
+        "Beige Grey / 4",
+        "Beige Grey / 5",
+        "Beige Grey / 6",
+        "Beige Grey / 7",
+        "Beige Grey / 8",
+        "Beige Grey / 9",
+        "Beige Grey / 10",
+        "Beige Grey / 11",
+        "Beige Grey / 12"
+      ],
+      "sizes": [
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12"
+      ],
+      "colours": [
+        "Beige Grey"
+      ],
+      "price": "6299.00",
+      "url": "https://wearcomet.com/products/apex-mirage",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/grey_white_1.jpg?v=1778475796",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Zoom_2512a249-c45c-4efc-a477-de84d2db26f7.jpg?v=1777526184",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/New_Shot_6ac42791-3330-41f6-8a3c-04ea85b46d5e_1.jpg?v=1777638812",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Zoom_out_1_1.jpg?v=1777638832",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Front_3_4_22026584-6cb2-4293-bb6a-abb941c34a61.jpg?v=1777526184",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Angle_1_3f0f1528-80e9-4450-a45d-afb6c5eb2218_1.jpg?v=1777638812",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Back_zoom_cdc0858f-e5da-4011-902d-a25ffcfbc148_1.jpg?v=1777638813",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Angle_2_85da9094-211a-4c4e-b252-17cb6b1d8526.jpg?v=1777526185"
+      ]
+    },
+    {
+      "id": "shopify-10161952588083",
+      "name": "Apex DUNE",
+      "category": "APEX",
+      "collection": "Active",
+      "description": "Apex is built using 49 individually stitched components on each shoe of a pair. The upper combines layered materials with breathable mesh to create a rich, textured finish. The four-component sole consists of our most comfortable foam technology yet, SpacewalkX Foam Midsole and is anchored by a Sharkfin Stability Plate, adding both structure and a distinctive design detail. Want to know more about the story of Apex : Blog Link Dune is a sport-inspired lifestyle sneaker design",
+      "variants": [
+        "Brown Blue / 4",
+        "Brown Blue / 5",
+        "Brown Blue / 6",
+        "Brown Blue / 7",
+        "Brown Blue / 8",
+        "Brown Blue / 9",
+        "Brown Blue / 10",
+        "Brown Blue / 11",
+        "Brown Blue / 12"
+      ],
+      "sizes": [
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12"
+      ],
+      "colours": [
+        "Brown Blue"
+      ],
+      "price": "6299.00",
+      "url": "https://wearcomet.com/products/apex-dune",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/brown_1.jpg?v=1778475796",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Zoom_2ca962ce-11fa-4720-bbbe-46f246d8fb7f_1.jpg?v=1777638428",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/NewShot_4a70b278-6e3d-422c-b041-4513608e02b4.jpg?v=1777549223",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Untitled-513.jpg?v=1777638428",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Front3_4_ab51138d-92a6-472e-aefb-949f5797a018.jpg?v=1777549223",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Angle1_72928a0b-d7a3-4eef-851a-8d512fa66668.jpg?v=1777549223",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/BackZoom_5c3d9838-96fa-4e64-bcd6-3ddf704d5638_1.jpg?v=1777638428",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Angle2_dbeb3279-802a-4604-a8df-b55a92c7f6e0.jpg?v=1777549223"
+      ]
+    },
+    {
+      "id": "shopify-10160241934643",
+      "name": "Apex ONYX",
+      "category": "APEX",
+      "collection": "Active",
+      "description": "Apex is built using 49 individually stitched components on each shoe of a pair. The upper combines layered materials with breathable mesh to create a rich, textured finish. The four-component sole consists of our most comfortable foam technology yet, SpacewalkX Foam Midsole and is anchored by a Sharkfin Stability Plate, adding both structure and a distinctive design detail. Want to know more about the story of Apex : Blog Link Onyx is a sport-inspired lifestyle sneaker that f",
+      "variants": [
+        "Silver Gold / 3",
+        "Silver Gold / 4",
+        "Silver Gold / 5",
+        "Silver Gold / 6",
+        "Silver Gold / 7",
+        "Silver Gold / 8",
+        "Silver Gold / 9",
+        "Silver Gold / 10",
+        "Silver Gold / 11",
+        "Silver Gold / 12"
+      ],
+      "sizes": [
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12"
+      ],
+      "colours": [
+        "Silver Gold"
+      ],
+      "price": "6299.00",
+      "url": "https://wearcomet.com/products/apex-onyx",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Silver_Gold_Lateral_1.jpg?v=1778475796",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Zoom_3c545e6c-af50-4b38-b99e-79c0d8f4baad_1.jpg?v=1777637314",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/NewShot_e823c52f-75b8-46bb-b4ea-d7635ae5f78a.jpg?v=1777527295",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/OnyxZoomout1_1.jpg?v=1777637314",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/New_4.jpg?v=1777659874",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Front3_4_802d68c8-fca8-47ab-8d4b-4cc0715e604a.jpg?v=1777527294",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Angle1_3b24eeb5-89c5-45e6-a841-c0652287e2be.jpg?v=1777547945",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/BackZoom_8ed2d19e-b2bb-4364-828e-a2ecfba2223b_1.jpg?v=1777637313"
+      ]
+    },
+    {
+      "id": "shopify-10160241148211",
+      "name": "Apex SHOCKWAVE",
+      "category": "APEX",
+      "collection": "Active",
+      "description": "Apex is built using 49 individually stitched components on each shoe of a pair. The upper combines layered materials with breathable mesh to create a rich, textured finish. The four-component sole consists of our most comfortable foam technology yet, SpacewalkX Foam Midsole and is anchored by a Sharkfin Stability Plate, adding both structure and a distinctive design detail. Want to know more about the story of Apex : Blog Link A sport-inspired lifestyle sneaker, Shockwave is ",
+      "variants": [
+        "Silver Blue / 7",
+        "Silver Blue / 8",
+        "Silver Blue / 9",
+        "Silver Blue / 10",
+        "Silver Blue / 11",
+        "Silver Blue / 12"
+      ],
+      "sizes": [
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12"
+      ],
+      "colours": [
+        "Silver Blue"
+      ],
+      "price": "6299.00",
+      "url": "https://wearcomet.com/products/apex-shockwave",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/silver_blue_1.jpg?v=1778475796",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Zoom_12_92b5b18b-7cdf-4261-aac9-76f20741132d.jpg?v=1777524397",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/New_Shot.jpg?v=1777524397",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Untitled-99.jpg?v=1777636994",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Front_3_4.jpg?v=1777524397",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Angle_1_4795b2da-41aa-4f88-96d0-9df59e74669a.jpg?v=1777547475",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Back_Zoom_a4393dc5-80e1-4f01-a711-f770a65cd46a_1.jpg?v=1777636994",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Angle_2.jpg?v=1777524398"
+      ]
+    },
+    {
+      "id": "shopify-10160240787763",
+      "name": "Apex DARKMATTER",
+      "category": "APEX",
+      "collection": "Active",
+      "description": "Apex is built using 49 individually stitched components on each shoe of a pair. The upper combines layered materials with breathable mesh to create a rich, textured finish. The four-component sole consists of our most comfortable foam technology yet, SpacewalkX Foam Midsole and is anchored by a Sharkfin Stability Plate, adding both structure and a distinctive design detail. Want to know more about the story of Apex : Blog Link Darkmatter is a sport-inspired lifestyle sneaker ",
+      "variants": [
+        "Black Silver / 3",
+        "Black Silver / 4",
+        "Black Silver / 5",
+        "Black Silver / 6",
+        "Black Silver / 7",
+        "Black Silver / 8",
+        "Black Silver / 9",
+        "Black Silver / 10",
+        "Black Silver / 11",
+        "Black Silver / 12"
+      ],
+      "sizes": [
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12"
+      ],
+      "colours": [
+        "Black Silver"
+      ],
+      "price": "6299.00",
+      "url": "https://wearcomet.com/products/apex-darkmatter",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Black_Lateral_1.jpg?v=1778475796",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/FrontZoom_4a246e5e-8399-4772-82f4-79c633eb6da8_1.jpg?v=1777636652",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/NewShot_3152e329-4b13-4956-938a-3582a918e999.jpg?v=1777519985",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Black.jpg?v=1777636414",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Front3_4.jpg?v=1777519985",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Angle1_cd8ebf92-18ac-47a7-b276-175500b714ac.jpg?v=1777519985",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/BackZoom_4c844be9-bc06-44a5-bebf-841157696065_1.jpg?v=1777636584",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Angle2_b3b55a10-e07c-4f37-a297-9f017e3ee3c7.jpg?v=1777519985"
+      ]
+    },
+    {
+      "id": "shopify-10150067962163",
+      "name": "COMET x VERONICA'S",
+      "category": "Drops",
+      "collection": "Active",
+      "description": "COMET x VERONICA’S is what happens when you take the soul of India’s sneaker culture and mix it with the flavour of Bombay's most iconic deli. Both brands have spent years building their respective subcultures; this intersection brings a new wave of global influences to India, brewing a new standard of taste right here. To bring this collaboration to life, the X Lows gets a flavourful makeover. Dressed in the unmistakable white and orange of Veronica’s palette, this pair hold",
+      "variants": [
+        "Cream Orange / 4",
+        "Cream Orange / 5",
+        "Cream Orange / 6",
+        "Cream Orange / 7",
+        "Cream Orange / 8",
+        "Cream Orange / 9",
+        "Cream Orange / 10",
+        "Cream Orange / 11",
+        "Cream Orange / 12"
+      ],
+      "sizes": [
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12"
+      ],
+      "colours": [
+        "Cream Orange"
+      ],
+      "price": "6499.00",
+      "url": "https://wearcomet.com/products/comet-x-veronicas",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/1_1_a005acde-9cbd-42bf-99dd-b9962f196e9b.jpg?v=1776671468",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/FrontZoom_2.jpg?v=1776671468",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/3_bca1496a-9211-4f06-b6ac-714e381412ea.jpg?v=1776671468",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/veronicas_fast_gif_half_res_256_low_sat.gif?v=1776673728",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/lifestyle_shots_HD.jpg?v=1776673728",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/ExtraLacing_4.jpg?v=1776673728",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/full_spread.jpg?v=1776673728",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Front3_4_14.jpg?v=1776673728"
+      ]
+    },
+    {
+      "id": "shopify-10140037251379",
+      "name": "X Lows COSMO",
+      "category": "X Lows",
+      "collection": "Active",
+      "description": "Introducing the Born To Be Wild collection. Prim and proper, but always ready to party, Cosmo leads in soft pink with elevated textures. Built on our X Lows this pair features our newest material play – croc-embossed textures beautifully layered on our classic microfibre upper. This shoe is made for the ones who are always ready for whatever the night brings. - Ever-soft and ever-snug grip - A roomier toe box shaped for broader Indian feet - Irresistible comfort, thanks to Sp",
+      "variants": [
+        "Pink Croc / 3",
+        "Pink Croc / 4",
+        "Pink Croc / 5",
+        "Pink Croc / 6",
+        "Pink Croc / 7",
+        "Pink Croc / 8",
+        "Pink Croc / 9",
+        "Pink Croc / 10",
+        "Pink Croc / 11"
+      ],
+      "sizes": [
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11"
+      ],
+      "colours": [
+        "Pink Croc"
+      ],
+      "price": "4299.00",
+      "url": "https://wearcomet.com/products/x-lows-cosmo",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/designer_special_placement.jpg?v=1775626146",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Zoom_12.jpg?v=1775626146",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Front3_4_12.jpg?v=1775626146",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Artboard_1_7.jpg?v=1775626146",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Sole_4_d7affbbb-6821-4927-aa0a-d8e98b043889.jpg?v=1775626146",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/SoleZoom_d9a185b9-f84f-48f6-bee3-ba2a8d452ad4.jpg?v=1775626146",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Angle1_4.jpg?v=1775626146",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/ANGLE2_2.jpg?v=1775626146"
+      ]
+    },
+    {
+      "id": "shopify-10140038267187",
+      "name": "X Lows MEZCAL",
+      "category": "X Lows",
+      "collection": "Active",
+      "description": "Introducing the Born To Be Wild collection. Built on the X Lows, this shoe features our newest material play. It beautifully blends a croc-embossed texture over our classic microfibre upper, taking sophistication to another level. Made for the heart of the night, Mezcal is made for those who are born ready for wherever the night takes them. - Ever-soft and ever-snug grip - A roomier toe box shaped for broader Indian feet - Irresistible comfort, thanks to SpaceWalk, our signat",
+      "variants": [
+        "Green Croc / 3",
+        "Green Croc / 4",
+        "Green Croc / 5",
+        "Green Croc / 6",
+        "Green Croc / 7",
+        "Green Croc / 8",
+        "Green Croc / 9",
+        "Green Croc / 10",
+        "Green Croc / 11",
+        "Green Croc / 12"
+      ],
+      "sizes": [
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12"
+      ],
+      "colours": [
+        "Green Croc"
+      ],
+      "price": "4299.00",
+      "url": "https://wearcomet.com/products/x-lows-mezcal",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/designer_special_placement_green_croc.jpg?v=1775626170",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/FrontZoom_1_76dd4510-b2a5-4d24-90b1-962a59d198de.jpg?v=1775626170",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Front3_4_13_1_0cb94f82-89da-4aa1-8499-d546ff190027.jpg?v=1775626170",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Artboard3_7_1_9a4729b3-aa7b-4b0f-b348-bf1103f06030.jpg?v=1775626170",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Artboard2_8_c38fe897-c7f6-47e8-8884-03366d1948d9.jpg?v=1775626170",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Sole_5_1_aa7b611d-5caa-4b78-b1ac-2c3a4613310d.jpg?v=1775626170",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/SoleZoom_1_1_12585ce6-7a00-4b3e-8c07-6a3ccf27d428.jpg?v=1775626170",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Angle2_3_1_4fb27c03-5d13-4ace-9043-d625d9b3020c.jpg?v=1775626170"
+      ]
+    },
+    {
+      "id": "shopify-10120852406579",
+      "name": "X Lows WITH LOVE",
+      "category": "X Lows",
+      "collection": "Active",
+      "description": "We’ve been building the Indian sneaker culture every day through the shoes we make and the people shaping it with us. Aditya Bhalla has been one of those voices from the start, which made him the natural choice to co-design this pair. Built on the X Lows, this is our first guest Designer Special. This shoe pulls in elements from his personal world and translates them into something that goes beyond just one story, something anyone can wear, connect with, and make their own. W",
+      "variants": [
+        "Pink Corduroy / 3",
+        "Pink Corduroy / 4",
+        "Pink Corduroy / 5",
+        "Pink Corduroy / 6",
+        "Pink Corduroy / 7",
+        "Pink Corduroy / 8",
+        "Pink Corduroy / 9",
+        "Pink Corduroy / 10",
+        "Pink Corduroy / 11",
+        "Pink Corduroy / 12"
+      ],
+      "sizes": [
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12"
+      ],
+      "colours": [
+        "Pink Corduroy"
+      ],
+      "price": "5899.00",
+      "url": "https://wearcomet.com/products/x-lows-with-love",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/lateral.1jpg.jpg?v=1774262362",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Zoom_11.jpg?v=1774262362",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Front3_4_11.jpg?v=1774262362",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Artboard_2_6.jpg?v=1775197627",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Sole_3.jpg?v=1775197627",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/ExtraLace_6dcab0b2-f10b-4637-b46d-8fba1c9da3bd.jpg?v=1774347211",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/BackZoom_7.jpg?v=1774347211",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Back_8.jpg?v=1774347211"
+      ]
+    },
+    {
+      "id": "shopify-10117895553331",
+      "name": "X Lows MOROCCO",
+      "category": "X Lows",
+      "collection": "Active",
+      "description": "Morocco takes its name from the sunbaked landscapes and warm earth tones of the country itself. Built on the X Lows, this shoe carries a cream and brown base that echoes desert sands and clay, while a mustard yellow comet star streaks across the upper, drawing the eye and adding unexpected energy. - Ever-soft and ever-snug grip - Roomy toe box lets our broad Indian toes breathe. - Irresistible comfort, thanks to SpaceWalk, our signature 3-layered sole system. SpaceWalk is lig",
+      "variants": [
+        "Brown Yellow / 3",
+        "Brown Yellow / 4",
+        "Brown Yellow / 5",
+        "Brown Yellow / 6",
+        "Brown Yellow / 7",
+        "Brown Yellow / 8",
+        "Brown Yellow / 9",
+        "Brown Yellow / 10",
+        "Brown Yellow / 11",
+        "Brown Yellow / 12"
+      ],
+      "sizes": [
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12"
+      ],
+      "colours": [
+        "Brown Yellow"
+      ],
+      "price": "4299.00",
+      "url": "https://wearcomet.com/products/x-lows-morocco",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Lateral_7.jpg?v=1773829406",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Zoom_10.jpg?v=1773829406",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Front3_4_10.jpg?v=1773829406",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Artboard_3_dd451acd-e534-42b1-8bf9-5145ff446cf3.jpg?v=1775197682",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Sole_2_c94dcb14-eb25-4ea3-aaab-8b69436c26d2.jpg?v=1775197682",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/BackZoom_6.jpg?v=1775197682",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Angle1_3.jpg?v=1775197682",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Angle2_1.jpg?v=1773920448"
+      ]
+    },
+    {
+      "id": "shopify-10115233612083",
+      "name": "Aeon V2 WOODPECKER",
+      "category": "Aeon V2",
+      "collection": "Active",
+      "description": "The snap of a sudden rhythm, a pulse through the air, Woodpecker hits the ground in white and brown, spiked with mustard yellow. Bold and alert, it moves with energy that can’t be ignored. Woodpecker, built on the aeons, carries a restless spirit, striking in motion, daring you to match its pace. - Plush EVA foam cushions every step - Waffle outsole grips the ground and distributes pressure - Featherlight feel makes every move effortless - Breathable mesh hugs your feet and l",
+      "variants": [
+        "Delta2 Brown Mustard / 3",
+        "Delta2 Brown Mustard / 4",
+        "Delta2 Brown Mustard / 5",
+        "Delta2 Brown Mustard / 6",
+        "Delta2 Brown Mustard / 7",
+        "Delta2 Brown Mustard / 8",
+        "Delta2 Brown Mustard / 9",
+        "Delta2 Brown Mustard / 10",
+        "Delta2 Brown Mustard / 11",
+        "Delta2 Brown Mustard / 12"
+      ],
+      "sizes": [
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12"
+      ],
+      "colours": [
+        "Delta2 Brown Mustard"
+      ],
+      "price": "4499.00",
+      "url": "https://wearcomet.com/products/aeon-v2-woodpecker",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Lateral_1_253e065d-72de-43f0-bf65-f3b0ff1e8dd5.jpg?v=1773746365",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/ZOOM_2_b6eeb3d6-4985-47be-89f4-f0dabde30798.jpg?v=1773746365",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/FRONT_2_efe4129e-2ac5-4908-96c7-79bce40056ea.jpg?v=1773746365",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/onfeet_2d1280c2-8245-4379-b685-88f8bf668c0c.jpg?v=1773746365",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/NEW_2_a6fdcd11-7dc9-4de5-aff7-66c6c8611889.jpg?v=1773746313",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/back_2_a5649438-1543-4ae9-815a-5761524e6bd2.jpg?v=1773746313",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/extralace_2_219826e4-f58a-445a-9d7b-4514d3f3ff05.jpg?v=1773746313"
+      ]
+    },
+    {
+      "id": "shopify-10110029234483",
+      "name": "Aeon V2 PHANTOM",
+      "category": "Aeon V2",
+      "collection": "Active",
+      "description": "Silent. Swift. Unseen. Phantom moves like a shadow through the city streets, black with subtle highlights that catch your eye. Built on the aeons, this shoe features a black base with breathable mesh for airflow and comfort. Every detail, from the stitching to the material layering, is designed to perform and feel precise underfoot.",
+      "variants": [
+        "Delta2 Black White / 3",
+        "Delta2 Black White / 4",
+        "Delta2 Black White / 5",
+        "Delta2 Black White / 6",
+        "Delta2 Black White / 7",
+        "Delta2 Black White / 8",
+        "Delta2 Black White / 9",
+        "Delta2 Black White / 10",
+        "Delta2 Black White / 11",
+        "Delta2 Black White / 12"
+      ],
+      "sizes": [
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12"
+      ],
+      "colours": [
+        "Delta2 Black White"
+      ],
+      "price": "4499.00",
+      "url": "https://wearcomet.com/products/aeon-v2-phantom",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/lat2.jpg?v=1773242960",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Zoom_8.jpg?v=1773242960",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Front3_4_8.jpg?v=1773242960",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/on_feet_phantom.jpg?v=1773647910",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Angle1_1.jpg?v=1773647910",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Back3_4_8.jpg?v=1773647910",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Angle2.jpg?v=1773647910"
+      ]
+    },
+    {
+      "id": "shopify-10110021501235",
+      "name": "Aeon V2 OYSTER",
+      "category": "Aeon V2",
+      "collection": "Active",
+      "description": "The slow crunch of earth underfoot, the warmth of late afternoon, Oyster, built on the Aeons, wraps that feeling in beige with whispers of orange. Steady, grounded, and quietly confident, it’s a shoe that moves with you. Subtle textures and tones reveal themselves as you move, hinting at character and care. Oyster is ready for wherever your day takes you.",
+      "variants": [
+        "Delta2 Brown Orange / 3",
+        "Delta2 Brown Orange / 4",
+        "Delta2 Brown Orange / 5",
+        "Delta2 Brown Orange / 6",
+        "Delta2 Brown Orange / 7",
+        "Delta2 Brown Orange / 8",
+        "Delta2 Brown Orange / 9",
+        "Delta2 Brown Orange / 10",
+        "Delta2 Brown Orange / 11",
+        "Delta2 Brown Orange / 12"
+      ],
+      "sizes": [
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12"
+      ],
+      "colours": [
+        "Delta2 Brown Orange"
+      ],
+      "price": "4499.00",
+      "url": "https://wearcomet.com/products/aeon-v2-oyster",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Lateralwhite.jpg?v=1773387233",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Zoom_7.jpg?v=1773387233",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Front3_4_7.jpg?v=1773387233",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/on_feet_2_7.jpg?v=1773662837",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Angle1.jpg?v=1773662837",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Back3_4_7.jpg?v=1773662837",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/ExtraLacing_2.jpg?v=1773662837"
+      ]
+    },
+    {
+      "id": "shopify-9458949128499",
+      "name": "ORANGE",
+      "category": "The Vault",
+      "collection": "Active",
+      "description": "The bright, tangy flavour that made our golas pop with joy and transformed our tongue colour from pink to orange. Orange captures the thrill of choosing your favourite flavour on a sweltering day, freezing that classic moment in vibrant, icy glory. The pair is a frosty burst of nostalgia that melts hearts. Remember those days when your lips were stained with rainbow hues? Who knew those stains would also leave a permanent mark of joy on our hearts? X Lows White dipped in a sp",
+      "variants": [
+        "Orange Icegola / 3",
+        "Orange Icegola / 4",
+        "Orange Icegola / 5",
+        "Orange Icegola / 6",
+        "Orange Icegola / 7",
+        "Orange Icegola / 8",
+        "Orange Icegola / 9",
+        "Orange Icegola / 10",
+        "Orange Icegola / 11",
+        "Orange Icegola / 12"
+      ],
+      "sizes": [
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12"
+      ],
+      "colours": [
+        "Orange Icegola"
+      ],
+      "price": "5299.00",
+      "url": "https://wearcomet.com/products/orange-icegola",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/01.jpg?v=1772786014",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/05.jpg?v=1773061235",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/pdp.jpg?v=1773233727",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/04.jpg?v=1773233727",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/02.jpg?v=1773233727",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/09.jpg?v=1773233727",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/New_On_Feet.jpg?v=1773233727",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/07.jpg?v=1773233727"
+      ]
+    },
+    {
+      "id": "shopify-10103829332275",
+      "name": "Aeon V2 PRIMROSE",
+      "category": "Aeon V2",
+      "collection": "Active",
+      "description": "Primrose takes its name from the early bloom that signals the start of the season. Built on the Aeon v2, the shoe stays clean with an all-white upper, finished with a soft pink shooting star. It’s a precise detail that changes the character of the shoe without disturbing its balance. As the season begins to shift, Primrose brings a timely addition to the Aeon line. Clean, considered, and ready to step into the months ahead. - Plush EVA foam cushions every step - Waffle outsol",
+      "variants": [
+        "Delta2 Pink White / 3",
+        "Delta2 Pink White / 4",
+        "Delta2 Pink White / 5",
+        "Delta2 Pink White / 6",
+        "Delta2 Pink White / 7",
+        "Delta2 Pink White / 8"
+      ],
+      "sizes": [
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8"
+      ],
+      "colours": [
+        "Delta2 Pink White"
+      ],
+      "price": "4499.00",
+      "url": "https://wearcomet.com/products/aeon-v2-primrose",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Lateral_5.jpg?v=1772714530",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Zoom_5.jpg?v=1772714530",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Front3_4_6.jpg?v=1772714530",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/On_Feet_1_5.jpg?v=1772714530",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Angle_d3e18d1c-1531-46c9-9bf6-1e11bc508244.jpg?v=1772714530",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/ExtraLacing_1.jpg?v=1772714687",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Back3_4_6.jpg?v=1772714687"
+      ]
+    },
+    {
+      "id": "shopify-10097306927411",
+      "name": "X Lows REWIND",
+      "category": "X Lows",
+      "collection": "Active",
+      "description": "Don't you ever want to rewind time back to the good old days. Earphones on, Winamp visualisations and lost in the sound of the '90s. Built on the X Lows, Rewind draws from the iconic sound and attitude of the ’90s, an era we grew up with and still return to. That influence shows up in the details. A crisp white base, finished with subtle hits of red and blue, keeps the shoe timeless and cool. - Ever-soft and ever-snug grip - Roomy toe box lets our broad Indian toes breathe. -",
+      "variants": [
+        "Cream Red / 3",
+        "Cream Red / 4",
+        "Cream Red / 5",
+        "Cream Red / 6",
+        "Cream Red / 7",
+        "Cream Red / 8",
+        "Cream Red / 9",
+        "Cream Red / 10",
+        "Cream Red / 11",
+        "Cream Red / 12"
+      ],
+      "sizes": [
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12"
+      ],
+      "colours": [
+        "Cream Red"
+      ],
+      "price": "4299.00",
+      "url": "https://wearcomet.com/products/x-lows-rewind",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Lateral_4_1_da4a0672-4105-402c-8c09-79e65b7b668a.jpg?v=1772442647",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Zoom_3_1.jpg?v=1772442647",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Front3_4_5_1.jpg?v=1772442647",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Artboard_3_970e498d-a74a-4cfb-b649-ce862896c574.jpg?v=1775197952",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Sole_1_1.jpg?v=1775197952",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/extra_lacing_658b55dc-1c11-47ce-aab6-7dc9649e3be4.jpg?v=1772442647",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Last_1.jpg?v=1772442647",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/BackZoom_5_1.jpg?v=1772442647"
+      ]
+    },
+    {
+      "id": "shopify-10092682477875",
+      "name": "X Lows SADDLE BROWN",
+      "category": "X Lows",
+      "collection": "Active",
+      "description": "We return to the basics, honoring the delicate art that started it all. Built on the X Lows, Saddle Brown brings weight to anything you wear it with. It sits in that space between dressed-up and daily. Stitching is the first way we learned to make clothing: poke, pass, pull tight. This shoe carries that connection to the art that has inspired generations.",
+      "variants": [
+        "Brown Embroidery / 7",
+        "Brown Embroidery / 8",
+        "Brown Embroidery / 9",
+        "Brown Embroidery / 10",
+        "Brown Embroidery / 11",
+        "Brown Embroidery / 12"
+      ],
+      "sizes": [
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12"
+      ],
+      "colours": [
+        "Brown Embroidery"
+      ],
+      "price": "5299.00",
+      "url": "https://wearcomet.com/products/x-lows-saddle-brown",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Untitledjpg.jpg?v=1772195016",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Untitled-3_7.jpg?v=1772195016",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Untitled-5_8.jpg?v=1772195016",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Artboard_1_2_4d0552a2-891c-4c79-b7c9-433646dbb7c4.jpg?v=1775197968",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Untitled-6_11.jpg?v=1775197968",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Untitled-8_7.jpg?v=1772438323",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Untitled-10_5.jpg?v=1772438323",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Untitled-7_7.jpg?v=1772438323"
+      ]
+    },
+    {
+      "id": "shopify-10092680511795",
+      "name": "X Lows CEDAR GREEN",
+      "category": "X Lows",
+      "collection": "Active",
+      "description": "We return to the basics, honoring the delicate art that started it all. Built on the X Lows, Cedar Green comes through deep and steady. It shifts with light, richer in shade, darker in motion. The side stitching is beautiful. It takes “poke, pass, pull tight” and turns it into a connection to the art that has inspired generations.",
+      "variants": [
+        "Green Embroidery / 7",
+        "Green Embroidery / 8",
+        "Green Embroidery / 9",
+        "Green Embroidery / 10",
+        "Green Embroidery / 11",
+        "Green Embroidery / 12"
+      ],
+      "sizes": [
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12"
+      ],
+      "colours": [
+        "Green Embroidery"
+      ],
+      "price": "5299.00",
+      "url": "https://wearcomet.com/products/x-lows-cedar-green",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Untitled-4_8.jpg?v=1772183623",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Untitled-5_7_470554be-77cc-4bd2-a2e7-fa956cc111e4.jpg?v=1772194835",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Untitled-7_6.jpg?v=1772194835",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Image_from_iOS.jpg?v=1775197982",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Untitled-3_6.jpg?v=1775197982",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Untitled-9_4.jpg?v=1772194812",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Untitled-6_7_78e0e9de-4680-4fb2-9574-0b0d9e3325ef.jpg?v=1772195168",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Untitled-10_4.jpg?v=1772195168"
+      ]
+    },
+    {
+      "id": "shopify-10092651381043",
+      "name": "X Lows PIANO BLACK",
+      "category": "X Lows",
+      "collection": "Active",
+      "description": "We return to the basics, honoring the delicate art that started it all. Built on the X Lows, Piano Black goes tone-on-tone with intricate embroidery. An artistic twist on black essentials, it adds depth to any fit. Stitching is the first way we learned to make clothing: poke, pass, pull tight. This shoe carries that connection to the art that has inspired generations.",
+      "variants": [
+        "Black Embroidery / 7",
+        "Black Embroidery / 8",
+        "Black Embroidery / 9",
+        "Black Embroidery / 10",
+        "Black Embroidery / 11",
+        "Black Embroidery / 12"
+      ],
+      "sizes": [
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12"
+      ],
+      "colours": [
+        "Black Embroidery"
+      ],
+      "price": "5299.00",
+      "url": "https://wearcomet.com/products/x-lows-piano-black",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Untitled-4_9_2a1f807b-3fa5-4b06-bc29-61bd73137940.jpg?v=1772195178",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Untitled-6_9.jpg?v=1772195178",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Untitled-8_8.jpg?v=1772195178",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Artboard_2_1_a6d6a64c-288e-4b23-a8b7-9c797308e6b2.jpg?v=1775198000",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Untitled-5_11.jpg?v=1775198000",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Untitled-9_6.jpg?v=1772438466",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Untitled-7_8.jpg?v=1772438466",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Untitled-11_2.jpg?v=1772438466"
+      ]
+    },
+    {
+      "id": "shopify-10068209828147",
+      "name": "X Lows POLARIS",
+      "category": "X Lows",
+      "collection": "Active",
+      "description": "Polaris is the north star, used for centuries to guide travellers when everything else in the sky shifts. This X Lows brings that clarity into the design. A crisp white upper keeps it clean and minimal, blue leather underlays add contrast and suede textures add softness for a refined everyday edge. SpaceWalk is light, airy, and cloud-like, and is named so for all the right reasons. What you’ll be stepping into is a long-lasting insole placed on top of an ultra-cushioned sheet",
+      "variants": [
+        "Blue Piping / 3",
+        "Blue Piping / 4",
+        "Blue Piping / 5",
+        "Blue Piping / 6",
+        "Blue Piping / 7",
+        "Blue Piping / 8",
+        "Blue Piping / 9",
+        "Blue Piping / 10",
+        "Blue Piping / 11",
+        "Blue Piping / 12"
+      ],
+      "sizes": [
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12"
+      ],
+      "colours": [
+        "Blue Piping"
+      ],
+      "price": "5299.00",
+      "url": "https://wearcomet.com/products/x-lows-polaris",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Untitled-2_2_1.jpg?v=1771571363",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Untitled-3_1_2_1.jpg?v=1771571363",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Untitled-5_1_3.jpg?v=1771571363",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/on_feet_7_2.jpg?v=1775198015",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Untitled-1_1_69d26a86-56cc-4dad-a173-6b766800ca7f.jpg?v=1775198015",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Untitled-8_1.jpg?v=1773398855",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Untitled-4_10.jpg?v=1773398855",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Untitled-7_1_1.jpg?v=1773398855"
+      ]
+    },
+    {
+      "id": "shopify-10084352360755",
+      "name": "Apex BUTTERCREAM",
+      "category": "APEX",
+      "collection": "Active",
+      "description": "Apex is built using 49 individually stitched components on each shoe of a pair. The upper combines layered materials with breathable mesh to create a rich, textured finish. The four-component sole consists of our most comfortable foam technology yet, SpacewalkX Foam Midsole and is anchored by a Sharkfin Stability Plate, adding both structure and a distinctive design detail. Want to know more about the story of Apex : Blog Link Soft, sweet, and impossible to ignore, Apex Butte",
+      "variants": [
+        "Apex Yellow Blue / 3",
+        "Apex Yellow Blue / 4",
+        "Apex Yellow Blue / 5",
+        "Apex Yellow Blue / 6",
+        "Apex Yellow Blue / 7",
+        "Apex Yellow Blue / 8"
+      ],
+      "sizes": [
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8"
+      ],
+      "colours": [
+        "Apex Yellow Blue"
+      ],
+      "price": "6299.00",
+      "url": "https://wearcomet.com/products/apex-buttercream",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/new_lat.jpg?v=1771499881",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/new3.jpg?v=1771500371",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/new1.jpg?v=1771500371",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/onfeet5_1.jpg?v=1771500371",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/onfeetbuttercream_1.jpg?v=1771500371",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/new2.jpg?v=1771500371",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/new5.jpg?v=1771500371"
+      ]
+    },
+    {
+      "id": "shopify-9015884513587",
+      "name": "SKRIBBLE",
+      "category": "X Lows",
+      "collection": "Active",
+      "description": "Please note: Skribble is a factory finish, printed product and not manually painted SKRIBBLE captures the true spirit of the OG era of Never Shy, Never Sorry, our childhood. Where every day was as exciting and carefree as the last. Where even the sky wasn’t the limit. Where every wall, notebook, paper was our canvas, and every scribble, a masterpiece. Your scribbles were and can be whatever or however you want them to be. You choose the colours, you choose the flow, YOU make ",
+      "variants": [
+        "Multi Crayon / 4",
+        "Multi Crayon / 5",
+        "Multi Crayon / 6",
+        "Multi Crayon / 7",
+        "Multi Crayon / 8",
+        "Multi Crayon / 9",
+        "Multi Crayon / 10",
+        "Multi Crayon / 11",
+        "Multi Crayon / 12"
+      ],
+      "sizes": [
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12"
+      ],
+      "colours": [
+        "Multi Crayon"
+      ],
+      "price": "5299.00",
+      "url": "https://wearcomet.com/products/skribble",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/skribble_final_lateral_1-min.jpg?v=1765877068",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/skribble_zoom-min.png?v=1765877068",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/skribble_splatter_2_-min.jpg?v=1765877068",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/on_feet_1_-min.png?v=1765877068",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Sole_2_-min.png?v=1765877068",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/skr_extra_lacing_1-min.jpg?v=1765877068",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Untitled-30_1-min.jpg?v=1765877068",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/sole_zoom_2_-min.png?v=1765877068"
+      ]
+    },
+    {
+      "id": "shopify-10076320235827",
+      "name": "Apex KATANA",
+      "category": "APEX",
+      "collection": "Active",
+      "description": "Apex is built using 49 individually stitched components on each shoe of a pair. The upper combines layered materials with breathable mesh to create a rich, textured finish. The four-component sole consists of our most comfortable foam technology yet, SpacewalkX Foam Midsole and is anchored by a Sharkfin Stability Plate, adding both structure and a distinctive design detail. Want to know more about the story of Apex : Blog Link Katana is a sport-inspired lifestyle sneaker desi",
+      "variants": [
+        "Multi Black / 3",
+        "Multi Black / 4",
+        "Multi Black / 5",
+        "Multi Black / 6",
+        "Multi Black / 7",
+        "Multi Black / 8",
+        "Multi Black / 9",
+        "Multi Black / 10",
+        "Multi Black / 11",
+        "Multi Black / 12"
+      ],
+      "sizes": [
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12"
+      ],
+      "colours": [
+        "Multi Black"
+      ],
+      "price": "6299.00",
+      "url": "https://wearcomet.com/products/apex-katana",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Untitled-2_6_1.jpg?v=1778484556",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Zoom_822697e9-7bff-4a92-aa52-3a8219211085.jpg?v=1770711838",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/New_Angle.jpg?v=1770726190",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Untitled-2_b6eff394-5194-4d00-acfe-6e7b588669d9.jpg?v=1770726190",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Front_175996d1-9447-43f1-84b0-affc46ae37fa.jpg?v=1770711838",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Front_sole.jpg?v=1770726190",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Back_Zoom.jpg?v=1770726190",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/One_View.jpg?v=1770726190"
+      ]
+    },
+    {
+      "id": "shopify-10073098715443",
+      "name": "COMET X ODDNOTEVEN",
+      "category": "Aeon V2",
+      "collection": "Active",
+      "description": "If love had a sneaker, it would be the Comet X OddNotEven drop. OddNotEven is a Mumbai-based streetwear brand started by Stuti Sharma. Their design ideology is based on creating unabashed, edgy silhouettes that blur the lines between sportswear culture and streetwear. Inspired by the 'If You Love Me' jersey, this shoe mixes breathable mesh and suede for the perfect balance of softness and edge. And the two scribbled hearts embroidered on the upper? Proof that love leaves its ",
+      "variants": [
+        "DeltaV2 Black Pink / 3",
+        "DeltaV2 Black Pink / 4",
+        "DeltaV2 Black Pink / 5",
+        "DeltaV2 Black Pink / 6",
+        "DeltaV2 Black Pink / 7",
+        "DeltaV2 Black Pink / 8",
+        "DeltaV2 Black Pink / 9",
+        "DeltaV2 Black Pink / 10",
+        "DeltaV2 Black Pink / 11",
+        "DeltaV2 Black Pink / 12"
+      ],
+      "sizes": [
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12"
+      ],
+      "colours": [
+        "DeltaV2 Black Pink"
+      ],
+      "price": "5299.00",
+      "url": "https://wearcomet.com/products/comet-x-oddnoteven-nm",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Untitled-1.jpg?v=1770121908",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Untitled-3_83bbe353-f006-4d10-bf5e-4ad18cb83979.jpg?v=1770124838",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Untitled-2.jpg?v=1770124838",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/SwatchOnFeet_2.jpg?v=1770275833",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/SwatchOnFeet_1_1.jpg?v=1770275833",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Untitled-13.jpg?v=1770275833",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Untitled-6_71951a67-e23a-4ba5-9603-08f08c655a27.jpg?v=1770275833",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Untitled-4_378e5206-0512-495e-bb4a-55b9181e9912.jpg?v=1770275833"
+      ]
+    },
+    {
+      "id": "shopify-10056810758451",
+      "name": "Apex STARFIRE",
+      "category": "APEX",
+      "collection": "Active",
+      "description": "Apex is built using 49 individually stitched components on each shoe of a pair. The upper combines layered materials with breathable mesh to create a rich, textured finish. The four-component sole consists of our most comfortable foam technology yet, SpacewalkX Foam Midsole and is anchored by a Sharkfin Stability Plate, adding both structure and a distinctive design detail. Want to know more about the story of Apex : Blog Link Starfire is a sport-inspired lifestyle sneaker na",
+      "variants": [
+        "Multi Pink / 3",
+        "Multi Pink / 4",
+        "Multi Pink / 5",
+        "Multi Pink / 6",
+        "Multi Pink / 7",
+        "Multi Pink / 8",
+        "Multi Pink / 9",
+        "Multi Pink / 10",
+        "Multi Pink / 11",
+        "Multi Pink / 12"
+      ],
+      "sizes": [
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12"
+      ],
+      "colours": [
+        "Multi Pink"
+      ],
+      "price": "6299.00",
+      "url": "https://wearcomet.com/products/apex-starfire",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Starfire_1_42ca6d20-afe6-41f9-bf13-28ba11f21318.jpg?v=1778483693",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/pink_1.jpg?v=1768973566",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/last2.png?v=1769266311",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/StarfireOnFeet_1.jpg?v=1769266311",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/StarfireonFeetMale_1_94b66265-58d6-4059-aca1-5f62ddef7333.jpg?v=1769266311",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/new_3_4.jpg?v=1768973566",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/new.png?v=1769266311",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/starfire_1.jpg?v=1769266311"
+      ]
+    },
+    {
+      "id": "shopify-10057633759539",
+      "name": "Apex STRATOS",
+      "category": "APEX",
+      "collection": "Active",
+      "description": "Apex is built using 49 individually stitched components on each shoe of a pair. The upper combines layered materials with breathable mesh to create a rich, textured finish. The four-component sole consists of our most comfortable foam technology yet, SpacewalkX Foam Midsole and is anchored by a Sharkfin Stability Plate, adding both structure and a distinctive design detail. Want to know more about the story of Apex : Blog Link Stratos is a sport-inspired lifestyle sneaker nam",
+      "variants": [
+        "Blue Grey / 3",
+        "Blue Grey / 4",
+        "Blue Grey / 5",
+        "Blue Grey / 6",
+        "Blue Grey / 7",
+        "Blue Grey / 8",
+        "Blue Grey / 9",
+        "Blue Grey / 10",
+        "Blue Grey / 11",
+        "Blue Grey / 12"
+      ],
+      "sizes": [
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12"
+      ],
+      "colours": [
+        "Blue Grey"
+      ],
+      "price": "6299.00",
+      "url": "https://wearcomet.com/products/apex-stratos",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Lateral_1_1_1.jpg?v=1778484411",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Reduced_JPEG_4.jpg?v=1768563377",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/New_Angle_JPEG.jpg?v=1769264888",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/StratosonFeet_1.jpg?v=1769264888",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Reduce_JPEG_File_Size_2.jpg?v=1768563377",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Reduce_JPEG_File_Size.jpg?v=1769264888",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Back_Zoom_JPEG.jpg?v=1769264888",
+        "https://cdn.shopify.com/s/files/1/0738/5559/8899/files/Reduce_JPEG_File_Size_1.jpg?v=1769264888"
+      ]
+    }
+  ]
+}

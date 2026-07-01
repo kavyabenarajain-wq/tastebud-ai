@@ -1,0 +1,60 @@
+{
+  "name": "the joon shop",
+  "category": "perfume",
+  "productType": "perfume",
+  "research": {
+    "summary": "The Joon Shop is an established solid perfume brand that positions itself as a luxurious yet mindful daily self-care ritual, blending Korean formulation expertise with a premium, natural ingredient focus. Its identity centers on compact, alcohol-free, vegan solid perfumes that feel elegant, tactile, and intimate, targeting customers who value quiet luxury and safe, high-quality formulations.",
+    "essence": "",
+    "voice": "",
+    "competitors": [
+      "Blur India (solid perfumes, e.g., Smells Like An Autumn Morning)",
+      "Jo Malone London (luxury fragrance collections)",
+      "Kama Ayurveda (natural, Ayurvedic beauty and wellness)",
+      "Sol de Janeiro (sensory-rich, fragrance-forward body care)"
+    ],
+    "ambassadors": [],
+    "instagram": "@thejoonshop",
+    "website": "https://www.thejoonshop.com/",
+    "palette": [
+      {
+        "hex": "#FFFFFF",
+        "role": "primary background / high-key product backdrops"
+      },
+      {
+        "hex": "#F5F5DC",
+        "role": "secondary background / warm off-white surfaces"
+      },
+      {
+        "hex": "#D3D3D3",
+        "role": "neutral accent / shadows, subtle UI elements"
+      },
+      {
+        "hex": "#36454F",
+        "role": "primary text / deep accent (charcoal)"
+      },
+      {
+        "hex": "#A8C6AE",
+        "role": "soft accent referencing natural ingredients / calming green"
+      },
+      {
+        "hex": "#C8A676",
+        "role": "luxury highlight accent (subtle brushed-gold tone for details and props)"
+      }
+    ],
+    "aesthetic": "Backgrounds and surfaces are predominantly high-key and neutral: seamless matte white (#FFFFFF), warm off-white (#F5F5DC), and light stone or marble-like textures, with occasional light wood or soft linen to signal natural, tactile luxury; products are often placed on clean planes with gentle shadows rather than busy environments. The colour grade is clean, slightly desaturated, and low-contrast, keeping whites soft rather than stark, skin tones (if present) warm and natural, and accent colours limited to muted greens and soft golds that echo the brand palette; overall, images feel calm and airy rather than vibrant. Styling is minimal to medium density: hero shots are mostly product-only (compacts alone or in simple stacks), with a few carefully chosen props like citrus slices, single flower stems, dried petals, smooth stones, or a simple ceramic tray; props are used sparingly to hint at fragrance notes and self-care rituals without clutter. Lighting is soft, diffused, and daylight-mimicking, typically from one side (45° window light or softbox) with gentle falloff and faint, soft-edged shadows, sometimes with a slight back or top-back kicker to reveal texture on the balm surface; no harsh specular highlights or deep contrast. Compositions favour centered hero products, clean flat-lays, and simple three-quarter angles, with plenty of negative space and crops that keep the product clearly legible (rarely cutting through the logo or main compact face); depth-of-field is moderate, with product in crisp focus and backgrounds gently blurred when shooting lifestyle. The feed is primarily product-only images with occasional hand shots or partial body crops to show application, but not model-driven fashion storytelling; faces, if used, are secondary to the compact and gesture of use.",
+    "foundReal": false,
+    "logo": "https://www.thejoonshop.com/cdn/shop/files/Joon_primary_Logo.png?crop=center&height=32&v=1722241291&width=32",
+    "productImages": [
+      "http://www.thejoonshop.com/cdn/shop/files/IMG_1416.png?v=1729505796",
+      "https://www.thejoonshop.com/cdn/shop/files/IMG_1416.png?v=1729505796",
+      "https://www.thejoonshop.com/cdn/shop/files/IMG_1410_aa0db1e3-1f11-4f1f-afdc-58689a2dee5e.jpg?v=1729503456",
+      "https://www.thejoonshop.com/cdn/shop/files/222_6d16a07b-3b37-4fe0-bde0-f48cdeb7ac11.jpg?v=1726562008",
+      "https://www.thejoonshop.com/cdn/shop/files/222_6d16a07b-3b37-4fe0-bde0-f48cdeb7ac11.jpg?v=1726562008&width=533",
+      "https://www.thejoonshop.com/cdn/shop/files/111_c2303207-992c-40ee-9f43-a2a5b3d1161e.jpg?v=1726562008",
+      "https://www.thejoonshop.com/cdn/shop/files/111_c2303207-992c-40ee-9f43-a2a5b3d1161e.jpg?v=1726562008&width=533",
+      "https://www.thejoonshop.com/cdn/shop/files/2_968d4f91-29d0-4ca7-8593-f5bcbfd741da.jpg?v=1726562042"
+    ],
+    "sources": 5
+  },
+  "ready": true
+}
