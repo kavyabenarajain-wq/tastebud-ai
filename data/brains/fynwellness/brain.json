@@ -1,42 +1,38 @@
 {
   "name": "Fynwellness",
-  "website": "fynwellness.com",
+  "website": "https://www.fynwellness.com/collections/all",
   "research": {
-    "summary": "Fynwellness is an India-based wellness brand offering a blue spirulina-powered Daily Cellular Hydration Mix, Hydra, positioned as a clean, caffeine-free way to achieve deep cellular hydration, natural energy, and skin-immunity benefits for modern, health-conscious urban consumers.",
-    "essence": "Fynwellness is the future of mindful vitality, unlocking deep cellular hydration for sustained energy and radiant well-being.",
-    "voice": "Informative, empowering, serene, modern, and trustworthy, blending scientific clarity with accessible, nurturing guidance.",
+    "summary": "Fyn Wellness (FYN) is a Mumbai-based wellness brand focused on advanced cellular hydration through clean, science-led nutrition, built around a blue spirulina hydration mix.",
+    "essence": "Pioneering cellular vitality by turning daily hydration into a clean, science-backed blue ritual for modern, health-conscious lifestyles.",
+    "voice": "Empowering, scientific, clean, and modern; explains complex nutrition in accessible, nurturing language with a focus on efficacy, purity, and everyday usability.",
     "competitors": [
-      "Lucofast",
-      "Fast&Up Reload",
-      "Himalaya Re-Hydrate",
-      "5XL Nutrition Sports Fuel"
+      "Wellversed",
+      "Fast&Up",
+      "ORS sports drinks (generic)",
+      "Keto-focused electrolyte mix brands"
     ],
     "ambassadors": [],
-    "instagram": "",
+    "instagram": "https://www.instagram.com/fynwellness/",
     "website": "https://www.fynwellness.com",
     "palette": [
       {
-        "hex": "#007B8C",
-        "role": "primary brand blue (blue spirulina, cellular depth, calmness)"
+        "hex": "#00BFFF",
+        "role": "primary brand blue, representing the blue spirulina drink and cellular hydration"
       },
       {
-        "hex": "#FFFFFF",
-        "role": "core background white (purity, clinical simplicity)"
+        "hex": "#1A2E44",
+        "role": "deep navy accent for headings, key callouts, and contrast elements"
       },
       {
-        "hex": "#F8F8F8",
-        "role": "supporting off-white (soft, minimal surfaces)"
+        "hex": "#F5F5F5",
+        "role": "soft off-white background for web, packaging mockups, and clean surfaces"
       },
       {
-        "hex": "#E0EFEF",
-        "role": "accent mint-grey (freshness, natural touch)"
-      },
-      {
-        "hex": "#222832",
-        "role": "text charcoal (headlines and body copy for a modern scientific feel)"
+        "hex": "#AAAAAA",
+        "role": "neutral grey for secondary text, UI elements, and subtle shadows"
       }
     ],
-    "aesthetic": "Photography is clean, product-led, and minimal, built around the striking blue drink. Backgrounds and surfaces are predominantly light and uncluttered: matte white, soft off-white, and pale grey tabletops, occasionally smooth light wood or stone that feel like modern kitchen or wellness studio environments. Water cues (glasses of water, condensation, occasional ripples) and very subtle natural elements (a slice of lemon, a sprig of mint, a coconut hint) appear as carefully placed props rather than busy compositions. Colour grading is bright and slightly cool, with crisp whites and a gentle cyan cast that amplifies the blue spirulina hue while keeping skin tones natural; overall contrast is medium-high with clean, sharp micro-detail on the liquid and packaging. Styling density is low: single glass tumblers, one or two sachets, a box, or a minimal set of wellness objects (yoga mat edge, headphones, laptop corner) used sparingly to signal integration into a modern routine, never clutter. Lighting is soft, diffused, and natural-feeling, coming from the side or three-quarter front, creating light, airy shadows and subtle specular highlights on glass and liquid to emphasize freshness and purity; no harsh direct flash or deep dramatic shadows. Crops are mostly mid and close: hero shots of the drink and pack-shot on clean backgrounds, overhead flat lays of sachets and a prepared drink, and occasional waist-up lifestyle frames of models in calm, focused states (post-workout, at a desk, in a bright living room). Product-only imagery dominates key website sections and banners, with lifestyle/model shots used as supporting scenes to show the ritual in context rather than as fashion editorial. Overall, the signature is modern wellness: bright, cool-toned, low-clutter product photography with intentional water and ingredient cues, soft side lighting, and compositions that keep the blue beverage as the primary visual anchor.",
+    "aesthetic": "Backgrounds & surfaces: predominantly clean matte white and very light grey tabletop surfaces, sometimes with subtle marble texture, creating a clinical-yet-friendly lab feel. Occasional use of pale wood or minimal natural elements, but most frames stay stark and uncluttered. Colour grade: bright, cool, and crisp with high exposure; whites are neutral to slightly cool, the blue drink tones are saturated and punchy, while other colours (skin, props) are slightly desaturated to keep focus on the product. Styling density & props: low-density, minimalist styling; hero shots feature a clear glass with vivid blue liquid, individual sachets or boxes, and at most one or two props (a spoon, a small coconut piece, a simple ingredient cue). No busy lifestyle clutter; compositions feel ordered and intentional, leaning toward product education rather than lifestyle abundance. Lighting quality/direction: soft, diffused daylight or softbox from a side or three-quarter angle, creating gentle, clean shadows and subtle reflections on glass; almost no harsh contrast, with an overall airy, fresh impression. Crops & framing: mix of close-up macro shots of the drink and sachets, and medium product compositions; frequent flat lays with sachets and ingredient icons; centered or rule-of-thirds layouts with plenty of negative space; text overlays are sometimes used in-feed, maintaining strong legibility over light backgrounds. Product-only vs models: primarily product-only scenes; when people appear it is usually hands holding a glass or a torso in a neutral outfit, framed tightly so the person is secondary to the product and feeling. No heavily character-led portraits; the visual storytelling is about the blue ritual and clean science, not about recognizable faces.",
     "foundReal": true,
     "logo": "https://www.fynwellness.com/cdn/shop/files/FYN_Main_Logo.png?v=1775122006&width=480",
     "productImages": [
@@ -59,127 +55,110 @@
         "image": "https://cdn.shopify.com/s/files/1/0709/3564/2303/files/Hero.png?v=1775135619"
       }
     ],
-    "sources": 6
+    "sources": 1
   },
   "intelligence": {
-    "overview": "Fynwellness is an India-based wellness brand focused on daily cellular hydration through its flagship blue spirulina-powered drink mix, Hydra. It blends natural ingredients like blue spirulina and coconut water electrolytes to deliver clean, bioavailable nutrition that fits seamlessly into modern routines.",
-    "purpose": "To provide simple, clean, and effective cellular hydration and nutrition that seamlessly integrates into a modern routine, enhancing overall well-being without artificial stimulants.",
-    "mission": "To empower individuals with a convenient and highly bioavailable superfood blend that supports natural energy, skin health, immunity, and detoxification at a cellular level.",
-    "vision": "To become the go-to brand for advanced, natural hydration solutions that address modern nutritional needs and promote optimal cellular function.",
-    "story": "Fynwellness emerged from the insight that normal hydration stops at the surface and does not fully address cellular needs. The founders set out to formulate a solution that could reach cells directly by combining blue spirulina, bioactive peptides, and natural coconut water electrolytes. This led to the creation of Hydra, a daily cellular hydration mix framed as a unique blue ritual for cellular activation and modern wellness.",
+    "overview": "Fynwellness (FYN) is an India-based wellness brand focused on advanced cellular hydration using blue spirulina-led formulations. Operating primarily direct-to-consumer with a strong Instagram presence, it positions itself as a modern, science-backed alternative to conventional hydration and electrolyte supplements.",
+    "purpose": "To revolutionize modern nutrition by enabling the body to truly absorb and utilize the nutrients consumed, going beyond superficial hydration into deep cellular vitality.",
+    "mission": "To empower individuals with simple, clean, and highly bioavailable nutritional solutions that provide sustained energy, enhance immunity, improve skin health, and reduce inflammation, integrating seamlessly into everyday routines.",
+    "vision": "To become the leading name in advanced cellular wellness, recognized for innovative, science-backed natural supplements that unlock the body's full potential from within.",
+    "story": "Fynwellness emerged from the insight that conventional hydration often stops at the surface and fails to reach the cellular level. The founders anchored the brand around blue spirulina, a superfood used even in extreme environments like space missions for its protein, vitamins, and minerals and prized for its high bioavailability due to the lack of a cell wall. By combining blue spirulina with natural coconut water electrolytes and bioactive peptides, they created Hydra, a cellular hydration ritual designed to close modern nutritional gaps and deliver internal, measurable benefits.",
     "values": [
-      "Purity",
-      "Efficacy",
-      "Simplicity",
-      "Naturalness",
-      "Bioavailability",
-      "Wellness from within"
+      "Bioavailability first",
+      "Science-backed formulations",
+      "Natural purity and clean ingredients",
+      "Holistic, whole-body wellness",
+      "Modern simplicity and convenience",
+      "Transparency in claims and composition",
+      "Responsible health communication"
     ],
-    "positioning": "Fynwellness: Elevating hydration to cellular activation.",
-    "audience": "Health-conscious, primarily Indian consumers who want natural, science-backed energy and hydration without caffeine, added sugar, or artificial ingredients. They care about skin health, immunity, inflammation, and gut well-being, and seek clean, convenient nutrition that supports their busy urban lifestyles and modern wellness practices.",
-    "persona": "Anya is a 30-year-old marketing professional living in a bustling Indian metro, constantly juggling deadlines, social plans, and personal wellness goals. She reads labels carefully, avoids artificial additives and excess sugar, and is tired of caffeine crashes from typical energy drinks. Her mornings often start with yoga or a short mindfulness practice, and she spends weekends browsing wellness blogs and researching superfoods like blue spirulina. She wants sustained energy, clearer skin, and better immunity from a product that feels premium, is easy to carry in her bag, and aligns with her holistic, environmentally aware lifestyle. For her, a daily blue hydration ritual with Fynwellness is a small, intentional act of self-care that supports mental clarity and all-day vitality.",
-    "toneOfVoice": "Informative, empowering, serene, modern, and trustworthy.",
+    "positioning": "Fynwellness: Unlock cellular vitality with nature’s most bioavailable hydration.",
+    "audience": "Health-conscious, urban Indians (roughly 25–45) who are proactive about their well-being, often busy professionals or fitness enthusiasts experiencing fatigue, minor skin issues, or inflammation, seeking clean, natural, science-backed hydration and wellness solutions that deliver tangible results without caffeine, sugar, or artificial additives.",
+    "persona": "Anya Sharma, 32, is a marketing manager in Mumbai who juggles long hours at a tech firm with morning yoga and evening walks. She cares deeply about her health, but her schedule makes consistency hard, and she often hits an afternoon energy slump she tries to fix with coffee. Her skin looks a little dull despite a careful skincare routine, and she’s increasingly curious about the gut–skin axis and cellular health. Anya actively avoids sugary drinks and synthetic-looking supplements, preferring minimalist, modern brands that clearly explain their science. When she discovers Fynwellness and its blue spirulina-based Hydra mix promising deep cellular hydration, better energy and recovery, and cleaner skin support, she sees it as an efficient, trustworthy upgrade to her daily wellness ritual.",
+    "toneOfVoice": "Empowering, scientific, clean, modern, and nurturing.",
     "personality": [
-      "Sophisticated",
+      "Intelligent",
       "Progressive",
-      "Nurturing",
+      "Trustworthy",
+      "Revitalizing",
       "Minimalist",
-      "Authentic"
+      "Aspirational",
+      "Responsible"
     ],
     "palette": [
       {
-        "hex": "#007B8C",
-        "role": "primary brand blue (blue spirulina, cellular depth, calmness)"
+        "hex": "#00BFFF",
+        "role": "primary brand blue, representing the blue spirulina drink and cellular hydration"
       },
       {
-        "hex": "#FFFFFF",
-        "role": "core background white (purity, clinical simplicity)"
+        "hex": "#1A2E44",
+        "role": "deep navy accent for headings, key callouts, and contrast elements"
       },
       {
-        "hex": "#F8F8F8",
-        "role": "supporting off-white (soft, minimal surfaces)"
+        "hex": "#F5F5F5",
+        "role": "soft off-white background for web, packaging mockups, and clean surfaces"
       },
       {
-        "hex": "#E0EFEF",
-        "role": "accent mint-grey (freshness, natural touch)"
-      },
-      {
-        "hex": "#222832",
-        "role": "text charcoal (headlines and body copy for a modern scientific feel)"
+        "hex": "#AAAAAA",
+        "role": "neutral grey for secondary text, UI elements, and subtle shadows"
       }
     ],
     "typography": {
-      "display": "Modern, clean sans-serif with a subtle scientific edge, used in medium to bold weights for clear, contemporary headings.",
-      "text": "Highly readable, understated sans-serif suitable for body copy, supporting a clinical yet approachable feel.",
-      "note": "Specific font families are not confirmed; the overall typographic feel is modern wellness-meets-science with simple hierarchy and generous whitespace."
+      "display": "Modern geometric sans-serif in all caps or strong weights, used for product names and key headlines to feel contemporary and science-driven.",
+      "text": "Highly readable sans-serif for body copy (in the vein of Inter or a clean grotesque), ensuring clarity and a clean digital-first aesthetic.",
+      "note": "Type hierarchy is simple and minimal, with clear separation between bold headlines, concise benefit callouts, and legible small-print information."
     },
     "logo": "https://www.fynwellness.com/cdn/shop/files/FYN_Main_Logo.png?v=1775122006&width=480",
-    "logoSystem": "A minimalist, contemporary wordmark built around the short name FYN, likely in a clean sans-serif and anchored by the brand’s signature blue. The logo system probably stays simple and scalable, with subtle references to hydration or cellular structure through color and negative space rather than complex icons.",
-    "photographyStyle": "Photography features clean, light-toned backgrounds such as white, pale grey, or natural surfaces, often with subtle water or sky references to reinforce hydration and calm. Images are bright and slightly cool-toned to accentuate the vivid blue drink, with high clarity and natural yet vibrant colors. Styling is minimal and intentional, using props like clear glass tumblers, ice, citrus slices, mint, sleek shakers, or laptops and phones to signal integration into daily routines. Soft, diffused side or front lighting creates gentle shadows and highlights the texture and clarity of the drink. Compositions alternate between tight product hero shots and lifestyle scenes of calm, focused individuals enjoying the blue ritual at a desk, post-workout, or during mindful moments.",
-    "packagingStyle": "Hydra appears in sachets or small unit packs presented in larger cartons, designed with a minimalist, premium aesthetic. The packaging uses a deep cyan blue and white palette to dramatize the blue spirulina story, with clean layouts, ample negative space, and concise, benefit-led copy. Key ingredients and functional claims are clearly highlighted on pack, signaling science-backed efficacy while keeping the overall look calm, clinical, and easy to navigate. Individual sachets emphasize portability and ritual, making it simple to add the mix to water anywhere.",
-    "visualIdentity": "The visual identity centers on a deep cyan blue that cues blue spirulina and cellular depth, contrasted with clean whites and soft neutrals for a calm, almost clinical wellness feel. A modern sans-serif typographic system, minimalist layouts, and restrained use of accent colors combine with bright, cool-toned imagery to create a cohesive look that feels both scientifically informed and aesthetically serene.",
+    "logoSystem": "A minimalist wordmark primarily built around the name FYN, set in a clean sans-serif, often in uppercase with “Wellness” in a lighter weight or secondary line. The logo leans on vibrant blue as a core color and is deployed flexibly across packaging, digital touchpoints, and social assets with strong clear-space and a straightforward horizontal lockup.",
+    "photographyStyle": "Product-led, minimal and clinically clean, emphasizing the vibrant blue drink against white or light grey backgrounds. Shots feature clear glasses, sachets, and a few deliberate natural props (like coconut elements) under soft, diffused light that gives crisp highlights and gentle shadows. Compositions favor close-ups, flat lays, and rule-of-thirds framing, with occasional lifestyle touches such as hands or partial figures in serene, active settings to dramatize the ritual and benefits.",
+    "packagingStyle": "Sleek, modern sachets and boxes dominated by vivid blue and clean white, with minimalistic layouts and strong typographic hierarchy. Front panels highlight the product name (Hydra), key ingredients like blue spirulina and coconut electrolytes, and core benefits in concise language, while the overall structure emphasizes convenience, premium feel, and transparency. The aesthetic is uncluttered and clinical yet approachable, suitable for both bathroom counters and gym bags.",
+    "visualIdentity": "An intentionally minimal design system built around a hero blue tone symbolizing the blue spirulina drink, set against white and soft neutrals, with geometric sans-serif type and clear informational layouts. The system consistently heroizes the blue liquid and sachet format, uses simple iconography and benefit callouts, and balances clinical cues with aspirational wellness imagery to convey “advanced but easy” cellular hydration.",
     "competitors": [
       {
-        "name": "Lucofast",
-        "note": "Modern low-sugar electrolyte drink in India, fortified with B-vitamins for natural energy and positioned as a clean hydration solution."
+        "name": "Wellversed",
+        "note": "Indian wellness and nutrition brand offering sugar-free, keto-friendly supplements, including electrolyte mixes and cellular hydration solutions, targeting similar health-conscious consumers with diet-specific formulations."
       },
       {
-        "name": "Fast&Up Reload",
-        "note": "Widely used effervescent electrolyte drink for athletes and fitness enthusiasts, focused on daily hydration and post-workout recovery."
+        "name": "Fast&Up",
+        "note": "Sports nutrition brand known for effervescent tablets for hydration, energy, and recovery, appealing to athletes and active users who prioritize convenience and performance."
       },
       {
-        "name": "Himalaya Re-Hydrate",
-        "note": "Natural-leaning electrolyte product from a major herbal wellness brand, offering a light, refreshing hydration option."
-      },
-      {
-        "name": "5XL Nutrition Sports Fuel",
-        "note": "Sports-focused advanced hydration and performance drink combining electrolytes with amino acids, L-glutamine, creatine, and vitamin C."
+        "name": "Generic electrolyte and ORS brands",
+        "note": "Broad market of basic electrolyte powders, ORS solutions, and sports drinks in India that focus on rehydration but lack Fynwellness’s superfood and cellular absorption narrative."
       }
     ],
     "social": [
       {
-        "platform": "Website",
-        "handle": "fynwellness.com",
-        "url": "https://www.fynwellness.com",
-        "note": "Primary owned channel providing brand narrative, product education, and direct-to-consumer sales for Hydra."
+        "platform": "Facebook",
+        "handle": "Fyn Wellness",
+        "url": "https://www.facebook.com/FynWellness/",
+        "note": "Brand page exists with limited publicly visible description; likely used to mirror product updates and campaigns from other channels with a more straightforward, informational voice."
       },
       {
         "platform": "Instagram",
-        "handle": "",
-        "url": "",
-        "note": "Expected to focus on high-quality visuals of the blue drink, lifestyle rituals, educational carousels on cellular hydration and blue spirulina, and aspirational wellness content posted several times a week."
-      },
-      {
-        "platform": "Facebook",
-        "handle": "",
-        "url": "",
-        "note": "Likely mirrors Instagram content with a mix of product highlights, wellness tips, customer stories, and promotional updates for a broader demographic audience."
+        "handle": "fynwellness",
+        "url": "https://www.instagram.com/fynwellness/",
+        "note": "Primary visual platform featuring product-focused imagery, ingredient education, and lifestyle wellness content in a clean, aspirational and scientific tone; posting appears moderately frequent, aligned with DTC wellness norms."
       },
       {
         "platform": "LinkedIn",
         "handle": "",
-        "url": "",
-        "note": "Potential corporate presence sharing brand updates, wellness trend insights, and scientific or industry-oriented posts at a lower posting frequency."
-      },
-      {
-        "platform": "Pinterest",
-        "handle": "",
-        "url": "",
-        "note": "Possible channel for visual wellness inspiration, daily ritual boards, and educational pins about hydration and gut-skin health, reinforcing the blue ritual aesthetic."
+        "url": "https://in.linkedin.com/company/fynwellness",
+        "note": "A LinkedIn company URL exists but the page could not be accessed from the provided link, suggesting a broken or inactive presence; any content would likely center on corporate and industry updates if live."
       }
     ],
     "press": [],
     "insights": [
-      "The blue spirulina-led cellular hydration narrative is a strong differentiator, but the brand must translate complex bioavailability science into clear, simple benefits that a time-strapped urban consumer immediately understands.",
-      "The vivid blue drink itself is a signature visual asset; consistently heroing this color across packaging, photography, and digital touchpoints can build instant recognition and ownable shelf and feed presence.",
-      "Positioning Hydra as part of the modern Indian urban ritual—morning desk setup, post-yoga cooldown, or afternoon slump rescue—anchors the product in real-life moments rather than abstract wellness promises.",
-      "Owning the non-caffeinated, no-crash energy space allows Fynwellness to reframe hydration as a smarter alternative to coffee and conventional energy drinks for focus, performance, and skin health.",
-      "Building the idea of a daily blue ritual, complete with cues around mindfulness and self-care, can deepen emotional connection and turn a functional hydration mix into a beloved habit.",
-      "The gut-skin axis benefit offers a powerful crossover into beauty-from-within; linking hydration, digestion, and radiance can unlock collaboration and messaging opportunities at the intersection of wellness and skincare."
+      "Bioavailability and cellular absorption are Fynwellness’s core strategic superpower; the brand should relentlessly own and dramatize the 95 percent direct absorption and “no cell wall” blue spirulina narrative in every touchpoint.",
+      "The vibrant blue drink against stark white minimalism already forms a distinctive visual code; doubling down on this “blue ritual” with consistent art direction and ritual cues can create strong memory structures in a crowded supplement space.",
+      "The target customer craves effortless efficacy—solutions that feel advanced but are dead simple to use; messaging should emphasize one-sachet-a-day, no-caffeine, no-sugar convenience as much as the science.",
+      "Education is non-negotiable for conversion: unpacking blue spirulina, phycocyanin, bioactive peptides, and the gut–skin axis through clear, snackable content will help overcome skepticism around novel ingredients.",
+      "The brand currently lacks visible third-party validation; structured campaigns for testimonials, UGC, and expert endorsements (nutritionists, trainers, dermatologists) can significantly strengthen trust and perceived legitimacy.",
+      "Fynwellness can elevate its experience by framing Hydra as a daily “blue ritual” that marks the transition from depletion to vitality, turning a functional supplement into a lifestyle anchor around which additional products and routines can later be built."
     ],
     "website": "https://www.fynwellness.com",
-    "instagram": "",
-    "sources": 6,
+    "instagram": "https://www.instagram.com/fynwellness/",
+    "sources": 1,
     "foundReal": true,
     "inferred": false
   },

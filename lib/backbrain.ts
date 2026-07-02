@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { complete, extractJson } from "./llm";
+import { chatCreate } from "./openaiClient";
 import { researchBrand } from "./research";
 import type { BrandBrain, BrandResearch } from "./types";
 
@@ -106,8 +107,38 @@ const BriefSchema = z.object({
 });
 export type Brief = z.infer<typeof BriefSchema>;
 
+// A vision read of the client's brand REFERENCE images (logo / palette / type samples / moodboard)
+// for a rebrand — pulls the real hex codes, the type & logo feel and the overall aesthetic so the
+// deck is co-created FROM what they actually supplied. Best-effort: "" if no images / no vision model.
+async function analyzeReferences(images: string[]): Promise<string> {
+  const imgs = (images ?? []).filter((u) => typeof u === "string" && /^data:image\//i.test(u)).slice(0, 6);
+  if (!imgs.length || !(process.env.OPENAI_API_KEY || process.env.AZURE_OPENAI_API_KEY)) return "";
+  try {
+    const content = [
+      { type: "text", text:
+        "These are brand REFERENCE images a client supplied for a REBRAND — a logo, colour palette, type samples or moodboard. " +
+        "In 4-7 tight lines read out ONLY what you actually see: " +
+        "(1) COLOUR PALETTE as concrete hex codes, each with a role (primary / secondary / accent / neutral); " +
+        "(2) TYPOGRAPHY — the feel and any identifiable typefaces (serif / grotesque / humanist, weight, character); " +
+        "(3) LOGO — the mark type and its concept if a logo appears; (4) overall AESTHETIC in a phrase." },
+      ...imgs.map((url) => ({ type: "image_url", image_url: { url } })),
+    ];
+    const r = await chatCreate({ max_completion_tokens: 700, messages: [{ role: "user", content }] } as never);
+    return r.choices?.[0]?.message?.content?.trim() ?? "";
+  } catch {
+    return "";
+  }
+}
+
+// The block that carries what the client gave for logo/font/type/palette (pasted notes + the vision
+// digest of any uploaded reference images) into the brief + guidelines prompts.
+function referenceContext(referenceDigest?: string): string {
+  if (!referenceDigest?.trim()) return "";
+  return `\n\nCLIENT-SUPPLIED REFERENCES for the new identity (logo / fonts / typography / colour palette) — treat the hex codes and typefaces here as the INTENDED palette & type to build the guidelines around:\n${referenceDigest.trim()}\n`;
+}
+
 // ── 1. Extract a structured brief from pasted call notes + Notion answers ─────
-export async function extractBrief(notes: string, brandName?: string): Promise<Brief> {
+export async function extractBrief(notes: string, brandName?: string, exBranding?: string, referenceDigest?: string): Promise<Brief> {
   const system =
     `You are a brand strategist reading raw intake — a founder call transcript and their answers to a brand questionnaire. ` +
     `Extract ONLY what the founder actually said or clearly implied; never invent facts. Leave a field blank if it is genuinely absent. ` +
@@ -115,7 +146,7 @@ export async function extractBrief(notes: string, brandName?: string): Promise<B
     `notesDigest = a tight 4-6 sentence digest of everything distinctive about this brand (story, founder intent, edge, audience truth). ` +
     `isApparel = true only if they sell clothing / wearables / physical goods that could carry a woven label or wax seal. ` +
     `Return STRICT JSON ONLY with keys: name, category, audience, vibe, productType, mission, vision, purpose, positioning, statedColors, statedFonts, beliefs, notesDigest, isApparel.`;
-  const user = `${brandName ? `Brand name (operator-supplied): ${brandName}\n\n` : ""}RAW INTAKE:\n${notes}`;
+  const user = `${brandName ? `Brand name (operator-supplied): ${brandName}\n\n` : ""}${exBranding ? `EXISTING BRANDING — the brand is REBRANDING; this is their CURRENT identity, provided so you understand where they are today. Capture only equity worth carrying forward; the RAW INTAKE below describes where they want to GO. Do NOT treat this existing branding as the target.\n${exBranding.slice(0, 5000)}\n\n` : ""}RAW INTAKE:\n${notes}${referenceContext(referenceDigest)}${referenceDigest ? `\nCapture the referenced palette hex codes and fonts VERBATIM into statedColors / statedFonts.` : ""}`;
   const raw = await complete(system, user, 4000);
   try {
     const b = BriefSchema.parse(JSON.parse(extractJson(raw)));
@@ -195,7 +226,7 @@ function parseObj(raw: string): Record<string, unknown> {
  * instead of one huge JSON. Each reply is small enough that it can't truncate, removing the
  * root cause — and even if one part fails, the others still produce a deck (zod fills the rest).
  */
-export async function buildGuidelines(brief: Brief, research: BrandResearch): Promise<GuidelinesSpec> {
+export async function buildGuidelines(brief: Brief, research: BrandResearch, exBranding?: string, referenceDigest?: string): Promise<GuidelinesSpec> {
   const persona =
     `You are a world-class brand strategist AND identity designer (Pentagram / Collins / Mucho level), writing CONTENT for a luxury brand-guidelines deck. ` +
     `Most brands here are pre-identity startups — where something is undecided, DECIDE it with taste and conviction. Anchor to any colours/fonts the founder stated. Carry INTENT everywhere (say WHY). ` +
@@ -206,6 +237,8 @@ export async function buildGuidelines(brief: Brief, research: BrandResearch): Pr
   const context =
     `\n\nFOUNDER BRIEF:\n${JSON.stringify(brief)}\n\nSECTOR RESEARCH:\n` +
     `${JSON.stringify({ summary: research.summary, competitors: research.competitors, aesthetic: research.aesthetic, palette: research.palette })}\n\n` +
+    (exBranding ? `REBRAND — this brand has an EXISTING identity (below) and wants to REBRAND. Honour the equity worth keeping (the name, and anything the founder explicitly insists on) but deliver a genuinely FRESH, elevated evolution — do NOT reproduce the old palette, type or voice unless the founder said to keep it. Design a considered step FORWARD from where they are today, not a restatement of it.\nEXISTING BRANDING:\n${exBranding.slice(0, 5000)}\n\n` : "") +
+    (referenceDigest ? `${referenceContext(referenceDigest)}CO-CREATE FROM THESE REFERENCES — the client explicitly wants them reflected: build the colour section AROUND the referenced hex codes, honour the referenced typography, and evolve the logo per the reference. Do NOT invent an unrelated palette or typeface; where a reference is silent, decide with taste.\n\n` : "") +
     `Position the brand AGAINST the category (own a distinct space).`;
 
   const pNarrative =
@@ -331,12 +364,48 @@ export function assembleGuidelines(parts: string[], isApparel: boolean, fallback
   return spec;
 }
 
+// Pull a concrete colour palette (hex + role + name) out of the client's reference notes / vision
+// digest, so the deck can be LOCKED to exactly those colours ("use the palette colours only").
+function parseProvidedPalette(text?: string): Swatch_[] {
+  if (!text) return [];
+  const out: Swatch_[] = [];
+  const seen = new Set<string>();
+  const re = /#[0-9a-fA-F]{6}\b|#[0-9a-fA-F]{3}\b/g;
+  const clean = (s: string) =>
+    s.replace(/\b(primary|secondary|tertiary|accent|neutral|base|background|ink|dark|light|colou?rs?|hex|palette)\b/gi, " ")
+      .replace(/[^A-Za-z ]/g, " ").trim().split(/\s+/).filter(Boolean);
+  let m: RegExpExecArray | null;
+  while ((m = re.exec(text)) !== null && out.length < 8) {
+    const hex = norm(m[0]);
+    const key = hex.toLowerCase();
+    if (seen.has(key)) continue;
+    seen.add(key);
+    // Look at the words just around the hex for a role + a human name.
+    const before = text.slice(Math.max(0, m.index - 34), m.index);
+    const after = text.slice(m.index + m[0].length, m.index + m[0].length + 26);
+    const roleM = (before + " " + after).match(/\b(primary|secondary|tertiary|accent|neutral|base|background|ink|dark|light)\b/i);
+    const role = roleM ? roleM[1].toLowerCase() : "";
+    const name = (clean(after.split(/[,;:.]/)[0]).slice(0, 3).join(" ")
+      || clean(before.split(/[,;:.]/).pop() || "").slice(-3).join(" ")
+      || role || "Colour");
+    out.push({ name, hex, role, meaning: "" });
+  }
+  return out;
+}
+
 // ── Orchestrator ─────────────────────────────────────────────────────────────
-export async function runBackBrain(notes: string, brandName?: string): Promise<{ spec: GuidelinesSpec; pptx: string; research: BrandResearch }> {
-  const brief = await extractBrief(notes, brandName);
+export async function runBackBrain(notes: string, brandName?: string, exBranding?: string, refs?: { notes?: string; images?: string[] }): Promise<{ spec: GuidelinesSpec; pptx: string; research: BrandResearch }> {
+  // Understand the client's own logo/font/typography/palette references (vision-read any images,
+  // fold in any pasted notes) so the deck is CO-CREATED from them.
+  const referenceDigest = [refs?.notes?.trim(), await analyzeReferences(refs?.images ?? [])].filter(Boolean).join("\n\n") || undefined;
+  const brief = await extractBrief(notes, brandName, exBranding, referenceDigest);
   let research: BrandResearch = {};
   try { research = await researchBrand(briefToBrain(brief)); } catch { /* best-effort */ }
-  const spec = await buildGuidelines(brief, research);
+  const spec = await buildGuidelines(brief, research, exBranding, referenceDigest);
+  // If the client supplied a palette (via references), LOCK the deck to exactly those colours —
+  // theme() then derives every deck colour from this palette only.
+  const providedPalette = parseProvidedPalette(referenceDigest);
+  if (providedPalette.length >= 2) spec.color.palette = providedPalette;
   const { buildPptx } = await import("./pptx"); // keep pptxgenjs out of the module graph until needed
   const pptx = await buildPptx(spec);            // base64 .pptx
   return { spec, pptx, research };
@@ -358,14 +427,21 @@ export function theme(spec: GuidelinesSpec) {
   const byRole = (kw: RegExp) => sw.find((p) => kw.test(p.role) || kw.test(p.name));
   const hexes = sw.map((p) => norm(p.hex));
   const sorted = [...hexes].sort((a, b) => lum(a) - lum(b));
-  const dark = norm((byRole(/ground|dark|earth|ink|charcoal/i)?.hex) ?? sorted[0] ?? "#1C1008");
-  const light = norm((byRole(/base|cream|ivory|paper|light|off.?white/i)?.hex) ?? sorted[sorted.length - 1] ?? "#F9F6F3");
-  let gold = byRole(/accent|gold|champ|brass|zari/i)?.hex;
-  if (!gold) gold = hexes.find((h) => lum(h) > 0.4 && lum(h) < 0.78);
+  const hasPalette = sw.length >= 2;
+  const dark = norm((byRole(/ground|dark|earth|ink|charcoal|navy|black/i)?.hex) ?? sorted[0] ?? "#1C1008");
+  const light = norm((byRole(/base|cream|ivory|paper|light|off.?white|white/i)?.hex) ?? sorted[sorted.length - 1] ?? "#F9F6F3");
+  // Accent — prefer an accent role, else the most "mid" palette colour. With a palette we NEVER
+  // leave it (pick a palette colour); only without a palette do we fall to a warm gold.
+  let gold = byRole(/accent|gold|champ|brass|zari/i)?.hex ?? hexes.find((h) => lum(h) > 0.4 && lum(h) < 0.78);
+  if (!gold && hasPalette) {
+    const mids = hexes.filter((h) => h !== dark && h !== light);
+    gold = mids.sort((a, b) => Math.abs(lum(a) - 0.5) - Math.abs(lum(b) - 0.5))[0] ?? sorted[Math.floor(sorted.length / 2)];
+  }
   gold = norm(gold ?? "#C8A96E");
-  // legible body inks
-  const inkOnDark = lum(dark) < 0.5 ? "#F2EADD" : "#1C1008";
-  const inkOnLight = lum(light) > 0.5 ? "#241B12" : "#F2EADD";
+  // Body inks — when a palette is provided, STAY INSIDE IT (use the palette colours only);
+  // otherwise fall back to legible neutral inks.
+  const inkOnDark = hasPalette ? light : (lum(dark) < 0.5 ? "#F2EADD" : "#1C1008");
+  const inkOnLight = hasPalette ? dark : (lum(light) > 0.5 ? "#241B12" : "#F2EADD");
   return { dark, light, gold, inkOnDark, inkOnLight };
 }
 

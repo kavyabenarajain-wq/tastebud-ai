@@ -16,7 +16,7 @@ import { useStudio, nameFromUrl } from "@/components/tastebud/StudioSession";
  */
 export default function StudioSource() {
   const router = useRouter();
-  const { brain, hydrated, patch, startResearch } = useStudio();
+  const { brain, hydrated, patch, resetForNewBrand, startResearch } = useStudio();
   const [value, setValue] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -30,13 +30,15 @@ export default function StudioSource() {
     const website = value.trim();
     if (!website) { inputRef.current?.focus(); return; }
     const name = nameFromUrl(website);
-    patch({ website, name, skippedResearch: false });
-    startResearch({ website, name });
+    resetForNewBrand();                               // wipe any previous brand + re-arm research
+    patch({ website, name, skippedResearch: false }); // set the new identity
+    startResearch({ website, name });                 // researchRan was reset → this actually runs for the new brand
     router.push("/studio/about");
   }
 
   function skip() {
-    patch({ skippedResearch: true, name: brain.name || "New Brand" });
+    resetForNewBrand();                               // a fresh, blank brand — not the last one's leftovers
+    patch({ skippedResearch: true, name: "New Brand" });
     router.push("/studio/about");
   }
 

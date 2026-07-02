@@ -1,6 +1,6 @@
 import OpenAI from "openai";
 import type { BrandProfile, ModelSpec } from "./types";
-import { chatClient } from "./openaiClient";
+import { chatCreate } from "./openaiClient";
 
 /**
  * The model-photoshoot conversation brain — a casting-director-meets-photographer
@@ -97,20 +97,11 @@ export async function runModelAgent(args: {
     `CONVERSATION STATE:\n${JSON.stringify(args.state)}`,
   ].join("\n\n---\n\n");
 
-  const { client, model } = chatClient();
-  const params = {
-    model,
+  const r = await chatCreate({
     max_completion_tokens: 4000,
     tools,
     messages: [{ role: "system" as const, content: system }, ...args.messages.map((m) => ({ role: m.role, content: m.content }))],
-  };
-  let r;
-  let lastErr: unknown;
-  for (let attempt = 0; attempt < 3; attempt++) {
-    try { r = await client.chat.completions.create(params); break; }
-    catch (e) { lastErr = e; await new Promise((res) => setTimeout(res, 600 * 2 ** attempt)); }
-  }
-  if (!r) throw lastErr;
+  });
 
   const msg = r.choices[0]?.message;
   const actions: ModelAgentAction[] = [];

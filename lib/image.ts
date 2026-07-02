@@ -105,9 +105,12 @@ async function geminiCall(url: string, body: unknown, tries = 4): Promise<any> {
       const res = await fetch(url, { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(body) });
       const j: any = await res.json();
       if (j.error) {
-        const transient = [429, 500, 503].includes(Number(j.error.code)) || /internal|overload|unavailable|rate|timeout/i.test(j.error.message ?? "");
+        const msg = j.error.message ?? "";
+        // Billing / auth / bad-model errors are PERMANENT — fail fast instead of retrying for minutes.
+        const permanent = [400, 401, 403, 404].includes(Number(j.error.code)) || /credit|billing|prepay|deplet|permission|api key|not found|unsupported|invalid/i.test(msg);
+        const transient = !permanent && ([429, 500, 503].includes(Number(j.error.code)) || /internal|overload|unavailable|rate|timeout/i.test(msg));
         if (transient && i < tries - 1) { await sleep(700 * 2 ** i); continue; }
-        throw new Error(`Gemini error: ${j.error.message}`);
+        throw new Error(`Gemini error: ${msg}`);
       }
       return j;
     } catch (e) { last = e; if (i < tries - 1) { await sleep(700 * 2 ** i); continue; } throw e; }
@@ -164,10 +167,20 @@ async function renderImageSDK(client: OpenAI, model: string, id: string, prompt:
   const size = openaiSize(opts.aspect);
   const quality = (process.env.OPENAI_IMAGE_QUALITY ?? "medium") as "low" | "medium" | "high" | "auto";
   const refs = products.filter(Boolean);
-  // Edit FROM the uploaded product image(s) so the real product is preserved exactly.
-  const d = refs.length
-    ? (await client.images.edit({ model, image: await Promise.all(refs.map(toUploadable)), prompt, size, quality })).data?.[0]
-    : (await client.images.generate({ model, prompt, size, quality })).data?.[0];
+  // Edit FROM the attached subject image(s) so the real subject is preserved exactly.
+  // input_fidelity:"high" is gpt-image-1's lever to hold that subject TRUE — the EXACT face of a
+  // pasted model reference (reproduce the person, don't reinterpret them) and the exact product
+  // shape/label. ~22× the input-image tokens vs "low", but fidelity is the product's #1 rule.
+  // Env-tunable (OPENAI_INPUT_FIDELITY=low) to trade fidelity for cost.
+  const inputFidelity = (process.env.OPENAI_INPUT_FIDELITY || "high").toLowerCase();
+  let d: { b64_json?: string; url?: string } | undefined;
+  if (refs.length) {
+    const image = await Promise.all(refs.map(toUploadable));
+    const editParams = { model, image, prompt, size, quality, input_fidelity: inputFidelity } as unknown as Parameters<typeof client.images.edit>[0];
+    d = (await client.images.edit(editParams)).data?.[0];
+  } else {
+    d = (await client.images.generate({ model, prompt, size, quality })).data?.[0];
+  }
   if (d?.b64_json) return save(id, d.b64_json);
   if (d?.url) return persistRemote(id, d.url); // some models return a URL instead of b64
   throw new Error("Image model returned no image");

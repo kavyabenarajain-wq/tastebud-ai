@@ -1,0 +1,306 @@
+{
+  "brandName": "Roo",
+  "monogram": "RO",
+  "tagline": "soft help for the first wild weeks",
+  "category": "newborn family concierge and AI care companion",
+  "isApparel": false,
+  "mission": "Roo gives new parents one calm place to ask, arrange, remember and be held through the newborn window. It combines human concierge care with gentle AI so families can get practical support before the question becomes a crisis.",
+  "vision": "To make the fourth trimester feel less like survival mode and more like a protected season. Roo exists for a future where every new family has a soft landing, not a search bar.",
+  "positioning": "Roo sits between a night nurse, a family assistant and an always-awake guide: warmer than a medical portal, more capable than a parenting app, and less chaotic than asking the internet. It is the concierge for newborn life, designed for tiny hours, tender nerves and real domestic logistics.",
+  "purpose": "Roo protects the emotional weather of a home after birth. It turns scattered needs—feeding notes, visitor boundaries, laundry, lactation help, pediatric questions, meal support, reminders—into one quiet system that makes parents feel accompanied rather than managed.",
+  "manifesto": [
+    "The first weeks do not need more noise. They need someone who knows when to whisper, when to organise, and when to bring the right help to the door.",
+    "Roo is built for the 3:12am version of a parent: underslept, overfull, holding a baby in one arm and a thousand tabs in the other. We replace frantic searching with a single, soft place to land.",
+    "This is not optimisation culture in a pastel outfit. Roo honours the mess, the milk, the tears, the questions, the tenderness—and makes room for families to become families at their own pace."
+  ],
+  "identityIntro": [
+    "The Roo identity should feel like a cloud with a pulse: rounded, generous and emotionally intelligent, but grounded by the deep Merlot contrast that keeps the brand from becoming nursery-sweet. Cloudy Sky #BAD6FD leads the system as the atmosphere of care, supported by Rose Mist #F5BAD5, Butter Cream #F7E594 and clean white space for breath.",
+    "Typography is a bold rounded sans for primary moments—large, legible, almost huggable—paired with a smaller regular sans for calm captions and functional guidance. The logo direction should evolve from organic cloud and flower-like blobs into a soft modular mark: part pouch, part speech bubble, part protective nest."
+  ],
+  "world": [
+    {
+      "title": "Hush",
+      "sub": "quiet, protected, slow",
+      "body": "Roo’s world is intentionally low-volume: generous white space, soft colour fields and rounded forms that let parents exhale. Interface moments should never shout; even urgent information is framed with clarity and warmth, like a hand on the shoulder rather than an alarm."
+    },
+    {
+      "title": "Bloom",
+      "sub": "newness, softness, becoming",
+      "body": "The organic blob language gives Roo a living quality, suggesting a family slowly opening rather than a system snapping into place. Rose Mist and Butter Cream appear as tender highlights for moments of reassurance, progress and small wins."
+    },
+    {
+      "title": "Anchor",
+      "sub": "merlot, trust, steadiness",
+      "body": "Merlot #570301 is Roo’s emotional weight: used for headlines, key actions and moments where the brand must feel certain. It prevents the pastel palette from floating away and gives the service the gravity required for a vulnerable life stage."
+    },
+    {
+      "title": "Nest",
+      "sub": "home, concierge, held",
+      "body": "Imagery and composition should centre the domestic details of newborn life: a dim hallway, a sterilised bottle, folded muslin, a parent’s hand on a cot rail. Roo is not a glossy baby brand; it belongs in the lived-in rooms where care actually happens."
+    }
+  ],
+  "statement": [
+    "Roo is the difference between being surrounded by advice and actually being supported. It gathers the loose threads of newborn life—questions, appointments, tasks, supplies, helpers, memories—and ties them into something a tired parent can hold.",
+    "The brand should never perform expertise with cold authority. Its confidence is quieter: precise enough to be useful, soft enough to be trusted, and human enough to know that some nights all a parent needs is the next small step."
+  ],
+  "beliefs": [
+    {
+      "title": "Care should arrive before panic",
+      "sub": "anticipatory, practical, calm",
+      "body": "New parents often ask for help only after they have run out of capacity. Roo is designed to notice patterns, prepare the next need and make support feel available before the household tips into overwhelm."
+    },
+    {
+      "title": "Technology should lower the room temperature",
+      "sub": "gentle, useful, invisible",
+      "body": "AI inside Roo should feel less like a chatbot and more like a calm memory: remembering feeding rhythms, surfacing relevant guidance and helping the concierge act quickly. The interface must reduce cognitive load, not create another thing to manage."
+    },
+    {
+      "title": "The home is the real care setting",
+      "sub": "domestic, intimate, real",
+      "body": "Most newborn support happens far from clinics: on sofas, beside sinks, between naps, under laundry piles. Roo’s language and visuals should respect that reality, offering refined design without erasing the tenderness and disorder of early parenthood."
+    }
+  ],
+  "quotes": [
+    "less googling. more holding.",
+    "for the hours when everyone else is asleep."
+  ],
+  "logo": {
+    "concept": [
+      "A rounded wordmark where the double “o” becomes a quiet pair: parent and newborn, side by side, held inside the name.",
+      "Letters should feel inflated but not childish — soft-grotesque, heavy, generous, built for an app icon, a fridge note, and a 3am reassurance.",
+      "The mark’s job is to lower the room temperature: less healthcare system, less baby brand, more calm presence when everything feels new."
+    ],
+    "colorNote": "Use Merlot for authority and legibility, Cloudy Sky for the primary emotional field, and Rose Mist or Butter Cream as gentle environmental washes. The logo should never shout in full rainbow; Roo is soft, but it is not vague.",
+    "variations": [
+      {
+        "name": "Primary wordmark",
+        "use": "Merlot wordmark on Cloud Milk or white for app headers, onboarding, investor decks, and core brand moments where trust must land first."
+      },
+      {
+        "name": "Cloud-pair icon",
+        "use": "The two rounded “o” forms separated from the wordmark for favicon, app icon, loading states, assistant avatar, and tiny UI moments."
+      },
+      {
+        "name": "Pastel field mark",
+        "use": "Wordmark knocked into a Cloudy Sky, Rose Mist, or Butter Cream organic blob for social templates, parent guides, service cards, and welcome packs."
+      },
+      {
+        "name": "Single-colour utility",
+        "use": "Pure Merlot or pure white only for low-size UI, embossing, SMS graphics, monochrome print, and accessibility-critical environments."
+      }
+    ],
+    "safety": [
+      "Keep clear space equal to the width of one “o” on all sides; Roo needs air, not decoration.",
+      "Use the wordmark large enough that the rounded counters stay open and calm; never let it close up into mush.",
+      "Place the mark on quiet fields only: soft solids, generous margins, and no busy newborn photography behind it."
+    ],
+    "donts": [
+      "Never use sharp geometric lettering; Roo should not feel clinical, tech-bro, or municipal.",
+      "Never set the logo in multiple colours at once; the palette can surround it, not invade it.",
+      "Never add pacifiers, moons, bottles, hearts, storks, or literal baby symbols.",
+      "Never stretch, tilt, outline, shadow, or bubble-effect the wordmark.",
+      "Never place Merlot type on Rose Mist at small sizes; the contrast gets emotionally heavy and visually muddy.",
+      "Never make the blobs symmetrical or cartoon-flower perfect; they should feel organic, not nursery wallpaper."
+    ]
+  },
+  "color": {
+    "philosophy": [
+      "Roo’s colour system is built for the newborn window: blue like an open morning, cream like a lamp left on low, pink like skin warmth, and one deep wine note to make the whole world feel held. The palette refuses the usual sterile baby-tech whites and gendered nursery clichés; it is soft with a spine.",
+      "The signature move is the tension between Cloudy Sky and Merlot: tenderness plus competence. Pastels create emotional oxygen, while the dark red gives Roo the gravity to handle feeding questions, night nurses, lactation support, scheduling, and AI guidance without feeling fluffy."
+    ],
+    "palette": [
+      {
+        "name": "Cloudy Sky",
+        "hex": "#BAD6FD",
+        "role": "primary brand colour / calm service field",
+        "meaning": "Expresses the first clear breath after a long night: open, cool, and gently optimistic."
+      },
+      {
+        "name": "Merlot",
+        "hex": "#570301",
+        "role": "near-dark ground / primary typography and trust anchor",
+        "meaning": "A deep human red that brings seriousness, warmth, and adult authority to an otherwise tender world."
+      },
+      {
+        "name": "Rose Mist",
+        "hex": "#F5BAD5",
+        "role": "brand warmth / emotional care colour",
+        "meaning": "Signals closeness, skin, softness, and the vulnerable intimacy of early parenthood without becoming sugary."
+      },
+      {
+        "name": "Butter Cream",
+        "hex": "#F7E594",
+        "role": "brand light / guidance and reassurance colour",
+        "meaning": "Feels like a bedside lamp: practical comfort, small rituals, and help that arrives before panic does."
+      },
+      {
+        "name": "Cloud Milk",
+        "hex": "#FFFDF8",
+        "role": "near-light base / primary background",
+        "meaning": "A warmer-than-white base that keeps screens, guides, and service pages quiet enough for tired eyes."
+      },
+      {
+        "name": "Roo Lilac",
+        "hex": "#CDBAF7",
+        "role": "mid accent / AI and concierge intelligence",
+        "meaning": "Introduces a slightly surreal, modern note for smart suggestions, automation, and moments where Roo is thinking ahead."
+      }
+    ],
+    "hierarchy": [
+      {
+        "title": "STRUCTURE",
+        "sub": "MERLOT + CLOUD MILK",
+        "body": "Merlot is the system’s ground: use it for core typography, navigation, decisive buttons, and moments where Roo must feel accountable. Cloud Milk is the base that prevents the brand from becoming either medical-white or pastel-heavy; it gives exhausted parents visual quiet."
+      },
+      {
+        "title": "ABUNDANCE",
+        "sub": "CLOUDY SKY + ROSE MIST + BUTTER CREAM",
+        "body": "These colours build Roo’s atmosphere across onboarding, content cards, service categories, and welcome flows. Use them as broad, soft fields rather than tiny decorative accents, so the brand feels enveloping — like a room prepared before the family arrives."
+      },
+      {
+        "title": "HIGHLIGHT",
+        "sub": "ROO LILAC + BUTTER CREAM",
+        "body": "Roo Lilac is reserved for intelligence: AI summaries, smart reminders, concierge recommendations, and subtle “we’ve noticed this for you” moments. Butter Cream highlights practical next steps, checklists, and time-sensitive reassurance, creating warmth without alarm."
+      }
+    ]
+  },
+  "typography": {
+    "philosophy": [
+      "Roo’s type should feel like a warm hand on the shoulder: rounded, legible, unhurried, never babyish. The system uses soft weight and generous spacing to make difficult, sleep-deprived moments feel easier to read and easier to trust.",
+      "The contrast is deliberate: big, pillowy headlines carry emotional reassurance; small, precise captions carry logistics, timings, checklists and AI responses. Roo is part nursery cloud, part highly competent night nurse."
+    ],
+    "displayFont": "Baloo 2",
+    "sansFont": "Nunito Sans",
+    "fonts": [
+      {
+        "name": "roo soft",
+        "role": "display, headlines, prompts, emotional signposting",
+        "note": "Baloo 2 has the rounded confidence Roo needs: protective and buoyant, with enough character to own the cloud-like visual world without tipping into cartoon."
+      },
+      {
+        "name": "roo clear",
+        "role": "body, app UI, service labels, captions, care instructions",
+        "note": "Nunito Sans keeps the system calm and highly readable at small sizes, especially for parents scanning advice at 3:17am with one hand free."
+      }
+    ],
+    "scale": [
+      {
+        "name": "H1",
+        "spec": "Roo Soft · 64px · weight 800 · tracking -1% · line height 0.98",
+        "use": "Hero statements, onboarding screens, campaign headlines and the most reassuring brand moments."
+      },
+      {
+        "name": "H2",
+        "spec": "Roo Soft · 38px · weight 700 · tracking 0% · line height 1.08",
+        "use": "Section openers, service category titles and key in-app guidance such as feeding, sleep, recovery and home support."
+      },
+      {
+        "name": "H3",
+        "spec": "Roo Clear · 20px · weight 800 · tracking +1% · line height 1.2",
+        "use": "High-legibility labels, cards, appointment modules, AI answer headings and concierge task names."
+      },
+      {
+        "name": "Body",
+        "spec": "Roo Clear · 16px · weight 400 · tracking 0% · line height 1.55",
+        "use": "Explanatory copy, care notes, service descriptions, partner bios and sensitive instructional text."
+      }
+    ],
+    "rules": [
+      "Use Baloo 2 heavy for emotional reassurance; never set long paragraphs in it.",
+      "Keep app labels in Nunito Sans 800, sentence case, with generous padding and rounded containers.",
+      "Use Merlot #570301 for authority: confirmations, expert notes, key CTAs and moments that need gravity.",
+      "Avoid all-caps except tiny system tags; Roo should never shout across a nursery.",
+      "Pair large type with soft negative space; crowded layouts undermine the feeling of care.",
+      "Use Rose Mist and Butter Cream as highlight washes behind short phrases, not as full text colours for accessibility."
+    ],
+    "inUse": [
+      {
+        "title": "you sleep. roo coordinates.",
+        "sub": "HERO LINE",
+        "body": "Set in Baloo 2 ExtraBold, this line should feel almost cloud-shaped on the page. The short rhythm gives Roo a clear promise: we do the holding pattern so parents can return to their bodies, their baby and their breath."
+      },
+      {
+        "title": "tonight’s plan",
+        "sub": "APP HEADER",
+        "body": "Use Nunito Sans ExtraBold with calm spacing and a Cloudy Sky background. It turns a potentially overwhelming evening into a sequence of small, named actions: bottle prep, recovery check-in, laundry pickup, night-nurse arrival."
+      },
+      {
+        "title": "from feeding questions to fresh sheets",
+        "sub": "SERVICE NAVIGATION",
+        "body": "Service categories should read like human relief, not software architecture. Keep labels direct and practical, then let colour-coded blobs signal the emotional zone: Rose Mist for care, Butter Cream for home, Cloudy Sky for sleep."
+      },
+      {
+        "title": "reviewed by a newborn-care specialist",
+        "sub": "TRUST CAPTION",
+        "body": "Small captions must be quiet but exact. Use Merlot for expert verification and source notes, creating a line between warm AI support and professional clinical-adjacent responsibility."
+      }
+    ]
+  },
+  "intentIntro": [
+    "This rebrand moves Roo away from generic baby softness into a more distinctive emotional territory: pastel air with Merlot backbone. The system should feel charming at first glance, then deeply capable on second contact.",
+    "Every choice must serve the same promise: fewer decisions for exhausted parents. Colour, type, motion and voice should make the product feel easy to approach, impossible to misunderstand and safe to return to at any hour."
+  ],
+  "patternStory": {
+    "title": "the care cloud",
+    "body": "Roo’s pattern is built from overlapping cloud-flower blobs: soft-edged islands of help that gather around a family without enclosing them. Each shape represents a different kind of support — AI guidance, vetted experts, household tasks, feeding help, recovery care — moving in and out as the newborn days change. The system should feel modular and alive, like a weather map for tenderness: never decorative fluff, always a visual language for coordinated care."
+  },
+  "heroStory": {
+    "title": "the kangaroo pouch",
+    "body": "Roo can quietly borrow from the kangaroo without drawing a literal mascot: the idea of a pouch, a protected in-between space where a new life is carried close while the parent is also supported. This becomes a brand metaphor for containment — rounded frames, nested cards, soft holding shapes and concierge services that wrap around the family rather than interrupting it."
+  },
+  "waxSeal": null,
+  "patternSystem": [
+    "Scale: use large, slow blobs for brand and web hero moments; use smaller clustered shapes for app states and service cards.",
+    "Opacity: keep pastel blobs at 70–100% on white; never fade Merlot below full strength when used for text or critical signals.",
+    "Cropping: let blobs drift off edges like passing clouds, with at least one generous white opening for breath.",
+    "Layering: overlap Cloudy Sky, Rose Mist and Butter Cream with soft separation; Merlot should appear as type, linework or a single grounding dot, not as a blob field.",
+    "When to avoid: do not use pattern behind urgent instructions, medical-adjacent guidance or dense UI flows; clarity comes before charm."
+  ],
+  "photography": {
+    "philosophy": [
+      "Roo’s photography should show the newborn period as tender but real: dim rooms, soft laundry, half-full water glasses, a bassinet beside an unmade bed. The beauty is in support arriving before anyone has to ask twice.",
+      "Avoid polished stock-family perfection. We want the quiet evidence of care: a folded muslin, a warm meal left on the counter, a parent’s hand resting on a baby’s back, a phone screen with the next task already handled.",
+      "Colour should honour the palette in real life: morning blue window light for Cloudy Sky, flushed skin and blankets for Rose Mist, lamplight and porridge tones for Butter Cream, Merlot reserved for graphic overlays and brand moments."
+    ],
+    "inUse": [
+      {
+        "title": "FRAMING",
+        "sub": "close enough to feel held",
+        "body": "Frame partial, intimate details rather than staged family portraits: hands, shoulders, bassinets, milk bottles, folded onesies, a concierge bag by the door. The camera should feel like a trusted person in the room, not an observer performing parenthood."
+      },
+      {
+        "title": "LIGHT",
+        "sub": "soft hours, not studio glare",
+        "body": "Use diffused morning light, shaded window light or low warm evening lamps. Shadows can stay present because Roo is not pretending the newborn stage is weightless; it is making the weight manageable."
+      },
+      {
+        "title": "CASTING",
+        "sub": "parents in the middle of becoming",
+        "body": "Show varied family structures, tired faces, postpartum bodies and homes that feel lived in. Wardrobe should be tactile and simple — cotton robes, washed tees, soft knits — with no glossy lifestyle styling."
+      },
+      {
+        "title": "COMPOSITION",
+        "sub": "space for relief to enter",
+        "body": "Leave visible negative space for type, blobs or app UI overlays, especially around bedsides, nursery walls and tabletops. The image should suggest that Roo can step into the empty space and quietly take something off the parent’s list."
+      }
+    ]
+  },
+  "applications": [
+    {
+      "label": "app interface ideas",
+      "slots": 3
+    },
+    {
+      "label": "concierge kit ideas",
+      "slots": 3
+    },
+    {
+      "label": "launch campaign ideas",
+      "slots": 3
+    }
+  ],
+  "intent": [
+    "Use Cloudy Sky as Roo’s signature environment—background panels, onboarding screens, concierge notes and moments of calm. Merlot carries authority and action; Rose Mist and Butter Cream behave like small emotional signals, used sparingly for celebration, warmth and human touch.",
+    "The logo should be an organic rounded mark that can flex between app icon, service badge and concierge seal: a soft cloud-flower form with a subtle inner opening, suggesting both a pouch and a place to rest. Keep typography heavy, round and plain-spoken for labels, with regular sans captions that feel like neatly written notes left on the kitchen counter."
+  ]
+}

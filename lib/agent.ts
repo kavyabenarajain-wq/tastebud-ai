@@ -1,6 +1,6 @@
 import OpenAI from "openai";
 import type { BrandProfile } from "./types";
-import { chatClient } from "./openaiClient";
+import { chatCreate } from "./openaiClient";
 
 /**
  * The conversation brain — a creative-director agent with tool-use. It converses,
@@ -135,22 +135,13 @@ export async function runAgent(args: {
     `CONVERSATION STATE:\n${JSON.stringify(args.state)}`,
   ].join("\n\n---\n\n");
 
-  // OpenAI / Azure path (Claude tool-use is wired the same way when ANTHROPIC_API_KEY lands).
-  const { client, model } = chatClient();
-  const params = {
-    model,
+  // OpenAI / Azure path with provider failover (Claude tool-use is wired the same way when
+  // ANTHROPIC_API_KEY lands). chatCreate handles quota failover + transient retry.
+  const r = await chatCreate({
     max_completion_tokens: 4000,
     tools,
     messages: [{ role: "system" as const, content: system }, ...args.messages.map((m) => ({ role: m.role, content: m.content }))],
-  };
-  // Azure occasionally throws a transient connection error — retry before giving up.
-  let r;
-  let lastErr: unknown;
-  for (let attempt = 0; attempt < 3; attempt++) {
-    try { r = await client.chat.completions.create(params); break; }
-    catch (e) { lastErr = e; await new Promise((res) => setTimeout(res, 600 * 2 ** attempt)); }
-  }
-  if (!r) throw lastErr;
+  });
 
   const msg = r.choices[0]?.message;
   const actions: AgentAction[] = [];

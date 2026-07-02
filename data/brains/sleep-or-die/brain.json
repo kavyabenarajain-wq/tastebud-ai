@@ -1,0 +1,328 @@
+{
+  "name": "Sleep Or Die",
+  "website": "https://sleep-or-die.com",
+  "research": {
+    "summary": "Sleep Or Die is a performance-focused sleep brand aimed at high-performers, reframing sleep from a soft wellness topic into a hard, non-negotiable performance metric. It uses direct, confrontational messaging and a dark, techy aesthetic to position deep sleep as the ultimate competitive advantage and an antidote to burnout.",
+    "essence": "Sleep is your last line of defense: treat it like training or pay the price.",
+    "voice": "Direct, tough-love, evidence-based, darkly witty, anti-hustle-culture but pro-performance.",
+    "competitors": [
+      "Eight Sleep",
+      "Whoop",
+      "Oura",
+      "Momentous",
+      "Levels",
+      "Beam",
+      "Noon",
+      "Somnifix",
+      "Calm",
+      "Sleep Reset"
+    ],
+    "ambassadors": [
+      "High-performance founders and startup operators recovering from burnout (inferred)",
+      "Strength and conditioning coaches focused on recovery (inferred)",
+      "Biohacker and longevity podcasters who emphasize sleep metrics (inferred)",
+      "Former hustle-influencers who pivoted to sustainable performance (inferred)",
+      "Sleep doctors and neuroscientists contributing educational content (inferred)"
+    ],
+    "instagram": "@sleepordie",
+    "website": "https://sleep-or-die.com",
+    "palette": [
+      {
+        "hex": "#050708",
+        "role": "Primary background: near-black with a hint of blue, used for site background, hero sections, and packaging base."
+      },
+      {
+        "hex": "#F5F3EE",
+        "role": "Primary text and high-contrast UI elements on dark backgrounds; used for body copy, headings, and key labels."
+      },
+      {
+        "hex": "#1F7BFF",
+        "role": "Primary accent: electric blue for CTAs, links, data highlights, and key UI focus states."
+      },
+      {
+        "hex": "#9FFF3C",
+        "role": "Secondary accent: acid green reserved for more aggressive 'OR DIE' treatments, warnings, and performance callouts."
+      },
+      {
+        "hex": "#343A40",
+        "role": "Secondary background and UI chrome: cards, borders, dividers, section panels."
+      },
+      {
+        "hex": "#B3261E",
+        "role": "Alert accent: blood-red used sparingly for copy emphasizing risk, burnout, and 'Or Die' theming."
+      }
+    ],
+    "aesthetic": "Dark, performance-clinic night photography with high-contrast cool grading and minimal props, focused on sleep rituals as a form of training.\n\nBackgrounds & surfaces:\n- Dominantly dark, matte backgrounds: charcoal and near-black seamless paper, painted walls, or digital gradients.\n- Hard surfaces: matte black tables, dark concrete slabs, brushed metal plates used to stage products in a controlled, almost lab-like environment.\n- Soft surfaces: dark grey or black bedding, slightly rumpled but tidy; minimal nightstand setups with a single lamp, book, or device, avoiding clutter.\n- Occasional use of cool-toned wood or dark walnut for warmth, but always against a majority-dark frame.\n\nColour grade:\n- Cool-biased overall (blue / teal shift) to evoke night and tech; whites lean slightly cool rather than creamy.\n- High contrast: deep, rich blacks with preserved shadow detail; highlights are controlled to avoid blown-out whites.\n- Minimal saturation in backgrounds; accent colours (electric blue, acid green) are allowed to pop selectively on packaging, UI screens, or single props.\n- Skin tones (when present) are neutral to slightly cool, avoiding overly warm, golden wellness grading.\n\nStyling density & props:\n- Low to medium styling density: every scene feels intentional and sparse rather than lifestyle-messy.\n- Core props: sleep masks, earplugs, minimal black or dark grey mugs, analog alarm clocks, sleek bedside lamps, wearable trackers (rings/wristbands), and simple books or notebooks.\n- Tech-forward elements: laptops, phones with sleep apps visible, wearables showing HRV/sleep scores, but never dominating the frame.\n- No overtly cozy clichés (no fairy lights, excessive candles, fluffy throws); the mood is disciplined rather than cozy.\n\nLighting quality & direction:\n- Primarily directional soft light coming from one side (often 45° angle), mimicking a single bedside lamp or window at night.\n- Light sources feel diffused: softboxes or bounced light to keep edges soft but still sculpt form and texture.\n- Occasional dual-light setups: cool key light paired with a warmer, low-intensity practical (e.g., amber bedside lamp) in the background, creating a colour contrast between focus and environment.\n- Controlled specular highlights on packaging to emphasize premium, matte textures without glare.\n\nCrops & composition:\n- Tight, graphic crops of products: straight-on front shots, top-down flat-lays on dark surfaces, and 45° three-quarter angles showing depth.\n- Frequent use of negative space, especially in hero images, leaving room for bold typography overlays.\n- Detail shots: macro or close-up crops of textures (pill capsules, fabric folds, device screens showing metrics) to reinforce a scientific and ritualistic feel.\n- Symmetry and grid alignment: products centered or arranged in even rows; avoids casual, off-kilter lifestyle framing.\n\nSubjects: products vs models:\n- Product-first photography: a large portion of the imagery is product-only or product plus minimal props, presented like lab equipment or performance gear.\n- Occasional model usage: lone subjects in bed or at a bedside, usually framed from shoulders up or torso, focusing on posture and emotional relief (exhale, eyes closed) rather than glamour.\n- Models represent high-performers (lean, fit, urban) in simple, dark-toned sleepwear; no overly polished hair/makeup.\n- When models are shown, product integration is subtle (a jar on the nightstand, a wearable on the wrist), keeping the narrative about ritual and recovery.\n\nOverall, the photography signature is reproducible as: dark, cool-toned, minimally styled night scenes with performance-oriented sleep rituals; hero shots of matte-black packaging on concrete or metal; directional soft lighting; electric accent colours reserved for details; and mostly product-led framing that treats sleep tools like serious training equipment rather than cozy lifestyle accessories.",
+    "foundReal": true,
+    "logo": "https://sleep-or-die.com/cdn/shop/files/Screenshot_2024-12-13_at_1.38.25_PM.png?v=1734125916&width=480",
+    "productImages": [
+      "https://cdn.shopify.com/s/files/1/0732/5774/6652/files/Sleep_or_Die_Product_Photos_3.png?v=1776451891",
+      "https://cdn.shopify.com/s/files/1/0732/5774/6652/files/4_a9bc00ed-c036-4471-813d-66fb19816978.png?v=1768967879",
+      "https://cdn.shopify.com/s/files/1/0732/5774/6652/files/3_2ce9cd7a-9b25-44ee-bd42-15e113c68453.png?v=1768967933",
+      "https://cdn.shopify.com/s/files/1/0732/5774/6652/files/1_c031a587-cc44-42d7-bd3f-0c1753c6f797.png?v=1768967985",
+      "https://cdn.shopify.com/s/files/1/0732/5774/6652/files/2_60fa9446-3281-48e0-b7ed-7c21070b7006.png?v=1768968066",
+      "http://sleep-or-die.com/cdn/shop/files/Untitled_design_44.png?v=1739924062",
+      "https://sleep-or-die.com/cdn/shop/files/Untitled_design_44.png?v=1739924062",
+      "https://sleep-or-die.com/cdn/shop/files/SOD-Wordmark-White_1.png?height=108&amp;v=1768713639",
+      "https://sleep-or-die.com/cdn/shop/files/SOD-Wordmark-White_1.png?height=36&amp;v=1768713639",
+      "https://sleep-or-die.com/cdn/shop/files/IMG_9734.jpg?v=1782826741&amp;width=3840",
+      "https://sleep-or-die.com/cdn/shop/files/20260401_sleep-or-die-Mouth-0572.jpg?height=5760&amp;v=1776451599",
+      "https://sleep-or-die.com/cdn/shop/files/20260401_sleep-or-die-Mouth-0572.jpg?height=2000&amp;v=1776451599"
+    ],
+    "products": [
+      {
+        "name": "Sleep Strips",
+        "image": "https://cdn.shopify.com/s/files/1/0732/5774/6652/files/Sleep_or_Die_Product_Photos_3.png?v=1776451891"
+      },
+      {
+        "name": "The Sleep Case",
+        "image": "https://cdn.shopify.com/s/files/1/0732/5774/6652/files/4_a9bc00ed-c036-4471-813d-66fb19816978.png?v=1768967879"
+      },
+      {
+        "name": "Lights Out Matches",
+        "image": "https://cdn.shopify.com/s/files/1/0732/5774/6652/files/3_2ce9cd7a-9b25-44ee-bd42-15e113c68453.png?v=1768967933"
+      },
+      {
+        "name": "Persephone Sticker",
+        "image": "https://cdn.shopify.com/s/files/1/0732/5774/6652/files/1_c031a587-cc44-42d7-bd3f-0c1753c6f797.png?v=1768967985"
+      },
+      {
+        "name": "Sleep Tape",
+        "image": "https://cdn.shopify.com/s/files/1/0732/5774/6652/files/2_60fa9446-3281-48e0-b7ed-7c21070b7006.png?v=1768968066"
+      },
+      {
+        "name": "welcome to the strip club™"
+      },
+      {
+        "name": "Sleep Case"
+      },
+      {
+        "name": "Sleep Stickers"
+      },
+      {
+        "name": "shop sleep strips"
+      }
+    ],
+    "sources": 0
+  },
+  "intelligence": {
+    "overview": "Sleep Or Die is a performance-focused sleep brand that reframes rest as a non-negotiable edge for ambitious people. It combines aggressive, anti-burnout messaging with science-led tools, rituals, and education to turn sleep into a core part of high performance.",
+    "purpose": "Make deep, restorative sleep non-negotiable for ambitious people who refuse to sacrifice their health for hustle.",
+    "mission": "To give high-performers the tools, rituals, and education to turn sleep into their competitive advantage, not their weakness.",
+    "vision": "A culture where taking sleep seriously is a flex, not a flaw—where “I slept 8 hours” replaces “I only slept 4” as the badge of honour.",
+    "story": "Sleep Or Die emerges from the journey of a founder who burned out in high-pressure industries like tech, finance, or creative work after years of glorifying all-nighters and grind culture. A health collapse forced a radical shift: prioritising sleep hygiene, light exposure, supplementation, and nervous system regulation, which rebuilt their performance and wellbeing. Seeing a gap between soft, spa-like wellness brands and dry, clinical sleep medicine, they created Sleep Or Die as a wake-up call for high-performers: a brand that treats sleep like training with the same intensity as the gym or work, speaking in the language of hustle while demanding respect for recovery.",
+    "values": [
+      "Non-negotiable health",
+      "Radical honesty",
+      "Performance over posturing",
+      "Respect for recovery",
+      "Anti-burnout culture"
+    ],
+    "positioning": "Performance-grade sleep for people who refuse to burn out.",
+    "audience": "Ambitious 23–40-year-old urban professionals and creatives—founders, startup teams, agency workers, traders, coders, consultants, athletes, and biohackers—who once embraced “sleep when you’re dead” mentality but are now feeling the consequences and want credible, results-driven sleep optimization without soft wellness clichés.",
+    "persona": "Alex, 31, is a senior product manager at a fast-growing tech startup or a creative director at a digital agency, working 50–70 hours a week while training at the gym several times weekly and tracking metrics like HRV and productivity. They have consumed content from performance and hustle gurus, flirted with grind culture, and now feel the cost: waking up tired, relying heavily on caffeine, struggling to focus, and becoming irritable. Burnout feels dangerously close, threatening both their career and relationships. Alex has experimented with blue-light blockers, magnesium, and guided sleep meditations, but wants a brand that speaks their language—intense, honest, and science-backed—without asking them to become “soft.” Sleep Or Die gives Alex a framework and toolkit to make sleep part of being hardcore, reframing deep rest as a protective edge rather than a weakness.",
+    "toneOfVoice": "Direct, confrontational, evidence-based, darkly witty, motivational.",
+    "personality": [
+      "Rebellious",
+      "Coach-like",
+      "Scientific",
+      "Protective",
+      "Aesthetic"
+    ],
+    "palette": [
+      {
+        "hex": "#050708",
+        "role": "Primary background: near-black with a hint of blue, used for site background, hero sections, and packaging base."
+      },
+      {
+        "hex": "#F5F3EE",
+        "role": "Primary text and high-contrast UI elements on dark backgrounds; used for body copy, headings, and key labels."
+      },
+      {
+        "hex": "#1F7BFF",
+        "role": "Primary accent: electric blue for CTAs, links, data highlights, and key UI focus states."
+      },
+      {
+        "hex": "#9FFF3C",
+        "role": "Secondary accent: acid green reserved for more aggressive 'OR DIE' treatments, warnings, and performance callouts."
+      },
+      {
+        "hex": "#343A40",
+        "role": "Secondary background and UI chrome: cards, borders, dividers, section panels."
+      },
+      {
+        "hex": "#B3261E",
+        "role": "Alert accent: blood-red used sparingly for copy emphasizing risk, burnout, and 'Or Die' theming."
+      }
+    ],
+    "typography": {
+      "display": "Bold, condensed or semi-condensed modern sans serif with a sports-meets-cyberpunk feel; all-caps headlines that read like training commands (e.g. Sleep Or Die, Burnout Isn’t a Badge of Honour, Deep Sleep Is Your Edge).",
+      "text": "Clean, highly legible modern sans serif (Inter/SF Pro/Aeonik/Graphik-type feel) in medium weights with tight leading and high readability for educational and scientific content.",
+      "note": "Typography is sharp, modern, and sans serif throughout, avoiding decorative or soft forms to maintain a performance clinic aesthetic."
+    },
+    "logo": "https://sleep-or-die.com/cdn/shop/files/Screenshot_2024-12-13_at_1.38.25_PM.png?v=1734125916&width=480",
+    "logoSystem": "The primary logo is an all-caps wordmark “SLEEP OR DIE” set in a bold condensed sans serif, often with “OR DIE” differentiated by colour or outline to emphasise the tension. A secondary mark uses either an “S/D” monogram or a minimalist skull icon with a crescent moon or Z-shaped eye, suitable for social avatars and small applications. Lockups include horizontal arrangements with the icon leading the wordmark and vertical stacks where “SLEEP” sits above “OR DIE” with the icon anchoring the system, designed to sit confidently on dark backgrounds.",
+    "photographyStyle": "Photography leans into dark, high-contrast night-time environments: charcoal or black backdrops, textured concrete or brushed metal surfaces, and dark bedding or minimal nightstand setups. The colour grade is cool-toned (blue/teal bias) to evoke night and tech, with deep blacks and controlled highlights, occasionally punctuated by warm amber light from bedside lamps or candles to create a comforting counterpoint. Props are minimal and purposeful—sleep masks, supplements, devices, glass carafes, phones showing sleep metrics—styled in clean, grid-like compositions that feel both clinical and cinematic.",
+    "packagingStyle": "Packaging uses sleek, matte dark bases (charcoal or black) with minimal, grid-based labels and high-contrast off-white typography. Product names appear prominently in bold type (e.g. “DEEP SLEEP 01”), with precise ingredient and dosage data laid out in a systematic, science-driven manner. Neon accent bars in blue or acid green distinguish SKUs and add a tech-performance edge, while occasional red cues nod to the brand’s “Or Die” urgency. Overall, the packaging feels like a fusion of high-end performance supplements and dystopian sci-fi: premium, serious, and visually aggressive.",
+    "visualIdentity": "The visual identity blends night-time, dystopian calm with high-performance, tech-driven aggression: near-black backgrounds, off-white typography, and electric accents create a system that feels like a performance lab built for recovery. Bold condensed headlines, minimal grid layouts, and a skull/moon iconography reinforce the central tension—rest vs burnout—while maintaining a clean, reproducible design language across digital, packaging, and content.",
+    "competitors": [
+      {
+        "name": "Eight Sleep",
+        "note": "Tech-forward sleep performance brand focused on smart mattresses and temperature regulation for athletes and high-performers."
+      },
+      {
+        "name": "Sleep Reset",
+        "note": "Structured, science-based sleep coaching program with an emphasis on behavioral change and measurable outcomes."
+      },
+      {
+        "name": "Momentous",
+        "note": "Performance supplement brand with sleep-focused products aimed at athletes and biohackers seeking science-led optimization."
+      },
+      {
+        "name": "Beam",
+        "note": "CBD-forward sleep and wellness brand positioning sleep drinks and supplements in a modern, direct-to-consumer aesthetic."
+      },
+      {
+        "name": "Calm",
+        "note": "Mainstream meditation and sleep app offering content-based solutions for stress and sleep, with a softer wellness tone that Sleep Or Die reacts against."
+      }
+    ],
+    "social": [
+      {
+        "platform": "Instagram",
+        "handle": "@sleepordie",
+        "url": "https://instagram.com/sleepordie",
+        "note": "Dark, high-contrast feed mixing product shots, sleep science infographics, anti-hustle culture quotes, and short reels that blend research snippets with tough-love coaching; posting several times per week with a direct, punchy voice."
+      },
+      {
+        "platform": "TikTok",
+        "handle": "@sleepordie",
+        "url": "https://www.tiktok.com/@sleepordie",
+        "note": "Short, confrontational clips debunking grind myths, explaining sleep mechanisms, and showing quick rituals or setups; high-energy delivery with overlay text and moody lighting, aiming at younger high-performers."
+      },
+      {
+        "platform": "YouTube",
+        "handle": "Sleep Or Die",
+        "url": "https://www.youtube.com/@sleepordie",
+        "note": "Longer-form educational content, including breakdowns of sleep research, interviews with performance experts, and protocol-style guides; consistent, evidence-based narratives in a cinematic but pragmatic style."
+      }
+    ],
+    "press": [],
+    "insights": [
+      "The core creative tension—sleep vs death, recovery vs burnout—is the brand’s strongest asset; every touchpoint should dramatize that trade-off, visually and verbally, so the name feels like a wake-up call rather than a gimmick.",
+      "To differentiate from soft wellness and generic supplements, lean hard into quantified performance: HRV, reaction time, cognitive scores, and before/after sleep metrics should be featured as hero storytelling devices.",
+      "Visuals should feel like a training environment for sleep: treat bedrooms, rituals, and products like gym gear and programs, using sports and cyberpunk cues to make rest feel disciplined, not indulgent.",
+      "Tone needs consistent tough love—direct, occasionally confrontational—but always protective and grounded in research; the brand is the coach pulling high-performers back from the edge, not shaming ambition itself.",
+      "Product and content naming can extend the Sleep Or Die narrative with protocol language (e.g. “Phase 1: Downshift,” “Phase 2: Deep Delta”) to frame sleep as a structured program rather than a vague lifestyle choice.",
+      "Community-building around anti-burnout identity—celebrating 8-hour sleep streaks like PRs, sharing recovery wins, and calling out toxic grind narratives—will turn the brand from a supplement provider into a cultural movement."
+    ],
+    "website": "https://sleep-or-die.com",
+    "instagram": "@sleepordie",
+    "sources": 0,
+    "foundReal": true,
+    "inferred": true
+  },
+  "catalog": [
+    {
+      "id": "sleep-strips",
+      "name": "Sleep Strips",
+      "category": "Sleeping Aids",
+      "collection": "sleep strips",
+      "description": "A gentle reminder to get the F to bed. Sleep Strips dissolve in your mouth and start working in about 10 minutes. 30 Strips in each pack. No water. No swallowing. No knockout. Just a nudge toward sleep.",
+      "price": "6200.00",
+      "url": "https://sleep-or-die.com/products/sleep-strips",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0732/5774/6652/files/Sleep_or_Die_Product_Photos_3.png?v=1776451891",
+        "https://cdn.shopify.com/s/files/1/0732/5774/6652/files/tongue_strip_05_611fec7e-06dc-4051-863d-4fb0be12280c.png?v=1776451891",
+        "https://cdn.shopify.com/s/files/1/0732/5774/6652/files/SleeporDieProductPhotos.png?v=1776451891",
+        "https://cdn.shopify.com/s/files/1/0732/5774/6652/files/20260401_sleep-or-die-Mouth-0536.jpg?v=1776451891",
+        "https://cdn.shopify.com/s/files/1/0732/5774/6652/files/Sleep_or_Die_Product_Photos_2.png?v=1776451891",
+        "https://cdn.shopify.com/s/files/1/0732/5774/6652/files/Sleep_or_Die_Product_Photos_4.png?v=1776451891",
+        "https://cdn.shopify.com/s/files/1/0732/5774/6652/files/20260401_sleep-or-die-martini-0226.jpg?v=1776451939",
+        "https://cdn.shopify.com/s/files/1/0732/5774/6652/files/Sleep_or_Die_Product_Photos_7.png?v=1776451939"
+      ]
+    },
+    {
+      "id": "the-sleep-case",
+      "name": "The Sleep Case",
+      "collection": "sleep case",
+      "description": "Meet the Sleep Case , a sleek bedside essential that keeps your Sleep Tape protected, organized, and part of your nightly ritual. Keeps Sleep Tape clean, fresh, and travel-ready Ends the drawer-digging chaos before bed Looks good enough to live on your nightstand Completes your setup for deeper, more intentional rest Travel friendly for all ur non-makeup bag essentials: earrings, lip gloss, u get the idea note: sleep tape ordered separately",
+      "price": "1900.00",
+      "url": "https://sleep-or-die.com/products/sleep-tin",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0732/5774/6652/files/4_a9bc00ed-c036-4471-813d-66fb19816978.png?v=1768967879",
+        "https://cdn.shopify.com/s/files/1/0732/5774/6652/files/DSC06980.png?v=1769481366",
+        "https://cdn.shopify.com/s/files/1/0732/5774/6652/files/478A4062.jpg?v=1769481366",
+        "https://cdn.shopify.com/s/files/1/0732/5774/6652/files/10.png?v=1769481366",
+        "https://cdn.shopify.com/s/files/1/0732/5774/6652/files/478A4067.jpg?v=1769481366",
+        "https://cdn.shopify.com/s/files/1/0732/5774/6652/files/8_d9fab50d-d793-4790-88f3-c6564541a3a0.png?v=1769481366",
+        "https://cdn.shopify.com/s/files/1/0732/5774/6652/files/7_11263b00-2cc6-4628-bfcc-53c45b9b691e.png?v=1769481366",
+        "https://cdn.shopify.com/s/files/1/0732/5774/6652/files/11.png?v=1769481366"
+      ]
+    },
+    {
+      "id": "lights-out-matches",
+      "name": "Lights Out Matches",
+      "collection": "sleep or die matches",
+      "description": "for the ones burning the candle at both ends, consider this your final warning. the l ights out matchbox is here to remind you that sleep isn’t optional. light a candle, set the vibe, or just play with fire (responsibly). either way, take the hint, wind down, rest up, and maybe stop treating exhaustion like a flex. includes: a branded box of matches; perfect for setting the mood, or realizing you should probably go to bed.",
+      "price": "1000.00",
+      "url": "https://sleep-or-die.com/products/matches",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0732/5774/6652/files/3_2ce9cd7a-9b25-44ee-bd42-15e113c68453.png?v=1768967933",
+        "https://cdn.shopify.com/s/files/1/0732/5774/6652/files/1_c76022db-8496-48a7-95bb-0ac0a717d6da.png?v=1769018229",
+        "https://cdn.shopify.com/s/files/1/0732/5774/6652/files/3_f28d01af-7417-425e-84f5-8b44e1d49197.png?v=1769018273",
+        "https://cdn.shopify.com/s/files/1/0732/5774/6652/files/Sleep_or_Die_Product_Photos_10.png?v=1769019107"
+      ]
+    },
+    {
+      "id": "persephone-sticker",
+      "name": "Persephone Sticker",
+      "collection": "persephone sticker",
+      "description": "baaaaaabe, you need this. i’m Persephone, the cheekiest, sleepiest little lamb you’ve ever met, and will never have to count. stick me somewhere cute, and I’ll remind you to rest like your life depends on it (because, uh… it kinda does). sweet dreams, don’t let the insomnia bite.",
+      "price": "400.00",
+      "url": "https://sleep-or-die.com/products/persephone-sticker",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0732/5774/6652/files/1_c031a587-cc44-42d7-bd3f-0c1753c6f797.png?v=1768967985"
+      ]
+    },
+    {
+      "id": "sleep-tape",
+      "name": "Sleep Tape",
+      "collection": "sleep tape",
+      "description": "TLDR; feel more energized increased oxygen efficiency improved sleep quality brighter eyes and a defined jawline specifically made to stay on over your skincare routine. we got you.",
+      "price": "3900.00",
+      "url": "https://sleep-or-die.com/products/mouth-tape",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0732/5774/6652/files/2_60fa9446-3281-48e0-b7ed-7c21070b7006.png?v=1768968066",
+        "https://cdn.shopify.com/s/files/1/0732/5774/6652/files/2_693e41e0-2d2f-40bb-ae3b-00d9102f7e68.png?v=1769028127",
+        "https://cdn.shopify.com/s/files/1/0732/5774/6652/files/3_50776524-c884-4de9-8066-ad99840ba08e.png?v=1769028127",
+        "https://cdn.shopify.com/s/files/1/0732/5774/6652/files/4_91de902f-a0c1-4095-8788-aab1c2db5744.png?v=1769028128",
+        "https://cdn.shopify.com/s/files/1/0732/5774/6652/files/5_5c7cbc99-7856-42e1-a156-2f90dbefe407.png?v=1769028128",
+        "https://cdn.shopify.com/s/files/1/0732/5774/6652/files/6_9c5a0367-30ad-4b12-b3e4-02056d1abdc3.png?v=1769028127",
+        "https://cdn.shopify.com/s/files/1/0732/5774/6652/files/7_bce59665-d5ee-49c4-95f0-bfdd727c9afe.png?v=1769028128",
+        "https://cdn.shopify.com/s/files/1/0732/5774/6652/files/8_6986cf11-49ab-4ac7-800a-77d9fa752e74.png?v=1769028127"
+      ]
+    },
+    {
+      "id": "welcome-to-the-strip-club",
+      "name": "welcome to the strip club™",
+      "images": []
+    },
+    {
+      "id": "sleep-case",
+      "name": "Sleep Case",
+      "images": []
+    },
+    {
+      "id": "sleep-stickers",
+      "name": "Sleep Stickers",
+      "images": []
+    },
+    {
+      "id": "shop-sleep-strips",
+      "name": "shop sleep strips",
+      "images": []
+    }
+  ],
+  "ready": true
+}

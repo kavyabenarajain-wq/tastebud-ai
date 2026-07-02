@@ -46,6 +46,8 @@ interface StudioCtx {
   setCategory: (category: string) => void;
   setBrain: (b: BrandBrain) => void;
   patch: (p: Partial<BrandBrain>) => void;
+  /** Wipe the previous brand + reset the research guard so a newly pasted URL starts clean. */
+  resetForNewBrand: () => void;
   toggleProduct: (id: string) => void;
   selectAll: () => void;
   clearSelection: () => void;
@@ -90,6 +92,16 @@ export function StudioProvider({ children }: { children: React.ReactNode }) {
   const setBrain = useCallback((b: BrandBrain) => setBrainState(b), []);
   const setName = useCallback((name: string) => setBrainState((b) => ({ ...b, name })), []);
   const setCategory = useCallback((category: string) => setBrainState((b) => ({ ...b, category })), []);
+
+  // Starting a DIFFERENT brand: wipe everything brand-specific (name, site, research, intelligence,
+  // catalog, product picks, memory, questionnaire answers, the ready flag) AND reset the
+  // once-per-session research guard — otherwise a newly pasted URL keeps showing the previous
+  // brand and never re-researches. Only genuinely user-level facts (role, team) carry over.
+  const resetForNewBrand = useCallback(() => {
+    researchRan.current = false;
+    setResearch({ started: false, running: false, done: false, error: false, details: {} });
+    setBrainState((b) => ({ role: b.role, brandType: b.brandType, teamSize: b.teamSize }));
+  }, []);
 
   const startResearch = useCallback((opts?: { website?: string; name?: string; category?: string }) => {
     if (researchRan.current) return;
@@ -180,7 +192,7 @@ export function StudioProvider({ children }: { children: React.ReactNode }) {
 
   const value: StudioCtx = {
     brain, hydrated, catalog, selectedIds, selectedProducts, research,
-    setName, setCategory, setBrain, patch, toggleProduct, selectAll, clearSelection, startResearch,
+    setName, setCategory, setBrain, patch, resetForNewBrand, toggleProduct, selectAll, clearSelection, startResearch,
   };
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }

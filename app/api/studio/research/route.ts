@@ -4,7 +4,7 @@ import { saveBrain } from "@/lib/brainStore";
 import type { BrandBrain } from "@/lib/types";
 
 export const runtime = "nodejs";
-export const maxDuration = 120;
+export const maxDuration = 180;
 
 /**
  * Streaming brand research for the Asset Studio onboarding. Given just a brand name +

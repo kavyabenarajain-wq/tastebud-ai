@@ -1,6 +1,6 @@
 import { z } from "zod";
 import type { BrandBrain, BrandResearch, BrandIntelligence, StudioProduct } from "./types";
-import { chatClient } from "./openaiClient";
+import { chatClient, chatComplete } from "./openaiClient";
 import { parseLenient } from "./coerce";
 
 /**
@@ -285,6 +285,26 @@ async function harvestBrandSite(website: string): Promise<{ logo?: string; produ
   }
 }
 
+/**
+ * Resolve the brand's real website for FREE (no paid API) by probing the obvious domains
+ * derived from the name. Lets the site crawl run — and pull real products, photos, palette
+ * and logo — even when no LLM/grounding is available to supply the URL. Returns "" if none
+ * respond. Tries a compact slug (dotandkey) and a hyphenated one (sleep-or-die) across
+ * common TLDs, in parallel, and picks the highest-priority host that answers.
+ */
+async function resolveWebsite(name: string): Promise<string> {
+  const compact = name.toLowerCase().replace(/&/g, "and").replace(/[^a-z0-9]+/g, "");
+  const hyphen = name.toLowerCase().replace(/&/g, "and").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
+  if (!compact) return "";
+  const hosts = Array.from(new Set([compact, hyphen].filter(Boolean)));
+  const candidates = hosts.flatMap((h) => [`https://www.${h}.com`, `https://${h}.com`, `https://www.${h}.co`, `https://${h}.in`]);
+  const checked = await Promise.all(candidates.map(async (url) => {
+    try { const r = await withTimeout(url, { headers: UA, redirect: "follow" }, 5000); return r.ok ? (r.url || url) : null; }
+    catch { return null; }
+  }));
+  return checked.find((u): u is string => !!u) ?? "";
+}
+
 /** The research question — one grounded pass that captures identity, story, products, and perception. */
 function researchQuestion(brain: BrandBrain): string {
   const who = [brain.name, brain.category, brain.productType].filter(Boolean).join(", ");
@@ -310,10 +330,51 @@ function researchQuestion(brain: BrandBrain): string {
   );
 }
 
-/** Grounded dossier via Gemini + Google Search — or a synthesized fallback when no key. */
+/**
+ * Grounded dossier — real, live web research.
+ *
+ * Primary path is the OpenAI Responses API with the built-in `web_search` tool (the
+ * funded platform key), so the model actually browses the brand's real site/feed before
+ * writing. Gemini Google-Search grounding is a secondary path kept for parity — but note
+ * that key is currently out of prepay credits (429), which is exactly why it can't be the
+ * primary any more. Both fall back to a no-search synthesis so the flow never dead-ends.
+ */
 async function groundedDossier(brain: BrandBrain): Promise<{ dossier: string; sources: number; inferred: boolean }> {
-  const key = process.env.GEMINI_API_KEY;
   const q = researchQuestion(brain);
+
+  // 1) OpenAI live web search — funded, reliable, actually grounds on the real brand.
+  if (process.env.OPENAI_API_KEY) {
+    try {
+      const { client, model } = chatClient();
+      // Bound the browsing loop: `low` reasoning + a tool-call cap keep the grounded pass
+      // fast (well under the route's maxDuration) and, crucially, cheap — web_search is a
+      // metered tool, so an uncapped default-effort run can burn 20+ searches per brand.
+      // Cast: the installed SDK types lag the live Responses API (they still only expose
+      // `web_search_preview` + omit `max_tool_calls`), both of which the API accepts today.
+      const res: any = await client.responses.create({
+        model,
+        tools: [{ type: "web_search" }],
+        max_tool_calls: 8,
+        reasoning: { effort: "low" },
+        input: `${q}\n\nUse web search to find and verify the REAL brand (official site, Instagram, press) before answering. Then write the dossier as detailed prose.`,
+      } as any);
+      const dossier: string = res.output_text ?? "";
+      // Count grounding: unique cited URLs, else the number of searches the model ran.
+      const urls = new Set<string>();
+      let searches = 0;
+      for (const item of res.output ?? []) {
+        if (item?.type === "web_search_call") searches++;
+        for (const c of item?.content ?? []) for (const a of c?.annotations ?? []) if (a?.url) urls.add(a.url);
+      }
+      if (dossier.trim() && searches > 0) return { dossier, sources: urls.size || searches, inferred: false };
+      if (dossier.trim()) return { dossier, sources: 0, inferred: true };
+    } catch {
+      /* fall through to Gemini / synthesis */
+    }
+  }
+
+  // 2) Gemini Google-Search grounding — used only if the key is funded again.
+  const key = process.env.GEMINI_API_KEY;
   if (key) {
     try {
       const gRes = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${key}`, {
@@ -328,18 +389,17 @@ async function groundedDossier(brain: BrandBrain): Promise<{ dossier: string; so
       /* fall through to synthesis */
     }
   }
-  // No grounding available — synthesize from the model's own knowledge so the flow never dead-ends.
+
+  // 3) No grounding available — synthesize from the model's own knowledge so the flow never
+  //    dead-ends. Runs through chatComplete, so it uses whichever key is funded (Azure fallback).
   try {
-    const { client, model } = chatClient();
-    const r = await client.chat.completions.create({
-      model,
+    const dossier = await chatComplete({
       max_completion_tokens: 2200,
       messages: [
         { role: "system", content: "You are a brand strategist. Write a detailed brand dossier from your own knowledge. If you don't recognise the brand, reason from its name + category about the niche and comparable brands. Be concrete and useful; never say you cannot help." },
         { role: "user", content: q },
       ],
     });
-    const dossier = r.choices[0]?.message?.content ?? "";
     return { dossier, sources: 0, inferred: true };
   } catch {
     return { dossier: `${brain.name} — a ${brain.category || "brand"}. (Research unavailable.)`, sources: 0, inferred: true };
@@ -349,16 +409,14 @@ async function groundedDossier(brain: BrandBrain): Promise<{ dossier: string; so
 /** Structure the core research fields (used by the workspace + art director). */
 async function structureResearch(dossier: string, brain: BrandBrain): Promise<z.infer<typeof ResearchSchema>> {
   try {
-    const { client, model } = chatClient();
-    const r = await client.chat.completions.create({
-      model,
+    const content = await chatComplete({
       max_completion_tokens: 2000,
       messages: [
         { role: "system", content: `Convert brand research into STRICT JSON. Keys: summary, essence, voice, competitors (array of brand names), ambassadors (array), instagram (string), website (string root URL), palette (array of {hex, role}), aesthetic (string), foundReal (boolean). The "aesthetic" MUST be a concrete, reproducible PHOTOGRAPHY SIGNATURE — backgrounds & surfaces, colour grade, styling density & props, lighting quality/direction, crops, product-only vs models — describing what is ACTUALLY on their site/Instagram. For palette: ${brain.palette ? `the founder stated colours — use THOSE, converted to hex: ${brain.palette}` : "sample from their real feed or propose a fitting palette"}; always give hex codes. Return JSON only.` },
         { role: "user", content: dossier },
       ],
     });
-    return parseLenient(ResearchSchema, r.choices[0]?.message?.content ?? "");
+    return parseLenient(ResearchSchema, content);
   } catch {
     return ResearchSchema.parse({});
   }
@@ -367,9 +425,7 @@ async function structureResearch(dossier: string, brain: BrandBrain): Promise<z.
 /** Structure the full Brand Intelligence dossier (the permanent Brand Brain). */
 async function buildIntelligence(dossier: string): Promise<z.infer<typeof IntelligenceSchema>> {
   try {
-    const { client, model } = chatClient();
-    const r = await client.chat.completions.create({
-      model,
+    const content = await chatComplete({
       max_completion_tokens: 3000,
       messages: [
         { role: "system", content:
@@ -379,7 +435,7 @@ async function buildIntelligence(dossier: string): Promise<z.infer<typeof Intell
         { role: "user", content: dossier },
       ],
     });
-    return parseLenient(IntelligenceSchema, r.choices[0]?.message?.content ?? "");
+    return parseLenient(IntelligenceSchema, content);
   } catch {
     return IntelligenceSchema.parse({});
   }
@@ -398,10 +454,15 @@ export async function researchBrand(brain: BrandBrain, opts: ResearchOpts = {}):
 
   // 2) Structure core research + full intelligence in parallel.
   const [structured, intel] = await Promise.all([structureResearch(dossier, brain), buildIntelligence(dossier)]);
-  const website = structured.website ?? "";
+
+  // Resolve the site to crawl: the URL the founder pasted wins, then the LLM's, then a free
+  // domain probe from the name — so the crawl runs even when grounding/LLM produced no URL.
+  const website = brain.website?.trim() || structured.website?.trim() || (await resolveWebsite(brain.name ?? ""));
   onStage("website", { website, instagram: structured.instagram, competitors: structured.competitors });
 
-  // 3) Harvest the real site — the rich product catalogue, photos, and logo.
+  // 3) Harvest the real site — the rich product catalogue, photos, and logo. This is entirely
+  //    free (plain fetch: Shopify /products.json, JSON-LD, og tags), so real product data lands
+  //    regardless of whether any paid research grounding was available.
   const harvested = website ? await harvestBrandSite(website) : { productImages: [] as string[], logo: undefined as string | undefined, catalog: [] as StudioProduct[] };
   onStage("catalog", { count: harvested.catalog.length });
   onStage("images", { count: harvested.productImages.length, palette: structured.palette });

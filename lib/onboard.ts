@@ -1,6 +1,6 @@
 import { z } from "zod";
 import type { BrandBrain, BrandProfile } from "./types";
-import { chatClient } from "./openaiClient";
+import { chatCreate } from "./openaiClient";
 
 /** Turn the learned brand brain into the profile context the art director / agent reads. */
 export function brainToProfile(b: BrandBrain): BrandProfile {
@@ -93,9 +93,7 @@ async function recognizeKnownBrand(text: string): Promise<OnboardResult | null> 
     `If it is NOT a clearly recognisable established brand (new, small, unknown, generic, or no brand named): return {"known":false}. ` +
     `Return STRICT JSON ONLY.`;
   try {
-    const { client, model } = chatClient();
-    const r = await client.chat.completions.create({
-      model,
+    const r = await chatCreate({
       max_completion_tokens: 1500,
       messages: [{ role: "system", content: system }, { role: "user", content: text }],
     });
@@ -130,9 +128,7 @@ const ExtractSchema = z.object({
 async function quickExtract(messages: ChatMsg[], brain: BrandBrain): Promise<Partial<BrandBrain>> {
   const convo = messages.map((m) => `${m.role}: ${m.content}`).join("\n");
   try {
-    const { client, model } = chatClient();
-    const r = await client.chat.completions.create({
-      model,
+    const r = await chatCreate({
       max_completion_tokens: 600,
       messages: [
         { role: "system", content: `Extract brand facts from the conversation into STRICT JSON: {"name","category","productType","vibe","palette"}. name = the brand's name. category = the industry (e.g. "indie fragrance", "snack brand", "skincare"). productType = what they actually sell. vibe = any aesthetic/feeling words they used. palette = any colours they named (comma list). Leave a field "" if not stated. Do NOT invent. JSON only.` },
@@ -193,19 +189,10 @@ export async function runOnboard(messages: ChatMsg[], brain: BrandBrain): Promis
     `Current brain so far: ${JSON.stringify(brain)}.\n` +
     `Return STRICT JSON ONLY: {"reply":"...","options":["..."],"field":"<field you are asking>","brainPatch":{"key":"value"},"complete":false}`;
 
-  const { client, model } = chatClient();
-  const params = {
-    model,
+  const raw = (await chatCreate({
     max_completion_tokens: 2000,
     messages: [{ role: "system" as const, content: system }, ...messages.map((m) => ({ role: m.role, content: m.content }))],
-  };
-  let raw = "";
-  let lastErr: unknown;
-  for (let i = 0; i < 3; i++) {
-    try { raw = (await client.chat.completions.create(params)).choices[0]?.message?.content ?? ""; break; }
-    catch (e) { lastErr = e; await new Promise((r) => setTimeout(r, 600 * 2 ** i)); }
-  }
-  if (!raw) throw lastErr;
+  })).choices[0]?.message?.content ?? "";
   try {
     return OnboardSchema.parse(JSON.parse(stripFences(raw)));
   } catch {

@@ -1,0 +1,1542 @@
+{
+  "name": "Eatknacks",
+  "website": "https://eatknacks.com",
+  "research": {
+    "summary": "Frank Green is an Australian reusable drinkware and lifestyle brand known for design-led water bottles, ceramic reusable cups, food containers and accessories. The brand positions sustainability as colourful, personal and fashionable rather than utilitarian, with a strong emphasis on customisation, colour mixing and everyday convenience.",
+    "essence": "Stylish reusables that make sustainable habits feel personal, colourful and premium.",
+    "voice": "Bright, upbeat, conversational and design-conscious; mixes eco-minded messaging with playful product language, colour-focused merchandising and lifestyle-led encouragement.",
+    "competitors": [
+      "KeepCup",
+      "S'well",
+      "Hydro Flask",
+      "Stanley",
+      "YETI",
+      "Corkcicle",
+      "Chilly's",
+      "Klean Kanteen"
+    ],
+    "ambassadors": [],
+    "instagram": "https://www.instagram.com/frankgreen_official/",
+    "website": "https://frankgreen.com",
+    "palette": [
+      {
+        "hex": "#C8D8C0",
+        "role": "soft sage green / sustainability cue"
+      },
+      {
+        "hex": "#E7C7D8",
+        "role": "pastel pink / playful product colour"
+      },
+      {
+        "hex": "#B7A4D8",
+        "role": "lavender / customisation and lifestyle accent"
+      },
+      {
+        "hex": "#F4E6C8",
+        "role": "warm cream / neutral studio background"
+      },
+      {
+        "hex": "#8FB8D8",
+        "role": "powder blue / fresh hydration cue"
+      },
+      {
+        "hex": "#2F3A33",
+        "role": "deep green-black / premium contrast and text"
+      }
+    ],
+    "aesthetic": "Clean, colour-blocked product photography built around Frank Green bottles and cups on pastel seamless studio backgrounds, tiled flat lays and smooth matte surfaces. Images use soft, even daylight or diffused studio lighting with minimal shadow, often front-lit or slightly side-lit to keep colours true. Styling is medium-density: products are grouped by colour families, stacked with lids, straws, bags and small lifestyle props, but compositions remain orderly and graphic. Crops are tight and social-first, including centred hero products, close-ups of lids and handles, top-down grids, and hand-held lifestyle shots. The feed mixes product-only studio images with casual model or hand-in-frame content in cafes, cars, beaches, gyms and daily commuting settings. Colour grade is bright, clean and pastel-saturated, with low contrast, creamy whites and an emphasis on mix-and-match colour combinations.",
+    "foundReal": true,
+    "logo": "https://frankgreen.com.au/cdn/shop/files/FG_LOGO_PMS-355_dbcbe20c-1afd-4c82-aad3-4b359ec0e02d.png?v=1714454160&width=480",
+    "productImages": [
+      "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2606_WEBSITE_ECOM_HK_TO-GO-BOWLS_FG.png?v=1782239566",
+      "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2606_WEBSITE_ECOM_HK_HELLO-KITTY_12oz.png?v=1782237330",
+      "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2606_WEBSITE_ECOM_HK_HELLO-KITTY_34oz.png?v=1782239877",
+      "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2606_WEBSITE_ECOM_HK_HELLO-KITTY_20oz.png?v=1782239708",
+      "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/WEBSITE_ECOM_25oz_ORIGINAL_BASE_MOON_DUST_GRIP_AND_SIP_LID_d08f973e-35a7-40fd-9e06-0438b813a994.png?v=1779729830",
+      "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2605_DIGITAL_ECOM_GSP26_02_PLP_BUNDLE_V1.01.png?v=1779760146",
+      "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/WEBSITE_ECOM_ACCESSORIES_AGITATOR_DEEP_OCEAN.png?v=1775748102",
+      "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2406_WEBSITE_ECOM_12oz_CHOCOLATE_CERAMIC_BASE_CHOCOLATE_BUTTON_LID_1.png?v=1762491053",
+      "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2604FRANKGREENLIQUIDSOAPDISPENSERDUO_CHOCOLATE.png?v=1777939867",
+      "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2602_WEBSITE_ECOM_12oz_CERAMIC_CUP_TWIST_HINGE_LID_CHOCOLATE_4d2aa9a4-e5ed-4c2c-98d9-ebc4f067e683.png?v=1777310206",
+      "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2603_SALES_THE_ICONIC_MOTHERS_DAY_34OZ_1600x2000_cefa59c4-4b07-4e07-a815-4f492ce8a4f9.png?v=1774982396",
+      "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2603_SALES_THE_ICONIC_MOTHERS_DAY_20OZ_1600x2000_19b42f0c-4c30-4d94-93ab-62f83079eb22.png?v=1774982411"
+    ],
+    "products": [
+      {
+        "name": "16oz Hello Kitty & Friends To-Go Bowl Bundle",
+        "image": "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2606_WEBSITE_ECOM_HK_TO-GO-BOWLS_FG.png?v=1782239566"
+      },
+      {
+        "name": "12oz Hello Kitty & Friends Cup",
+        "image": "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2606_WEBSITE_ECOM_HK_HELLO-KITTY_12oz.png?v=1782237330"
+      },
+      {
+        "name": "1L Hello Kitty & Friends Bottle",
+        "image": "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2606_WEBSITE_ECOM_HK_HELLO-KITTY_34oz.png?v=1782239877"
+      },
+      {
+        "name": "20oz Hello Kitty & Friends Bottle",
+        "image": "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2606_WEBSITE_ECOM_HK_HELLO-KITTY_20oz.png?v=1782239708"
+      },
+      {
+        "name": "Original 25oz Bottle Grip & Sip Lid",
+        "image": "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/WEBSITE_ECOM_25oz_ORIGINAL_BASE_MOON_DUST_GRIP_AND_SIP_LID_d08f973e-35a7-40fd-9e06-0438b813a994.png?v=1779729830"
+      },
+      {
+        "name": "Original 25oz Bottle Grip & Sip Lid Shaker",
+        "image": "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2605_DIGITAL_ECOM_GSP26_02_PLP_BUNDLE_V1.01.png?v=1779760146"
+      },
+      {
+        "name": "Silicone Agitator Ball",
+        "image": "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/WEBSITE_ECOM_ACCESSORIES_AGITATOR_DEEP_OCEAN.png?v=1775748102"
+      },
+      {
+        "name": "Ceramic Reusable Cup",
+        "image": "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2406_WEBSITE_ECOM_12oz_CHOCOLATE_CERAMIC_BASE_CHOCOLATE_BUTTON_LID_1.png?v=1762491053"
+      },
+      {
+        "name": "Soap and Lotion Dispenser Duo Pack",
+        "image": "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2604FRANKGREENLIQUIDSOAPDISPENSERDUO_CHOCOLATE.png?v=1777939867"
+      },
+      {
+        "name": "12oz Cup with Screw-in Hinge Lid",
+        "image": "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2602_WEBSITE_ECOM_12oz_CERAMIC_CUP_TWIST_HINGE_LID_CHOCOLATE_4d2aa9a4-e5ed-4c2c-98d9-ebc4f067e683.png?v=1777310206"
+      },
+      {
+        "name": "34oz Rose Gold Ceramic Reusable Bottle with Flip Straw Lid",
+        "image": "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2603_SALES_THE_ICONIC_MOTHERS_DAY_34OZ_1600x2000_cefa59c4-4b07-4e07-a815-4f492ce8a4f9.png?v=1774982396"
+      },
+      {
+        "name": "20oz Rose Gold Ceramic Reusable Bottle with Flip Straw Lid",
+        "image": "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2603_SALES_THE_ICONIC_MOTHERS_DAY_20OZ_1600x2000_19b42f0c-4c30-4d94-93ab-62f83079eb22.png?v=1774982411"
+      },
+      {
+        "name": "12oz Rose Gold Ceramic Coffee Cup with Hinged Screw Lid",
+        "image": "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2603_SALES_THE_ICONIC_MOTHERS_DAY_12OZ_1600x2000_a95f68d5-0b17-47b5-bc20-4543483a5088.png?v=1774981655"
+      },
+      {
+        "name": "Customisable Limited-Edition Blue Carbon To Go Bowl",
+        "image": "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2602_WEBSITE_ECOM_TO-GO_PREBUILT_LARGE_BLUE-CARBON_DOME-LID_V2.png?v=1774301363"
+      },
+      {
+        "name": "Limited-Edition Blue Carbon Ceramic Reusable Bottle 20oz",
+        "image": "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2602_WEBSITE_ECOM_20oz_BLUE-CARBON_CERAMIC_BASE_BLUE-CARBON_FLIP_STRAW_LID_V2.png?v=1773983405"
+      },
+      {
+        "name": "Limited-Edition Blue Carbon Ceramic Coffee Cup with New Hinged Lid",
+        "image": "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2602_WEBSITE_ECOM_12oz_CERAMIC_CUP_TWIST_HINGE_LID_BLUE-CARBON_V2_c3dd9856-1dc4-474c-b0d6-b27368cb8b33.png?v=1773988676"
+      },
+      {
+        "name": "Limited-Edition Blue Carbon To Go Bowl Base",
+        "image": "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2602_WEBSITE_ECOM_TO-GO_PARTS_LARGE-BASE_BLUE-CARBON_MONOGRAM_V2.png?v=1774290181"
+      },
+      {
+        "name": "Limited-Edition Blue Carbon Ceramic Reusable Bottle 34oz",
+        "image": "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2602_WEBSITE_ECOM_34oz_BLUE-CARBON_CERAMIC_BASE_CARBON-BLUE_FLIP_STRAW_LID_V2.png?v=1773983683"
+      },
+      {
+        "name": "Reusable Party Cup",
+        "image": "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2406_WEBSITE_ECOM_PARTY_CUP_WTH_SILVER_STRAW_MIDNIGHT.png?v=1778784730"
+      },
+      {
+        "name": "Straw Lid with Strap & Straw",
+        "image": "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2406_WEBSITE_ECOM_STRAW_LID_133MM_SILVER_STRAW_STRAP_MOON_DUST_25e5c5cc-cfbc-40d4-88fa-474d63995389.png?v=1772420092"
+      },
+      {
+        "name": "Flip Straw Lid with Strap & Straw",
+        "image": "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2406_WEBSITE_ECOM_FLIP_LID_SILVER_STRAW_133MM_MOONDUST.png?v=1772416719"
+      },
+      {
+        "name": "Customisable Ceramic Reusable Bottle",
+        "image": "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2406_WEBSITE_ECOM_16oz_BLUSHED_CERAMIC_BASE_BLUSHED_FLIP_STRAW_LID.png?v=1773197721"
+      },
+      {
+        "name": "Everything Backpack",
+        "image": "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2410_WEBSITE_ECOM_EVRYTHING_BACK_PACK_FRONT_SKY_BLUE_a03a96bd-ce95-4065-bb61-fb3996cf02ed.png?v=1741653633"
+      },
+      {
+        "name": "Hello Kitty Ceramic Reusable Bottle 16oz",
+        "image": "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2510_WEBSITE_ECOM_HK_HELLO_KITTY_16oz.png?v=1770962198"
+      },
+      {
+        "name": "Hello Kitty Ceramic Reusable Bottle 20oz",
+        "image": "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2510_WEBSITE_ECOM_HK_HELLO_KITTY_20oz.png?v=1770962502"
+      },
+      {
+        "name": "Hello Kitty Ceramic Reusable Bottle 34oz",
+        "image": "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2510_WEBSITE_ECOM_HK_HELLO_KITTY_34oz.png?v=1764209397"
+      },
+      {
+        "name": "Ceramic Reusable Bottle",
+        "image": "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/chocolate_1000.png?v=1767921615"
+      },
+      {
+        "name": "Disney Ceramic Reusable Bottle",
+        "image": "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2406_WEBSITE_ECOM_WINNIE___FRIENDS_34oz_TIGGER.png?v=1763662875"
+      },
+      {
+        "name": "The Little Mermaid Ceramic Reusable Bottle",
+        "image": "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2406_WEBSITE_ECOM_THE_LITTLE_34oz_SEBASTIAN_V2.png?v=1721676616"
+      },
+      {
+        "name": "Disney / Pixar Ceramic Reusable Bottle",
+        "image": "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2406_WEBSITE_ECOM_OOTW_34oz_STITCH.png?v=1721676612"
+      },
+      {
+        "name": "Disney Ceramic Reusable Cup",
+        "image": "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2406_WEBSITE_ECOM_WINNIE___FRIENDS_12oz_EEYORE.png?v=1721676609"
+      },
+      {
+        "name": "Customisable Reusable Party Cups 16oz / 475 ml (4 pack)",
+        "image": "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/E-Com_CelebrationCups_4Pack_MIXED_V1.02_eda30ac4-26e3-48b1-9dcf-a98e10f08edc_1.png?v=1773784248"
+      },
+      {
+        "name": "Customisable 2L Titan Reusable Bottle",
+        "image": "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/WEBSITE_ECOM_2L_TRITAN_DEEP_OCEAN_GRIP_LID.png?v=1755732749"
+      },
+      {
+        "name": "Colour Changing Reusable Party Cup Bases",
+        "image": "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2406_WEBSITE_ECOM_PARTY_CUP_BASE_03_GROUP.png?v=1760397029"
+      },
+      {
+        "name": "Kuromi Ceramic Reusable 12oz",
+        "image": "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2510_WEBSITE_ECOM_HK_KUROMI_12oz.png?v=1764213643"
+      },
+      {
+        "name": "Cinnamoroll Ceramic Reusable Cup 12oz",
+        "image": "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2510_WEBSITE_ECOM_HK_CINNAMOROLL_12oz.png?v=1764213394"
+      },
+      {
+        "name": "Kuromi Ceramic Reusable Bottle 34oz",
+        "image": "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2510_WEBSITE_ECOM_HK_KUROMI_34oz.png?v=1764213191"
+      },
+      {
+        "name": "Cinnamoroll Ceramic Reusable Bottle 34oz",
+        "image": "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2510_WEBSITE_ECOM_HK_CINNAMOROLL_34oz.png?v=1764213132"
+      },
+      {
+        "name": "Original Reusable Cup Base",
+        "image": "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2406_WEBSITE_ECOM_12oz_ORIGINAL_BASE_BLACK_a363f4a0-64df-4cc6-9afd-8d7d8889f741.png?v=1722900417"
+      },
+      {
+        "name": "Big Chill",
+        "image": "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2510_WEBSITE_ECOM_24oz_ICED_COFFEE_CUP_JUMBO_STRAW_BLUSHED.png?v=1763003422"
+      },
+      {
+        "name": "Lip & Sip Bundle",
+        "image": "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/WEBSITE_ECOM_BUNDLES_BOTTLE_BOSS_BUNDLE_34OZ_LILAC_HAZE.png?v=1763346913"
+      },
+      {
+        "name": "Lip Gloss Holder",
+        "image": "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2510_WEBSITE_ECOM_LIP_GLOSS_HOLDER_BLUSHED.png?v=1763594862"
+      },
+      {
+        "name": "Double Hydration Gift Set",
+        "image": "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2511_WEBSITE_ECOM_GIFT_SETS_DOUBLE_HYDRATION_V1.01.png?v=1762986917"
+      },
+      {
+        "name": "Barista At Home Bundle",
+        "image": "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/WEBSITE_ECOM_BARISTAATHOME_12OZ.png?v=1762495634"
+      },
+      {
+        "name": "Iced Coffee Gift Set",
+        "image": "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/WEBSITE_ECOM_ICEDCOFFEEGIFTSET.png?v=1762726489"
+      },
+      {
+        "name": "500ml Milk Frothing Jug",
+        "image": "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/WEBSITE_ECOM_BARISTAATHOME_MILK-JUG.png?v=1762495983"
+      },
+      {
+        "name": "Summer is Served Bundle with 4pk Party Cup Set",
+        "image": "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2408_WEBSITE_ECOM_BUNDLES_SUMMER_IS_SERVED.png?v=1761705458"
+      },
+      {
+        "name": "Straw 12oz/355ml",
+        "image": "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2406_WEBSITE_ECOM_STRAW_SILVER_98MM.png?v=1760918690"
+      },
+      {
+        "name": "34oz SS Single Wall Bottle Colour Change with Flip Straw Lid",
+        "image": "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/WEBSITE_ECOM_34OZ_COLOUR_CHANGE_BASE_LID_03_LAVA_cc33090a-c471-4da7-9cdf-b9aa3968a2ad.png?v=1763437981"
+      },
+      {
+        "name": "To Go Bowl Colour Change Base 500ml",
+        "image": "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/WEBSITE_ECOM_TO_GO_BOWL_COLOUR_CHANGE_BASE_03_VOLT.png?v=1760324411"
+      },
+      {
+        "name": "Customisable To Go Bowl Colour Change 500ml",
+        "image": "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/WEBSITE_ECOM_TO_GO_BOWL_COLOUR_CHANGE_BASE_DOME_LID_03_ABYSS.png?v=1760327435"
+      },
+      {
+        "name": "Customisable To Go Bowl Large",
+        "image": "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2506_WEBSITE_ECOM_TO-GO_PREBUILT_LARGE_CHOCOLATE_DOME-LID.png?v=1755052279"
+      },
+      {
+        "name": "Ceramic Reusable Cup with Oroton",
+        "image": "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2508_OROTON_LEATHER_RANGE_FATHER_S_DAY_12oz_GREY-GOOSE_V3.png?v=1759978676"
+      },
+      {
+        "name": "Oroton Leather Sleeve + Ceramic",
+        "image": "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2509_OROTON_LEATHER_RANGE_20oz_NIGHT_SKY_FLIP_STRAW_LID_V1.3.png?v=1759978841"
+      },
+      {
+        "name": "Customisable Ceramic Reusable Grip Finish Bottle",
+        "image": "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/WEBSITE_ECOM_34oz_KHAKI_GRIP_BASE_MOONDUST_GRIP_LID.png?v=1755671331"
+      },
+      {
+        "name": "Ceramic Reusable Bottle with Oroton",
+        "image": "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2508_OROTON_LEATHER_RANGE_FATHER_S_DAY_20oz_GREY-GOOSE_V2.2.png?v=1755060848"
+      },
+      {
+        "name": "Titan Straw Lid with Strap & Straw",
+        "image": "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2406_WEBSITE_ECOM_FLIP_LID_STRAW_STRAP_MOON_DUST_8650c193-2f00-4c41-9a1d-81679088114f.png?v=1740705698"
+      },
+      {
+        "name": "Titan Flip Straw Lid with Strap & Straw",
+        "image": "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2406_WEBSITE_ECOM_FLIP_LID_STRAW_STRAP_MOON_DUST_8aaec138-bbeb-4892-a872-f8e4cc954858.png?v=1760934328"
+      },
+      {
+        "name": "Titan Reusable Bottle Base",
+        "image": "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2412_WEBSITE_ECOM_2L_TRITAN_TITAN.png?v=1735269608"
+      },
+      {
+        "name": "Grip and Sip Lid",
+        "image": "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2505_WEBSITE_ECOM_GRIP_CHUG_LID_BLUSHED.png?v=1752467408"
+      }
+    ],
+    "sources": 0
+  },
+  "intelligence": {
+    "overview": "Frank Green is an Australian reusable drinkware and lifestyle brand known for design-led water bottles, ceramic reusable cups, food containers and accessories. The brand positions sustainability as colourful, personal and fashionable rather than utilitarian, with a strong emphasis on customisation, colour mixing and everyday convenience.",
+    "purpose": "",
+    "mission": "",
+    "vision": "",
+    "story": "",
+    "values": [],
+    "positioning": "Stylish reusables that make sustainable habits feel personal, colourful and premium.",
+    "persona": "",
+    "toneOfVoice": "Bright, upbeat, conversational and design-conscious; mixes eco-minded messaging with playful product language, colour-focused merchandising and lifestyle-led encouragement.",
+    "personality": [],
+    "palette": [
+      {
+        "hex": "#C8D8C0",
+        "role": "soft sage green / sustainability cue"
+      },
+      {
+        "hex": "#E7C7D8",
+        "role": "pastel pink / playful product colour"
+      },
+      {
+        "hex": "#B7A4D8",
+        "role": "lavender / customisation and lifestyle accent"
+      },
+      {
+        "hex": "#F4E6C8",
+        "role": "warm cream / neutral studio background"
+      },
+      {
+        "hex": "#8FB8D8",
+        "role": "powder blue / fresh hydration cue"
+      },
+      {
+        "hex": "#2F3A33",
+        "role": "deep green-black / premium contrast and text"
+      }
+    ],
+    "typography": {
+      "display": "",
+      "text": "",
+      "note": ""
+    },
+    "logo": "https://frankgreen.com.au/cdn/shop/files/FG_LOGO_PMS-355_dbcbe20c-1afd-4c82-aad3-4b359ec0e02d.png?v=1714454160&width=480",
+    "logoSystem": "",
+    "photographyStyle": "Clean, colour-blocked product photography built around Frank Green bottles and cups on pastel seamless studio backgrounds, tiled flat lays and smooth matte surfaces. Images use soft, even daylight or diffused studio lighting with minimal shadow, often front-lit or slightly side-lit to keep colours true. Styling is medium-density: products are grouped by colour families, stacked with lids, straws, bags and small lifestyle props, but compositions remain orderly and graphic. Crops are tight and social-first, including centred hero products, close-ups of lids and handles, top-down grids, and hand-held lifestyle shots. The feed mixes product-only studio images with casual model or hand-in-frame content in cafes, cars, beaches, gyms and daily commuting settings. Colour grade is bright, clean and pastel-saturated, with low contrast, creamy whites and an emphasis on mix-and-match colour combinations.",
+    "packagingStyle": "",
+    "visualIdentity": "",
+    "competitors": [
+      {
+        "name": "KeepCup"
+      },
+      {
+        "name": "S'well"
+      },
+      {
+        "name": "Hydro Flask"
+      },
+      {
+        "name": "Stanley"
+      },
+      {
+        "name": "YETI"
+      },
+      {
+        "name": "Corkcicle"
+      },
+      {
+        "name": "Chilly's"
+      },
+      {
+        "name": "Klean Kanteen"
+      }
+    ],
+    "social": [],
+    "press": [],
+    "insights": [],
+    "website": "https://frankgreen.com",
+    "instagram": "https://www.instagram.com/frankgreen_official/",
+    "sources": 0,
+    "foundReal": true,
+    "inferred": true
+  },
+  "catalog": [
+    {
+      "id": "shopify-7660152193083",
+      "name": "16oz Hello Kitty & Friends To-Go Bowl Bundle",
+      "category": "Lunchware",
+      "collection": "Food Containers",
+      "description": "© 2026 SANRIO CO., LTD. Hello Kitty is back, and she brought her friends, My Melody and Pompompurin, along for the ride. The new limited-edition 500ml Hello Kitty and Friends To-Go Bowl Bundle is designed to keep your food perfectly fresh and bring extra joy to every bite. Portable, convenient, versatile, sustainable and customisable. Leak proof silicone dome lid design Built to last Stackable Keeps breakfast meals fresh and accessible while on the go Compatible with Flat Lid",
+      "price": "58.95",
+      "url": "https://frankgreen.com/products/hello-kitty-friends-500ml-16oz-reusable-to-go-bowl-bundle",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2606_WEBSITE_ECOM_HK_TO-GO-BOWLS_FG.png?v=1782239566"
+      ]
+    },
+    {
+      "id": "shopify-7660152160315",
+      "name": "12oz Hello Kitty & Friends Cup",
+      "category": "Coffee Cups",
+      "collection": "hello kitty",
+      "description": "© 2026 SANRIO CO., LTD. Hello Kitty is back, and she brought her friends, My Melody and Pompompurin, along for the ride. The new limited-edition 355ml Hello Kitty and Friends Cup brings extra joy to every refill. It's ceramic-lined, triple-wall insulated, and ready to brighten your day. Premium stainless steel cup that's durable and made to last Ceramic lined for pure flavour aroma Spill leak resistant for mess-free travel Fits standard cup holders BPA free, made from FDA EU ",
+      "variants": [
+        "Hello Kitty",
+        "My Melody",
+        "Pompompurin"
+      ],
+      "price": "54.95",
+      "url": "https://frankgreen.com/products/hello-kitty-friends-355ml-12oz-reusable-insulated-cup",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2606_WEBSITE_ECOM_HK_HELLO-KITTY_12oz.png?v=1782237330",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2606_WEBSITE_ECOM_HK_MY-MELODY_12oz.png?v=1782237330",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2606_WEBSITE_ECOM_HK_POMPOMPURIN_12oz.png?v=1782237331"
+      ]
+    },
+    {
+      "id": "shopify-7660152127547",
+      "name": "1L Hello Kitty & Friends Bottle",
+      "category": "Water Bottles",
+      "collection": "hello kitty",
+      "description": "© 2026 SANRIO CO., LTD. Hello Kitty is back, and she brought her friends, My Melody and Pompompurin, along for the ride. The new limited-edition 1L Hello Kitty and Friends Bottle brings extra joy to every refill. It's ceramic-lined, triple-wall insulated, and ready to brighten your day. Multi-award-winning product design Durable stainless steel bottle – made to last BPA free, FDA EU approved safe materials Available with our easy-to-use Flip Straw Lid Dishwasher-safe lid. Bas",
+      "variants": [
+        "Hello Kitty",
+        "My Melody",
+        "Pompompurin"
+      ],
+      "price": "74.95",
+      "url": "https://frankgreen.com/products/hello-kitty-friends-1l-34oz-reusable-insulated-water-bottle",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2606_WEBSITE_ECOM_HK_HELLO-KITTY_34oz.png?v=1782239877",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2606_WEBSITE_ECOM_HK_MY-MELODY_34oz.png?v=1782239877",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2606_WEBSITE_ECOM_HK_POMPOMPURIN_34oz.png?v=1782239877"
+      ]
+    },
+    {
+      "id": "shopify-7660152094779",
+      "name": "20oz Hello Kitty & Friends Bottle",
+      "category": "Water Bottles",
+      "collection": "hello kitty",
+      "description": "© 2026 SANRIO CO., LTD. Hello Kitty is back, and she brought her friends, My Melody and Pompompurin, along for the ride. The new limited-edition 595ml Hello Kitty and Friends Bottle brings extra joy to every refill. It's ceramic-lined, triple-wall insulated, and ready to brighten your day. Multi-award-winning product design Durable stainless steel bottle – made to last BPA free, FDA EU approved safe materials Available with our easy-to-use Flip Straw Lid Dishwasher-safe lid. ",
+      "variants": [
+        "Hello Kitty",
+        "My Melody",
+        "Pompompurin"
+      ],
+      "price": "64.95",
+      "url": "https://frankgreen.com/products/hello-kitty-friends-595ml-20oz-reusable-insulated-water-bottle",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2606_WEBSITE_ECOM_HK_HELLO-KITTY_20oz.png?v=1782239708",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2606_WEBSITE_ECOM_HK_MY-MELODY_20oz.png?v=1782239708",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2606_WEBSITE_ECOM_HK_POMPOMPURIN_20oz.png?v=1782239708"
+      ]
+    },
+    {
+      "id": "shopify-7609857867835",
+      "name": "Original 25oz Bottle Grip & Sip Lid",
+      "category": "Bundle",
+      "collection": "25oz",
+      "description": "A chic, highly durable and sustainable alternative to single-use plastic water bottles. frank features: 25oz / 740ml bottle size Made from durable Tritan® material Fits standard cup holder Premium materials, made to last Recyclable at end of (very long) life BPA free, FDA EU approved materials Australian made, designed owned Made from fully recyclable co-polymer Dishwasher safe: Yes Microwave safe: Base: Yes; Lid: No Please note: a Reusable Stainless Steel Straw is not includ",
+      "price": "49.95",
+      "url": "https://frankgreen.com/products/customisable-original-reusable-bottle-with-grip-and-sip-lid-25oz-740ml",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/WEBSITE_ECOM_25oz_ORIGINAL_BASE_MOON_DUST_GRIP_AND_SIP_LID_d08f973e-35a7-40fd-9e06-0438b813a994.png?v=1779729830"
+      ]
+    },
+    {
+      "id": "shopify-7608965857339",
+      "name": "Original 25oz Bottle Grip & Sip Lid Shaker",
+      "category": "Bundle",
+      "collection": "25oz",
+      "description": "Your complete protein shake setup, built from frank green favourites. The 25oz/740ml Original Reusable Bottle pairs with the Grip and Sip Lid for fast-flow drinking and a Protein Agitator for easy mixing. Built for the morning shake, the post-workout recovery and every ritual in between. Fast-flow chugger spout, engineered for gulping Protein Agitator mixes powders cleanly, no rattle Dishwasher safe, no lingering smell BPA free Protein Agitator also available on its own. Shop",
+      "price": "54.95",
+      "url": "https://frankgreen.com/products/gsp-bottle-shaker-bundle",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2605_DIGITAL_ECOM_GSP26_02_PLP_BUNDLE_V1.01.png?v=1779760146"
+      ]
+    },
+    {
+      "id": "shopify-7574461349947",
+      "name": "Silicone Agitator Ball",
+      "category": "Parts and accessories",
+      "collection": "Accessories",
+      "description": "Our Agitator Ball is perfect for breaking up those little clumps in your protein shake to ensure your drink is smooth and easy to drink. Made from high-quality food-grade silicone and free from harmful chemicals. Comes in a dynamic duo with a Stainless Steel Strainer to ensure the ultimate shake experience. Easily removed from your bottle and cleaned by hand or popped in the dishwasher.",
+      "variants": [
+        "Deep Ocean",
+        "Midnight",
+        "Blushed",
+        "Cloud",
+        "Lilac Haze",
+        "Mint Gelato",
+        "Aqua",
+        "Cherry",
+        "Flamingo"
+      ],
+      "colours": [
+        "Deep Ocean",
+        "Midnight",
+        "Blushed",
+        "Cloud",
+        "Lilac Haze",
+        "Mint Gelato",
+        "Aqua",
+        "Cherry",
+        "Flamingo"
+      ],
+      "price": "9.95",
+      "url": "https://frankgreen.com/products/silicone-agitator-ball",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/WEBSITE_ECOM_ACCESSORIES_AGITATOR_DEEP_OCEAN.png?v=1775748102",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/WEBSITE_ECOM_ACCESSORIES_AGITATOR_MIDNIGHT.png?v=1775748102",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/WEBSITE_ECOM_ACCESSORIES_AGITATOR_LILAC_HAZE.png?v=1775748102",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/WEBSITE_ECOM_ACCESSORIES_AGITATOR_BLUSHED.png?v=1775748102",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/WEBSITE_ECOM_ACCESSORIES_AGITATOR_CLOUD.png?v=1775748102",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/WEBSITE_ECOM_ACCESSORIES_AGITATOR_MINT_GELATO.png?v=1775748102",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/WEBSITE_ECOM_ACCESSORIES_AGITATOR_AQUA.png?v=1779407075",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/WEBSITE_ECOM_ACCESSORIES_AGITATOR_CHERRY.png?v=1779407182"
+      ]
+    },
+    {
+      "id": "shopify-7293104652347",
+      "name": "Ceramic Reusable Cup",
+      "category": "Bundle",
+      "collection": "Coffee Cup",
+      "description": "For your lattes, chais or flat whites! Meet our 12oz/355ml Ceramic Reusable Cup. The triple-wall vacuum insulation retains temperature until the last sip. Plus, the innovative ceramic lining ensures your coffee will taste like coffee (no nasty metallic flavoured water here). Paired with our multi award-winning Push Button Lid, this signature cup is a perfect on-the-go companion. Premium stainless steel cup that’s durable and made to last Ceramic lined for pure flavour aroma S",
+      "price": "49.95",
+      "url": "https://frankgreen.com/products/ceramic-reusable-cup-12oz-355ml-blushed",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2406_WEBSITE_ECOM_12oz_CHOCOLATE_CERAMIC_BASE_CHOCOLATE_BUTTON_LID_1.png?v=1762491053",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2406_DIGITAL_ECOM_NEW_WEBSITE_03_PDP_LIFESTYLE_IMAGE_2160x2160_12OZ_CERAMIC_02_cdcfe887-18f1-4f04-a71f-888ff6d4fa3e.jpg?v=1762491053",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2406_DIGITAL_ECOM_NEW_WEBSITE_03_PDP_LIFESTYLE_IMAGE_2400x3000_12OZ_CERAMIC_03_2161c41c-f94e-4ebe-a44b-cb6ac03a8dd3.jpg?v=1762491053",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2406_DIGITAL_ECOM_NEW_WEBSITE_03_PDP_LIFESTYLE_IMAGE_2400x3000_12OZ_CERAMIC_01_4ab7e9b9-55b7-4da5-9669-923ffc41d7a9.jpg?v=1762491053",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2406_WEBSITE_ECOM_12oz_MOON-DUST_CERAMIC_BASE_MOON-DUST_BUTTON_LID.png?v=1721676640",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2406_DIGITAL_ECOM_NEW_WEBSITE_03_PDP_LIFESTYLE_IMAGE_2160x2160_12OZ_CERAMIC_02_b5c38d72-4321-4661-9fe2-7606a55c5d2b.jpg?v=1721676640",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2406_DIGITAL_ECOM_NEW_WEBSITE_03_PDP_LIFESTYLE_IMAGE_2400x3000_12OZ_CERAMIC_03_6ed9809b-94b7-48d8-a88a-f129e539de22.jpg?v=1721676640",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2406_DIGITAL_ECOM_NEW_WEBSITE_03_PDP_LIFESTYLE_IMAGE_2400x3000_12OZ_CERAMIC_01_9879fdf3-c5e1-41c0-8af2-8e77629206f6.jpg?v=1721676640"
+      ]
+    },
+    {
+      "id": "shopify-7594573692987",
+      "name": "Soap and Lotion Dispenser Duo Pack",
+      "description": "Embrace sustainable luxury when it comes to storing your favourite hand wash, lotion or any other liquid essential. Beautifully crafted and made to last, elevate any ritual with this duo. Pump lid and tray made from recycled post-consumer plastic Durable stainless steel base Each refillable dispenser holds 10oz/300ml Sold as a duo pack with tray",
+      "variants": [
+        "Chocolate",
+        "Moon Dust",
+        "Cloud",
+        "Blushed",
+        "Mint Gelato",
+        "Midnight"
+      ],
+      "colours": [
+        "Chocolate",
+        "Moon Dust",
+        "Cloud",
+        "Blushed",
+        "Mint Gelato",
+        "Midnight"
+      ],
+      "price": "59.95",
+      "url": "https://frankgreen.com/products/soap-and-lotion-dispenser-duo-pack",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2604FRANKGREENLIQUIDSOAPDISPENSERDUO_CHOCOLATE.png?v=1777939867",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2604FRANKGREENLIQUIDSOAPDISPENSERDUO_MOON_DUST.png?v=1777939867",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2604FRANKGREENLIQUIDSOAPDISPENSERDUO_CLOUD.png?v=1777939867",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2604FRANKGREENLIQUIDSOAPDISPENSERDUO_BLUSHED.png?v=1777939867",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2604FRANKGREENLIQUIDSOAPDISPENSERDUO_MINT_GELATO.png?v=1777939867",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2604FRANKGREENLIQUIDSOAPDISPENSERDUO_MIDNIGHT.png?v=1777939866"
+      ]
+    },
+    {
+      "id": "shopify-7587899965499",
+      "name": "12oz Cup with Screw-in Hinge Lid",
+      "category": "Coffee Cups",
+      "collection": "Best Sellers",
+      "description": "Your daily ritual, upgraded. Re-engineered with a unique screw-in design for a leak-resistant seal, this cup is made for stylish spill-proof sipping. Its crystal-clear top and ceramic lining are just the start of why we love this iconic piece. A sleek, ergonomic shape designed to fit seamlessly in your hand and cup holders Triple-wall vacuum insulated to keep your drinks icy cold or steaming hot until the last sip Ceramic-lined so your drink tastes exactly like it should, wit",
+      "variants": [
+        "Chocolate",
+        "Lilac Haze",
+        "Moon Dust",
+        "Cloud",
+        "Blushed",
+        "Mint Gelato",
+        "Deep Ocean",
+        "Khaki",
+        "Sky Blue",
+        "Buttermilk",
+        "Neon Orange",
+        "Bubblegum Blast",
+        "Midnight"
+      ],
+      "colours": [
+        "Chocolate",
+        "Lilac Haze",
+        "Moon Dust",
+        "Cloud",
+        "Blushed",
+        "Mint Gelato",
+        "Deep Ocean",
+        "Khaki",
+        "Sky Blue",
+        "Buttermilk",
+        "Neon Orange",
+        "Bubblegum Blast",
+        "Midnight"
+      ],
+      "price": "49.95",
+      "url": "https://frankgreen.com/products/12oz-ceramic-coffee-cup-with-hinged-screw-lid",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2602_WEBSITE_ECOM_12oz_CERAMIC_CUP_TWIST_HINGE_LID_CHOCOLATE_4d2aa9a4-e5ed-4c2c-98d9-ebc4f067e683.png?v=1777310206",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2602_WEBSITE_ECOM_12oz_CERAMIC_CUP_TWIST_HINGE_LID_LILAC-HAZE_9ef351b5-e86a-4b13-94f6-baa552b62aaf.png?v=1777310434",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2602_WEBSITE_ECOM_12oz_CERAMIC_CUP_TWIST_HINGE_LID_MOON-DUST_8a4cad12-29d2-4f75-bd2b-8f57f7d7260a.png?v=1777318878",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2602_WEBSITE_ECOM_12oz_CERAMIC_CUP_TWIST_HINGE_LID_CLOUD_1ff40bed-6eb3-4989-ad69-ef97600bcb68.png?v=1777310315",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2602_WEBSITE_ECOM_12oz_CERAMIC_CUP_TWIST_HINGE_LID_BLUSHED.png?v=1776971822",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2602_WEBSITE_ECOM_12oz_CERAMIC_CUP_TWIST_HINGE_LID_MINT-GELATO_1f2b507b-871b-4bb3-9d9d-d503ece34635.png?v=1777310501",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2602_WEBSITE_ECOM_12oz_CERAMIC_CUP_TWIST_HINGE_LID_KHAKI_917af376-be20-43ab-a98c-baf72e047cef.png?v=1777310397",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2602_WEBSITE_ECOM_12oz_CERAMIC_CUP_TWIST_HINGE_LID_DEEP-OCEAN_cfdd579d-3d30-4dff-816b-e58ce854236e.png?v=1777310359"
+      ]
+    },
+    {
+      "id": "shopify-7574025371707",
+      "name": "34oz Rose Gold Ceramic Reusable Bottle with Flip Straw Lid",
+      "category": "Water Bottles",
+      "collection": "Chrome",
+      "description": "This 34oz/1L Ceramic Reusable Bottle with Flip Straw Lid will add a touch of luxury to your daily routine. With classic curves and big volume, this signature design is built for all day hydration. Paired with our award-winning Flip Straw Lid, it's the shiny new duo your daily routine needs. Multi-award-winning product design Triple-wall vacuum insulated to retain heat or cold Durable stainless steel bottle – made to last Ceramic lined for a better taste experience BPA free, F",
+      "variants": [
+        "Rose Gold"
+      ],
+      "colours": [
+        "Rose Gold"
+      ],
+      "price": "79.95",
+      "url": "https://frankgreen.com/products/34oz-stainless-steel-ceramic-reusable-bottle-rose-gold-with-flip-straw-lid-blushed",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2603_SALES_THE_ICONIC_MOTHERS_DAY_34OZ_1600x2000_cefa59c4-4b07-4e07-a815-4f492ce8a4f9.png?v=1774982396"
+      ]
+    },
+    {
+      "id": "shopify-7574024978491",
+      "name": "20oz Rose Gold Ceramic Reusable Bottle with Flip Straw Lid",
+      "category": "Water Bottles",
+      "collection": "Chrome",
+      "description": "This 20oz/595ml Ceramic Reusable Bottle with Flip Straw Lid will add a touch of luxury to your daily routine. With classic curves and perfect proportions, it fits perfectly in standard size car cup holders and is handbag friendly. Paired with our award-winning Flip Straw Lid, it's the shiny new duo your daily routine needs. Multi-award-winning product design Fits standard cup holders Triple-wall vacuum insulated to retain heat or cold Durable stainless steel bottle – made to ",
+      "variants": [
+        "Rose Gold"
+      ],
+      "colours": [
+        "Rose Gold"
+      ],
+      "price": "69.95",
+      "url": "https://frankgreen.com/products/20oz-stainless-steel-ceramic-reusable-bottle-rose-gold-with-flip-straw-lid-blushed",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2603_SALES_THE_ICONIC_MOTHERS_DAY_20OZ_1600x2000_19b42f0c-4c30-4d94-93ab-62f83079eb22.png?v=1774982411"
+      ]
+    },
+    {
+      "id": "shopify-7574024454203",
+      "name": "12oz Rose Gold Ceramic Coffee Cup with Hinged Screw Lid",
+      "category": "Coffee Cups",
+      "collection": "Chrome",
+      "description": "This 12oz/355ml Ceramic Coffee Cup with new Hinged Lid has been re-engineered to deliver the perfect sip. With a new secure screw-in lid and our signature clear top, this everyday icon is sleeker, tougher and better for the planet. It's the perfect gift for someone special or your shiny new daily obsession. Triple-wall vacuum insulated to retain temperature Ceramic-lined for pure flavour, no metallic aftertaste! Made to fit seamlessly in your hand and cup holder Leak-resistan",
+      "variants": [
+        "Rose Gold"
+      ],
+      "colours": [
+        "Rose Gold"
+      ],
+      "price": "54.95",
+      "url": "https://frankgreen.com/products/12oz-ceramic-coffee-cup-with-hinged-screw-lid-rose-gold",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2603_SALES_THE_ICONIC_MOTHERS_DAY_12OZ_1600x2000_a95f68d5-0b17-47b5-bc20-4543483a5088.png?v=1774981655"
+      ]
+    },
+    {
+      "id": "shopify-7566896791611",
+      "name": "Customisable Limited-Edition Blue Carbon To Go Bowl",
+      "category": "Parts and accessories",
+      "collection": "features:monogram",
+      "description": "This 400ml iconic reusable container is engineered to elevate your daily routine. Unapologetically bold, portable and versatile, it's the ultimate essential for your busiest days. Compatible with our Flat Lid and Dome Lid for those who like to switch up the weekday menu. Portable, convenient, versatile and sustainable Compatible with our leak proof silicone Dome or Flat Lid Stackable (while using the Flat Lid) Keeps breakfast meals fresh and accessible while on the go Single ",
+      "price": "14.95",
+      "url": "https://frankgreen.com/products/customisable-limited-edition-blue-carbon-to-go-bowl-small",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2602_WEBSITE_ECOM_TO-GO_PREBUILT_LARGE_BLUE-CARBON_DOME-LID_V2.png?v=1774301363",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2602_WEBSITE_ECOM_TO-GO_PREBUILT_SMALL_BLUE-CARBON_DOME-LID_V2.png?v=1774290182"
+      ]
+    },
+    {
+      "id": "shopify-7562931535931",
+      "name": "Limited-Edition Blue Carbon Ceramic Reusable Bottle 20oz",
+      "category": "Water Bottles",
+      "collection": "features:monogram",
+      "description": "This 20oz/595ml Ceramic Reusable Bottle is unapologetically bold. Engineered to fit seamlessly into your daily rituals, it slides perfectly into handbags and standard cup holders, delivering high-definition hydration on the go. Built to last from premium recycled stainless steel, its award-winning design is a must for those who are anything but ordinary. Premium stainless steel bottle that’s durable and made to last Ceramic lined for pure flavour aroma Spill leak resistant fo",
+      "variants": [
+        "Blue Carbon"
+      ],
+      "colours": [
+        "Blue Carbon"
+      ],
+      "price": "59.95",
+      "url": "https://frankgreen.com/products/blue-carbon-ceramic-reusable-bottle-20oz",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2602_WEBSITE_ECOM_20oz_BLUE-CARBON_CERAMIC_BASE_BLUE-CARBON_FLIP_STRAW_LID_V2.png?v=1773983405"
+      ]
+    },
+    {
+      "id": "shopify-7562948476987",
+      "name": "Limited-Edition Blue Carbon Ceramic Coffee Cup with New Hinged Lid",
+      "category": "Coffee Cups",
+      "collection": "Coffee Cup",
+      "description": "This 12oz/355ml Ceramic Coffee Cup with new Hinged Lid has been re-engineered to deliver the perfect sip. With a new secure screw-in lid and our signature clear top, this everyday icon is sleeker, tougher and better for the planet. It's the perfect upgrade for those who were born to stand out. Triple-wall vacuum insulated to retain temperature Ceramic-lined for pure flavour, no metallic aftertaste! Made to fit seamlessly in your hand and cup holder Leak-resistant seal for pea",
+      "variants": [
+        "Blue Carbon"
+      ],
+      "colours": [
+        "Blue Carbon"
+      ],
+      "price": "49.95",
+      "url": "https://frankgreen.com/products/blue-carbon-ceramic-coffee-cup-with-new-hinged-lid-12oz-355ml",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2602_WEBSITE_ECOM_12oz_CERAMIC_CUP_TWIST_HINGE_LID_BLUE-CARBON_V2_c3dd9856-1dc4-474c-b0d6-b27368cb8b33.png?v=1773988676"
+      ]
+    },
+    {
+      "id": "shopify-7562932977723",
+      "name": "Limited-Edition Blue Carbon To Go Bowl Base",
+      "category": "Parts and accessories",
+      "collection": "features:monogram",
+      "description": "This 400ml iconic reusable container is engineered to elevate your daily routine. Unapologetically bold, portable and versatile, it's the ultimate essential for your busiest days. Compatible with our Flat Lid and Dome Lid for those who like to switch up the weekday menu. Portable, convenient, versatile and sustainable Compatible with our leak proof silicone Dome or Flat Lid Stackable (while using the Flat Lid) Keeps breakfast meals fresh and accessible while on the go Single ",
+      "variants": [
+        "Blue Carbon"
+      ],
+      "colours": [
+        "Blue Carbon"
+      ],
+      "price": "8.95",
+      "url": "https://frankgreen.com/products/blue-carbon-ceramic-to-go-bowl-small-400ml",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2602_WEBSITE_ECOM_TO-GO_PARTS_LARGE-BASE_BLUE-CARBON_MONOGRAM_V2.png?v=1774290181",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2602_WEBSITE_ECOM_TO-GO_PARTS_SMALL-BASE_BLUE-CARBON_MONOGRAM_V2.png?v=1774290177"
+      ]
+    },
+    {
+      "id": "shopify-7562932682811",
+      "name": "Limited-Edition Blue Carbon Ceramic Reusable Bottle 34oz",
+      "category": "Water Bottles",
+      "collection": "features:monogram",
+      "description": "This 34oz/1L Ceramic Reusable Bottle delivers maximum hydration all day long. Engineered to elevate your daily routine, this multi-award-winning design will make a statement with every sip. Ceramic-lined and built to last, it's the perfect addition for those who are anything but ordinary. Multi-award-winning product design Triple-wall vacuum insulated to retain heat or cold Durable stainless steel bottle – made to last Ceramic lined for a better taste experience BPA free, FDA",
+      "variants": [
+        "Blue Carbon"
+      ],
+      "colours": [
+        "Blue Carbon"
+      ],
+      "price": "69.95",
+      "url": "https://frankgreen.com/products/blue-carbon-ceramic-reusable-bottle-34oz",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2602_WEBSITE_ECOM_34oz_BLUE-CARBON_CERAMIC_BASE_CARBON-BLUE_FLIP_STRAW_LID_V2.png?v=1773983683"
+      ]
+    },
+    {
+      "id": "shopify-7208336687163",
+      "name": "Reusable Party Cup",
+      "category": "Prebuilt",
+      "collection": "features:monogram",
+      "description": "A beautifully-designed solution to pesky single use plastic party cups! Perfect for cocktails, milkshakes, soft drinks and more. Monogram up to 12 characters for an extra unique touch! Volume: 16oz/475ml 8mm wide / 182mm length reusable stainless-steel straws Made from durable food grade stainless steel Drink with or without splash-proof lid Lightweight, packable portable Hand wash only Available now in our all-new Colour Changing Colours Our new Colour Changing Party Cup in ",
+      "price": "19.95",
+      "url": "https://frankgreen.com/products/reusable-party-cup-16oz-475ml",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2406_WEBSITE_ECOM_PARTY_CUP_WTH_SILVER_STRAW_MIDNIGHT.png?v=1778784730",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2406_WEBSITE_ECOM_PARTY_CUP_WTH_SILVER_STRAW_MINT_GELATO.png?v=1778784799",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2406_WEBSITE_ECOM_PARTY_CUP_WTH_SILVER_STRAW_BLUSHED.png?v=1778784840",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2406_WEBSITE_ECOM_PARTY_CUP_WTH_SILVER_STRAW_NEON_ORANGE.png?v=1778784864",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2406_WEBSITE_ECOM_PARTY_CUP_WTH_SILVER_STRAW_CLOUD.png?v=1778784886",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2406_WEBSITE_ECOM_PARTY_CUP_WTH_SILVER_STRAW_BUBBLEGUM_BLAST_7b63115c-d1c5-4dea-8572-c8112cc4c18c.png?v=1773683141",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2406_WEBSITE_ECOM_PARTY_CUP_BASE_03_TWILIGHT.png?v=1773683141",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2406_WEBSITE_ECOM_PARTY_CUP_WTH_SILVER_STRAW_LILAC_HAZE_b070a810-7cf4-4a75-82a5-937ec1cbebce.png?v=1773683141"
+      ]
+    },
+    {
+      "id": "shopify-7293102456891",
+      "name": "Straw Lid with Strap & Straw",
+      "category": "Bundle",
+      "collection": "Google Shopping",
+      "description": "There's a reason our straw lid is so popular. It comes with a handy strap for carrying on the go, a removable stainless steel straw and clicks shut for no spills while in your bag. It can be mixed and matched with both your ceramic stainless steel or original frank green reusable products and comes with everything you need to use straight away. Includes: Replacement Straw Lid Hull, Reusable Straw Lid Strap Straw Psst... the straw in the image is for display purposes only. You",
+      "price": "23.95",
+      "url": "https://frankgreen.com/products/straw-lid-with-strap-straw-68oz-2-000ml",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2406_WEBSITE_ECOM_STRAW_LID_133MM_SILVER_STRAW_STRAP_MOON_DUST_25e5c5cc-cfbc-40d4-88fa-474d63995389.png?v=1772420092",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/WEBSITE_ECOM_STRAW_LID_SILVER_STRAW_98MM_STRAP_MOON_DUST_1bb1192c-e75e-4602-8eca-9e60020fdbd4.png?v=1760929627",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2406_WEBSITE_ECOM_FLIP_LID_STRAW_STRAP_MOON_DUST_d0ea95dd-23cf-45e9-b9d7-31ce5892de61.png?v=1721676583"
+      ]
+    },
+    {
+      "id": "shopify-7293102227515",
+      "name": "Flip Straw Lid with Strap & Straw",
+      "category": "Bundle",
+      "collection": "Google Shopping",
+      "description": "You'll flipping love this lid! A touch-free lid that's perfect for on the go. Just slide the button and the mouthpiece will flip up for easy one-handed hydration. Designed with extra durable material and a soft-feel silicone mouthpiece. Includes: lid hull, Reusable Strap and Reusable Stainless Steel Straw. Psst... the straw in the image is for display purposes only. You may receive a silver or a gold coloured straw.",
+      "price": "23.95",
+      "url": "https://frankgreen.com/products/flip-straw-lid-with-strap-straw-34oz-1-000ml",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2406_WEBSITE_ECOM_FLIP_LID_SILVER_STRAW_133MM_MOONDUST.png?v=1772416719",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/WEBSITE_ECOM_FLIP_LID_SILVER_STRAW_98MM_STRAP_MOON_DUST.png?v=1760934328",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2406_WEBSITE_ECOM_FLIP_LID_STRAW_STRAP_MOON_DUST_2dfcbf1b-e9bc-455b-a757-d53c89e97843.png?v=1721676583",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2406_WEBSITE_ECOM_FLIP_LID_STRAW_STRAP_MOON_DUST_025d0459-1205-4809-8286-c127c2d1a5da.png?v=1721676578"
+      ]
+    },
+    {
+      "id": "shopify-7293102161979",
+      "name": "Customisable Ceramic Reusable Bottle",
+      "category": "Bundle",
+      "collection": "2 Litre Reusable Bottle",
+      "description": "A bigger, more thermal bottle joins our hydration range. Delivering your complete daily hydration in one go, this is a durable and sustainable alternative to single-use plastic water bottles. Plus it keeps your water chilled for hours. Multi-award-winning product design Triple wall vacuum insulated to retain heat or cold Durable stainless steel bottle – made to last Ceramic lined for a better taste experience BPA free, FDA EU approved safe materials Dishwasher-safe lid. Base ",
+      "price": "99.95",
+      "url": "https://frankgreen.com/products/customisable-ceramic-reusable-bottle-68oz-2-000ml",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2406_WEBSITE_ECOM_16oz_BLUSHED_CERAMIC_BASE_BLUSHED_FLIP_STRAW_LID.png?v=1773197721",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/WEBSITE_ECOM_12oz_CUSTOMISER_CHOCOLATE_MOON_DUST_FLIP.png?v=1761186527",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2504_DIGITAL_ECOM_NEW_COLOURS_03_PDP_68oz_CUSTOMISER_02_2400x3000_aec00655-5ec3-488c-8fd3-f01addbc1801.png?v=1744093415",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2406_WEBSITE_ECOM_68oz_MOON-DUST_CERAMIC_BASE_DEEP-OCEAN_FLIP_STRAW_LID_V2.png?v=1744093415",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2406_DIGITAL_ECOM_NEW_WEBSITE_03_PDP_LIFESTYLE_IMAGE_2400x3000_68OZ_CERAMIC_01.jpg?v=1744093415",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2406_DIGITAL_ECOM_NEW_WEBSITE_03_PDP_LIFESTYLE_IMAGE_2400x3000_68OZ_CERAMIC_03.jpg?v=1744093415",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2406_DIGITAL_ECOM_NEW_WEBSITE_03_PDP_LIFESTYLE_IMAGE_2160x2160_68OZ_CERAMIC_02.jpg?v=1744093415"
+      ]
+    },
+    {
+      "id": "shopify-7318159097915",
+      "name": "Everything Backpack",
+      "category": "Parts and accessories",
+      "collection": "Accessories",
+      "description": "Our Everything Backpack is designed to be your go-to companion for any adventure! It features a thermally lined section to keep your lunch fresh until you’re ready to dig in, multiple compartments for your valuables (including for your laptop), and even a hidden AirTag® pocket. Plus, with padded straps and back panels for maximum comfort, commuting to work is easy peasy! Extra padded straps and back panel for maximum comfort An integrated padded laptop pocket (up to 15” lapto",
+      "variants": [
+        "Midnight",
+        "Mint Gelato",
+        "Sky Blue",
+        "Moon Dust"
+      ],
+      "colours": [
+        "Midnight",
+        "Mint Gelato",
+        "Sky Blue",
+        "Moon Dust"
+      ],
+      "price": "199.95",
+      "url": "https://frankgreen.com/products/everything-backpack",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2410_WEBSITE_ECOM_EVRYTHING_BACK_PACK_FRONT_SKY_BLUE_a03a96bd-ce95-4065-bb61-fb3996cf02ed.png?v=1741653633",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2410_WEBSITE_ECOM_EVRYTHING_BACK_PACK_FRONT_MIDNIGHT_20a7bcc9-adeb-4c99-a752-9523ca72bf8f.png?v=1741653633",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2410_WEBSITE_ECOM_EVRYTHING_BACK_PACK_FRONT_MINT_GELATO_692c01d2-7d0f-4c32-b648-376af9a7c6f9.png?v=1741653633",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2410_WEBSITE_ECOM_EVRYTHING_BACK_PACK_FRONT_MOON_DUST_9440e939-cc4d-4dee-8e85-998ac5b44bce.png?v=1731892536"
+      ]
+    },
+    {
+      "id": "shopify-7539209207867",
+      "name": "Hello Kitty Ceramic Reusable Bottle 16oz",
+      "category": "Coffee Cups",
+      "collection": "non-refundable",
+      "description": "This 16oz/475ml limited-edition Hello Kitty Reusable Bottle brings a little charm to your daily sip. With her kind heart and signature red bow, she’s here to brighten your day and bring joy to every refill. Designed to fit perfectly in car cup holders (and even better in your hand), it keeps your drink hot or cold for longer with triple-wall insulation. The ceramic lining means your drinks taste just like your drinks. Pure and fresh with zero metallic taste. Premium stainless",
+      "price": "61.95",
+      "url": "https://frankgreen.com/products/hello-kitty-ceramic-reusable-cup-16oz",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2510_WEBSITE_ECOM_HK_HELLO_KITTY_16oz.png?v=1770962198"
+      ]
+    },
+    {
+      "id": "shopify-7539209404475",
+      "name": "Hello Kitty Ceramic Reusable Bottle 20oz",
+      "category": "Coffee Cups",
+      "collection": "non-refundable",
+      "description": "This 20oz/595ml limited-edition Hello Kitty Reusable Bottle brings a little charm to your daily sip. With her kind heart and signature red bow, she’s here to brighten your day and bring joy to every refill. Designed to fit perfectly in car cup holders (and even better in your hand), it keeps your drink hot or cold for longer with triple-wall insulation. The ceramic lining means your drinks taste just like your drinks. Pure and fresh with zero metallic taste. Premium stainless",
+      "price": "64.95",
+      "url": "https://frankgreen.com/products/hello-kitty-ceramic-reusable-cup-20oz",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2510_WEBSITE_ECOM_HK_HELLO_KITTY_20oz.png?v=1770962502"
+      ]
+    },
+    {
+      "id": "shopify-7503286370363",
+      "name": "Hello Kitty Ceramic Reusable Bottle 34oz",
+      "category": "Water Bottles",
+      "collection": "non-refundable",
+      "description": "This 34oz/1L limited-edition Hello Kitty Reusable Bottle brings a little charm to your daily sip. With her kind heart and signature red bow, she’s here to brighten your day and bring joy to every refill. Don’t let the cuteness fool you, this bottle brings serious performance. Its triple-wall insulation keeps your drinks hot for hours or cold for days (and we mean days ). The ceramic lining means your water tastes just like water. Pure and fresh with zero metallic taste. Multi",
+      "price": "74.95",
+      "url": "https://frankgreen.com/products/hello-kitty-friends-34oz",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2510_WEBSITE_ECOM_HK_HELLO_KITTY_34oz.png?v=1764209397"
+      ]
+    },
+    {
+      "id": "shopify-7293103210555",
+      "name": "Ceramic Reusable Bottle",
+      "category": "Bundle",
+      "collection": "1 Litre Reusable Bottle",
+      "description": "Our signature bottle! Classic curves, perfect proportions, and custom colours are just the start of what makes our Ceramic Reusable Bottle so special. Multi-award-winning product design Triple wall vacuum insulated to retain heat or cold Durable stainless steel bottle – made to last Ceramic lined for a better taste experience BPA free, FDA EU approved safe materials Dishwasher-safe lid. Base is handwash only. Microwave safe: No",
+      "price": "69.95",
+      "url": "https://frankgreen.com/products/ceramic-reusable-bottle-34oz-1-000ml-blushed",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/chocolate_1000.png?v=1767921615",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2406_DIGITAL_ECOM_NEW_WEBSITE_03_PDP_LIFESTYLE_IMAGE_2400x3000_34OZ_CERAMIC_01_a0f186f4-09bc-4d52-9f61-53bef639832f.jpg?v=1767921615",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2406_DIGITAL_ECOM_NEW_WEBSITE_03_PDP_LIFESTYLE_IMAGE_2400x3000_34OZ_CERAMIC_03_aa24163b-c16e-4210-85b1-568fe0011944.jpg?v=1767921615",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2406_DIGITAL_ECOM_NEW_WEBSITE_03_PDP_LIFESTYLE_IMAGE_2160x2160_34OZ_CERAMIC_02_84d951d0-c604-4e3e-8609-0470a2ad4689.jpg?v=1767921615",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/Frame_1171276257.png?v=1767920350",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2406_DIGITAL_ECOM_NEW_WEBSITE_03_PDP_LIFESTYLE_IMAGE_2400x3000_20OZ_CERAMIC_01_0ba67d3e-007b-437c-87eb-0947a7e4c61b.jpg?v=1767920350",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2406_DIGITAL_ECOM_NEW_WEBSITE_03_PDP_LIFESTYLE_IMAGE_2160x2160_20OZ_CERAMIC_02_67ea42da-0176-4700-b31e-57adee71ddf5.jpg?v=1767920350",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2406_DIGITAL_ECOM_NEW_WEBSITE_03_PDP_LIFESTYLE_IMAGE_2400x3000_20OZ_CERAMIC_03_b4843276-a9eb-4d21-a324-b93af024e5ec.jpg?v=1767920350"
+      ]
+    },
+    {
+      "id": "shopify-5112062738491",
+      "name": "Disney Ceramic Reusable Bottle",
+      "category": "Prebuilt",
+      "collection": "Disney",
+      "description": "Sing it from The Hundred Acre Wood treetops! Our magical Disney Winnie The Pooh collection is back in stock. A collection of 34oz/1L Ceramic Reusable Bottles featuring four of your favourite characters: Winnie the Pooh, Piglet, Eeyore and Tigger. Triple-walled vacuum insulated to retain temperature Durable stainless steel bottle Ceramic lined for a better taste experience BPA free, FDA EU approved safe materials Available with our easy-to-use Straw Lid Dishwasher-safe lid. Ba",
+      "variants": [
+        "Eeyore",
+        "Tigger"
+      ],
+      "price": "74.95",
+      "url": "https://frankgreen.com/products/disney-ceramic-reusable-bottle-34oz",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2406_WEBSITE_ECOM_WINNIE___FRIENDS_34oz_TIGGER.png?v=1763662875",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2406_WEBSITE_ECOM_WINNIE___FRIENDS_34oz_POOH.png?v=1763662875",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2406_WEBSITE_ECOM_WINNIE___FRIENDS_34oz_EEYORE.png?v=1763662875",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2406_WEBSITE_ECOM_WINNIE___FRIENDS_34oz_PIGLET.png?v=1763662875",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2406_DIGITAL_ECOM_NEW_WEBSITE_03_PDP_LIFESTYLE_IMAGE_2160x2160_WINNIE_AND_FRIENDS_02.jpg?v=1721676604",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2406_DIGITAL_ECOM_NEW_WEBSITE_03_PDP_LIFESTYLE_IMAGE_2400x3000_WINNIE_AND_FRIENDS_01.jpg?v=1721676605",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2406_DIGITAL_ECOM_NEW_WEBSITE_03_PDP_LIFESTYLE_IMAGE_2400x3000_WINNIE_AND_FRIENDS_03.jpg?v=1721676604",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/products/Tigger_34oz_E-Com_be80faf7-abae-4a1b-aa4e-6359029febe5.png?v=1721676612"
+      ]
+    },
+    {
+      "id": "shopify-7128670634043",
+      "name": "The Little Mermaid Ceramic Reusable Bottle",
+      "category": "Prebuilt",
+      "collection": "Disney",
+      "description": "Dive into hydration with The Little Mermaid! These limited edition 34oz/1L Ceramic Reusable Bottles are inspired by the underwater world of Ariel and her friends. Enjoy triple-wall vacuum insulation to retain water temperature for hours. Plus, the ceramic lining ensures your water tastes like water (no metallic flavours here). Choose from four The Little Mermaid characters: Ariel, Flounder, Sebastian Ursula Triple-walled vacuum insulated to retain temperature Durable stainles",
+      "variants": [
+        "Ariel",
+        "Ursula",
+        "Sebastian",
+        "Flounder"
+      ],
+      "price": "74.95",
+      "url": "https://frankgreen.com/products/the-little-mermaid-ceramic-reusable-bottle-34oz-1l",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2406_WEBSITE_ECOM_THE_LITTLE_34oz_SEBASTIAN_V2.png?v=1721676616",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2406_WEBSITE_ECOM_THE_LITTLE_MERMAID_34oz_ARIEL_V2.png?v=1721676616",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2406_WEBSITE_ECOM_THE_LITTLE_MERMAID_34oz_FLOUNDER_V2.png?v=1721676616",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2406_WEBSITE_ECOM_THE_LITTLE_MERMAID_34oz_URSULA_V2.png?v=1721676616",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2406_DIGITAL_ECOM_NEW_WEBSITE_03_PDP_LIFESTYLE_IMAGE_2160x2160_THE_LITTLE_MERMAID_02.jpg?v=1721676616",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2406_DIGITAL_ECOM_NEW_WEBSITE_03_PDP_LIFESTYLE_IMAGE_2400x3000_THE_LITTLE_MERMAID_01.jpg?v=1721676615",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2406_DIGITAL_ECOM_NEW_WEBSITE_03_PDP_LIFESTYLE_IMAGE_2400x3000_THE_LITTLE_MERMAID_03.jpg?v=1721676615",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/FG_ECOMM_WEB_BUILT_PRODUCTS_LITTLE_MERMAID_34OZ_CERAMIC_ARIEL.png?v=1721676625"
+      ]
+    },
+    {
+      "id": "shopify-7282330697787",
+      "name": "Disney / Pixar Ceramic Reusable Bottle",
+      "category": "Prebuilt",
+      "collection": "Disney",
+      "description": "A limited edition collection that is Out Of This World! Features Disney's Stitch Tinker Bell! Monogram up to 12 characters (including special characters and spaces), plus an emoji! Paired with our easy-to-use Flip Straw Lid Multi award-winning product design Triple-wall vacuum insulated to retain temperature Durable stainless steel bottle Ceramic lined for a better taste experience BPA free, FDA EU approved safe materials Dishwasher-safe lid. Base is handwash only. Microwave ",
+      "variants": [
+        "Stitch",
+        "Tinkerbell",
+        "Genie"
+      ],
+      "price": "74.95",
+      "url": "https://frankgreen.com/products/disney-pixar-ceramic-reusable-bottle-34oz-1l",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2406_WEBSITE_ECOM_OOTW_34oz_STITCH.png?v=1721676612",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2406_WEBSITE_ECOM_OOTW_34oz_ALIENS.png?v=1721676612",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2406_WEBSITE_ECOM_OOTW_34oz_TINKERBELL.png?v=1721676612",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2406_WEBSITE_ECOM_OOTW_34oz_GENIE.png?v=1721676612",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2406_DIGITAL_ECOM_DISNEY_OOTW_03_PRODUCT_PAGE_LIFESTYLE_1226x1388_V1.01.jpg?v=1721676626",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2406_DIGITAL_ECOM_DISNEY_OOTW_03_PRODUCT_PAGE_LIFESTYLE_1226x1388_V2.01.jpg?v=1721676626",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2406_DIGITAL_ECOM_DISNEY_OOTW_03_PRODUCT_PAGE_LIFESTYLE_1226x1388_V3.01.jpg?v=1721676626",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2406_DIGITAL_ECOM_DISNEY_OOTW_03_PRODUCT_PAGE_LIFESTYLE_1226x1388_V4.01.jpg?v=1721676626"
+      ]
+    },
+    {
+      "id": "shopify-7288632115259",
+      "name": "Disney Ceramic Reusable Cup",
+      "category": "Prebuilt",
+      "collection": "Disney",
+      "description": "Sweeter than honey! Our magical collection is available on our beautifully-designed solution to single-use takeaway cups. Choose from four beloved Disney characters: Winnie the Pooh, Piglet, Eeyore and Tigger Multi-award-winning product design. Triple-wall vacuum insulated to keep your drink hot (or cold) Premium stainless steel cup that’s durable and made to last Ceramic lined for pure flavour aroma Easy to use one-handed when you’re on the go Spill leak resistant for mess-f",
+      "variants": [
+        "Eeyore",
+        "Winnie the Pooh",
+        "Piglet",
+        "Tigger"
+      ],
+      "price": "54.95",
+      "url": "https://frankgreen.com/products/disney-ceramic-reusable-cup-12oz-355ml",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2406_WEBSITE_ECOM_WINNIE___FRIENDS_12oz_EEYORE.png?v=1721676609",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2406_WEBSITE_ECOM_WINNIE___FRIENDS_12oz_PIGLET.png?v=1721676609",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2406_WEBSITE_ECOM_WINNIE___FRIENDS_12oz_POOH.png?v=1721676609",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2406_WEBSITE_ECOM_WINNIE___FRIENDS_12oz_TIGGER.png?v=1721676609",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/FG_PRODUCT_CAMPAIGN_COLLECTIONS_DISNEY_WINNIE_AND_FRIENDS_EEYORE.png?v=1721676616",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/FG_PRODUCT_CAMPAIGN_COLLECTIONS_DISNEY_WINNIE_AND_FRIENDS_PIGLET.png?v=1721676616",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/FG_PRODUCT_CAMPAIGN_COLLECTIONS_DISNEY_WINNIE_AND_FRIENDS_TIGGER.png?v=1721676616",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/FG_PRODUCT_CAMPAIGN_COLLECTIONS_DISNEY_WINNIE_AND_FRIENDS_WINNIE.png?v=1721676616"
+      ]
+    },
+    {
+      "id": "shopify-7208335638587",
+      "name": "Customisable Reusable Party Cups 16oz / 475 ml (4 pack)",
+      "category": "Bundle",
+      "collection": "customisable party cups",
+      "description": "Bring sustainability to the party! A beautifully-designed solution to pesky single use plastic party cups. Perfect for cocktails, milkshakes, soft drinks and more. Arrives with splash-proof lids, reusable stainless steel straws and a cleaning brush. Customise colours to match your style and add a monogram to make them even more festive. Volume: 16oz/475ml 8mm wide / 182mm length reusable stainless-steel straws Made from durable food grade stainless steel Lightweight, packable",
+      "price": "64.95",
+      "url": "https://frankgreen.com/products/customisable-reusable-party-cups-16oz-475-ml-4-pack",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/E-Com_CelebrationCups_4Pack_MIXED_V1.02_eda30ac4-26e3-48b1-9dcf-a98e10f08edc_1.png?v=1773784248",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2406_WEBSITE_ECOM_PARTY_CUPS_4-PACK_CUSTOMISER.png?v=1773784248",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/E-Com_CelebrationCups_4Pack_MIXED_V1.02.png?v=1773784248",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2406_DIGITAL_ECOM_NEW_WEBSITE_03_PDP_LIFESTYLE_IMAGE_2160x2160_PARTY_CUPS_02.jpg?v=1773784248",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2406_DIGITAL_ECOM_NEW_WEBSITE_03_PDP_LIFESTYLE_IMAGE_2400x3000_PARTY_CUPS_01.jpg?v=1773784248",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2406_DIGITAL_ECOM_NEW_WEBSITE_03_PDP_LIFESTYLE_IMAGE_2400x3000_PARTY_CUPS_03.jpg?v=1773784248",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/0031_231005_FrankGreenHoliday_SH05_148.jpg?v=1773784248",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/0032_231005_FrankGreenHoliday_SH05_147.jpg?v=1773784248"
+      ]
+    },
+    {
+      "id": "shopify-7350007758907",
+      "name": "Customisable 2L Titan Reusable Bottle",
+      "category": "Bundle",
+      "collection": "2 Litre Reusable Bottle",
+      "description": "Two litres? Too easy. The Titan is ready to tackle your daily hydration goals. The measurement markers keeps your water intake in check, the wide mouth fits ice cubes with ease, and the easy-grip handle makes sipping on the move a breeze. Crafted from durable, BPA-free Tritan®, it’s lightweight and shatter-resistant. Plus, it's compatible with any frank green lid! 68oz/2L capacity Made from durable Tritan® material which is made to last Very lightweight and super clear Odour ",
+      "price": "69.95",
+      "url": "https://frankgreen.com/products/tritan-titan-reusable-bottle-68oz-2-000ml",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/WEBSITE_ECOM_2L_TRITAN_DEEP_OCEAN_GRIP_LID.png?v=1755732749",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/WEBSITE_ECOM_2L_TRITAN_NEON_PINK_GRIP_AND_SIP_LID.png?v=1755732749",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/WEBSITE_ECOM_2L_TRITAN_SKY_BLUE_FLIP_STRAW_LID.png?v=1755732749"
+      ]
+    },
+    {
+      "id": "shopify-7469709688891",
+      "name": "Colour Changing Reusable Party Cup Bases",
+      "category": "Bundle",
+      "collection": "colour change",
+      "description": "This set of four reusable cups are our beautifully designed solution to single-use plastic party cups. Pour in the magic. Hydration just got an upgrade. Pour something cold into these Colour Changing Party Cups and watch the magic happen. It’s the easiest way to impress everyone without even trying. Our magic colour changing technology will instantly change colour when you pour in ice-cold liquids Four reusable cups, four colours, four unique colour changes Stack ‘em, pack ‘e",
+      "price": "44.95",
+      "url": "https://frankgreen.com/products/colour-changing-reusable-party-cups-16oz-475ml-4-pack",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2406_WEBSITE_ECOM_PARTY_CUP_BASE_03_GROUP.png?v=1760397029"
+      ]
+    },
+    {
+      "id": "shopify-7503574859835",
+      "name": "Kuromi Ceramic Reusable 12oz",
+      "category": "Coffee Cups",
+      "collection": "non-refundable",
+      "description": "Sassy, spirited and a little rebellious, Kuromi brings some serious attitude to your daily sip. This 12oz/355ml limited-edition Reusable Cup is made to stand out. She’s bold on the outside and soft-hearted underneath, ready to add a little edge to your routine. Designed to fit perfectly in car cup holders (and even better in your hand), it keeps your drink hot or cold for longer with triple-wall insulation. The ceramic lining means your drinks taste just like your drinks. Pur",
+      "price": "54.95",
+      "url": "https://frankgreen.com/products/kuromi-ceramic-reusable-cup",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2510_WEBSITE_ECOM_HK_KUROMI_12oz.png?v=1764213643"
+      ]
+    },
+    {
+      "id": "shopify-7503574040635",
+      "name": "Cinnamoroll Ceramic Reusable Cup 12oz",
+      "category": "Coffee Cups",
+      "collection": "non-refundable",
+      "description": "Soft, shy and always ready to bring a little calm to your day. Cinnamoroll floats in on a light blue breeze with snacks in hand and a nap on the cards. This 12oz/355ml limited-edition Reusable Cup design captures his dreamy spirit in a bottle made for quiet moments, cosy moods and slowing down in style. Designed to fit perfectly in car cup holders (and even better in your hand), it keeps your drink hot or cold for longer with triple-wall insulation. The ceramic lining means y",
+      "price": "54.95",
+      "url": "https://frankgreen.com/products/cinnamoroll-ceramic-reusable-cup-12oz",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2510_WEBSITE_ECOM_HK_CINNAMOROLL_12oz.png?v=1764213394"
+      ]
+    },
+    {
+      "id": "shopify-7503573385275",
+      "name": "Kuromi Ceramic Reusable Bottle 34oz",
+      "category": "Water Bottles",
+      "collection": "non-refundable",
+      "description": "Sassy, spirited and a little rebellious, Kuromi brings some serious attitude to your daily sip. This 34oz/1L limited-edition Reusable Bottle is made to stand out. She’s bold on the outside and soft-hearted underneath, ready to add a little edge to your routine. Don’t let the wickedness fool you, this bottle brings serious performance. Its triple-wall insulation keeps your drinks hot for hours or cold for days (and we mean days ). The ceramic lining means your water tastes jus",
+      "price": "74.95",
+      "url": "https://frankgreen.com/products/kuromi-ceramic-reusable-bottle-34oz",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2510_WEBSITE_ECOM_HK_KUROMI_34oz.png?v=1764213191"
+      ]
+    },
+    {
+      "id": "shopify-7503573155899",
+      "name": "Cinnamoroll Ceramic Reusable Bottle 34oz",
+      "category": "Water Bottles",
+      "collection": "non-refundable",
+      "description": "Soft, shy and always ready to bring a little calm to your day. Cinnamoroll floats in on a light blue breeze with snacks in hand and a nap on the cards. This 34oz/1L limited-edition Reusable Bottle design captures his dreamy spirit in a bottle made for quiet moments, cosy moods and slowing down in style. Don’t let the cuteness fool you, this bottle brings serious performance. Its triple-wall insulation keeps your drinks hot for hours or cold for days (and we mean days ). The c",
+      "price": "74.95",
+      "url": "https://frankgreen.com/products/cinnamoroll-ceramic-reusable-bottle-34oz",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2510_WEBSITE_ECOM_HK_CINNAMOROLL_34oz.png?v=1764213132"
+      ]
+    },
+    {
+      "id": "shopify-2229741420603",
+      "name": "Original Reusable Cup Base",
+      "category": "Parts and accessories",
+      "collection": "Bases",
+      "description": "Our original solution to single-use takeaway cups! This cup base is beautifully-designed, lightweight and durable so it’s perfect for on the go. The inner cup is made from stain and odour resistant certified Tritan®",
+      "variants": [
+        "Harbor Mist",
+        "Buttermilk"
+      ],
+      "colours": [
+        "Harbor Mist",
+        "Buttermilk"
+      ],
+      "price": "24.95",
+      "url": "https://frankgreen.com/products/original-reusable-cup-base-12oz",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2406_WEBSITE_ECOM_12oz_ORIGINAL_BASE_BLACK_a363f4a0-64df-4cc6-9afd-8d7d8889f741.png?v=1722900417",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/OriginalReusableCupLifestyle1_21f11184-d3fc-4fc5-b8f9-8c9d338dc90d.png?v=1721676629",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2210_ECOM_PDP_LIFESTYLE_IMAGES_ORIGINAL_REUSABLE_CUPS_V4.01_06df59f5-bc1d-4288-a2e0-e5bfefb70b62.jpg?v=1721676628",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2210_ECOM_PDP_LIFESTYLE_IMAGES_ORIGINAL_REUSABLE_CUPS_V2.01_1b7c0018-3e69-4f82-ae9e-2e26d8453981.jpg?v=1721676628",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/products/base_original12_black_transparent_grande_04a9de12-4ce1-4421-87ae-9817a052dd60.png?v=1722903734",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/products/base_original12_blushed_transparent_grande_b7b2a3b1-60fc-4e37-a818-9985c511043f.png?v=1722903734",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/products/base_original12_buttermilk_transparent_grande_a0311aac-85e9-46ee-b3a1-387dd9340bc2.png?v=1722903734",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/products/base_original12_cloud_transparent_grande_5286ea3d-4a70-44b7-9c9f-a47aafab70e0.png?v=1722903734"
+      ]
+    },
+    {
+      "id": "shopify-7492983881787",
+      "name": "Big Chill",
+      "category": "Coffee Cups",
+      "collection": "New Arrivals",
+      "description": "The double-wall vacuum insulation keeps ice whole for up to 12 hours and stops condensation cold. Includes our Jumbo Straw - made for smoothies, bubble tea, juice, jumbo iced coffees and anything that can quench a humongous thirst. Huge 24oz/710ml capacity for fewer refills Comes with our Splash-Proof Lid with a Silicone Seal and plug to stop leaks Designed with an extra durable, scratch-resistant and non-slippery finish Made from premium stainless steel BPA free, FDA EU appr",
+      "variants": [
+        "Blushed",
+        "Mint Gelato",
+        "Moon Dust",
+        "Midnight",
+        "Bubblegum Blast",
+        "Buttermilk",
+        "Chocolate",
+        "Cloud",
+        "Deep Ocean",
+        "Khaki",
+        "Lilac Haze",
+        "Sky Blue"
+      ],
+      "colours": [
+        "Blushed",
+        "Mint Gelato",
+        "Moon Dust",
+        "Midnight",
+        "Bubblegum Blast",
+        "Buttermilk",
+        "Chocolate",
+        "Cloud",
+        "Deep Ocean",
+        "Khaki",
+        "Lilac Haze",
+        "Sky Blue"
+      ],
+      "price": "59.95",
+      "url": "https://frankgreen.com/products/big-chill-iced-coffee-cup-24oz-710ml",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2510_WEBSITE_ECOM_24oz_ICED_COFFEE_CUP_JUMBO_STRAW_BLUSHED.png?v=1763003422",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2510_WEBSITE_ECOM_24oz_ICED_COFFEE_CUP_JUMBO_STRAW_MINT-GELATO.png?v=1763003433",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2510_WEBSITE_ECOM_24oz_ICED_COFFEE_CUP_JUMBO_STRAW_MOONDUST.png?v=1763003457",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2510_WEBSITE_ECOM_24oz_ICED_COFFEE_CUP_JUMBO_STRAW_MIDNIGHT.png?v=1763003477",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2510_WEBSITE_ECOM_24oz_ICED_COFFEE_CUP_JUMBO_STRAW_BUBBLEGUM.png?v=1772746928",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2510_WEBSITE_ECOM_24oz_ICED_COFFEE_CUP_JUMBO_STRAW_BUTTERMILK_d087afca-41a1-4cb2-aa07-847785b13827.png?v=1772763205",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2510_WEBSITE_ECOM_24oz_ICED_COFFEE_CUP_JUMBO_STRAW_CHOCOLATE_538b1516-8749-4438-8997-c7f3cf934baf.png?v=1772764177",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2510_WEBSITE_ECOM_24oz_ICED_COFFEE_CUP_JUMBO_STRAW_CLOUD_2b7d8442-e8ae-4d5c-8e82-15afed6a642c.png?v=1772764296"
+      ]
+    },
+    {
+      "id": "lip-sip-bundle",
+      "name": "Lip & Sip Bundle",
+      "category": "Bundle",
+      "collection": "New Arrivals",
+      "description": "Meet the bundle that helps you carry it all. Our signature Ceramic Reusable Bottle now comes bundled with the all-new Lip Gloss Holder, made to keep your favourite gloss or balm by your side all day. Comes with: 1x Ceramic Reusable Bottle 1x Lip Gloss Holder Why you’ll love it A bundle to keep your gloss by your side all day! Durable silicone material Holder fits most glosses and balms snugly Our Triple-wall vacuum insulation Reusable Bottles retain both heat or cold Durable ",
+      "price": "69.95",
+      "url": "https://frankgreen.com/products/lip-and-sip-bundle-regular",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/WEBSITE_ECOM_BUNDLES_BOTTLE_BOSS_BUNDLE_34OZ_LILAC_HAZE.png?v=1763346913",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/WEBSITE_ECOM_BUNDLES_BOTTLEBOSSBUNDLE_20OZ_MOONDUST.png?v=1763348199"
+      ]
+    },
+    {
+      "id": "lip-gloss-holder",
+      "name": "Lip Gloss Holder",
+      "collection": "Accessories",
+      "description": "Meet your new must have accessory. The Lip Gloss Holder slides right onto your frank green strap, so your gloss or balm is always by your side. Why you’ll love it: Designed to work with frank green Bottle Straps Easy to attach (and reattach) Holds most glosses and balms snugly Flexible, secure and ultra-convenient",
+      "variants": [
+        "Blushed",
+        "Mint Gelato",
+        "Chocolate",
+        "Lilac Haze",
+        "Sky Blue"
+      ],
+      "colours": [
+        "Blushed",
+        "Mint Gelato",
+        "Chocolate",
+        "Lilac Haze",
+        "Sky Blue"
+      ],
+      "price": "14.95",
+      "url": "https://frankgreen.com/products/lip-gloss-holder",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2510_WEBSITE_ECOM_LIP_GLOSS_HOLDER_BLUSHED.png?v=1763594862",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2510_WEBSITE_ECOM_LIP_GLOSS_HOLDER_MINT-GELATO.png?v=1763594862",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2510_WEBSITE_ECOM_LIP_GLOSS_HOLDER_CHOCOLATE.png?v=1763353740",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2510_WEBSITE_ECOM_LIP_GLOSS_HOLDER_LILAC-HAZE.png?v=1763353740",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2510_WEBSITE_ECOM_LIP_GLOSS_HOLDER_SKY-BLUE.png?v=1763347320"
+      ]
+    },
+    {
+      "id": "shopify-7248874307643",
+      "name": "Double Hydration Gift Set",
+      "category": "Gift Set",
+      "collection": "features:monogram",
+      "description": "Double the hydration! A Gift Set featuring a 34oz/1L and a 20oz/595ml Ceramic Reusable Bottle that they will love to use and reuse again (and again)! Customise colours and lid type to suit every hydration need. Arrives ready-to-gift in a premium Gift Box with a Gift Box sleeve and card Multi award-winning product designs Triple wall vacuum insulated to retain heat or cold Durable stainless steel bottles – made to last Ceramic lined for a better taste experience BPA free, FDA ",
+      "price": "124.95",
+      "url": "https://frankgreen.com/products/double-hydration-gift-set",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2511_WEBSITE_ECOM_GIFT_SETS_DOUBLE_HYDRATION_V1.01.png?v=1762986917"
+      ]
+    },
+    {
+      "id": "shopify-7487068602427",
+      "name": "Barista At Home Bundle",
+      "category": "Bundle",
+      "collection": "Gifts",
+      "description": "Made for coffee lovers who take their morning rituals seriously. Featuring our premium Milk Frothing Jug and our choice of frank green Reusable Cups, it's the perfect gift for anyone who loves a good brew (or loves being their own barista). Includes 1x 500ml Milk Frothing Jug + your choice of: 12oz Ceramic Reusable Cup 12oz Ceramic Reusable Cup with Hinged Lid 15oz Iced Coffee Cup Crafted from durable, high-quality materials Perfect for gifting or levelling up your home set-u",
+      "price": "84.95",
+      "url": "https://frankgreen.com/products/barista-at-home-bundle",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/WEBSITE_ECOM_BARISTAATHOME_12OZ.png?v=1762495634"
+      ]
+    },
+    {
+      "id": "shopify-7488496631867",
+      "name": "Iced Coffee Gift Set",
+      "category": "Gift Set",
+      "collection": "Gift Sets",
+      "description": "This set has everything needed to brew, chill and sip in serious style. Featuring our bestselling Iced Coffee Cup, Fill Chill Ice Tray and our French Press, it’s a complete at-home coffee kit that makes the perfect gift, or a little upgrade for yourself. Includes: 15oz Iced Coffee Cup, Fill Chill Ice Tray, French Press French Press: Brew bold, full-flavoured coffee at home Ice Tray: Makes 6 perfect ice spheres Iced Coffee Cup: Extra durable, scratch-resistant and non-slip gri",
+      "price": "128.95",
+      "url": "https://frankgreen.com/products/iced-coffee-gift-set",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/WEBSITE_ECOM_ICEDCOFFEEGIFTSET.png?v=1762726489"
+      ]
+    },
+    {
+      "id": "shopify-7487070470203",
+      "name": "500ml Milk Frothing Jug",
+      "description": "Get the perfect pour every time with the frank green Milk Frothing Jug A spout designed for smooth pouring Engineered wth stainless steel Cool touch handle Dishwasher safe",
+      "price": "39.95",
+      "url": "https://frankgreen.com/products/500ml-milk-frothing-jug",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/WEBSITE_ECOM_BARISTAATHOME_MILK-JUG.png?v=1762495983"
+      ]
+    },
+    {
+      "id": "shopify-7479457415227",
+      "name": "Summer is Served Bundle with 4pk Party Cup Set",
+      "category": "Bundle",
+      "collection": "Gift Sets",
+      "description": "Meet the bundle made for summer hosting, gifting and all the moments in between. Featuring our bestselling Pitch Perfect Jug and four pack of Party Cups, it's the set you'll reach for again and again, or gift to someone who loves a backyard BBQ. Includes 1x Pitch Perfect Jug + 4x Party Cups (including lids and straws) Choose your colours and add monogramming for a personal touch Party Cups: Lightweight, stackable and ready to go Jug: Spill-proof lid and double-wall insulated ",
+      "price": "157.95",
+      "url": "https://frankgreen.com/products/summer-is-served-bundle",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2408_WEBSITE_ECOM_BUNDLES_SUMMER_IS_SERVED.png?v=1761705458"
+      ]
+    },
+    {
+      "id": "shopify-7471218720827",
+      "name": "Straw 12oz/355ml",
+      "category": "Parts and accessories",
+      "collection": "Google Shopping",
+      "description": "For your iced lattes, herbal teas or all-day hydration. Meet our 12oz/355ml Ceramic Reusable Bottle. The triple-wall vacuum insulation retains temperature until the last sip. Plus, the innovative ceramic lining ensures your drinks always taste pure (no nasty metallic flavoured drinks here). Paired with any of our award winning lids, this signature bottle is a perfect on-the-go companion. Premium stainless steel bottle, built to last Ceramic lined for pure flavour and aroma Sp",
+      "price": "5.95",
+      "url": "https://frankgreen.com/products/straw-12oz-355ml-98mm",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2406_WEBSITE_ECOM_STRAW_SILVER_98MM.png?v=1760918690"
+      ]
+    },
+    {
+      "id": "shopify-7469441187899",
+      "name": "34oz SS Single Wall Bottle Colour Change with Flip Straw Lid",
+      "collection": "1 Litre Reusable Bottle",
+      "description": "Make every sip a magic show! This Colour Changing Ultralite Bottle changes colour with every ice-cold pour, the change fades as it warms. Complete with our iconic Flip Straw Lid for effortless on the go sipping. Hydration has never felt this effortless. Our magic colour changing technology will instantly change colour when you pour in ice-cold liquids Big 1000ml capacity and ultralite, carry more, for less Made with over 95% recycled stainless steel Premium feel, made to last",
+      "variants": [
+        "Twilight",
+        "Lava",
+        "Abyss",
+        "Volt"
+      ],
+      "colours": [
+        "Twilight",
+        "Lava",
+        "Abyss",
+        "Volt"
+      ],
+      "price": "59.95",
+      "url": "https://frankgreen.com/products/34oz-ss-single-wall-bottle-colour-change-with-flip-straw-lid",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/WEBSITE_ECOM_34OZ_COLOUR_CHANGE_BASE_LID_03_LAVA_cc33090a-c471-4da7-9cdf-b9aa3968a2ad.png?v=1763437981",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/WEBSITE_ECOM_34OZ_COLOUR_CHANGE_BASE_LID_03_TWILIGHT.png?v=1763437981",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/WEBSITE_ECOM_34OZ_COLOUR_CHANGE_BASE_LID_03_ABYSS_c75950a1-f351-4bac-a2cb-d802f88b4e0b.png?v=1760318668",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/WEBSITE_ECOM_34OZ_COLOUR_CHANGE_BASE_LID_03_VOLT_0af7c493-4cb2-4a55-a1b8-ceedaa869138.png?v=1760318743"
+      ]
+    },
+    {
+      "id": "shopify-7469482999867",
+      "name": "To Go Bowl Colour Change Base 500ml",
+      "category": "Parts and accessories",
+      "collection": "features:colour-change",
+      "description": "Bring Colour Changing magic to every meal. Meet the Colour Changing To Go Bowl! Colour changes instantly when cold food or liquid goes in, then gradually returns to its original shade as it warms up. Bringing a little magic to every meal. Lid sold separately Lid sold separately Our magic colour changing technology will instantly change colour when ice-cold food or liquid goes in Lightweight, easy to pack, perfect for on the move Made with over 95% recycled stainless steel Pre",
+      "variants": [
+        "Volt",
+        "Abyss",
+        "Lava",
+        "Twilight"
+      ],
+      "colours": [
+        "Volt",
+        "Abyss",
+        "Lava",
+        "Twilight"
+      ],
+      "price": "13.95",
+      "url": "https://frankgreen.com/products/to-go-bowl-colour-change-base-500ml",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/WEBSITE_ECOM_TO_GO_BOWL_COLOUR_CHANGE_BASE_03_VOLT.png?v=1760324411",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/WEBSITE_ECOM_TO_GO_BOWL_COLOUR_CHANGE_BASE_03_ABYSS.png?v=1760324446",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/WEBSITE_ECOM_TO_GO_BOWL_COLOUR_CHANGE_BASE_03_LAVA.png?v=1760324467",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/WEBSITE_ECOM_TO_GO_BOWL_COLOUR_CHANGE_BASE_03_TWILIGHT.png?v=1760324511",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/WEBSITE_ECOM_TO_GO_BOWL_COLOUR_CHANGE_BASE_03_VOLT_68c0727e-fcb4-40af-8d33-6fd9e7de80f7.png?v=1760400207",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/WEBSITE_ECOM_TO_GO_BOWL_COLOUR_CHANGE_BASE_03_ABYSS_8b6bdab9-7b10-4d97-91dc-c3c556c0479c.png?v=1760400232",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/WEBSITE_ECOM_TO_GO_BOWL_COLOUR_CHANGE_BASE_03_LAVA_b72189b3-1a3e-4ccb-84bf-77e779e09f3a.png?v=1760400266",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/WEBSITE_ECOM_TO_GO_BOWL_COLOUR_CHANGE_BASE_03_TWILIGHT_1901c8f6-d7e1-4e5f-ba80-561fa3fd3e10.png?v=1760400282"
+      ]
+    },
+    {
+      "id": "shopify-7469474119739",
+      "name": "Customisable To Go Bowl Colour Change 500ml",
+      "category": "Bundle",
+      "collection": "colour change",
+      "description": "Bring Colour Changing magic to every meal. Meet the Colour Changing To Go Bowl! Colour changes instantly when cold food or liquid goes in, then gradually returns to its original shade as it warms up. Bringing a little magic to every meal. Our magic colour changing technology will instantly change colour when ice-cold food or liquid goes in Lightweight, easy to pack, perfect for on the move Made with over 95% recycled stainless steel Premium feel, made to last, planet-first Ch",
+      "price": "19.95",
+      "url": "https://frankgreen.com/products/customisable-to-go-bowl-colour-change-500ml",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/WEBSITE_ECOM_TO_GO_BOWL_COLOUR_CHANGE_BASE_DOME_LID_03_ABYSS.png?v=1760327435"
+      ]
+    },
+    {
+      "id": "shopify-7417718571067",
+      "name": "Customisable To Go Bowl Large",
+      "category": "Bundle",
+      "collection": "Best Sellers",
+      "description": "Snack and stack in style with To Go Bowls. They’re a portable, convenient, customisable and colourful addition to your everyday. Compatible with Flat Lid and Dome Lid for those who are always on-the-go. Portable, convenient, versatile, sustainable and customisable. Leak proof silicone dome lid design Built to last Stackable Keeps breakfast meals fresh and accessible while on the go Compatible with Flat Lid and Dome Lid Single Wall insulation 90% recycled stainless steel Do no",
+      "price": "19.95",
+      "url": "https://frankgreen.com/products/customisable-to-go-bowl-large-500ml",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2506_WEBSITE_ECOM_TO-GO_PREBUILT_LARGE_CHOCOLATE_DOME-LID.png?v=1755052279",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2506_WEBSITE_ECOM_TO-GO_PREBUILT_LARGE_CHOCOLATE_FLAT-LID.png?v=1755052279",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2506_WEBSITE_ECOM_TO-GO_PREBUILT_LARGE_BLUSHED_DOME-LID.png?v=1753069960",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2506_WEBSITE_ECOM_TO-GO_PREBUILT_LARGE_MINT-GELATO_DOME-LID_MONOGRAM.png?v=1753069960",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2506_WEBSITE_ECOM_TO-GO_PREBUILT_LARGE_MOONDUST_DOME-LID_MONOGRAM.png?v=1753069960",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2506_WEBSITE_ECOM_TO-GO_PREBUILT_LARGE_SKY-BLUE_DOME-LID_MONOGRAM.png?v=1753069960"
+      ]
+    },
+    {
+      "id": "shopify-7435827806267",
+      "name": "Ceramic Reusable Cup with Oroton",
+      "category": "Prebuilt",
+      "collection": "Coffee Cups",
+      "description": "Where luxury finishes meet everyday performance. Premium Ceramic Reusable Bottles and Cups, styled with Oroton’s signature pebble leather sleeves. The contrasting leather bottle colour gives an elevated look. Same iconic functionality, new ways to wear it. Sleek leather sleeve sits flush against the bottle for a polished, elevated feel Crafted in rich Oroton pebble leather with tonal stitching and heritage detailing Our 20 oz / 595 ml Ceramic Reusable Bottle features a stunni",
+      "variants": [
+        "Grey Goose/Night Sky Sleeve",
+        "Night Sky/Grey Goose Sleeve"
+      ],
+      "colours": [
+        "Grey Goose/Night Sky Sleeve",
+        "Night Sky/Grey Goose Sleeve"
+      ],
+      "price": "89.00",
+      "url": "https://frankgreen.com/products/ceramic-reusable-cup-with-oroton-leather-sleeve-12oz-355ml-new",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2508_OROTON_LEATHER_RANGE_FATHER_S_DAY_12oz_GREY-GOOSE_V3.png?v=1759978676",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2508_OROTON_LEATHER_RANGE_FATHER_S_DAY_12oz_NIGHT-SKY_V3.png?v=1759978755",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2508_OROTON_LEATHER_RANGE_FATHER_S_DAY_12oz_GREY-GOOSE_V2.2.png?v=1755060788",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2508_OROTON_LEATHER_RANGE_FATHER_S_DAY_12oz_NIGHT-SKY_V2.png?v=1755060788",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2508_OROTON_LEATHER_RANGE_FATHER_S_DAY_12oz_GREY-GOOSE_V2.2_6292d183-67e4-45e1-b4a9-57e13669fbb3.png?v=1755060806",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2508_OROTON_LEATHER_RANGE_FATHER_S_DAY_12oz_GREY-GOOSE_V2.2.jpg?v=1755475070",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2508_OROTON_LEATHER_RANGE_FATHER_S_DAY_12oz_NIGHT-SKY_V2_91dc86eb-a72a-4d92-81d0-55c0ce358549.jpg?v=1755475106"
+      ]
+    },
+    {
+      "id": "shopify-7468096225339",
+      "name": "Oroton Leather Sleeve + Ceramic",
+      "category": "Prebuilt",
+      "collection": "features:oroton",
+      "description": "Where luxury finishes meet everyday performance. Premium Ceramic Reusable Bottles and Cups, styled with Oroton’s signature pebble leather sleeves. These solid colours are perfect more minimal elevated look. Same iconic functionality, new ways to wear it. Sleek leather sleeve sits flush against the bottle for a polished, elevated feel Crafted in rich Oroton pebble leather with tonal stitching and heritage detailing Our 20 oz / 595 ml Ceramic Reusable Bottle features a stunning",
+      "variants": [
+        "Night Sky/Night Sky Sleeve",
+        "Grey Goose/Grey Goose Sleeve"
+      ],
+      "colours": [
+        "Night Sky/Night Sky Sleeve",
+        "Grey Goose/Grey Goose Sleeve"
+      ],
+      "price": "119.00",
+      "url": "https://frankgreen.com/products/ceramic-reusable-bottle-with-oroton-20oz-595ml-block-colour",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2509_OROTON_LEATHER_RANGE_20oz_NIGHT_SKY_FLIP_STRAW_LID_V1.3.png?v=1759978841",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2509_OROTON_LEATHER_RANGE_20oz_GREY-GOOSE_FLIP_STRAW_LID_V1.3.png?v=1759978858"
+      ]
+    },
+    {
+      "id": "shopify-7439333949499",
+      "name": "Customisable Ceramic Reusable Grip Finish Bottle",
+      "collection": "1 litre",
+      "description": "With an easy-to-grip lid and an extra tough bottle base, this bottle is designed to quench your thirst without any slip when you need it most. Pick and change the colour of lid and the triple-wall vacuum insulation base that retains temperature for hours, plus the ceramic lining ensures your water always tastes like water (no metallic flavours here). Designed with premium materials BPA free, FDA EU approved safe materials Dishwasher-safe lid. Base is hand wash only. Microwave",
+      "price": "69.95",
+      "url": "https://frankgreen.com/products/customisable-ceramic-reusable-grip-finish-bottle-34oz-1-000ml",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/WEBSITE_ECOM_34oz_KHAKI_GRIP_BASE_MOONDUST_GRIP_LID.png?v=1755671331"
+      ]
+    },
+    {
+      "id": "shopify-7435827740731",
+      "name": "Ceramic Reusable Bottle with Oroton",
+      "category": "Prebuilt",
+      "collection": "features:oroton",
+      "description": "Where luxury finishes meet everyday performance. Premium Ceramic Reusable Bottles and Cups, styled with Oroton’s signature pebble leather sleeves. The contrasting leather bottle colour gives an elevated look. Same iconic functionality, new ways to wear it. Sleek leather sleeve sits flush against the bottle for a polished, elevated feel Crafted in rich Oroton pebble leather with tonal stitching and heritage detailing Our 20 oz / 595 ml Ceramic Reusable Bottle features a stunni",
+      "variants": [
+        "Grey Goose/Night Sky Sleeve",
+        "Night Sky/Grey Goose Sleeve"
+      ],
+      "colours": [
+        "Grey Goose/Night Sky Sleeve",
+        "Night Sky/Grey Goose Sleeve"
+      ],
+      "price": "119.00",
+      "url": "https://frankgreen.com/products/ceramic-reusable-bottle-with-oroton-leather-sleeve-and-handle-20oz-595ml-new",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2508_OROTON_LEATHER_RANGE_FATHER_S_DAY_20oz_GREY-GOOSE_V2.2.png?v=1755060848",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2508_OROTON_LEATHER_RANGE_FATHER_S_DAY_20oz_NIGHT-SKY_V2.png?v=1755060848",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2508_OROTON_LEATHER_RANGE_FATHER_S_DAY_20oz_GREY-GOOSE_V2.2_53b88ae7-6cbd-46ab-9f34-02b80bada85c.png?v=1755060864",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2508_OROTON_LEATHER_RANGE_FATHER_S_DAY_20oz_GREY-GOOSE_V2.2.jpg?v=1755475156",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2508_OROTON_LEATHER_RANGE_FATHER_S_DAY_20oz_NIGHT-SKY_V2.jpg?v=1755475183"
+      ]
+    },
+    {
+      "id": "shopify-7351759372347",
+      "name": "Titan Straw Lid with Strap & Straw",
+      "category": "Bundle",
+      "collection": "Hidden",
+      "description": "There's a reason our straw lid is so popular. It comes with a handy strap for carrying on the go, a removable stainless steel straw and clicks shut for no spills while in your bag. It can be mixed and matched with both your ceramic stainless steel or original frank green reusable products and comes with everything you need to use straight away. Includes: Replacement Straw Lid Hull, Reusable Straw Lid Strap Straw Psst... the straw in the image is for display purposes only. You",
+      "price": "23.95",
+      "url": "https://frankgreen.com/products/titan-straw-lid-with-strap-straw-68oz-2-000ml",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2406_WEBSITE_ECOM_FLIP_LID_STRAW_STRAP_MOON_DUST_8650c193-2f00-4c41-9a1d-81679088114f.png?v=1740705698"
+      ]
+    },
+    {
+      "id": "shopify-7351766220859",
+      "name": "Titan Flip Straw Lid with Strap & Straw",
+      "category": "Bundle",
+      "collection": "Hidden",
+      "description": "You'll flipping love this lid! A touch-free lid that's perfect for on the go. Just slide the button and the mouthpiece will flip up for easy one-handed hydration. Designed with extra durable material and a soft-feel silicone mouthpiece. Includes: lid hull, Reusable Strap and Reusable Stainless Steel Straw. Psst... the straw in the image is for display purposes only. You may receive a silver or a gold coloured straw.",
+      "price": "23.95",
+      "url": "https://frankgreen.com/products/titan-flip-straw-lid-with-strap-straw-68oz-2-000ml",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2406_WEBSITE_ECOM_FLIP_LID_STRAW_STRAP_MOON_DUST_8aaec138-bbeb-4892-a872-f8e4cc954858.png?v=1760934328"
+      ]
+    },
+    {
+      "id": "shopify-7323988983867",
+      "name": "Titan Reusable Bottle Base",
+      "category": "Parts and accessories",
+      "collection": "Bases",
+      "description": "Two litres? Too easy. The Titan is ready to tackle your daily hydration goals. The measurement markers keeps your water intake in check and the wide mouth fits ice cubes with ease. Crafted from durable, BPA-free Tritan®, it’s lightweight and shatter-resistant. Plus, it's compatible with any frank green lid! 68oz/2L capacity Made from durable Tritan® material which is made to last Odor and stain-resistant Measurement markers so you can keep track of your water intake Shatter-r",
+      "price": "49.95",
+      "url": "https://frankgreen.com/products/tritan-titan-bottle-base-68oz-2-000ml",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2412_WEBSITE_ECOM_2L_TRITAN_TITAN.png?v=1735269608"
+      ]
+    },
+    {
+      "id": "shopify-7421097705531",
+      "name": "Grip and Sip Lid",
+      "collection": "Grip and Sip",
+      "description": "Grip it. Flip it. Sip it. This lid is totally leak-proof, with a fast-pour flow and a hygienic spout cover that keeps things clean between sips. It fits every frank green bottle and is built tough to go wherever you do, no fuss. Ergonomic Grip Handle Fast-Flow Chugger Spout Leak-Proof Closure Hygienic Flip Cover Universally fits all frank green bases Dishwasher Safe Impact Resistant Construction BPA-Free Non-Toxic Materials",
+      "variants": [
+        "Bubblegum Blast",
+        "Blushed",
+        "Buttermilk",
+        "Cloud",
+        "Deep Ocean",
+        "Khaki",
+        "Lilac Haze",
+        "Midnight",
+        "Mint Gelato",
+        "Moon Dust",
+        "Sky Blue",
+        "Neon Pink",
+        "Chocolate"
+      ],
+      "colours": [
+        "Bubblegum Blast",
+        "Blushed",
+        "Buttermilk",
+        "Cloud",
+        "Deep Ocean",
+        "Khaki",
+        "Lilac Haze",
+        "Midnight",
+        "Mint Gelato",
+        "Moon Dust",
+        "Sky Blue",
+        "Neon Pink",
+        "Chocolate"
+      ],
+      "price": "19.95",
+      "url": "https://frankgreen.com/products/grip-and-sip-lid",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2505_WEBSITE_ECOM_GRIP_CHUG_LID_BLUSHED.png?v=1752467408",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2505_WEBSITE_ECOM_GRIP_CHUG_LID_BUTTERMILK.png?v=1752467415",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2505_WEBSITE_ECOM_GRIP_CHUG_LID_CLOUD.png?v=1752467424",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2505_WEBSITE_ECOM_GRIP_CHUG_LID_DEEP-OCEAN.png?v=1752467432",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2505_WEBSITE_ECOM_GRIP_CHUG_LID_BLUSHED_KHAKI.png?v=1752467440",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2505_WEBSITE_ECOM_GRIP_CHUG_LID_LILAC-HAZE.png?v=1752467445",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2505_WEBSITE_ECOM_GRIP_CHUG_LID_BLACK.png?v=1752467450",
+        "https://cdn.shopify.com/s/files/1/0085/8102/1755/files/2505_WEBSITE_ECOM_GRIP_CHUG_LID_MINT-GELATO.png?v=1752467458"
+      ]
+    }
+  ],
+  "ready": true
+}

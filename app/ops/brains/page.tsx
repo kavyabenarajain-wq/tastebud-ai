@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { Wordmark } from "@/components/tastebud/Wordmark";
 import { BackLink } from "@/components/tastebud/BackLink";
@@ -25,6 +25,11 @@ export default function InternalDeckTool() {
   const [selected, setSelected] = useState<string | null>(null);
   const [name, setName] = useState("");
   const [notes, setNotes] = useState("");
+  const [exBranding, setExBranding] = useState(""); // existing brand doc for a rebrand — evolve FROM it
+  const [referenceNotes, setReferenceNotes] = useState(""); // pasted refs: hex codes, font names, links
+  const [references, setReferences] = useState<string[]>([]); // uploaded reference images (data URLs): logo/palette/type
+  const refFileRef = useRef<HTMLInputElement>(null);
+  const docFileRef = useRef<HTMLInputElement>(null); // upload a notes / brand document (read as text)
   const [busy, setBusy] = useState(false);
   const [status, setStatus] = useState("");
   const [error, setError] = useState("");
@@ -63,6 +68,7 @@ export default function InternalDeckTool() {
     setSelected(null);
     setName("");
     setNotes("");
+    setExBranding("");
     setPptx("");
     setSpec(null);
     setError("");
@@ -98,7 +104,7 @@ export default function InternalDeckTool() {
       const r = await fetch("/api/backbrain", {
         method: "POST",
         headers: { "content-type": "application/json" },
-        body: JSON.stringify({ notes, name, slug: selected ?? undefined }),
+        body: JSON.stringify({ notes, name, slug: selected ?? undefined, exBranding: exBranding.trim() || undefined, referenceNotes: referenceNotes.trim() || undefined, references }),
       });
       const j = await r.json();
       if (!r.ok || j.error) throw new Error(j.error || "Failed");
@@ -114,6 +120,24 @@ export default function InternalDeckTool() {
       clearInterval(tick);
       setBusy(false);
     }
+  }
+
+  function addRefs(files: FileList | null) {
+    for (const f of Array.from(files ?? [])) {
+      if (!f.type.startsWith("image/")) continue;
+      const rd = new FileReader();
+      rd.onload = () => setReferences((cur) => (cur.length >= 6 ? cur : [...cur, String(rd.result)]));
+      rd.readAsDataURL(f);
+    }
+  }
+
+  // Upload a document (notes / brief / brand book) — read text files straight into the notes.
+  function addDoc(files: FileList | null) {
+    const f = files?.[0];
+    if (!f) return;
+    const rd = new FileReader();
+    rd.onload = () => setNotes((cur) => (cur.trim() ? cur + "\n\n" : "") + String(rd.result));
+    rd.readAsText(f);
   }
 
   function download() {
@@ -183,7 +207,11 @@ export default function InternalDeckTool() {
             className="mt-2 w-full rounded-control border border-hairline bg-surface px-3 py-2 text-sm outline-none focus:border-ink"
           />
 
-          <label className="mt-5 block text-[11px] font-medium uppercase tracking-wide text-muted">Call notes + answers</label>
+          <div className="mt-5 flex items-center justify-between">
+            <label className="block text-[11px] font-medium uppercase tracking-wide text-muted">Call notes + answers</label>
+            <button onClick={() => docFileRef.current?.click()} className="text-[11px] text-ink transition-opacity hover:opacity-60">＋ upload document</button>
+          </div>
+          <input ref={docFileRef} type="file" accept=".txt,.md,.markdown,.csv,.json,.rtf,.text,text/*" hidden onChange={(e) => addDoc(e.target.files)} />
           <textarea
             value={notes}
             onChange={(e) => setNotes(e.target.value)}
@@ -192,9 +220,39 @@ export default function InternalDeckTool() {
             className="mt-2 w-full resize-y rounded-control border border-hairline bg-surface px-3 py-2 font-mono text-[13px] leading-relaxed outline-none focus:border-ink"
           />
 
+          <label className="mt-5 block text-[11px] font-medium uppercase tracking-wide text-muted">Existing branding · optional (for a rebrand)</label>
+          <textarea
+            value={exBranding}
+            onChange={(e) => setExBranding(e.target.value)}
+            placeholder="Rebrand? Paste their CURRENT brand book / guidelines — logo notes, colours, fonts, tone of voice. We treat it as the starting point and evolve FROM it, keeping only the equity worth carrying — not a copy."
+            rows={7}
+            className="mt-2 w-full resize-y rounded-control border border-hairline bg-surface px-3 py-2 font-mono text-[13px] leading-relaxed outline-none focus:border-ink"
+          />
+
+          <label className="mt-5 block text-[11px] font-medium uppercase tracking-wide text-muted">References · optional — logo / fonts / typography / palette</label>
+          <textarea
+            value={referenceNotes}
+            onChange={(e) => setReferenceNotes(e.target.value)}
+            placeholder="Any references the client HAS for the new identity — paste hex codes (#0A2540…), font names (e.g. Söhne, Canela), links, or a direction. We read these + the images below and co-create the deck AROUND them."
+            rows={4}
+            className="mt-2 w-full resize-y rounded-control border border-hairline bg-surface px-3 py-2 font-mono text-[13px] leading-relaxed outline-none focus:border-ink"
+          />
+          <div className="mt-3 flex flex-wrap items-center gap-2">
+            <button onClick={() => refFileRef.current?.click()} className="flex h-16 w-16 flex-col items-center justify-center gap-1 rounded-control border border-dashed border-hairline text-[11px] text-muted transition-colors hover:border-ink hover:text-ink">＋ image</button>
+            {references.map((src, i) => (
+              // eslint-disable-next-line @next/next/no-img-element
+              <div key={i} className="group relative h-16 w-16 overflow-hidden rounded-control border border-hairline">
+                <img src={src} alt="" className="h-full w-full object-cover" />
+                <button onClick={() => setReferences((cur) => cur.filter((_, j) => j !== i))} className="absolute right-0.5 top-0.5 hidden rounded-full bg-black/70 px-1 text-[10px] leading-4 text-white group-hover:block">✕</button>
+              </div>
+            ))}
+            <input ref={refFileRef} type="file" accept="image/*" multiple hidden onChange={(e) => addRefs(e.target.files)} />
+          </div>
+          <p className="mt-1.5 text-[11px] leading-relaxed text-muted">Drop the logo, colour swatches, or type samples they gave you. We read them (colours as hex, type & logo feel) and build the deck from them.</p>
+
           <button
             onClick={build}
-            disabled={busy || notes.trim().length < 40}
+            disabled={busy || (notes.trim().length < 40 && !exBranding.trim() && !referenceNotes.trim() && references.length === 0)}
             className="mt-5 w-full rounded-control bg-black px-4 py-2.5 text-sm font-medium text-white transition-opacity duration-200 ease-brand hover:opacity-80 disabled:opacity-30"
           >
             {busy ? "Building…" : "Build the brand"}

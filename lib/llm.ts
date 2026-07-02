@@ -1,6 +1,6 @@
 import { z } from "zod";
 import type { BrandProfile, ShootPlan } from "./types";
-import { chatClient } from "./openaiClient";
+import { chatCreate } from "./openaiClient";
 
 /**
  * The art-director brain. Reads the skill + Brand Profile + resolved brief and
@@ -111,9 +111,7 @@ function stripFences(t: string): string {
 }
 
 async function viaOpenAI(system: string, user: string): Promise<string> {
-  const { client, model } = chatClient();
-  const r = await client.chat.completions.create({
-    model,
+  const r = await chatCreate({
     max_completion_tokens: 8000, // gpt-5.5 is a reasoning model; leave room for reasoning + the JSON
     messages: [
       { role: "system", content: system },
@@ -161,9 +159,7 @@ export async function complete(
   opts: { reasoningEffort?: "minimal" | "low" | "medium" | "high" } = {}
 ): Promise<string> {
   if (process.env.ANTHROPIC_API_KEY) return viaAnthropic(system, user);
-  const { client, model } = chatClient();
   const body: Record<string, unknown> = {
-    model,
     max_completion_tokens: maxTokens,
     messages: [
       { role: "system", content: system },
@@ -172,13 +168,13 @@ export async function complete(
   };
   if (opts.reasoningEffort) body.reasoning_effort = opts.reasoningEffort;
   try {
-    const r = await client.chat.completions.create(body as any);
+    const r = await chatCreate(body as any);
     return r.choices[0]?.message?.content ?? "";
   } catch (e) {
     // Some deployments reject reasoning_effort — retry once without it.
     if (opts.reasoningEffort) {
       delete body.reasoning_effort;
-      const r = await client.chat.completions.create(body as any);
+      const r = await chatCreate(body as any);
       return r.choices[0]?.message?.content ?? "";
     }
     throw e;

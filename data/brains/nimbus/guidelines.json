@@ -1,0 +1,289 @@
+{
+  "brandName": "Nimbus",
+  "monogram": "NB",
+  "tagline": "Drink the weather.",
+  "category": "Cool-climate technical hydration",
+  "isApparel": false,
+  "mission": "Nimbus makes hydration equipment and mineral systems for people who move through cold, altitude, wind and long weather windows — calmly engineered, never overbuilt.",
+  "vision": "To become the quiet standard for outdoor hydration: the bottle, filter and ritual trusted when heat is not the enemy, but exposure is.",
+  "positioning": "Against loud performance brands built for sweat culture, Nimbus owns cool-climate hydration: precise, composed, architectural tools for technical people who read conditions before they chase them.",
+  "purpose": "Nimbus exists to make hydration feel as disciplined as layering, navigation or ropework. In cold environments the body can forget thirst; Nimbus makes water visible, measured and ritualised without turning the outdoors into theatre.",
+  "manifesto": [
+    "The mountain does not shout. The best gear learns from that — exact, durable, almost silent until it is needed.",
+    "Nimbus is for the people who check wind direction, melt snow properly, count daylight and know that calm is a form of competence. Hydration here is not lifestyle decoration; it is a cold-weather system for staying clear-headed when conditions narrow.",
+    "We trade neon urgency for atmospheric control. Deep navy, sky blue, warm sand and blackened precision create a world that feels like frozen air over stone — technical, human, and deliberately quiet."
+  ],
+  "identityIntro": [
+    "The Nimbus identity is built around the idea of held weather: vapour, pressure, contour and calm. It should feel less like a sports logo and more like a field instrument mark — something stamped into aluminium, etched onto a cap, or sitting cleanly on a route card.",
+    "Canela brings a refined, editorial temperature to headlines, giving the brand its premium restraint. Söhne carries the technical work: specifications, usage instructions and modular navigation with the clarity of a well-labelled map."
+  ],
+  "world": [
+    {
+      "title": "Atmosphere",
+      "sub": "cool, pale, suspended",
+      "body": "Nimbus lives in the space between sky and terrain — not tropical blue, but the blue of pre-dawn snowpack and high cloud. The palette uses #0A2540 as the depth, #DCE7F2 as the breath, #E8DCC8 as human warmth, and #1A1A1A as the instrument line."
+    },
+    {
+      "title": "Precision",
+      "sub": "measured, gridded, exact",
+      "body": "Every visual decision should feel calibrated: generous spacing, strict alignments, small labels, clean numerals and no decorative noise. Product graphics can borrow from elevation marks, water-level gauges and meteorological notation without becoming a cliché map brand."
+    },
+    {
+      "title": "Quiet",
+      "sub": "restrained, confident, low-volume",
+      "body": "Nimbus should never look thirsty for attention. Photography, packaging and copy should feel composed and breathable: matte surfaces, diffused light, gloved hands, condensation, snowmelt and the pause before moving again."
+    },
+    {
+      "title": "Warmth",
+      "sub": "human, tactile, grounded",
+      "body": "The warm sand accent prevents the system from becoming sterile and brings in the colour of wool layers, granite dust and insulated shelter. It is used sparingly — for touchpoints, seals, inner packaging and moments where the brand needs to feel held rather than cold."
+    }
+  ],
+  "statement": [
+    "Nimbus is hydration for the cold-minded: alpinists, guides, winter runners, field technicians, photographers and people who work outside long after casual gear gives up. It is made for those who understand that water management is as technical as warmth management.",
+    "The brand should feel premium because it is resolved, not because it is glossy. No fake adrenaline, no plastic heroics, no generic blue splashes — just a calm system of objects and signals that help the body stay sharp in low temperatures."
+  ],
+  "beliefs": [
+    {
+      "title": "Calm is performance",
+      "sub": "composed, alert, capable",
+      "body": "In cold environments panic wastes energy and noise hides information. Nimbus speaks in a lower register so the user can stay focused on weather, footing, timing and the body’s quieter signals."
+    },
+    {
+      "title": "Water has a temperature",
+      "sub": "seasonal, mineral, situational",
+      "body": "Hydration is not the same in a heatwave, a whiteout, a damp worksite or a frozen ridge. Nimbus treats water as a condition-specific tool — insulated, measured, filtered, mineralised and carried with intent."
+    },
+    {
+      "title": "Technical can be beautiful",
+      "sub": "engineered, refined, enduring",
+      "body": "The best technical objects earn affection through use: the lid that opens with gloves, the fill line visible in flat light, the surface that does not glare on snow. Nimbus design should make function feel inevitable, then let the object disappear into the day."
+    }
+  ],
+  "quotes": [
+    "less thirst. more weather sense.",
+    "built for the cold hours between decisions."
+  ],
+  "logo": {
+    "concept": [
+      "A wordmark set in a custom-cut Canela: elegant contrast, softened terminals, and a slight upward lift through the middle letters — like vapour rising off cold water.",
+      "The mark should feel engineered but not industrial: precise enough for technical gear, quiet enough to sit on a stainless bottle, trail flask, or field guide.",
+      "Nimbus leaves generic hydration-blue behind; the identity becomes a climate system — deep, cool, dry, and calm."
+    ],
+    "colorNote": "The primary logo lives in Deep Pressure Navy on Mist Base or Warm Sand. Use Near-Black only when the environment calls for maximum technical authority; Sky Blue is reserved for small atmospheric moments, never as the default mark colour.",
+    "variations": [
+      {
+        "name": "Primary wordmark",
+        "use": "For packaging fronts, website mastheads, bottle engraving, retail signage, and any moment where Nimbus needs to feel composed and iconic."
+      },
+      {
+        "name": "Condensed horizontal lockup",
+        "use": "For narrow applications such as bottle bands, hydration tube labels, email headers, and technical spec sheets."
+      },
+      {
+        "name": "N monogram",
+        "use": "For caps, vessel lids, app icons, small embossing, zipper pulls, and environments where the full name would become decorative noise."
+      },
+      {
+        "name": "Micro wordmark",
+        "use": "A simplified optical version for print under 18mm wide, laser etching, silicone moulding, and low-contrast material applications."
+      }
+    ],
+    "safety": [
+      "Keep clear space equal to the height of the lowercase ‘n’ around all sides of the wordmark.",
+      "On product, place the mark with restraint: one confident hit, never repeated as pattern unless explicitly designed as technical measurement graphics.",
+      "Use the logo flat, sharp, and quiet; its authority comes from proportion, not effects."
+    ],
+    "donts": [
+      "Never return to saturated generic hydration blue.",
+      "Never add droplets, waves, mountains, clouds, or weather icons to the mark.",
+      "Never stretch, condense, slant, or track the wordmark loosely.",
+      "Never place the logo inside a badge, shield, or outdoor-adventure cliché.",
+      "Never use gradients, glows, shadows, chrome, or faux 3D finishes.",
+      "Never let the mark shout; if it feels like sports drink branding, it is wrong."
+    ]
+  },
+  "color": {
+    "philosophy": [
+      "Nimbus colour is built like cold air over dark water: low-noise, mineral, precise. The palette moves away from category blue brightness and into a calmer technical register — navy as pressure, sand as warmth, pale blue as atmosphere, black as instrument-grade clarity.",
+      "The system should feel premium without becoming aloof. Warm Sand keeps the brand human and tactile, while Sky Blue is used sparingly like reflected daylight on snow — enough to signal hydration, never enough to become expected."
+    ],
+    "palette": [
+      {
+        "name": "deep navy",
+        "hex": "#0A2540",
+        "role": "primary",
+        "meaning": ""
+      },
+      {
+        "name": "sky blue",
+        "hex": "#DCE7F2",
+        "role": "secondary",
+        "meaning": ""
+      },
+      {
+        "name": "warm sand",
+        "hex": "#E8DCC8",
+        "role": "accent",
+        "meaning": ""
+      },
+      {
+        "name": "near black",
+        "hex": "#1A1A1A",
+        "role": "accent",
+        "meaning": ""
+      }
+    ],
+    "hierarchy": [
+      {
+        "title": "STRUCTURE",
+        "sub": "DEEP PRESSURE NAVY, INSTRUMENT BLACK, MIST BASE",
+        "body": "Deep Pressure Navy is the signature field: use it for packaging architecture, hero panels, navigation, and large brand moments. Instrument Black is for text, measurement marks, and technical data; Mist Base keeps the system clean without falling into sterile white."
+      },
+      {
+        "title": "ABUNDANCE",
+        "sub": "MIST BASE, WARM SAND, SKY GLASS",
+        "body": "Most Nimbus surfaces should feel spacious and cold-lit, with Mist Base carrying the majority of backgrounds. Warm Sand enters on secondary packaging, editorial spreads, and tactile inserts to suggest grip, trail dust, and the human hand; Sky Glass should appear as an atmospheric layer rather than a loud brand block."
+      },
+      {
+        "title": "HIGHLIGHT",
+        "sub": "LICHEN SIGNAL, SKY GLASS, WARM SAND",
+        "body": "Lichen Signal is the functional accent for calls to action, capacity markers, icons, and trail-system cues — never decorative confetti. Pair it with Sky Glass for cool precision or Warm Sand for a warmer retail expression, but keep highlights limited so every signal feels intentional."
+      }
+    ]
+  },
+  "typography": {
+    "philosophy": [
+      "Nimbus type should feel like cold air over warm skin: exact, quiet, and never sterile. The display voice carries the softness of the brand name — lifted, editorial, atmospheric — while the text voice does the technical work with discipline.",
+      "The founder reference of Canela and Söhne becomes a Google-native pairing with the same intent: a refined, high-contrast serif for moments of altitude, and a sharp neo-grotesk for specifications, labels and wayfinding. This lets Nimbus sit away from loud outdoor performance branding and closer to calm alpine equipment, Scandinavian design and scientific clarity."
+    ],
+    "displayFont": "Cormorant Garamond",
+    "sansFont": "Geist",
+    "fonts": [
+      {
+        "name": "Canela Cloud",
+        "role": "display / campaign voice",
+        "note": "Cormorant Garamond gives Nimbus the editorial lift of Canela: slender, airy, slightly literary — ideal for making hydration feel elemental rather than sporty."
+      },
+      {
+        "name": "Söhne Instrument",
+        "role": "text / technical voice",
+        "note": "Geist carries the rational neutrality of Söhne with a more engineered edge, making ingredients, capacity marks and navigation feel measured, modern and trustworthy."
+      }
+    ],
+    "scale": [
+      {
+        "name": "H1",
+        "spec": "Display · 68px · tracking -1% · line height 0.96",
+        "use": "Use for campaign statements, landing-page openers and large packaging fronts where the word should feel suspended in air."
+      },
+      {
+        "name": "H2",
+        "spec": "Display · 42px · tracking 0% · line height 1.05",
+        "use": "Use for section titles, editorial product stories and restrained brand moments that need warmth without drama."
+      },
+      {
+        "name": "H3",
+        "spec": "Sans · 18px · tracking +6% · line height 1.2 · uppercase",
+        "use": "Use for technical headings, pack callouts, trail notes and navigation labels; it should feel like an instrument panel, not a slogan."
+      },
+      {
+        "name": "Body",
+        "spec": "Sans · 15px · tracking 0% · line height 1.55",
+        "use": "Use for product information, sustainability notes, usage instructions and longer explanations where precision matters more than poetry."
+      }
+    ],
+    "rules": [
+      "Set display headlines in deep navy #0A2540 or warm sand #E8DCC8 on dark grounds; avoid pure black unless the message is instructional.",
+      "Keep uppercase reserved for sans labels only — never set Cormorant Garamond in all caps, as it loses its cloudlike delicacy.",
+      "Use generous leading and wide margins; Nimbus should feel oxygenated, never packed like a sports supplement label.",
+      "Pair one atmospheric line with one technical line: display creates the weather, sans confirms the measurement.",
+      "Avoid condensed, italic-heavy or aggressive performance typography; the brand wins through composure, not velocity.",
+      "For packaging, align type to a quiet vertical grid with small calibration marks to suggest altitude, temperature and water discipline."
+    ],
+    "inUse": [
+      {
+        "title": "Still water for moving weather.",
+        "sub": "CAMPAIGN HEADLINE",
+        "body": "Set the line in Cormorant Garamond, large and almost weightless, with enough surrounding space to feel like mist over a ridge. Beneath it, a Geist label can anchor the claim with a practical detail such as temperature range, mineral profile or bottle format."
+      },
+      {
+        "title": "750ML / LOW-MINERAL / COLD-CLIMATE HYDRATION",
+        "sub": "PRODUCT FACE",
+        "body": "Use Geist uppercase with measured tracking, stacked in short technical bursts rather than marketing sentences. The restraint makes the pack feel like field equipment refined for a design store shelf."
+      },
+      {
+        "title": "Altitude changes thirst before you notice it.",
+        "sub": "EDITORIAL NOTE",
+        "body": "Use the display face for the first sentence, then move into Geist for the explanation of cool-air dehydration. This creates a distinctive Nimbus rhythm: observation first, precision second."
+      },
+      {
+        "title": "Refill. Seal. Keep north.",
+        "sub": "MICROCOPY",
+        "body": "Short instructions should feel calm and ritualistic, not bossy. Set in Geist with small spacing, using near-black #1A1A1A on sky blue #DCE7F2 or sand #E8DCC8 for a soft but legible system."
+      }
+    ]
+  },
+  "intentIntro": [
+    "The identity must move Nimbus out of generic hydration blue and into a quieter, more ownable territory: atmospheric navy, pale sky, sand warmth and near-black precision. It should feel like the brand belongs beside avalanche tools, shell layers and field notebooks — not protein shakers or gym bottles."
+  ],
+  "patternStory": {
+    "title": "The isobar pattern",
+    "body": "Nimbus owns weather as structure, not decoration. The pattern is built from fine contour and isobar lines — the invisible drawings used to read pressure, altitude and change — turning hydration into a quiet form of navigation. It should feel like a map of cold air: sparse, technical, and slightly drifting, never like waves, droplets or generic outdoor topography."
+  },
+  "waxSeal": null,
+  "patternSystem": [
+    "Scale: use large, slow linework on brand surfaces; small repeats quickly become decorative and should be avoided.",
+    "Opacity: keep the pattern between 6–14% on light grounds and 10–18% on deep navy, so it reads as atmosphere before graphic.",
+    "Cropping: let lines enter and leave the frame naturally, as if the pack is one section of a larger weather map.",
+    "Layering: place pattern behind type only when contrast remains clear; technical labels and capacity marks must never fight the linework.",
+    "When to avoid: do not use on dense information panels, small caps, barcodes, ingredient tables or any surface requiring laboratory-level clarity."
+  ],
+  "photography": {
+    "philosophy": [
+      "Nimbus photography should make cold look desirable, not punishing. The world is quiet: slate water, pale sky, breath in the air, a bottle on stone, a hand in a technical glove.",
+      "The brand should stand against the hyper-saturated outdoor category. No summit shouting, no neon jackets, no heroic grimace — just capable people who understand that calm is a survival skill.",
+      "Every image needs one precise sensory detail: condensation on brushed metal, a sleeve cuff against ice-grey sky, water poured into a measuring line, sand-coloured light on a navy bottle. The frame should feel observed, not staged."
+    ],
+    "inUse": [
+      {
+        "title": "FRAMING",
+        "sub": "space is part of the product",
+        "body": "Use negative space like weather: broad sky, still water, concrete, snowfield or tent fabric can take up half the frame. The product or person should sit slightly off-centre, giving the image the quiet imbalance of a field note."
+      },
+      {
+        "title": "CROP",
+        "sub": "technical intimacy",
+        "body": "Detail crops should focus on functional contact points: cap thread, seal, measurement mark, condensation bead, carabiner loop, glove grip. Avoid beauty crops that turn water into glamour; Nimbus is tactile, measured and useful."
+      },
+      {
+        "title": "LIGHT",
+        "sub": "diffused cold daylight",
+        "body": "Light should feel northern and filtered, with soft edges and controlled contrast. Use pale blue shadows, warm sand highlights and deep navy anchors to echo #DCE7F2, #E8DCC8 and #0A2540 without making the palette look cosmetic."
+      },
+      {
+        "title": "CASTING",
+        "sub": "capable, not performative",
+        "body": "People should look technically fluent: hikers, climbers, cyclists, field designers, cold-water swimmers, expedition photographers. Capture them in moments between effort — checking weather, refilling, adjusting layers — where hydration feels like preparation, not posing."
+      }
+    ]
+  },
+  "applications": [
+    {
+      "label": "packaging ideas",
+      "slots": 3
+    },
+    {
+      "label": "digital system",
+      "slots": 3
+    },
+    {
+      "label": "field touchpoints",
+      "slots": 3
+    }
+  ],
+  "intent": [
+    "Use the monogram as a compact weather mark: an N and B drawn with softened vertical tension, suggesting a cloud edge held inside a technical frame. Keep it simple enough for embossing, cap engravings, silicone pulls and small instruction diagrams; the power is in restraint, not illustration.",
+    "Typography sets the emotional temperature. Canela is reserved for sparse, memorable statements — “Drink the weather.”, product families, campaign headlines — while Söhne handles everything operational with Swiss clarity: millilitres, temperatures, flow rates, filter life, care steps and route-ready labels."
+  ]
+}
