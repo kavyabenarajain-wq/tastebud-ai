@@ -16,6 +16,47 @@ export interface BrandProfile {
 
 export type ShootMode = "product-photoshoot" | "model-photoshoot";
 
+/**
+ * Every creative output type the Asset Studio produces. product/model are the two
+ * pipeline spines; instagram/story/carousel/ad are CREATIVE TYPES that ride the
+ * product spine with their own planning directive, aspect(s), copy and presentation
+ * (declarative specs in lib/creativeTypes.ts).
+ */
+export type CreativeTypeId = "product" | "model" | "instagram" | "story" | "carousel" | "ad";
+
+/**
+ * Campaign copy is DATA overlaid in the UI — never baked pixels — so a headline can
+ * change on the spot without re-diffusing the image (and localization can
+ * re-composite it later). Brushless rule: "change a headline … it updates on the spot".
+ */
+export interface CampaignCopy { headline?: string; subline?: string; cta?: string; caption?: string; }
+
+export interface CampaignOutput {
+  id: string;      // shot id
+  url: string;     // durable /api/img path
+  format?: string; // placement (feed / square / story / landscape) for ad fan-outs
+  aspect?: string; // aspect string the asset was made at
+  angle?: string;  // the shot's angle / frame label
+  seq?: number;    // carousel frame order (1-based)
+  at: string;      // ISO
+}
+
+/**
+ * One brief's execution — the container grouping a multi-format / multi-frame set
+ * (an ad fan-out, a carousel, an Instagram creative). Persisted per-brand in
+ * campaigns.json, a SEPARATE file so saveBrain's shallow merge can never clobber it.
+ */
+export interface Campaign {
+  id: string;
+  name: string;
+  type: CreativeTypeId;
+  brief?: string; // the client's express request that made it
+  copy?: CampaignCopy;
+  outputs: CampaignOutput[];
+  createdAt: string;
+  updatedAt: string;
+}
+
 /** The accumulated knowledge about a brand — built by onboarding + research. */
 export interface BrandResearch {
   summary?: string;
@@ -182,6 +223,11 @@ export interface ResolvedBrief {
   model?: ModelSpec; // model-photoshoot: the built/curated model
   brand?: BrandBrain; // the learned brand brain, used as the generation's brand context
   compliance?: ShotCompliance; // carried back on a reshoot/resize so stored rules re-apply
+  creativeType?: CreativeTypeId; // instagram/story/carousel/ad — absent = plain product/model shoot (byte-for-byte today's behaviour)
+  frames?: number; // carousel: how many frames in the sequence
+  formats?: string[]; // ad: placements to fan the one concept out to (lib/creativeTypes FORMATS keys)
+  campaignName?: string; // optional name for the persisted campaign
+  copy?: CampaignCopy; // client-typed copy overrides (headline / CTA) — win over the generated copy
 }
 
 export interface PlannedShot { angle: string; prompt: string; negatives?: string[]; }
@@ -209,4 +255,7 @@ export interface GeneratedShot {
   decision?: "keep" | "reject" | "hero" | "neutral";
   compliance?: ShotCompliance;
   qc?: { pass: boolean; reasons?: string[] };
+  format?: string; // ad fan-out placement this render targets
+  seq?: number; // carousel frame order (1-based)
+  groupId?: string; // groups fan-out siblings / carousel frames into one set
 }

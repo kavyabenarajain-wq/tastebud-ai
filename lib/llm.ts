@@ -186,6 +186,52 @@ export function extractJson(t: string): string {
   return stripFences(t);
 }
 
+const CopySchema = z.object({
+  headline: z.string().optional().default(""),
+  subline: z.string().optional().default(""),
+  cta: z.string().optional().default(""),
+  caption: z.string().optional().default(""),
+});
+
+/**
+ * Write the campaign's COPY — headline / subline / CTA / caption — in the brand's own
+ * voice. Copy is DATA overlaid in the UI, never baked into the render, so a headline
+ * can change on the spot (and localization can re-composite later) without
+ * re-diffusing the image. Best-effort: an empty object just means no copy block.
+ */
+export async function campaignCopy(args: {
+  profile: BrandProfile;
+  brief: string;
+  type: string;
+  frames?: number;
+}): Promise<{ headline?: string; subline?: string; cta?: string; caption?: string }> {
+  const rb = (args.profile.rulebook ?? {}) as Record<string, unknown>;
+  const voice = typeof rb.voice === "string" ? rb.voice.trim() : "";
+  const essence = typeof rb.essence === "string" ? rb.essence.trim() : "";
+  const system =
+    `You write razor-sharp brand copy for social and paid creative. Brand: ${args.profile.name}.` +
+    (essence || args.profile.positioning ? ` Positioning: ${essence || args.profile.positioning}.` : "") +
+    (args.profile.audience ? ` Audience: ${args.profile.audience}.` : "") +
+    (voice ? ` Voice: ${voice}.` : "") +
+    ` Match the brand's voice exactly — no generic ad-speak, no exclamation-mark spam, no emoji unless the brand is genuinely playful.`;
+  const kind =
+    args.type === "ad" ? "an Instagram / Meta ad"
+    : args.type === "carousel" ? `a ${args.frames ?? 5}-frame Instagram carousel`
+    : args.type === "story" ? "an Instagram story"
+    : "an organic Instagram post";
+  const user =
+    `The creative brief for the imagery (write copy that belongs to this exact concept):\n${args.brief.slice(0, 2000)}\n\n` +
+    `Write the copy for ${kind}: a HEADLINE (≤ 7 words, no full stop), an optional SUBLINE (≤ 12 words), a CTA (2–4 words in the brand's voice, e.g. "Shop the ritual"), and a CAPTION (1–2 sentences, the brand talking; at most 2 tasteful hashtags, never a hashtag wall).\n\n` +
+    `Return STRICT JSON ONLY: {"headline":"...","subline":"...","cta":"...","caption":"..."}`;
+  try {
+    const parsed = CopySchema.parse(JSON.parse(stripFences(await chat(system, user))));
+    const clean = Object.fromEntries(Object.entries(parsed).filter(([, v]) => String(v).trim()));
+    return clean as { headline?: string; subline?: string; cta?: string; caption?: string };
+  } catch {
+    return {};
+  }
+}
+
 /** Intake: read the brief + brand and ask the few questions that most change the shoot. */
 export async function askQuestions(args: { skill: string; profile: BrandProfile; brief: string }): Promise<string[]> {
   const system = `${args.skill}\n\n---\nACTIVE BRAND PROFILE (JSON):\n${JSON.stringify(args.profile)}`;

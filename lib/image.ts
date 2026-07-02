@@ -96,6 +96,11 @@ export async function persistRemote(id: string, url: string): Promise<string> {
   return save(id, buf.toString("base64"));
 }
 
+/** Persist a raw image buffer under /generated (sharp crops/pads); returns the served path. */
+export async function persistBuffer(id: string, buf: Buffer): Promise<string> {
+  return save(id, buf.toString("base64"));
+}
+
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
 async function geminiCall(url: string, body: unknown, tries = 4): Promise<any> {

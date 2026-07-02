@@ -1,6 +1,6 @@
 import { mkdir, readFile, writeFile, readdir, stat } from "node:fs/promises";
 import { join } from "node:path";
-import type { BrandBrain, BrandMemory, ShotMemory } from "./types";
+import type { BrandBrain, BrandMemory, Campaign, CampaignOutput, ShotMemory } from "./types";
 
 /**
  * The Brand Brain store — the thread that ties Tastebud together (spec §"Brand Brain").
@@ -160,6 +160,54 @@ export async function recordShotDecision(slug: string, entry: ShotMemory): Promi
     await writeFile(join(d, "meta.json"), JSON.stringify(meta, null, 2), "utf8");
   }
   return mem;
+}
+
+/**
+ * Campaigns — the container grouping one brief's multi-format / multi-frame outputs
+ * (ad fan-outs, carousels, Instagram creatives). Persisted in a SEPARATE
+ * campaigns.json so they never route through saveBrain's shallow top-level merge
+ * (a partial brain POST could otherwise clobber them). All read-modify-write.
+ */
+const CAMPAIGN_CAP = 60;
+
+function campaignsPath(slug: string): string {
+  return join(dir(slug), "campaigns.json");
+}
+
+/** Every campaign for a brand, newest-updated first. */
+export async function getCampaigns(slug: string): Promise<Campaign[]> {
+  const all = (await readJson<Campaign[]>(campaignsPath(slug))) ?? [];
+  return all.sort((a, b) => (a.updatedAt < b.updatedAt ? 1 : -1));
+}
+
+/**
+ * Upsert one campaign by id. An update with empty outputs keeps the outputs already
+ * accumulated (so a rename / copy edit can never wipe the assets).
+ */
+export async function saveCampaign(slug: string, campaign: Campaign): Promise<Campaign> {
+  const d = dir(slug);
+  await mkdir(d, { recursive: true });
+  const all = (await readJson<Campaign[]>(campaignsPath(slug))) ?? [];
+  const i = all.findIndex((c) => c.id === campaign.id);
+  const merged: Campaign = i >= 0
+    ? { ...all[i], ...campaign, outputs: campaign.outputs?.length ? campaign.outputs : all[i].outputs }
+    : { ...campaign, outputs: campaign.outputs ?? [] };
+  merged.updatedAt = await nowISO();
+  if (i >= 0) all[i] = merged;
+  else all.unshift(merged);
+  await writeFile(campaignsPath(slug), JSON.stringify(all.slice(0, CAMPAIGN_CAP), null, 2), "utf8");
+  return merged;
+}
+
+/** Attach / replace one output on a campaign (de-duped by shot id, carousel order kept). */
+export async function upsertCampaignOutput(slug: string, campaignId: string, output: CampaignOutput): Promise<Campaign | null> {
+  const all = (await readJson<Campaign[]>(campaignsPath(slug))) ?? [];
+  const c = all.find((x) => x.id === campaignId);
+  if (!c) return null;
+  c.outputs = [...(c.outputs ?? []).filter((o) => o.id !== output.id), output].sort((a, b) => (a.seq ?? 0) - (b.seq ?? 0));
+  c.updatedAt = await nowISO();
+  await writeFile(campaignsPath(slug), JSON.stringify(all, null, 2), "utf8");
+  return c;
 }
 
 /** Pre-create an empty brand folder from a Discovery booking (spec Page 5). */
