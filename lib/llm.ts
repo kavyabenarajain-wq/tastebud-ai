@@ -1,6 +1,7 @@
 import { z } from "zod";
-import type { BrandProfile, ShootPlan } from "./types";
+import type { BrandProfile, CampaignCopy, PhotoRules, ShootPlan } from "./types";
 import { chatCreate } from "./openaiClient";
+import { photoRulesDirective } from "./photoRules";
 
 /**
  * The art-director brain. Reads the skill + Brand Profile + resolved brief and
@@ -191,6 +192,27 @@ const CopySchema = z.object({
   subline: z.string().optional().default(""),
   cta: z.string().optional().default(""),
   caption: z.string().optional().default(""),
+  frames: z
+    .array(z.object({ headline: z.string().optional().default(""), subline: z.string().optional().default("") }))
+    .optional()
+    .default([]),
+  treatment: z
+    .object({
+      headlineArchetype: z.string().optional().default(""),
+      ctaArchetype: z.string().optional().default(""),
+      layout: z.enum(["lower-third", "editorial-top", "mega", "split", "side-rail", "center"]).optional(),
+      anchor: z
+        .enum(["top-left", "top-center", "top-right", "center-left", "center", "center-right", "bottom-left", "bottom-center", "bottom-right"])
+        .optional(),
+      placement: z.enum(["top", "center", "bottom"]).optional(),
+      align: z.enum(["left", "center", "right"]).optional(),
+      case: z.enum(["upper", "sentence", "lower"]).optional(),
+      weight: z.enum(["regular", "bold"]).optional(),
+      scale: z.enum(["minimal", "standard", "impact", "hero"]).optional(),
+      ctaStyle: z.enum(["solid", "outline", "text-link"]).optional(),
+      ink: z.enum(["light", "dark"]).optional(),
+    })
+    .optional(),
 });
 
 /**
@@ -204,29 +226,93 @@ export async function campaignCopy(args: {
   brief: string;
   type: string;
   frames?: number;
-}): Promise<{ headline?: string; subline?: string; cta?: string; caption?: string }> {
+}): Promise<CampaignCopy> {
   const rb = (args.profile.rulebook ?? {}) as Record<string, unknown>;
   const voice = typeof rb.voice === "string" ? rb.voice.trim() : "";
   const essence = typeof rb.essence === "string" ? rb.essence.trim() : "";
+  const playbook = typeof rb.copyPlaybook === "string" ? rb.copyPlaybook.trim() : "";
   const system =
     `You write razor-sharp brand copy for social and paid creative. Brand: ${args.profile.name}.` +
     (essence || args.profile.positioning ? ` Positioning: ${essence || args.profile.positioning}.` : "") +
     (args.profile.audience ? ` Audience: ${args.profile.audience}.` : "") +
     (voice ? ` Voice: ${voice}.` : "") +
-    ` Match the brand's voice exactly — no generic ad-speak, no exclamation-mark spam, no emoji unless the brand is genuinely playful.`;
+    ` Match the brand's voice exactly — no generic ad-speak, no exclamation-mark spam, no emoji unless the brand is genuinely playful.` +
+    // The copy playbook is the brand's own voice, distilled with signature lines and hard don'ts.
+    // Write NEW copy in this register — echo the moves and cadence, don't verbatim-copy the samples.
+    (playbook ? `\n\n--- BRAND COPY PLAYBOOK (follow exactly; the signature lines are the register to write in, not text to reuse verbatim) ---\n${playbook}` : "");
   const kind =
     args.type === "ad" ? "an Instagram / Meta ad"
     : args.type === "carousel" ? `a ${args.frames ?? 5}-frame Instagram carousel`
     : args.type === "story" ? "an Instagram story"
     : "an organic Instagram post";
+  const isCarousel = args.type === "carousel" && !!args.frames;
+  const framesAsk = isCarousel
+    ? `\n\nThis is a ${args.frames}-frame carousel — ONE story across swipes. Also write a "frames" array of EXACTLY ${args.frames} items, one per swipe, each { "headline": "≤ 5 words on-image text", "subline": "" }. Frame 1 is the HOOK, the middle frames DEVELOP the idea, the LAST frame is the payoff/close. Each frame's headline is short enough to sit legibly over a photo; leave subline "" unless a frame genuinely needs a second line. The top-level headline/caption describe the whole set (the feed caption).`
+    : "";
+  const framesJson = isCarousel ? `,"frames":[{"headline":"...","subline":""}]` : "";
+  // ON-IMAGE TYPOGRAPHY: for every creative that carries copy (story / feed / carousel /
+  // ad), the copy AND how it stages are strategic and positioning-driven — never filler,
+  // and NEVER auto-parked at the bottom. Great editorial work (see the FYN reference set)
+  // puts type ANYWHERE the composition invites it and varies it shot to shot. Brand fonts
+  // are NOT swapped — the treatment controls layout, placement, case, weight, scale, CTA
+  // form and ink only. (See the meta-ad-copy-typography guidance.)
+  const wantsTreatment = args.type === "ad" || args.type === "story" || args.type === "instagram" || args.type === "carousel";
+  // Where the negative space lives differs by format, so the layout must respect it.
+  const placementPrior =
+    args.type === "story"
+      ? `This is a 9:16 STORY: the product sits large and low-to-centre and the TOP ~15% and BOTTOM ~20% are dead zones (platform UI). Put the headline in the airy UPPER region — favour "editorial-top", "split" or a "mega" headline anchored top. Do NOT bury it in the bottom band.`
+      : args.type === "instagram"
+        ? `This is a 4:5 FEED frame with negative space reserved in the top or bottom third — choose the layout that lands the type in THAT empty space.`
+        : args.type === "carousel"
+          ? `This is a CAROUSEL: the cover (frame 1) can carry a bolder "mega" or "editorial-top" headline; keep the family of placements coherent across frames; the closing frame's CTA sits naturally in its own space.`
+          : `This is a PAID ad — pick the single strongest layout for the concept and make it stop the scroll.`;
+  const treatmentAsk = wantsTreatment
+    ? `\n\nThe copy AND how it sits on the image are strategic, not filler. ` +
+      `FIRST choose the single strongest HEADLINE archetype and CTA archetype for THIS brand's positioning, audience, funnel stage, and the emotion/action to drive. ` +
+      `Headline archetypes: benefit-led, problem-solution, curiosity/info-gap, question, aspirational/identity, luxury-minimal, community, feature-first, outcome-first, social-proof, urgency, scarcity, authority, storytelling, data-driven, emotional, playful, bold-disruptive, minimalist. ` +
+      `CTA archetypes: action, benefit, exploration, experience, confidence, low-commitment, urgency, exclusive, community, conversational. ` +
+      `Write the headline + CTA in that archetype, in the brand's voice. ` +
+      `THEN specify a "treatment" for how it STAGES on the image. ${placementPrior} ` +
+      `Pick a "layout" — the composition the type lives in (this is the big decision; it is NOT always the bottom): ` +
+      `"editorial-top" (small refined headline up top, product breathing below), ` +
+      `"mega" (an OVERSIZED display headline anchored to an edge/corner that commands the frame), ` +
+      `"split" (headline up top, CTA anchored at the bottom, product living in the gap between), ` +
+      `"side-rail" (headline + a support line railed as a column down one side), ` +
+      `"center" (a centered statement in the middle band), or ` +
+      `"lower-third" (a classic band along the bottom — use it because it FITS, not by default). ` +
+      `Use "anchor" to place the floating block in the frame's empty space, clear of the product: for "mega" any of top-left … bottom-right; for "editorial-top" the anchor's column picks the top corner (top-left / top-center / top-right); for "side-rail" use "center-left" or "center-right" to choose which side to rail. ("center" is always frame-centred.) ` +
+      `Then set: align (left = editorial / center = statement / right), ` +
+      `case (upper = strength/urgency, sentence = approachable, lower = modern/understated/premium), ` +
+      `weight (regular/bold), ` +
+      `scale (minimal = luxury restraint + whitespace, standard, impact = big & bold, hero = oversized display dominance), ` +
+      `ctaStyle (solid = direct-response, outline = considered, text-link = luxury/subtle), ` +
+      `ink ("light" = white type for a darker scene, "dark" = near-black type for a bright/light scene — judge it from the scene you're writing for). ` +
+      `Be deliberate and coherent: luxury → editorial-top/center, minimal/standard scale, lower/sentence case, text-link CTA, generous space; direct-response → mega/split, impact/hero scale, bold, solid high-contrast CTA. Match the brand and the composition — never default everything to a bottom-left block.`
+    : "";
+  const treatmentJson = wantsTreatment
+    ? `,"treatment":{"headlineArchetype":"...","ctaArchetype":"...","layout":"editorial-top|mega|split|side-rail|center|lower-third","anchor":"top-left|top-center|top-right|center-left|center|center-right|bottom-left|bottom-center|bottom-right","align":"left|center|right","case":"upper|sentence|lower","weight":"regular|bold","scale":"minimal|standard|impact|hero","ctaStyle":"solid|outline|text-link","ink":"light|dark"}`
+    : "";
   const user =
     `The creative brief for the imagery (write copy that belongs to this exact concept):\n${args.brief.slice(0, 2000)}\n\n` +
-    `Write the copy for ${kind}: a HEADLINE (≤ 7 words, no full stop), an optional SUBLINE (≤ 12 words), a CTA (2–4 words in the brand's voice, e.g. "Shop the ritual"), and a CAPTION (1–2 sentences, the brand talking; at most 2 tasteful hashtags, never a hashtag wall).\n\n` +
-    `Return STRICT JSON ONLY: {"headline":"...","subline":"...","cta":"...","caption":"..."}`;
+    `Write the copy for ${kind}: a HEADLINE (≤ 7 words, no full stop), an optional SUBLINE (≤ 12 words), a CTA (2–4 words in the brand's voice, e.g. "Shop the ritual"), and a CAPTION (1–2 sentences, the brand talking; at most 2 tasteful hashtags, never a hashtag wall).${framesAsk}${treatmentAsk}\n\n` +
+    `Return STRICT JSON ONLY: {"headline":"...","subline":"...","cta":"...","caption":"..."${framesJson}${treatmentJson}}`;
   try {
     const parsed = CopySchema.parse(JSON.parse(stripFences(await chat(system, user))));
-    const clean = Object.fromEntries(Object.entries(parsed).filter(([, v]) => String(v).trim()));
-    return clean as { headline?: string; subline?: string; cta?: string; caption?: string };
+    const frames = (parsed.frames ?? [])
+      .map((f) => ({ ...(f.headline?.trim() ? { headline: f.headline.trim() } : {}), ...(f.subline?.trim() ? { subline: f.subline.trim() } : {}) }))
+      .filter((f) => Object.keys(f).length);
+    const scalar = Object.fromEntries(
+      Object.entries(parsed).filter(([k, v]) => k !== "frames" && k !== "treatment" && typeof v === "string" && v.trim()),
+    );
+    const t = parsed.treatment;
+    const treatment = t
+      ? Object.fromEntries(Object.entries(t).filter(([, v]) => typeof v === "string" && v.trim()))
+      : undefined;
+    return {
+      ...scalar,
+      ...(isCarousel && frames.length ? { frames } : {}),
+      ...(treatment && Object.keys(treatment).length ? { treatment } : {}),
+    } as CampaignCopy;
   } catch {
     return {};
   }
@@ -257,7 +343,11 @@ function brandLookDossier(p: BrandProfile): { text: string; hasSignature: boolea
   const palette = (p.palette ?? []).map((c) => [c.hex, c.name && `(${c.name})`].filter(Boolean).join(" ")).join(", ");
   const aesthetic = s(rb.aesthetic);
   const summary = s(rb.summary);
-  const hasSignature = Boolean(aesthetic || summary);
+  // The photographic rulebook read off the brand's OWN photos — the strongest, most concrete
+  // cue (light/lens/grade/surfaces + hard never-do). Leads the dossier, above the prose aesthetic.
+  const photoRules = rb.photoRules && typeof rb.photoRules === "object" ? (rb.photoRules as PhotoRules) : undefined;
+  const rulesText = photoRulesDirective(photoRules);
+  const hasSignature = Boolean(aesthetic || summary || rulesText);
 
   const L: string[] = [`Brand: ${p.name}`];
   if (s(rb.essence) || p.positioning) L.push(`Positioning: ${s(rb.essence) || p.positioning}`);
@@ -266,7 +356,8 @@ function brandLookDossier(p: BrandProfile): { text: string; hasSignature: boolea
   if (cat) L.push(`Category / products: ${cat}`);
   if (s(rb.vibe)) L.push(`Vibe: ${s(rb.vibe)}`);
   if (palette) L.push(`Palette (use these exact colours): ${palette}`);
-  if (aesthetic) L.push(`★ PHOTOGRAPHY SIGNATURE — how THIS brand actually shoots; REPRODUCE it (backgrounds, surfaces, colour grade, styling density, lighting, crops, model-or-product): ${aesthetic}`);
+  if (rulesText) L.push(rulesText);
+  if (aesthetic) L.push(`PHOTOGRAPHY SIGNATURE (prose, secondary to the rulebook above) — how THIS brand actually shoots; REPRODUCE it (backgrounds, surfaces, colour grade, styling density, lighting, crops, model-or-product): ${aesthetic}`);
   if (summary) L.push(`Visual identity: ${summary}`);
   const products = list(rb.products);
   if (products.length) L.push(`Their product line-up (real catalogue, scraped from their site): ${products.slice(0, 40).join(", ")}`);
@@ -342,7 +433,7 @@ export async function artDirect(args: {
     `• PRODUCT FIDELITY: You have NOT seen the product's FORM and must NOT invent it. NEVER describe, restyle, reshape, recolour, relabel or name the product's form or design — always refer to it as "the product exactly as in the reference image". Describe ONLY the scene around it. Never turn the product into a different object. (Its packaging COLOURS, however, ARE known — see OBSERVED PRODUCT COLOURS above — and you SHOULD build the scene's palette around them when matching the product.)\n` +
     `• OBEY THE PANEL LITERALLY: the client's panel choices in the brief above (background, surface, vibe, lighting, composition, format) are hard instructions — follow each one EXACTLY, do not substitute your own taste. Only fill genuinely blank fields from the Brand Profile.\n` +
     `• CAMERA-FIRST: OPEN each shot's prompt by describing HOW it was photographed, before the scene. Name a specific real camera body and lens matched to the frame (e.g. Canon EOS R5 or Sony A7 IV with an 85mm f/1.4 for a close/three-quarter portrait, a 35–50mm prime for full-length, or an iPhone 16 Pro for a candid lifestyle moment) shot wide open (≈f/1.8–f/2.8) for a genuinely shallow depth of field, plus a film/colour treatment (e.g. Kodak Portra 400 / Fujifilm Pro 400H) — gentle highlight roll-off, true skin tones, fine grain, NO digital over-sharpening or HDR. REAL PHOTOGRAPHY, never a 3D/CGI/plastic render; true material behaviour, a real contact shadow.\n` +
-    `• MOTIVATED LIGHT + NATURAL IMPERFECTION: describe the light as a real physical environment (soft overcast window light, low golden-hour sun, one soft directional source), never flat even light. For people, bake in subtle natural imperfections — a few flyaway hairs, real skin pores and texture, faint expression lines, a relaxed unposed posture and a candid expression, slight asymmetry — so they never look airbrushed, filtered or doll-like.\n` +
+    `• MOTIVATED LIGHT + NATURAL IMPERFECTION: describe the light as a real physical environment (soft overcast window light, low golden-hour sun, one soft directional source), never flat even light. For people, bake in subtle natural imperfections — a few flyaway hairs, real skin pores and texture, faint expression lines, a relaxed unposed posture and a candid expression, slight asymmetry — so they never look airbrushed, filtered or doll-like. For a PRODUCT-only frame, name EXACTLY ONE honest camera imperfection — a single faint blown-out highlight, one hard-edged shadow, fine film grain, a slightly off-centre placement, the very edge softly out of focus, or a faint fingerprint/smudge on glass — never a pile of them and never a spotless clinical render. That one flaw is what makes the frame read as photographed rather than generated (never touch the product's own shape, label or colour).\n` +
     `• CLEAN FRAME — describe light ONLY by its EFFECT on the subject and set (direction, softness, falloff, warmth). NEVER name or place any physical light, softbox, light panel, lamp, stand, reflector, umbrella, tripod, cable or studio equipment — none of it may be visible in the frame. The background is clean to every edge.\n` +
     `• WARDROBE (when a model wears/holds an apparel product): the model wears THAT exact garment in its anatomically correct position — trousers/jeans at the waist and hips covering the legs, a top on the torso, a dress full-length — tailored to fit the model's real body with natural drape, as part of a COMPLETE, brand-appropriate outfit (style suitable complementary pieces, e.g. a simple top with trousers). Never stretch one garment over the whole body, never strapless-wrap a bottom garment, never leave the model partly or oddly dressed, never paste the garment on as a flat cut-out.\n` +
     `• Genuinely DIFFERENT compositions and angles across the set (eye-level hero, low hero, three-quarter, overhead, macro) — not near-duplicates; art-direct the crop and negative space per shot.\n` +

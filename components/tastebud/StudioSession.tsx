@@ -53,6 +53,12 @@ interface StudioCtx {
   clearSelection: () => void;
   /** Kick off (or resume) background research. Safe to call more than once — runs once. */
   startResearch: (opts?: { website?: string; name?: string; category?: string }) => void;
+  /**
+   * Start researching the MOMENT a real URL lands in the box (on paste or as typing settles),
+   * before the user commits. Idempotent per host: re-firing for the same site is a no-op; a
+   * genuinely new site cancels the old run and starts clean. No-op until the text is a real domain.
+   */
+  speculateResearch: (website: string) => void;
 }
 
 const Ctx = createContext<StudioCtx | null>(null);
@@ -64,6 +70,17 @@ export function StudioProvider({ children }: { children: React.ReactNode }) {
     started: false, running: false, done: false, error: false, details: {},
   });
   const researchRan = useRef(false);
+  const researchKeyRef = useRef("");                        // host we're currently researching — one run per site
+  const runTokenRef = useRef(0);                             // bumps on every (re)start; stale runs stop updating state
+  const abortRef = useRef<AbortController | null>(null);     // lets an abandoned run stop hitting the network
+
+  // Invalidate whatever run is in flight: bump the token so its state writes are ignored,
+  // and abort its fetch. Called before starting a new site and when wiping a brand.
+  const cancelResearch = useCallback(() => {
+    runTokenRef.current++;
+    try { abortRef.current?.abort(); } catch { /* ignore */ }
+    abortRef.current = null;
+  }, []);
 
   // Hydrate once from the shared session key.
   useEffect(() => {
@@ -98,14 +115,26 @@ export function StudioProvider({ children }: { children: React.ReactNode }) {
   // once-per-session research guard — otherwise a newly pasted URL keeps showing the previous
   // brand and never re-researches. Only genuinely user-level facts (role, team) carry over.
   const resetForNewBrand = useCallback(() => {
+    cancelResearch();
     researchRan.current = false;
+    researchKeyRef.current = "";
     setResearch({ started: false, running: false, done: false, error: false, details: {} });
     setBrainState((b) => ({ role: b.role, brandType: b.brandType, teamSize: b.teamSize }));
-  }, []);
+  }, [cancelResearch]);
 
   const startResearch = useCallback((opts?: { website?: string; name?: string; category?: string }) => {
     if (researchRan.current) return;
     researchRan.current = true;
+    if (opts?.website) researchKeyRef.current = normUrl(opts.website);
+
+    // Tag this run. If a newer run starts (or the brand is wiped), `live()` goes false and
+    // this run stops writing state / hitting the network — an abandoned speculative research
+    // can never clobber the next brand.
+    const controller = new AbortController();
+    abortRef.current = controller;
+    const myRun = ++runTokenRef.current;
+    const live = () => runTokenRef.current === myRun && !controller.signal.aborted;
+
     setResearch((r) => ({ ...r, started: true, running: true }));
 
     (async () => {
@@ -125,11 +154,13 @@ export function StudioProvider({ children }: { children: React.ReactNode }) {
           method: "POST",
           headers: { "content-type": "application/json" },
           body: JSON.stringify({ name, category, website }),
+          signal: controller.signal,
         });
         const reader = res.body!.getReader();
         const dec = new TextDecoder();
         let buf = "";
         for (;;) {
+          if (!live()) { try { await reader.cancel(); } catch { /* ignore */ } return; }
           const { value, done } = await reader.read();
           if (done) break;
           buf += dec.decode(value, { stream: true });
@@ -140,12 +171,24 @@ export function StudioProvider({ children }: { children: React.ReactNode }) {
             if (!line) continue;
             let m: any;
             try { m = JSON.parse(line); } catch { continue; }
+            if (!live()) return;
             if (m.type === "meta") {
               setResearch((r) => ({ ...r, details: { ...r.details, website: m.website || r.details.website, instagram: m.instagram || r.details.instagram, competitors: m.competitors?.length ? m.competitors : r.details.competitors } }));
             } else if (m.type === "detail" && m.key === "catalog") {
               setResearch((r) => ({ ...r, details: { ...r.details, productCount: m.productCount } }));
             } else if (m.type === "detail" && m.key === "images") {
               setResearch((r) => ({ ...r, details: { ...r.details, imageCount: m.imageCount, palette: m.palette?.length ? m.palette : r.details.palette } }));
+            } else if (m.type === "products") {
+              // Catalogue lands EARLY (the fast crawl), well before the full research `done`.
+              // Store it now so the product library fills immediately; `done` fills the rest.
+              const catalog = (m.catalog as StudioProduct[] | undefined) ?? [];
+              if (catalog.length) {
+                setBrainState((b) => ({
+                  ...b,
+                  catalog,
+                  research: { ...(b.research ?? {}), productImages: m.productImages ?? b.research?.productImages, logo: m.logo ?? b.research?.logo, website: m.website ?? b.research?.website },
+                }));
+              }
             } else if (m.type === "done") {
               const fb = m.brain as BrandBrain;
               // MERGE — never replace: the user's questionnaire answers landed after research started.
@@ -156,12 +199,31 @@ export function StudioProvider({ children }: { children: React.ReactNode }) {
             }
           }
         }
-        setResearch((r) => (r.done ? r : { ...r, running: false, done: true }));
-      } catch {
+        if (live()) setResearch((r) => (r.done ? r : { ...r, running: false, done: true }));
+      } catch (err) {
+        if ((err as { name?: string })?.name === "AbortError" || !live()) return; // abandoned run — stay quiet
         setResearch((r) => ({ ...r, running: false, done: true, error: true }));
       }
     })();
   }, []);
+
+  // Fire research the instant a real URL appears — pasted or freshly typed — so the brand kit
+  // is already assembling before the user hits "Build". One run per host: the same site is a
+  // no-op; a new site cancels the old run and re-arms clean.
+  const speculateResearch = useCallback((rawWebsite: string) => {
+    const website = (rawWebsite || "").trim();
+    const key = normUrl(website);
+    if (!key) return;                             // not a real domain yet — wait for more typing
+    if (researchKeyRef.current === key) return;   // already researching (or done with) this exact site
+    cancelResearch();                             // drop any previous site's in-flight run
+    researchRan.current = false;                  // re-arm so startResearch actually runs
+    researchKeyRef.current = key;
+    const name = nameFromUrl(website);
+    setResearch({ started: false, running: false, done: false, error: false, details: {} });
+    // New site → clear the previous brand but keep user-level facts, then set identity + go.
+    setBrainState((b) => ({ role: b.role, brandType: b.brandType, teamSize: b.teamSize, website, name, skippedResearch: false }));
+    startResearch({ website, name });
+  }, [cancelResearch, startResearch]);
 
   // Resume research after a mid-flow refresh: the provider remounts, but the pasted
   // site is still in the persisted brain — pick it back up so the live panel keeps filling.
@@ -192,7 +254,7 @@ export function StudioProvider({ children }: { children: React.ReactNode }) {
 
   const value: StudioCtx = {
     brain, hydrated, catalog, selectedIds, selectedProducts, research,
-    setName, setCategory, setBrain, patch, resetForNewBrand, toggleProduct, selectAll, clearSelection, startResearch,
+    setName, setCategory, setBrain, patch, resetForNewBrand, toggleProduct, selectAll, clearSelection, startResearch, speculateResearch,
   };
   return <Ctx.Provider value={value}>{children}</Ctx.Provider>;
 }
@@ -201,6 +263,23 @@ export function useStudio(): StudioCtx {
   const c = useContext(Ctx);
   if (!c) throw new Error("useStudio must be used within <StudioProvider>");
   return c;
+}
+
+/**
+ * Canonical host key for a pasted URL, so we research each site exactly once and can tell a
+ * real domain from half-typed text: `www.brand.com/shop` → `brand.com`; `your`/`bran` → `""`.
+ * Returning `""` doubles as "not a real URL yet", which gates the speculative research trigger.
+ */
+export function normUrl(url: string): string {
+  const s = (url || "").trim().toLowerCase();
+  if (!s) return "";
+  try {
+    const u = new URL(/^https?:\/\//.test(s) ? s : "https://" + s);
+    const host = u.hostname.replace(/^www\./, "");
+    return host.includes(".") ? host : ""; // require a dot so "brand" alone doesn't trigger
+  } catch {
+    return "";
+  }
 }
 
 /** Derive a clean brand name from a pasted URL: fynwellness.com → "Fynwellness". */

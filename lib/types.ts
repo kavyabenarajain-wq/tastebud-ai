@@ -1,5 +1,38 @@
 export interface PaletteColor { name: string; hex: string; role?: string; material?: string; }
 
+/**
+ * The deterministic finishing grade — the numeric LUT applied by sharp AFTER the model,
+ * so the final colour never comes from the image model and a whole set reads as one
+ * photographer's work. Derived from the brand's OWN photos (else a neutral filmic default);
+ * kept gentle so it unifies the look without distorting product colour.
+ */
+export interface FinishGrade {
+  rMul: number; gMul: number; bMul: number; // per-channel multipliers (~1.0, the brand's colour cast)
+  saturation: number; // sharp modulate saturation (~0.9–1.1)
+  brightness: number; // sharp modulate brightness (~0.97–1.03)
+  contrast: number;   // S-curve slope around mid-grey (~1.0–1.12)
+  grain: number;      // 0–1 subtle film grain amount
+  sharpen: number;    // unsharp-mask sigma (~0.5–1.2)
+}
+
+/**
+ * A brand's PHOTOGRAPHIC RULEBOOK — extracted by LOOKING at the brand's own photos
+ * (not invented from adjectives). The rules the brand always follows, plus the list of
+ * things they NEVER do. Fed to the planner as hard direction; the numeric colorGrade
+ * drives the finishing pass. Category-aware (food shot by the food book, etc.).
+ */
+export interface PhotoRules {
+  category?: string;     // the photography book this brand was read through (Food / Beverage / …)
+  light?: string;        // their signature light — quality, direction, time of day
+  lens?: string;         // lens / focal length / aperture / depth-of-field habit
+  grade?: string;        // colour-grade look in words (warm-neutral, lifted blacks, muted greens…)
+  surfaces?: string[];   // the surfaces & sets they actually shoot on
+  composition?: string;  // crop / negative-space / placement habit
+  signatures?: string[]; // the moves they ALWAYS make (their tells)
+  neverDo?: string[];    // the hard "they never do this" list (category clichés + brand-specific)
+  colorGrade?: FinishGrade; // numeric grade for the deterministic finishing pass
+}
+
 export interface BrandProfile {
   id: string;
   name: string;
@@ -29,7 +62,59 @@ export type CreativeTypeId = "product" | "model" | "instagram" | "story" | "caro
  * change on the spot without re-diffusing the image (and localization can
  * re-composite it later). Brushless rule: "change a headline … it updates on the spot".
  */
-export interface CampaignCopy { headline?: string; subline?: string; cta?: string; caption?: string; }
+// How the headline + CTA are visually STAGED on an ad — chosen per campaign to match the
+// brand's positioning, so the typography carries the same personality as the imagery
+// (see the meta-ad-copy-typography guidance). Brand fonts are never swapped for generic
+// families (brand-lock wins); the treatment controls the levers that DON'T break identity:
+// placement, alignment, case, weight, hierarchy scale and CTA form.
+// WHERE/HOW the type stages on the frame — free placement, never bottom-locked. Each id
+// maps deterministically to positioned clusters in copyLayout.ts (both renderers agree).
+export type CopyLayout =
+  | "lower-third" // classic band along the bottom
+  | "editorial-top" // small, refined headline up top; product breathes below
+  | "mega" // oversized display headline anchored to an edge/corner, commands the frame
+  | "split" // headline up top, CTA anchored at the bottom, product living in the gap
+  | "side-rail" // headline + support as a vertical column railed down one side
+  | "center"; // centered statement in the middle band
+
+// 9-region fine anchor for the floating layouts (mega / editorial-top / center / side-rail).
+export type CopyAnchor =
+  | "top-left" | "top-center" | "top-right"
+  | "center-left" | "center" | "center-right"
+  | "bottom-left" | "bottom-center" | "bottom-right";
+
+export interface CopyTreatment {
+  headlineArchetype?: string; // e.g. "problem-solution", "luxury-minimal" — traceability
+  ctaArchetype?: string; // e.g. "low-commitment", "exclusive"
+  layout?: CopyLayout; // the composition the type stages in (free placement)
+  anchor?: CopyAnchor; // fine placement for floating layouts
+  placement?: "top" | "center" | "bottom"; // legacy vertical anchor (mapped to a layout when layout is absent)
+  align?: "left" | "center" | "right"; // horizontal alignment
+  case?: "upper" | "sentence" | "lower"; // headline capitalisation
+  weight?: "regular" | "bold"; // headline weight emphasis
+  scale?: "minimal" | "standard" | "impact" | "hero"; // hierarchy: minimal (luxury restraint) → hero (oversized display)
+  ctaStyle?: "solid" | "outline" | "text-link"; // CTA visual form
+  ink?: "light" | "dark"; // type colour for legibility over the scene (light default)
+  fontId?: string; // chosen typeface from the font catalog ("brand" / undefined = brand's own pair)
+  pinned?: boolean; // user took manual control of positioning → ignore the per-shot auto placement
+}
+
+// Per-SHOT placement override — derived by analysing where THAT image has negative space,
+// so copy sits in each frame's empty area (varied across a set) while the run treatment keeps
+// the brand voice (case/weight/scale/CTA) consistent. Merged over the run treatment at render.
+export type ShotPlacement = Pick<CopyTreatment, "layout" | "anchor" | "ink">;
+
+export interface CampaignCopy {
+  headline?: string;
+  subline?: string;
+  cta?: string;
+  caption?: string;
+  // Carousels tell ONE idea across swipes, so each frame carries its own on-image copy
+  // (frame 1 hook → middle develop → last close/CTA). Index i = seq i+1. The top-level
+  // headline/caption still describe the set (used for the feed caption + non-carousel).
+  frames?: { headline?: string; subline?: string }[];
+  treatment?: CopyTreatment; // ad only — how the copy is staged (positioning-driven)
+}
 
 export interface CampaignOutput {
   id: string;      // shot id
@@ -38,6 +123,7 @@ export interface CampaignOutput {
   aspect?: string; // aspect string the asset was made at
   angle?: string;  // the shot's angle / frame label
   seq?: number;    // carousel frame order (1-based)
+  placement?: ShotPlacement; // image-aware copy placement for THIS frame
   at: string;      // ISO
 }
 
@@ -73,6 +159,7 @@ export interface BrandResearch {
   logo?: string; // the brand's logo image URL, harvested from their site
   productImages?: string[]; // the brand's REAL product photos, harvested from their site + kept for reuse
   products?: { name: string; image?: string }[]; // the full product catalogue (names + a hero image each), scraped from their site
+  photoRules?: PhotoRules; // the brand's photographic rulebook, read off their own photos (light/lens/grade/surfaces/never-do)
 }
 
 /**
@@ -111,6 +198,7 @@ export interface BrandIntelligence {
   audience?: string; // target audience
   persona?: string; // customer persona
   toneOfVoice?: string;
+  copyPlaybook?: string; // rich copywriting guidance + signature lines — read ONLY by the copy generator, kept out of image prompts
   personality?: string[]; // brand personality traits
   palette?: { hex: string; role?: string }[];
   typography?: { display?: string; text?: string; note?: string };

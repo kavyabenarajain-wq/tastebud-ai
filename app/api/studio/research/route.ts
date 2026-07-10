@@ -41,6 +41,10 @@ export async function POST(req: NextRequest) {
             if (key === "website") send({ type: "meta", website: data?.website, instagram: data?.instagram, competitors: data?.competitors });
             else if (key === "catalog") send({ type: "detail", key: "catalog", productCount: data?.count ?? 0 });
             else if (key === "images") send({ type: "detail", key: "images", imageCount: data?.count ?? 0, palette: data?.palette ?? [] });
+            // The harvested catalogue DATA, streamed as soon as the (fast) crawl finishes —
+            // so the product library fills in seconds instead of waiting for the whole
+            // ~2-min research pass and its final `done` event.
+            else if (key === "products") send({ type: "products", catalog: data?.catalog ?? [], productImages: data?.productImages ?? [], logo: data?.logo, website: data?.website });
             else if (key === "intelligence") send({ type: "stage", key: "intelligence", status: "ready" });
           },
         });

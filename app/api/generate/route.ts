@@ -3,6 +3,8 @@ import { readSkill, loadIndustryPlaybook } from "@/lib/skills";
 import { loadBrandProfile } from "@/lib/brand";
 import { artDirect, activeBrain, fallbackPlan, campaignCopy, STANDARD_PRODUCT_ANGLES, DETAIL_SHOTS } from "@/lib/llm";
 import { renderShot, renderModelShot, activeRenderer, qcImage, analyzeProduct } from "@/lib/image";
+import { reformatImage } from "@/lib/reformat";
+import { analyzePlacement } from "@/lib/placement";
 import type { ResolvedBrief, BrandProfile, CampaignCopy, CampaignOutput } from "@/lib/types";
 import { buildBrief, buildModelBrief, counts, formatToAspect } from "@/lib/brief";
 import { brainToProfile } from "@/lib/onboard";
@@ -153,6 +155,11 @@ export async function POST(req: NextRequest) {
 
         const products = body.products ?? [];
         const modelRefs = body.modelRefs ?? [];
+        // The deterministic finishing grade — keyed to the brand's OWN photos (derived at
+        // research time). Applied by sharp AFTER the model so the final colour never comes
+        // from the image model and the whole set reads as one photographer. Undefined →
+        // renderer falls back to a subtle neutral filmic grade (still off the flat AI look).
+        const finish = body.brand?.research?.photoRules?.colorGrade;
 
         // References are STYLE/look references the client EXPLICITLY added. We do NOT
         // auto-inject the brand's harvested product photos: in edit mode every extra
@@ -160,7 +167,11 @@ export async function POST(req: NextRequest) {
         // slows the call). The product the client selected/uploaded must be reproduced
         // exactly — it is the one, faithful base. Brand resonance comes from the
         // art-director's text aesthetic, not from competing reference images.
-        const references = (body.references ?? []).filter(Boolean);
+        // Style references belong ONLY to the plain product / model photoshoots — never
+        // to a v2 creative type (instagram / story / carousel / ad), whose look is driven
+        // by the brand world + copy, not a pasted reference. Drop them here so a reference
+        // left over from an earlier product shoot can't bleed into a campaign render.
+        const references = creative ? [] : (body.references ?? []).filter(Boolean);
         const referencesAreBrand = false;
         const MODEL_CHECKLIST = [
           "A real photographed human, not a 3D/CGI/plastic/doll/AI render",
@@ -182,31 +193,82 @@ export async function POST(req: NextRequest) {
           // downstream reshoot/edit/resize (not just the first planner prompt).
           const compliance = buildCompliance({ profile, industry, planNegatives: shot.negatives, observedColors: observed?.colors, isModel });
           const extraNegatives = complianceToNegatives(compliance);
+          // The generated product MUST match the client's uploaded product exactly. So the
+          // fidelity QC runs on EVERY attempt (not just the first) whenever a product is in
+          // play — a render that drifts from the upload is never shipped unchecked. We keep
+          // retrying up to MAX_ATTEMPTS; only if all fail do we fall back to the last render
+          // (best-effort), and then it is flagged unverified rather than passed off as clean.
+          const heroRef = (products ?? []).filter(Boolean)[0];
+          const gateFidelity = isModel || !!heroRef; // model → human bar; product → match-the-upload
+          // 2 attempts: the initial render + one QC-gated reshoot. Both are QC'd (nothing ships
+          // blind), but we cap here so a stubborn shot can't triple the render time. Env-tunable.
+          const MAX_ATTEMPTS = Math.max(1, Number(process.env.QC_MAX_ATTEMPTS) || 2);
           let url: string | null = null;
+          let fallback: string | null = null; // last successful render, used only if every QC fails
+          let lastReasons: string[] = [];
           let lastErr = "render failed";
-          for (let attempt = 0; attempt < 2 && !url; attempt++) {
+          for (let attempt = 0; attempt < MAX_ATTEMPTS && !url; attempt++) {
             try {
               const candidate = isModel
-                ? await renderModelShot({ id: stub.id, prompt: shot.prompt, negatives: shot.negatives, extraNegatives, modelRefs, products, references, referencesAreBrand, aspect: stub.aspect, imageSize: "2K" })
-                : await renderShot({ id: stub.id, prompt: shot.prompt, angle: shot.angle, negatives: shot.negatives, extraNegatives, products, references, referencesAreBrand, aspect: stub.aspect, imageSize: "2K" });
-              if (attempt === 0) {
-                // Per-frame craft + fidelity check. Model mode adds the human-realism bar; product fidelity only when a product is in play.
-                const verdict = await qcImage({ url: candidate, checklist: isModel ? MODEL_CHECKLIST : [], brand: profile.name, productRef: products[0] });
-                if (!verdict.pass) { send({ type: "qc", id: stub.id, reasons: verdict.reasons }); continue; }
+                ? await renderModelShot({ id: stub.id, prompt: shot.prompt, negatives: shot.negatives, extraNegatives, modelRefs, products, references, referencesAreBrand, aspect: stub.aspect, imageSize: "2K", finish })
+                : await renderShot({ id: stub.id, prompt: shot.prompt, angle: shot.angle, negatives: shot.negatives, extraNegatives, products, references, referencesAreBrand, aspect: stub.aspect, imageSize: "2K", finish });
+              fallback = candidate;
+              if (gateFidelity) {
+                // Per-attempt craft + fidelity check. Product mode compares the generated
+                // frame against the uploaded product (qcImage's productRef branch); model
+                // mode adds the human bar. When a STYLE reference is driving a restage, the
+                // product may be re-formed to fit the new scene, so QC judges the fabric /
+                // print / colourway (not the folded shape) — else a correct restage fails QC.
+                const restage = !isModel && references.length > 0;
+                // When the client pasted a likeness reference, QC must verify the generated
+                // person IS that individual — not just that it's a clean, realistic human.
+                const modelRef = isModel ? modelRefs.filter(Boolean)[0] : undefined;
+                const verdict = await qcImage({ url: candidate, checklist: isModel ? MODEL_CHECKLIST : [], brand: profile.name, productRef: heroRef, modelRef, restage });
+                if (!verdict.pass) {
+                  lastReasons = verdict.reasons;
+                  send({ type: "qc", id: stub.id, reasons: verdict.reasons, attempt: attempt + 1, of: MAX_ATTEMPTS });
+                  continue;
+                }
               }
               url = candidate;
             } catch (err) {
               lastErr = (err as Error).message;
             }
           }
+          // Every attempt rendered but none matched the product → ship the last frame rather
+          // than dropping the shot, but flag it (reusing the drift badge the ShotCard already
+          // renders) so the client sees a "check brand" warning instead of a silent mismatch.
+          const drift = !url && !!fallback;
+          if (drift) { url = fallback; }
+          // Placement sizing — the renderer only emits a few fixed sizes (gpt-image gives
+          // 2:3 / 1:1 / 3:2), so a story / feed / landscape placement comes back at the
+          // NEAREST size, not its real 9:16 / 4:5 / 16:9. A v2 creative (instagram / story /
+          // carousel / ad) must ship the EXACT placement size or the ad platform rejects or
+          // crops it — so correct the plate to the declared aspect. reformatImage centre-
+          // crops deterministically (the product pixels stay put); best-effort, never drop.
+          if (url && creative && stub.aspect) {
+            try { url = (await reformatImage({ src: url, targetAspect: stub.aspect })).url; }
+            catch { /* keep the uncorrected plate rather than losing the shot */ }
+          }
           if (url) {
-            send({ type: "shot", shot: { id: stub.id, angle: shot.angle, prompt: shot.prompt, negatives: shot.negatives, compliance, url, aspect: stub.aspect, format: stub.format, seq: stub.seq, groupId: stub.groupId } });
-            outputs.push({ id: stub.id, url, format: stub.format, aspect: stub.aspect, angle: shot.angle, seq: stub.seq, at: new Date().toISOString() });
+            send({ type: "shot", shot: { id: stub.id, angle: shot.angle, prompt: shot.prompt, negatives: shot.negatives, compliance, url, aspect: stub.aspect, format: stub.format, seq: stub.seq, groupId: stub.groupId, drift: drift || undefined, driftReasons: drift ? lastReasons : undefined } });
+            // Image-aware copy placement: read THIS frame's negative space and stream where its
+            // copy should sit, so the set varies placement per shot (the run treatment keeps the
+            // voice). Sent AFTER the shot so the image appears immediately; best-effort.
+            let placement;
+            if (creative?.needsCopy) {
+              placement = (await analyzePlacement(url, stub.aspect).catch(() => null)) ?? undefined;
+              if (placement) send({ type: "placement", id: stub.id, placement });
+            }
+            outputs.push({ id: stub.id, url, format: stub.format, aspect: stub.aspect, angle: shot.angle, seq: stub.seq, ...(placement ? { placement } : {}), at: new Date().toISOString() });
           } else send({ type: "shotError", id: stub.id, angle: shot.angle, error: lastErr });
         };
 
-        // Every shot renders in parallel (pool) for maximum speed.
-        const CONCURRENCY = 5;
+        // Every shot renders in parallel (pool) for maximum speed. Sized so a full
+        // six-angle set (and most carousel/fan-out runs) fires in a SINGLE wave rather
+        // than 5-then-stragglers — the OpenAI SDK backs off on any 429 so extra lanes are
+        // safe. Env-tunable (RENDER_CONCURRENCY) if a provider's rate limit is tighter.
+        const CONCURRENCY = Math.max(1, Number(process.env.RENDER_CONCURRENCY) || 8);
         const allIdx = stubs.map((_, idx) => idx);
         let cursor = 0;
         const worker = async () => { while (cursor < allIdx.length) { await renderOne(allIdx[cursor++]); } };

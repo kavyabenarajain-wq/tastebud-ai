@@ -2,6 +2,8 @@ import { mkdir, writeFile, readFile } from "node:fs/promises";
 import { join, basename } from "node:path";
 import OpenAI, { toFile } from "openai";
 import { runReplicate, firstUrl } from "./replicate";
+import { finishInPlace, NEUTRAL_GRADE } from "./finish";
+import type { FinishGrade } from "./types";
 
 /**
  * The renderer. Renders one shot from a photographer's prompt + the uploaded
@@ -168,7 +170,7 @@ async function toUploadable(ref: string) {
 
 // Core image render over the OpenAI SDK — shared by the platform and Azure paths
 // (Azure's v1 endpoint speaks the same images API; only client + model differ).
-async function renderImageSDK(client: OpenAI, model: string, id: string, prompt: string, products: string[], opts: { aspect?: string }): Promise<string> {
+async function renderImageSDK(client: OpenAI, model: string, id: string, prompt: string, products: string[], opts: { aspect?: string; inputFidelity?: string }): Promise<string> {
   const size = openaiSize(opts.aspect);
   const quality = (process.env.OPENAI_IMAGE_QUALITY ?? "medium") as "low" | "medium" | "high" | "auto";
   const refs = products.filter(Boolean);
@@ -177,11 +179,17 @@ async function renderImageSDK(client: OpenAI, model: string, id: string, prompt:
   // pasted model reference (reproduce the person, don't reinterpret them) and the exact product
   // shape/label. ~22× the input-image tokens vs "low", but fidelity is the product's #1 rule.
   // Env-tunable (OPENAI_INPUT_FIDELITY=low) to trade fidelity for cost.
-  const inputFidelity = (process.env.OPENAI_INPUT_FIDELITY || "high").toLowerCase();
+  // The mini model is the SPEED tier: it doesn't take the high-fidelity lever (and would be
+  // slower if it did), so we omit input_fidelity for it — it defaults to low = fastest.
+  const isMini = /mini/i.test(model);
+  // Per-call override wins: a RESTAGE shot passes "low" so the model rebuilds the
+  // reference's scene instead of clinging to the product photo's own background; normal
+  // shoots keep "high" to hold the product true. Falls back to the env, then "high".
+  const inputFidelity = (opts.inputFidelity || process.env.OPENAI_INPUT_FIDELITY || "high").toLowerCase();
   let d: { b64_json?: string; url?: string } | undefined;
   if (refs.length) {
     const image = await Promise.all(refs.map(toUploadable));
-    const editParams = { model, image, prompt, size, quality, input_fidelity: inputFidelity } as unknown as Parameters<typeof client.images.edit>[0];
+    const editParams = { model, image, prompt, size, quality, ...(isMini ? {} : { input_fidelity: inputFidelity }) } as unknown as Parameters<typeof client.images.edit>[0];
     d = (await client.images.edit(editParams)).data?.[0];
   } else {
     d = (await client.images.generate({ model, prompt, size, quality })).data?.[0];
@@ -194,13 +202,13 @@ async function renderImageSDK(client: OpenAI, model: string, id: string, prompt:
 // OpenAI platform (api.openai.com). gpt-image-1.5 is newer + markedly faster than
 // gpt-image-1 (≈21s vs 68s) with better fidelity; "medium" keeps the grid snappy.
 // Bump OPENAI_IMAGE_QUALITY=high (or the model) for a final hero render.
-function renderOpenAI(id: string, prompt: string, products: string[], opts: { aspect?: string }): Promise<string> {
+function renderOpenAI(id: string, prompt: string, products: string[], opts: { aspect?: string; inputFidelity?: string }): Promise<string> {
   const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
   return renderImageSDK(client, process.env.OPENAI_IMAGE_MODEL ?? "gpt-image-1.5", id, prompt, products, opts);
 }
 
 // Azure image gen — uses the Azure endpoint + key and the AZURE_IMAGE_DEPLOYMENT name.
-function renderAzureImage(id: string, prompt: string, products: string[], opts: { aspect?: string }): Promise<string> {
+function renderAzureImage(id: string, prompt: string, products: string[], opts: { aspect?: string; inputFidelity?: string }): Promise<string> {
   const client = new OpenAI({ apiKey: process.env.AZURE_OPENAI_API_KEY, baseURL: process.env.AZURE_OPENAI_ENDPOINT });
   return renderImageSDK(client, process.env.AZURE_IMAGE_DEPLOYMENT!, id, prompt, products, opts);
 }
@@ -232,7 +240,7 @@ async function renderReplicate(id: string, prompt: string, refs: string[], opts:
 }
 
 /** Vision QC: score a rendered shot, and (if given the original) verify the product wasn't altered. */
-export async function qcImage(args: { url: string; checklist: string[]; brand: string; productRef?: string }): Promise<{ pass: boolean; reasons: string[] }> {
+export async function qcImage(args: { url: string; checklist: string[]; brand: string; productRef?: string; modelRef?: string; restage?: boolean }): Promise<{ pass: boolean; reasons: string[] }> {
   // QC runs on Gemini vision whenever its key is present — independent of which
   // provider rendered the shot — so OpenAI renders still get reviewed.
   if (!process.env.GEMINI_API_KEY) return { pass: true, reasons: [] };
@@ -245,18 +253,56 @@ export async function qcImage(args: { url: string; checklist: string[]; brand: s
       : ["Real photography, not a 3D/CGI/plastic/AI render", "Product, label and text intact and legible", "On-brand, professional, well-composed", "Background and lighting look intentional and clean"];
     const parts: any[] = [];
     let prompt: string;
-    if (args.productRef) {
+    if (args.modelRef) {
+      // MODEL LIKENESS QC — the client pasted a photo of THEIR person; the generated
+      // model must be unmistakably that same individual, not a lookalike. This is the
+      // gate that was missing: without it a drifting face passed on general realism alone.
+      const modelImg = await toInline(args.modelRef);
+      parts.push({ inline_data: { mime_type: modelImg.mimeType, data: modelImg.data } }); // IMAGE 1 = the person
+      let genIdx = 2;
+      let productClause = "";
+      if (args.productRef) {
+        const prod = await toInline(args.productRef);
+        parts.push({ inline_data: { mime_type: prod.mimeType, data: prod.data } });       // IMAGE 2 = the product
+        genIdx = 3;
+        productClause =
+          `IMAGE 2 is the client's REAL product. The product in IMAGE 3 MUST be that SAME product — same shape, cap/closure, label, logo, every word of text and colours (ignore any hand, prop or background in IMAGE 2). A different, restyled or relabelled product is a FAIL.\n`;
+      }
+      const checks = args.checklist.length
+        ? `\nIMAGE ${genIdx} must ALSO satisfy ALL of these — fail if any is false:\n` + args.checklist.map((c, i) => `${i + 1}. ${c}`).join("\n") + `\n`
+        : "";
+      prompt =
+        `You are a STRICT model-photography QC reviewer for the brand "${args.brand}".\n` +
+        `IMAGE 1 is a LIKENESS REFERENCE of the client's model — the real person who must appear in the shoot. IMAGE ${genIdx} is the GENERATED photo under review.\n` +
+        `THE CENTRAL TEST — LIKENESS: the person in IMAGE ${genIdx} must be UNMISTAKABLY THE SAME INDIVIDUAL as in IMAGE 1. Compare face shape, eye shape and spacing, nose bridge and tip, lips and mouth width, jawline and chin, brow, hairline and hair, skin tone, and any distinguishing marks (freckles, moles, facial hair). A different-looking person — even a more conventionally attractive or more on-brand one — is a FAIL. A mere resemblance or "same vibe" is a FAIL.\n` +
+        `IGNORE differences in expression, pose, camera angle, distance, lighting, wardrobe, hair styling and background — those are ALLOWED to change; judge only whether it is the same human being.\n` +
+        productClause +
+        `Also fail if IMAGE ${genIdx} looks distorted, waxy, plastic or obviously AI-generated, or has broken hands or anatomy.${checks}` +
+        `When the person is clearly the same individual${args.productRef ? " and the product matches" : ""} and the photo is clean, pass.\n` +
+        `Return STRICT JSON ONLY: {"pass":true|false,"reasons":["short reason", ...]}`;
+    } else if (args.productRef) {
       const orig = await toInline(args.productRef);
       parts.push({ inline_data: { mime_type: orig.mimeType, data: orig.data } });
       const extra = args.checklist.length ? `\nADDITIONALLY, for IMAGE 2 ALL of the following must be TRUE — fail if any is false:\n` + args.checklist.map((c, i) => `${i + 1}. ${c}`).join("\n") + `\n` : "";
-      prompt =
-        `You are a STRICT photography QC reviewer for the brand "${args.brand}".\n` +
-        `IMAGE 1 is the ORIGINAL product the client uploaded. IMAGE 2 is a generated photo of it in a new scene.\n` +
-        `IMAGE 1 may also contain a hand, fingers, nails, props or a background — IGNORE all of that and compare ONLY the product object itself.\n` +
-        `FAIL if the PRODUCT in IMAGE 2 differs from the product in IMAGE 1 in shape, silhouette, proportions, cap/closure, label, logo, any text/wording, or colours — it must be the SAME product, only in a new setting.\n` +
-        `Also fail if IMAGE 2 looks distorted, fake, melted or obviously AI-generated, OR if it reproduces a hand/fingers/background copied from IMAGE 1. Do NOT penalise a different camera angle, background or lighting.${extra}` +
-        `When the product clearly matches and the photo is clean, pass.\n` +
-        `Return STRICT JSON ONLY: {"pass":true|false,"reasons":["short reason", ...]}`;
+      // Restage mode (a style reference is driving the shot): the product may be legitimately
+      // RE-FORMED to fit the reference's arrangement — a duvet cased into pillows, a garment
+      // folded or stacked — so we must NOT fail on a changed shape/silhouette/count. Identity
+      // here = the FABRIC, PRINT, PATTERN and COLOURWAY, which must stay exact.
+      prompt = args.restage
+        ? `You are a STRICT product-photography QC reviewer for the brand "${args.brand}".\n` +
+          `IMAGE 1 is the ORIGINAL product the client uploaded. IMAGE 2 is a generated photo that RESTAGES that product into a new scene/composition (a style reference was used).\n` +
+          `IMAGE 1 may also contain a hand, props, a room or a background — IGNORE all of that and compare ONLY the product's FABRIC and DESIGN.\n` +
+          `This is a RESTAGE: the product MAY be re-formed to suit the new scene (e.g. bedding shown as stacked pillows, a garment folded or draped), and it MAY appear at a different size, count, fold or arrangement — do NOT fail on any of that, nor on a different camera angle, background, lighting or number of items.\n` +
+          `FAIL ONLY if the product's IDENTITY changed: its pattern, print, motif, check/stripe, colourway, material/weave, logo or any text/wording differs from IMAGE 1, OR the print looks recoloured or restyled to match the reference, OR IMAGE 2 looks distorted, fake, melted or obviously AI-generated.\n` +
+          `When the SAME fabric/print/colourway clearly appears in IMAGE 2 and the photo is clean, pass.\n` +
+          `Return STRICT JSON ONLY: {"pass":true|false,"reasons":["short reason", ...]}`
+        : `You are a STRICT photography QC reviewer for the brand "${args.brand}".\n` +
+          `IMAGE 1 is the ORIGINAL product the client uploaded. IMAGE 2 is a generated photo of it in a new scene.\n` +
+          `IMAGE 1 may also contain a hand, fingers, nails, props or a background — IGNORE all of that and compare ONLY the product object itself.\n` +
+          `FAIL if the PRODUCT in IMAGE 2 differs from the product in IMAGE 1 in shape, silhouette, proportions, cap/closure, label, logo, any text/wording, or colours — it must be the SAME product, only in a new setting.\n` +
+          `Also fail if IMAGE 2 looks distorted, fake, melted or obviously AI-generated, OR if it reproduces a hand/fingers/background copied from IMAGE 1. Do NOT penalise a different camera angle, background or lighting.${extra}` +
+          `When the product clearly matches and the photo is clean, pass.\n` +
+          `Return STRICT JSON ONLY: {"pass":true|false,"reasons":["short reason", ...]}`;
     } else {
       prompt =
         `You are a STRICT product-photography QC reviewer for the brand "${args.brand}". Judge ONE image on its own merits against:\n` +
@@ -343,7 +389,30 @@ const PRODUCT_LOCK =
   "ABSOLUTE RULE — ISOLATE THE PRODUCT, THEN REPRODUCE IT EXACTLY. The first attached image contains the product. LOOK ONLY AT THE PRODUCT OBJECT ITSELF. If that image also shows a hand, fingers, fingernails, other objects, props, text overlays, or a background, IGNORE ALL OF IT — do NOT reproduce the hand, fingers, nails, or the original background. Mentally cut the product out cleanly and reproduce ONLY the product with 100% fidelity: identical shape, silhouette, proportions, cap/closure, label, logo, typography, every word of text, colours and materials. Do NOT redraw, restyle, relabel, recolour, reshape, reinvent or 'improve' the product in ANY way. Then place that exact, isolated product into the NEW scene described below. The product must look pixel-faithful to the real product; everything around it (background, surface, props, lighting, angle) comes only from the brief.";
 
 const REALISM_ANCHOR =
-  "Render as REAL studio photography, shot on a full-frame camera with a prime/macro lens: ONE coherent light source with believable soft shadows, true material behaviour (glass refracts, metal speculars, matte stays matte), the product grounded with a real contact shadow and a faint reflection, shallow depth of field, tack-sharp, true-to-life neutral colour. A specific, designed background/surface — never a flat generic void. Photographic — never a 3D, CGI, plastic, waxy or AI-render look.";
+  "CAMERA-FIRST — describe HOW this was photographed, not how nice it looks. A REAL photograph on a full-frame body (Canon EOS R5 / Sony A7 IV) with a prime or macro lens, shot fairly open (≈f/2.8–f/5.6) for a natural, shallow depth of field; Kodak Portra 400 / Fujifilm colour — gentle highlight roll-off, fine organic grain, NO digital over-sharpening, NO HDR clarity. ONE motivated light source with a believable direction and a real, hard-edged-or-soft contact shadow; true material behaviour (glass refracts, metal speculars, matte stays matte). A specific, designed background/surface with real texture — never a flat generic void. Never a 3D, CGI, plastic, waxy or AI-render look.";
+
+// The single deliberate flaw. AI images look fake because they are TOO clean — nothing a
+// camera ever produced. One honest imperfection is what makes a creative director's eye
+// believe a camera was there. Exactly ONE per frame — never a pile, never a spotless render.
+const PRODUCT_IMPERFECTION =
+  "ONE HONEST IMPERFECTION (mandatory — this is what sells the photograph as real): introduce EXACTLY ONE small, believable flaw consistent with a real capture, and nothing more. Pick ONE that suits the scene: a single faint blown-out highlight where the light catches hardest, one hard-edged natural shadow, a fine even film grain, the product placed very slightly off-centre or a touch off-axis, a faint dust speck, a soft fingerprint or smudge on glass, a tiny reflection of the room, or the very edge just softly out of focus. EXACTLY ONE — never several, never a dirty or damaged product, never a clinically perfect spotless frame. Do NOT alter the product itself; the flaw lives in the light, focus, framing or surface, never in the product's shape, label or colour.";
+
+// Build the "restage the product into the reference's world" directive. Used when the
+// client attaches a STYLE reference — they want THEIR product shot in THAT scene's look.
+// The hard part: input_fidelity is high (to protect the product), which also makes the
+// model cling to the product photo's ORIGINAL background. So we must explicitly command
+// a full restage and split concerns cleanly: scene comes from the reference, identity
+// (pattern/print/colourway/material) comes from the product, and the two never bleed.
+function styleRestageBlock(which: string): string {
+  return (
+    `\n\nSTYLE REFERENCE — RESTAGE THE PRODUCT INTO THIS SCENE. ${which} a LOOK / SCENE reference, NOT the product and NOT a source of any product detail. ` +
+    `Rebuild the WORLD of the reference from scratch and place the client's real product into it as the hero, so the result looks shot on the SAME set, by the SAME photographer, in the SAME style.\n` +
+    `• TAKE FROM THE REFERENCE — the entire scene: the composition and how things are arranged and staged (how items are stacked, folded, propped, layered or laid out), the camera angle, distance and crop, the backdrop and surface, the props and their placement, the lighting quality and direction, the shadow behaviour, the colour grade and the overall mood.\n` +
+    `• DISCARD FROM THE PRODUCT PHOTO — its original background, room, surface, props and arrangement ENTIRELY. None of the product photo's setting carries over. Keep ONLY the product object itself: its true material, weave, pattern, print, colourway, logo and every word of text, reproduced exactly.\n` +
+    `• NEVER COPY FROM THE REFERENCE — its specific product(s), their colours, their pattern or print, their labels, text or branding. The product's own colours and print come ONLY from the first image and must NOT be recoloured, re-patterned or tinted to match the reference.\n` +
+    `• SOFT / FORM-FLEXIBLE GOODS (bedding, sheets, textiles, apparel, towels, pouches, a garment): the product's identity is its FABRIC, PRINT, PATTERN, COLOURWAY and MATERIAL — not one fixed folded shape. You MAY re-form it (fold it, stack it, case it into pillows or cushions, drape or hang it) to occupy the reference's arrangement — this overrides any "keep the exact shape" instruction for such goods — but the print, pattern and colours must stay pixel-exact. A RIGID product (bottle, jar, tube, box, device) keeps its exact shape; only the camera and scene change.`
+  );
+}
 
 // The signature AI tells that make a set look cheap and generated. Banned on every shot.
 const ANTI_CLICHE_NEGATIVES = [
@@ -369,7 +438,9 @@ const HUMAN_REALISM =
   "Render as REAL photography of a REAL human being, shot on a full-frame camera with a portrait prime lens. The person MUST pass as genuinely photographed: skin has visible pores, fine texture, peach fuzz and true subsurface scattering (never airbrushed, waxy or plastic); eyes are alive with real catchlights, correct iris and moisture; hands have exactly five natural fingers with believable grip; teeth vary naturally; hair has real strands, flyaways and a believable hairline; the face and body carry slight human asymmetry. One coherent light source falling believably on skin, shallow depth of field, true skin colour. Never a 3D, CGI, doll, plastic or AI-render look — the single fastest way to break the brand is a model who looks like AI.";
 
 const MODEL_REF_LOCK =
-  "IDENTITY LOCK — the FIRST attached image(s) are a LIKENESS REFERENCE of the MODEL: a real person the client wants in the shoot. Take ONLY the PERSON from it — their face shape, features, skin tone, hair and body — and reproduce them faithfully and recognisably in every frame. Do NOT beautify them away: do not slim, lighten, smooth, or swap them for a more conventional face. " +
+  "IDENTITY LOCK — the FIRST attached image(s) are a LIKENESS REFERENCE of the MODEL: a real person the client wants in the shoot. Take ONLY the PERSON from it and reproduce THAT EXACT INDIVIDUAL, recognisably, in every frame — the goal is a precise match, not a lookalike or someone with the same vibe. " +
+  "Match their specific facial geometry: face and head shape, eye shape, colour and spacing, brow shape, nose bridge and tip, lip shape and mouth width, jawline, chin, cheekbones, ears, hairline, hair colour/texture/length, skin tone and undertone, apparent age, body type, and any distinguishing marks (freckles, moles, scars, facial hair, glasses). Someone seeing the result must say it is unmistakably the same person. " +
+  "Do NOT beautify them away: do not slim, lighten, smooth, de-age, or swap them for a more conventional or symmetrical face. Only expression, pose, camera angle, lighting, wardrobe and hair styling may change; the identity stays fixed and identical across the whole set. " +
   "CRITICAL — THIS IS NOT A PRODUCT REFERENCE: ignore ANYTHING the person is wearing, holding, applying or using in this image, and ignore any garment, logo, label, packaging, bottle, can or branding visible in it. NONE of that is the product, and none of it may appear in the result. The clothing, props and styling are yours to redesign for the brand. You may re-light, re-dress and re-stage the person freely — only the human likeness stays fixed and consistent across the set.";
 
 const HUMAN_NEGATIVES = [
@@ -409,6 +480,7 @@ export async function renderModelShot(args: {
   referencesAreBrand?: boolean; // true when references are the brand's OWN published photos
   aspect?: string;
   imageSize?: string;
+  finish?: FinishGrade; // brand grade for the deterministic finishing pass (defaults to NEUTRAL_GRADE)
 }): Promise<string> {
   const modelRefs = (args.modelRefs ?? []).filter(Boolean);
   const products = (args.products ?? []).filter(Boolean);
@@ -449,7 +521,10 @@ export async function renderModelShot(args: {
   const refs = [...modelRefs, ...products, ...references];
   // Model frames are inherently multi-subject (person + product/refs) — keep them on
   // the proven multi-image renderer, not the single-image Replicate editor.
-  return dispatch(args.id, fullPrompt, refs, { aspect: args.aspect, imageSize: args.imageSize, multiSubject: true });
+  // Force input_fidelity HIGH when a likeness reference is in play so the OpenAI/Azure
+  // edit path holds the EXACT face true — never let a global speed setting soften it.
+  const inputFidelity = modelRefs.length ? "high" : undefined;
+  return dispatch(args.id, fullPrompt, refs, { aspect: args.aspect, imageSize: args.imageSize, multiSubject: true, inputFidelity, finish: args.finish });
 }
 
 export async function renderShot(args: {
@@ -463,10 +538,22 @@ export async function renderShot(args: {
   referencesAreBrand?: boolean; // true when references are the brand's OWN published photos
   aspect?: string;
   imageSize?: string;
+  finish?: FinishGrade; // brand grade for the deterministic finishing pass (defaults to NEUTRAL_GRADE)
 }): Promise<string> {
   const products = (args.products ?? []).filter(Boolean);
   const references = (args.references ?? []).filter(Boolean);
-  const negatives = [...(args.negatives ?? []), ...(args.extraNegatives ?? []), ...ANTI_CLICHE_NEGATIVES, "altering, redrawing, restyling or relabelling the product", "changing the product's shape, colour or text", "inventing a different product",
+  // With a STYLE reference the product may be legitimately RE-FORMED to fit the reference's
+  // arrangement (a duvet cased into pillows, a garment folded/stacked) — so the identity to
+  // protect is its colour/pattern/print/text, NOT its folded shape (rigid-shape protection
+  // stays in PRODUCT_LOCK + the restage block). Without a reference, shape stays locked too.
+  const identityNegative = references.length
+    ? "changing the product's colour, pattern, print or text"
+    : "changing the product's shape, colour or text";
+  const negatives = [...(args.negatives ?? []), ...(args.extraNegatives ?? []), ...ANTI_CLICHE_NEGATIVES, "altering, redrawing, restyling or relabelling the product", identityNegative, "inventing a different product",
+    // Fidelity tell seen on the fast/low-fidelity path: it hallucinates a woven brand label
+    // or tag with garbled lettering that isn't on the real product. Ban invented/fake text;
+    // PRODUCT_LOCK already requires reproducing any REAL text exactly.
+    "inventing a brand label, woven tag, hangtag or care label the real product does not have", "garbled, gibberish, warped or fake lettering or text anywhere on the product",
     // Product photoshoot = product-only. Humans belong in the model shoot.
     "any person, model or human in frame", "a hand, fingers, arm, leg, foot or any body part in frame", "the product being held, worn, touched or carried by a person"];
   // Camera angle is enforced HERE, not just in the art-director prose: in edit mode the
@@ -475,38 +562,72 @@ export async function renderShot(args: {
   const angleLock = args.angle
     ? `\n\nCAMERA ANGLE — THIS shot is photographed from a specific viewpoint: ${args.angle}. Move the CAMERA to that exact position, elevation and distance and compose for it, EVEN IF it differs from how the product sits in the reference image. You MAY rotate, tilt and re-orient the product to present this viewpoint (e.g. show its top for an overhead, its underside for a base shot, look up at it for a low angle, or fill the frame for a macro) — the product's identity, shape, label, text and colours stay 100% fixed; only the camera and the product's orientation change. Do NOT simply reproduce the reference photo's framing — this must be a genuinely different angle from the other shots in the set.`
     : "";
+  // When a STYLE reference drives the shoot, the reference's WORLD must win. The planner
+  // never saw the reference image, so its invented scene (args.prompt) describes the BRAND
+  // world — left at full strength it fights the restage block below and usually overrides
+  // the look the client explicitly asked us to match. So demote it to mood/taste only and
+  // make the reference authoritative on composition, background, palette, staging and crop.
+  const scene = references.length
+    ? `MOOD / TASTE ONLY (SECONDARY) — the following is the brand's general taste, NOT the scene to build. Where it conflicts with the STYLE REFERENCE described below, the REFERENCE WINS: do NOT let it override the reference's composition, background, surface, palette, arrangement, lighting or crop.\n${args.prompt}`
+    : args.prompt;
   let fullPrompt =
-    `${PRODUCT_LOCK}${angleLock}\n\n${args.prompt}` +
+    `${PRODUCT_LOCK}${angleLock}\n\n${scene}` +
     `\n\nAvoid: ${negatives.join(", ")}.` +
-    `\n\n${REALISM_ANCHOR}`;
+    `\n\n${REALISM_ANCHOR}` +
+    `\n\n${PRODUCT_IMPERFECTION}`;
   if (references.length) {
     const which = references.length === 1 ? "the LAST attached image is" : `the LAST ${references.length} attached images are`;
     fullPrompt += args.referencesAreBrand
       ? `\n\nBRAND LOOK — ${which} this brand's OWN published photography, pulled from their real website / feed. This is the visual signature the result MUST belong to: study and match their background and palette, surface and set, prop / styling density, colour grade, lighting quality and direction, depth of field, mood and crop. The new shot should look like it could sit in THIS brand's actual feed next to these — same photographic world, same taste. Do NOT copy the product, label, text or branding from these images; the product comes only from the first image(s) and the scene from the brief.`
-      : `\n\nSTYLE REFERENCE — ${which} a LOOK reference, NOT the product. Match its art direction closely: background colour and palette, prop / ingredient styling and abundance, surface, lighting, mood and composition. Recreate THAT look around THIS product. Do NOT copy any product, label, text, or branding from the style reference — the product comes only from the first image(s).`;
+      : styleRestageBlock(which);
   }
   // Product image(s) first (the subject), style references last (the look).
   const refs = [...products, ...references];
   // Single product, no extra refs → fast single-image Replicate path is safe. Multiple
   // products or style refs need compositing, so route those to a multi-image renderer.
   const multiSubject = products.length + references.length > 1;
-  return dispatch(args.id, fullPrompt, refs, { aspect: args.aspect, imageSize: args.imageSize, multiSubject });
+  // RESTAGE (a style reference is present): gpt-image-1-mini barely conditions on a second
+  // reference image — it follows the brand-world text and ignores the reference, so "match
+  // the reference" quietly fails. Gemini's image model genuinely restages from a second
+  // image and is the right home for these shots. But this must be OPT-IN: it only helps
+  // with a WORKING Gemini key, and routing to a dead key would turn a wrong shot into a
+  // hard error. Enable with RESTAGE_RENDERER=gemini once GEMINI_API_KEY is valid.
+  const preferGemini =
+    references.length > 0 &&
+    process.env.RESTAGE_RENDERER?.trim().toLowerCase() === "gemini" &&
+    !!process.env.GEMINI_API_KEY;
+  // On the OpenAI path, a restage needs LOW input_fidelity so the model stops cloning the
+  // product photo's own background and actually rebuilds the reference's scene. Normal
+  // shoots pass nothing → renderImageSDK keeps "high" to hold the product true. Tunable.
+  const inputFidelity = references.length > 0 ? (process.env.OPENAI_RESTAGE_FIDELITY || "low") : undefined;
+  return dispatch(args.id, fullPrompt, refs, { aspect: args.aspect, imageSize: args.imageSize, multiSubject, preferGemini, inputFidelity, finish: args.finish });
 }
 
 /** Shared renderer dispatch — provider-swappable, used by both product and model paths. */
-function dispatch(id: string, prompt: string, refs: string[], opts: { aspect?: string; imageSize?: string; multiSubject?: boolean }): Promise<string> {
-  switch (pickRenderer(opts.multiSubject ?? false)) {
+async function dispatch(id: string, prompt: string, refs: string[], opts: { aspect?: string; imageSize?: string; multiSubject?: boolean; preferGemini?: boolean; inputFidelity?: string; finish?: FinishGrade }): Promise<string> {
+  // A restage shot prefers Gemini (see renderShot) — but never override a real Higgsfield
+  // production renderer, which handles multi-image itself.
+  const chosen = opts.preferGemini && activeRenderer() !== "higgsfield" ? "gemini" : pickRenderer(opts.multiSubject ?? false);
+  let url: string;
+  switch (chosen) {
     case "higgsfield":
-      return renderHiggsfield(id, prompt, refs);
+      url = await renderHiggsfield(id, prompt, refs); break;
     case "replicate":
-      return renderReplicate(id, prompt, refs, { aspect: opts.aspect });
+      url = await renderReplicate(id, prompt, refs, { aspect: opts.aspect }); break;
     case "azure-image":
-      return renderAzureImage(id, prompt, refs, { aspect: opts.aspect });
+      url = await renderAzureImage(id, prompt, refs, { aspect: opts.aspect, inputFidelity: opts.inputFidelity }); break;
     case "openai":
-      return renderOpenAI(id, prompt, refs, { aspect: opts.aspect });
+      url = await renderOpenAI(id, prompt, refs, { aspect: opts.aspect, inputFidelity: opts.inputFidelity }); break;
     case "gemini":
-      return renderGemini(id, prompt, refs, opts);
+      url = await renderGemini(id, prompt, refs, opts); break;
     default:
-      return Promise.resolve(mockPlaceholder(id, prompt.slice(0, 40)));
+      return mockPlaceholder(id, prompt.slice(0, 40)); // mock is a data URI — nothing to grade
   }
+  // FINISHING PASS — the single choke point every real render passes through. The brand's
+  // grade (from their own photos) is applied here by sharp, AFTER the model, so the final
+  // colour never comes from the image model and the whole set reads as one photographer.
+  // Always-on but subtle; NEUTRAL_GRADE keeps even an un-researched brand off the flat,
+  // floaty AI look. Runs BEFORE QC (the caller QCs this returned url = the finished frame).
+  await finishInPlace(url, opts.finish ?? NEUTRAL_GRADE);
+  return url;
 }

@@ -1,15 +1,22 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { Upload, X, ImageIcon, Loader2, RefreshCw, ArrowUp, SlidersHorizontal, Images, Sparkles, Brain, UserPlus, ScanFace, Package, UserRound, Plus, Minus } from "lucide-react";
+import { Upload, X, ImageIcon, Loader2, RefreshCw, ArrowUp, SlidersHorizontal, Images, Sparkles, Brain, UserPlus, ScanFace, Package, UserRound, Plus, Minus, Instagram, GalleryHorizontalEnd, Megaphone, RectangleVertical, Layers, Download, Type, AlignLeft, AlignCenter, AlignRight, Shuffle } from "lucide-react";
 import { WorkBar } from "@/components/tastebud/WorkBar";
 import { BrandBrainPanel } from "@/components/tastebud/BrandBrainPanel";
 import { BrandKitCard } from "@/components/tastebud/BrandKitCard";
 import { ProductLibraryPanel } from "@/components/tastebud/ProductLibraryPanel";
 import { thumb } from "@/lib/thumb";
-import type { BrandBrain, ModelSpec, ShotCompliance } from "@/lib/types";
+import { numberToAspect } from "@/lib/brief";
+import { CREATIVE_TYPES, FORMATS, FORMAT_IDS, isV2Type, type FormatId } from "@/lib/creativeTypes";
+import { resolveBrandFonts, googleFontHref, fontVars, type BrandFonts } from "@/lib/brandFont";
+import { FONT_CHOICES, BRAND_FONT_ID, resolveFontChoice, catalogFontHref } from "@/lib/fontCatalog";
+import { buildCopyLayout, type LayoutBlock, type LayoutCluster } from "@/lib/copyLayout";
+import { CanvasToolbar, AnnotationLayer, isDrawTool, type CanvasTool, type Anno } from "@/components/tastebud/CanvasToolbar";
+import { CanvasTopBar } from "@/components/tastebud/CanvasTopBar";
+import type { BrandBrain, CampaignCopy, CopyTreatment, CreativeTypeId, ModelSpec, ShotCompliance, ShotPlacement } from "@/lib/types";
 
 /**
  * PAGE 8 — Unified Studio workspace.
@@ -22,11 +29,12 @@ import type { BrandBrain, ModelSpec, ShotCompliance } from "@/lib/types";
  * one grid that gets wiped each time. Replaces the old Product/Model fork.
  */
 
-type CreativeType = "product" | "model";
+type CreativeType = CreativeTypeId;
 type Img = { name: string; url: string };
 type Decision = "keep" | "reject" | "hero";
-type Shot = { id: string; angle: string; prompt: string; url: string; negatives?: string[]; compliance?: ShotCompliance; aspect?: number; pending?: boolean; failed?: boolean; hires?: boolean; decision?: Decision; drift?: boolean; driftReasons?: string[] };
-type Run = { id: string; kind: CreativeType; label: string; shots: Shot[] };
+type Shot = { id: string; angle: string; prompt: string; url: string; negatives?: string[]; compliance?: ShotCompliance; aspect?: number; format?: string; seq?: number; groupId?: string; placement?: ShotPlacement; pending?: boolean; failed?: boolean; hires?: boolean; decision?: Decision; drift?: boolean; driftReasons?: string[]; saving?: boolean };
+type Run = { id: string; kind: CreativeType; label: string; shots: Shot[]; copy?: CampaignCopy };
+type CanvasSnapshot = { runs: Run[]; annos: Anno[] }; // one undo/redo entry — the whole canvas at a point in time
 type Msg = { role: "user" | "assistant"; content: string };
 type Panel = { background: string; surface: string; vibe: string; composition: string; lighting: string; styling: string; format: string; numAngles: number; shotsPerAngle: number };
 type Scene = { background: string; vibe: string; lighting: string; composition: string; format: string; numAngles: number; shotsPerAngle: number };
@@ -54,8 +62,45 @@ const slugify = (name: string): string =>
   (name || "brand").toLowerCase().trim().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 60) || "brand";
 
 const uid = (p: string): string => `${p}-${Date.now().toString(36)}-${Math.random().toString(36).slice(2, 6)}`;
-const labelFor = (kind: CreativeType): string => (kind === "model" ? "Model Photoshoot" : "Product Photo Shoots");
+const labelFor = (kind: CreativeType): string => CREATIVE_TYPES[kind].runLabel;
+
+/** Download a (same-origin) asset URL under a friendly filename. */
+function triggerDownload(url: string, filename: string) {
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = filename;
+  a.rel = "noopener";
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+}
+
+/**
+ * The copy that overlays ONE image. Carousels carry per-frame copy (frame k gets its
+ * own line; the LAST frame also gets the CTA). Ads / posts / stories put the campaign
+ * headline + CTA on the single hero. Returns undefined when a frame has nothing to say.
+ */
+function overlayForShot(kind: CreativeType, copy: CampaignCopy | undefined, seq?: number, total?: number): CampaignCopy | undefined {
+  if (!copy) return undefined;
+  if (kind === "carousel") {
+    const f = copy.frames?.[(seq ?? 1) - 1];
+    const isLast = !!seq && !!total && seq === total;
+    const headline = f?.headline ?? (seq === 1 ? copy.headline : undefined);
+    // The treatment (how the type stages) rides along so every frame places copy the same
+    // considered way — never auto-parked at the bottom.
+    const out: CampaignCopy = { ...(headline ? { headline } : {}), ...(f?.subline ? { subline: f.subline } : {}), ...(isLast && copy.cta ? { cta: copy.cta } : {}), ...(copy.treatment ? { treatment: copy.treatment } : {}) };
+    return out.headline || out.cta ? out : undefined;
+  }
+  return copy.headline || copy.cta ? { headline: copy.headline, subline: copy.subline, cta: copy.cta, treatment: copy.treatment } : undefined;
+}
 const clampZoom = (z: number): number => Math.min(2, Math.max(0.25, Math.round(z * 100) / 100));
+
+// v2 types render at a fixed aspect; ad placeholders use the feed default until the plan lands.
+const defaultAspectFor = (kind: CreativeType): number => (kind === "story" ? 9 / 16 : 4 / 5);
+// Map a rendered shot's numeric aspect back to the panel's format string so a reshoot /
+// re-render edit comes back at the SAME aspect (a story frame must never return 4:5).
+const PANEL_FORMAT: Record<string, string> = { "4:5": "Portrait 4:5", "1:1": "Square 1:1", "9:16": "Story 9:16", "16:9": "Wide 16:9" };
+const panelFormatFor = (aspect?: number): string => PANEL_FORMAT[numberToAspect(aspect)] ?? "";
 
 const OPTIONS: Record<"background" | "surface" | "vibe" | "composition" | "lighting" | "styling" | "format", string[]> = {
   background: ["Pure white", "Pure black", "Art-directed", "Match the product", "Soft cream", "Warm beige", "Sand / tan", "Blush pink", "Dusty rose", "Terracotta", "Coral / orange", "Mustard yellow", "Cherry red", "Sage green", "Olive green", "Deep forest green", "Mint", "Sky blue", "Teal", "Deep navy", "Electric blue", "Lavender", "Royal purple", "Plum", "Stone grey", "Charcoal grey", "Chocolate brown", "Soft gradient glow"],
@@ -90,17 +135,58 @@ const SCENE_OPTIONS: Record<"background" | "vibe" | "lighting" | "composition" |
 };
 
 const opener = (type: CreativeType, brandName: string, loaded: number): string => {
+  const name = brandName || "your brand";
+  const productNote = loaded ? " Your product’s already loaded." : " Upload your product and we’re off.";
   if (type === "model") {
-    return `Let’s shoot a model for ${brandName || "your brand"}. Build one on the left — skin, hair, makeup, body, the energy you want — or paste a photo of the exact person you have in mind and I’ll reproduce them faithfully.${loaded ? ` Your product’s already loaded.` : ""} Then just say go.`;
+    return `Let’s shoot a model for ${name}. Build one on the left — skin, hair, makeup, body, the energy you want — or paste a photo of the exact person you have in mind and I’ll reproduce them faithfully.${loaded ? ` Your product’s already loaded.` : ""} Then just say go.`;
   }
+  if (type === "instagram") return `Let’s make an Instagram creative for ${name} — one scroll-stopping feed frame, caption written for you.${productNote} Tell me the moment, or just say go.`;
+  if (type === "story") return `Let’s shoot a story for ${name} — full-bleed 9:16, safe zones handled.${productNote} Tell me the moment, or just say go.`;
+  if (type === "carousel") return `Let’s build a carousel for ${name} — one idea told across the swipes: a hook, the story, a close.${productNote} Give me the idea, or say go and I’ll write the arc from your brand.`;
+  if (type === "ad") return `Let’s build an ad campaign for ${name} — one concept fanned across feed, square, story and landscape, headline and CTA written for you.${productNote} What are we selling — or just say go.`;
   return loaded
     ? `Shooting for ${brandName}. I’ve loaded ${loaded} product${loaded > 1 ? "s" : ""} from your library — tell me the vibe, or just hit send and I’ll shoot on-brand.`
     : `Shooting for ${brandName || "your brand"}. Upload your product and tell me what you want — or just hit send and I’ll shoot it on-brand.`;
 };
 
+const SWITCH_LINE: Record<CreativeType, string> = {
+  product: "Switched to product. Tell me the vibe or just hit send — same brand, same thread.",
+  model: "Switched to model. Build one on the left or paste a reference, then say go — I’ll keep the same brand and this conversation.",
+  instagram: "Switched to Instagram creative — one scroll-stopping feed frame, caption included. Tell me the moment, or say go.",
+  story: "Switched to story — full-bleed 9:16, safe zones handled. Tell me the moment, or say go.",
+  carousel: "Switched to carousel — one idea across the swipes, hook to close. Give me the idea, or say go.",
+  ad: "Switched to ad campaign — one concept fanned across every placement, headline and CTA written for you. What are we selling?",
+};
+
+const TYPE_TABS = [
+  { key: "product", label: "Product", Icon: Package },
+  { key: "model", label: "Model", Icon: UserRound },
+  { key: "instagram", label: "Instagram", Icon: Instagram },
+  { key: "story", label: "Story", Icon: RectangleVertical },
+  { key: "carousel", label: "Carousel", Icon: GalleryHorizontalEnd },
+  { key: "ad", label: "Ad campaign", Icon: Megaphone },
+] as const;
+
 export default function CreateWorkspace() {
   const router = useRouter();
   const [brain, setBrain] = useState<BrandBrain>({});
+  // Brand typography → nearest Google Font, so copy overlays render in the brand's own
+  // type (live on canvas AND baked into exports). Injects one <link> per brand.
+  const brandFonts = useMemo<BrandFonts>(() => resolveBrandFonts(brain.intelligence?.typography), [brain.intelligence?.typography]);
+  useEffect(() => {
+    const href = googleFontHref(brandFonts);
+    let link = document.head.querySelector<HTMLLinkElement>("link[data-brand-font]");
+    if (!link) { link = document.createElement("link"); link.rel = "stylesheet"; link.setAttribute("data-brand-font", ""); document.head.appendChild(link); }
+    if (link.href !== href) link.href = href;
+  }, [brandFonts]);
+  // Load EVERY catalog face once (a small, fixed set) so picking any typeface in the
+  // Typography bar restyles the overlay instantly — no per-pick network wait.
+  useEffect(() => {
+    const href = catalogFontHref();
+    let link = document.head.querySelector<HTMLLinkElement>("link[data-catalog-font]");
+    if (!link) { link = document.createElement("link"); link.rel = "stylesheet"; link.setAttribute("data-catalog-font", ""); document.head.appendChild(link); }
+    if (link.href !== href) link.href = href;
+  }, []);
   const [type, setType] = useState<CreativeType>("product");
   const [messages, setMessages] = useState<Msg[]>([]);
   const [input, setInput] = useState("");
@@ -112,6 +198,13 @@ export default function CreateWorkspace() {
   const [enhanceOn, setEnhanceOn] = useState(false);
   const [showBrain, setShowBrain] = useState(false);
   const [showLibrary, setShowLibrary] = useState(false);
+  // v2 creative-type state (instagram / story / carousel / ad)
+  const [frames, setFrames] = useState(5); // carousel sequence length
+  const [adFormats, setAdFormats] = useState<FormatId[]>([...FORMAT_IDS]); // ad placements to fan out to
+  const [concepts, setConcepts] = useState(1); // ad: distinct concepts, each fanned across placements
+  const [copyDraft, setCopyDraft] = useState({ headline: "", cta: "" }); // typed copy — wins over generated
+  const [overlayOff, setOverlayOff] = useState<Record<string, boolean>>({}); // per-run copy-overlay toggle
+  const [adapting, setAdapting] = useState<string | null>(null); // shot id with the format menu open
 
   // Shared subject: products (the subjects in product mode; the optional on-model product in model mode).
   const [products, setProducts] = useState<Img[]>([]);
@@ -129,6 +222,15 @@ export default function CreateWorkspace() {
   const [zoomSmooth, setZoomSmooth] = useState(false); // animate discrete (button/key) zoom; snap for wheel/pinch/pan
   const [pan, setPan] = useState({ x: 0, y: 0 });      // infinite-canvas offset of the floating world (screen px)
   const [grabbing, setGrabbing] = useState(false);
+  const [tool, setTool] = useState<CanvasTool>("select"); // active canvas tool (toolbar)
+  const [boardName, setBoardName] = useState("Page 1");   // canvas top-bar board name
+  const [selectedRunId, setSelectedRunId] = useState<string | null>(null); // run the trash/duplicate act on
+  const [annos, setAnnos] = useState<Anno[]>([]);         // canvas sketch annotations (draw/shape/arrow/text/sticky)
+  // One shared canvas history for BOTH image sets and sketch annotations, so undo/redo
+  // covers a drawing as naturally as a generated set — and lights up the moment you draw.
+  const [history, setHistory] = useState<CanvasSnapshot[]>([]);
+  const [future, setFuture] = useState<CanvasSnapshot[]>([]);
+  const dupCount = useRef(0);
   const [contentW, setContentW] = useState(760);       // width of the floating content column
 
   const fileRef = useRef<HTMLInputElement>(null);
@@ -160,10 +262,15 @@ export default function CreateWorkspace() {
             .map((p) => ({ name: p.name, url: p.images[0] }))
             .filter((p) => p.url);
           if (chosen.length) setProducts(chosen);
+          // ?type= deep link — /studio/create?type=carousel etc. are the creative-type "pages".
+          const qp = new URLSearchParams(window.location.search).get("type")?.toLowerCase();
+          const QP_MAP: Record<string, CreativeType> = { product: "product", model: "model", instagram: "instagram", ig: "instagram", story: "story", stories: "story", carousel: "carousel", carousels: "carousel", ad: "ad", ads: "ad", "ad-campaign": "ad", campaign: "ad" };
+          const fromQuery = qp ? QP_MAP[qp] : undefined;
           const uses = b.uses ?? [];
-          const initial: CreativeType = uses.includes("Model photoshoots") && !uses.includes("Product photoshoots") ? "model" : "product";
+          const initial: CreativeType = fromQuery ?? (uses.includes("Model photoshoots") && !uses.includes("Product photoshoots") ? "model" : "product");
           setType(initial);
           typeRef.current = initial;
+          if (isV2Type(initial)) setShowPanel(true);
           setMessages([{ role: "assistant", content: opener(initial, b.name, chosen.length) }]);
           return;
         }
@@ -184,6 +291,8 @@ export default function CreateWorkspace() {
     const el = canvasViewportRef.current;
     if (!el) return;
     const onWheel = (e: WheelEvent) => {
+      // Carousel strips scroll horizontally themselves — don't hijack a plain wheel there.
+      if (!(e.ctrlKey || e.metaKey) && (e.target as HTMLElement).closest?.("[data-scroll-x]")) return;
       e.preventDefault();
       const rect = el.getBoundingClientRect();
       if (e.ctrlKey || e.metaKey) {
@@ -229,33 +338,82 @@ export default function CreateWorkspace() {
     setRuns((rs) => rs.map((r) => ({ ...r, shots: r.shots.map((s) => (s.id === id ? { ...s, ...patch } : s)) })));
   const appendCardOf = (siblingId: string, card: Shot) =>
     setRuns((rs) => rs.map((r) => (r.shots.some((s) => s.id === siblingId) ? { ...r, shots: [...r.shots, card] } : r)));
+  // Typography control: merge a treatment patch into a run's copy (font / layout / scale /
+  // case / align / ink). The SAME treatment drives the live overlay AND the export bake.
+  const setRunTreatment = (runId: string, patch: Partial<CopyTreatment>) =>
+    setRuns((rs) => rs.map((r) => (r.id === runId && r.copy ? { ...r, copy: { ...r.copy, treatment: { ...r.copy.treatment, ...patch } } } : r)));
+
+  // ── Canvas history: undo / redo / duplicate / trash operate on the whole canvas ──
+  // Every mutation snapshots the current canvas (image sets + sketch annotations) before
+  // it changes, so a drawing is as undoable as a generated set. `commitRuns` mutates the
+  // sets, `commitAnnos` (passed to the annotation layer) mutates the drawings; both share
+  // this one stack, so undo lights up the moment you draw.
+  const pushHistory = () => {
+    setHistory((h) => [...h.slice(-49), { runs, annos }]);
+    setFuture([]);
+  };
+  const commitRuns = (next: Run[]) => { pushHistory(); setRuns(next); };
+  const commitAnnos = (next: Anno[]) => { pushHistory(); setAnnos(next); };
+  const undo = () => {
+    if (!history.length) return;
+    const prev = history[history.length - 1];
+    setFuture((f) => [{ runs, annos }, ...f]);
+    setRuns(prev.runs);
+    setAnnos(prev.annos);
+    setHistory((h) => h.slice(0, -1));
+  };
+  const redo = () => {
+    if (!future.length) return;
+    const nextSnap = future[0];
+    setHistory((h) => [...h, { runs, annos }]);
+    setRuns(nextSnap.runs);
+    setAnnos(nextSnap.annos);
+    setFuture((f) => f.slice(1));
+  };
+  // The run the trash/duplicate buttons target: the selected one, else the most recent.
+  const targetRunId = () => selectedRunId ?? runs[0]?.id ?? null;
+  const duplicateRun = () => {
+    const id = targetRunId();
+    const src = runs.find((r) => r.id === id);
+    if (!src) return;
+    const rid = `dup${++dupCount.current}-${src.id}`;
+    const copy: Run = { ...src, id: rid, label: `${src.label} (copy)`, shots: src.shots.map((s, i) => ({ ...s, id: `${rid}-s${i}` })) };
+    commitRuns([copy, ...runs]);
+    setSelectedRunId(rid);
+  };
+  const trashRun = () => {
+    const id = targetRunId();
+    if (!id) return;
+    commitRuns(runs.filter((r) => r.id !== id));
+    setSelectedRunId(null);
+  };
+  const clearCanvas = () => { if (runs.length || annos.length) { pushHistory(); setRuns([]); setAnnos([]); } };
 
   // The moment a shoot starts, drop N loading boxes matching the requested count so the
   // canvas fills immediately — then reconcile onto the server's real plan, and fail any
   // box the stream never delivered.
   const optimisticStart = (runId: string, kind: CreativeType, count: number) =>
-    setRuns((rs) => [{ id: runId, kind, label: labelFor(kind), shots: Array.from({ length: Math.max(1, count) }, (_, i) => ({ id: `${runId}-s${i}`, angle: "", prompt: "", url: "", aspect: 4 / 5, pending: true })) }, ...rs]);
-  const reconcileRun = (runId: string, stubs: { id: string; angle: string }[], aspect?: string) =>
+    setRuns((rs) => [{ id: runId, kind, label: labelFor(kind), shots: Array.from({ length: Math.max(1, count) }, (_, i) => ({ id: `${runId}-s${i}`, angle: "", prompt: "", url: "", aspect: defaultAspectFor(kind), pending: true })) }, ...rs]);
+  const reconcileRun = (runId: string, stubs: { id: string; angle: string; aspect?: string; format?: string; seq?: number }[], aspect?: string) =>
     setRuns((rs) => rs.map((r) => {
       if (r.id !== runId) return r;
       const a = aspectNum(aspect);
-      // Same count → keep the boxes in place (no flash), just adopt the real ids/angles.
-      if (stubs.length === r.shots.length) return { ...r, shots: r.shots.map((s, i) => ({ ...s, id: stubs[i].id, angle: stubs[i].angle, aspect: a })) };
-      return { ...r, shots: stubs.map((st) => ({ id: st.id, angle: st.angle, prompt: "", url: "", aspect: a, pending: true })) };
+      // Same count → keep the boxes in place (no flash), just adopt the real ids/angles
+      // (+ each stub's own aspect/format/seq — ad fan-outs mix aspects in one run).
+      if (stubs.length === r.shots.length) return { ...r, shots: r.shots.map((s, i) => ({ ...s, id: stubs[i].id, angle: stubs[i].angle, aspect: stubs[i].aspect ? aspectNum(stubs[i].aspect) : a, format: stubs[i].format, seq: stubs[i].seq })) };
+      return { ...r, shots: stubs.map((st) => ({ id: st.id, angle: st.angle, prompt: "", url: "", aspect: st.aspect ? aspectNum(st.aspect) : a, format: st.format, seq: st.seq, pending: true })) };
     }));
   const failPending = (runId: string) =>
     setRuns((rs) => rs.map((r) => (r.id === runId ? { ...r, shots: r.shots.map((s) => (s.pending && !s.url ? { ...s, pending: false, failed: true } : s)) } : r)));
-
-  const soonTypes = (brain.uses ?? []).filter((u) => u !== "Product photoshoots" && u !== "Model photoshoots" && u !== "Something else");
 
   function switchType(next: CreativeType) {
     if (next === type || busy || thinking) return;
     setType(next);
     typeRef.current = next;
-    setShowPanel(false);
-    say("assistant", next === "model"
-      ? "Switched to model. Build one on the left or paste a reference, then say go — I’ll keep the same brand and this conversation."
-      : "Switched to product. Tell me the vibe or just hit send — same brand, same thread.");
+    // v2 types surface their controls (placements, frames, copy) right away — the
+    // inline panel helps here; product keeps its produce-first, panel-later flow.
+    setShowPanel(isV2Type(next));
+    say("assistant", SWITCH_LINE[next]);
   }
 
   function addImgs(files: FileList | null, set: React.Dispatch<React.SetStateAction<Img[]>>) {
@@ -265,6 +423,34 @@ export default function CreateWorkspace() {
       rd.onload = () => set((p) => [...p, { name: f.name, url: String(rd.result) }]);
       rd.readAsDataURL(f);
     }
+  }
+
+  // Cmd/Ctrl+V an image straight into the composer → attach it where it belongs instead of
+  // silently dropping it (the #1 "my reference did nothing" trap — there was no paste path).
+  // Product mode: first image with no product yet becomes the product; otherwise it's a
+  // style reference (the common "match this look" intent). Model mode: a model likeness.
+  // A text-only paste falls through untouched so normal typing/pasting still works.
+  function onPasteImages(e: React.ClipboardEvent) {
+    const files = e.clipboardData?.files;
+    if (!files?.length || !Array.from(files).some((f) => f.type.startsWith("image/"))) return;
+    e.preventDefault();
+    if (typeRef.current === "model") {
+      setSource("reference"); addImgs(files, setModelRefs);
+      say("assistant", "Got your model reference — I’ll reproduce that exact person. Say go when you’re ready.");
+      return;
+    }
+    if (!products.length) {
+      addImgs(files, setProducts);
+      say("assistant", typeRef.current === "product" ? "Added that as your product. Paste a style reference too, or just say go." : "Added that as your product. Say go when you’re ready.");
+      return;
+    }
+    // Style references are only for the product photoshoot — not the v2 creative types.
+    if (typeRef.current !== "product") {
+      say("assistant", "Style references only apply to product and model photoshoots. Switch to Product to match a reference.");
+      return;
+    }
+    addImgs(files, setReferences);
+    say("assistant", "Pinned that as a style reference — I’ll match its composition, palette and staging on the next shoot. Say go.");
   }
 
   // ── Chat ────────────────────────────────────────────────────────────────
@@ -286,7 +472,9 @@ export default function CreateWorkspace() {
           else if (a.type === "generate_model_shoot") await generate(a.brief ?? {});
         }
       } else {
-        const r = await fetch("/api/chat", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ messages: next, state: { productCount: products.length, brandStatus: "have" }, brand: brain }) });
+        // product + all v2 creative types share the product-spine agent; the active
+        // type rides in state so the director talks hooks/placements/frames natively.
+        const r = await fetch("/api/chat", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ messages: next, state: { productCount: products.length, brandStatus: "have", creativeType: typeRef.current }, brand: brain }) });
         const j = await r.json();
         if (j.reply) say("assistant", j.reply);
         for (const a of j.actions ?? []) {
@@ -316,7 +504,7 @@ export default function CreateWorkspace() {
   }
 
   // ── Generation pipeline (shared) ──────────────────────────────────────────
-  async function stream(body: object, h: { onPlan: (s: { id: string; angle: string }[], a?: string) => void; onShot: (s: Shot) => void; onError: (id?: string, error?: string) => void; onReshoot: (id: string) => void }) {
+  async function stream(body: object, h: { onPlan: (s: { id: string; angle: string; aspect?: string; format?: string; seq?: number }[], a?: string) => void; onShot: (s: Shot) => void; onError: (id?: string, error?: string) => void; onReshoot: (id: string) => void; onCopy?: (c: CampaignCopy) => void; onPlacement?: (id: string, placement: ShotPlacement) => void }) {
     const res = await fetch("/api/generate", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(body) });
     const reader = res.body!.getReader();
     const dec = new TextDecoder();
@@ -331,8 +519,10 @@ export default function CreateWorkspace() {
         if (!line) continue;
         const m = JSON.parse(line);
         if (m.type === "plan") h.onPlan(m.shots ?? [], m.aspect);
+        else if (m.type === "copy") h.onCopy?.(m.copy ?? {});
         else if (m.type === "qc") h.onReshoot(m.id);
         else if (m.type === "shot") h.onShot(m.shot);
+        else if (m.type === "placement") h.onPlacement?.(m.id, m.placement ?? {});
         else if (m.type === "shotError") h.onError(m.id, m.error);
         else if (m.type === "error") say("assistant", `Generation error: ${m.error}`);
       }
@@ -341,7 +531,11 @@ export default function CreateWorkspace() {
 
   // Build the /api/generate body for the active type.
   function productBody(express: string, p: Panel, productsOverride?: string[]) {
-    return { mode: "product-photoshoot", express, panel: p, products: productsOverride ?? products.map((x) => x.url), references: references.map((r) => r.url), brand: brain };
+    // Style references belong to the plain product photoshoot only — never the v2 creative
+    // types (instagram / story / carousel / ad), which ride this same body. The server
+    // enforces this too, but don't even send them for a v2 run.
+    const refs = typeRef.current === "product" ? references.map((r) => r.url) : [];
+    return { mode: "product-photoshoot", express, panel: p, products: productsOverride ?? products.map((x) => x.url), references: refs, brand: brain };
   }
   function modelBody(express: string, sc: Scene, spec: ModelSpec) {
     return {
@@ -362,7 +556,7 @@ export default function CreateWorkspace() {
     const surfaceGenError = (error?: string) => {
       if (errSurfaced || !error) return;
       errSurfaced = true;
-      if (/credit|billing|prepay|deplet|exhaust|quota/i.test(error)) say("assistant", "These failed because image generation is out of credits on the connected Google AI Studio account — not your brief. Top up billing at ai.studio and run the shoot again.");
+      if (/credit|billing|prepay|deplet|exhaust|quota|hard limit|spend/i.test(error)) say("assistant", "This isn’t your brief — the connected image-generation account has hit its billing / spend limit, so new renders are being refused. Raise the spend limit (or top up billing) on the image provider, then hit retry.");
       else say("assistant", `The shoot hit an error: ${error}`);
     };
 
@@ -388,32 +582,63 @@ export default function CreateWorkspace() {
       failPending(runId); setBusy(false); setStatus(""); return;
     }
 
-    // Product
+    // Product spine — product photoshoot + the v2 creative types (instagram / story / carousel / ad)
     if (!products.length) { say("assistant", "I’ll need your product photo first — use the upload button."); return; }
     const merged: Panel = { ...panel };
     (["background", "surface", "vibe", "lighting", "composition", "styling", "format"] as const).forEach((k) => { if (!merged[k] && brief[k]) (merged[k] as string) = brief[k] as string; });
     if (typeof brief.numAngles === "number") merged.numAngles = brief.numAngles;
     if (typeof brief.shotsPerAngle === "number") merged.shotsPerAngle = brief.shotsPerAngle;
-    const expected = Math.max(1, merged.numAngles) * Math.max(1, merged.shotsPerAngle);
-    setBusy(true); setStatus("Art-directing the shoot…");
+    let expected = Math.max(1, merged.numAngles) * Math.max(1, merged.shotsPerAngle);
+
+    // v2 extras ride the same body: the type, its frame count / placements, typed copy.
+    const extras: Record<string, unknown> = {};
+    if (isV2Type(kind)) {
+      merged.format = ""; // aspect is fixed by the type server-side
+      merged.shotsPerAngle = 1;
+      extras.creativeType = kind;
+      const headline = copyDraft.headline.trim();
+      const cta = copyDraft.cta.trim();
+      if (headline || cta) extras.copy = { ...(headline ? { headline } : {}), ...(cta ? { cta } : {}) };
+      if (kind === "ad") {
+        merged.numAngles = Math.max(1, Math.min(3, concepts));
+        const placements = adFormats.length ? adFormats : [...FORMAT_IDS];
+        extras.formats = placements;
+        expected = merged.numAngles * placements.length;
+      } else if (kind === "carousel") {
+        // "6 frames" said in chat lands as numAngles — honour it as the sequence length.
+        const n = typeof brief.numAngles === "number" && brief.numAngles > 1 ? Math.max(3, Math.min(8, brief.numAngles)) : frames;
+        if (n !== frames) setFrames(n);
+        extras.frames = n;
+        merged.numAngles = 1;
+        expected = n;
+      } else {
+        expected = Math.max(1, merged.numAngles);
+      }
+    }
+
+    const STATUS_FOR: Partial<Record<CreativeType, string>> = { ad: "Art-directing the campaign…", carousel: "Writing the arc, art-directing…", instagram: "Art-directing your creative…", story: "Art-directing your story…" };
+    setBusy(true); setStatus(STATUS_FOR[kind] ?? "Art-directing the shoot…");
     optimisticStart(runId, kind, expected);
     try {
-      await stream(productBody(brief.express ?? "", merged), {
-        onPlan: (stubs, aspect) => { setStatus(`Shooting ${stubs.length} image${stubs.length > 1 ? "s" : ""}…`); reconcileRun(runId, stubs, aspect); },
+      await stream({ ...productBody(brief.express ?? "", merged), ...extras }, {
+        onPlan: (stubs, aspect) => { setStatus(kind === "ad" ? `Rendering ${stubs.length} placements…` : kind === "carousel" ? `Shooting ${stubs.length} frames…` : `Shooting ${stubs.length} image${stubs.length > 1 ? "s" : ""}…`); reconcileRun(runId, stubs, aspect); },
         onReshoot: (id) => patchShot(id, { pending: true }),
         onShot: (s) => patchShot(s.id, { ...s, aspect: aspectNum(s.aspect), pending: false, failed: false }),
         onError: (id, error) => { if (id) patchShot(id, { pending: false, failed: true }); surfaceGenError(error); },
+        onCopy: (copy) => setRuns((rs) => rs.map((r) => (r.id === runId ? { ...r, copy } : r))),
+        onPlacement: (id, placement) => patchShot(id, { placement }),
       });
     } catch (e) { say("assistant", `Generation hit an error: ${(e as Error).message}`); }
     failPending(runId); setBusy(false); setStatus("");
   }
 
-  // A single one-off frame (used by reshoot / re-render edits).
-  async function single(express: string, opts?: { products?: string[] }): Promise<Shot | null> {
+  // A single one-off frame (used by reshoot / re-render edits). `format` pins the
+  // aspect so a story/landscape card comes back at its own shape, not the default.
+  async function single(express: string, opts?: { products?: string[]; format?: string }): Promise<Shot | null> {
     let out: Shot | null = null;
     const body = typeRef.current === "model"
-      ? modelBody(express, { ...scene, numAngles: 1, shotsPerAngle: 1 }, { ...model, source })
-      : productBody(express, { ...panel, numAngles: 1, shotsPerAngle: 1 }, opts?.products);
+      ? modelBody(express, { ...scene, numAngles: 1, shotsPerAngle: 1, ...(opts?.format ? { format: opts.format } : {}) }, { ...model, source })
+      : productBody(express, { ...panel, numAngles: 1, shotsPerAngle: 1, ...(opts?.format ? { format: opts.format } : {}) }, opts?.products);
     await stream(body, { onPlan: () => {}, onReshoot: () => {}, onError: () => {}, onShot: (s) => { if (!out) out = { ...s, aspect: aspectNum(s.aspect) }; } });
     return out;
   }
@@ -421,7 +646,7 @@ export default function CreateWorkspace() {
   async function reshoot(shot: Shot) {
     setBusy(true); setStatus("Re-shooting…");
     patchShot(shot.id, { pending: true, failed: false });
-    const r = await single(shot.angle);
+    const r = await single(shot.angle, { format: panelFormatFor(shot.aspect) });
     patchShot(shot.id, r ? { url: r.url, aspect: r.aspect, pending: false, failed: false } : { pending: false, failed: true });
     setBusy(false); setStatus("");
   }
@@ -440,8 +665,22 @@ export default function CreateWorkspace() {
       } catch { patchShot(shot.id, { pending: false }); }
       setBusy(false); setStatus(""); return;
     }
-    const r = typeRef.current === "model" ? await single(`${shot.angle}. ${text}`) : await single(text, { products: [shot.url] });
+    const r = typeRef.current === "model" ? await single(`${shot.angle}. ${text}`, { format: panelFormatFor(shot.aspect) }) : await single(text, { products: [shot.url], format: panelFormatFor(shot.aspect) });
     patchShot(shot.id, r ? { url: r.url, pending: false } : { pending: false });
+    setBusy(false); setStatus("");
+  }
+
+  // Fidelity-safe reformat — adapt a keeper to another placement (crop / outpaint /
+  // pad, NEVER a silent re-render; the shot's compliance rides through the edit).
+  // Appends a NEW card so the original is kept.
+  async function adapt(shot: Shot, format: FormatId) {
+    setAdapting(null); setBusy(true); setStatus(`Adapting to ${FORMATS[format].label}…`);
+    try {
+      const r = await fetch("/api/reformat", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ src: shot.url, format, compliance: shot.compliance, productRef: products[0]?.url, brand: brain.name }) });
+      const j = await r.json();
+      if (j.url) appendCardOf(shot.id, { id: `${shot.id}-${format}-${Math.random().toString(36).slice(2, 6)}`, angle: `${shot.angle} · ${FORMATS[format].label}`, prompt: "", url: j.url, aspect: aspectNum(j.aspect), format, compliance: shot.compliance, drift: !!j.drift, driftReasons: j.driftReasons ?? [] });
+      else say("assistant", j.error || "Adapting failed.");
+    } catch (e) { say("assistant", `Adapting hit an error: ${(e as Error).message}`); }
     setBusy(false); setStatus("");
   }
 
@@ -467,6 +706,46 @@ export default function CreateWorkspace() {
       patchShot(shot.id, { url: j.url || shot.url, hires: Boolean(j.url), pending: false });
     } catch {
       patchShot(shot.id, { pending: false });
+    }
+  }
+
+  // Save an asset. With copy → POST /api/export to bake the headline/CTA into the pixels
+  // in the brand's own type (satori + resvg), then download that. Without copy → the raw
+  // plate downloads directly. Either way the file lands in the brand's Asset Studio.
+  async function saveWithCopy(shot: Shot, copy?: CampaignCopy) {
+    const name = (shot.angle || (type === "model" ? "model-shot" : "asset")).replace(/[^\w-]+/g, "-").toLowerCase();
+    const hasText = Boolean(copy && (copy.headline || copy.cta));
+    if (!hasText) { triggerDownload(shot.url, `${name}.png`); return; }
+    patchShot(shot.id, { saving: true });
+    // Bake in the run's chosen typeface (Typography bar) — falls back to the brand's pair.
+    const exportFonts = resolveFontChoice(copy?.treatment?.fontId, brandFonts);
+    // A user-pinned treatment governs positioning; only merge the auto per-shot placement
+    // when they HAVEN'T taken manual control — otherwise their chosen layout must win.
+    const bakeCopy = copy && !copy.treatment?.pinned && shot.placement && Object.keys(shot.placement).length
+      ? { ...copy, treatment: { ...copy.treatment, ...shot.placement } }
+      : copy;
+    try {
+      const r = await fetch("/api/export", {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({
+          src: shot.url,
+          aspect: shot.aspect,
+          copy: bakeCopy,
+          brand: brain.name || undefined,
+          fonts: {
+            display: { family: exportFonts.display.family, weight: exportFonts.display.weight },
+            text: { family: exportFonts.text.family, weight: exportFonts.text.weight },
+          },
+        }),
+      });
+      const j = await r.json();
+      if (j.url) triggerDownload(j.url, `${name}-titled.png`);
+      else triggerDownload(shot.url, `${name}.png`); // export failed → at least save the plate
+    } catch {
+      triggerDownload(shot.url, `${name}.png`);
+    } finally {
+      patchShot(shot.id, { saving: false });
     }
   }
 
@@ -523,6 +802,7 @@ export default function CreateWorkspace() {
   // Drag empty canvas to pan; clicks on cards/controls pass through (excluded targets don't start a pan).
   function onCanvasPointerDown(e: React.PointerEvent) {
     if (e.button !== 0 && e.button !== 1) return;
+    if (isDrawTool(tool)) return; // a draw tool owns the pointer — the annotation layer captures it
     if ((e.target as HTMLElement).closest("button, a, input, select, textarea, [data-no-pan]")) return;
     panning.current = true;
     setGrabbing(true);
@@ -551,6 +831,9 @@ export default function CreateWorkspace() {
         brand={brain.name}
         right={
           <div className="flex items-center gap-3">
+            <button onClick={() => router.push("/studio/campaigns")} className="flex items-center gap-1.5 rounded-full border border-hairline px-3 py-1 text-[12px] text-ink transition-colors hover:border-ink" title="Every campaign, carousel and creative this brand has produced">
+              <Layers size={13} /> Campaigns
+            </button>
             <button onClick={() => setShowLibrary(true)} className="flex items-center gap-1.5 rounded-full border border-hairline px-3 py-1 text-[12px] text-ink transition-colors hover:border-ink" title="Your product library">
               <Images size={13} /> Library
             </button>
@@ -561,27 +844,23 @@ export default function CreateWorkspace() {
         }
       />
 
-      {/* Creative-type filter bar — swaps the shoot type without leaving the workspace */}
+      {/* Creative-type filter bar — swaps the creative type without leaving the workspace */}
       <div className="flex items-center gap-2 border-b border-hairline px-6 py-2.5">
         <span className="mr-1 text-[11px] uppercase tracking-wide text-muted">Create</span>
-        {([{ key: "product", label: "Product", Icon: Package }, { key: "model", label: "Model", Icon: UserRound }] as const).map(({ key, label, Icon }) => {
+        {TYPE_TABS.map(({ key, label, Icon }) => {
           const on = type === key;
           return (
             <button
               key={key}
               onClick={() => switchType(key)}
               disabled={busy || thinking}
+              title={CREATIVE_TYPES[key].blurb}
               className={`flex items-center gap-1.5 rounded-full border px-3 py-1 text-[12px] transition-colors disabled:cursor-not-allowed disabled:opacity-40 ${on ? "border-ink bg-ink text-canvas" : "border-hairline text-muted hover:border-ink hover:text-ink"}`}
             >
               <Icon size={13} /> {label}
             </button>
           );
         })}
-        {soonTypes.map((u) => (
-          <span key={u} className="flex items-center gap-1.5 rounded-full border border-dashed border-hairline px-3 py-1 text-[12px] text-muted/70" title="Coming soon">
-            {u} <span className="text-[10px] uppercase tracking-wide">soon</span>
-          </span>
-        ))}
       </div>
 
       <BrandBrainPanel brain={brain} open={showBrain} onClose={() => setShowBrain(false)} />
@@ -665,75 +944,186 @@ export default function CreateWorkspace() {
             ) : (
               <>
                 <div className="mb-3 flex items-center justify-between">
-                  <span className="text-[11px] uppercase tracking-wide text-muted">Fine-tune</span>
+                  <span className="text-[11px] uppercase tracking-wide text-muted">{isV2Type(type) ? CREATIVE_TYPES[type].label : "Fine-tune"}</span>
                   <button onClick={() => setShowPanel(false)} className="text-muted transition-colors hover:text-ink" title="Close fine-tune"><X size={14} /></button>
                 </div>
-                <p className="mb-4 text-[13px] leading-relaxed text-muted">Leave anything blank and I’ll choose it on-brand. The canvas is the star — talk to me to refine.</p>
+                <p className="mb-4 text-[13px] leading-relaxed text-muted">{isV2Type(type) ? `${CREATIVE_TYPES[type].blurb} Leave anything blank and I’ll choose it on-brand.` : "Leave anything blank and I’ll choose it on-brand. The canvas is the star — talk to me to refine."}</p>
                 <div className="grid grid-cols-1 gap-3">
-                  {(["background", "vibe", "lighting", "composition", "surface", "styling", "format"] as const).map((k) => (
+                  {type === "ad" && (
+                    <>
+                      <div className="flex flex-col gap-1">
+                        <span className="text-[11px] uppercase tracking-wide text-muted">Placements</span>
+                        <div className="flex flex-wrap gap-1.5">
+                          {FORMAT_IDS.map((f) => {
+                            const on = adFormats.includes(f);
+                            return (
+                              <button key={f} onClick={() => setAdFormats((cur) => (on ? cur.filter((x) => x !== f) : [...cur, f]))} className={`rounded-full border px-2.5 py-1 text-[11px] transition-colors ${on ? "border-ink bg-ink text-canvas" : "border-hairline text-muted hover:border-ink hover:text-ink"}`}>
+                                {FORMATS[f].label}
+                              </button>
+                            );
+                          })}
+                        </div>
+                      </div>
+                      <label className="flex flex-col gap-1"><span className="text-[11px] uppercase tracking-wide text-muted">Concepts</span><span className="text-[10px] normal-case text-muted/70">distinct ideas, each fanned across placements</span>
+                        <input type="number" min={1} max={3} value={concepts} onChange={(e) => setConcepts(Math.max(1, Math.min(3, Number(e.target.value))))} className="rounded-md border border-hairline bg-canvas px-2.5 py-1.5 text-sm focus:border-ink" /></label>
+                      <label className="flex flex-col gap-1"><span className="text-[11px] uppercase tracking-wide text-muted">Headline · optional</span>
+                        <input value={copyDraft.headline} onChange={(e) => setCopyDraft((c) => ({ ...c, headline: e.target.value }))} placeholder="Written for you if blank" className="rounded-md border border-hairline bg-canvas px-2.5 py-1.5 text-sm placeholder:text-muted/60 focus:border-ink" /></label>
+                      <label className="flex flex-col gap-1"><span className="text-[11px] uppercase tracking-wide text-muted">CTA · optional</span>
+                        <input value={copyDraft.cta} onChange={(e) => setCopyDraft((c) => ({ ...c, cta: e.target.value }))} placeholder="e.g. Shop now" className="rounded-md border border-hairline bg-canvas px-2.5 py-1.5 text-sm placeholder:text-muted/60 focus:border-ink" /></label>
+                    </>
+                  )}
+                  {type === "carousel" && (
+                    <label className="flex flex-col gap-1"><span className="text-[11px] uppercase tracking-wide text-muted">Frames</span><span className="text-[10px] normal-case text-muted/70">swipes in the sequence — hook to close</span>
+                      <input type="number" min={3} max={8} value={frames} onChange={(e) => setFrames(Math.max(3, Math.min(8, Number(e.target.value))))} className="rounded-md border border-hairline bg-canvas px-2.5 py-1.5 text-sm focus:border-ink" /></label>
+                  )}
+                  {(type === "instagram" || type === "story") && (
+                    <label className="flex flex-col gap-1"><span className="text-[11px] uppercase tracking-wide text-muted">Options</span><span className="text-[10px] normal-case text-muted/70">alternate takes to choose from</span>
+                      <input type="number" min={1} max={6} value={panel.numAngles} onChange={(e) => setPanel({ ...panel, numAngles: Math.max(1, Math.min(6, Number(e.target.value))) })} className="rounded-md border border-hairline bg-canvas px-2.5 py-1.5 text-sm focus:border-ink" /></label>
+                  )}
+                  {(isV2Type(type) ? (["background", "vibe", "lighting", "composition", "surface", "styling"] as const) : (["background", "vibe", "lighting", "composition", "surface", "styling", "format"] as const)).map((k) => (
                     <Sel key={k} label={k} value={panel[k]} opts={OPTIONS[k]} onChange={(v) => setPanel({ ...panel, [k]: v })} />
                   ))}
-                  <div className="grid grid-cols-2 gap-2">
-                    <label className="flex flex-col gap-1"><span className="text-[11px] uppercase tracking-wide text-muted">Angles</span><span className="text-[10px] normal-case text-muted/70">how many angles</span>
-                      <input type="number" min={1} max={6} value={panel.numAngles} onChange={(e) => setPanel({ ...panel, numAngles: Math.max(1, Math.min(6, Number(e.target.value))) })} className="rounded-md border border-hairline bg-canvas px-2.5 py-1.5 text-sm focus:border-ink" /></label>
-                    <label className="flex flex-col gap-1"><span className="text-[11px] uppercase tracking-wide text-muted">Shots</span><span className="text-[10px] normal-case text-muted/70">pictures per angle</span>
-                      <input type="number" min={1} max={6} value={panel.shotsPerAngle} onChange={(e) => setPanel({ ...panel, shotsPerAngle: Math.max(1, Math.min(6, Number(e.target.value))) })} className="rounded-md border border-hairline bg-canvas px-2.5 py-1.5 text-sm focus:border-ink" /></label>
-                  </div>
-                  <button onClick={() => generate({ express: input.trim() })} disabled={busy || !products.length} className="mt-1 rounded-control bg-ink px-4 py-2 text-sm font-medium text-canvas transition-opacity hover:opacity-90 disabled:opacity-40">{busy ? "Shooting…" : `Generate ${panel.numAngles * panel.shotsPerAngle} image${panel.numAngles * panel.shotsPerAngle > 1 ? "s" : ""}`}</button>
+                  {type === "product" && (
+                    <div className="grid grid-cols-2 gap-2">
+                      <label className="flex flex-col gap-1"><span className="text-[11px] uppercase tracking-wide text-muted">Angles</span><span className="text-[10px] normal-case text-muted/70">how many angles</span>
+                        <input type="number" min={1} max={6} value={panel.numAngles} onChange={(e) => setPanel({ ...panel, numAngles: Math.max(1, Math.min(6, Number(e.target.value))) })} className="rounded-md border border-hairline bg-canvas px-2.5 py-1.5 text-sm focus:border-ink" /></label>
+                      <label className="flex flex-col gap-1"><span className="text-[11px] uppercase tracking-wide text-muted">Shots</span><span className="text-[10px] normal-case text-muted/70">pictures per angle</span>
+                        <input type="number" min={1} max={6} value={panel.shotsPerAngle} onChange={(e) => setPanel({ ...panel, shotsPerAngle: Math.max(1, Math.min(6, Number(e.target.value))) })} className="rounded-md border border-hairline bg-canvas px-2.5 py-1.5 text-sm focus:border-ink" /></label>
+                    </div>
+                  )}
+                  <button onClick={() => generate({ express: input.trim() })} disabled={busy || !products.length} className="mt-1 rounded-control bg-ink px-4 py-2 text-sm font-medium text-canvas transition-opacity hover:opacity-90 disabled:opacity-40">
+                    {busy ? "Working…"
+                      : type === "ad" ? `Generate campaign — ${Math.max(1, concepts) * Math.max(1, adFormats.length)} assets`
+                      : type === "carousel" ? `Generate ${frames} frames`
+                      : type === "instagram" || type === "story" ? `Generate ${panel.numAngles} option${panel.numAngles > 1 ? "s" : ""}`
+                      : `Generate ${panel.numAngles * panel.shotsPerAngle} image${panel.numAngles * panel.shotsPerAngle > 1 ? "s" : ""}`}
+                  </button>
                 </div>
               </>
             )}
           </div>
         )}
 
-        {/* ── Infinite canvas — dark dotted space; brand kit + shoots float; drag to pan, wheel/pinch to zoom ─── */}
+        {/* ── Infinite canvas — white dotted space; brand kit + shoots float; drag to pan, wheel/pinch to zoom ─── */}
         <div
           ref={canvasViewportRef}
           onPointerDown={onCanvasPointerDown}
           onPointerMove={onCanvasPointerMove}
           onPointerUp={onCanvasPointerUp}
           onPointerLeave={onCanvasPointerUp}
-          className="relative order-3 min-h-0 select-none overflow-hidden bg-surface"
+          className="relative order-3 min-h-0 select-none overflow-hidden bg-canvas"
           style={{ cursor: grabbing ? "grabbing" : "grab" }}
         >
           {/* dotted infinite space — subtle grey dots on white; spacing scales with zoom, grid shifts with pan */}
-          <div className="pointer-events-none absolute inset-0" style={{ backgroundImage: "radial-gradient(circle, rgba(0,0,0,0.11) 1px, transparent 1.5px)", backgroundSize: `${Math.max(9, 26 * zoom)}px ${Math.max(9, 26 * zoom)}px`, backgroundPosition: `${pan.x}px ${pan.y}px` }} />
+          <div className="pointer-events-none absolute inset-0" style={{ backgroundImage: "radial-gradient(circle, rgba(0,0,0,0.08) 1px, transparent 1.5px)", backgroundSize: `${Math.max(9, 26 * zoom)}px ${Math.max(9, 26 * zoom)}px`, backgroundPosition: `${pan.x}px ${pan.y}px` }} />
+          {/* Floating white top bar — menu · board name · undo/redo · duplicate · trash · more */}
+          <CanvasTopBar
+            boardName={boardName}
+            onRename={setBoardName}
+            canUndo={history.length > 0}
+            canRedo={future.length > 0}
+            onUndo={undo}
+            onRedo={redo}
+            onDuplicate={duplicateRun}
+            onTrash={trashRun}
+            canDuplicate={runs.length > 0}
+            canTrash={runs.length > 0}
+            menuItems={[
+              { label: "Brand kit", onClick: () => setShowBrain(true) },
+              { label: "Product library", onClick: () => setShowLibrary(true) },
+              { label: "Back to studio", onClick: () => router.push("/studio") },
+            ]}
+            moreItems={[
+              { label: "Reset zoom to 100%", onClick: resetZoom },
+              { label: "Clear canvas", onClick: clearCanvas, danger: true },
+            ]}
+          />
 
           {/* the floating world — translated by pan, scaled by zoom */}
           <div
             ref={canvasContentRef}
             className="absolute left-0 top-0 space-y-6"
-            style={{ width: contentW, transform: `translate3d(${pan.x}px, ${pan.y}px, 0) scale(${zoom})`, transformOrigin: "0 0", transition: zoomSmooth ? "transform 160ms cubic-bezier(0.4,0,0.2,1)" : undefined, willChange: "transform" }}
+            style={{ width: contentW, transform: `translate3d(${pan.x}px, ${pan.y}px, 0) scale(${zoom})`, transformOrigin: "0 0", transition: zoomSmooth ? "transform 160ms cubic-bezier(0.4,0,0.2,1)" : undefined, willChange: "transform", ...fontVars(brandFonts) }}
           >
             {brain.name && <BrandKitCard brain={brain} />}
 
             {runs.length === 0 ? (
               <div className="flex flex-col items-center justify-center rounded-card border border-dashed border-hairline bg-canvas/60 py-16 text-center text-muted">
                 <ImageIcon size={24} strokeWidth={1.5} />
-                <p className="mt-3 max-w-xs text-sm">{type === "model" ? "Build your model and say go" : "Tell me the vibe, or just hit send"} — your images build here, beneath the brand kit.</p>
+                <p className="mt-3 max-w-xs text-sm">{type === "model" ? "Build your model and say go" : isV2Type(type) ? "Tell me the idea, or just hit send" : "Tell me the vibe, or just hit send"} — your {isV2Type(type) ? CREATIVE_TYPES[type].runLabel.toLowerCase() : "images"} build{isV2Type(type) ? "s" : ""} here, beneath the brand kit.</p>
               </div>
             ) : (
               runs.map((run) => {
                 const done = run.shots.filter((s) => s.url && !s.pending).length;
+                const frameCount = run.shots.length;
+                const hasCopy = Boolean(run.copy && (run.copy.headline || run.copy.caption || run.copy.cta || run.copy.frames?.length));
+                const overlaysOn = hasCopy && !overlayOff[run.id];
+                // The run's chosen typeface (Typography bar) → real font pair, brand by default.
+                const overlayFonts = resolveFontChoice(run.copy?.treatment?.fontId, brandFonts);
+                const fontVarStyle = {
+                  "--brand-display": overlayFonts.display.cssStack,
+                  "--brand-text": overlayFonts.text.cssStack,
+                  "--brand-display-tracking": overlayFonts.display.tracking,
+                  "--brand-text-tracking": overlayFonts.text.tracking,
+                } as CSSProperties;
+                // Copy overlays on the image for EVERY placement that carries copy —
+                // ads / posts / stories on the single hero, and carousels per frame
+                // (frame k gets its own line, the last frame gets the CTA).
+                const cardProps = {
+                  type: run.kind, enhanceOn, brandFonts, overlayFonts, onSave: saveWithCopy, editing, setEditing, adapting, setAdapting,
+                  onDecide: decide, onReshoot: reshoot, onApplyChange: applyChange, onUpscale: upscale, onEnhance: enhance, onAdapt: adapt,
+                } as const;
                 return (
-                  <section key={run.id}>
+                  <section key={run.id} onClick={() => setSelectedRunId(run.id)} className={`rounded-card p-2 transition-colors ${selectedRunId === run.id ? "bg-surface ring-1 ring-hairline" : ""}`}>
                     <div className="mb-3 flex items-baseline gap-2">
-                      <span className="rounded-full bg-canvas/70 px-2 py-0.5 text-[11px] uppercase tracking-[0.12em] text-muted">{run.label}</span>
+                      <button data-no-pan onClick={(e) => { e.stopPropagation(); setSelectedRunId(selectedRunId === run.id ? null : run.id); }} className={`rounded-full px-2 py-0.5 text-[11px] uppercase tracking-[0.12em] transition-colors ${selectedRunId === run.id ? "bg-ink text-canvas" : "bg-canvas/70 text-muted hover:text-ink"}`} title="Select this set — the toolbar's duplicate/delete act on it">{run.label}</button>
                       <span className="text-[11px] text-muted">· {done}/{run.shots.length}</span>
+                      {hasCopy && (
+                        <button data-no-pan onClick={() => setOverlayOff((o) => ({ ...o, [run.id]: !o[run.id] }))} className="ml-auto text-[11px] text-muted transition-colors hover:text-ink">
+                          {overlayOff[run.id] ? "Show copy" : "Hide copy"}
+                        </button>
+                      )}
                     </div>
-                    <div className="grid grid-cols-2 gap-5 lg:grid-cols-3">
-                      {run.shots.map((s) => (
-                        <ShotCard
-                          key={s.id} s={s} type={run.kind} enhanceOn={enhanceOn}
-                          editing={editing} setEditing={setEditing}
-                          onDecide={decide} onReshoot={reshoot} onApplyChange={applyChange} onUpscale={upscale} onEnhance={enhance}
-                        />
-                      ))}
-                    </div>
+                    {/* Typography controls — pick the typeface, where the type sits, its scale/case/align/ink.
+                       Live on the canvas AND baked into the export. Only where copy overlays a creative. */}
+                    {overlaysOn && isV2Type(run.kind) && (
+                      <TypographyBar treatment={run.copy?.treatment} brandFonts={brandFonts} onChange={(patch) => setRunTreatment(run.id, patch)} />
+                    )}
+                    {/* Copy is DATA riding with the campaign — edit a headline and it updates on the spot, never re-rendered. Shown in the chosen type. */}
+                    {overlaysOn && (
+                      <div className="mb-3 rounded-card border border-hairline bg-canvas px-4 py-3" style={fontVarStyle}>
+                        {run.copy?.headline && <div className="text-[15px] font-medium text-ink" style={{ fontFamily: "var(--brand-display)", letterSpacing: "var(--brand-display-tracking)" }}>{run.copy.headline}</div>}
+                        {run.copy?.subline && <div className="mt-0.5 text-[13px] text-muted" style={{ fontFamily: "var(--brand-text)" }}>{run.copy.subline}</div>}
+                        {(run.copy?.cta || run.copy?.caption) && (
+                          <div className="mt-1.5 flex items-baseline gap-2.5">
+                            {run.copy?.cta && <span className="shrink-0 rounded-full border border-ink px-2.5 py-0.5 text-[11px] text-ink" style={{ fontFamily: "var(--brand-text)" }}>{run.copy.cta}</span>}
+                            {run.copy?.caption && <span className="text-[12px] leading-relaxed text-muted">{run.copy.caption}</span>}
+                          </div>
+                        )}
+                      </div>
+                    )}
+                    {run.kind === "carousel" ? (
+                      /* the carousel is an ORDERED horizontal strip — swipe order is the design; each frame carries its own on-image copy */
+                      <div data-scroll-x className="flex gap-4 overflow-x-auto pb-2">
+                        {run.shots.map((s) => (
+                          <div key={s.id} className="w-[240px] shrink-0">
+                            <ShotCard s={s} copy={overlaysOn ? overlayForShot("carousel", run.copy, s.seq, frameCount) : undefined} {...cardProps} />
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <div className="grid grid-cols-2 gap-5 lg:grid-cols-3">
+                        {run.shots.map((s) => (
+                          <ShotCard key={s.id} s={s} copy={overlaysOn ? overlayForShot(run.kind, run.copy) : undefined} {...cardProps} />
+                        ))}
+                      </div>
+                    )}
                   </section>
                 );
               })
             )}
+            {/* annotation layer — inside the transform so drawings pan/zoom with the work */}
+            <AnnotationLayer tool={tool} annos={annos} onCommit={commitAnnos} />
           </div>
           {/* Zoom control — fixed bottom-left, unscaled (⌘/Ctrl + scroll / pinch also zooms) */}
           <div data-no-pan className="absolute bottom-4 left-4 flex items-center gap-0.5 rounded-full border border-hairline bg-canvas/90 px-1.5 py-1 shadow-card backdrop-blur">
@@ -741,6 +1131,8 @@ export default function CreateWorkspace() {
             <button onClick={resetZoom} className="min-w-[46px] text-center text-[12px] tabular-nums text-ink transition-opacity hover:opacity-60" title="Reset to 100%">{Math.round(zoom * 100)}%</button>
             <button onClick={() => stepZoom(1.25)} disabled={zoom >= 2} className="rounded-full p-1.5 text-muted transition-colors hover:text-ink disabled:opacity-30" title="Zoom in"><Plus size={14} /></button>
           </div>
+          {/* Floating Canvas Toolbar — bottom-center, unscaled */}
+          <CanvasToolbar tool={tool} onTool={setTool} onInsertImage={() => fileRef.current?.click()} />
         </div>
 
         {/* ── Chat — left ────────────────────────────────────────────────────── */}
@@ -788,12 +1180,12 @@ export default function CreateWorkspace() {
               ) : (
                 <>
                   <button onClick={() => fileRef.current?.click()} title="Add product photo" className="rounded-md p-1.5 text-muted hover:text-ink"><Upload size={18} /></button>
-                  <button onClick={() => refFileRef.current?.click()} title="Add style reference" className="rounded-md p-1.5 text-muted hover:text-ink"><Images size={18} /></button>
+                  {type === "product" && <button onClick={() => refFileRef.current?.click()} title="Add style reference" className="rounded-md p-1.5 text-muted hover:text-ink"><Images size={18} /></button>}
                   <button onClick={() => setShowPanel((s) => !s)} title="Fine-tune panel" className={`rounded-md p-1.5 hover:text-ink ${showPanel ? "text-ink" : "text-muted"}`}><SlidersHorizontal size={18} /></button>
                 </>
               )}
-              <textarea value={input} onChange={(e) => setInput(e.target.value)} onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(); } }}
-                rows={1} placeholder={type === "model" ? "Describe your model, or just say go…" : "Message your creative director…"}
+              <textarea value={input} onChange={(e) => setInput(e.target.value)} onPaste={onPasteImages} onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(); } }}
+                rows={1} placeholder={type === "model" ? "Describe your model, or just say go…" : type === "carousel" ? "Give me the story arc, or just say go…" : type === "ad" ? "What are we selling — or just say go…" : isV2Type(type) ? "Describe the moment, or just say go…" : "Message your creative director…"}
                 className="max-h-32 flex-1 resize-none bg-transparent py-1.5 text-[15px] leading-relaxed placeholder:text-muted focus:outline-none" />
               <button onClick={send} disabled={thinking || busy || (type === "product" && !input.trim() && !products.length)} title={type === "product" && !input.trim() && products.length ? "Generate" : "Send"} className="rounded-full bg-ink p-1.5 text-canvas transition-opacity hover:opacity-90 disabled:opacity-30"><ArrowUp size={16} /></button>
             </div>
@@ -824,27 +1216,211 @@ function Sel({ label, value, opts, onChange }: { label: string; value: string; o
   );
 }
 
+// The six free-placement compositions + four hierarchy scales, surfaced as pickable chips.
+const LAYOUT_OPTS: { id: NonNullable<CopyTreatment["layout"]>; label: string }[] = [
+  { id: "lower-third", label: "Lower" },
+  { id: "editorial-top", label: "Top" },
+  { id: "center", label: "Center" },
+  { id: "mega", label: "Mega" },
+  { id: "split", label: "Split" },
+  { id: "side-rail", label: "Rail" },
+];
+const SCALE_OPTS: { id: NonNullable<CopyTreatment["scale"]>; label: string }[] = [
+  { id: "minimal", label: "S" }, { id: "standard", label: "M" }, { id: "impact", label: "L" }, { id: "hero", label: "XL" },
+];
+
+/**
+ * TYPOGRAPHY BAR — per-run control over the text laid on a creative: which typeface, where
+ * it sits (the 6 free-placement compositions), its scale, case, alignment and ink. Every
+ * change merges into the run's `treatment`, which drives BOTH the live overlay and the
+ * export bake. Touching position/ink pins the run so the auto per-shot placement steps back.
+ * "Shuffle" rolls a fresh look — the creative-exploration shortcut.
+ */
+function TypographyBar({ treatment, brandFonts, onChange }: { treatment?: CopyTreatment; brandFonts: BrandFonts; onChange: (patch: Partial<CopyTreatment>) => void }) {
+  const [open, setOpen] = useState(true);
+  const t = treatment ?? {};
+  const fontId = t.fontId ?? BRAND_FONT_ID;
+  const activeFontName = fontId === BRAND_FONT_ID ? "Brand" : (FONT_CHOICES.find((c) => c.id === fontId)?.name ?? "Brand");
+
+  const Chip = ({ active, onClick, title, children, style }: { active: boolean; onClick: () => void; title?: string; children: ReactNode; style?: CSSProperties }) => (
+    <button data-no-pan title={title} onClick={onClick} style={style}
+      className={`flex items-center rounded-full px-2.5 py-1 text-[11px] leading-none transition-colors ${active ? "bg-ink text-canvas" : "border border-hairline text-muted hover:border-ink hover:text-ink"}`}>
+      {children}
+    </button>
+  );
+  const Label = ({ children }: { children: ReactNode }) => <span className="text-[9px] uppercase tracking-[0.16em] text-muted/70">{children}</span>;
+
+  const shuffle = () => {
+    const pick = <X,>(a: readonly X[]): X => a[Math.floor(Math.random() * a.length)];
+    onChange({
+      fontId: pick([BRAND_FONT_ID, ...FONT_CHOICES.map((c) => c.id)]),
+      layout: pick(LAYOUT_OPTS).id,
+      scale: pick(SCALE_OPTS).id,
+      case: pick(["sentence", "upper"] as const),
+      align: pick(["left", "center", "right"] as const),
+      pinned: true,
+    });
+  };
+
+  return (
+    <div data-no-pan className="mb-3 rounded-card border border-hairline bg-canvas/70 px-3 py-2.5">
+      <div className="flex items-center gap-2">
+        <button onClick={() => setOpen((o) => !o)} className="flex items-center gap-1.5 text-[11px] uppercase tracking-[0.14em] text-muted transition-colors hover:text-ink" title={open ? "Hide typography" : "Show typography"}>
+          <Type size={13} /> Type
+        </button>
+        <span className="text-[11px] text-muted">· {activeFontName}</span>
+        <button onClick={shuffle} title="Surprise me — new typeface, position & scale" className="ml-auto flex items-center gap-1 text-[11px] text-muted transition-colors hover:text-ink">
+          <Shuffle size={12} /> Shuffle
+        </button>
+      </div>
+      {open && (
+        <div className="mt-2.5 space-y-2.5">
+          <div>
+            <div className="mb-1"><Label>Typeface</Label></div>
+            <div className="flex flex-wrap gap-1.5">
+              <Chip active={fontId === BRAND_FONT_ID} onClick={() => onChange({ fontId: BRAND_FONT_ID })} title="Your brand's own type" style={{ fontFamily: brandFonts.display.cssStack }}>Brand</Chip>
+              {FONT_CHOICES.map((c) => (
+                <Chip key={c.id} active={fontId === c.id} onClick={() => onChange({ fontId: c.id })} title={c.vibe} style={{ fontFamily: `'${c.display.family}', ${c.display.category === "serif" || c.display.category === "display" ? "serif" : "sans-serif"}` }}>{c.name}</Chip>
+              ))}
+            </div>
+          </div>
+          <div>
+            <div className="mb-1"><Label>Position</Label></div>
+            <div className="flex flex-wrap gap-1.5">
+              {LAYOUT_OPTS.map((l) => (
+                <Chip key={l.id} active={t.layout === l.id} onClick={() => onChange({ layout: l.id, pinned: true })}>{l.label}</Chip>
+              ))}
+            </div>
+          </div>
+          <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
+            <div className="flex items-center gap-1.5"><Label>Size</Label>
+              {SCALE_OPTS.map((sc) => (
+                <Chip key={sc.id} active={(t.scale ?? "standard") === sc.id} onClick={() => onChange({ scale: sc.id })} title={sc.id}>{sc.label}</Chip>
+              ))}
+            </div>
+            <div className="flex items-center gap-1.5"><Label>Case</Label>
+              <Chip active={t.case !== "upper"} onClick={() => onChange({ case: "sentence" })} title="Sentence case">Aa</Chip>
+              <Chip active={t.case === "upper"} onClick={() => onChange({ case: "upper" })} title="Uppercase">AA</Chip>
+            </div>
+            <div className="flex items-center gap-1.5"><Label>Align</Label>
+              <Chip active={(t.align ?? "left") === "left"} onClick={() => onChange({ align: "left" })} title="Left"><AlignLeft size={12} /></Chip>
+              <Chip active={t.align === "center"} onClick={() => onChange({ align: "center" })} title="Center"><AlignCenter size={12} /></Chip>
+              <Chip active={t.align === "right"} onClick={() => onChange({ align: "right" })} title="Right"><AlignRight size={12} /></Chip>
+            </div>
+            <div className="flex items-center gap-1.5"><Label>Ink</Label>
+              <Chip active={(t.ink ?? "light") === "light"} onClick={() => onChange({ ink: "light", pinned: true })} title="Light type over the image">Light</Chip>
+              <Chip active={t.ink === "dark"} onClick={() => onChange({ ink: "dark", pinned: true })} title="Dark type over the image">Dark</Chip>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  );
+}
+
+/**
+ * Live copy overlay — renders the SAME free-placement layout the export bakes, in CSS.
+ * fontPct is a % of the frame WIDTH, so `cqw` (1% of the container's inline size) matches
+ * the export's px-off-width scaling exactly — the parent box sets `container-type`.
+ */
+function CopyOverlay({ copy, aspect, placement, fonts }: { copy: CampaignCopy; aspect?: number; placement?: ShotPlacement; fonts?: BrandFonts }) {
+  // A user-pinned treatment governs positioning; otherwise the image-aware per-shot
+  // placement (layout/anchor/ink) rides OVER the run treatment's voice.
+  const treatment = !copy.treatment?.pinned && placement && Object.keys(placement).length ? { ...copy.treatment, ...placement } : copy.treatment;
+  const spec = buildCopyLayout({ copy, treatment, aspect });
+  if (!spec) return null;
+  const subInk = spec.ink === "#ffffff" ? "rgba(255,255,255,0.92)" : "rgba(20,20,20,0.9)";
+  const shadow = spec.ink === "#ffffff" ? "0 1px 14px rgba(0,0,0,0.38)" : "0 1px 12px rgba(255,255,255,0.42)";
+  const blockStyle = (b: LayoutBlock, first: boolean): CSSProperties => {
+    const base: CSSProperties = {
+      marginTop: first ? 0 : `${b.role === "cta" ? 2.8 : 1.1}cqw`,
+      fontSize: `${b.fontPct}cqw`,
+      fontWeight: b.weight,
+      letterSpacing: `${b.tracking}em`,
+      lineHeight: b.lineHeight,
+      textTransform: b.transform === "upper" ? "uppercase" : b.transform === "lower" ? "lowercase" : "none",
+    };
+    if (b.role === "cta") {
+      const pad: CSSProperties = { paddingLeft: "2cqw", paddingRight: "2cqw", paddingTop: "0.9cqw", paddingBottom: "0.9cqw" };
+      if (b.pill) return { ...base, ...pad, background: spec.pillBg, color: spec.pillInk, borderRadius: 999, fontFamily: "var(--brand-text)" };
+      if (b.outline) return { ...base, ...pad, color: spec.ink, border: `0.22cqw solid ${spec.ink}`, borderRadius: 999, fontFamily: "var(--brand-text)" };
+      return { ...base, color: spec.ink, textDecoration: b.underline ? "underline" : "none", textShadow: shadow, fontFamily: "var(--brand-text)" };
+    }
+    return { ...base, fontFamily: b.family === "display" ? "var(--brand-display)" : "var(--brand-text)", color: b.family === "display" ? spec.ink : subInk, textShadow: shadow, width: "100%", overflowWrap: "break-word" };
+  };
+  const clusterStyle = (c: LayoutCluster): CSSProperties => {
+    const style: CSSProperties = {
+      position: "absolute",
+      display: "flex",
+      flexDirection: "column",
+      alignItems: c.align === "center" ? "center" : c.align === "right" ? "flex-end" : "flex-start",
+      textAlign: c.align,
+      // Explicit width (matches the export) so wrapped headlines lay out identically.
+      width: `${c.maxW * 100}%`,
+    };
+    if (c.ax === "left") style.left = `${c.x * 100}%`;
+    else if (c.ax === "right") style.right = `${(1 - c.x) * 100}%`;
+    else style.left = `${c.x * 100}%`;
+    if (c.ay === "top") style.top = `${c.y * 100}%`;
+    else if (c.ay === "bottom") style.bottom = `${(1 - c.y) * 100}%`;
+    else style.top = `${c.y * 100}%`;
+    const tx = c.ax === "center" ? "-50%" : "0";
+    const ty = c.ay === "center" ? "-50%" : "0";
+    if (tx !== "0" || ty !== "0") style.transform = `translate(${tx}, ${ty})`;
+    return style;
+  };
+  // The chosen typeface is applied by overriding the brand-font CSS vars the blocks read,
+  // so switching fonts restyles every block without touching the layout math.
+  const rootStyle: CSSProperties = { backgroundImage: spec.scrim };
+  if (fonts) {
+    (rootStyle as Record<string, string>)["--brand-display"] = fonts.display.cssStack;
+    (rootStyle as Record<string, string>)["--brand-text"] = fonts.text.cssStack;
+  }
+  return (
+    <div className="pointer-events-none absolute inset-0" style={rootStyle}>
+      {spec.clusters.map((c, ci) => (
+        <div key={ci} style={clusterStyle(c)}>
+          {c.blocks.map((b, i) => (
+            <div key={i} style={blockStyle(b, i === 0)}>{b.arrow ? `${b.text} →` : b.text}</div>
+          ))}
+        </div>
+      ))}
+    </div>
+  );
+}
+
 type ShotCardProps = {
   s: Shot;
   type: CreativeType;
   enhanceOn: boolean;
+  copy?: CampaignCopy; // overlay copy — DATA on top of the image; baked in only on export
+  brandFonts: BrandFonts;
+  overlayFonts: BrandFonts; // the run's chosen typeface (Typography bar) — brand pair by default
+  onSave: (s: Shot, copy?: CampaignCopy) => void;
   editing: { id: string; text: string } | null;
   setEditing: (e: { id: string; text: string } | null) => void;
+  adapting: string | null;
+  setAdapting: (id: string | null) => void;
   onDecide: (s: Shot, d: Decision) => void;
   onReshoot: (s: Shot) => void;
   onApplyChange: (s: Shot, t: string) => void;
   onUpscale: (s: Shot) => void;
   onEnhance: (s: Shot, a: "cutout" | "relight") => void;
+  onAdapt: (s: Shot, f: FormatId) => void;
 };
 
-function ShotCard({ s, type, enhanceOn, editing, setEditing, onDecide, onReshoot, onApplyChange, onUpscale, onEnhance }: ShotCardProps) {
+function ShotCard({ s, type, enhanceOn, copy, brandFonts, overlayFonts, onSave, editing, setEditing, adapting, setAdapting, onDecide, onReshoot, onApplyChange, onUpscale, onEnhance, onAdapt }: ShotCardProps) {
+  const formatBadge = s.format ? FORMATS[s.format as FormatId]?.label ?? s.format : undefined;
   return (
     <motion.div initial={{ opacity: 0, scale: 0.985, y: 6 }} animate={{ opacity: 1, scale: 1, y: 0 }} transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
       className="group overflow-hidden rounded-card bg-canvas transition-shadow duration-200 ease-brand hover:shadow-card">
-      <div className="relative w-full overflow-hidden bg-surface" style={{ aspectRatio: String(s.aspect ?? 4 / 5) }}>
+      <div className="relative w-full overflow-hidden bg-surface" style={{ aspectRatio: String(s.aspect ?? 4 / 5), containerType: "inline-size" }}>
         {s.url ? (
           <>
             <img src={displaySrc(s.url)} alt={s.angle} loading="lazy" decoding="async" className={`h-full w-full object-cover transition-opacity duration-200 ${s.pending ? "opacity-40" : s.decision === "reject" ? "opacity-45" : ""}`} />
+            {/* copy overlay — real brand typography staged by the shared free-placement layout.
+               This is a live preview of EXACTLY what "Save" bakes into the exported PNG. */}
+            {(copy?.headline || copy?.cta) && !s.pending && <CopyOverlay copy={copy} aspect={s.aspect} placement={s.placement} fonts={overlayFonts} />}
             {s.pending && <div className="absolute inset-0 flex items-center justify-center"><Loader2 size={20} className="animate-spin text-ink" /></div>}
             {s.hires && !s.pending && <span className="absolute left-2 top-2 rounded-full bg-ink/80 px-2 py-0.5 text-[10px] text-canvas">4K</span>}
             {s.decision === "hero" && !s.pending && <span className="absolute right-2 top-2 rounded-full bg-ink px-2 py-0.5 text-[10px] text-canvas">Hero</span>}
@@ -860,21 +1436,43 @@ function ShotCard({ s, type, enhanceOn, editing, setEditing, onDecide, onReshoot
             <Loader2 size={18} className="relative animate-spin text-muted" />
           </div>
         )}
+        {/* frame order / placement — hairline chips, always visible so the set reads at a glance */}
+        {typeof s.seq === "number" && !s.hires && <span className="absolute left-2 top-2 flex h-5 w-5 items-center justify-center rounded-full border border-hairline bg-canvas/90 text-[10px] tabular-nums text-ink">{s.seq}</span>}
+        {formatBadge && typeof s.seq !== "number" && !s.hires && <span className="absolute left-2 top-2 rounded-full border border-hairline bg-canvas/90 px-2 py-0.5 text-[10px] text-ink">{formatBadge}</span>}
       </div>
       <div className="px-3 pb-3 pt-2.5">
         {type === "model" && s.angle && <div className="mb-1 truncate text-[11px] text-muted" title={s.angle}>{s.angle}</div>}
+        {(type === "carousel" || type === "ad") && s.angle && <div className="mb-1 truncate text-[11px] text-muted" title={s.angle}>{s.angle}</div>}
         {s.url && !s.pending && (
-          <div className="flex items-center gap-2.5 text-[12px] opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+          // Always visible (no hover) — touch devices have no hover, so the actions must show.
+          <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1 text-[12px]">
             <button onClick={() => onDecide(s, "keep")} className={s.decision === "keep" ? "text-ink" : "text-muted transition-colors hover:text-ink"} title="Keep — teach the brand this worked">Keep</button>
             <button onClick={() => onDecide(s, "hero")} className={s.decision === "hero" ? "text-ink" : "text-muted transition-colors hover:text-ink"} title="Hero — the standout of the set">Hero</button>
             <button onClick={() => onDecide(s, "reject")} className={s.decision === "reject" ? "text-ink" : "text-muted transition-colors hover:text-ink"} title="Reject — steer future shoots away from this">Reject</button>
             <span className="h-3 w-px bg-hairline" />
             <button onClick={() => setEditing({ id: s.id, text: "" })} className="text-muted transition-colors hover:text-ink">Change</button>
             <button onClick={() => onReshoot(s)} className="text-muted transition-colors hover:text-ink">Redo</button>
+            <button onClick={() => setAdapting(adapting === s.id ? null : s.id)} className={adapting === s.id ? "text-ink" : "text-muted transition-colors hover:text-ink"} title="Adapt this exact image to another placement — crop or extend, never re-rendered">Adapt</button>
             <button onClick={() => onUpscale(s)} className="flex items-center gap-1 text-muted transition-colors hover:text-ink"><Sparkles size={12} />4K</button>
             {enhanceOn && <button onClick={() => onEnhance(s, "cutout")} className="text-muted transition-colors hover:text-ink">Cutout</button>}
             {enhanceOn && <button onClick={() => onEnhance(s, "relight")} className="text-muted transition-colors hover:text-ink">Relight</button>}
-            <a href={s.url} download={`${s.angle || (type === "model" ? "model-shot" : "shot")}.png`} className="ml-auto text-muted transition-colors hover:text-ink">Save</a>
+            <span className="ml-auto flex items-center gap-2">
+              {(copy?.headline || copy?.cta) && (
+                <button onClick={() => onSave(s, undefined)} className="text-muted/70 transition-colors hover:text-ink" title="Save the clean plate — no text">plain</button>
+              )}
+              <button onClick={() => onSave(s, copy)} className="flex items-center gap-1 text-muted transition-colors hover:text-ink" title={copy?.headline || copy?.cta ? "Save with the copy baked in, in your brand type" : "Save this image"}>
+                {s.saving ? <Loader2 size={12} className="animate-spin" /> : <Download size={12} />}{copy?.headline || copy?.cta ? "Save w/ text" : "Save"}
+              </button>
+            </span>
+          </div>
+        )}
+        {adapting === s.id && s.url && !s.pending && (
+          <div className="mt-2 flex flex-wrap gap-1.5">
+            {FORMAT_IDS.map((f) => (
+              <button key={f} onClick={() => onAdapt(s, f)} className="rounded-full border border-hairline px-2.5 py-1 text-[11px] text-muted transition-colors hover:border-ink hover:text-ink">
+                {FORMATS[f].label}
+              </button>
+            ))}
           </div>
         )}
         {editing?.id === s.id && (

@@ -5,39 +5,55 @@ import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { ArrowRight, Globe } from "lucide-react";
 import { OnboardHeader } from "@/components/tastebud/OnboardHeader";
-import { useStudio, nameFromUrl } from "@/components/tastebud/StudioSession";
+import { useStudio } from "@/components/tastebud/StudioSession";
 
 /**
  * STEP 1 — Where should we pull from?
- * The studio starts from the brand's own site. Pasting it kicks off the full research
- * pipeline in the BACKGROUND (via the session), then carries the user straight into the
- * quick questions — so the brand kit assembles while they answer. "Skip for now" starts
- * from brand defaults instead.
+ * The studio starts from the brand's own site. Research kicks off the MOMENT a real URL
+ * lands in the box — on paste, or as soon as typing settles — so the brand kit is already
+ * assembling before the user hits "Build". `speculateResearch` is idempotent per host, so
+ * the button click just carries them forward without restarting anything. "Skip for now"
+ * starts from brand defaults instead.
  */
 export default function StudioSource() {
   const router = useRouter();
-  const { brain, hydrated, patch, resetForNewBrand, startResearch } = useStudio();
+  const { brain, hydrated, research, resetForNewBrand, patch, speculateResearch } = useStudio();
   const [value, setValue] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
+  const debounceRef = useRef<ReturnType<typeof setTimeout>>();
 
   useEffect(() => {
     if (hydrated && brain.website && !value) setValue(brain.website);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [hydrated]);
   useEffect(() => { inputRef.current?.focus(); }, []);
+  useEffect(() => () => clearTimeout(debounceRef.current), []);
+
+  // Type → wait for the domain to settle, then start. speculateResearch no-ops on half-typed
+  // text and on a site we're already researching, so this is safe to call freely.
+  function onChange(next: string) {
+    setValue(next);
+    clearTimeout(debounceRef.current);
+    debounceRef.current = setTimeout(() => speculateResearch(next), 500);
+  }
+
+  // Paste → start immediately, no debounce; this is the "the moment they paste" path.
+  function onPaste(e: React.ClipboardEvent<HTMLInputElement>) {
+    const pasted = e.clipboardData.getData("text");
+    if (pasted) speculateResearch(pasted);
+  }
 
   function build() {
     const website = value.trim();
     if (!website) { inputRef.current?.focus(); return; }
-    const name = nameFromUrl(website);
-    resetForNewBrand();                               // wipe any previous brand + re-arm research
-    patch({ website, name, skippedResearch: false }); // set the new identity
-    startResearch({ website, name });                 // researchRan was reset → this actually runs for the new brand
+    clearTimeout(debounceRef.current);
+    speculateResearch(website);   // arms + starts research for this exact site (no-op if already running)
     router.push("/studio/about");
   }
 
   function skip() {
-    resetForNewBrand();                               // a fresh, blank brand — not the last one's leftovers
+    clearTimeout(debounceRef.current);
+    resetForNewBrand();                               // a fresh, blank brand — cancels any speculative run
     patch({ skippedResearch: true, name: "New Brand" });
     router.push("/studio/about");
   }
@@ -60,7 +76,7 @@ export default function StudioSource() {
             Where should we pull from?
           </h1>
           <p className="mx-auto mt-4 max-w-md text-[15px] leading-relaxed text-muted">
-            Drop your website and I&rsquo;ll build your brand kit while you answer a couple of quick questions.
+            Drop your website and I&rsquo;ll start building your brand kit right away, while you answer a couple of quick questions.
           </p>
 
           <div className="mt-9 flex items-center gap-3 rounded-control border border-hairline bg-surface px-4 py-1 transition-colors focus-within:border-ink">
@@ -68,7 +84,8 @@ export default function StudioSource() {
             <input
               ref={inputRef}
               value={value}
-              onChange={(e) => setValue(e.target.value)}
+              onChange={(e) => onChange(e.target.value)}
+              onPaste={onPaste}
               onKeyDown={(e) => { if (e.key === "Enter") { e.preventDefault(); build(); } }}
               placeholder="yourbrand.com"
               autoComplete="off"
@@ -85,9 +102,27 @@ export default function StudioSource() {
             Build my brand kit <ArrowRight size={16} />
           </button>
 
+          {/* Quiet proof the head start is real — a pulse while it researches, a tick when it lands. */}
+          <div className="mt-3 h-4">
+            {research.started && (
+              <motion.p
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className="flex items-center justify-center gap-2 text-[13px] text-muted"
+              >
+                <span className={`inline-block h-1.5 w-1.5 rounded-full ${research.done ? "bg-ink" : "animate-pulse bg-muted"}`} />
+                {research.error
+                  ? "Couldn’t reach that site — you can still continue"
+                  : research.done
+                  ? `${brain.name || "Your brand"} — brand kit ready`
+                  : `Already researching ${brain.name || "your brand"}…`}
+              </motion.p>
+            )}
+          </div>
+
           <button
             onClick={skip}
-            className="mt-5 text-[14px] text-muted underline-offset-4 transition-colors hover:text-ink hover:underline"
+            className="mt-2 text-[14px] text-muted underline-offset-4 transition-colors hover:text-ink hover:underline"
           >
             Skip for now
           </button>

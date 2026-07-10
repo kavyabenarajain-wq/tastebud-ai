@@ -8,9 +8,9 @@ export function categoryDirective(b?: BrandBrain): string | undefined {
   if (/drink|beverage|soda|juice|coffee|tea|water|kombucha|smoothie|cola|seltzer|can\b|bottle|energy|latte|cocktail/.test(t))
     return "BEVERAGE APPEAL — make the drink look vibrant, fresh and crave-able in THIS brand's OWN style. Do NOT default to ice, water beads, condensation or splashes — those are occasional accents for a genuine cold-serve moment only, NEVER on every frame and never unless the brand and this specific shot truly call for it. Most shots should be clean, styled and on-brand with NO ice or water at all. Let the brand's real look lead.";
   if (/fashion|apparel|clothing|wear|footwear|shoe|sneaker|accessor|bag|jewel|denim|streetwear|textile|watch|eyewear/.test(t))
-    return "FASHION POLISH — flawless and editorial: perfect fabric drape, weave and texture, crisp tailoring, immaculate styling, premium high-fashion finish and lighting.";
+    return "FABRIC TRUTH — let the cloth behave: real drape, fold, weight and weave with wrinkles left in; directional daylight or a hard editorial flash that carves the silhouette and throws a graphic shadow; texture over gloss so you can feel the material. Never ironed-flat, over-retouched catalogue perfection.";
   if (/beauty|skincare|cosmetic|makeup|serum|cream|fragrance|perfume|lotion|balm|lipstick|mascara/.test(t))
-    return "BEAUTY LUXE — luxurious and clean: dewy or glossy textures, elegant swatches, immaculate surfaces, premium clinical-yet-covetable finish.";
+    return "MATERIAL & TEXTURE — sculpt with one soft directional source so a real shadow falls (dimension, not clinical flatness); go macro on the substance — the cream's peak, a serum drip, a swatch dragged across skin, glass refracting light; dewy over glossy, true skin with pores when skin shows. Never a waxy, shadowless, poreless render.";
   return undefined;
 }
 
@@ -30,21 +30,24 @@ function bgPhrase(v?: string): string | undefined {
 }
 
 // Each panel choice expands into real direction so the model has something to act on.
+// Each vibe is translated into CAMERA DECISIONS — light quality, contrast, grade, surface —
+// not marketer adjectives ("premium", "expensive"), which only fetch the model its most
+// average image. The mood label survives; how to SHOOT it leads.
 const VIBE_MAP: Record<string, string> = {
-  "Premium / minimal": "premium and minimal — restrained, expensive, calm negative space, nothing extra",
-  "Luxury / quiet": "quiet luxury — refined, understated, tactile materials, soft confidence",
-  "Bold & vibrant": "bold and vibrant — saturated, high-energy, punchy contrast",
-  "Playful & fun": "playful and fun — bright, lively, a little unexpected",
-  Editorial: "editorial — magazine-grade, styled, considered, fashion-adjacent",
-  "Clean & clinical": "clean and clinical — precise, fresh, scientific clarity",
-  "Natural / organic": "natural and organic — earthy, sunlit, raw materials, botanical touches",
-  "Warm & cozy": "warm and cozy — soft, inviting, golden, homely",
-  "Moody / cinematic": "moody and cinematic — dramatic shadow, atmosphere, filmic tension",
-  "Fresh & energetic": "fresh and energetic — crisp, bright, dewy, alive",
-  "Retro / vintage": "retro / vintage — nostalgic palette, period styling, analog feel",
-  "Futuristic / tech": "futuristic and high-tech — sleek, precise, cool-toned, sci-fi polish",
-  "Streetwear / cool": "streetwear-cool — urban, confident, hype energy, gritty texture",
-  "Sensual / tactile": "sensual and tactile — intimate, close, touchable surfaces",
+  "Premium / minimal": "a single subject in calm negative space, one soft directional source with a gentle falloff, a muted low-saturation grade, no props competing for the eye",
+  "Luxury / quiet": "soft window light raking tactile materials, deep but open shadows, a warm-neutral matte grade, nothing glossy or loud",
+  "Bold & vibrant": "hard directional light, punchy contrast, one saturated colour field, a crisp graphic shadow",
+  "Playful & fun": "bright even daylight, a lively pop of saturated colour, one slightly unexpected prop or angle, a light airy grade",
+  Editorial: "a considered set with real depth, directional light that sculpts form, a filmic grade with fine grain — magazine-grade art direction",
+  "Clean & clinical": "crisp high-key light, a near-white set, a cool-neutral grade, precise centred framing, minimal shadow",
+  "Natural / organic": "soft overcast or window daylight, raw materials (linen, wood, stone), an earthy warm grade, a few botanical touches",
+  "Warm & cozy": "low golden light, long soft shadows, a warm amber grade, an inviting lived-in surface",
+  "Moody / cinematic": "one hard low-key source, deep controlled shadow, high contrast, a desaturated filmic grade with real atmosphere",
+  "Fresh & energetic": "bright crisp daylight, high clarity, a cool-fresh grade, clean dewy surfaces",
+  "Retro / vintage": "a warm faded film grade with visible grain, period surface and props, slightly soft focus, an analog colour shift",
+  "Futuristic / tech": "cool controlled light with clean speculars, sleek reflective surfaces, a cool-blue grade, precise architectural framing",
+  "Streetwear / cool": "hard daylight or direct on-camera flash, real urban surfaces (concrete, tile, brick), a gritty contrasty grade, candid attitude",
+  "Sensual / tactile": "close macro framing, soft raking light on touchable surfaces, a warm intimate grade, shallow focus",
 };
 
 const LIGHTING_MAP: Record<string, string> = {

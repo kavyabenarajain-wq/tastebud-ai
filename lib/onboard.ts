@@ -16,9 +16,14 @@ export function brainToProfile(b: BrandBrain): BrandProfile {
     rulebook: {
       vibe: b.vibe, category: b.category, productType: b.productType,
       essence: intel?.positioning || b.research?.essence, voice: intel?.toneOfVoice || b.research?.voice,
+      copyPlaybook: intel?.copyPlaybook, // consumed only by campaignCopy — never fed to image prompts
+
       ideology: b.ideology, purpose: intel?.purpose || b.purpose,
       // The concrete, reproducible photography signature is the single most important cue.
       aesthetic: intel?.photographyStyle || b.research?.aesthetic,
+      // The photographic RULEBOOK read off the brand's own photos (light/lens/grade/surfaces
+      // + the hard never-do list). The planner treats this as law above the prose aesthetic.
+      photoRules: b.research?.photoRules,
       photographyStyle: intel?.photographyStyle, packagingStyle: intel?.packagingStyle,
       visualIdentity: intel?.visualIdentity, personality: intel?.personality,
       values: intel?.values, persona: intel?.persona, mission: intel?.mission, vision: intel?.vision,

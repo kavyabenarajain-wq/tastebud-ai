@@ -1,7 +1,8 @@
 import { z } from "zod";
 import type { BrandBrain, BrandResearch, BrandIntelligence, StudioProduct } from "./types";
-import { chatClient, chatComplete } from "./openaiClient";
+import { chatClients, chatComplete } from "./openaiClient";
 import { parseLenient } from "./coerce";
+import { extractPhotoRules } from "./photoRules";
 
 /**
  * Brand research. Uses Gemini with live Google Search grounding to study the brand
@@ -17,6 +18,7 @@ export type StageKey =
   | "website"
   | "catalog"
   | "images"
+  | "products" // the harvested product DATA (not just a count) — streamed early so the library fills fast
   | "intelligence";
 
 export interface ResearchOpts {
@@ -305,6 +307,17 @@ async function resolveWebsite(name: string): Promise<string> {
   return checked.find((u): u is string => !!u) ?? "";
 }
 
+/** Normalise a pasted site to a bare host (drops scheme, www, path) for `site:` anchoring. */
+function siteHost(website?: string): string {
+  if (!website?.trim()) return "";
+  try {
+    const u = new URL(/^https?:/i.test(website) ? website : `https://${website.replace(/^\/+/, "")}`);
+    return u.hostname.replace(/^www\./i, "");
+  } catch {
+    return website.trim().replace(/^https?:\/\//i, "").replace(/^www\./i, "").split("/")[0];
+  }
+}
+
 /** The research question — one grounded pass that captures identity, story, products, and perception. */
 function researchQuestion(brain: BrandBrain): string {
   const who = [brain.name, brain.category, brain.productType].filter(Boolean).join(", ");
@@ -315,10 +328,21 @@ function researchQuestion(brain: BrandBrain): string {
     brain.ideology && `ideology / values: ${brain.ideology}`,
     brain.palette && `their stated colours: ${brain.palette}`,
   ].filter(Boolean).join("; ");
+  // When the founder PASTED a site, that URL is the source of truth — anchor every search
+  // to that exact domain so we study THEIR brand, not a same-named company the web surfaces.
+  const site = siteHost(brain.website);
+  const pasted = (brain.website || "").trim();
+  const anchor = site
+    ? `THE BRAND'S OFFICIAL WEBSITE IS ALREADY KNOWN: ${pasted} (domain: ${site}). This URL is the SOURCE OF TRUTH. Research the specific brand that owns ${site} — browse that exact domain and its own pages (home, about, products/collections, journal) and the socials it links to. When you search, anchor to this brand with \`site:${site}\` and "${brain.name}" ${site}. If search surfaces any OTHER company that merely shares the name or a different domain, IGNORE it entirely — do NOT blend it in. The WEBSITE root URL you return MUST be ${pasted}.\n\n`
+    : "";
+  const findStep = site
+    ? `1) CONFIRM THE BRAND at ${site}. The website is fixed to ${pasted}; do NOT substitute another. Read that site and find the INSTAGRAM @handle it links to. Set foundReal=true if the site is a real, live brand.\n`
+    : `1) FIND THE BRAND. Search the web. Give the exact official WEBSITE root URL (e.g. https://brand.com) and the INSTAGRAM @handle. Set foundReal=true if it's real & established.\n`;
   return (
+    anchor +
     `Act as a brand strategist + creative director doing real, thorough web research. Brand: "${brain.name}"${who ? ` (${who})` : ""}.${selfDesc ? ` The founder describes it as — ${selfDesc}.` : ""}\n\n` +
     `MOST BRANDS HERE ARE ALREADY IN THE MARKET — assume established first. Recognise the brand; capture what they ALREADY have.\n` +
-    `1) FIND THE BRAND. Search the web. Give the exact official WEBSITE root URL (e.g. https://brand.com) and the INSTAGRAM @handle. Set foundReal=true if it's real & established.\n` +
+    findStep +
     `2) IDENTITY & STORY. Their real PURPOSE, MISSION, VISION, brand STORY / origin, and CORE VALUES. A sharp POSITIONING line. Who exactly they are FOR (target audience) and a vivid CUSTOMER PERSONA. Their TONE OF VOICE (3-5 words) and BRAND PERSONALITY traits.\n` +
     `3) VISUAL IDENTITY. Their real COLOUR palette (hex sampled from their actual site/feed, never invented), TYPOGRAPHY feel (display + text), LOGO system, PACKAGING style, and their PHOTOGRAPHY SIGNATURE described concretely enough to reproduce: backgrounds & surfaces, colour grade, styling density & props, lighting quality/direction, crops/compositions, product-only vs models.\n` +
     `4) PRODUCTS. Their product line / hero products and collections.\n` +
@@ -342,10 +366,11 @@ function researchQuestion(brain: BrandBrain): string {
 async function groundedDossier(brain: BrandBrain): Promise<{ dossier: string; sources: number; inferred: boolean }> {
   const q = researchQuestion(brain);
 
-  // 1) OpenAI live web search — funded, reliable, actually grounds on the real brand.
-  if (process.env.OPENAI_API_KEY) {
+  // 1) Live web search via the Responses API — funded, reliable, actually grounds on the
+  //    real brand. Try each configured provider in order (OpenAI first, Azure second) so a
+  //    depleted OpenAI balance fails over to Azure instead of silently dropping grounding.
+  for (const { client, model } of chatClients()) {
     try {
-      const { client, model } = chatClient();
       // Bound the browsing loop: `low` reasoning + a tool-call cap keep the grounded pass
       // fast (well under the route's maxDuration) and, crucially, cheap — web_search is a
       // metered tool, so an uncapped default-effort run can burn 20+ searches per brand.
@@ -356,7 +381,9 @@ async function groundedDossier(brain: BrandBrain): Promise<{ dossier: string; so
         tools: [{ type: "web_search" }],
         max_tool_calls: 8,
         reasoning: { effort: "low" },
-        input: `${q}\n\nUse web search to find and verify the REAL brand (official site, Instagram, press) before answering. Then write the dossier as detailed prose.`,
+        input: `${q}\n\n${siteHost(brain.website)
+          ? `START by browsing ${(brain.website || "").trim()} directly (search \`site:${siteHost(brain.website)}\`), read its own pages, then use the wider web only for competitors, press and perception. Never let a different same-named brand replace it.`
+          : "Use web search to find and verify the REAL brand (official site, Instagram, press) before answering."} Then write the dossier as detailed prose.`,
       } as any);
       const dossier: string = res.output_text ?? "";
       // Count grounding: unique cited URLs, else the number of searches the model ran.
@@ -368,8 +395,9 @@ async function groundedDossier(brain: BrandBrain): Promise<{ dossier: string; so
       }
       if (dossier.trim() && searches > 0) return { dossier, sources: urls.size || searches, inferred: false };
       if (dossier.trim()) return { dossier, sources: 0, inferred: true };
+      // Empty result but no error — provider answered without grounding; try the next one.
     } catch {
-      /* fall through to Gemini / synthesis */
+      /* quota/transient on this provider → try the next, then Gemini / synthesis */
     }
   }
 
@@ -449,23 +477,44 @@ async function buildIntelligence(dossier: string): Promise<z.infer<typeof Intell
 export async function researchBrand(brain: BrandBrain, opts: ResearchOpts = {}): Promise<BrandResearch & { intelligence: BrandIntelligence; catalog: StudioProduct[] }> {
   const onStage = opts.onStage ?? (() => {});
 
-  // 1) Grounded (or synthesized) dossier.
+  // 1) Harvest the real site FIRST and IN PARALLEL with the slow grounded dossier. The crawl
+  //    is free and fast (Shopify /products.json, JSON-LD, og tags) — a few seconds — while the
+  //    grounded web-search research can take ~2 minutes. Products must NOT wait on it, so we
+  //    kick the crawl off now, straight from the pasted site, and stream the product DATA the
+  //    moment it lands (a "products" stage) so the library fills immediately. `done` still
+  //    carries the full catalogue as the source of truth.
+  const crawlSite = brain.website?.trim() || (await resolveWebsite(brain.name ?? ""));
+  const emptyHarvest = { productImages: [] as string[], logo: undefined as string | undefined, catalog: [] as StudioProduct[] };
+  const harvestPromise = (crawlSite ? harvestBrandSite(crawlSite) : Promise.resolve(emptyHarvest)).then((h) => {
+    if (crawlSite) onStage("website", { website: crawlSite });
+    onStage("catalog", { count: h.catalog.length });
+    onStage("images", { count: h.productImages.length });
+    onStage("products", { catalog: h.catalog, productImages: h.productImages, logo: h.logo, website: crawlSite });
+    return h;
+  }).catch(() => emptyHarvest);
+
+  // 2) Grounded (or synthesized) dossier — runs concurrently with the crawl above.
   const { dossier, sources, inferred } = await groundedDossier(brain);
 
-  // 2) Structure core research + full intelligence in parallel.
+  // 3) Structure core research + full intelligence in parallel.
   const [structured, intel] = await Promise.all([structureResearch(dossier, brain), buildIntelligence(dossier)]);
 
-  // Resolve the site to crawl: the URL the founder pasted wins, then the LLM's, then a free
-  // domain probe from the name — so the crawl runs even when grounding/LLM produced no URL.
-  const website = brain.website?.trim() || structured.website?.trim() || (await resolveWebsite(brain.name ?? ""));
-  onStage("website", { website, instagram: structured.instagram, competitors: structured.competitors });
-
-  // 3) Harvest the real site — the rich product catalogue, photos, and logo. This is entirely
-  //    free (plain fetch: Shopify /products.json, JSON-LD, og tags), so real product data lands
-  //    regardless of whether any paid research grounding was available.
-  const harvested = website ? await harvestBrandSite(website) : { productImages: [] as string[], logo: undefined as string | undefined, catalog: [] as StudioProduct[] };
-  onStage("catalog", { count: harvested.catalog.length });
+  // The site actually crawled (pasted URL) wins for storage; fall back to the LLM's URL.
+  const website = crawlSite || brain.website?.trim() || structured.website?.trim() || "";
+  const harvested = await harvestPromise;
+  // Now that the grounded palette exists, re-emit the images stage enriched with it.
   onStage("images", { count: harvested.productImages.length, palette: structured.palette });
+
+  // Read the brand's OWN photos and distil their photographic rulebook — the light, lens,
+  // grade, surfaces and the hard "they never do this" list — plus a numeric colour grade
+  // for the finishing pass, keyed to their real pixels. Category-aware (food book, etc.).
+  // Best-effort: on any failure it degrades to the category book + researched aesthetic.
+  const photoRules = await extractPhotoRules({
+    images: harvested.productImages,
+    category: brain.category,
+    productType: brain.productType,
+    aesthetic: intel.photographyStyle || structured.aesthetic,
+  }).catch(() => undefined);
 
   const intelligence: BrandIntelligence = {
     overview: intel.overview || structured.summary,
@@ -512,6 +561,7 @@ export async function researchBrand(brain: BrandBrain, opts: ResearchOpts = {}):
     logo: harvested.logo,
     productImages: harvested.productImages,
     products: harvested.catalog.map((p) => ({ name: p.name, image: p.images[0] })),
+    photoRules: photoRules ?? undefined,
     sources,
   };
 
