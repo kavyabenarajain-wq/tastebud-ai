@@ -90,7 +90,7 @@ const MODEL_ANGLE_POOL = [
   "Full-length / wide — the whole look in the environment",
   "Three-quarter, waist up — the workhorse editorial frame, model plus product",
   "Beauty close-up portrait — face, skin and expression",
-  "Product-interaction detail — hands holding, applying or wearing the product",
+  "Product-interaction detail — the model using the product the way its category demands (eating, sipping, applying, wearing, sitting on or using it), at true scale with real contact",
   "Profile / turned — dimension and movement",
   "Lifestyle / in-motion — a natural, candid brand moment",
 ];
@@ -196,6 +196,10 @@ const CopySchema = z.object({
     .array(z.object({ headline: z.string().optional().default(""), subline: z.string().optional().default("") }))
     .optional()
     .default([]),
+  variants: z
+    .array(z.object({ headline: z.string().optional().default(""), subline: z.string().optional().default(""), cta: z.string().optional().default(""), caption: z.string().optional().default("") }))
+    .optional()
+    .default([]),
   treatment: z
     .object({
       headlineArchetype: z.string().optional().default(""),
@@ -211,6 +215,9 @@ const CopySchema = z.object({
       scale: z.enum(["minimal", "standard", "impact", "hero"]).optional(),
       ctaStyle: z.enum(["solid", "outline", "text-link"]).optional(),
       ink: z.enum(["light", "dark"]).optional(),
+      bg: z.enum(["scrim", "band", "block", "canvas"]).optional(),
+      bgColor: z.string().optional().default(""),
+      inkColor: z.string().optional().default(""),
     })
     .optional(),
 });
@@ -226,17 +233,22 @@ export async function campaignCopy(args: {
   brief: string;
   type: string;
   frames?: number;
+  variants?: number; // a SET of N parallel options (e.g. "3 stories") — each must be DIFFERENT copy
 }): Promise<CampaignCopy> {
   const rb = (args.profile.rulebook ?? {}) as Record<string, unknown>;
   const voice = typeof rb.voice === "string" ? rb.voice.trim() : "";
   const essence = typeof rb.essence === "string" ? rb.essence.trim() : "";
   const playbook = typeof rb.copyPlaybook === "string" ? rb.copyPlaybook.trim() : "";
+  // The brand's OWN palette hexes — the ONLY colours a brand-colour background may use, so the
+  // layout stays inside the brand even when it goes colour-led.
+  const paletteHexes = (args.profile.palette ?? []).map((c) => [c.hex, c.name && `(${c.name})`].filter(Boolean).join(" ")).filter(Boolean);
   const system =
     `You write razor-sharp brand copy for social and paid creative. Brand: ${args.profile.name}.` +
     (essence || args.profile.positioning ? ` Positioning: ${essence || args.profile.positioning}.` : "") +
     (args.profile.audience ? ` Audience: ${args.profile.audience}.` : "") +
     (voice ? ` Voice: ${voice}.` : "") +
     ` Match the brand's voice exactly — no generic ad-speak, no exclamation-mark spam, no emoji unless the brand is genuinely playful.` +
+    (paletteHexes.length ? ` The brand's palette (use ONLY these hexes for any colour background): ${paletteHexes.join(", ")}.` : "") +
     // The copy playbook is the brand's own voice, distilled with signature lines and hard don'ts.
     // Write NEW copy in this register — echo the moves and cadence, don't verbatim-copy the samples.
     (playbook ? `\n\n--- BRAND COPY PLAYBOOK (follow exactly; the signature lines are the register to write in, not text to reuse verbatim) ---\n${playbook}` : "");
@@ -246,6 +258,16 @@ export async function campaignCopy(args: {
     : args.type === "story" ? "an Instagram story"
     : "an organic Instagram post";
   const isCarousel = args.type === "carousel" && !!args.frames;
+  // A SET of parallel options (3 stories, 3 posts) — NOT a sequence. Each option is its own
+  // complete piece and must be GENUINELY DIFFERENT from the others: a different hook/angle,
+  // different words (no shared phrases), a different CTA, and — via its treatment — copy that
+  // sits in a different part of the frame. This is what kills the "all three say the same thing".
+  const isSet = (args.type === "story" || args.type === "instagram") && (args.variants ?? 1) > 1;
+  const nSet = args.variants ?? 1;
+  const variantsAsk = isSet
+    ? `\n\nThis is a SET of ${nSet} SEPARATE ${args.type === "story" ? "stories" : "posts"} — parallel options, NOT a sequence. Write a "variants" array of EXACTLY ${nSet} items, one per piece, each a COMPLETE { "headline": "≤ 7 words", "subline": "≤ 12 words or ''", "cta": "2–4 words", "caption": "1–2 sentences" }. Every variant must be GENUINELY DIFFERENT from the others: a different angle/hook (e.g. one benefit-led, one myth-buster, one problem-solution), DIFFERENT words with NO repeated phrases or headlines across variants, and its own CTA. (Each piece is a different photo, so its type will be positioned into that frame's own empty space automatically — just make the WORDS distinct.) The top-level headline/caption describe the set overall.`
+    : "";
+  const variantsJson = isSet ? `,"variants":[{"headline":"...","subline":"...","cta":"...","caption":"..."}]` : "";
   const framesAsk = isCarousel
     ? `\n\nThis is a ${args.frames}-frame carousel — ONE story across swipes. Also write a "frames" array of EXACTLY ${args.frames} items, one per swipe, each { "headline": "≤ 5 words on-image text", "subline": "" }. Frame 1 is the HOOK, the middle frames DEVELOP the idea, the LAST frame is the payoff/close. Each frame's headline is short enough to sit legibly over a photo; leave subline "" unless a frame genuinely needs a second line. The top-level headline/caption describe the whole set (the feed caption).`
     : "";
@@ -287,22 +309,26 @@ export async function campaignCopy(args: {
       `scale (minimal = luxury restraint + whitespace, standard, impact = big & bold, hero = oversized display dominance), ` +
       `ctaStyle (solid = direct-response, outline = considered, text-link = luxury/subtle), ` +
       `ink ("light" = white type for a darker scene, "dark" = near-black type for a bright/light scene — judge it from the scene you're writing for). ` +
-      `Be deliberate and coherent: luxury → editorial-top/center, minimal/standard scale, lower/sentence case, text-link CTA, generous space; direct-response → mega/split, impact/hero scale, bold, solid high-contrast CTA. Match the brand and the composition — never default everything to a bottom-left block.`
+      `Be deliberate and coherent: luxury → editorial-top/center, minimal/standard scale, lower/sentence case, text-link CTA, generous space; direct-response → mega/split, impact/hero scale, bold, solid high-contrast CTA. Match the brand and the composition — never default everything to a bottom-left block.` +
+      (paletteHexes.length ? ` COLOURS-AS-BACKGROUND: when a bold COLOUR-LED treatment suits the brand better than type-over-photo, set "bg" to "band" (a brand-colour strip behind the copy), "block" (a brand-colour box hugging it) or "canvas" (the whole frame becomes one brand colour), with "bgColor" set to EXACTLY ONE of the brand palette hexes above (copy the hex string verbatim, e.g. "#EB547C") and optionally "inkColor" another palette hex for the type. Otherwise leave "bg" as "scrim" to keep the type over the photo. NEVER use a colour outside the brand palette.` : "")
     : "";
   const treatmentJson = wantsTreatment
-    ? `,"treatment":{"headlineArchetype":"...","ctaArchetype":"...","layout":"editorial-top|mega|split|side-rail|center|lower-third","anchor":"top-left|top-center|top-right|center-left|center|center-right|bottom-left|bottom-center|bottom-right","align":"left|center|right","case":"upper|sentence|lower","weight":"regular|bold","scale":"minimal|standard|impact|hero","ctaStyle":"solid|outline|text-link","ink":"light|dark"}`
+    ? `,"treatment":{"headlineArchetype":"...","ctaArchetype":"...","layout":"editorial-top|mega|split|side-rail|center|lower-third","anchor":"top-left|top-center|top-right|center-left|center|center-right|bottom-left|bottom-center|bottom-right","align":"left|center|right","case":"upper|sentence|lower","weight":"regular|bold","scale":"minimal|standard|impact|hero","ctaStyle":"solid|outline|text-link","ink":"light|dark","bg":"scrim|band|block|canvas","bgColor":"#hex-from-palette-or-empty","inkColor":"#hex-from-palette-or-empty"}`
     : "";
   const user =
     `The creative brief for the imagery (write copy that belongs to this exact concept):\n${args.brief.slice(0, 2000)}\n\n` +
-    `Write the copy for ${kind}: a HEADLINE (≤ 7 words, no full stop), an optional SUBLINE (≤ 12 words), a CTA (2–4 words in the brand's voice, e.g. "Shop the ritual"), and a CAPTION (1–2 sentences, the brand talking; at most 2 tasteful hashtags, never a hashtag wall).${framesAsk}${treatmentAsk}\n\n` +
-    `Return STRICT JSON ONLY: {"headline":"...","subline":"...","cta":"...","caption":"..."${framesJson}${treatmentJson}}`;
+    `Write the copy for ${kind}: a HEADLINE (≤ 7 words, no full stop), an optional SUBLINE (≤ 12 words), a CTA (2–4 words in the brand's voice, e.g. "Shop the ritual"), and a CAPTION (1–2 sentences, the brand talking; at most 2 tasteful hashtags, never a hashtag wall).${variantsAsk}${framesAsk}${treatmentAsk}\n\n` +
+    `Return STRICT JSON ONLY: {"headline":"...","subline":"...","cta":"...","caption":"..."${variantsJson}${framesJson}${treatmentJson}}`;
   try {
     const parsed = CopySchema.parse(JSON.parse(stripFences(await chat(system, user))));
     const frames = (parsed.frames ?? [])
       .map((f) => ({ ...(f.headline?.trim() ? { headline: f.headline.trim() } : {}), ...(f.subline?.trim() ? { subline: f.subline.trim() } : {}) }))
       .filter((f) => Object.keys(f).length);
+    const variants = (parsed.variants ?? [])
+      .map((v) => Object.fromEntries(Object.entries(v).filter(([, val]) => typeof val === "string" && val.trim())))
+      .filter((v) => Object.keys(v).length);
     const scalar = Object.fromEntries(
-      Object.entries(parsed).filter(([k, v]) => k !== "frames" && k !== "treatment" && typeof v === "string" && v.trim()),
+      Object.entries(parsed).filter(([k, v]) => k !== "frames" && k !== "variants" && k !== "treatment" && typeof v === "string" && v.trim()),
     );
     const t = parsed.treatment;
     const treatment = t
@@ -311,6 +337,7 @@ export async function campaignCopy(args: {
     return {
       ...scalar,
       ...(isCarousel && frames.length ? { frames } : {}),
+      ...(isSet && variants.length ? { variants } : {}),
       ...(treatment && Object.keys(treatment).length ? { treatment } : {}),
     } as CampaignCopy;
   } catch {

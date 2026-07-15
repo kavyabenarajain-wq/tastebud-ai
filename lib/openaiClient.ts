@@ -19,15 +19,20 @@ export function chatClient(): { client: OpenAI; model: string } {
  * so a depleted OpenAI balance no longer takes the whole brain down while Azure has credit.
  */
 export function chatClients(): { client: OpenAI; model: string; name: string }[] {
+  // Bound EVERY call: the SDK default is a 10-minute timeout with 2 retries, so one stuck
+  // request (e.g. a stalled research grounding loop) would hang the whole route far past its
+  // maxDuration and the studio would never finish assembling. 90s + 1 retry caps that hard
+  // while staying comfortably above a normal 4k-token completion.
+  const OPTS = { timeout: 90_000, maxRetries: 1 } as const;
   const out: { client: OpenAI; model: string; name: string }[] = [];
   if (process.env.OPENAI_API_KEY) {
-    out.push({ client: new OpenAI({ apiKey: process.env.OPENAI_API_KEY }), model: process.env.OPENAI_MODEL ?? "gpt-5.5", name: "openai" });
+    out.push({ client: new OpenAI({ apiKey: process.env.OPENAI_API_KEY, ...OPTS }), model: process.env.OPENAI_MODEL ?? "gpt-5.5", name: "openai" });
   }
   if (process.env.AZURE_OPENAI_API_KEY && process.env.AZURE_OPENAI_ENDPOINT) {
-    out.push({ client: new OpenAI({ apiKey: process.env.AZURE_OPENAI_API_KEY, baseURL: process.env.AZURE_OPENAI_ENDPOINT }), model: process.env.AZURE_OPENAI_DEPLOYMENT ?? "gpt-5.1", name: "azure" });
+    out.push({ client: new OpenAI({ apiKey: process.env.AZURE_OPENAI_API_KEY, baseURL: process.env.AZURE_OPENAI_ENDPOINT, ...OPTS }), model: process.env.AZURE_OPENAI_DEPLOYMENT ?? "gpt-5.1", name: "azure" });
   }
   // Last resort: an OpenAI client that will surface a clear auth error rather than crash on []
-  return out.length ? out : [{ client: new OpenAI({ apiKey: process.env.OPENAI_API_KEY ?? "" }), model: process.env.OPENAI_MODEL ?? "gpt-5.5", name: "openai" }];
+  return out.length ? out : [{ client: new OpenAI({ apiKey: process.env.OPENAI_API_KEY ?? "", ...OPTS }), model: process.env.OPENAI_MODEL ?? "gpt-5.5", name: "openai" }];
 }
 
 const isQuotaError = (e: unknown): boolean => {

@@ -2,9 +2,10 @@
 
 import { useEffect, useMemo, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { useRouter } from "next/navigation";
-import { motion } from "framer-motion";
-import { Upload, X, ImageIcon, Loader2, RefreshCw, ArrowUp, SlidersHorizontal, Images, Sparkles, Brain, UserPlus, ScanFace, Package, UserRound, Plus, Minus, Instagram, GalleryHorizontalEnd, Megaphone, RectangleVertical, Layers, Download, Type, AlignLeft, AlignCenter, AlignRight, Shuffle } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
+import { Upload, X, ImageIcon, Loader2, RefreshCw, ArrowUp, SlidersHorizontal, Images, Sparkles, Brain, UserPlus, ScanFace, Package, UserRound, Plus, Minus, Instagram, GalleryHorizontalEnd, Megaphone, RectangleVertical, Layers, Download, Type, AlignLeft, AlignCenter, AlignRight, Shuffle, Square, ChevronDown, Maximize2, Palette } from "lucide-react";
 import { WorkBar } from "@/components/tastebud/WorkBar";
+import { BrandSwitcher } from "@/components/tastebud/BrandSwitcher";
 import { BrandBrainPanel } from "@/components/tastebud/BrandBrainPanel";
 import { BrandKitCard } from "@/components/tastebud/BrandKitCard";
 import { ProductLibraryPanel } from "@/components/tastebud/ProductLibraryPanel";
@@ -13,10 +14,11 @@ import { numberToAspect } from "@/lib/brief";
 import { CREATIVE_TYPES, FORMATS, FORMAT_IDS, isV2Type, type FormatId } from "@/lib/creativeTypes";
 import { resolveBrandFonts, googleFontHref, fontVars, type BrandFonts } from "@/lib/brandFont";
 import { FONT_CHOICES, BRAND_FONT_ID, resolveFontChoice, catalogFontHref } from "@/lib/fontCatalog";
-import { buildCopyLayout, type LayoutBlock, type LayoutCluster } from "@/lib/copyLayout";
-import { CanvasToolbar, AnnotationLayer, isDrawTool, type CanvasTool, type Anno } from "@/components/tastebud/CanvasToolbar";
+import { buildCopyLayout, normHex, type LayoutBlock, type LayoutCluster } from "@/lib/copyLayout";
+import { AnnotationLayer, isDrawTool, type CanvasTool, type Anno } from "@/components/tastebud/CanvasToolbar";
 import { CanvasTopBar } from "@/components/tastebud/CanvasTopBar";
 import type { BrandBrain, CampaignCopy, CopyTreatment, CreativeTypeId, ModelSpec, ShotCompliance, ShotPlacement } from "@/lib/types";
+import { detectCategory, interactionOptions } from "@/lib/productCategory";
 
 /**
  * PAGE 8 — Unified Studio workspace.
@@ -80,7 +82,7 @@ function triggerDownload(url: string, filename: string) {
  * own line; the LAST frame also gets the CTA). Ads / posts / stories put the campaign
  * headline + CTA on the single hero. Returns undefined when a frame has nothing to say.
  */
-function overlayForShot(kind: CreativeType, copy: CampaignCopy | undefined, seq?: number, total?: number): CampaignCopy | undefined {
+function overlayForShot(kind: CreativeType, copy: CampaignCopy | undefined, seq?: number, total?: number, idx?: number): CampaignCopy | undefined {
   if (!copy) return undefined;
   if (kind === "carousel") {
     const f = copy.frames?.[(seq ?? 1) - 1];
@@ -91,9 +93,20 @@ function overlayForShot(kind: CreativeType, copy: CampaignCopy | undefined, seq?
     const out: CampaignCopy = { ...(headline ? { headline } : {}), ...(f?.subline ? { subline: f.subline } : {}), ...(isLast && copy.cta ? { cta: copy.cta } : {}), ...(copy.treatment ? { treatment: copy.treatment } : {}) };
     return out.headline || out.cta ? out : undefined;
   }
-  return copy.headline || copy.cta ? { headline: copy.headline, subline: copy.subline, cta: copy.cta, treatment: copy.treatment } : undefined;
+  // A parallel-option set ("3 stories"): each shot shows its OWN variant so the words never
+  // repeat across the set. Fall back to the set-level copy for a single-shot run.
+  const v = copy.variants && idx != null ? copy.variants[idx] : undefined;
+  const src = v ?? copy;
+  return src.headline || src.cta ? { headline: src.headline, subline: src.subline, cta: src.cta, treatment: copy.treatment } : undefined;
 }
-const clampZoom = (z: number): number => Math.min(2, Math.max(0.25, Math.round(z * 100) / 100));
+// Wide, flexible zoom: down to 10% (see a whole board at a glance) up to 400% (fine detail).
+const ZOOM_MIN = 0.1, ZOOM_MAX = 4;
+const clampZoom = (z: number): number => Math.min(ZOOM_MAX, Math.max(ZOOM_MIN, Math.round(z * 100) / 100));
+const clampN = (v: number, lo: number, hi: number): number => Math.min(hi, Math.max(lo, v));
+// Canvas vertical padding: content rests this far below the top and this far above the
+// bottom toolbar/zoom pill, so a shot's action buttons can always be scrolled clear of them.
+const CANVAS_TOP_PAD = 32;
+const CANVAS_BOT_PAD = 104;
 
 // v2 types render at a fixed aspect; ad placeholders use the feed default until the plan lands.
 const defaultAspectFor = (kind: CreativeType): number => (kind === "story" ? 9 / 16 : 4 / 5);
@@ -124,7 +137,8 @@ const MODEL_OPTIONS: Record<"gender" | "ageRange" | "ethnicity" | "skinTone" | "
   vibe: ["Editorial / high-fashion", "Next door / relatable", "Luxury / refined", "Sporty / active", "Streetwear / cool", "Natural / minimal", "Warm / approachable", "Bold / striking"],
   expression: ["Serene / neutral", "Soft smile", "Confident", "Candid laugh", "Intense / editorial", "Joyful"],
 };
-const PRODUCT_USE = ["Worn", "Held", "Applied", "In-context", "None"];
+// "How it's used" options are derived per product category (see productCategory.ts) so a
+// non-wearable never offers "Worn" — you cannot wear an ice cream or a sofa.
 
 const SCENE_OPTIONS: Record<"background" | "vibe" | "lighting" | "composition" | "format", string[]> = {
   background: ["Pure white", "Pure black", "Art-directed", "Soft cream", "Warm beige", "Sand / tan", "Studio backdrop", "Outdoor / natural", "Urban / street", "Interior / home", "Sage green", "Deep navy", "Terracotta", "Soft gradient glow"],
@@ -173,6 +187,12 @@ export default function CreateWorkspace() {
   // Brand typography → nearest Google Font, so copy overlays render in the brand's own
   // type (live on canvas AND baked into exports). Injects one <link> per brand.
   const brandFonts = useMemo<BrandFonts>(() => resolveBrandFonts(brain.intelligence?.typography), [brain.intelligence?.typography]);
+  // The brand's OWN palette — the colours every overlay background / text-colour swatch is drawn
+  // from, so the manual editor can only paint in-brand. Research palette first, then intelligence.
+  const brandPalette = useMemo<{ hex: string; role?: string }[]>(
+    () => (brain.research?.palette ?? brain.intelligence?.palette ?? []).filter((c): c is { hex: string; role?: string } => !!c?.hex),
+    [brain.research?.palette, brain.intelligence?.palette],
+  );
   useEffect(() => {
     const href = googleFontHref(brandFonts);
     let link = document.head.querySelector<HTMLLinkElement>("link[data-brand-font]");
@@ -202,6 +222,8 @@ export default function CreateWorkspace() {
   const [frames, setFrames] = useState(5); // carousel sequence length
   const [adFormats, setAdFormats] = useState<FormatId[]>([...FORMAT_IDS]); // ad placements to fan out to
   const [concepts, setConcepts] = useState(1); // ad: distinct concepts, each fanned across placements
+  const [companions, setCompanions] = useState<CreativeTypeId[]>([]); // product mode: ALSO make these v2 types in the same run
+  const genAbort = useRef<AbortController | null>(null); // in-flight generation — aborted by the Stop button
   const [copyDraft, setCopyDraft] = useState({ headline: "", cta: "" }); // typed copy — wins over generated
   const [overlayOff, setOverlayOff] = useState<Record<string, boolean>>({}); // per-run copy-overlay toggle
   const [adapting, setAdapting] = useState<string | null>(null); // shot id with the format menu open
@@ -216,10 +238,13 @@ export default function CreateWorkspace() {
   const [source, setSource] = useState<Source>("build");
   const [model, setModel] = useState<ModelSpec>(EMPTY_MODEL);
   const [modelRefs, setModelRefs] = useState<Img[]>([]);
+  const [group, setGroup] = useState(false); // treat each reference photo as a DIFFERENT person (3–4 in one frame)
   const [scene, setScene] = useState<Scene>(EMPTY_SCENE);
   const [showScene, setShowScene] = useState(false);
   const [zoom, setZoom] = useState(1);
-  const [zoomSmooth, setZoomSmooth] = useState(false); // animate discrete (button/key) zoom; snap for wheel/pinch/pan
+  // Zoom animation mode: "fast" = a quick glide that tracks wheel/pinch; "slow" = a longer,
+  // premium ease for button/fit/double-click; null = snap (drag-pan / scroll must track 1:1).
+  const [zoomAnim, setZoomAnim] = useState<null | "fast" | "slow">(null);
   const [pan, setPan] = useState({ x: 0, y: 0 });      // infinite-canvas offset of the floating world (screen px)
   const [grabbing, setGrabbing] = useState(false);
   const [tool, setTool] = useState<CanvasTool>("select"); // active canvas tool (toolbar)
@@ -244,10 +269,15 @@ export default function CreateWorkspace() {
   const panning = useRef(false);
   const panStart = useRef({ px: 0, py: 0, ox: 0, oy: 0 });
   const panInit = useRef(false);
+  const [contentH, setContentH] = useState(0);   // unscaled layout height of the floating world
+  const [vpH, setVpH] = useState(0);             // canvas viewport height (px)
+  const contentHRef = useRef(0);
+  const scrollDrag = useRef<{ y: number; scrollY: number; scrollMax: number; span: number } | null>(null);
   const typeRef = useRef<CreativeType>("product"); // read the current type inside async closures without stale state
   typeRef.current = type;
   zoomRef.current = zoom;
   panRef.current = pan;
+  contentHRef.current = contentH;
 
   // Hydrate the brand + seed products/type once from the shared session key.
   useEffect(() => {
@@ -270,7 +300,6 @@ export default function CreateWorkspace() {
           const initial: CreativeType = fromQuery ?? (uses.includes("Model photoshoots") && !uses.includes("Product photoshoots") ? "model" : "product");
           setType(initial);
           typeRef.current = initial;
-          if (isV2Type(initial)) setShowPanel(true);
           setMessages([{ role: "assistant", content: opener(initial, b.name, chosen.length) }]);
           return;
         }
@@ -296,16 +325,26 @@ export default function CreateWorkspace() {
       e.preventDefault();
       const rect = el.getBoundingClientRect();
       if (e.ctrlKey || e.metaKey) {
-        const nz = clampZoom(zoomRef.current * Math.exp(-e.deltaY * 0.0022));
+        // Faster per-tick step (0.003) so a couple of scrolls covers real ground, and a short
+        // "fast" glide so rapid ticks read as one smooth zoom rather than discrete jumps.
+        const nz = clampZoom(zoomRef.current * Math.exp(-e.deltaY * 0.003));
         const cx = e.clientX - rect.left, cy = e.clientY - rect.top;
         const wx = (cx - panRef.current.x) / zoomRef.current;
         const wy = (cy - panRef.current.y) / zoomRef.current;
-        setZoomSmooth(false);
+        setZoomAnim("fast");
         setZoom(nz);
         setPan({ x: cx - wx * nz, y: cy - wy * nz });
       } else {
-        setZoomSmooth(false);
-        setPan((p) => ({ x: p.x - e.deltaX, y: p.y - e.deltaY }));
+        setZoomAnim(null);
+        setPan((p) => {
+          const nx = p.x - e.deltaX;
+          let ny = p.y - e.deltaY;
+          // Natural page-like vertical scroll: clamp wheel/two-finger to the content's bounds so
+          // it never flings the work into empty space. Drag-to-pan stays free (infinite canvas).
+          const h = el.clientHeight, cv = contentHRef.current * zoomRef.current;
+          if (cv > 0 && cv + CANVAS_TOP_PAD + CANVAS_BOT_PAD > h) ny = clampN(ny, h - CANVAS_BOT_PAD - cv, CANVAS_TOP_PAD);
+          return { x: nx, y: ny };
+        });
       }
     };
     el.addEventListener("wheel", onWheel, { passive: false });
@@ -319,14 +358,26 @@ export default function CreateWorkspace() {
     const measure = () => {
       const w = Math.min(880, Math.max(520, Math.round(vp.clientWidth - 160)));
       setContentW(w);
+      setVpH(vp.clientHeight);
       if (!panInit.current && vp.clientWidth) {
         panInit.current = true;
-        setPan({ x: Math.max(24, (vp.clientWidth - w) / 2), y: 32 });
+        setPan({ x: Math.max(24, (vp.clientWidth - w) / 2), y: CANVAS_TOP_PAD });
       }
     };
     measure();
     const ro = new ResizeObserver(measure);
     ro.observe(vp);
+    return () => ro.disconnect();
+  }, []);
+
+  // Track the floating world's height so the scrollbar + scroll bounds stay accurate as runs add.
+  useEffect(() => {
+    const el = canvasContentRef.current;
+    if (!el) return;
+    const measure = () => setContentH(el.scrollHeight);
+    measure();
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
     return () => ro.disconnect();
   }, []);
 
@@ -342,6 +393,10 @@ export default function CreateWorkspace() {
   // case / align / ink). The SAME treatment drives the live overlay AND the export bake.
   const setRunTreatment = (runId: string, patch: Partial<CopyTreatment>) =>
     setRuns((rs) => rs.map((r) => (r.id === runId && r.copy ? { ...r, copy: { ...r.copy, treatment: { ...r.copy.treatment, ...patch } } } : r)));
+  // Manual copy edit: retype the run's actual words (headline / subline / CTA / caption). Copy is
+  // DATA overlaid live and baked on export, so a retyped headline updates on the spot.
+  const setRunCopyText = (runId: string, patch: Partial<CampaignCopy>) =>
+    setRuns((rs) => rs.map((r) => (r.id === runId && r.copy ? { ...r, copy: { ...r.copy, ...patch } } : r)));
 
   // ── Canvas history: undo / redo / duplicate / trash operate on the whole canvas ──
   // Every mutation snapshots the current canvas (image sets + sketch annotations) before
@@ -405,14 +460,25 @@ export default function CreateWorkspace() {
     }));
   const failPending = (runId: string) =>
     setRuns((rs) => rs.map((r) => (r.id === runId ? { ...r, shots: r.shots.map((s) => (s.pending && !s.url ? { ...s, pending: false, failed: true } : s)) } : r)));
+  // A deliberate STOP is not a failure: keep every shot that already landed, drop the unrendered
+  // skeletons, and remove the run entirely if nothing finished — so the canvas is clean, not littered
+  // with "failed" cards the user chose to cancel.
+  const stopPending = (runId: string) =>
+    setRuns((rs) => rs.flatMap((r) => {
+      if (r.id !== runId) return [r];
+      const kept = r.shots.filter((s) => s.url);
+      return kept.length ? [{ ...r, shots: kept }] : [];
+    }));
+  // Abort the in-flight generation (Stop button). The stream's reader rejects with AbortError,
+  // which each generate path treats as a stop (not an error).
+  const stopGeneration = () => genAbort.current?.abort();
 
   function switchType(next: CreativeType) {
     if (next === type || busy || thinking) return;
     setType(next);
     typeRef.current = next;
-    // v2 types surface their controls (placements, frames, copy) right away — the
-    // inline panel helps here; product keeps its produce-first, panel-later flow.
-    setShowPanel(isV2Type(next));
+    // Controls live in an OPTIONAL drawer now — switching type never forces it open, so the
+    // default for every mode is the clean chat + canvas surface (panel-optional, per CLAUDE.md).
     say("assistant", SWITCH_LINE[next]);
   }
 
@@ -453,6 +519,24 @@ export default function CreateWorkspace() {
     say("assistant", "Pinned that as a style reference — I’ll match its composition, palette and staging on the next shoot. Say go.");
   }
 
+  // Lock the workspace to a saved brand — load its full brain and mirror it to the shared session
+  // key so every next creative (palette, voice, guidelines) stays inside that brand. The one switch
+  // behind BOTH the header picker and the conversational brand-selection agent (select_brand).
+  async function switchBrand(slug: string) {
+    try {
+      const r = await fetch(`/api/brains/${slug}`);
+      const j = await r.json();
+      const next = j?.brain as BrandBrain | undefined;
+      if (next?.name) {
+        setBrain(next);
+        try { localStorage.setItem("cc.activeBrand", JSON.stringify(next)); } catch { /* ignore */ }
+        say("assistant", `Switched to ${next.name} — palette, voice and guidelines loaded. Everything I make now stays on ${next.name}.`);
+      } else {
+        say("assistant", "I couldn't find that brand — try the picker in the top bar.");
+      }
+    } catch { say("assistant", "Couldn't switch brands just now — try again?"); }
+  }
+
   // ── Chat ────────────────────────────────────────────────────────────────
   async function createTurn(text: string) {
     const next: Msg[] = [...messages, { role: "user", content: text }];
@@ -479,6 +563,7 @@ export default function CreateWorkspace() {
         if (j.reply) say("assistant", j.reply);
         for (const a of j.actions ?? []) {
           if (a.type === "show_panel") setShowPanel(true);
+          else if (a.type === "select_brand" && a.name) await switchBrand(slugify(a.name));
           else if (a.type === "generate_shoot") await generate(a.brief ?? {});
         }
       }
@@ -504,8 +589,8 @@ export default function CreateWorkspace() {
   }
 
   // ── Generation pipeline (shared) ──────────────────────────────────────────
-  async function stream(body: object, h: { onPlan: (s: { id: string; angle: string; aspect?: string; format?: string; seq?: number }[], a?: string) => void; onShot: (s: Shot) => void; onError: (id?: string, error?: string) => void; onReshoot: (id: string) => void; onCopy?: (c: CampaignCopy) => void; onPlacement?: (id: string, placement: ShotPlacement) => void }) {
-    const res = await fetch("/api/generate", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(body) });
+  async function stream(body: object, h: { onPlan: (s: { id: string; angle: string; aspect?: string; format?: string; seq?: number }[], a?: string, run?: string, creativeType?: string) => void; onShot: (s: Shot) => void; onError: (id?: string, error?: string) => void; onReshoot: (id: string) => void; onCopy?: (c: CampaignCopy, run?: string) => void; onPlacement?: (id: string, placement: ShotPlacement) => void }, signal?: AbortSignal) {
+    const res = await fetch("/api/generate", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(body), signal });
     const reader = res.body!.getReader();
     const dec = new TextDecoder();
     let buf = "";
@@ -518,8 +603,8 @@ export default function CreateWorkspace() {
         const line = buf.slice(0, nl).trim(); buf = buf.slice(nl + 1);
         if (!line) continue;
         const m = JSON.parse(line);
-        if (m.type === "plan") h.onPlan(m.shots ?? [], m.aspect);
-        else if (m.type === "copy") h.onCopy?.(m.copy ?? {});
+        if (m.type === "plan") h.onPlan(m.shots ?? [], m.aspect, m.run, m.creativeType);
+        else if (m.type === "copy") h.onCopy?.(m.copy ?? {}, m.run);
         else if (m.type === "qc") h.onReshoot(m.id);
         else if (m.type === "shot") h.onShot(m.shot);
         else if (m.type === "placement") h.onPlacement?.(m.id, m.placement ?? {});
@@ -544,6 +629,10 @@ export default function CreateWorkspace() {
       panel: { background: sc.background, vibe: sc.vibe, lighting: sc.lighting, composition: sc.composition, format: sc.format, numAngles: sc.numAngles, shotsPerAngle: sc.shotsPerAngle },
       products: products.map((p) => p.url),
       modelRefs: spec.source === "reference" ? modelRefs.map((r) => r.url) : [],
+      // Group shoot: each reference photo is a DISTINCT person (cap 4). Off / <2 → single-model.
+      models: group && spec.source === "reference" && modelRefs.length >= 2
+        ? modelRefs.slice(0, 4).map((r, i) => ({ source: "reference" as const, name: `Person ${i + 1}`, refs: [r.url] }))
+        : undefined,
       model: spec,
       brand: brain.name ? brain : undefined,
     };
@@ -571,18 +660,26 @@ export default function CreateWorkspace() {
       const expected = Math.max(1, merged.numAngles) * Math.max(1, merged.shotsPerAngle);
       setBusy(true); setStatus("Casting and art-directing…");
       optimisticStart(runId, kind, expected);
+      const ac = new AbortController(); genAbort.current = ac;
+      let stopped = false;
       try {
         await stream(modelBody(brief.express ?? "", merged, spec), {
           onPlan: (stubs, aspect) => { setStatus(`Shooting ${stubs.length} frame${stubs.length > 1 ? "s" : ""}…`); reconcileRun(runId, stubs, aspect); },
           onReshoot: (id) => patchShot(id, { pending: true }),
           onShot: (s) => patchShot(s.id, { ...s, aspect: aspectNum(s.aspect), pending: false, failed: false }),
           onError: (id, error) => { if (id) patchShot(id, { pending: false, failed: true }); surfaceGenError(error); },
-        });
-      } catch (e) { say("assistant", `Generation hit an error: ${(e as Error).message}`); }
-      failPending(runId); setBusy(false); setStatus(""); return;
+        }, ac.signal);
+      } catch (e) {
+        if ((e as Error)?.name === "AbortError" || ac.signal.aborted) stopped = true;
+        else say("assistant", `Generation hit an error: ${(e as Error).message}`);
+      }
+      genAbort.current = null;
+      (stopped ? stopPending : failPending)(runId);
+      if (stopped) say("assistant", "Stopped — I kept every frame that already landed.");
+      setBusy(false); setStatus(""); return;
     }
 
-    // Product spine — product photoshoot + the v2 creative types (instagram / story / carousel / ad)
+    // Product spine — product photoshoot + the v2 creative types (instagram / story / carousel / ad).
     if (!products.length) { say("assistant", "I’ll need your product photo first — use the upload button."); return; }
     const merged: Panel = { ...panel };
     (["background", "surface", "vibe", "lighting", "composition", "styling", "format"] as const).forEach((k) => { if (!merged[k] && brief[k]) (merged[k] as string) = brief[k] as string; });
@@ -616,20 +713,45 @@ export default function CreateWorkspace() {
       }
     }
 
+    // "Also make" — a plain product shoot can ALSO produce Instagram stories/posts (etc.) in the
+    // SAME request. The server shares the expensive pre-passes and streams each extra type as its
+    // own run, which we stack as a new labelled card on the canvas.
+    if (kind === "product" && companions.length) extras.companions = companions;
+
     const STATUS_FOR: Partial<Record<CreativeType, string>> = { ad: "Art-directing the campaign…", carousel: "Writing the arc, art-directing…", instagram: "Art-directing your creative…", story: "Art-directing your story…" };
     setBusy(true); setStatus(STATUS_FOR[kind] ?? "Art-directing the shoot…");
     optimisticStart(runId, kind, expected);
+    // Route server run-keys → local canvas runs. "primary" is the run we just created; each
+    // companion type spins up its own run the first time its plan lands.
+    const runKeyToLocal = new Map<string, string>([["primary", runId]]);
+    const kindForKey = (rk?: string, ct?: string): CreativeType =>
+      !rk || rk === "primary" ? kind : ((ct && isV2Type(ct) ? ct : isV2Type(rk) ? rk : kind) as CreativeType);
+    const ac = new AbortController(); genAbort.current = ac;
+    let stopped = false;
     try {
       await stream({ ...productBody(brief.express ?? "", merged), ...extras }, {
-        onPlan: (stubs, aspect) => { setStatus(kind === "ad" ? `Rendering ${stubs.length} placements…` : kind === "carousel" ? `Shooting ${stubs.length} frames…` : `Shooting ${stubs.length} image${stubs.length > 1 ? "s" : ""}…`); reconcileRun(runId, stubs, aspect); },
+        onPlan: (stubs, aspect, run = "primary", ct) => {
+          let local = runKeyToLocal.get(run);
+          if (!local) { local = uid("run"); runKeyToLocal.set(run, local); optimisticStart(local, kindForKey(run, ct), stubs.length); }
+          setStatus(run !== "primary" ? `Also making ${kindForKey(run, ct)}…` : kind === "ad" ? `Rendering ${stubs.length} placements…` : kind === "carousel" ? `Shooting ${stubs.length} frames…` : `Shooting ${stubs.length} image${stubs.length > 1 ? "s" : ""}…`);
+          reconcileRun(local, stubs, aspect);
+        },
         onReshoot: (id) => patchShot(id, { pending: true }),
         onShot: (s) => patchShot(s.id, { ...s, aspect: aspectNum(s.aspect), pending: false, failed: false }),
         onError: (id, error) => { if (id) patchShot(id, { pending: false, failed: true }); surfaceGenError(error); },
-        onCopy: (copy) => setRuns((rs) => rs.map((r) => (r.id === runId ? { ...r, copy } : r))),
+        onCopy: (copy, run = "primary") => { const l = runKeyToLocal.get(run); if (l) setRuns((rs) => rs.map((r) => (r.id === l ? { ...r, copy } : r))); },
         onPlacement: (id, placement) => patchShot(id, { placement }),
-      });
-    } catch (e) { say("assistant", `Generation hit an error: ${(e as Error).message}`); }
-    failPending(runId); setBusy(false); setStatus("");
+      }, ac.signal);
+    } catch (e) {
+      if ((e as Error)?.name === "AbortError" || ac.signal.aborted) stopped = true;
+      else say("assistant", `Generation hit an error: ${(e as Error).message}`);
+    }
+    genAbort.current = null;
+    // Stop → keep what landed, drop the rest. Otherwise fail any still-pending skeletons across
+    // the primary AND every companion run.
+    for (const local of runKeyToLocal.values()) (stopped ? stopPending : failPending)(local);
+    if (stopped) say("assistant", "Stopped — I kept everything already shot.");
+    setBusy(false); setStatus("");
   }
 
   // A single one-off frame (used by reshoot / re-render edits). `format` pins the
@@ -788,16 +910,40 @@ export default function CreateWorkspace() {
     setPan({ x: cx - wx * nz, y: cy - wy * nz });
   };
   const stepZoom = (factor: number) => {
-    setZoomSmooth(true);
+    setZoomAnim("slow");
     const vp = canvasViewportRef.current;
     zoomToward(zoom * factor, vp ? vp.clientWidth / 2 : 0, vp ? vp.clientHeight / 2 : 0);
   };
   const resetZoom = () => {
-    setZoomSmooth(true);
+    setZoomAnim("slow");
     const vp = canvasViewportRef.current;
     setZoom(1);
-    if (vp) setPan({ x: Math.max(24, (vp.clientWidth - contentW) / 2), y: 32 });
+    if (vp) setPan({ x: Math.max(24, (vp.clientWidth - contentW) / 2), y: CANVAS_TOP_PAD });
   };
+  // Frame EVERYTHING in view at once — the "stop scrolling, show me the whole board" move.
+  // Fits the content's width and height into the viewport (never zooms past 100%) and centres it.
+  const zoomToFit = () => {
+    const vp = canvasViewportRef.current;
+    if (!vp || contentH <= 0) { resetZoom(); return; }
+    const padX = 48;
+    const availV = vp.clientHeight - CANVAS_TOP_PAD - CANVAS_BOT_PAD;
+    const z = clampZoom(Math.min((vp.clientWidth - padX * 2) / contentW, availV / contentH, 1));
+    const scaledW = contentW * z, scaledH = contentH * z;
+    setZoomAnim("slow");
+    setZoom(z);
+    setPan({ x: Math.max(padX, (vp.clientWidth - scaledW) / 2), y: CANVAS_TOP_PAD + Math.max(0, (availV - scaledH) / 2) });
+  };
+  // Double-click empty canvas toggles fit ↔ 100%: at ~100%+ it fits everything; zoomed out it
+  // jumps to 100% right where you clicked. One gesture instead of hunting the zoom buttons.
+  function onCanvasDoubleClick(e: React.MouseEvent) {
+    if (isDrawTool(tool)) return;
+    if ((e.target as HTMLElement).closest("button, a, input, select, textarea, [data-no-pan]")) return;
+    const vp = canvasViewportRef.current;
+    if (zoom >= 0.95 || !vp) { zoomToFit(); return; }
+    const rect = vp.getBoundingClientRect();
+    setZoomAnim("slow");
+    zoomToward(1, e.clientX - rect.left, e.clientY - rect.top);
+  }
 
   // Drag empty canvas to pan; clicks on cards/controls pass through (excluded targets don't start a pan).
   function onCanvasPointerDown(e: React.PointerEvent) {
@@ -806,7 +952,7 @@ export default function CreateWorkspace() {
     if ((e.target as HTMLElement).closest("button, a, input, select, textarea, [data-no-pan]")) return;
     panning.current = true;
     setGrabbing(true);
-    setZoomSmooth(false);
+    setZoomAnim(null);
     panStart.current = { px: e.clientX, py: e.clientY, ox: panRef.current.x, oy: panRef.current.y };
     canvasViewportRef.current?.setPointerCapture(e.pointerId);
   }
@@ -821,16 +967,31 @@ export default function CreateWorkspace() {
     canvasViewportRef.current?.releasePointerCapture?.(e.pointerId);
   }
 
+  // Vertical scrollbar drag — maps thumb movement to pan.y within the content bounds.
+  function startScrollDrag(e: React.PointerEvent, scrollMax: number, span: number) {
+    e.preventDefault(); e.stopPropagation();
+    scrollDrag.current = { y: e.clientY, scrollY: clampN(CANVAS_TOP_PAD - panRef.current.y, 0, scrollMax), scrollMax, span };
+    setZoomAnim(null);
+    (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
+  }
+  function moveScrollDrag(e: React.PointerEvent) {
+    const d = scrollDrag.current;
+    if (!d) return;
+    const scrollY = clampN(d.scrollY + (d.span > 0 ? ((e.clientY - d.y) / d.span) * d.scrollMax : 0), 0, d.scrollMax);
+    setPan((p) => ({ ...p, y: CANVAS_TOP_PAD - scrollY }));
+  }
+  function endScrollDrag() { scrollDrag.current = null; }
+
   const total = Math.max(1, type === "model" ? scene.numAngles : panel.numAngles) * Math.max(1, type === "model" ? scene.shotsPerAngle : panel.shotsPerAngle);
-  const showMiddle = type === "model" || showPanel;
-  const middleWidth = type === "model" ? "340px" : "300px";
 
   return (
     <div className="flex h-screen flex-col bg-canvas text-ink">
       <WorkBar
         brand={brain.name}
+        hideRightBack
         right={
           <div className="flex items-center gap-3">
+            <BrandSwitcher current={brain.name} onSelect={switchBrand} />
             <button onClick={() => router.push("/studio/campaigns")} className="flex items-center gap-1.5 rounded-full border border-hairline px-3 py-1 text-[12px] text-ink transition-colors hover:border-ink" title="Every campaign, carousel and creative this brand has produced">
               <Layers size={13} /> Campaigns
             </button>
@@ -844,25 +1005,6 @@ export default function CreateWorkspace() {
         }
       />
 
-      {/* Creative-type filter bar — swaps the creative type without leaving the workspace */}
-      <div className="flex items-center gap-2 border-b border-hairline px-6 py-2.5">
-        <span className="mr-1 text-[11px] uppercase tracking-wide text-muted">Create</span>
-        {TYPE_TABS.map(({ key, label, Icon }) => {
-          const on = type === key;
-          return (
-            <button
-              key={key}
-              onClick={() => switchType(key)}
-              disabled={busy || thinking}
-              title={CREATIVE_TYPES[key].blurb}
-              className={`flex items-center gap-1.5 rounded-full border px-3 py-1 text-[12px] transition-colors disabled:cursor-not-allowed disabled:opacity-40 ${on ? "border-ink bg-ink text-canvas" : "border-hairline text-muted hover:border-ink hover:text-ink"}`}
-            >
-              <Icon size={13} /> {label}
-            </button>
-          );
-        })}
-      </div>
-
       <BrandBrainPanel brain={brain} open={showBrain} onClose={() => setShowBrain(false)} />
       <ProductLibraryPanel
         open={showLibrary}
@@ -875,10 +1017,14 @@ export default function CreateWorkspace() {
         onUpload={(files) => addImgs(files, setProducts)}
       />
 
-      <div className="grid min-h-0 flex-1 overflow-hidden" style={{ gridTemplateColumns: showMiddle ? `360px ${middleWidth} minmax(0,1fr)` : "360px minmax(0,1fr)" }}>
-        {/* ── Middle control column ─────────────────────────────────────────── */}
-        {showMiddle && (
-          <div className="order-2 min-h-0 overflow-y-auto border-r border-hairline px-5 py-6">
+      <div className="relative grid min-h-0 flex-1 overflow-hidden" style={{ gridTemplateColumns: "380px minmax(0,1fr)" }}>
+        {/* ── Optional controls drawer — overlays the canvas, never a permanent column ── */}
+        <AnimatePresence>
+          {showPanel && (
+            <>
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }} transition={{ duration: 0.18 }} className="absolute inset-y-0 left-[380px] right-0 z-20" onClick={() => setShowPanel(false)} aria-hidden />
+              <motion.div initial={{ x: -24, opacity: 0 }} animate={{ x: 0, opacity: 1 }} exit={{ x: -24, opacity: 0 }} transition={{ duration: 0.22, ease: [0.4, 0, 0.2, 1] }} className="absolute inset-y-0 left-[380px] z-30 w-[360px] overflow-y-auto border-r border-hairline bg-canvas px-5 py-6 shadow-[8px_0_24px_rgba(0,0,0,0.06)]">
+                <button onClick={() => setShowPanel(false)} className="absolute right-3 top-3 rounded-md p-1 text-muted hover:text-ink" title="Close controls"><X size={16} /></button>
             {type === "model" ? (
               <>
                 <div className="mb-1 text-[11px] uppercase tracking-wide text-muted">Your model</div>
@@ -906,6 +1052,12 @@ export default function CreateWorkspace() {
                         </div>
                       ))}
                     </div>
+                    {modelRefs.length >= 2 && (
+                      <label className="flex cursor-pointer select-none items-center gap-2 text-[12px] text-muted">
+                        <input type="checkbox" checked={group} onChange={(e) => setGroup(e.target.checked)} className="accent-ink" />
+                        <span>Each photo is a <span className="text-ink">different person</span> (group shoot, up to 4)</span>
+                      </label>
+                    )}
                   </div>
                 )}
                 <div className="mt-6 border-t border-hairline pt-4">
@@ -919,7 +1071,7 @@ export default function CreateWorkspace() {
                       </div>
                     ))}
                   </div>
-                  {products.length > 0 && <div className="mt-3"><Sel label="How it’s used" value={model.productUse ?? ""} opts={PRODUCT_USE} onChange={(v) => setM({ productUse: v })} /></div>}
+                  {products.length > 0 && <div className="mt-3"><Sel label="How it’s used" value={model.productUse ?? ""} opts={interactionOptions(detectCategory(brain.category, brain.productType, brain.name))} onChange={(v) => setM({ productUse: v })} /></div>}
                 </div>
                 <div className="mt-6 border-t border-hairline pt-4">
                   <button onClick={() => setShowScene((s) => !s)} className="mb-2 flex w-full items-center justify-between text-[11px] uppercase tracking-wide text-muted hover:text-ink">
@@ -991,18 +1143,43 @@ export default function CreateWorkspace() {
                         <input type="number" min={1} max={6} value={panel.shotsPerAngle} onChange={(e) => setPanel({ ...panel, shotsPerAngle: Math.max(1, Math.min(6, Number(e.target.value))) })} className="rounded-md border border-hairline bg-canvas px-2.5 py-1.5 text-sm focus:border-ink" /></label>
                     </div>
                   )}
-                  <button onClick={() => generate({ express: input.trim() })} disabled={busy || !products.length} className="mt-1 rounded-control bg-ink px-4 py-2 text-sm font-medium text-canvas transition-opacity hover:opacity-90 disabled:opacity-40">
-                    {busy ? "Working…"
-                      : type === "ad" ? `Generate campaign — ${Math.max(1, concepts) * Math.max(1, adFormats.length)} assets`
-                      : type === "carousel" ? `Generate ${frames} frames`
-                      : type === "instagram" || type === "story" ? `Generate ${panel.numAngles} option${panel.numAngles > 1 ? "s" : ""}`
-                      : `Generate ${panel.numAngles * panel.shotsPerAngle} image${panel.numAngles * panel.shotsPerAngle > 1 ? "s" : ""}`}
-                  </button>
+                  {/* Also make — produce Instagram stories/posts/etc. from this SAME product shoot,
+                      sharing the research/product pre-passes so it's one fast pass, stacked as extra cards. */}
+                  {type === "product" && (
+                    <div className="flex flex-col gap-1">
+                      <span className="text-[11px] uppercase tracking-wide text-muted">Also make · optional</span>
+                      <span className="text-[10px] normal-case text-muted/70">produce these alongside your product shoot, in one go</span>
+                      <div className="mt-0.5 flex flex-wrap gap-1.5">
+                        {(["story", "instagram", "carousel", "ad"] as CreativeTypeId[]).map((t) => {
+                          const on = companions.includes(t);
+                          return (
+                            <button key={t} onClick={() => setCompanions((cur) => (on ? cur.filter((x) => x !== t) : [...cur, t]))} className={`rounded-full border px-2.5 py-1 text-[11px] transition-colors ${on ? "border-ink bg-ink text-canvas" : "border-hairline text-muted hover:border-ink hover:text-ink"}`} title={CREATIVE_TYPES[t].blurb}>
+                              {CREATIVE_TYPES[t].label}
+                            </button>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  )}
+                  {busy ? (
+                    <button onClick={stopGeneration} className="mt-1 flex items-center justify-center gap-1.5 rounded-control border border-ink px-4 py-2 text-sm font-medium text-ink transition-colors hover:bg-surface">
+                      <Square size={12} strokeWidth={2} className="fill-current" /> Stop
+                    </button>
+                  ) : (
+                    <button onClick={() => generate({ express: input.trim() })} disabled={!products.length} className="mt-1 rounded-control bg-ink px-4 py-2 text-sm font-medium text-canvas transition-opacity hover:opacity-90 disabled:opacity-40">
+                      {type === "ad" ? `Generate campaign — ${Math.max(1, concepts) * Math.max(1, adFormats.length)} assets`
+                        : type === "carousel" ? `Generate ${frames} frames`
+                        : type === "instagram" || type === "story" ? `Generate ${panel.numAngles} option${panel.numAngles > 1 ? "s" : ""}`
+                        : `Generate ${panel.numAngles * panel.shotsPerAngle} image${panel.numAngles * panel.shotsPerAngle > 1 ? "s" : ""}${companions.length ? ` + ${companions.length} extra${companions.length > 1 ? "s" : ""}` : ""}`}
+                    </button>
+                  )}
                 </div>
               </>
             )}
-          </div>
-        )}
+              </motion.div>
+            </>
+          )}
+        </AnimatePresence>
 
         {/* ── Infinite canvas — white dotted space; brand kit + shoots float; drag to pan, wheel/pinch to zoom ─── */}
         <div
@@ -1011,6 +1188,7 @@ export default function CreateWorkspace() {
           onPointerMove={onCanvasPointerMove}
           onPointerUp={onCanvasPointerUp}
           onPointerLeave={onCanvasPointerUp}
+          onDoubleClick={onCanvasDoubleClick}
           className="relative order-3 min-h-0 select-none overflow-hidden bg-canvas"
           style={{ cursor: grabbing ? "grabbing" : "grab" }}
         >
@@ -1043,7 +1221,7 @@ export default function CreateWorkspace() {
           <div
             ref={canvasContentRef}
             className="absolute left-0 top-0 space-y-6"
-            style={{ width: contentW, transform: `translate3d(${pan.x}px, ${pan.y}px, 0) scale(${zoom})`, transformOrigin: "0 0", transition: zoomSmooth ? "transform 160ms cubic-bezier(0.4,0,0.2,1)" : undefined, willChange: "transform", ...fontVars(brandFonts) }}
+            style={{ width: contentW, transform: `translate3d(${pan.x}px, ${pan.y}px, 0) scale(${zoom})`, transformOrigin: "0 0", transition: zoomAnim === "slow" ? "transform 240ms cubic-bezier(0.22,1,0.36,1)" : zoomAnim === "fast" ? "transform 110ms cubic-bezier(0.22,1,0.36,1)" : undefined, willChange: "transform", ...fontVars(brandFonts) }}
           >
             {brain.name && <BrandKitCard brain={brain} />}
 
@@ -1056,7 +1234,7 @@ export default function CreateWorkspace() {
               runs.map((run) => {
                 const done = run.shots.filter((s) => s.url && !s.pending).length;
                 const frameCount = run.shots.length;
-                const hasCopy = Boolean(run.copy && (run.copy.headline || run.copy.caption || run.copy.cta || run.copy.frames?.length));
+                const hasCopy = Boolean(run.copy && (run.copy.headline || run.copy.caption || run.copy.cta || run.copy.frames?.length || run.copy.variants?.length));
                 const overlaysOn = hasCopy && !overlayOff[run.id];
                 // The run's chosen typeface (Typography bar) → real font pair, brand by default.
                 const overlayFonts = resolveFontChoice(run.copy?.treatment?.fontId, brandFonts);
@@ -1087,7 +1265,7 @@ export default function CreateWorkspace() {
                     {/* Typography controls — pick the typeface, where the type sits, its scale/case/align/ink.
                        Live on the canvas AND baked into the export. Only where copy overlays a creative. */}
                     {overlaysOn && isV2Type(run.kind) && (
-                      <TypographyBar treatment={run.copy?.treatment} brandFonts={brandFonts} onChange={(patch) => setRunTreatment(run.id, patch)} />
+                      <TypographyBar treatment={run.copy?.treatment} copy={run.copy} palette={brandPalette} brandFonts={brandFonts} onChange={(patch) => setRunTreatment(run.id, patch)} onEditCopy={(patch) => setRunCopyText(run.id, patch)} />
                     )}
                     {/* Copy is DATA riding with the campaign — edit a headline and it updates on the spot, never re-rendered. Shown in the chosen type. */}
                     {overlaysOn && (
@@ -1113,8 +1291,8 @@ export default function CreateWorkspace() {
                       </div>
                     ) : (
                       <div className="grid grid-cols-2 gap-5 lg:grid-cols-3">
-                        {run.shots.map((s) => (
-                          <ShotCard key={s.id} s={s} copy={overlaysOn ? overlayForShot(run.kind, run.copy) : undefined} {...cardProps} />
+                        {run.shots.map((s, i) => (
+                          <ShotCard key={s.id} s={s} copy={overlaysOn ? overlayForShot(run.kind, run.copy, undefined, undefined, i) : undefined} {...cardProps} />
                         ))}
                       </div>
                     )}
@@ -1127,12 +1305,39 @@ export default function CreateWorkspace() {
           </div>
           {/* Zoom control — fixed bottom-left, unscaled (⌘/Ctrl + scroll / pinch also zooms) */}
           <div data-no-pan className="absolute bottom-4 left-4 flex items-center gap-0.5 rounded-full border border-hairline bg-canvas/90 px-1.5 py-1 shadow-card backdrop-blur">
-            <button onClick={() => stepZoom(1 / 1.25)} disabled={zoom <= 0.25} className="rounded-full p-1.5 text-muted transition-colors hover:text-ink disabled:opacity-30" title="Zoom out"><Minus size={14} /></button>
-            <button onClick={resetZoom} className="min-w-[46px] text-center text-[12px] tabular-nums text-ink transition-opacity hover:opacity-60" title="Reset to 100%">{Math.round(zoom * 100)}%</button>
-            <button onClick={() => stepZoom(1.25)} disabled={zoom >= 2} className="rounded-full p-1.5 text-muted transition-colors hover:text-ink disabled:opacity-30" title="Zoom in"><Plus size={14} /></button>
+            <button onClick={() => stepZoom(1 / 1.4)} disabled={zoom <= ZOOM_MIN} className="rounded-full p-1.5 text-muted transition-colors hover:text-ink disabled:opacity-30" title="Zoom out (⌘/Ctrl + scroll)"><Minus size={14} /></button>
+            <button onClick={resetZoom} className="min-w-[44px] text-center text-[12px] tabular-nums text-ink transition-opacity hover:opacity-60" title="Reset to 100%">{Math.round(zoom * 100)}%</button>
+            <button onClick={() => stepZoom(1.4)} disabled={zoom >= ZOOM_MAX} className="rounded-full p-1.5 text-muted transition-colors hover:text-ink disabled:opacity-30" title="Zoom in (⌘/Ctrl + scroll)"><Plus size={14} /></button>
+            <div className="mx-0.5 h-4 w-px bg-hairline" />
+            <button onClick={zoomToFit} className="rounded-full p-1.5 text-muted transition-colors hover:text-ink" title="Fit everything on screen (or double-click the canvas)"><Maximize2 size={13} /></button>
           </div>
-          {/* Floating Canvas Toolbar — bottom-center, unscaled */}
-          <CanvasToolbar tool={tool} onTool={setTool} onInsertImage={() => fileRef.current?.click()} />
+
+          {/* Vertical scrollbar — appears only when the work is taller than the view; drag to scroll.
+              Reflects pan.y within the same bounds the wheel uses, so scroll / wheel / drag agree. */}
+          {(() => {
+            const cv = contentH * zoom;
+            const total = cv + CANVAS_TOP_PAD + CANVAS_BOT_PAD;
+            const scrollMax = Math.max(0, total - vpH);
+            if (scrollMax < 8 || vpH === 0) return null;
+            const trackTop = 60, trackBot = 16;
+            const trackH = Math.max(0, vpH - trackTop - trackBot);
+            const thumbH = clampN((vpH / total) * trackH, 32, trackH);
+            const span = trackH - thumbH;
+            const scrollY = clampN(CANVAS_TOP_PAD - pan.y, 0, scrollMax);
+            const thumbTop = scrollMax > 0 ? (scrollY / scrollMax) * span : 0;
+            return (
+              <div data-no-pan className="absolute right-1.5 z-[15]" style={{ top: trackTop, height: trackH, width: 8 }}>
+                <div
+                  onPointerDown={(e) => startScrollDrag(e, scrollMax, span)}
+                  onPointerMove={moveScrollDrag}
+                  onPointerUp={endScrollDrag}
+                  className="absolute right-0 w-1.5 cursor-pointer rounded-full bg-ink/20 transition-colors hover:bg-ink/40"
+                  style={{ height: thumbH, top: thumbTop }}
+                  title="Scroll"
+                />
+              </div>
+            );
+          })()}
         </div>
 
         {/* ── Chat — left ────────────────────────────────────────────────────── */}
@@ -1145,7 +1350,17 @@ export default function CreateWorkspace() {
               </motion.div>
             ))}
             {thinking && <div className="flex items-center gap-2 text-muted"><Loader2 size={15} className="animate-spin" /><span className="text-sm">{status || "Thinking…"}</span></div>}
-            {!thinking && status && <div className="text-sm text-muted">{status}</div>}
+            {!thinking && status && (
+              <div className="flex items-center gap-2.5 text-muted">
+                {busy && <Loader2 size={15} className="animate-spin" />}
+                <span className="text-sm">{status}</span>
+                {busy && (
+                  <button onClick={stopGeneration} className="flex items-center gap-1 rounded-full border border-hairline px-2.5 py-1 text-[11px] font-medium text-ink transition-colors hover:border-ink hover:bg-surface" title="Stop generating">
+                    <Square size={10} strokeWidth={2} className="fill-current" /> Stop
+                  </button>
+                )}
+              </div>
+            )}
           </div>
 
           {type === "product" && references.length > 0 && (
@@ -1170,24 +1385,46 @@ export default function CreateWorkspace() {
           )}
 
           <div className="border-t border-hairline px-5 py-4">
+            {/* What to make — one selector, always the same spot; the director can switch it too */}
+            <div className="mb-2.5 flex items-center gap-2">
+              <span className="text-[11px] uppercase tracking-wide text-muted">Make</span>
+              <div className="relative">
+                <select
+                  value={type}
+                  onChange={(e) => switchType(e.target.value as CreativeType)}
+                  disabled={busy || thinking}
+                  className="cursor-pointer appearance-none rounded-full border border-hairline bg-canvas py-1 pl-3 pr-7 text-[12px] font-medium text-ink transition-colors hover:border-ink focus:border-ink focus:outline-none disabled:cursor-not-allowed disabled:opacity-40"
+                >
+                  {TYPE_TABS.map(({ key, label }) => <option key={key} value={key}>{label}</option>)}
+                </select>
+                <ChevronDown size={13} className="pointer-events-none absolute right-2 top-1/2 -translate-y-1/2 text-muted" />
+              </div>
+              <button
+                onClick={() => setShowPanel((s) => !s)}
+                className={`ml-auto flex items-center gap-1.5 rounded-full border px-2.5 py-1 text-[12px] transition-colors ${showPanel ? "border-ink text-ink" : "border-hairline text-muted hover:border-ink hover:text-ink"}`}
+                title="Manual controls"
+              >
+                <SlidersHorizontal size={13} /> {type === "model" ? "Model & scene" : "Options"}
+              </button>
+            </div>
             <div className="flex items-end gap-2 rounded-card border border-hairline px-3 py-2 focus-within:border-ink">
               {type === "model" ? (
                 <>
                   <button onClick={() => modelRefFileRef.current?.click()} title="Add model reference" className="rounded-md p-1.5 text-muted hover:text-ink"><ScanFace size={18} /></button>
                   <button onClick={() => fileRef.current?.click()} title="Add product" className="rounded-md p-1.5 text-muted hover:text-ink"><Upload size={18} /></button>
-                  <button onClick={() => setShowScene((s) => !s)} title="Scene controls" className={`rounded-md p-1.5 hover:text-ink ${showScene ? "text-ink" : "text-muted"}`}><SlidersHorizontal size={18} /></button>
                 </>
               ) : (
                 <>
                   <button onClick={() => fileRef.current?.click()} title="Add product photo" className="rounded-md p-1.5 text-muted hover:text-ink"><Upload size={18} /></button>
                   {type === "product" && <button onClick={() => refFileRef.current?.click()} title="Add style reference" className="rounded-md p-1.5 text-muted hover:text-ink"><Images size={18} /></button>}
-                  <button onClick={() => setShowPanel((s) => !s)} title="Fine-tune panel" className={`rounded-md p-1.5 hover:text-ink ${showPanel ? "text-ink" : "text-muted"}`}><SlidersHorizontal size={18} /></button>
                 </>
               )}
               <textarea value={input} onChange={(e) => setInput(e.target.value)} onPaste={onPasteImages} onKeyDown={(e) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(); } }}
                 rows={1} placeholder={type === "model" ? "Describe your model, or just say go…" : type === "carousel" ? "Give me the story arc, or just say go…" : type === "ad" ? "What are we selling — or just say go…" : isV2Type(type) ? "Describe the moment, or just say go…" : "Message your creative director…"}
                 className="max-h-32 flex-1 resize-none bg-transparent py-1.5 text-[15px] leading-relaxed placeholder:text-muted focus:outline-none" />
-              <button onClick={send} disabled={thinking || busy || (type === "product" && !input.trim() && !products.length)} title={type === "product" && !input.trim() && products.length ? "Generate" : "Send"} className="rounded-full bg-ink p-1.5 text-canvas transition-opacity hover:opacity-90 disabled:opacity-30"><ArrowUp size={16} /></button>
+              {busy
+                ? <button onClick={stopGeneration} title="Stop generating" className="rounded-full bg-ink p-1.5 text-canvas transition-opacity hover:opacity-90"><Square size={15} strokeWidth={2} className="fill-current" /></button>
+                : <button onClick={send} disabled={thinking || (type === "product" && !input.trim() && !products.length)} title={type === "product" && !input.trim() && products.length ? "Generate" : "Send"} className="rounded-full bg-ink p-1.5 text-canvas transition-opacity hover:opacity-90 disabled:opacity-30"><ArrowUp size={16} /></button>}
             </div>
             <input ref={fileRef} type="file" accept="image/*" multiple hidden onChange={(e) => addImgs(e.target.files, setProducts)} />
             <input ref={refFileRef} type="file" accept="image/*" multiple hidden onChange={(e) => addImgs(e.target.files, setReferences)} />
@@ -1204,13 +1441,14 @@ function modelLabel(k: string): string {
   return map[k] ?? k;
 }
 
-function Sel({ label, value, opts, onChange }: { label: string; value: string; opts: string[]; onChange: (v: string) => void }) {
+function Sel({ label, value, opts, onChange }: { label: string; value: string; opts: (string | { value: string; label: string })[]; onChange: (v: string) => void }) {
+  const norm = opts.map((o) => (typeof o === "string" ? { value: o, label: o } : o));
   return (
     <label className="flex flex-col gap-1">
       <span className="text-[11px] uppercase tracking-wide text-muted">{label}</span>
       <select value={value} onChange={(e) => onChange(e.target.value)} className="rounded-md border border-hairline bg-canvas px-2.5 py-1.5 text-sm focus:border-ink">
         <option value="">— from brand —</option>
-        {opts.map((o) => <option key={o} value={o}>{o}</option>)}
+        {norm.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
       </select>
     </label>
   );
@@ -1228,19 +1466,48 @@ const LAYOUT_OPTS: { id: NonNullable<CopyTreatment["layout"]>; label: string }[]
 const SCALE_OPTS: { id: NonNullable<CopyTreatment["scale"]>; label: string }[] = [
   { id: "minimal", label: "S" }, { id: "standard", label: "M" }, { id: "impact", label: "L" }, { id: "hero", label: "XL" },
 ];
+// The palette-driven background modes (the "colours as the background" lever) and the 9-region
+// fine-anchor grid — both surfaced as pickable controls in the manual editor.
+const BG_OPTS: { id: NonNullable<CopyTreatment["bg"]>; label: string; title: string }[] = [
+  { id: "scrim", label: "Photo", title: "Type over the photo (legibility scrim)" },
+  { id: "band", label: "Band", title: "A brand-colour band behind the copy" },
+  { id: "block", label: "Block", title: "A brand-colour block hugging the copy" },
+  { id: "canvas", label: "Canvas", title: "The whole frame becomes one brand colour" },
+];
+const ANCHOR_OPTS: NonNullable<CopyTreatment["anchor"]>[] = [
+  "top-left", "top-center", "top-right",
+  "center-left", "center", "center-right",
+  "bottom-left", "bottom-center", "bottom-right",
+];
 
 /**
- * TYPOGRAPHY BAR — per-run control over the text laid on a creative: which typeface, where
- * it sits (the 6 free-placement compositions), its scale, case, alignment and ink. Every
- * change merges into the run's `treatment`, which drives BOTH the live overlay and the
- * export bake. Touching position/ink pins the run so the auto per-shot placement steps back.
- * "Shuffle" rolls a fresh look — the creative-exploration shortcut.
+ * MANUAL CREATIVE EDITOR ("the human creativity part") — per-run authority over the copy laid
+ * on a creative: the WORDS themselves, the typeface, TEXT COLOUR, the palette-driven BACKGROUND
+ * (band / block / full canvas), POSITION (composition + 9-region anchor), size, case and align.
+ * Every colour is drawn from the brand's OWN palette (plus a custom picker), so manual control
+ * still can't leave the brand. Treatment changes drive BOTH the live overlay AND the export bake;
+ * word edits update the copy data on the spot. Touching colour/background/position pins the run
+ * so the auto per-shot placement steps back. "Shuffle" rolls a fresh look.
  */
-function TypographyBar({ treatment, brandFonts, onChange }: { treatment?: CopyTreatment; brandFonts: BrandFonts; onChange: (patch: Partial<CopyTreatment>) => void }) {
+function TypographyBar({ treatment, copy, palette, brandFonts, onChange, onEditCopy }: {
+  treatment?: CopyTreatment;
+  copy?: CampaignCopy;
+  palette: { hex: string; role?: string }[];
+  brandFonts: BrandFonts;
+  onChange: (patch: Partial<CopyTreatment>) => void;
+  onEditCopy: (patch: Partial<CampaignCopy>) => void;
+}) {
   const [open, setOpen] = useState(true);
   const t = treatment ?? {};
   const fontId = t.fontId ?? BRAND_FONT_ID;
   const activeFontName = fontId === BRAND_FONT_ID ? "Brand" : (FONT_CHOICES.find((c) => c.id === fontId)?.name ?? "Brand");
+  const bgMode = t.bg ?? "scrim";
+  const onColorBg = bgMode !== "scrim";
+  const inkNorm = normHex(t.inkColor);
+  const bgNorm = normHex(t.bgColor);
+  // A sensible default brand fill when a colour mode is first chosen — the first usable palette hex.
+  const swatches = palette.map((c) => normHex(c.hex)).filter((h): h is string => !!h);
+  const defaultFill = swatches[0] ?? "#141414";
 
   const Chip = ({ active, onClick, title, children, style }: { active: boolean; onClick: () => void; title?: string; children: ReactNode; style?: CSSProperties }) => (
     <button data-no-pan title={title} onClick={onClick} style={style}
@@ -1249,6 +1516,12 @@ function TypographyBar({ treatment, brandFonts, onChange }: { treatment?: CopyTr
     </button>
   );
   const Label = ({ children }: { children: ReactNode }) => <span className="text-[9px] uppercase tracking-[0.16em] text-muted/70">{children}</span>;
+  // A colour dot (palette swatch / custom picker) — active gets an ink ring.
+  const Dot = ({ color, active, onClick, title }: { color: string; active: boolean; onClick: () => void; title?: string }) => (
+    <button data-no-pan title={title} onClick={onClick}
+      className={`h-6 w-6 rounded-full border transition-all ${active ? "border-ink ring-2 ring-ink ring-offset-1 ring-offset-canvas" : "border-hairline hover:border-ink"}`}
+      style={{ background: color }} />
+  );
 
   const shuffle = () => {
     const pick = <X,>(a: readonly X[]): X => a[Math.floor(Math.random() * a.length)];
@@ -1265,8 +1538,8 @@ function TypographyBar({ treatment, brandFonts, onChange }: { treatment?: CopyTr
   return (
     <div data-no-pan className="mb-3 rounded-card border border-hairline bg-canvas/70 px-3 py-2.5">
       <div className="flex items-center gap-2">
-        <button onClick={() => setOpen((o) => !o)} className="flex items-center gap-1.5 text-[11px] uppercase tracking-[0.14em] text-muted transition-colors hover:text-ink" title={open ? "Hide typography" : "Show typography"}>
-          <Type size={13} /> Type
+        <button onClick={() => setOpen((o) => !o)} className="flex items-center gap-1.5 text-[11px] uppercase tracking-[0.14em] text-muted transition-colors hover:text-ink" title={open ? "Hide editor" : "Show editor"}>
+          <Type size={13} /> Design
         </button>
         <span className="text-[11px] text-muted">· {activeFontName}</span>
         <button onClick={shuffle} title="Surprise me — new typeface, position & scale" className="ml-auto flex items-center gap-1 text-[11px] text-muted transition-colors hover:text-ink">
@@ -1275,6 +1548,17 @@ function TypographyBar({ treatment, brandFonts, onChange }: { treatment?: CopyTr
       </div>
       {open && (
         <div className="mt-2.5 space-y-2.5">
+          {/* WORDS — retype the actual copy. Updates the overlay data on the spot. */}
+          {copy && (
+            <div>
+              <div className="mb-1"><Label>Words</Label></div>
+              <div className="space-y-1.5">
+                <input data-no-pan value={copy.headline ?? ""} onChange={(e) => onEditCopy({ headline: e.target.value })} placeholder="Headline" className="w-full rounded-md border border-hairline bg-canvas px-2 py-1 text-[12px] focus:border-ink focus:outline-none" />
+                <input data-no-pan value={copy.subline ?? ""} onChange={(e) => onEditCopy({ subline: e.target.value })} placeholder="Subline (optional)" className="w-full rounded-md border border-hairline bg-canvas px-2 py-1 text-[12px] focus:border-ink focus:outline-none" />
+                <input data-no-pan value={copy.cta ?? ""} onChange={(e) => onEditCopy({ cta: e.target.value })} placeholder="CTA (optional)" className="w-full rounded-md border border-hairline bg-canvas px-2 py-1 text-[12px] focus:border-ink focus:outline-none" />
+              </div>
+            </div>
+          )}
           <div>
             <div className="mb-1"><Label>Typeface</Label></div>
             <div className="flex flex-wrap gap-1.5">
@@ -1284,12 +1568,65 @@ function TypographyBar({ treatment, brandFonts, onChange }: { treatment?: CopyTr
               ))}
             </div>
           </div>
+          {/* BACKGROUND — the "colours as the background" lever. Photo (scrim) or a brand-colour
+             band / block / full canvas, filled from the palette (+ custom). */}
           <div>
-            <div className="mb-1"><Label>Position</Label></div>
-            <div className="flex flex-wrap gap-1.5">
-              {LAYOUT_OPTS.map((l) => (
-                <Chip key={l.id} active={t.layout === l.id} onClick={() => onChange({ layout: l.id, pinned: true })}>{l.label}</Chip>
+            <div className="mb-1 flex items-center gap-1.5"><Palette size={11} className="text-muted/70" /><Label>Background</Label></div>
+            <div className="flex flex-wrap items-center gap-1.5">
+              {BG_OPTS.map((b) => (
+                <Chip key={b.id} active={bgMode === b.id} title={b.title}
+                  onClick={() => onChange(b.id === "scrim" ? { bg: "scrim", pinned: true } : { bg: b.id, bgColor: bgNorm ?? defaultFill, pinned: true })}>
+                  {b.label}
+                </Chip>
               ))}
+            </div>
+            {onColorBg && (
+              <div className="mt-2 flex flex-wrap items-center gap-1.5">
+                <Label>Fill</Label>
+                {swatches.map((hex) => (
+                  <Dot key={hex} color={hex} active={bgNorm === hex} title={hex} onClick={() => onChange({ bg: bgMode, bgColor: hex, pinned: true })} />
+                ))}
+                <label data-no-pan title="Custom colour" className="relative h-6 w-6 cursor-pointer overflow-hidden rounded-full border border-hairline hover:border-ink" style={{ background: bgNorm ?? defaultFill }}>
+                  <input type="color" value={bgNorm ?? defaultFill} onChange={(e) => onChange({ bg: bgMode, bgColor: e.target.value, pinned: true })} className="absolute -left-1 -top-1 h-8 w-8 cursor-pointer opacity-0" />
+                  <Plus size={11} className="absolute inset-0 m-auto text-canvas mix-blend-difference" />
+                </label>
+              </div>
+            )}
+          </div>
+          {/* TEXT COLOUR — Auto (contrast/white) or any brand-palette hue (+ custom). */}
+          <div>
+            <div className="mb-1"><Label>Text colour</Label></div>
+            <div className="flex flex-wrap items-center gap-1.5">
+              <Chip active={!t.inkColor} onClick={() => onChange({ inkColor: undefined })} title="Auto — best contrast for the scene">Auto</Chip>
+              <Dot color="#ffffff" active={inkNorm === "#ffffff"} title="White" onClick={() => onChange({ inkColor: "#ffffff", pinned: true })} />
+              <Dot color="#141414" active={inkNorm === "#141414"} title="Near-black" onClick={() => onChange({ inkColor: "#141414", pinned: true })} />
+              {swatches.map((hex) => (
+                <Dot key={hex} color={hex} active={inkNorm === hex} title={hex} onClick={() => onChange({ inkColor: hex, pinned: true })} />
+              ))}
+              <label data-no-pan title="Custom text colour" className="relative h-6 w-6 cursor-pointer overflow-hidden rounded-full border border-hairline hover:border-ink" style={{ background: inkNorm ?? "#888888" }}>
+                <input type="color" value={inkNorm ?? "#000000"} onChange={(e) => onChange({ inkColor: e.target.value, pinned: true })} className="absolute -left-1 -top-1 h-8 w-8 cursor-pointer opacity-0" />
+                <Plus size={11} className="absolute inset-0 m-auto text-canvas mix-blend-difference" />
+              </label>
+            </div>
+          </div>
+          {/* POSITION — composition + a 9-region fine anchor for the floating layouts. */}
+          <div className="flex flex-wrap items-start gap-x-4 gap-y-2">
+            <div>
+              <div className="mb-1"><Label>Position</Label></div>
+              <div className="flex flex-wrap gap-1.5">
+                {LAYOUT_OPTS.map((l) => (
+                  <Chip key={l.id} active={t.layout === l.id} onClick={() => onChange({ layout: l.id, pinned: true })}>{l.label}</Chip>
+                ))}
+              </div>
+            </div>
+            <div>
+              <div className="mb-1"><Label>Anchor</Label></div>
+              <div className="grid w-[54px] grid-cols-3 gap-0.5" title="Fine placement within the frame">
+                {ANCHOR_OPTS.map((a) => (
+                  <button key={a} data-no-pan title={a} onClick={() => onChange({ anchor: a, pinned: true })}
+                    className={`h-4 w-4 rounded-[3px] transition-colors ${t.anchor === a ? "bg-ink" : "border border-hairline hover:border-ink"}`} />
+                ))}
+              </div>
             </div>
           </div>
           <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
@@ -1306,10 +1643,6 @@ function TypographyBar({ treatment, brandFonts, onChange }: { treatment?: CopyTr
               <Chip active={(t.align ?? "left") === "left"} onClick={() => onChange({ align: "left" })} title="Left"><AlignLeft size={12} /></Chip>
               <Chip active={t.align === "center"} onClick={() => onChange({ align: "center" })} title="Center"><AlignCenter size={12} /></Chip>
               <Chip active={t.align === "right"} onClick={() => onChange({ align: "right" })} title="Right"><AlignRight size={12} /></Chip>
-            </div>
-            <div className="flex items-center gap-1.5"><Label>Ink</Label>
-              <Chip active={(t.ink ?? "light") === "light"} onClick={() => onChange({ ink: "light", pinned: true })} title="Light type over the image">Light</Chip>
-              <Chip active={t.ink === "dark"} onClick={() => onChange({ ink: "dark", pinned: true })} title="Dark type over the image">Dark</Chip>
             </div>
           </div>
         </div>
@@ -1329,8 +1662,8 @@ function CopyOverlay({ copy, aspect, placement, fonts }: { copy: CampaignCopy; a
   const treatment = !copy.treatment?.pinned && placement && Object.keys(placement).length ? { ...copy.treatment, ...placement } : copy.treatment;
   const spec = buildCopyLayout({ copy, treatment, aspect });
   if (!spec) return null;
-  const subInk = spec.ink === "#ffffff" ? "rgba(255,255,255,0.92)" : "rgba(20,20,20,0.9)";
-  const shadow = spec.ink === "#ffffff" ? "0 1px 14px rgba(0,0,0,0.38)" : "0 1px 12px rgba(255,255,255,0.42)";
+  const subInk = spec.subInk; // resolved once in copyLayout so preview == export bake
+  const shadow = spec.textShadow;
   const blockStyle = (b: LayoutBlock, first: boolean): CSSProperties => {
     const base: CSSProperties = {
       marginTop: first ? 0 : `${b.role === "cta" ? 2.8 : 1.1}cqw`,
@@ -1358,6 +1691,16 @@ function CopyOverlay({ copy, aspect, placement, fonts }: { copy: CampaignCopy; a
       // Explicit width (matches the export) so wrapped headlines lay out identically.
       width: `${c.maxW * 100}%`,
     };
+    // Brand-colour panel behind the copy (band / block). Padding in cqw (= 1% of frame width)
+    // mirrors the export's px-off-width, and the global border-box reset keeps it inside `width`.
+    if (c.panel) {
+      style.background = c.panel.color;
+      style.paddingLeft = `${c.panel.padX}cqw`;
+      style.paddingRight = `${c.panel.padX}cqw`;
+      style.paddingTop = `${c.panel.padY}cqw`;
+      style.paddingBottom = `${c.panel.padY}cqw`;
+      if (c.panel.radius) style.borderRadius = `${c.panel.radius}cqw`;
+    }
     if (c.ax === "left") style.left = `${c.x * 100}%`;
     else if (c.ax === "right") style.right = `${(1 - c.x) * 100}%`;
     else style.left = `${c.x * 100}%`;
@@ -1370,8 +1713,10 @@ function CopyOverlay({ copy, aspect, placement, fonts }: { copy: CampaignCopy; a
     return style;
   };
   // The chosen typeface is applied by overriding the brand-font CSS vars the blocks read,
-  // so switching fonts restyles every block without touching the layout math.
+  // so switching fonts restyles every block without touching the layout math. A "canvas" fill
+  // paints the whole frame the brand colour (poster / text-led); else the photo shows through.
   const rootStyle: CSSProperties = { backgroundImage: spec.scrim };
+  if (spec.canvasBg) rootStyle.backgroundColor = spec.canvasBg;
   if (fonts) {
     (rootStyle as Record<string, string>)["--brand-display"] = fonts.display.cssStack;
     (rootStyle as Record<string, string>)["--brand-text"] = fonts.text.cssStack;

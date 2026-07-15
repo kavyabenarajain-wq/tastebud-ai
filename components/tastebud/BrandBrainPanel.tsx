@@ -12,6 +12,7 @@ import type { BrandBrain } from "@/lib/types";
  */
 export function BrandBrainPanel({ brain, open, onClose }: { brain: BrandBrain; open: boolean; onClose: () => void }) {
   const r = brain.research;
+  const intel = brain.intelligence;
   const ease = [0.4, 0, 0.2, 1] as const;
   return (
     <AnimatePresence>
@@ -63,8 +64,44 @@ export function BrandBrainPanel({ brain, open, onClose }: { brain: BrandBrain; o
               {(r?.competitors?.length ?? 0) > 0 && (
                 <Section label="In their space"><Chips items={r!.competitors!} /></Section>
               )}
-              {(r?.ambassadors?.length ?? 0) > 0 && (
+              {(intel?.ambassadors?.length ?? 0) > 0 ? (
+                <Section label="Faces / ambassadors">
+                  <div className="flex flex-col gap-1.5 text-[13px]">
+                    {intel!.ambassadors!.slice(0, 10).map((a, i) => (
+                      <div key={i}>
+                        <span className="text-ink">{a.name}</span>
+                        {a.handle ? <span className="text-muted"> {a.handle.startsWith("@") ? a.handle : `@${a.handle}`}</span> : null}
+                        {a.note ? <span className="text-muted"> — {a.note}</span> : null}
+                      </div>
+                    ))}
+                  </div>
+                </Section>
+              ) : (r?.ambassadors?.length ?? 0) > 0 ? (
                 <Section label="Faces / ambassadors"><Chips items={r!.ambassadors!} /></Section>
+              ) : null}
+
+              {(intel?.campaigns?.length ?? 0) > 0 && (
+                <Section label="Past campaigns">
+                  <div className="flex flex-col gap-3">
+                    {intel!.campaigns!.slice(0, 8).map((c, i) => (
+                      <div key={i} className="text-[13px] leading-relaxed">
+                        <div className="text-ink">{c.title}{c.year ? ` · ${c.year}` : ""}{c.channel ? <span className="text-muted"> · {c.channel}</span> : null}</div>
+                        {c.description && <div className="text-muted">{c.description}{c.fronted ? ` — ${c.fronted}` : ""}</div>}
+                        {c.url && <div className="mt-0.5"><Link href={c.url} label="view" /></div>}
+                      </div>
+                    ))}
+                  </div>
+                </Section>
+              )}
+
+              {(intel?.socialProof?.length ?? 0) > 0 && (
+                <Section label="Social proof">
+                  <div className="flex flex-col gap-2 text-[13px] text-muted">
+                    {intel!.socialProof!.slice(0, 8).map((p, i) => (
+                      <div key={i}>{p.type ? <span className="text-ink">{p.type}: </span> : null}{p.text}{p.url ? <> · <Link href={p.url} label="source" /></> : null}</div>
+                    ))}
+                  </div>
+                </Section>
               )}
 
               {(r?.instagram || r?.website) && (

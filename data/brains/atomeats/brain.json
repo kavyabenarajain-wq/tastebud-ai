@@ -1,0 +1,215 @@
+{
+  "name": "Atomeats",
+  "website": "https://atomeats.com/?srsltid=AfmBOoqVZJYKcvREJS_MsHbaxFgl_R97E8SFlUjVEEnrH661HRMcLfMy",
+  "research": {
+    "summary": "Atom Eats is a Mumbai-born Indian premium snack brand focused on small-batch, flavour-forward pretzels, chips, crackers, nachos and limited-edition snack experiments. It positions itself as a playful modern alternative to both mass-market namkeen/chips and overly serious healthy snacks, with a strong D2C, gifting, party and grazing-board appeal. The brand is founder-led, culturally witty, design-forward and built around the idea of making snacks fun again.",
+    "essence": "Playful premium Indian snacking: small-batch bites engineered for bold flavour, gifting, cultural mischief and tiny everyday joy.",
+    "voice": "Irreverent, snacky, Hinglish, cheeky, founder-led and self-aware. Uses puns, Indian internet humour, appetite-led copy and playful lines like “snacks ki kasam,” “chota packet, bada dhamaka” and “life’s too short for boring snacks,” while still feeling premium and crafted.",
+    "competitors": [
+      "4700BC",
+      "Snackible",
+      "The Whole Truth Foods",
+      "Doki"
+    ],
+    "ambassadors": [
+      "Jay Mota",
+      "Raveena Singh",
+      "All You Can",
+      "Adi / HST Pod / Reefer Man",
+      "Miyo Dessert Bar",
+      "Galeries Lafayette India"
+    ],
+    "instagram": "@atom.eats",
+    "website": "https://atomeats.com/?srsltid=AfmBOoqVZJYKcvREJS_MsHbaxFgl_R97E8SFlUjVEEnrH661HRMcLfMy",
+    "palette": [
+      {
+        "hex": "#111111",
+        "role": "Atom Black; primary contrast, logo, typography and graphic punch"
+      },
+      {
+        "hex": "#FFF3D8",
+        "role": "Warm cream snack-paper background and packaging warmth"
+      },
+      {
+        "hex": "#FFD64D",
+        "role": "Butter yellow for snack energy, appetite and playful highlights"
+      },
+      {
+        "hex": "#F04A32",
+        "role": "Tomato chilli red for flavour punch, urgency and spicy snack cues"
+      },
+      {
+        "hex": "#1E63FF",
+        "role": "Electric blue for modern D2C contrast and scroll-stopping campaign accents"
+      },
+      {
+        "hex": "#2BBF65",
+        "role": "Chutney green for Indian flavour worlds, freshness and savoury variants"
+      },
+      {
+        "hex": "#5A2E1F",
+        "role": "Chocolate brown for choco pretzels, brownie nachos and dessert-led products"
+      },
+      {
+        "hex": "#FF9EC7",
+        "role": "Playful pink for gifting, seasonal drops and indulgent limited-edition content"
+      }
+    ],
+    "aesthetic": "Colourful studio-snack photography with warm cream paper, saturated flavour-colour backdrops, tabletop surfaces, tiled counters, party tables, café/dessert settings and grazing-board contexts. The grade is warm, high-contrast and appetite-led, with creamy whites, golden chips, glossy chocolate and punchy reds/yellows/blues. Styling is medium-to-high density: product packs are surrounded by scattered pretzels, broken chips, crumbs, dips, chocolate drips, ice cream, coffee, wine glasses, bows, chutney cues and launch-specific food props. Lighting is bright softbox or daylight-style, usually frontal or 45-degree directional, with crisp graphic shadows rather than moody restaurant darkness. Compositions are close-cropped, top-down flat lays, macro texture shots, pack heroes with snacks spilling out, and hands reaching in. Content is mostly product-led and packaging-forward, with humans appearing mainly as hands, founders, team, pop-up or community moments rather than polished model campaigns.",
+    "foundReal": true,
+    "productImages": [],
+    "products": [],
+    "sources": 12
+  },
+  "intelligence": {
+    "overview": "Atom Eats is a Mumbai-born, pan-India modern Indian snack brand focused on small-batch, flavour-forward premium snacks, with pretzels as its founding hero format. The brand makes snacking feel playful, indulgent and culturally current rather than preachy, functional or mass-market generic.",
+    "purpose": "To put joy, play and desire back into snacking through small-batch snacks that feel crafted, surprising and emotionally worth it.",
+    "mission": "To create small-batch, flavour-forward, premium-but-playful snacks that turn everyday snack breaks, gifting moments, grazing boards and party tables into something more memorable.",
+    "vision": "To become one of India’s most recognisable homegrown snack brands for premium, playful, design-led munching, making imported-feeling formats like pretzels feel Indian, accessible, giftable and culturally alive.",
+    "story": "Atom Eats was founded by Jay Mota and Raveena Singh after a food-led love story described by the brand as a lawyer from London meeting Mumbai’s mad scientist. The name ATOM is MOTA backwards, while the brand also uses the idea of atoms as building blocks to frame its snacks as tiny, joyful building blocks of the day.",
+    "values": [
+      "Small batch, big love",
+      "Flavour on flavour",
+      "Snacks should be fun",
+      "Real humans, real snacks",
+      "Experimentation with intent",
+      "Premium without pretension"
+    ],
+    "positioning": "India’s flavour-first snack lab for small-batch pretzels, chips and edible chaos, premium enough to gift and fun enough to finish alone.",
+    "audience": "Urban Indian snackers who are bored of both commodity chips and humourless healthy snacks, especially people who want snacks to feel aesthetic, giftable, indulgent, witty, social-media-ready and actually tasty.",
+    "persona": "Aanya or Kabir is 24 to 36, based in Mumbai, Delhi NCR, Bengaluru, Pune or Goa-adjacent weekend circles, and works in marketing, design, consulting, hospitality, startups, media or food. They discover brands through Instagram, cafés, pop-ups, founder posts and friends’ stories, host casual house parties that become snack feasts, buy one pack for themselves and several for gifting, and want pantry products that look good on the counter. Their emotional need is a snack that feels playful, smart, not basic and not preachy, though they may question value if the quantity does not feel generous enough for the premium price.",
+    "toneOfVoice": "Irreverent, snacky, Hinglish, cheeky, self-aware and founder-led.",
+    "personality": [
+      "Mad snack scientist",
+      "Funny host",
+      "Premium troublemaker",
+      "Indian pop-culture flirt",
+      "Giftable indulgence brand"
+    ],
+    "palette": [
+      {
+        "hex": "#111111",
+        "role": "Atom Black; primary contrast, logo, typography and graphic punch"
+      },
+      {
+        "hex": "#FFF3D8",
+        "role": "Warm cream snack-paper background and packaging warmth"
+      },
+      {
+        "hex": "#FFD64D",
+        "role": "Butter yellow for snack energy, appetite and playful highlights"
+      },
+      {
+        "hex": "#F04A32",
+        "role": "Tomato chilli red for flavour punch, urgency and spicy snack cues"
+      },
+      {
+        "hex": "#1E63FF",
+        "role": "Electric blue for modern D2C contrast and scroll-stopping campaign accents"
+      },
+      {
+        "hex": "#2BBF65",
+        "role": "Chutney green for Indian flavour worlds, freshness and savoury variants"
+      },
+      {
+        "hex": "#5A2E1F",
+        "role": "Chocolate brown for choco pretzels, brownie nachos and dessert-led products"
+      },
+      {
+        "hex": "#FF9EC7",
+        "role": "Playful pink for gifting, seasonal drops and indulgent limited-edition content"
+      }
+    ],
+    "typography": {
+      "display": "Bold, chunky, rounded, expressive sans-serif headlines, often uppercase and built for sticker-like snack claims.",
+      "text": "Clean, simple sans-serif for ecommerce readability and product information.",
+      "note": "The typographic feel is premium cartoon grocery meets Indian internet snack poster: bouncy, loud, packed and intentionally unserious, with occasional hand-rendered or irregular graphic lettering."
+    },
+    "logoSystem": "A wordmark-led system using ATOM Eats as the master identity, supported by snacky slogans, product-led packaging marks, illustrated graphics and flavour-world assets. The ATOM equals MOTA backwards origin and the building-blocks metaphor give the identity permission to use science-lab, experiment, molecule and tiny-packet-big-impact cues.",
+    "photographyStyle": "Use colourful studio backdrops, creamy paper, tiled tabletops, café counters, dessert settings and party or grazing-board contexts. Keep the grade warm, saturated and high-contrast, with creamy whites, glossy chocolate, golden salty textures and appetite-first lighting. Style with medium-to-high density: scattered pretzels, broken chips, crumbs, dips, drips, bows, jars, ice cream, coffee, wine, chutney cues and hands reaching in. Shoot close crops, top-down flat lays, pack heroes with food chaos around them, and macro texture of salt crystals, pretzel knots, chocolate coating and chip ridges.",
+    "packagingStyle": "Bright, flavour-coded packs with big product names, loud snack claims, visual jokes and graphic art. The packs should feel premium enough for gifting but not sterile, working as props for lifestyle content, party tables, café use, dessert applications and limited-edition drops.",
+    "visualIdentity": "Atom Eats uses a high-contrast black and cream foundation with punchy flavour-coded brights, expressive typography, bold packaging, illustrated snack-world graphics and campaign-led product storytelling. The system behaves less like a quiet CPG guideline and more like a flexible snack universe where each flavour or drop can bring its own colour and cultural logic while staying loud, witty and appetite-led.",
+    "competitors": [
+      {
+        "name": "4700BC",
+        "note": "Premium Indian popcorn and snack brand competing on gourmet snacking, gifting, indulgent flavours and online urban discovery."
+      },
+      {
+        "name": "Snackible",
+        "note": "Mumbai-based modern snack brand competing for the D2C snack drawer and affluent urban snack occasions."
+      },
+      {
+        "name": "The Whole Truth Foods",
+        "note": "Premium clean-label Indian D2C food and snack brand with a more serious trust-led tone, competing for similar urban online food buyers."
+      },
+      {
+        "name": "Doki",
+        "note": "Indian meat-snack brand that competes in the broader new Indian snack culture conversation rather than directly in pretzels."
+      }
+    ],
+    "social": [
+      {
+        "platform": "Instagram",
+        "handle": "@atom.eats",
+        "url": "https://www.instagram.com/atom.eats/",
+        "note": "Primary cultural storefront with product-first, packaging-forward, campaign-led content; mixes illustration, photography, seasonal hooks, gifting use cases, party contexts and witty Hinglish snack voice."
+      },
+      {
+        "platform": "LinkedIn",
+        "handle": "Atom Eats",
+        "url": "https://in.linkedin.com/company/atom-eats",
+        "note": "Founder-led brand-building and B2B channel with launch breakdowns, collaboration backstories, hiring, pop-up learnings and entrepreneurial snack-culture commentary."
+      },
+      {
+        "platform": "Facebook",
+        "handle": "AtomEats",
+        "url": "https://www.facebook.com/AtomEats/",
+        "note": "Official Meta presence linked from the website; appears secondary to Instagram and LinkedIn, with public content not reliably accessible."
+      },
+      {
+        "platform": "YouTube",
+        "handle": "@atom.eats.great.snacks",
+        "url": "https://www.youtube.com/@atom.eats.great.snacks",
+        "note": "Official YouTube channel linked from the website; activity and cadence could not be reliably verified from accessible results."
+      },
+      {
+        "platform": "Threads",
+        "handle": "@atom.eats",
+        "url": "https://www.threads.net/@atom.eats",
+        "note": "Official Threads presence linked from the website; activity and cadence could not be reliably verified from accessible results."
+      }
+    ],
+    "press": [
+      {
+        "title": "From Bougie To Binge-Worthy — Pretzels Get A Flavour Glow-Up With Atom Eats In India",
+        "source": "So Delhi",
+        "url": "https://so.city/amp/delhi/from-bougie-to-binge-worthy-pretzels-get-a-flavour-glow-up-with-atom-eats-in-india.html"
+      },
+      {
+        "title": "India’s Snack Revolution: Why Your 3 PM Munchies Will Never Be The Same",
+        "source": "Grazia India",
+        "url": "https://www.grazia.co.in/lifestyle/food/indias-snack-revolution-why-your-3-pm-munchies-will-never-be-the-same-13698.html"
+      },
+      {
+        "title": "All You Can and Atom Eats Launch Ghee Podi Popcorn",
+        "source": "IndianRetailer / Brand License",
+        "url": "https://indianretailer.com/brandlicense/archives/news/all-you-can-and-atom-eats-launch-ghee-podi-popcorn-bold-celebration-collaboration-and"
+      }
+    ],
+    "insights": [
+      "Atom Eats’ real moat is snack dramaturgy: it turns every packet into a scene with founder lore, puns, limited drops, cultural references, gifting cues and café use cases.",
+      "The brand should own premium fun before competitors do, sitting between clean-label seriousness and mass-market masala chaos.",
+      "Pretzels are the hero and the constraint: they give distinctiveness in India, but the stronger long-term architecture is Atom Eats as a snack lab with pretzels as the founding obsession.",
+      "Price sensitivity is real, so the brand must make value felt through craft, flavour density, occasion design, gifting utility and hard-to-find formats before consumers calculate rupees per gram.",
+      "The Hinglish humour works because the visuals look premium; keep the design polished and let the copy misbehave.",
+      "Collaborations are not side quests but a growth engine, positioning Atom Eats as a food-culture studio rather than only an ecommerce snack company."
+    ],
+    "website": "https://atomeats.com/?srsltid=AfmBOoqVZJYKcvREJS_MsHbaxFgl_R97E8SFlUjVEEnrH661HRMcLfMy",
+    "instagram": "@atom.eats",
+    "sources": 12,
+    "foundReal": true,
+    "inferred": false
+  },
+  "catalog": [],
+  "ready": true
+}

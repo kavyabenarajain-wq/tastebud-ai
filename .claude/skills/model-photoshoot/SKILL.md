@@ -78,6 +78,18 @@ Confirm the model, the product interaction, the angle list, and counts before ge
 
 ## Product-on-model integration
 
+**Match the interaction to the product's category — physical common sense, non-negotiable.** A person can only interact with a product the way its category allows:
+
+- **Food** → eating, biting into, licking, or holding it up to camera. Never worn.
+- **Drink** → sipping, pouring, or raising it to the lips. Never worn.
+- **Apparel / footwear** → worn on the body in its correct anatomical position.
+- **Jewellery / watches** → worn on the body (wrist, neck, ears, fingers).
+- **Beauty** → applied to skin, face, hair or lips.
+- **Furniture** → sat on, lounged on, reclined on, or slept on. Never worn.
+- **Tech / objects** → held and used the way the object is actually used.
+
+A person NEVER "wears" food, a drink or furniture — that is basic sense and the shot is wrong if they do. If the brief or panel says "worn" for something that cannot be worn, silently correct it to the category-appropriate action. When several actions genuinely fit (a drink can be sipped OR poured; food eaten OR shown), spread them across the coverage set or pick the strongest.
+
 Getting the product right on the person is where most on-model shots fail.
 
 - **Scale**: the product is its true real-world size in the hand or against the face. A 30ml bottle is not the size of a forearm.

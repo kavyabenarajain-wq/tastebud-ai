@@ -1,0 +1,300 @@
+{
+  "brandName": "serene clothing",
+  "monogram": "SC",
+  "tagline": "calm dresses for busy days",
+  "category": "online women’s clothing boutique",
+  "isApparel": false,
+  "mission": "design quietly confident dresses that let women move through their day with ease, not performance.",
+  "vision": "a wardrobe where every piece feels like a deep breath—effortless, grounded and endlessly wearable.",
+  "positioning": "serene clothing is the neutral-first dress boutique for women who are done chasing trends and want a calm, considered wardrobe that works as hard as they do.",
+  "purpose": "to give women a softer, slower alternative to loud fast fashion—pieces that feel as composed as they look.",
+  "manifesto": [
+    "we move at human speed, not trend speed. we design dresses that respect real schedules, real commutes, real bodies—soft on the skin, steady in the silhouette, clear in their purpose.",
+    "we believe calm is a power move. in a world of shouty prints and weekly drops, we choose restraint: grounded neutrals, honest fabrics and details that whisper instead of scream.",
+    "we are here for your entire day, not just the first hour. from first coffee to last email to late dinner, serene clothing keeps you feeling put together without feeling dressed up for someone else."
+  ],
+  "identityIntro": [
+    "serene clothing lives in the space between office and off-duty—a neutral-toned, light-filled world where a single dress can carry the whole day. the identity is built to feel like a pause: soft contrasts, considered typography and imagery that looks like your actual life, not a set.",
+    "every design choice serves clarity and calm. we strip away visual noise so the garments, and the women in them, remain the quiet focal point."
+  ],
+  "world": [
+    {
+      "title": "calm",
+      "sub": "neutral palette soft light quiet space",
+      "body": "our visual world is anchored in warm, low-contrast neutrals—off-whites, sand, washed blue and soft brown—mirroring the clothes themselves. photography favours natural window light and uncluttered rooms, so every frame feels like a slow morning rather than a staged campaign."
+    },
+    {
+      "title": "human",
+      "sub": "real days real fit real movement",
+      "body": "we show clothes on bodies in motion: walking down office corridors, sitting at desks, leaning into mirrors before heading out. compositions prioritise hemlines, drape and stretch over dramatic poses, making it easy to read how a dress will live on you, not just on a model."
+    },
+    {
+      "title": "honest",
+      "sub": "true colour visible texture simple props",
+      "body": "colour grading stays true-to-fabric; we avoid filters that distort the brown of a slip dress or the blue of a shirt dress. props are things you already own—chairs, laptops, tote bags—so the scene feels believable and the garment remains the clear protagonist."
+    },
+    {
+      "title": "grounded",
+      "sub": "structured lines soft contrast everyday interiors",
+      "body": "we frame our imagery with subtle architectural lines: doorframes, table edges, shadow bands that give composure without stiffness. the mood is calm but not flat—gentle contrast and clean cropping keep the visuals modern, focused and quietly assured."
+    }
+  ],
+  "statement": [
+    "serene clothing stands apart from the category by refusing the performative chaos of fast fashion. where others chase viral silhouettes and hyper-saturated feeds, we build a stable wardrobe of dresses in honest neutrals, designed to work with the life you already lead.",
+    "this is not about being minimal for minimal’s sake; it’s about being intentional. every seam, colour and photograph earns its place by making your day feel lighter and your closet feel calmer."
+  ],
+  "beliefs": [
+    {
+      "title": "calm is a style choice",
+      "sub": "composed wardrobe soft confidence quiet power",
+      "body": "we believe the most powerful outfits don’t need to shout; they just need to fit your life with precision and ease. our dresses are designed to bring that soft confidence—pull-on, breathe out, get on with what matters."
+    },
+    {
+      "title": "comfort is non‑negotiable",
+      "sub": "fabric first all‑day wear real bodies",
+      "body": "if it doesn’t feel good at 4 p.m., it doesn’t belong in our collection. we prioritise breathable fabrics, forgiving cuts and thoughtful construction so you never have to choose between polish and comfort."
+    },
+    {
+      "title": "trendless is the new modern",
+      "sub": "seasonless shapes neutral first slow additions",
+      "body": "we design for seasons of life, not just seasons of fashion. by anchoring in neutral tones and clean silhouettes, we create pieces that stay relevant long after the algorithm has moved on."
+    }
+  ],
+  "quotes": [
+    "calm is our colour story.",
+    "dresses that work as quietly hard as you do."
+  ],
+  "logo": {
+    "concept": [
+      "A quiet, lowercase wordmark set in an elegant, softened serif, with extra letterspacing so “serene” literally breathes on the line.",
+      "The terminal of the final “e” subtly extends into a resting baseline underscore, hinting at stability and calm, like a horizon you can always return to.",
+      "All supporting lockups keep the name clean and unadorned, so the typography mirrors the effortless, neutral-first clothing it represents."
+    ],
+    "colorNote": "Primary logo appears in the deep slate ground colour on light base surfaces; an inverted version in light base on slate ground is reserved for high-impact moments only, keeping contrast calm but legible.",
+    "variations": [
+      {
+        "name": "Primary Wordmark",
+        "use": "Default logo in deep slate on light base for website, tags, packaging and all primary touchpoints."
+      },
+      {
+        "name": "Inverted Wordmark",
+        "use": "Light base wordmark on deep slate ground for footer bars, care labels, garment neck labels and darker packaging moments."
+      },
+      {
+        "name": "Monoline Outline",
+        "use": "Single-stroke outline wordmark in soft stone for watermarking photography, subtle pattern applications and low-contrast editorial layouts."
+      },
+      {
+        "name": "Compact Lockup",
+        "use": "Stacked wordmark with a small “clothing” or “studio” descriptor beneath, used where vertical formats are limited (mobile headers, social avatars)."
+      }
+    ],
+    "safety": [
+      "Always surround the logo with clear space equal to the height of the lowercase “s” on all sides.",
+      "Never place the logo directly over busy patterns or high-noise photography; use a solid base or ground block beneath.",
+      "For digital, maintain a minimum logo width of 80px to preserve letter spacing and delicate stroke integrity."
+    ],
+    "donts": [
+      "Never distort, stretch or condense the logo to fit a space.",
+      "Never change the logo’s colours outside the approved palette (no black, pure white, or random accent colours).",
+      "Never add drop shadows, outlines, gradients or glow effects to the wordmark.",
+      "Never set the logo over low-contrast backgrounds where legibility is compromised, even if it feels aesthetically “soft.”",
+      "Never substitute the logotype with a monogram or initials; the full word “serene” is the non-negotiable asset.",
+      "Never place additional typography or icons so close that they visually merge with the logo’s letterforms."
+    ]
+  },
+  "color": {
+    "philosophy": [
+      "Serene’s palette is built like a capsule wardrobe: a few deeply considered tones that layer effortlessly, hold their shape over time, and never shout for attention. Every shade is grounded in lived-in interiors and real fabric, not digital gloss—colours that feel like morning light through a sheer curtain or the grain of a well-loved wooden desk.",
+      "Where competitors lean into sugary pastels or high-contrast trend palettes, Serene stays rooted in nuanced neutrals and murmured blues, with warmth arriving through controlled browns rather than neon. The goal is a visual environment that calms the scroll: quiet, dimensional, and always making space for the garment to be the most saturated thing on the screen."
+    ],
+    "palette": [
+      {
+        "name": "slate hush",
+        "hex": "#29323A",
+        "role": "primary ground / typography / structural surfaces",
+        "meaning": "A deep, inky slate that feels like the shadow line of a doorway—grounding, composed, and a calm counterpoint to the softness around it."
+      },
+      {
+        "name": "linen dusk",
+        "hex": "#F4EEE6",
+        "role": "primary base / background / canvas",
+        "meaning": "A warm linen off-white that mimics sunlit walls and cotton linings, giving every product room to breathe without going clinical."
+      },
+      {
+        "name": "stone oat",
+        "hex": "#D2C2AF",
+        "role": "supporting neutral / panels / soft dividers",
+        "meaning": "A gentle oat beige that recalls ceramic mugs and office chairs, creating subtle structure without hard edges."
+      },
+      {
+        "name": "river blue",
+        "hex": "#34536B",
+        "role": "brand colour / accent ground for key CTAs",
+        "meaning": "A washed, river-deep blue that nods to Serene’s signature denim and office-ready dresses—serious enough for work, soft enough for weekends."
+      },
+      {
+        "name": "ember cocoa",
+        "hex": "#8A5A3D",
+        "role": "brand colour / warm accent for buttons and highlights",
+        "meaning": "A refined cocoa brown that feels like leather straps and coffee rings, bringing human warmth to an otherwise quiet palette."
+      },
+      {
+        "name": "pale sand",
+        "hex": "#EADAC6",
+        "role": "secondary accent / hover states / subtle backgrounds",
+        "meaning": "A muted sand blush that barely hints at colour, keeping the interface gentle while echoing the undertones of skin and fabric."
+      }
+    ],
+    "hierarchy": [
+      {
+        "title": "STRUCTURE",
+        "sub": "slate hush, river blue",
+        "body": "Use slate hush for primary text, navigation, and key structural frames; it anchors the brand and keeps neutral garments from floating away visually. Reserve river blue for high-intent elements—primary buttons, price highlights, or section titles—so every blue feels like a considered prompt, not a decorative flourish."
+      },
+      {
+        "title": "ABUNDANCE",
+        "sub": "linen dusk, stone oat, pale sand",
+        "body": "Linen dusk should dominate backgrounds and large surfaces, becoming the default canvas for product photography and content blocks. Stone oat and pale sand appear as secondary layers—cards, striping, filters—adding quiet depth so pages feel like softly lit rooms rather than flat screens."
+      },
+      {
+        "title": "HIGHLIGHT",
+        "sub": "ember cocoa, river blue, slate hush",
+        "body": "Ember cocoa and river blue serve as accent tones for calls-to-action, badges, and key tags, always used sparingly so they retain their pull. Slate hush can deepen in density for dividers or micro-copy highlights, ensuring emphasis comes from contrast and restraint rather than sudden bursts of colour."
+      }
+    ]
+  },
+  "typography": {
+    "philosophy": [
+      "serene type is about quiet confidence: soft, editorial headlines that feel like a considered pause, paired with clear, contemporary text that never shouts. every layout should feel like a deep breath—space, structure, and clarity working together so the clothes—and the woman wearing them—stay in focus.",
+      "we avoid the hyper-feminine swirls of fast fashion and the cold utility of corporate brands. our typography lives in the in-between: graceful enough for a dinner reservation, precise enough for an office calendar invite."
+    ],
+    "displayFont": "Fraunces",
+    "sansFont": "IBM Plex Sans",
+    "fonts": [
+      {
+        "name": "serene serif",
+        "role": "display / headlines / large callouts",
+        "note": "fraunces brings a soft, high-contrast serif with subtle curves that echo the drape of fabric—elegant but grounded, never frilly."
+      },
+      {
+        "name": "everyday sans",
+        "role": "body / UI / supporting labels",
+        "note": "ibm plex sans is clean and rational with humanist warmth, perfect for clear sizing, fit notes, and on-screen reading without feeling cold."
+      }
+    ],
+    "scale": [
+      {
+        "name": "H1",
+        "spec": "Display · 56px · tracking +1% · line height 1.05",
+        "use": "hero headlines on home, key campaign lines, marquee category intros."
+      },
+      {
+        "name": "H2",
+        "spec": "Display · 32px · tracking +2% · line height 1.15",
+        "use": "collection titles, product story headers, major navigation headings."
+      },
+      {
+        "name": "H3",
+        "spec": "Sans · 20px · tracking +3% · line height 1.3",
+        "use": "card titles, filter labels, in-page section headers and badges."
+      },
+      {
+        "name": "Body",
+        "spec": "Sans · 16px · tracking +1% · line height 1.6",
+        "use": "all primary body copy: descriptions, fit notes, policies, and microcopy."
+      }
+    ],
+    "rules": [
+      "fraunces (serene serif) is used only from 24px upwards—never for long paragraphs.",
+      "set all body copy in ibm plex sans; use regular and medium weights only for digital, bold for emphasis sparingly.",
+      "sentence case for most UI and headings; reserve all caps fraunces only for rare, quiet hero statements.",
+      "maintain generous line spacing: minimum 1.4 on desktop, 1.5 on mobile to preserve a calm reading rhythm.",
+      "avoid centered paragraphs; left align text blocks and let whitespace carry the serenity, not awkward symmetry.",
+      "never mix more than two weights per layout—typographic drama comes from scale and spacing, not clutter."
+    ],
+    "inUse": [
+      {
+        "title": "homepage hero",
+        "sub": "soft statement, clear action",
+        "body": "headline in fraunces h1, two lines max; supporting line in ibm plex sans body directly beneath. keep the call-to-action in ibm plex sans medium, slightly smaller than the headline but clearly separated by whitespace."
+      },
+      {
+        "title": "product detail",
+        "sub": "fit-first clarity",
+        "body": "product name in fraunces h2, followed by price and key size information in ibm plex sans 16px. fit notes and care details use the same body size with subtle weight changes to keep everything legible at a glance."
+      },
+      {
+        "title": "collection grid",
+        "sub": "calm, scannable tiles",
+        "body": "use ibm plex sans h3 for card titles with a single line product name; price in body size underneath. avoid italics and overuse of bold—let spacing and consistent alignment keep the grid easy to scan."
+      },
+      {
+        "title": "social graphics",
+        "sub": "editorial yet approachable",
+        "body": "short phrases in fraunces h2 over soft neutral backgrounds, paired with a small ibm plex sans tag line. resist crowded layouts—one message per frame, generous margins, and no more than three typographic elements total."
+      }
+    ]
+  },
+  "intentIntro": [
+    "serene clothing is built as a counterpoint to the noise of women’s fashion: fewer pieces, deeper consideration, more room to breathe. our intent is to become the go-to destination when a woman wants one dress that can carry her from key meeting to late dinner without a second thought."
+  ],
+  "patternStory": {
+    "title": "the quiet grid",
+    "body": "serene’s pattern language is built from a quiet grid of lines and bands that echo wardrobe rails, doorway frames, and the horizon line you see from an office window. these patterns aren’t decorative noise—they’re the calm structure behind her day: subtle scaffolding that suggests order without rigidity, movement without chaos. every pattern should feel like looking at her closet in the morning: tidy, intentional, with just enough variation to invite choice."
+  },
+  "waxSeal": null,
+  "patternSystem": [
+    "scale patterns from fine 2px lines up to broad fields occupying 30–60% of the layout, always leaving room for breathing space.",
+    "use low-contrast neutrals (background base and secondary neutral) at 5–30% opacity for most patterns; reserve deep blue or warm brown accents for small, deliberate moments.",
+    "crop patterns so they appear as partial frames—edges entering from one or two sides—never full wallpaper; this keeps focus on garments and messaging.",
+    "layer patterns behind photography and typography only, never over faces or product detail zones; think of them as architectural hints, not stickers.",
+    "avoid patterns entirely on dense informational screens (checkout, size charts) and on very small mobile surfaces where they could distract from legibility."
+  ],
+  "photography": {
+    "philosophy": [
+      "serene photography is about real women in real rooms, captured at the exact moment between leaving for work and stepping into the rest of their life. no fantasy sets, no forced drama—just soft light, honest fabrics, and spaces that feel lived-in but uncluttered.",
+      "we shoot for drape and movement rather than spectacle: how a hemline falls when she sits at her desk, how a sleeve shifts as she reaches for a coffee, how a dress carries her from laptop to late dinner without costume changes. the images should help her imagine herself, not perform for an algorithm.",
+      "colour is treated with restraint: neutrals stay true, blues and browns stay rich but quiet, skin tones stay real. we resist the oversaturated gloss of trend-led boutiques and the harsh contrast of editorial fashion, favouring a consistent, gentle grade that mirrors the serenity in our name."
+    ],
+    "inUse": [
+      {
+        "title": "FRAMING",
+        "sub": "full figure, grounded context",
+        "body": "compose with full-length or three-quarter shots that show how the dress meets the floor and the furniture around her. include subtle environmental cues—doorframes, chairs, mirrors—to root the garment in a believable daily scene."
+      },
+      {
+        "title": "CROP",
+        "sub": "intentional detail focus",
+        "body": "when cropping in, prioritize necklines, sleeves, and hemlines where fit and movement matter most. avoid over-tight beauty crops; the dress and its relationship to the body should always be the hero, not just the face."
+      },
+      {
+        "title": "LIGHT",
+        "sub": "soft, directional calm",
+        "body": "use natural window light or diffused sources that wrap gently around the body, keeping shadows soft and texture legible. avoid hard flash and deep, moody contrast—serene images feel like an overcast morning or golden-hour office, not a nightclub."
+      },
+      {
+        "title": "POSE & MOVEMENT",
+        "sub": "ease over posing",
+        "body": "direct models toward micro-movements—walking across a room, turning at a doorway, adjusting a sleeve—instead of static fashion poses. hands should always have a job: holding a bag, touching fabric, opening a laptop, reinforcing that these clothes are made to live in, not just to photograph."
+      }
+    ]
+  },
+  "applications": [
+    {
+      "label": "website & app flows",
+      "slots": 3
+    },
+    {
+      "label": "packaging & unboxing",
+      "slots": 3
+    },
+    {
+      "label": "social & campaign layouts",
+      "slots": 3
+    }
+  ],
+  "intent": [
+    "we will own the space of neutral-first, work-to-life dresses by committing to visual calm, honest styling and an edit that values repeat wear over endless choice. every decision—from palette to photography to product naming—will reinforce a single idea: getting dressed can feel like taking a breath, not running a race."
+  ]
+}

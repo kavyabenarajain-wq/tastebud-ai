@@ -1,0 +1,1300 @@
+{
+  "name": "Thejoonshop",
+  "website": "https://www.thejoonshop.com",
+  "research": {
+    "summary": "The Joon Shop is a real ecommerce brand selling Joon Solid Perfume, a Korean-made, alcohol-free, vegan solid fragrance positioned as perfume that is good for your skin. The brand is built around a focused four-SKU offer: three individual 6g solid perfumes and a complete collection set.",
+    "essence": "Fragrance made intimate: a Korean-formulated solid perfume that melts into skin, travels everywhere, and turns scent into a quiet daily ritual.",
+    "voice": "Minimal, intimate, practical, clean, self-assured.",
+    "competitors": [
+      "Lush",
+      "Forest Essentials",
+      "Kama Ayurveda",
+      "Bombay Perfumery",
+      "Maison Louis Marie",
+      "Glossier"
+    ],
+    "ambassadors": [],
+    "instagram": "@thejoonshop",
+    "website": "https://www.thejoonshop.com",
+    "palette": [
+      {
+        "hex": "#F8F6F1",
+        "role": "soft warm white ecommerce ground"
+      },
+      {
+        "hex": "#FFFFFF",
+        "role": "clean white highlight"
+      },
+      {
+        "hex": "#111111",
+        "role": "near black typography"
+      },
+      {
+        "hex": "#D8CBB8",
+        "role": "warm beige skin-neutral"
+      },
+      {
+        "hex": "#AFA396",
+        "role": "muted taupe shadow"
+      },
+      {
+        "hex": "#C8C8C4",
+        "role": "brushed silver metal casing"
+      },
+      {
+        "hex": "#2A2927",
+        "role": "deep charcoal accent"
+      }
+    ],
+    "aesthetic": "Warm off-white, cream, stone, and neutral vanity-like surfaces; warm-neutral low-contrast grade with creamy highlights; sparse styling with one hero product, hands, pouch, fabric, bedside, handbag, or skincare-counter context; soft diffused daylight or large softbox from the side/front to reveal metal casing and balm texture without glare; close crops on fingers, wrists, hair tips, opened product, and product-in-hand; mix of clean centered product-only ecommerce shots and application moments with models or hands.",
+    "foundReal": true,
+    "logo": "https://www.thejoonshop.com/cdn/shop/files/Joon_primary_Logo.png?v=1722241291&width=480",
+    "productImages": [
+      "https://cdn.shopify.com/s/files/1/0659/1584/6856/files/222_6d16a07b-3b37-4fe0-bde0-f48cdeb7ac11.jpg?v=1726562008",
+      "https://cdn.shopify.com/s/files/1/0659/1584/6856/files/2_968d4f91-29d0-4ca7-8593-f5bcbfd741da.jpg?v=1726562042",
+      "https://cdn.shopify.com/s/files/1/0659/1584/6856/files/22_60ab9ce9-5b8c-43d3-82ad-f4d2801903cd.jpg?v=1726562075",
+      "https://cdn.shopify.com/s/files/1/0659/1584/6856/files/3_Boxes_2_1.jpg?v=1726572108",
+      "http://www.thejoonshop.com/cdn/shop/files/IMG_1416.png?v=1729505796",
+      "https://www.thejoonshop.com/cdn/shop/files/IMG_1416.png?v=1729505796",
+      "https://www.thejoonshop.com/cdn/shop/files/IMG_1410_aa0db1e3-1f11-4f1f-afdc-58689a2dee5e.jpg?v=1729503456",
+      "https://www.thejoonshop.com/cdn/shop/files/222_6d16a07b-3b37-4fe0-bde0-f48cdeb7ac11.jpg?v=1726562008",
+      "https://www.thejoonshop.com/cdn/shop/files/222_6d16a07b-3b37-4fe0-bde0-f48cdeb7ac11.jpg?v=1726562008&width=533",
+      "https://www.thejoonshop.com/cdn/shop/files/111_c2303207-992c-40ee-9f43-a2a5b3d1161e.jpg?v=1726562008",
+      "https://www.thejoonshop.com/cdn/shop/files/111_c2303207-992c-40ee-9f43-a2a5b3d1161e.jpg?v=1726562008&width=533",
+      "https://www.thejoonshop.com/cdn/shop/files/2_968d4f91-29d0-4ca7-8593-f5bcbfd741da.jpg?v=1726562042"
+    ],
+    "products": [
+      {
+        "name": "Solid 1",
+        "image": "https://cdn.shopify.com/s/files/1/0659/1584/6856/files/222_6d16a07b-3b37-4fe0-bde0-f48cdeb7ac11.jpg?v=1726562008"
+      },
+      {
+        "name": "Solid 2",
+        "image": "https://cdn.shopify.com/s/files/1/0659/1584/6856/files/2_968d4f91-29d0-4ca7-8593-f5bcbfd741da.jpg?v=1726562042"
+      },
+      {
+        "name": "Solid 3",
+        "image": "https://cdn.shopify.com/s/files/1/0659/1584/6856/files/22_60ab9ce9-5b8c-43d3-82ad-f4d2801903cd.jpg?v=1726562075"
+      },
+      {
+        "name": "Complete Collection",
+        "image": "https://cdn.shopify.com/s/files/1/0659/1584/6856/files/3_Boxes_2_1.jpg?v=1726572108"
+      },
+      {
+        "name": "Shop"
+      }
+    ],
+    "photoRules": {
+      "category": "General product",
+      "grade": "Shoot on warm off-white, cream, stone, and softly reflective neutral surfaces that feel like a bathroom counter, vanity, hotel bedside table, or editorial beauty still life. Use warm-neutral, low-contrast colour grading with creamy highlights and natural hydrated skin. Keep styling low to medium density: one hero product, a hand, soft fabric, pouch, bedside detail, handbag context, or restrained ingredient cue. Light with soft diffused daylight or a large softbox from the front/side so the metal casing catches gentle highlights and the balm texture is visible without hard glare. Crop close on wrists, fingers, hair tips, opened product, and product-in-hand; balance clean centered product-only pack shots with application moments because the swipe ritual is the story.",
+      "signatures": [
+        "Shoot on warm off-white, cream, stone, and softly reflective neutral surfaces that feel like a bathroom counter, vanity, hotel bedside table, or editorial beauty still life. Use warm-neutral, low-contrast colour grading with creamy highlights and natural hydrated skin. Keep styling low to medium density: one hero product, a hand, soft fabric, pouch, bedside detail, handbag context, or restrained ingredient cue. Light with soft diffused daylight or a large softbox from the front/side so the metal casing catches gentle highlights and the balm texture is visible without hard glare. Crop close on wrists, fingers, hair tips, opened product, and product-in-hand; balance clean centered product-only pack shots with application moments because the swipe ritual is the story."
+      ],
+      "neverDo": [
+        "a floating product on a gradient void",
+        "flat, even, sourceless light",
+        "a plastic CGI-render look",
+        "random scattered geometric props",
+        "a concentric spotlight halo behind the subject"
+      ],
+      "colorGrade": {
+        "rMul": 1.0080267068799411,
+        "gMul": 0.9982715716255655,
+        "bMul": 0.9876793045149651,
+        "saturation": 0.9362429732864214,
+        "brightness": 1,
+        "contrast": 1.06,
+        "grain": 0.3,
+        "sharpen": 0.8
+      }
+    },
+    "sources": 10
+  },
+  "intelligence": {
+    "overview": "The Joon Shop is an Indian-owned ecommerce fragrance brand selling Korean-made solid perfumes. Its core idea is to make fragrance feel less like a volatile spray and more like a skin-friendly, portable, moisturising daily ritual.",
+    "purpose": "To make fragrance tactile, portable, discreet, and compatible with daily self-care rather than limited to alcohol-based sprays.",
+    "mission": "To create clean, alcohol-free solid perfumes that can be worn every day on pulse points and hair tips, with a buttery texture, skin-friendly ingredients, and easy reapplication throughout the day.",
+    "vision": "To normalize solid perfume as a modern, premium, handbag-friendly fragrance format in India and make it a credible replacement or companion to liquid perfume.",
+    "story": "Joon describes its origin as a search for a truly solid solid perfume. After trying existing formats and not finding the right one, the team found a perfumery and paired it with a Korean cosmetic chemist; after multiple formula versions and a year of internal use, Joon Solid Perfume was launched. The name Joon is described by the brand as meaning soul, spirit, and life.",
+    "values": [
+      "Skin-first beauty",
+      "Daily usefulness",
+      "Format innovation",
+      "Safety and compliance",
+      "Korean formulation credibility",
+      "Portability and ritual",
+      "Quiet premium practicality"
+    ],
+    "positioning": "A Korean-made, skin-friendly solid perfume for people who want fragrance to feel as soft, portable, and ritualistic as skincare.",
+    "audience": "Urban Indian beauty and fragrance consumers who want a premium but practical scent format: fragrance beginners, clean beauty shoppers, Korean beauty followers, gift buyers, frequent travellers, people who dislike alcohol-heavy sprays, and anyone who wants discreet reapplication at work, in transit, or before going out.",
+    "persona": "Ananya is 29 and lives in Delhi, Mumbai, or Bangalore. She works in fashion, media, consulting, design, hospitality, or a founder-adjacent creative role, moving between office, cabs, gym, dinner, and weekend travel. Her bag always has lip balm, hand cream, compact, a mini comb, and one small luxury that makes her feel put together. She likes smelling good but does not want to spray perfume loudly in public or overpower people in close spaces; Joon works because it is discreet, tactile, non-spill, moisturising, aesthetically giftable, and easy to swipe on at a desk or in a car.",
+    "toneOfVoice": "Minimal, intimate, practical, clean, benefit-led, and self-assured.",
+    "personality": [
+      "Quietly premium",
+      "Tender",
+      "Skin-aware",
+      "Modern",
+      "Korean-beauty adjacent",
+      "Useful",
+      "Compact",
+      "Giftable",
+      "Gender-flexible"
+    ],
+    "palette": [
+      {
+        "hex": "#F8F6F1",
+        "role": "soft warm white ecommerce ground"
+      },
+      {
+        "hex": "#FFFFFF",
+        "role": "clean white highlight"
+      },
+      {
+        "hex": "#111111",
+        "role": "near black typography"
+      },
+      {
+        "hex": "#D8CBB8",
+        "role": "warm beige skin-neutral"
+      },
+      {
+        "hex": "#AFA396",
+        "role": "muted taupe shadow"
+      },
+      {
+        "hex": "#C8C8C4",
+        "role": "brushed silver metal casing"
+      },
+      {
+        "hex": "#2A2927",
+        "role": "deep charcoal accent"
+      }
+    ],
+    "typography": {
+      "display": "Clean modern sans serif, medium weight, unfussy, with restrained hierarchy.",
+      "text": "Legible ecommerce sans serif with direct skincare-like product copy.",
+      "note": "More Muji and Korean beauty counter than Parisian perfume house; functional, calm, and minimal rather than expressive or ornate."
+    },
+    "logo": "https://www.thejoonshop.com/cdn/shop/files/Joon_primary_Logo.png?v=1722241291&width=480",
+    "logoSystem": "The brand appears wordmark-led, using Joon and The Joon Shop as the primary identity rather than an emblem-heavy system. The name carries the emotional meaning of soul, spirit, and life, while the product format and compact casing do much of the recognisable brand work.",
+    "photographyStyle": "Shoot on warm off-white, cream, stone, and softly reflective neutral surfaces that feel like a bathroom counter, vanity, hotel bedside table, or editorial beauty still life. Use warm-neutral, low-contrast colour grading with creamy highlights and natural hydrated skin. Keep styling low to medium density: one hero product, a hand, soft fabric, pouch, bedside detail, handbag context, or restrained ingredient cue. Light with soft diffused daylight or a large softbox from the front/side so the metal casing catches gentle highlights and the balm texture is visible without hard glare. Crop close on wrists, fingers, hair tips, opened product, and product-in-hand; balance clean centered product-only pack shots with application moments because the swipe ritual is the story.",
+    "packagingStyle": "Compact, premium, minimal, and handbag-ready, closer to skincare or colour cosmetics than traditional perfume bottles. Press describes the casing as chic and lipstick-like metal, reinforcing the idea of a fragrance object that can be held, opened, swiped, and reapplied.",
+    "visualIdentity": "Restrained cosmetic minimalism: cream and white grounds, near-black typography, skin-neutral beige, taupe shadow, and brushed silver casing. The world avoids bright perfume-category colour coding and instead signals clean beauty, Korean formulation, intimate ritual, and premium practicality.",
+    "competitors": [
+      {
+        "name": "Lush",
+        "note": "The clearest global solid perfume comparator, with a long-standing tactile fragrance format and ingredient-forward positioning."
+      },
+      {
+        "name": "Forest Essentials",
+        "note": "Competes for premium Indian sensorial beauty, ritual, gifting, and natural ingredient credibility, though not directly as a solid perfume specialist."
+      },
+      {
+        "name": "Kama Ayurveda",
+        "note": "Competes in Indian premium beauty through ritual, sensoriality, and natural wellness cues."
+      },
+      {
+        "name": "Bombay Perfumery",
+        "note": "A contemporary Indian fragrance brand competing for urban consumers seeking modern local scent stories."
+      },
+      {
+        "name": "Maison Louis Marie",
+        "note": "Relevant international benchmark for intimate, personal, close-to-skin fragrance behaviour."
+      },
+      {
+        "name": "Glossier",
+        "note": "A useful comparator for soft, personal, beauty-led fragrance sensibility and modern minimal branding."
+      }
+    ],
+    "social": [
+      {
+        "platform": "Instagram",
+        "handle": "@thejoonshop",
+        "url": "https://www.instagram.com/thejoonshop",
+        "note": "The official website links Instagram as the visible social channel; exact follower count and cadence are not verified here."
+      }
+    ],
+    "press": [
+      {
+        "title": "Press page",
+        "source": "The Joon Shop",
+        "url": "https://www.thejoonshop.com/pages/press"
+      },
+      {
+        "title": "Niche boutique perfume brands feature",
+        "source": "The Nod Mag",
+        "url": "https://thenodmag.com/content/niche-boutique-perfume-brands-thin-wild-mercury-xinu"
+      },
+      {
+        "title": "Press mentions including Vogue India, Elle India, Femina, Grazia, Travel + Leisure Asia, Harper's Bazaar India, Cosmopolitan India, and others",
+        "source": "The Joon Shop press page",
+        "url": "https://www.thejoonshop.com/pages/press"
+      }
+    ],
+    "insights": [
+      "The format is the brand: the strongest asset is the physical behaviour of open, swipe, melt, carry, and refresh.",
+      "Good for your skin is sharper than solid perfume because it turns the format from novelty into a reason to care.",
+      "The brand should sell rituals, not just scents: desk refresh, post-commute, pre-dinner, flight bag, bedside, hair tips, and gifting drawer.",
+      "Korean formulation provides credibility, but intimacy is the emotional engine; this is a private fragrance you apply to yourself, not a cloud you spray into a room.",
+      "The product is naturally gender-flexible and should avoid becoming over-feminised; the stronger territory is close-to-skin modern fragrance.",
+      "Press already validates the trend, so the opportunity is to become the brand people name first when explaining solid perfume in India."
+    ],
+    "website": "https://www.thejoonshop.com",
+    "instagram": "@thejoonshop",
+    "sources": 10,
+    "foundReal": true,
+    "inferred": false
+  },
+  "catalog": [
+    {
+      "id": "solid-1",
+      "name": "Solid 1",
+      "category": "Solid Perfumes",
+      "collection": "Solid Perfumes",
+      "description": "Bergamot is the ideal top note, complimenting the classic sandalwood making Solid 1 the perfect contemporary warm woody scent. A new format, Joon solid perfumes are buttery textured – melting into your skin. Formulated keeping all skin types in mind, they are alcohol free, and rich with natural extracts. Keep one handy if you’re on the go, or one next to your bedside – Joon will carry you through the day. Vegan | Intense Moisturising | Cruelty Free | Natural Extracts | Alcoho",
+      "variants": [
+        "Cardamom | Bergamot | Sandalwood / 6g | 0.21oz"
+      ],
+      "price": "3200.00",
+      "url": "https://www.thejoonshop.com/products/solid-1-citrus-woody",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0659/1584/6856/files/222_6d16a07b-3b37-4fe0-bde0-f48cdeb7ac11.jpg?v=1726562008",
+        "https://cdn.shopify.com/s/files/1/0659/1584/6856/files/111_c2303207-992c-40ee-9f43-a2a5b3d1161e.jpg?v=1726562008",
+        "https://cdn.shopify.com/s/files/1/0659/1584/6856/files/333_d8ff4cf9-b245-4866-958a-3454cfff9166.jpg?v=1726562008",
+        "https://cdn.shopify.com/s/files/1/0659/1584/6856/files/joonman2.jpg?v=1747629865",
+        "https://cdn.shopify.com/s/files/1/0659/1584/6856/files/444_24ff436a-08e6-41cf-8877-173a0ec6c27a.jpg?v=1747629811",
+        "https://cdn.shopify.com/s/files/1/0659/1584/6856/files/555_8f33cd33-6bdb-46f7-80cb-b16af5cf90a7.jpg?v=1747629811",
+        "http://www.thejoonshop.com/cdn/shop/files/222_6d16a07b-3b37-4fe0-bde0-f48cdeb7ac11.jpg?v=1726562008"
+      ]
+    },
+    {
+      "id": "solid-2",
+      "name": "Solid 2",
+      "category": "Solid Perfumes",
+      "collection": "Solid Perfumes",
+      "description": "The versatile tulip married to the bold amber, makes flower and spice smell like paradise. A new format, Joon solid perfumes are buttery textured – melting into your skin. Formulated keeping all skin types in mind, they are alcohol free, and rich with natural extracts. Keep one handy if you’re on the go, or one next to your bedside – Joon will carry you through the day. Vegan | Intense Moisturising | Cruelty Free | Natural Extracts | Alcohol Free",
+      "variants": [
+        "Tulip | Floral | Amber / 6g | 0.21oz"
+      ],
+      "price": "3200.00",
+      "url": "https://www.thejoonshop.com/products/solid-2-floral-spicy",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0659/1584/6856/files/2_968d4f91-29d0-4ca7-8593-f5bcbfd741da.jpg?v=1726562042",
+        "https://cdn.shopify.com/s/files/1/0659/1584/6856/files/1_53879e4a-5463-473a-92ef-b807d350fef5.jpg?v=1726562042",
+        "https://cdn.shopify.com/s/files/1/0659/1584/6856/files/3_7ea09019-eb45-4e15-8dbd-fcf906b5789a.jpg?v=1726562042",
+        "https://cdn.shopify.com/s/files/1/0659/1584/6856/files/joonman2.jpg?v=1747629865",
+        "https://cdn.shopify.com/s/files/1/0659/1584/6856/files/4_45a8b74f-ea53-4a48-8ed5-b950f8a129d1.jpg?v=1747629843",
+        "https://cdn.shopify.com/s/files/1/0659/1584/6856/files/5_7507e0e8-97fe-4f48-808e-f9625079f9ff.jpg?v=1747629843",
+        "http://www.thejoonshop.com/cdn/shop/files/2_968d4f91-29d0-4ca7-8593-f5bcbfd741da.jpg?v=1726562042"
+      ]
+    },
+    {
+      "id": "solid-3",
+      "name": "Solid 3",
+      "category": "Solid Perfumes",
+      "collection": "Solid Perfumes",
+      "description": "The sharp citrusy top note is balanced by the powdery and subtle fragrance of musk making Solid 3 a breath of fresh air. A new format, Joon solid perfumes are buttery textured – melting into your skin. Formulated keeping all skin types in mind, they are alcohol free, and rich with natural extracts. Keep one handy if you’re on the go, or one next to your bedside – Joon will carry you through the day. Vegan | Intense Moisturising | Cruelty Free | Natural Extracts | Alcohol Free",
+      "variants": [
+        "Lime | Violet | Musk / 6g | 0.21oz"
+      ],
+      "price": "3200.00",
+      "url": "https://www.thejoonshop.com/products/solid-3-clean-fruity",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0659/1584/6856/files/22_60ab9ce9-5b8c-43d3-82ad-f4d2801903cd.jpg?v=1726562075",
+        "https://cdn.shopify.com/s/files/1/0659/1584/6856/files/11_ef8e770b-ab18-4087-bed5-aa3d3f571ed8.jpg?v=1726562075",
+        "https://cdn.shopify.com/s/files/1/0659/1584/6856/files/33_15903c2c-9c36-4a1f-9ab7-3d08ad4763b4.jpg?v=1726562075",
+        "https://cdn.shopify.com/s/files/1/0659/1584/6856/files/joonman2.jpg?v=1747629865",
+        "https://cdn.shopify.com/s/files/1/0659/1584/6856/files/44_c1951dc5-b36e-4a43-bdff-7add7cef7e82.jpg?v=1747629865",
+        "https://cdn.shopify.com/s/files/1/0659/1584/6856/files/55_5d8dd9bc-1431-460e-8efb-04a443f9f995.jpg?v=1747629865",
+        "http://www.thejoonshop.com/cdn/shop/files/22_60ab9ce9-5b8c-43d3-82ad-f4d2801903cd.jpg?v=1726562075"
+      ]
+    },
+    {
+      "id": "complete-collection",
+      "name": "Complete Collection",
+      "category": "Personal Care",
+      "collection": "Solid Perfumes",
+      "description": "A new format, Joon solid perfumes are buttery textured – melting into your skin. Formulated keeping all skin types in mind, they are alcohol free, and rich with natural extracts. Keep one handy if you’re on the go, or one next to your bedside – Joon will carry you through the day. A set of three has you covered through seasons and occasions. It also makes for a perfect gift. Vegan | Intense Moisturising | Cruelty Free | Natural Extracts | Alcohol Free",
+      "price": "8600.00",
+      "url": "https://www.thejoonshop.com/products/gift-set",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0659/1584/6856/files/3_Boxes_2_1.jpg?v=1726572108",
+        "https://cdn.shopify.com/s/files/1/0659/1584/6856/files/Banner_Image_Square_1.jpg?v=1725618260",
+        "https://cdn.shopify.com/s/files/1/0659/1584/6856/files/33_15903c2c-9c36-4a1f-9ab7-3d08ad4763b4.jpg?v=1726562075",
+        "https://cdn.shopify.com/s/files/1/0659/1584/6856/files/joonman2.jpg?v=1747629865",
+        "https://www.thejoonshop.com/cdn/shop/files/3_Boxes_2_1.jpg?v=1726572108&width=1920",
+        "http://www.thejoonshop.com/cdn/shop/files/3_Boxes_2_1.jpg?v=1726572108"
+      ]
+    },
+    {
+      "id": "shop",
+      "name": "Shop",
+      "images": []
+    }
+  ],
+  "ready": true,
+  "memory": {
+    "approvedShots": [
+      {
+        "id": "1783851185558-2-sgm6l",
+        "url": "/api/img/1783851185558-2-sgm6l.png",
+        "angle": "Top-down flat-lay",
+        "prompt": "Sony A7 IV with a 50mm f/2.0 macro-capable prime, photographed as a true 90-degree top-down flat-lay, wide open around f/2.8, Fujifilm Pro 400H inspired warm-neutral matte colour treatment with gentle highlight roll-off, fine film grain as the only honest camera imperfection, no HDR and no digital over-sharpening. The product exactly as in the reference image is laid flat on its broadest physically stable face, shot directly from above on the same seamless edge-to-edge matte studio colour field sampled from the product packaging’s dominant colour, the entire frame one uniform colour-matched tone slightly offset from the packaging for separation. Build an editorial ingredient flat-lay only from verified key real ingredients visible in the reference label or supplied product data: place them artfully around and in front of the product like a sparse deconstructed recipe, each ingredient sharp, identifiable, cleanly arranged, and kept tonal enough to preserve the single colour-field discipline; if the real ingredients cannot be verified, do not invent substitutes and keep the arrangement product-only. Use the same hard direct-flash contemporary light logic as the set: crisp directional shadows, punchy controlled highlights on packaging edges, deep but open shadow density, warm matte grade, and real contact between product, ingredients and surface. Leave generous negative space in Thejoonshop’s quiet minimal language, with no humans and no lifestyle setting. Product identity is locked to the reference: exact silhouette, exact packaging colour, exact label/logo placement, exact proportions, exact finish, legible branding.",
+        "negatives": [
+          "no near-front angle; must be a true 90-degree overhead flat-lay",
+          "no warped, invented, misspelled or duplicated label text",
+          "no changed product form, no restyled packaging, no recoloured packaging, no added parts, no melted or bent geometry",
+          "no unverified ingredients, no generic flowers, herbs, spices, fruit or botanicals unless actually verified for this product",
+          "no model, no person, no hands, no fingers, no arms, no legs, no feet, no body parts",
+          "no floating product or floating ingredients, no missing contact shadows",
+          "no gradient background, no split colour block, no marble, no wood, no linen, no bathroom or vanity environment",
+          "no podium, plinth, random stones, geometric props, confetti or arbitrary decorative scatter",
+          "no visible studio equipment",
+          "no plastic CGI-render look, no glossy loud finish, no overprocessed HDR",
+          "no flat sourceless light, no impossible shadows"
+        ],
+        "panel": {
+          "background": "Pure black",
+          "vibe": "",
+          "lighting": "",
+          "composition": "",
+          "format": ""
+        },
+        "mode": "model-photoshoot",
+        "decision": "keep",
+        "at": "2026-07-12T20:15:27.965Z"
+      },
+      {
+        "id": "1783851185558-1-3zbk5",
+        "url": "/api/img/1783851185558-1-3zbk5.png",
+        "angle": "Front, straight-on, eye level",
+        "prompt": "Canon EOS R5 with an 85mm f/1.8 prime, photographed straight-on at eye level, wide open around f/2.0, Kodak Portra 400 warm-neutral matte colour treatment with gentle highlight roll-off, fine film grain as the only honest camera imperfection, no HDR and no digital over-sharpening. Brand and category read: Thejoonshop shoots restrained Korean-beauty-adjacent solid perfume photography — white, warm off-white, cream and beige worlds, sparse styling, intimate product scale, tactile balm/compact detail, warm low-saturation grade, negative space, product-only or close ritual crops; the fragrance playbook is translated here as solid perfume tactility rather than spray mist, focusing on compact material, balm presence, portability and intimate skin-close ritual. The product exactly as in the reference image stands grounded on a seamless edge-to-edge matte studio colour field sampled from the product packaging’s dominant colour, with the backdrop a single uniform tone just slightly deeper or lighter than the product so the packaging separates cleanly. Keep the whole frame one continuous colour-matched sweep with no horizon line, no environment and no visible studio equipment. Use a hard direct-flash contemporary look from the front-side: punchy but controlled highlights on the product material, deep open shadow falling naturally behind and beneath it, a real contact shadow anchoring the base, and a warm-neutral matte grade so it still feels softly premium rather than glossy or loud. Keep the composition campaign-clean with confident negative space, product only, no model, no hands, no body parts. If verified key real ingredients are readable from the product reference or supplied product data, include only a very restrained tonal scatter low on the surface in front of the product, each ingredient sharp and identifiable; if ingredients are not verified, leave the surface bare rather than inventing them. Reproduce the product form, label, logo, colours, proportions and finish exactly as in the reference image; all branding must be legible and undistorted.",
+        "negatives": [
+          "no warped, invented, misspelled or duplicated label text",
+          "no changed product form, no restyled packaging, no recoloured packaging, no extra cap, no extra hinge, no extra lid, no melted geometry",
+          "no unverified or invented ingredients",
+          "no model, no person, no hands, no fingers, no arms, no legs, no feet, no body parts",
+          "no floating product, no missing contact shadow",
+          "no gradient void, no colour-block split, no textured environment, no podium, no plinth",
+          "no concentric spotlight halo",
+          "no random geometric props, cubes, pebbles, confetti or bokeh",
+          "no visible softbox, light stand, reflector, cable, tripod or studio equipment",
+          "no plastic CGI-render look, no over-smoothed waxy surface",
+          "no flat sourceless light, no impossible reflections, no blown-out unreadable branding"
+        ],
+        "panel": {
+          "background": "Pure black",
+          "vibe": "",
+          "lighting": "",
+          "composition": "",
+          "format": ""
+        },
+        "mode": "model-photoshoot",
+        "decision": "keep",
+        "at": "2026-07-12T20:15:26.706Z"
+      },
+      {
+        "id": "1783851313302-1-ttha8",
+        "url": "/api/img/1783851313302-1-ttha8.png",
+        "angle": "Front, straight-on, eye-level hero",
+        "prompt": "Photographed on a Canon EOS R5 with an 85mm f/1.8 prime at f/2.2, Kodak Portra 400-style warm-neutral matte colour treatment, gentle highlight roll-off, fine grain, no HDR sharpness. Front, straight-on, eye-level hero photograph of the product exactly as in the reference image, reproduced with its true shape, scale, packaging colour, logo, label placement and finish locked to the upload. Brand/playbook read applied: Thejoonshop normally shoots restrained, intimate, Korean-beauty-adjacent solid fragrance imagery on white, warm off-white, cream and beige surfaces with sparse styling, close crops, tactile balm/packaging detail, product-only or body-detail compositions; for this client request, that restraint is translated into a clean colour-matched studio campaign frame, with the whole backdrop sampled from the product’s dominant packaging hue and kept as one seamless edge-to-edge colour field, very slightly deeper or lighter than the product so the real packaging separates clearly. The product sits physically grounded on a warm off-white vanity or linen surface in the foreground, with real contact shadow and a faint surface texture, while the visible background remains a single uniform colour-matched studio field with no environment, no gradient and no split colour-block. Around the base, arrange an artful, sparse scatter of only the product’s true key ingredients as visible or named in the reference/product formula, laid across the surface in front and around it like a deconstructed recipe; each ingredient is sharp, identifiable, naturally scaled and not cluttered. Use hard direct flash with a bold contemporary edge: crisp, directional shadows falling consistently behind and to one side, punchy but controlled highlights on the packaging, deep open shadows, warm-neutral matte grade and low saturation. Product-only frame, no hands or humans. Composition is campaign-grade but clean: centered product fidelity, generous negative space, ingredient scatter kept low and editorial, background clean to every edge. Honest camera imperfection: one hard-edged flash shadow visible on the surface. Real photographic materials, true reflections and texture, product not floating, label and logo legible and undistorted.",
+        "negatives": [
+          "no warped or invented text",
+          "no misspelled or duplicated logo",
+          "no changed product shape, colour, label, cap, lid or packaging design",
+          "no human, no model, no hand, no fingers, no arms, no body parts",
+          "no gradient void",
+          "no floating product",
+          "no pedestal, plinth or podium",
+          "no concentric spotlight halo",
+          "no random geometric props",
+          "no fake CGI or plastic render look",
+          "no flat sourceless lighting",
+          "no cluttered ingredient pile",
+          "no invented ingredient types not visible or named in the reference/product formula",
+          "no impossible reflections",
+          "no extra products",
+          "no studio equipment visible"
+        ],
+        "panel": {
+          "background": "Pure black",
+          "vibe": "",
+          "lighting": "",
+          "composition": "",
+          "format": ""
+        },
+        "mode": "model-photoshoot",
+        "decision": "keep",
+        "at": "2026-07-12T20:15:23.277Z"
+      },
+      {
+        "id": "1783851313302-2-60bv0",
+        "url": "/api/img/1783851313302-2-60bv0.png",
+        "angle": "Top-down flat-lay macro detail",
+        "prompt": "Photographed from directly overhead on a Sony A7 IV with a 50mm macro lens at f/2.8, Fujifilm Pro 400H-inspired soft warm-neutral film treatment, gentle contrast, fine grain, no digital over-sharpening. True 90-degree top-down flat-lay macro detail photograph of the product exactly as in the reference image, laid flat or positioned as naturally as the real product allows, with its exact packaging colour, logo, label, finish, proportions and edges preserved. The entire visible studio background is one seamless edge-to-edge colour field sampled from the product’s dominant packaging hue, adjusted only slightly lighter or deeper so the product remains distinct; beneath the product, use a warm off-white vanity or linen surface plane that reads as the clean foreground surface while maintaining the colour-matched campaign world. Build an ingredient flat-lay treatment: the product is surrounded by a restrained, artful scatter of its true key real ingredients as visible or named in the reference/product formula, arranged with negative space like a precise deconstructed recipe rather than a messy prop spread. Keep every ingredient sharp and identifiable, naturally scaled, with real shadows and contact. Use the same hard direct flash look as the hero shot, now seen from above: crisp directional ingredient shadows, punchy highlight edges on the product surface, deep but open shadow density, warm matte neutral grade, low saturation and contemporary editorial contrast. The crop is close enough to become a macro packaging-and-ingredient detail while still showing the product clearly; emphasize material edges, printed branding, packaging details, any opening/closure detail visible in the reference, and tactile surface texture without inventing new features. Product-only, no humans. Honest camera imperfection: the farthest edge of the linen/vanity surface falls very softly out of focus. Real photographic grounding, true material behaviour, clean frame, no visible lighting gear.",
+        "negatives": [
+          "no warped or invented text",
+          "no misspelled or duplicated logo",
+          "no changed product form, scale, colour, label, closure or finish",
+          "no human, no model, no hand, no fingers, no arms, no body parts",
+          "no frontal duplicate angle",
+          "no gradient background",
+          "no floating product",
+          "no plinth, pedestal or podium",
+          "no concentric halo",
+          "no random cubes, pebbles or geometric props",
+          "no arbitrary swirling fabric",
+          "no CGI render look",
+          "no plastic over-smoothed materials",
+          "no flat even sourceless light",
+          "no invented ingredient types not visible or named in the reference/product formula",
+          "no clutter",
+          "no impossible shadows",
+          "no studio equipment visible"
+        ],
+        "panel": {
+          "background": "Pure black",
+          "vibe": "",
+          "lighting": "",
+          "composition": "",
+          "format": ""
+        },
+        "mode": "model-photoshoot",
+        "decision": "keep",
+        "at": "2026-07-12T20:15:21.932Z"
+      },
+      {
+        "id": "1783851901639-2-m3ez9",
+        "url": "/api/img/1783851901639-2-m3ez9.png",
+        "angle": "Top-down 90° flat-lay macro detail",
+        "prompt": "Photographed directly overhead on a Canon EOS R5 with a 100mm macro lens at f/2.8, Fujifilm Pro 400H-inspired soft warm-neutral matte grade, fine grain, gentle contrast, no digital over-sharpening. A true 90° top-down flat-lay: the product exactly as in the reference image is laid flat on a seamless edge-to-edge studio surface in the exact dominant packaging hue sampled from the reference image, the background a single uniform colour field with no horizon line, no environment and no texture beyond real photographed matte paper. Crop close enough to make packaging material, edges, corners, opening/closing mechanism and branding feel tactile, while still keeping the full product identity clear and legible. Surround it with a restrained ingredient flat-lay scatter using only the product’s real key ingredients if identifiable from the reference or supplied product information; place each ingredient sharply and intentionally in the same plane, leaving calm negative space in Thejoonshop’s minimal beauty-fragrance language. Use hard direct flash from a consistent direction: small crisp shadows tucked under the product and ingredients, punchy highlights on any raised packaging details, deep but open shadow density, warm highlights and a matte premium finish. The product remains grounded against the surface and never floats. One honest camera imperfection: the farthest product edge falls just slightly soft from the shallow macro plane.",
+        "negatives": [
+          "no human, no model, no hand, no fingers, no wrist, no arm, no leg, no foot, no body part",
+          "do not invent the product form; keep the product exactly as in the reference image",
+          "no incorrect logo, illegible brand mark, warped label, duplicated typography or invented packaging text",
+          "no angled front view masquerading as top-down; must be a true 90° overhead flat-lay",
+          "no environment, no horizon, no wall-floor seam, no marble, wood, stone, linen, vanity or tray",
+          "no random props, no geometric objects, no decorative scatter unrelated to real ingredients",
+          "no gradient background, no colour split, no spotlight halo, no pedestal, no floating object",
+          "no visible lighting equipment, no flash head, no cables, no tripod",
+          "no CGI/plastic look, no melted geometry, no impossible shadows, no sourceless flat lighting"
+        ],
+        "panel": {
+          "background": "Pure black",
+          "vibe": "",
+          "lighting": "",
+          "composition": "",
+          "format": ""
+        },
+        "mode": "model-photoshoot",
+        "decision": "keep",
+        "at": "2026-07-12T20:15:16.947Z"
+      },
+      {
+        "id": "1783851901639-3-ontcv",
+        "url": "/api/img/1783851901639-3-ontcv.png",
+        "angle": "Side profile macro close-up",
+        "prompt": "Photographed on a Sony A7R V with a 90mm macro lens at f/2, Kodak Portra 400-inspired warm-neutral matte campaign grade, soft highlight roll-off, fine film grain, no HDR. A dramatic left side profile macro close-up of the product exactly as in the reference image, placed on the same seamless edge-to-edge studio colour field sampled from the product’s dominant packaging hue and adjusted subtly for separation. Frame tight and editorial: show the product’s side silhouette, thickness, edge construction, corners, material finish, closure detail and any visible side branding or label elements exactly as they are in the reference, without inventing design details. The surface and background remain one continuous uniform colour field, clean to every edge. Keep ingredient styling extremely restrained: a few true key ingredient pieces, only if identifiable, sit low and slightly forward in the side-profile plane, sharp enough to be recognisable but secondary to the product’s material detail. Lighting stays consistent with the set: hard direct flash creates a crisp lateral contact shadow, bright controlled edge highlights and deep open shadow falloff, balanced by Thejoonshop’s warm, low-saturation, tactile fragrance-beauty restraint. The product is physically grounded, with realistic contact and scale. One honest camera imperfection: a faint real smudge or fingerprint on the non-label surface catches the flash subtly, without obscuring branding or altering the product.",
+        "negatives": [
+          "no human, no model, no hand, no fingers, no wrist, no arm, no leg, no foot, no body part",
+          "do not change product silhouette, colour, label, cap, closure, form, proportions or material; match the reference image exactly",
+          "no front-facing catalogue duplicate; this must be a genuine left side profile macro close-up",
+          "no invented side text, warped logo, duplicated label, melted edges or extra packaging parts",
+          "no gradient void, no horizon seam, no textured lifestyle environment, no vanity, no bathroom, no linen, no handbag scene",
+          "no podium, plinth, pedestal, floating product, geometric props, pebbles, confetti, fake bokeh or spotlight halo",
+          "no unrelated ingredients or decorative props; only real key ingredients if identifiable",
+          "no visible studio equipment, light stands, flash units, umbrellas, reflectors, cables or tripod",
+          "no glossy CGI render, plastic look, waxy surface, impossible reflection, flat sourceless lighting or over-clean clinical finish"
+        ],
+        "panel": {
+          "background": "Pure black",
+          "vibe": "",
+          "lighting": "",
+          "composition": "",
+          "format": ""
+        },
+        "mode": "model-photoshoot",
+        "decision": "keep",
+        "at": "2026-07-12T20:15:15.522Z"
+      },
+      {
+        "id": "1783850975895-1-g0gyj",
+        "url": "/api/img/1783850975895-1-g0gyj.png",
+        "angle": "Front, straight-on, eye level",
+        "prompt": "Front, straight-on, eye-level hero. Photographed on a Canon EOS R5 with an RF 85mm f/1.8 lens at f/2.2, Kodak Portra 400-inspired warm-neutral matte colour treatment, gentle highlight roll-off, fine grain, no HDR sharpness. Brand and category read before shooting: Thejoonshop’s real world is restrained Korean-beauty-adjacent solid-fragrance photography — clean white, warm off-white, cream and pale beige, sparse product-only compositions, intimate portable ritual cues, soft neutral grade, tactile close crops, negative space, and no loud perfume glamour; the fragrance playbook is treated through solid perfume, so the product must feel intimate, portable, skin-close, sensorial and object-led rather than like a spray bottle campaign. For this client-directed set, override the brand’s usual beige-white environment with a deliberate colour-matched studio field: place the product exactly as in the reference image upright and grounded on a seamless edge-to-edge studio surface whose entire visible background is one uniform hue sampled from the product packaging’s dominant colour, adjusted only slightly deeper or lighter so the real product separates clearly. No props, no ingredients, no hands, no body parts, no environment: the product is the sole subject. Use hard direct flash as a real photographic effect: punchy highlight on the product material, a crisp directional contact shadow falling behind and slightly to one side, deep but still open shadows, warm-neutral matte grade so it remains Thejoonshop-soft rather than glossy or loud. Keep the composition clean and campaign-grade with generous negative space, the product centred with a barely off-centre placement as the single honest imperfection. Reproduce the product exactly as in the reference image: exact shape, scale, packaging colour, label, logo, typography, edges, cap or closure, and finish; all visible branding must be sharp, correctly spelled and undistorted. Real photographed materials, true contact shadow, no CGI sheen.",
+        "negatives": [
+          "no warped, invented, misspelled, duplicated or illegible logo or label text",
+          "no change to the product shape, closure, proportions, colour, finish or design from the reference image",
+          "no floating product, no missing contact shadow, no impossible reflection",
+          "no hands, fingers, arms, legs, faces, bodies, models or any human body part",
+          "no ingredient scatter, botanicals, flowers, stones, geometric props, trays, plinths, podiums or scene objects",
+          "no gradient void, concentric spotlight halo, colour-block split, textured environment or background edge",
+          "no flat sourceless light; the flash shadow must have one coherent direction",
+          "no plastic CGI-render look, over-smoothed surfaces, HDR crispness or artificial gloss",
+          "no extra caps, duplicated products, melted geometry, warped edges or invented mechanisms"
+        ],
+        "panel": {
+          "background": "Pure black",
+          "vibe": "",
+          "lighting": "",
+          "composition": "",
+          "format": ""
+        },
+        "mode": "model-photoshoot",
+        "decision": "keep",
+        "at": "2026-07-12T19:50:10.590Z"
+      },
+      {
+        "id": "1783850975895-2-gok3a",
+        "url": "/api/img/1783850975895-2-gok3a.png",
+        "angle": "Top-down flat-lay",
+        "prompt": "Top-down flat-lay, true 90-degree overhead. Photographed on a Sony A7 IV with a 50mm macro lens at f/2.8, Fujifilm Pro 400H-inspired warm neutral matte grade, soft highlight roll-off, fine grain, realistic optical falloff. Lay the product exactly as in the reference image flat on a seamless edge-to-edge studio colour field: the entire surface and background are one single uniform tone sampled from the dominant packaging colour in the reference image, shifted only subtly lighter or darker to preserve separation. The frame is product-only with no hands, no body parts, no ingredients and no props; editorial energy comes from the graphic overhead geometry, exact colour match, negative space and hard-flash shadow. Use hard direct flash from one consistent direction as a photographic effect, creating a defined compact shadow tucked to one side of the product while keeping the shadows deep but open and the grade warm-neutral matte, never glossy. Compose asymmetrically with the product placed in the lower third or upper third, leaving a clean expanse of matching colour around it for campaign-like restraint. The product must remain exactly faithful to the reference image: same visible top face or visible side depending on the actual reference orientation, exact packaging colour, label, logo, typography, finish, edges and scale. The single honest camera imperfection is fine film grain only. Real contact with the surface, physically plausible shadow, true material behaviour, no rendered look.",
+        "negatives": [
+          "no invented form, recoloured packaging, restyled label, altered typography or changed logo",
+          "no warped, duplicated, misspelled or unreadable branding",
+          "no near-front perspective; this must be a true 90-degree overhead flat-lay",
+          "no hands, fingers, arms, wrists, faces, bodies or any human presence",
+          "no ingredient scatter, flowers, herbs, fruit, powder, balm smears, trays, fabric, bathroom objects or handbag objects",
+          "no multi-colour background, no gradient, no horizon line, no room, no surface texture, no props",
+          "no floating product; it must lie flat with a believable contact shadow",
+          "no plastic CGI look, no over-sharpened HDR, no synthetic reflections",
+          "no random geometric objects, plinths, podiums, spotlight halo or confetti bokeh"
+        ],
+        "panel": {
+          "background": "Pure black",
+          "vibe": "",
+          "lighting": "",
+          "composition": "",
+          "format": ""
+        },
+        "mode": "model-photoshoot",
+        "decision": "keep",
+        "at": "2026-07-12T19:50:09.361Z"
+      },
+      {
+        "id": "1783850975895-3-jga8j",
+        "url": "/api/img/1783850975895-3-jga8j.png",
+        "angle": "Macro close-up, side-profile detail",
+        "prompt": "Macro close-up, side-profile detail. Photographed on a Nikon Z8 with a 105mm macro lens at f/2.8, Kodak Portra 400-inspired warm-neutral matte colour treatment, gentle contrast, fine grain, no digital over-sharpening. Shoot the product exactly as in the reference image from a close side-profile detail angle, tight enough to study the real material edge, corner, closure seam, packaging finish, logo area or label detail that is actually visible in the reference, without inventing any mechanism or opening that is not shown. The entire frame remains a single seamless edge-to-edge studio colour field sampled from the product packaging’s dominant hue, very slightly adjusted lighter or deeper so the product separates; no environment, no texture, no props, no ingredients, no human body parts. Use the same hard direct flash language as the set: a punchy controlled highlight skimming the product’s tactile material, a crisp directional shadow compressed close to the product, deep but open shadows, warm-neutral matte grade that keeps the brand quiet and premium rather than loud. Depth of field is shallow but believable, with the visible brand mark or material detail sharp and the far edge softly out of focus as the single honest camera imperfection. Preserve product fidelity absolutely: exact shape, colour, label, logo, scale, finish, seams, edges and closure as in the reference image; all visible text must remain legible and correctly spelled. Real photographed contact, true material response, no CGI render.",
+        "negatives": [
+          "no invented macro details, no fake opening, no added balm texture, no added liquid, no added swatch unless visible in the reference product",
+          "no warped, misspelled, duplicated, stretched or illegible label or logo",
+          "no alteration to the product’s real shape, colour, finish, seam, edge, closure or proportions",
+          "no hands, fingers, skin, wrists, faces, bodies or any human body part",
+          "no ingredients, botanicals, flowers, fruit, powders, stones, trays, plinths, fabric or lifestyle props",
+          "no gradient background, no split colour, no textured surface, no room setting, no spotlight halo",
+          "no flat even sourceless lighting; maintain one hard-flash direction with coherent shadow",
+          "no floating product, no missing contact, no impossible shadow or reflection",
+          "no CGI gloss, waxy smoothing, plastic render, HDR sharpness or artificial depth blur"
+        ],
+        "panel": {
+          "background": "Pure black",
+          "vibe": "",
+          "lighting": "",
+          "composition": "",
+          "format": ""
+        },
+        "mode": "model-photoshoot",
+        "decision": "keep",
+        "at": "2026-07-12T19:50:08.381Z"
+      },
+      {
+        "id": "1783851081235-3-49eaf",
+        "url": "/api/img/1783851081235-3-49eaf.png",
+        "angle": "Macro close-up, left side profile",
+        "prompt": "Photographed on a Nikon Z8 with a 105mm f/2.8 macro lens from the product’s left side profile at close range, shallow depth of field focused on the most important real branding, edge, closure, label, material seam or packaging detail visible in the reference, Kodak Portra 400-inspired warm-neutral matte colour treatment with gentle highlight roll-off and no HDR; the single honest camera imperfection is the far rear edge of the frame falling softly out of focus. Frame the product exactly as in the reference image in a dramatic macro left-side profile crop, close enough to make the packaging material, edge, corner, label print, closure detail or surface finish feel tactile, without inventing any unseen interior, mechanism, balm texture, logo, ingredient, open state or design element. The whole background is still the same seamless matte studio colour sampled from the product’s dominant packaging hue, slightly shifted deeper or lighter for clean separation, filling every edge of the frame. Let a few confirmed real ingredients/aroma-note materials sit low in the foreground and background along the same colour field, identifiable where in focus but secondary, creating a deconstructed formula context without clutter. Lighting effect is hard direct flash from front-side/side: punchy highlight tracing the packaging edge, deep but open side shadow, crisp contact shadow where the product meets the surface, warm-neutral matte grade, low saturation, gentle contrast. Product-only, intimate and tactile in Thejoonshop’s restrained fragrance language: no hands, no model, no body detail. Preserve the uploaded product exactly, including scale, finish, colour, label, typography and all brand marks.",
+        "negatives": [
+          "no frontal hero repeat; must read as macro close-up plus left side profile",
+          "no invented product form, open compact, balm surface, bottle, spray, applicator, cap, lid or mechanism unless present in the reference",
+          "no warped, distorted, duplicated, misspelled or fake logo/label text",
+          "no recolouring of the product; only the seamless background hue is sampled and slightly shifted for separation",
+          "no human, model, hand, fingers, wrist, skin, neck, ear, face, arm, leg or foot",
+          "no gradient void, spotlight halo, podium, plinth or floating product",
+          "no random geometric props, pebbles, cubes, confetti, bokeh or fabric swirl",
+          "no unconfirmed ingredient scatter, fake botanicals or unrelated recipe items",
+          "no CGI, waxy, plastic, over-smoothed, over-glossy or HDR render look",
+          "no flat sourceless light or mismatched shadow directions"
+        ],
+        "panel": {
+          "background": "Pure black",
+          "vibe": "",
+          "lighting": "",
+          "composition": "",
+          "format": ""
+        },
+        "mode": "model-photoshoot",
+        "decision": "keep",
+        "at": "2026-07-12T19:50:07.115Z"
+      },
+      {
+        "id": "1783851081235-2-ki42g",
+        "url": "/api/img/1783851081235-2-ki42g.png",
+        "angle": "Top-down flat-lay",
+        "prompt": "Photographed on a Sony A7R V with a 50mm f/2.8 macro prime from a true 90-degree overhead position, sensor plane parallel to the surface for flat-lay clarity, Fujifilm Pro 400H-inspired warm-neutral matte colour treatment with gentle highlight roll-off and no HDR; the single honest camera imperfection is one crisp hard-edged flash shadow cast by the product and ingredients. Lay the product exactly as in the reference image flat or in the most reference-faithful overhead-readable orientation without opening, bending, restyling or altering it unless the reference already shows that state. The entire visible background and surface are one uninterrupted seamless matte studio colour sampled from the product’s dominant packaging hue, adjusted just enough darker or lighter for separation; no environment, no texture, no split colour block. Build an ingredient flat-lay around the product using only confirmed real key ingredients/aroma-note materials from the reference/product information, spaced with editorial restraint in a loose asymmetric orbit so the product remains the hero and the full frame still reads as a clean colour-matched studio composition. Keep every ingredient sharp and identifiable from above, arranged like a refined deconstructed formula rather than decorative clutter. Lighting effect is hard direct flash with a bold contemporary feel: clean bright top highlights, defined shadows that all fall in the same direction, deep but open tonal separation, warm-neutral matte grade, low saturation, gentle contrast. Maintain Thejoonshop restraint through negative space, sparse styling and intimate product-only tactility. No person, no hand, no body part anywhere. Product fidelity is absolute: the product remains exactly as in the uploaded reference with correct logo, label, finish, proportions and colour.",
+        "negatives": [
+          "no near-front camera angle; must be a true 90-degree top-down flat-lay",
+          "no warped, invented, misspelled or duplicated branding, logo or label text",
+          "no altered packaging form, no added hinge, cap, lid, applicator, bottle, spray or compact feature not visible in the reference",
+          "no human, model, hands, fingers, wrist, arm, legs, feet or any body part",
+          "no gradient, no colour-block split, no textured environment, no vanity scene, no bathroom, no linen, no tray",
+          "no podium, plinth, floating product, geometric props, confetti, pebbles or arbitrary decorative objects",
+          "no unconfirmed ingredients, fake botanicals or random food items unrelated to the product",
+          "no messy ingredient pile; keep scatter curated and brand-minimal",
+          "no CGI render, plastic gloss, over-sharpened artificial edges or HDR look",
+          "no inconsistent shadows or multiple light directions"
+        ],
+        "panel": {
+          "background": "Pure black",
+          "vibe": "",
+          "lighting": "",
+          "composition": "",
+          "format": ""
+        },
+        "mode": "model-photoshoot",
+        "decision": "keep",
+        "at": "2026-07-12T19:50:06.199Z"
+      },
+      {
+        "id": "1783851081235-1-m1q8x",
+        "url": "/api/img/1783851081235-1-m1q8x.png",
+        "angle": "Front, straight-on, eye level",
+        "prompt": "Photographed on a Canon EOS R5 with an 85mm f/2.0 prime, eye-level and straight-on, Kodak Portra 400-inspired warm-neutral matte colour treatment with gentle highlight roll-off, low saturation, open contrast, no HDR; the single honest camera imperfection is very fine film grain. Brand and category read before shooting: Thejoonshop’s real photography is restrained, clean, intimate and product-led, usually white/off-white/cream/beige, sparse styling, soft warm grade, negative space, tactile close crops and no full-face model campaign energy; the fragrance playbook applies because this is a solid perfume, so the shot must feel sensorial, intimate, premium, portable and tactile while preserving the product exactly as in the reference image. For this client-directed set, override the usual cream world with a deliberate clean colour-matched studio field: the entire frame is one seamless, edge-to-edge matte studio colour sampled from the product’s dominant packaging hue, adjusted only slightly deeper or lighter so the product separates clearly. Place the product exactly as in the reference image upright and grounded on the seamless surface with a real contact shadow, label/logo/packaging marks sharp and correct. Surround it with an artful low scatter of only the product’s confirmed real key ingredients/aroma-note materials visible from the reference or supplied product information, arranged in front and around the product like a restrained deconstructed recipe, each ingredient identifiable but sparse enough to keep Thejoonshop negative space. Light by the effect of hard direct flash from the camera/front-side: punchy contemporary highlights on packaging edges, deep but open shadows falling consistently behind and to one side, warm-neutral matte grade, not glossy or loud. Product only: no human presence, no hands, no model, no body parts. Real photographed set, true material behaviour, product exactly as in reference, no reshaping, recolouring, relabelling or invented design.",
+        "negatives": [
+          "no warped, misspelled, duplicated or invented label text or logo",
+          "no change to the product form, colour, cap, closure, label, scale or packaging design",
+          "no human, model, hand, fingers, arm, leg, foot, face or body part",
+          "no gradient void, no concentric spotlight halo, no podium, no plinth, no floating product",
+          "no random geometric props, cubes, pebbles, confetti, bokeh or arbitrary fabric swirls",
+          "no ingredients unless they are confirmed real product ingredients or notes from the reference/product information",
+          "no cluttered recipe mess; keep ingredient scatter sparse, sharp and intentional",
+          "no CGI, plastic render, waxy surface, over-smoothed texture, HDR or digital over-sharpening",
+          "no sourceless flat lighting; shadows must match the hard direct flash logic",
+          "no extra duplicate products or merged/morphed packaging"
+        ],
+        "panel": {
+          "background": "Pure black",
+          "vibe": "",
+          "lighting": "",
+          "composition": "",
+          "format": ""
+        },
+        "mode": "model-photoshoot",
+        "decision": "keep",
+        "at": "2026-07-12T19:50:04.731Z"
+      },
+      {
+        "id": "1783851487024-1-8evb7",
+        "url": "/api/img/1783851487024-1-8evb7.png",
+        "angle": "Top-down flat-lay macro detail",
+        "prompt": "Photographed directly from above on a Canon EOS R5 with a 50mm macro lens at f/2.8, Kodak Portra 400 colour treatment, gentle warm highlight roll-off, fine grain, no HDR, no digital over-sharpening. Brand and category read: Thejoonshop’s real photographic world is restrained, warm-neutral, product-led, minimal and tactile, with clean white/off-white/beige fields, sparse styling, soft premium contrast and close crops; the fragrance/solid-perfume playbook prioritises intimate object scale, sensorial balm tactility, legible branding, premium restraint and physically real materials. For this single campaign frame, execute the client’s clean colour-matched studio direction exactly: the product exactly as in the reference image, laid flat, shot from a true 90-degree top-down angle, centred slightly off-centre within generous negative space. The entire frame is one seamless, edge-to-edge studio colour field sampled from the product’s dominant packaging colour in the reference image, adjusted only slightly lighter or deeper so the product separates clearly while still reading as colour-matched. No environment, no texture, no props, no ingredients, no tray, no hands, no body parts. Use a bold contemporary direct-flash look by its visible effect only: punchy controlled highlights on the product’s real material, a crisp directional shadow tucked close to the product edge, deep but open shadows, warm-neutral matte grade, low saturation, gentle contrast. Preserve the product exactly as in the reference image: same form, same packaging colour, same label placement, same logo, same typography, same finish, same open/closed state, no redesign. The product is grounded on the colour field with a real contact shadow, not floating. Make the label and branding sharp and legible, with true material behaviour and a photographed finish. Honest camera imperfection: fine film grain only.",
+        "negatives": [
+          "no warped or invented text",
+          "no misspelled logo",
+          "no duplicated logo",
+          "no changed label layout",
+          "no recoloured product",
+          "no reshaped product",
+          "no extra cap, lid, hinge, pump, bottle, tube or accessory",
+          "no hands",
+          "no fingers",
+          "no arms",
+          "no legs",
+          "no feet",
+          "no person",
+          "no model",
+          "no skin or body part",
+          "no ingredient scatter",
+          "no flowers",
+          "no fruit",
+          "no herbs",
+          "no props",
+          "no ceramic tray",
+          "no linen",
+          "no towel",
+          "no handbag objects",
+          "no textured environment",
+          "no colour-block split",
+          "no gradient void",
+          "no concentric spotlight halo",
+          "no podium",
+          "no plinth",
+          "no floating product",
+          "no random geometric props",
+          "no CGI render look",
+          "no plastic sheen",
+          "no sourceless flat lighting",
+          "no impossible reflections",
+          "no clutter",
+          "no visible studio equipment"
+        ],
+        "panel": {
+          "background": "Pure black",
+          "vibe": "",
+          "lighting": "",
+          "composition": "",
+          "format": ""
+        },
+        "mode": "model-photoshoot",
+        "decision": "keep",
+        "at": "2026-07-12T19:49:57.365Z"
+      },
+      {
+        "id": "1783851901639-1-np7ov",
+        "url": "/api/img/1783851901639-1-np7ov.png",
+        "angle": "Front, straight-on, eye-level hero",
+        "prompt": "Photographed on a Nikon Z8 with a 105mm macro lens at f/2.2, Kodak Portra 400-inspired warm-neutral matte colour treatment, gentle highlight roll-off, fine grain, no HDR sharpness. Brand/category read applied: Thejoonshop’s real world is restrained Korean-beauty-adjacent solid fragrance photography — white, warm off-white, cream and pale beige restraint, sparse product-only styling, tactile balm/material detail, close crops, negative space, soft premium warmth — while the fragrance playbook prioritises packaging fidelity, sensorial material detail, intimacy and premium still-life restraint. For this client-directed concept, make the entire frame a seamless edge-to-edge studio colour field sampled from the product’s dominant packaging colour in the reference image, adjusted only slightly deeper or lighter so the product separates cleanly. The product exactly as in the reference image stands upright as the sole hero, centred but with confident negative space, all real branding and label details legible and undistorted. Around the base, arrange a sparse, artful scatter of the product’s true key ingredients only if identifiable from the reference or product data, laid low across the same colour-matched surface like a deconstructed formula; keep them tonal, minimal and secondary so the frame still reads as one clean colour-matched studio field. Lighting has the punch of hard direct flash: crisp contact shadow behind and slightly to one side, punchy but controlled highlights on tactile packaging edges, deep but open shadows, warm matte grade, nothing glossy or loud. Product sits physically on the seamless surface with a real contact shadow. One honest camera imperfection: a single hard-edged shadow from the product is visible on the colour field.",
+        "negatives": [
+          "no human, no model, no hand, no fingers, no wrist, no arm, no leg, no foot, no body part",
+          "do not alter, reshape, recolour, relabel, rename or redesign the product; reproduce the product exactly as in the reference image",
+          "no warped text, invented text, misspelled logo, duplicated logo or distorted label",
+          "no gradient void, no split colour-block, no textured environment, no bathroom, no vanity, no linen, no ceramic tray unless present as the product itself",
+          "no podium, plinth, pedestal, floating product, concentric spotlight halo, geometric cubes, random pebbles, confetti bokeh or arbitrary swirling fabric",
+          "no unrelated props; only true key ingredients if identifiable and requested",
+          "no softbox, lamp, light stand, cable, reflector, umbrella, tripod or visible studio equipment",
+          "no CGI render, plastic render, waxy material, over-smoothed edges, impossible reflections or sourceless flat light"
+        ],
+        "panel": {
+          "background": "Pure black",
+          "vibe": "",
+          "lighting": "",
+          "composition": "",
+          "format": ""
+        },
+        "mode": "model-photoshoot",
+        "decision": "keep",
+        "at": "2026-07-12T19:49:53.965Z"
+      },
+      {
+        "id": "1783852254307-1-ovafa",
+        "url": "/api/img/1783852254307-1-ovafa.png",
+        "angle": "Top-down flat-lay",
+        "prompt": "Photographed directly overhead as a true 90° flat-lay on a Canon EOS R5 with a 100mm macro lens at f/2.8, Kodak Portra 400-inspired warm-neutral matte colour treatment, gentle highlight roll-off, fine film grain, no digital over-sharpening. Brand and category read: Thejoonshop shoots restrained Korean-beauty-adjacent solid perfume as intimate, tactile, product-first still life on clean white, warm off-white, cream and beige worlds with sparse styling, negative space, close crops and soft premium restraint; the fragrance/solid-balm playbook requires the compact balm object to feel real, portable, sensorial, skin-close and never like a spray-perfume cliché. For this shot, place the product exactly as in the reference image, preserving its exact form, proportions, label, logo, finish and dominant packaging colour. The entire frame is one seamless edge-to-edge matte studio colour field sampled from the product’s own dominant packaging hue, adjusted only slightly deeper or lighter so the product separates clearly; no horizon line, no texture, no environment. Product laid flat or resting naturally as its reference geometry allows, centered with deliberate negative space. Around the product, create a sparse artful deconstructed-ingredient flat-lay using only the product’s verified real key ingredients from the reference or supplied product information, arranged in a restrained crescent in front of and around it; each ingredient is clean, sharp, identifiable and tonally disciplined within the colour-matched world, never random clutter. Lighting has a bold direct-flash editorial effect from the front-side: punchy compact highlights, one clean hard-edged shadow, deep but open shadows, warm-neutral matte grade, tactile material definition, no glossy loudness. The product is physically grounded on the matte surface with a real contact shadow. Campaign-grade minimal colour-block editorial still life, product-only, no person, no hands, no body parts, no extra props beyond the verified ingredients, true photographic material behaviour, legible correct branding.",
+        "negatives": [
+          "no warped, misspelled, invented, duplicated or illegible label text",
+          "no changed product shape, colour, packaging, cap, hinge, opening, logo or proportions",
+          "no invented fragrance name or invented packaging design",
+          "no humans, no model, no hand, no fingers, no arms, no legs, no feet, no skin or body part",
+          "no environment, no room, no vanity scene, no linen, no ceramic tray, no handbag, no horizon line",
+          "no gradient void, no spotlight halo, no concentric glow, no podium, no plinth",
+          "no random geometric props, cubes, pebbles, confetti, bokeh or swirling fabric",
+          "no unrelated ingredients, no fake botanicals, no ingredient clutter, no food props unless verified for this exact product",
+          "no glossy CGI render, no waxy plastic look, no 3D product mockup",
+          "no floating product, no missing contact shadow, no impossible shadow direction",
+          "no flat sourceless lighting, no over-HDR sharpness, no clinical spotless render",
+          "no physical light, flash unit, softbox, stand, cable, reflector, tripod or studio equipment visible"
+        ],
+        "panel": {
+          "background": "Pure black",
+          "vibe": "",
+          "lighting": "",
+          "composition": "",
+          "format": ""
+        },
+        "mode": "model-photoshoot",
+        "decision": "keep",
+        "at": "2026-07-12T19:49:52.282Z"
+      },
+      {
+        "id": "1783853165095-1-gnnkx",
+        "url": "/api/img/1783853165095-1-gnnkx.png",
+        "angle": "Top-down flat-lay macro detail",
+        "prompt": "Photographed directly overhead as a true 90° top-down flat-lay macro campaign frame on a Canon EOS R5 with a 100mm macro lens at f/2.8, Kodak Portra 400-inspired warm-neutral matte colour treatment, gentle highlight roll-off, fine film grain, no HDR and no digital over-sharpening. Brand and category read: Thejoonshop normally lives in clean white, warm off-white, cream and pale beige product-only compositions with sparse styling, intimate macro crops, soft neutral grading and tactile cosmetic restraint; the product routes to the fragrance playbook as a solid perfume, so the shot must feel sensorial, portable, intimate, skin-adjacent and premium while keeping the actual uploaded product exact. For this client direction, override the usual off-white world with a deliberate bold colour-matched studio flat-lay: the product exactly as in the reference image, unchanged in form, scale, label, logo, packaging colour and finish, laid flat and perfectly grounded on a seamless edge-to-edge matte studio colour field sampled from the dominant colour of the product packaging, shifted only slightly lighter or deeper so the product separates cleanly. The entire frame is this one uniform hue, with no horizon line, no environment, no texture, no colour-block split and no scene beyond the colour field. Around the product, create a sparse artful scatter of its verified key real ingredients only, taken from the packaging/reference or known product brief, laid across the same colour surface in front of and around it like a deconstructed recipe; each ingredient is sharp, physically real, identifiable, and arranged with Thejoonshop restraint rather than clutter. Use a hard direct flash effect from the upper front-side: crisp defined ingredient shadows, punchy controlled highlights on the packaging, deep but open shadows, warm-neutral matte grade, low saturation, gentle contrast. Keep the crop editorial and close, with considered negative space, product as the sole hero, ingredient pieces secondary and tonal, label and brand marks completely legible. Real photographed materials, true contact shadows under product and ingredients, no floating, no CGI render, no glossy loud finish.",
+        "negatives": [
+          "no person, model, hand, fingers, arm, leg, foot, face, wrist, neck or any body part",
+          "no invented product form, no reshaped packaging, no recoloured product, no altered cap, hinge, lid, label, logo or typography",
+          "no warped, misspelled, duplicated, smeared or illegible label text",
+          "no ingredients unless they are verified from the reference, packaging or product brief",
+          "no random flowers, herbs, fruit, powders or decorative props unrelated to the product",
+          "no environment, no bathroom, no vanity, no linen, no tray, no handbag, no wall, no horizon, no tabletop edge",
+          "no gradient void, no colour-block split, no texture, no patterned surface, no marble, no stone, no wood",
+          "no podium, plinth, pedestal, cubes, pebbles, geometric props, confetti, bokeh, smoke or swirling fabric",
+          "no concentric spotlight halo",
+          "no flat sourceless lighting",
+          "no softbox, light stand, reflector, cable, tripod or studio equipment visible",
+          "no plastic CGI-render look, no waxy smoothing, no over-sharpened HDR finish",
+          "no floating product, no missing contact shadow, no impossible reflections"
+        ],
+        "panel": {
+          "background": "Pure black",
+          "vibe": "",
+          "lighting": "",
+          "composition": "",
+          "format": ""
+        },
+        "mode": "model-photoshoot",
+        "decision": "keep",
+        "at": "2026-07-12T19:49:50.762Z"
+      },
+      {
+        "id": "1783853390740-1-hfd46",
+        "url": "/api/img/1783853390740-1-hfd46.png",
+        "angle": "Top-down 90° flat-lay macro / high-angle ingredient colour-block",
+        "prompt": "Photographed directly overhead as a true 90° flat-lay macro campaign frame on a Canon EOS R5 with a 100mm macro lens at f/2.8, Kodak Portra 400-inspired warm-neutral matte colour treatment, gentle highlight roll-off, low saturation, controlled contrast and fine film grain as the single honest camera imperfection. Brand and category read applied: Thejoonshop’s real world is clean, intimate, Korean-beauty-adjacent solid fragrance photography on white, warm off-white, cream and pale beige surfaces, sparse styling, negative space, tactile balm/material detail and product-only ritual cues; the fragrance/solid-perfume playbook prioritises intimate scale, material tactility, legible branding, sensorial ingredients and premium restraint. For this client-directed frame, override the usual neutral brand background with a deliberate clean colour-matched studio field: sample the dominant packaging colour from the uploaded product reference and make the entire seamless surface and backdrop one uniform matte edge-to-edge colour in that exact hue, only fractionally lighter or deeper than the product so the product separates and pops. Place the product exactly as in the reference image, laid flat and centred slightly off the mathematical centre, with its real label, logo, proportions, packaging colour, finish and material fidelity preserved perfectly; do not alter, redesign, rename, recolour or reshape it. Surround it with an artful but sparse scatter of only its true key real ingredients from the product/reference/style reference, arranged like a deconstructed recipe across the surface in front of and around the product, each ingredient sharp, identifiable and physically grounded, with enough negative space that the composition stays premium rather than cluttered. Match the provided style reference for palette, prop spacing, direct-flash graphic attitude, overhead composition and ingredient styling. Lighting reads as hard direct flash by effect only: crisp directional contact shadows, punchy small highlights on tactile packaging edges and ingredient surfaces, deep but still open shadows, no visible lighting gear, no sourceless flatness. The whole frame remains a single clean studio colour field, not an environment, not a gradient and not a split colour-block; all objects sit on the same matte surface with real contact shadows. Campaign-grade editorial still life, product only, no humans, no hands, no body parts, no model, no lifestyle scene. Real photographic materials, true scale, believable depth, exact product fidelity, legible brand marks, natural shadow falloff, no digital HDR sharpness, no CGI/plastic render look.",
+        "negatives": [
+          "no hands, fingers, arms, legs, feet, face, model, person or any body part",
+          "no invented product shape, no altered packaging, no recoloured product, no redesigned cap or mechanism, no extra parts",
+          "no warped, misspelled, duplicated, invented or illegible label text or logo",
+          "no ingredients except the product's true key real ingredients from the reference or provided style reference",
+          "no random flowers, herbs, fruit, stones or decorative props unrelated to the real product",
+          "no textured environment, vanity, bathroom, linen, tray, plinth, pedestal, podium or lifestyle setting",
+          "no gradient void, no split background, no colour-block wall/floor seam, no concentric spotlight halo",
+          "no floating product, no missing contact shadows, no impossible shadows or inconsistent light direction",
+          "no flat even sourceless lighting; keep the direct-flash effect physically coherent",
+          "no glossy loud colour grade; keep warm-neutral matte restraint",
+          "no plastic CGI-render look, no over-smoothed surfaces, no waxy artificial material",
+          "no visible camera, tripod, softbox, lamp, reflector, cable, stand or studio equipment",
+          "no cluttered recipe mess; ingredient scatter must stay sparse, intentional and premium"
+        ],
+        "panel": {
+          "background": "Pure black",
+          "vibe": "",
+          "lighting": "",
+          "composition": "",
+          "format": ""
+        },
+        "mode": "model-photoshoot",
+        "decision": "keep",
+        "at": "2026-07-12T19:49:49.175Z"
+      },
+      {
+        "id": "1783853551100-3-wtcej",
+        "url": "/api/img/1783853551100-3-wtcej.png",
+        "angle": "Side profile macro close-up",
+        "prompt": "Photographed on a Sony A7R V with a 90mm macro lens at f/2, Kodak Portra 400 colour treatment with soft warm highlights, deep open blacks and fine film grain. A dramatic left side-profile macro close-up of the product exactly as in the reference image, cropped close enough to study its edge, material, closure detail, logo or label detail without changing or inventing any product form. The product sits grounded on the same matte true-black tactile surface, with the true-black background falling away into darkness; it emerges from shadow with campaign-level presence. In the near foreground and background, place a few verified real key ingredients from the product formula as sharp, identifiable fragments arranged around the base like a quiet deconstructed recipe, but keep the focus hierarchy on the product detail. Light reads as a hard direct-flash editorial rake across the side: punchy highlight catching the product edge, a crisp shadow cast along the black surface, deep but open falloff, warm-neutral matte grade and no loud gloss. Macro detail treatment: if the reference shows exposed solid balm, focus on its true solid waxy-cream surface and edge texture; otherwise focus on the product’s real material edge, branding, label, hinge, cap or packaging detail as visible in the upload. Label and logo details remain correct and legible where in focus. The only honest photographic imperfection is fine film grain. Real photographed macro, true material behaviour, real contact shadow, no synthetic smoothness.",
+        "negatives": [
+          "no humans, no hands, no fingers, no wrists, no neck, no face, no body parts",
+          "no front-view duplicate; must read as a left side-profile macro angle",
+          "no warped, misspelled, duplicated or invented text or logo",
+          "no altered product silhouette, cap, lid, hinge, compact, label, colour, finish or material",
+          "no invented exposed balm, open mechanism, liquid, droplet, perfume mist or spray behaviour",
+          "no unverified ingredients or generic decorative botanicals",
+          "no cluttered surface; ingredient scatter must remain sparse and identifiable",
+          "no floating object, no gradient void, no pedestal, no plinth",
+          "no concentric spotlight halo, no random geometric props, no fake bokeh confetti",
+          "no flat even sourceless lighting; keep one coherent hard direct-flash shadow logic",
+          "no glossy loud finish unless it is true to the reference product material",
+          "no CGI/plastic render look, no over-smoothed material, no impossible reflections"
+        ],
+        "panel": {
+          "background": "Pure black",
+          "vibe": "",
+          "lighting": "",
+          "composition": "",
+          "format": ""
+        },
+        "mode": "model-photoshoot",
+        "decision": "keep",
+        "at": "2026-07-12T19:49:47.757Z"
+      },
+      {
+        "id": "1783853551100-2-eppb4",
+        "url": "/api/img/1783853551100-2-eppb4.png",
+        "angle": "Top-down 90° flat-lay",
+        "prompt": "Photographed directly overhead on a Canon EOS R5 with a 100mm macro lens at f/2.8, Fujifilm Pro 400H colour treatment with warm-neutral matte contrast and fine film grain. A true 90° flat-lay: the product exactly as in the reference image is laid flat on a real matte true-black surface, with the whole frame reading black but tactile, not a digital void. Build an ingredient flat-lay treatment around it: its verified real key ingredients only, arranged in an artful deconstructed-recipe scatter across the surface in front of and around the product, with each ingredient distinct, identifiable and separated by confident negative space. Keep Thejoonshop restraint inside the black brief: sparse, intimate, cosmetic, portable, close-to-skin, no decorative excess. Light reads as a hard direct-flash editorial hit across the flat-lay plane, creating crisp ingredient shadows and a punchy highlight on the product while preserving deep open black shadows and a warm-neutral matte grade. The product label, logo and packaging details remain perfectly aligned to camera and legible; scale relationships between product and ingredients are believable. If balm texture is visible in the reference, show it as solid, tactile, waxy and moisturising with no liquid behaviour; if not visible, do not expose or open the product. The only honest photographic imperfection is fine film grain. Real contact, real shadows, real photographed overhead still life.",
+        "negatives": [
+          "no humans, no hands, no fingers, no wrists, no body parts",
+          "no angled pseudo-overhead view; must be a true 90° flat-lay",
+          "no warped, misspelled, duplicated or invented label text",
+          "no altered product form, packaging colour, logo, compact mechanism, lid, cap, hinge or finish",
+          "no invented open product state if the reference is closed",
+          "no unverified ingredient scatter, no random flowers, fruit, herbs or spices unless they are actual verified ingredients",
+          "no cluttered recipe mess; keep sparse and art-directed",
+          "no gradient background, no floating product, no plinth or pedestal",
+          "no concentric halo, no geometric props, no confetti bokeh",
+          "no flat sourceless light; shadows must match one coherent hard direct-flash logic",
+          "no glossy wet pours, perfume mist or spray cues for a solid perfume",
+          "no CGI render, plastic surfaces, impossible shadows or melted edges"
+        ],
+        "panel": {
+          "background": "Pure black",
+          "vibe": "",
+          "lighting": "",
+          "composition": "",
+          "format": ""
+        },
+        "mode": "model-photoshoot",
+        "decision": "keep",
+        "at": "2026-07-12T19:49:46.590Z"
+      },
+      {
+        "id": "1783853551100-1-7czlg",
+        "url": "/api/img/1783853551100-1-7czlg.png",
+        "angle": "Front, straight-on, eye level",
+        "prompt": "Photographed on a Nikon Z8 with a 105mm macro lens at f/2.2, Kodak Portra 400 colour treatment with gentle highlight roll-off and fine film grain. Brand study applied: Thejoonshop normally lives in sparse warm whites, cream vanity surfaces, intimate product-scale crops, soft neutral grade and minimal tactile styling; the fragrance / solid-perfume playbook keeps the product close, sensorial, portable, premium and never spray-like. For this client-directed set, translate that restraint into a true-black campaign still life: the product exactly as in the reference image, reproduced with identical geometry, label, logo, colour, finish and scale, standing grounded on a matte true-black tactile surface with a true-black background, emerging from darkness rather than floating. Surround it in front and around with an artful, sparse scatter of its verified real key ingredients only, each ingredient sharp, separate and identifiable like a deconstructed fragrance recipe; keep the scatter low and intentional, not cluttered. Light reads as a hard direct-flash editorial effect from the front-side: punchy controlled highlights on the product edges, deep but open shadows falling behind and to one side, warm-neutral matte grade, no glossy or loud styling. Eye-level straight-on framing, clean hero fidelity, generous negative space above, product centred but grounded with a real contact shadow. If exposed balm is visible in the reference, render its true solid waxy-cream texture exactly as shown; if the reference product is closed, keep it closed and do not invent an open mechanism. The only honest photographic imperfection is fine film grain. Real photographed set, true material behaviour, legible label, no CGI look.",
+        "negatives": [
+          "no humans, no hands, no fingers, no wrists, no body parts",
+          "no warped, misspelled, duplicated or invented label text",
+          "no altered product shape, colour, packaging, cap, hinge, lid, compact, label, logo or finish",
+          "no unverified ingredients, no generic decorative botanicals substituted for real ingredients",
+          "no floating product, no gradient void, no pedestal, no plinth",
+          "no concentric spotlight halo behind the product",
+          "no random geometric props, cubes, pebbles or confetti",
+          "no sourceless flat even lighting",
+          "no glossy loud styling that fights the warm-neutral matte grade",
+          "no perfume mist, spray cloud, atomizer cues or liquid pour invented for a solid perfume",
+          "no plastic CGI-render look, melted geometry or impossible reflections"
+        ],
+        "panel": {
+          "background": "Pure black",
+          "vibe": "",
+          "lighting": "",
+          "composition": "",
+          "format": ""
+        },
+        "mode": "model-photoshoot",
+        "decision": "keep",
+        "at": "2026-07-12T19:49:45.753Z"
+      },
+      {
+        "id": "1783853792854-1-landscape-1t0q9",
+        "url": "/api/img/1783853884415-ia9io-crop.png",
+        "angle": "Top-down 90° flat-lay macro campaign hero",
+        "prompt": "Photographed directly overhead as a true 90° flat-lay macro campaign frame on a Canon EOS R5 with a 100mm macro lens at f/2.8, Kodak Portra 400-inspired warm-neutral matte colour treatment, gentle highlight roll-off, fine film grain as the single honest camera imperfection, no HDR and no digital over-sharpening. Brand and category read: Thejoonshop normally shoots restrained solid-perfume product worlds on white, warm off-white, cream, pale beige, vanity, linen and handbag-adjacent surfaces with sparse styling, intimate crops, tactile balm detail, soft neutral grade and product-only or body-detail compositions; for this client-directed frame, translate that quiet tactile restraint into a true-black campaign still-life while keeping the product exactly as in the reference image and treating it as a portable, skin-close fragrance object. The product exactly as in the reference image is placed in the lower two-thirds of a true-black matte surface and background, emerging from darkness with a real grounded contact shadow; keep the entire top third as a clean, uncluttered empty black negative-space band for later headline and CTA overlay, with no product, ingredients, props or baked-in text entering that band. Around the product in the lower two-thirds, arrange an artful but restrained scatter of only the verified real key ingredients for this exact product, laid across the surface like a deconstructed recipe; each ingredient is sharp, identifiable, natural in scale, and deliberately spaced, never random clutter. Use a hard direct-flash look with punchy controlled highlights on ingredient edges and the product’s real material, balanced by deep but open shadows so the product appears to come forward from darkness; let the light rake across tactile ingredient textures and the matte black surface without creating a glossy or loud look. Composition is editorial and paid-social ready: bold product presence, strong contrast, sparse negative space, phone-feed legibility, product and ingredients anchored opposite the copy band, no headline, no badge, no button, no added logo, no visible lighting equipment. Preserve product fidelity absolutely: exact form, proportions, colours, label, logo and finish from the reference image, legible and undistorted, with true material behaviour and a natural contact shadow.",
+        "negatives": [
+          "Do not alter, restyle, recolour, reshape, relabel or rename the product; it must remain exactly as in the reference image.",
+          "No warped, misspelled, invented, duplicated or illegible label text or logo.",
+          "No humans, hands, fingers, arms, skin, face, body parts or model presence.",
+          "No floating product, no gradient void, no pedestal, no plinth, no concentric spotlight halo.",
+          "No random geometric props, cubes, pebbles, confetti, bokeh, arbitrary fabric swirls or decorative clutter.",
+          "No glossy luxury perfume cliché, no black-and-gold drama unless present on the real product.",
+          "No CGI, plastic render, waxy smoothing, over-sharpened HDR or impossible reflections.",
+          "No flat sourceless lighting; shadows must follow one coherent direct-flash light logic.",
+          "No ingredients unless they are verified real key ingredients for this exact product.",
+          "No product, ingredient or prop entering the clean top-third copy-safe band.",
+          "No baked-in headline, CTA, badge, price, caption or extra graphic text.",
+          "No visible camera, tripod, softbox, light stand, reflector, cable or studio equipment."
+        ],
+        "panel": {
+          "background": "Pure black",
+          "vibe": "",
+          "lighting": "",
+          "composition": "",
+          "format": ""
+        },
+        "mode": "model-photoshoot",
+        "decision": "keep",
+        "at": "2026-07-12T19:49:43.884Z"
+      },
+      {
+        "id": "1783853792854-1-story-0z9z4",
+        "url": "/api/img/1783853881524-89szu-crop.png",
+        "angle": "Top-down 90° flat-lay macro campaign hero",
+        "prompt": "Photographed directly overhead as a true 90° flat-lay macro campaign frame on a Canon EOS R5 with a 100mm macro lens at f/2.8, Kodak Portra 400-inspired warm-neutral matte colour treatment, gentle highlight roll-off, fine film grain as the single honest camera imperfection, no HDR and no digital over-sharpening. Brand and category read: Thejoonshop normally shoots restrained solid-perfume product worlds on white, warm off-white, cream, pale beige, vanity, linen and handbag-adjacent surfaces with sparse styling, intimate crops, tactile balm detail, soft neutral grade and product-only or body-detail compositions; for this client-directed frame, translate that quiet tactile restraint into a true-black campaign still-life while keeping the product exactly as in the reference image and treating it as a portable, skin-close fragrance object. The product exactly as in the reference image is placed in the lower two-thirds of a true-black matte surface and background, emerging from darkness with a real grounded contact shadow; keep the entire top third as a clean, uncluttered empty black negative-space band for later headline and CTA overlay, with no product, ingredients, props or baked-in text entering that band. Around the product in the lower two-thirds, arrange an artful but restrained scatter of only the verified real key ingredients for this exact product, laid across the surface like a deconstructed recipe; each ingredient is sharp, identifiable, natural in scale, and deliberately spaced, never random clutter. Use a hard direct-flash look with punchy controlled highlights on ingredient edges and the product’s real material, balanced by deep but open shadows so the product appears to come forward from darkness; let the light rake across tactile ingredient textures and the matte black surface without creating a glossy or loud look. Composition is editorial and paid-social ready: bold product presence, strong contrast, sparse negative space, phone-feed legibility, product and ingredients anchored opposite the copy band, no headline, no badge, no button, no added logo, no visible lighting equipment. Preserve product fidelity absolutely: exact form, proportions, colours, label, logo and finish from the reference image, legible and undistorted, with true material behaviour and a natural contact shadow.",
+        "negatives": [
+          "Do not alter, restyle, recolour, reshape, relabel or rename the product; it must remain exactly as in the reference image.",
+          "No warped, misspelled, invented, duplicated or illegible label text or logo.",
+          "No humans, hands, fingers, arms, skin, face, body parts or model presence.",
+          "No floating product, no gradient void, no pedestal, no plinth, no concentric spotlight halo.",
+          "No random geometric props, cubes, pebbles, confetti, bokeh, arbitrary fabric swirls or decorative clutter.",
+          "No glossy luxury perfume cliché, no black-and-gold drama unless present on the real product.",
+          "No CGI, plastic render, waxy smoothing, over-sharpened HDR or impossible reflections.",
+          "No flat sourceless lighting; shadows must follow one coherent direct-flash light logic.",
+          "No ingredients unless they are verified real key ingredients for this exact product.",
+          "No product, ingredient or prop entering the clean top-third copy-safe band.",
+          "No baked-in headline, CTA, badge, price, caption or extra graphic text.",
+          "No visible camera, tripod, softbox, light stand, reflector, cable or studio equipment."
+        ],
+        "panel": {
+          "background": "Pure black",
+          "vibe": "",
+          "lighting": "",
+          "composition": "",
+          "format": ""
+        },
+        "mode": "model-photoshoot",
+        "decision": "keep",
+        "at": "2026-07-12T19:49:41.583Z"
+      },
+      {
+        "id": "1783853792854-1-square-3b0wh",
+        "url": "/api/img/1783853874423-bnavg-rf.png",
+        "angle": "Top-down 90° flat-lay macro campaign hero",
+        "prompt": "Photographed directly overhead as a true 90° flat-lay macro campaign frame on a Canon EOS R5 with a 100mm macro lens at f/2.8, Kodak Portra 400-inspired warm-neutral matte colour treatment, gentle highlight roll-off, fine film grain as the single honest camera imperfection, no HDR and no digital over-sharpening. Brand and category read: Thejoonshop normally shoots restrained solid-perfume product worlds on white, warm off-white, cream, pale beige, vanity, linen and handbag-adjacent surfaces with sparse styling, intimate crops, tactile balm detail, soft neutral grade and product-only or body-detail compositions; for this client-directed frame, translate that quiet tactile restraint into a true-black campaign still-life while keeping the product exactly as in the reference image and treating it as a portable, skin-close fragrance object. The product exactly as in the reference image is placed in the lower two-thirds of a true-black matte surface and background, emerging from darkness with a real grounded contact shadow; keep the entire top third as a clean, uncluttered empty black negative-space band for later headline and CTA overlay, with no product, ingredients, props or baked-in text entering that band. Around the product in the lower two-thirds, arrange an artful but restrained scatter of only the verified real key ingredients for this exact product, laid across the surface like a deconstructed recipe; each ingredient is sharp, identifiable, natural in scale, and deliberately spaced, never random clutter. Use a hard direct-flash look with punchy controlled highlights on ingredient edges and the product’s real material, balanced by deep but open shadows so the product appears to come forward from darkness; let the light rake across tactile ingredient textures and the matte black surface without creating a glossy or loud look. Composition is editorial and paid-social ready: bold product presence, strong contrast, sparse negative space, phone-feed legibility, product and ingredients anchored opposite the copy band, no headline, no badge, no button, no added logo, no visible lighting equipment. Preserve product fidelity absolutely: exact form, proportions, colours, label, logo and finish from the reference image, legible and undistorted, with true material behaviour and a natural contact shadow.",
+        "negatives": [
+          "Do not alter, restyle, recolour, reshape, relabel or rename the product; it must remain exactly as in the reference image.",
+          "No warped, misspelled, invented, duplicated or illegible label text or logo.",
+          "No humans, hands, fingers, arms, skin, face, body parts or model presence.",
+          "No floating product, no gradient void, no pedestal, no plinth, no concentric spotlight halo.",
+          "No random geometric props, cubes, pebbles, confetti, bokeh, arbitrary fabric swirls or decorative clutter.",
+          "No glossy luxury perfume cliché, no black-and-gold drama unless present on the real product.",
+          "No CGI, plastic render, waxy smoothing, over-sharpened HDR or impossible reflections.",
+          "No flat sourceless lighting; shadows must follow one coherent direct-flash light logic.",
+          "No ingredients unless they are verified real key ingredients for this exact product.",
+          "No product, ingredient or prop entering the clean top-third copy-safe band.",
+          "No baked-in headline, CTA, badge, price, caption or extra graphic text.",
+          "No visible camera, tripod, softbox, light stand, reflector, cable or studio equipment."
+        ],
+        "panel": {
+          "background": "Pure black",
+          "vibe": "",
+          "lighting": "",
+          "composition": "",
+          "format": ""
+        },
+        "mode": "model-photoshoot",
+        "decision": "keep",
+        "at": "2026-07-12T19:49:40.199Z"
+      },
+      {
+        "id": "1783853792854-1-feed-m6zwj",
+        "url": "/api/img/1783853881516-v7p0s-crop.png",
+        "angle": "Top-down 90° flat-lay macro campaign hero",
+        "prompt": "Photographed directly overhead as a true 90° flat-lay macro campaign frame on a Canon EOS R5 with a 100mm macro lens at f/2.8, Kodak Portra 400-inspired warm-neutral matte colour treatment, gentle highlight roll-off, fine film grain as the single honest camera imperfection, no HDR and no digital over-sharpening. Brand and category read: Thejoonshop normally shoots restrained solid-perfume product worlds on white, warm off-white, cream, pale beige, vanity, linen and handbag-adjacent surfaces with sparse styling, intimate crops, tactile balm detail, soft neutral grade and product-only or body-detail compositions; for this client-directed frame, translate that quiet tactile restraint into a true-black campaign still-life while keeping the product exactly as in the reference image and treating it as a portable, skin-close fragrance object. The product exactly as in the reference image is placed in the lower two-thirds of a true-black matte surface and background, emerging from darkness with a real grounded contact shadow; keep the entire top third as a clean, uncluttered empty black negative-space band for later headline and CTA overlay, with no product, ingredients, props or baked-in text entering that band. Around the product in the lower two-thirds, arrange an artful but restrained scatter of only the verified real key ingredients for this exact product, laid across the surface like a deconstructed recipe; each ingredient is sharp, identifiable, natural in scale, and deliberately spaced, never random clutter. Use a hard direct-flash look with punchy controlled highlights on ingredient edges and the product’s real material, balanced by deep but open shadows so the product appears to come forward from darkness; let the light rake across tactile ingredient textures and the matte black surface without creating a glossy or loud look. Composition is editorial and paid-social ready: bold product presence, strong contrast, sparse negative space, phone-feed legibility, product and ingredients anchored opposite the copy band, no headline, no badge, no button, no added logo, no visible lighting equipment. Preserve product fidelity absolutely: exact form, proportions, colours, label, logo and finish from the reference image, legible and undistorted, with true material behaviour and a natural contact shadow.",
+        "negatives": [
+          "Do not alter, restyle, recolour, reshape, relabel or rename the product; it must remain exactly as in the reference image.",
+          "No warped, misspelled, invented, duplicated or illegible label text or logo.",
+          "No humans, hands, fingers, arms, skin, face, body parts or model presence.",
+          "No floating product, no gradient void, no pedestal, no plinth, no concentric spotlight halo.",
+          "No random geometric props, cubes, pebbles, confetti, bokeh, arbitrary fabric swirls or decorative clutter.",
+          "No glossy luxury perfume cliché, no black-and-gold drama unless present on the real product.",
+          "No CGI, plastic render, waxy smoothing, over-sharpened HDR or impossible reflections.",
+          "No flat sourceless lighting; shadows must follow one coherent direct-flash light logic.",
+          "No ingredients unless they are verified real key ingredients for this exact product.",
+          "No product, ingredient or prop entering the clean top-third copy-safe band.",
+          "No baked-in headline, CTA, badge, price, caption or extra graphic text.",
+          "No visible camera, tripod, softbox, light stand, reflector, cable or studio equipment."
+        ],
+        "panel": {
+          "background": "Pure black",
+          "vibe": "",
+          "lighting": "",
+          "composition": "",
+          "format": ""
+        },
+        "mode": "model-photoshoot",
+        "decision": "keep",
+        "at": "2026-07-12T19:49:39.228Z"
+      }
+    ],
+    "rejectedShots": [
+      {
+        "id": "1784051496916-1-buksz",
+        "url": "/api/img/1784051496916-1-buksz.png",
+        "angle": "Top-down 90° flat-lay macro detail",
+        "prompt": "Photographed directly overhead as a true 90° top-down flat-lay macro detail on a Sony A7 IV with a 50mm macro lens at f/2.2, Fujifilm Pro 400H-inspired soft neutral colour treatment, gentle highlight roll-off, light airy grade, fine film grain as the single honest camera imperfection, no digital over-sharpening. Brand and category read: Thejoonshop normally lives in clean Korean-beauty-adjacent restraint — white, warm off-white, cream and beige, sparse product-only crops, intimate tactile solid-perfume details, diffuse daylight, soft shadows, close macro scale, no full-face model energy; the fragrance/solid-perfume playbook keeps the object tactile, portable, balm-like and worn close to skin, with product identity and label accuracy treated as law. For this client-directed frame, build a deliberate bold colour-block studio shot: the product exactly as in the reference image, preserving its real form, label, logo, finish, compact state and any visible solid balm exactly, laid flat and physically grounded on a seamless edge-to-edge matte studio colour field sampled from the product packaging’s dominant hue, with the whole frame one uniform matched colour, only a touch deeper or lighter than the packaging so the product separates and pops. PRODUCT ONLY: no hands, no model, no body part, no props, no environment, no wall/surface split, no texture, no horizon line. The composition feels weightless and dynamic through the overhead geometry, tight editorial crop and clean negative space, but the product remains physically resting on the seamless surface with a real soft contact shadow. Bright soft daylight effect from the front-side, airy and clean but not sourceless, producing a gentle directional shadow and a controlled highlight on the packaging material. Keep the label/logo perfectly sharp, correctly spelled and undistorted; true photographic material behaviour, real edges, natural contact shadow, campaign-grade colour-block minimalism that still feels like a real photographed set, portrait 4:5.",
+        "negatives": [
+          "no person, no model, no hand, no fingers, no arms, no legs, no feet, no body parts",
+          "no warped, invented, misspelled, duplicated or illegible label text or logo",
+          "do not redesign, reshape, recolour, rename, restyle or replace the product; it must be the product exactly as in the reference image",
+          "no floating or levitating product; no zero-contact shadow; no impossible physics",
+          "no two-tone wall-and-surface split, no contrasting surface, no horizon line, no environment, no texture, no props",
+          "no gradient void, no concentric spotlight halo, no pedestal, plinth, podium, cubes, pebbles, confetti, bokeh or arbitrary geometric props",
+          "no plastic CGI render look, no waxy over-smoothing, no 3D product mockup, no HDR over-sharpening",
+          "no flat even sourceless light; shadow direction must be coherent",
+          "no extra caps, hinges, pumps, droppers, duplicated packaging elements or melted geometry",
+          "no random fragrance spray mist, liquid bottle cues, flowers, ingredients or lifestyle clutter unless present in the reference product itself"
+        ],
+        "panel": {
+          "background": "Match the product",
+          "surface": "",
+          "vibe": "Playful & fun",
+          "composition": "Floating / levitation",
+          "lighting": "",
+          "styling": "Bold colour-block",
+          "format": "Portrait 4:5",
+          "numAngles": 1,
+          "shotsPerAngle": 1
+        },
+        "mode": "product-photoshoot",
+        "decision": "reject",
+        "at": "2026-07-14T17:55:35.006Z"
+      },
+      {
+        "id": "1784040015306-1-dil34",
+        "url": "/api/img/1784040015306-1-dil34.png",
+        "angle": "Frame 1 / Shot 1A — portrait 4:5, intimate three-quarter beauty-and-product ritual",
+        "prompt": "Photographed on a Canon EOS R5 with an 85mm f/1.4 lens at f/2, Kodak Portra 400 colour treatment, gentle highlight roll-off, true Indian skin tones, fine organic grain, shallow depth of field with the model tack-sharp and the cream-toned background softly falling away; portrait 4:5 crop, magazine-grade but quiet and tactile. Reproduce the exact person from the attached likeness reference faithfully — same face shape, features, skin tone, hair character, body presence and natural asymmetry, not beautified, not slimmed, not lightened, not sharpened into a different face; ignore the reference clothing and anything held in that photo. The model is seated at a warm off-white vanity or bedside edge with real depth behind them: a pale ceramic tray, a folded cream linen towel, and a softly blurred neutral wall in Thejoonshop’s white / warm off-white / muted beige / soft taupe world. The product exactly as in the reference image is held naturally at true real-world scale between the model’s fingers near the neck / behind-ear pulse point, as if reapplying a close-to-skin fragrance; the product remains unchanged in shape, colour, cut, material, label, logo and every word of text, with the label facing camera where the reference allows, real finger occlusion, tiny contact shadows, and believable scale against the hand and face. The model’s other hand lightly touches the side of the neck in a relaxed, candid gesture, five natural fingers, no stiffness; expression is quiet and inward, eyes alive with real catchlights, not over-posed, with visible pores, subtle skin texture, faint expression lines, slight unevenness, and a few believable flyaway hairs. Styling is sparse and brand-correct: clean minimal clothing in warm white or soft taupe only if visible, no busy jewellery, no competing props. Light is diffuse directional daylight from the front-side, softly sculpting cheekbone, hand, product edge and neck, with warm highlights and gentle taupe shadows; the frame has considered negative space on one side for Thejoonshop’s minimal editorial feel. Keep the set clean to every edge, real photographed surfaces, no visible equipment, no CGI sheen, no digital over-sharpening. The single honest photographic imperfection is fine film grain in the warm off-white background.",
+        "negatives": [
+          "Do not change, redesign, recolour, reshape, relabel, rename, enlarge or shrink the product exactly as in the reference image",
+          "No warped, misspelled, invented, melted or illegible product text, logo, label, seams, cut, material or detail",
+          "No product floating, pinned-on prop feeling, missing contact shadow, wrong scale, impossible grip or absent occlusion",
+          "Do not beautify the likeness reference person away: no skin lightening, slimming, feature sharpening, face swapping, age changing, body changing, generic model replacement or conventionalised beauty face",
+          "No waxy, plastic, airbrushed, doll-like or CGI skin; preserve pores, texture, subsurface light and slight asymmetry",
+          "No dead, glassy, mismatched or unfocused eyes; catchlights must feel real",
+          "No extra, missing, fused, warped or elongated fingers; no broken wrists, stiff hands or impossible hand poses",
+          "No uniform tile teeth, helmet hair, fake hairline, melted flyaways or overly perfect symmetry",
+          "No fused limbs, missing body parts, impossible anatomy, distorted neck, distorted shoulders or uncanny proportions",
+          "No generic gradient void, podium, plinth, concentric spotlight halo, random geometric cubes, pebbles, confetti bokeh, plastic CGI staging or arbitrary swirling fabric",
+          "No flat, even, sourceless light; no harsh unmotivated shadows; no visible softboxes, lamps, panels, stands, reflectors, tripods, cables or studio equipment",
+          "No cluttered luxury clichés, no marble-trope overload, no black-and-gold perfume drama, no saturated colour-block that breaks Thejoonshop’s white / warm off-white / beige restraint",
+          "No full catalogue packshot stiffness; the image must remain an intimate editorial beauty-fragrance ritual with real depth"
+        ],
+        "panel": {
+          "background": "",
+          "vibe": "Editorial",
+          "lighting": "",
+          "composition": "",
+          "format": "Portrait 4:5"
+        },
+        "mode": "model-photoshoot",
+        "decision": "reject",
+        "at": "2026-07-14T15:10:46.939Z"
+      },
+      {
+        "id": "1783851614228-1-a8dql",
+        "url": "/api/img/1783851614228-1-a8dql.png",
+        "angle": "Top-down flat-lay macro detail",
+        "prompt": "Photographed from directly overhead as a true 90° top-down flat-lay macro detail on a Canon EOS R5 with a 50mm macro lens at f/2.8, finished with a warm-neutral Kodak Portra 400-style grade, gentle highlight roll-off, fine grain, no HDR sharpness. Brand/playbook read for this first and only frame: Thejoonshop’s real world is restrained, tactile, intimate, product-led Korean-beauty minimalism for solid perfume, usually clean white/off-white/cream/beige, sparse styling, soft neutral grade, close crops and product-scale details; the fragrance playbook priority is intimate sensoriality, material truth, legible branding and premium still-life restraint; here the client’s explicit colour-matched studio direction overrides the usual off-white environment, so the campaign idea is a single bold colour-block studio field made from the product’s own packaging colour. Use the uploaded product reference as a hard product lock: place the product exactly as in the reference image, laid flat and fully grounded on the surface, with its real shape, scale, label, logo, colour, finish and all packaging details preserved without redesigning or renaming anything. The entire frame is one seamless, edge-to-edge matte studio colour field sampled from the product’s dominant packaging hue, made just slightly deeper or lighter than the product so it separates cleanly while still reading as an exact tonal match; no horizon line, no environmental setting, no texture split, no colour blocking beyond this single uniform hue. Product only: no ingredients, no props, no tray, no hands, no person, no body detail. Create the requested bold contemporary direct-flash look through punchy specular accents on the product, a crisp compact contact shadow that proves it is resting on the surface, deep but still open shadow density, and a warm-neutral matte grade so the image remains tactile rather than glossy or loud. Composition is campaign-minimal and editorial: the product occupies the central hero area with generous negative space around it, close enough for branding and material detail to read, but not cropped through any critical packaging detail. The only honest camera imperfection is fine film grain. Real photographed product still life, physically plausible contact, true material behaviour, sharp legible label and logo, no plastic CGI finish.",
+        "negatives": [
+          "no warped, invented, misspelled, duplicated or illegible label text",
+          "no change to the product form, colour, cap, closure, logo, label, scale or packaging design",
+          "no person, model, hand, fingers, arm, leg, foot, skin, face, wrist, neck or any body part",
+          "no ingredient scatter, botanicals, fruits, flowers, herbs, powder, recipe props or deconstructed ingredient styling",
+          "no environment, vanity, bathroom, bedside, linen, handbag, ceramic tray or lifestyle surface",
+          "no gradient void, vignette, spotlight halo, concentric glow, split background, colour-block panels or textured backdrop",
+          "no plinth, pedestal, podium, cube, pebble, geometric prop, confetti, bokeh or arbitrary object",
+          "no floating product; product must have a real contact shadow on the colour-matched surface",
+          "no flat sourceless light; shadows and highlights must follow one coherent hard direct-flash logic",
+          "no over-smoothed plastic CGI render, waxy material, melted geometry, impossible reflection or fake 3D look",
+          "no extra caps, pumps, duplicate products, duplicate logos or malformed packaging edges",
+          "no visible studio equipment, lights, stands, cables, reflectors, tripods or behind-the-scenes objects"
+        ],
+        "panel": {
+          "background": "Match the product",
+          "surface": "",
+          "vibe": "Luxury / quiet",
+          "composition": "",
+          "lighting": "Direct flash",
+          "styling": "Ingredient scatter",
+          "format": "",
+          "numAngles": 1,
+          "shotsPerAngle": 1
+        },
+        "mode": "product-photoshoot",
+        "decision": "reject",
+        "at": "2026-07-12T10:23:12.719Z"
+      },
+      {
+        "id": "1783849824026-5-pbszq",
+        "url": "/api/img/1783849824026-5-pbszq.png",
+        "angle": "Macro close-up",
+        "prompt": "Photographed on a Sony A7R V with a 100mm macro lens at f/2.8, Kodak Portra 400 colour treatment, warm neutral matte grade, gentle highlight roll-off, fine grain as the only honest camera imperfection, no HDR or digital over-sharpening. Extreme macro close-up focused on the most distinctive authentic detail of the uploaded products exactly as shown in the reference image: branding, logo, label edge, closure, seam, material finish, balm or packaging detail, whichever is actually visible and true; do not invent internal texture, mechanism, copy, logo marks or product features. Include portions of both products only if the crop can keep their identity clear and accurate; otherwise feature the hero product detail with the second product softly present as a true background form, still matching the reference. The background remains the same seamless matte colour field sampled from the dominant packaging hue, filling every edge of the frame with no horizon, no texture, no environment and no gradient. Place one or two verified real key ingredient pieces at macro scale near the product detail, sharply identifiable where they sit on the surface, without covering the logo or changing the product. Lighting is direct-flash editorial: a tight punchy highlight across the real material, crisp micro-shadow at the product’s edge, warm open shadow detail, tactile and photographed rather than rendered. Very shallow depth of field with the focal plane locked on the authentic product detail and any visible label text kept correct where in focus. Product-only, campaign-detail image, no hands or body parts.",
+        "negatives": [
+          "no invented macro detail, fake mechanism, fake texture, fake balm surface or fake logo",
+          "no warped, misspelled, duplicated, hallucinated or illegible text in the focal area",
+          "no changed product colour, material, edge, seam, closure, label placement or scale",
+          "no humans, hands, fingers, skin, arms, legs, feet or body parts",
+          "no unverified ingredients or random decorative props",
+          "no background texture, gradient, split colour, room context or visible horizon",
+          "no floating product detail, no impossible shadow, no physically incorrect reflection",
+          "no CGI render, no plastic smoothness, no excessive sharpening, no HDR look",
+          "no visible studio equipment, lighting gear, cables, stands or reflectors"
+        ],
+        "panel": {
+          "background": "Match the product",
+          "surface": "",
+          "vibe": "Luxury / quiet",
+          "composition": "",
+          "lighting": "Direct flash",
+          "styling": "Ingredient scatter",
+          "format": "",
+          "numAngles": 1,
+          "shotsPerAngle": 2
+        },
+        "mode": "product-photoshoot",
+        "decision": "reject",
+        "at": "2026-07-12T09:52:07.349Z"
+      },
+      {
+        "id": "1783849043012-1-h0ssr",
+        "url": "/api/img/1783849075955-qvrkk-crop.png",
+        "angle": "Front, straight-on eye-level hero",
+        "prompt": "Photographed on a Nikon Z8 with a 105mm macro lens at f/2.2, vertical 9:16 Instagram Story crop, Kodak Portra 400-inspired warm-neutral matte colour treatment, gentle highlight roll-off, fine grain, no HDR sharpness. Brand and category read for this first frame: Thejoonshop normally shoots minimal, tactile, close-range beauty still life in warm ivory, cream, taupe, brushed metal and skin-adjacent ritual cues; the fragrance playbook is treated as law, so the image should feel intimate, sensorial, premium and close to the object, with scent-note ingredients used only if they are truly present in the product reference or formula. The client-requested colour-matched studio concept wins over the brand’s usual beige setting: create one seamless, edge-to-edge studio colour field matched to the product’s dominant packaging colour from the reference image, shifted only slightly deeper or lighter so the product separates cleanly. The product must be reproduced exactly as in the reference image, front-facing and upright, large but placed low-to-centre while keeping the top 15% and bottom 20% of the 9:16 frame completely clean for Story UI. Leave a large empty negative-space area across the upper half for future copy. The product is the sole hero, with an artful, sparse scatter of its key real ingredients laid across the same colour-matched surface in front of and around the base, each ingredient sharp, identifiable and formula/scent-note accurate, never invented. Hard direct flash effect from the upper front-left creates punchy contemporary highlights, a crisp directional contact shadow and deep but open shadows, while the grade stays warm, low-saturation and matte rather than glossy. Keep the background perfectly uniform to every edge, no texture, no split colour, no environment, no plinth. One honest camera imperfection only: the product is placed very slightly off-centre, like a real editorial frame. True material behaviour, exact label/logo fidelity, real grounding contact shadow, campaign-grade bold colour-block still life.",
+        "negatives": [
+          "no people, no model, no hands, no fingers, no arms, no legs, no feet, no body parts",
+          "no invented product form, no restyled packaging, no recoloured product, no relabelled product, no changed cap, case, closure or silhouette",
+          "no warped, misspelled, duplicated or invented logo or label text",
+          "no generic gradient void; the background must be one uniform colour matched to the product packaging",
+          "no textured environment, no room, no vanity setup, no bedside scene, no handbag scene",
+          "no pedestal, podium, plinth, floating product, concentric spotlight halo, geometric cubes, pebbles or arbitrary props",
+          "no ingredients unless they are real key ingredients, formula elements or scent notes from the referenced product",
+          "no cluttered recipe mess; keep the ingredient scatter sparse and editorial",
+          "no glossy loud colour grade, no plastic CGI render, no over-smoothed surfaces, no HDR over-sharpening",
+          "no visible studio equipment, light stands, lamps, softboxes, cables, reflectors or tripods",
+          "no text overlays, UI, borders, stickers, countdowns or graphics baked into the photo",
+          "no product or key detail in the top 15% or bottom 20% Story safe zones"
+        ],
+        "panel": {
+          "background": "Match the product",
+          "surface": "",
+          "vibe": "Luxury / quiet",
+          "composition": "",
+          "lighting": "Direct flash",
+          "styling": "Ingredient scatter",
+          "format": "",
+          "numAngles": 2,
+          "shotsPerAngle": 2
+        },
+        "mode": "product-photoshoot",
+        "decision": "reject",
+        "at": "2026-07-12T09:38:04.832Z"
+      },
+      {
+        "id": "1783849043012-2-b99fr",
+        "url": "/api/img/1783849073093-13chx-crop.png",
+        "angle": "Top-down 90° flat-lay macro detail",
+        "prompt": "Photographed directly overhead on a Canon EOS R5 with a 100mm macro lens at f/2.8, vertical 9:16 Instagram Story frame, Fujifilm Pro 400H-inspired warm matte grade, soft highlight roll-off, fine film grain and natural optical falloff. Create a true top-down 90° flat-lay macro detail: the product exactly as in the reference image is laid flat on a seamless, edge-to-edge studio surface whose colour is the same dominant hue as the product’s packaging from the reference, adjusted only slightly lighter or darker for separation. The whole frame remains one clean uniform colour field, with no environmental texture, no colour blocking and no props beyond the required real ingredients. Compose the product diagonally through the lower-middle third so the camera geometry is dramatically different from the straight-on hero; keep the top 15% and bottom 20% empty of product and key detail for Story UI. Leave a large clean negative-space column on the left side for future headline placement, different from the first shot’s open top area. Make this a macro material/branding/packaging-detail moment: focus on the product’s exact visible branding, edge, closure, label, metal or surface finish exactly as shown in the reference; if the reference shows any open/closed mechanism or visible balm/substance detail, render that detail exactly and physically plausibly, otherwise do not invent an opening or interior. Around the product, arrange a restrained deconstructed scatter of only the product’s true key ingredients or scent-note ingredients, placed flat and sharp on the same colour field, with enough breathing room that the frame remains Thejoonshop-minimal and premium. Use hard direct flash effect from the upper-left of frame to create crisp ingredient shadows, punchy highlights on any metal or glossy packaging areas and deep but open shadow density, balanced by the brand’s warm-neutral matte restraint. One honest camera imperfection only: the farthest product edge falls just softly out of focus from the shallow macro plane. Real photographed contact, true material behaviour, legible exact branding, product locked to the reference.",
+        "negatives": [
+          "no people, no model, no hands, no fingers, no arms, no legs, no feet, no body parts",
+          "no front-view repeat; this must be a true overhead 90° flat-lay macro angle",
+          "no invented product form, no invented opening, no invented balm texture, no changed mechanism, no altered packaging geometry",
+          "no warped, misspelled, duplicated or fake label text, branding, symbols or typography",
+          "no ingredients unless they are verified real key ingredients, formula elements or scent notes from the product reference",
+          "no random flowers, fruit, herbs, powders or decorative food items unrelated to the actual product",
+          "no textured surface, paper grain, stone, marble, wood, fabric, vanity, handbag or bedroom environment",
+          "no gradient backdrop, colour split, vignette, spotlight halo or environmental depth",
+          "no pedestal, podium, plinth, floating product, geometric props, confetti, bokeh or swirling fabric",
+          "no plastic CGI look, no waxy over-smoothing, no impossible reflections, no sourceless flat lighting",
+          "no visible lighting gear, camera gear, cables, stands, reflectors, lamps or studio equipment",
+          "no baked-in copy, captions, UI, borders, stickers, countdowns or graphic overlays",
+          "no product or key ingredients in the top 15% or bottom 20% Story safe zones"
+        ],
+        "panel": {
+          "background": "Match the product",
+          "surface": "",
+          "vibe": "Luxury / quiet",
+          "composition": "",
+          "lighting": "Direct flash",
+          "styling": "Ingredient scatter",
+          "format": "",
+          "numAngles": 2,
+          "shotsPerAngle": 2
+        },
+        "mode": "product-photoshoot",
+        "decision": "reject",
+        "at": "2026-07-12T09:38:03.828Z"
+      },
+      {
+        "id": "1783848380255-1-n2vl0",
+        "url": "/api/img/1783848458862-1-fbb85.png",
+        "angle": "Frame 1 / Shot 1A — eye-level three-quarter portrait hero",
+        "prompt": "Photographed on a Canon EOS R5 with an 85mm f/1.4 lens at f/2, Kodak Portra 400 colour treatment, gentle highlight roll-off, true skin tones, fine organic grain, no HDR sharpness. Use the attached likeness reference as the identity lock for the person only: reproduce that exact person faithfully, preserving their face shape, features, skin tone, hair, body proportions and natural asymmetry without slimming, lightening, sharpening, beautifying or replacing them. Eye-level three-quarter portrait on a seamless, evenly-lit warm beige studio background in Thejoonshop’s warm ivory and taupe world. The model wears understated warm ivory/cream styling that does not compete with the product, hair natural with a few flyaways, relaxed unposed shoulders, calm intimate expression, alive catch-lit eyes, real pores and subsurface skin texture. The product exactly as in the reference image is held naturally in one hand at true real-world scale near the cheek and lower face, fingers wrapping it believably according to its actual shape, label facing camera, real contact, occlusion and a small soft shadow where skin and product meet. Composition is close and tactile, product-first but human and editorial, with clean negative space on the warm beige background and a low-saturation warm daylight grade. Light appears as soft diffused daylight falling from 45 degrees to one side, creating gentle modelling on skin and a quiet highlight on the product, with the background clean to every edge. Hold identity stable via the reference-element/Soul likeness path across the whole set.",
+        "negatives": [
+          "do not alter the reference person’s identity, face shape, skin tone, hair, body or proportions",
+          "no beautified, slimmed, lightened, sharpened or conventionalised replacement face",
+          "no waxy, plastic, airbrushed or doll-like skin",
+          "no dead, glassy, mismatched or unfocused eyes",
+          "no extra, missing, fused or warped fingers",
+          "no unnatural grip, floating product, missing contact shadow or impossible occlusion",
+          "no warped, invented, misspelled or illegible product label",
+          "no product shape, colour, text, scale or material invented beyond the reference image",
+          "no generic gradient void, spotlight halo, random geometric props, podium, plinth, CGI render or sourceless flat light",
+          "no visible studio equipment, cables, stands, reflectors or lamps",
+          "no cluttered styling or colours outside warm ivory, cream, taupe, brushed neutral and charcoal accents"
+        ],
+        "panel": {
+          "background": "Warm beige",
+          "vibe": "",
+          "lighting": "",
+          "composition": "",
+          "format": ""
+        },
+        "mode": "model-photoshoot",
+        "decision": "reject",
+        "at": "2026-07-12T09:28:24.283Z"
+      }
+    ],
+    "heroShots": [],
+    "updatedAt": "2026-07-14T17:55:35.159Z"
+  }
+}

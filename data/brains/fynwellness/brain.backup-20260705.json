@@ -1,0 +1,217 @@
+{
+  "name": "Fynwellness",
+  "website": "https://www.fynwellness.com",
+  "research": {
+    "summary": "FYN Wellness is a real early-stage Bengaluru-based Indian D2C wellness brand founded in 2025. Its current focus is Hydra, a blue spirulina, bioactive peptide and coconut electrolyte daily cellular hydration mix. The brand positions itself against wellness fatigue: for consumers already eating well and taking supplements but not feeling results, FYN argues that the issue is cellular utilisation, absorption and hydration rather than simply consuming more. Its identity is clean, science-led, founder-led and visually anchored in electric blue.",
+    "essence": "Cellular wellness in a blue daily ritual — made for people who are done consuming more and ready to finally feel the difference.",
+    "voice": "Scientific, aspirational, direct, founder-led and conviction-heavy. FYN explains mechanisms such as cellular uptake, absorption, phycocyanin, electrolytes and peptides, while keeping the emotional promise simple: better use of the nutrition you already consume. The tone is clean-premium, modern, slightly futurist and movement-oriented rather than earthy, Ayurvedic or mass FMCG.",
+    "competitors": [
+      "Fast&Up",
+      "What's Up Wellness",
+      "Wellbeing Nutrition",
+      "Kapiva"
+    ],
+    "ambassadors": [
+      "Shrey Doshi",
+      "Avni Singhal",
+      "Hamza Patel",
+      "Ghazal Alagh"
+    ],
+    "instagram": "@fynwellness",
+    "website": "https://www.fynwellness.com",
+    "palette": [
+      {
+        "hex": "#00AEEF",
+        "role": "Phycocyanin blue hero colour / blue spirulina drink cue"
+      },
+      {
+        "hex": "#006BCF",
+        "role": "Deep cellular blue for scientific emphasis and contrast"
+      },
+      {
+        "hex": "#7FE7FF",
+        "role": "Aqua hydration tint for freshness, glow and liquid highlights"
+      },
+      {
+        "hex": "#FFFFFF",
+        "role": "Clean white background and clinical wellness space"
+      },
+      {
+        "hex": "#F4F7FA",
+        "role": "Soft clinical grey for neutral surfaces and UI sections"
+      },
+      {
+        "hex": "#111111",
+        "role": "Ink black for body copy, claims and functional information"
+      }
+    ],
+    "aesthetic": "High-key clean D2C wellness photography built around the electric blue drink. Use matte white, pale grey or very light blue acrylic/stone surfaces; keep backgrounds uncluttered and clinical but not sterile. Colour grade should be cool, crisp and blue-forward, with whites kept bright and neutral so the spirulina liquid becomes the visual hero. Styling density is low to medium: sachets, product pack, clear cylindrical glass, water, ice and minimal hydration cues, avoiding earthy green-powder props. Lighting is bright, soft commercial daylight or large diffused studio light from the front/side, with subtle backlight through the glass to make the blue liquid glow and only gentle shadows. Crops are tight product-only and ritual close-ups: sachet beside glass, powder/drink preparation, pack front, nutrition panel and blue liquid macro details. Current imagery is more product-led than model-led; if people are used, they should appear as clean urban wellness consumers in desk, morning, gym-bag or skincare-routine contexts, with the product still dominating the frame.",
+    "foundReal": true,
+    "logo": "https://www.fynwellness.com/cdn/shop/files/FYN_Main_Logo.png?v=1775122006&width=480",
+    "productImages": [
+      "https://cdn.shopify.com/s/files/1/0709/3564/2303/files/Hero.png?v=1775135619",
+      "https://www.fynwellness.com/cdn/shop/files/FINALLLLLL.png?height=108&amp;v=1764536941",
+      "https://www.fynwellness.com/cdn/shop/files/AI_Model_images_4fe99f1e-0289-43ec-b038-68cf06fa3adf.png?v=1766674049&amp;width=800",
+      "https://www.fynwellness.com/cdn/shop/files/AI_Model_images_1.png?v=1766513686&amp;width=800",
+      "https://www.fynwellness.com/cdn/shop/files/AI_Model_images_1_599a5e7b-3d79-4c39-9d98-5a6668fac969.png?v=1766674052&amp;width=800",
+      "https://www.fynwellness.com/cdn/shop/files/AI_Model_images_4.png?v=1766817535&amp;width=800",
+      "https://www.fynwellness.com/cdn/shop/files/Untitled_design_5.png?v=1764526715&amp;width=80",
+      "https://www.fynwellness.com/cdn/shop/files/Untitled_design_10.png?v=1764529344&amp;width=80",
+      "https://www.fynwellness.com/cdn/shop/files/Untitled_design_12.png?v=1764529834&amp;width=80",
+      "https://www.fynwellness.com/cdn/shop/files/Packaging_Sides_1.png?v=1765309300&amp;width=800",
+      "https://www.fynwellness.com/cdn/shop/files/Untitled_design_11.png?v=1764529533&amp;width=80",
+      "https://www.fynwellness.com/cdn/shop/files/Untitled_design_7.png?v=1764526880&amp;width=80"
+    ],
+    "products": [
+      {
+        "name": "Hydra",
+        "image": "https://cdn.shopify.com/s/files/1/0709/3564/2303/files/Hero.png?v=1775135619"
+      }
+    ],
+    "sources": 6
+  },
+  "intelligence": {
+    "overview": "FYN Wellness is an early-stage Indian D2C wellness brand based in Bengaluru, founded in 2025, built around cellular health and daily functional hydration. Its hero product, Hydra — Daily Cellular Hydration Mix, uses blue spirulina, bioactive peptides and coconut electrolytes to position hydration as a cellular-utilisation ritual rather than another supplement.",
+    "purpose": "To help people who are already trying to be healthy finally feel the difference by improving the body’s ability to absorb, convert and use nutrition at a cellular level.",
+    "mission": "To build India’s first cellular-health-led wellness brand, beginning with a clean, caffeine-free, no-added-sugar blue spirulina hydration mix that makes functional nutrition simple enough for daily use.",
+    "vision": "To move Indian wellness beyond ingredient checklists into an outcomes-and-mechanisms era: not just what people consume, but what their cells can actually use.",
+    "story": "Founder Shrey Doshi started FYN Wellness after experiencing unresolved health issues despite trying to be careful and disciplined about wellness. That frustration shaped the brand’s central belief: many people are consuming better things, but not necessarily converting them into felt results, so FYN chose to focus obsessively on one cellular-health product before expanding.",
+    "values": [
+      "Function over folklore",
+      "One thing done properly",
+      "Clean daily utility",
+      "Visible transformation without miracle language",
+      "Modern science made emotionally legible",
+      "Founder-led conviction"
+    ],
+    "positioning": "FYN Wellness is the blue spirulina cellular-hydration brand for health-conscious Indians who are tired of consuming more and feeling no different.",
+    "audience": "Urban Indian men and women, likely 22 to 38, digitally native, label-literate, wellness-curious, energy-conscious and appearance-conscious; people who already buy supplements, functional foods, skincare and fitness products but want a clearer reason for why wellness should work.",
+    "persona": "Ananya is a 29-year-old startup operator or brand manager in Bengaluru or Mumbai who does Pilates or strength training, orders from quick-commerce apps, uses sunscreen daily, reads ingredient labels and has tried collagen, magnesium, greens powders and protein snacks. She is doing everything right but still gets a 4 p.m. crash, has tired-looking skin, inconsistent digestion and a shelf full of half-finished wellness products. She does not want another vague promise; she wants a modern, beautiful, rational daily ritual that helps her believe her body is actually using what she gives it.",
+    "toneOfVoice": "Scientific, aspirational, direct, founder-led and conviction-heavy.",
+    "personality": [
+      "Intelligent",
+      "Minimal but intense",
+      "Futurist",
+      "Clean-premium",
+      "Slightly evangelical",
+      "Disciplined",
+      "Mechanism-led"
+    ],
+    "palette": [
+      {
+        "hex": "#00AEEF",
+        "role": "Phycocyanin blue hero colour / blue spirulina drink cue"
+      },
+      {
+        "hex": "#006BCF",
+        "role": "Deep cellular blue for scientific emphasis and contrast"
+      },
+      {
+        "hex": "#7FE7FF",
+        "role": "Aqua hydration tint for freshness, glow and liquid highlights"
+      },
+      {
+        "hex": "#FFFFFF",
+        "role": "Clean white background and clinical wellness space"
+      },
+      {
+        "hex": "#F4F7FA",
+        "role": "Soft clinical grey for neutral surfaces and UI sections"
+      },
+      {
+        "hex": "#111111",
+        "role": "Ink black for body copy, claims and functional information"
+      }
+    ],
+    "typography": {
+      "display": "Bold, clean, modern sans-serif with a startup-wellness feel; more functional and direct than decorative or luxury-editorial.",
+      "text": "Neutral, highly legible sans-serif used for benefit-led copy, ingredient explanations and ecommerce clarity.",
+      "note": "Current typography appears contemporary and functional; a stronger science-beauty contrast could emerge by pairing precise claim typography with softer ritual language."
+    },
+    "logo": "https://www.fynwellness.com/cdn/shop/files/FYN_Main_Logo.png?v=1775122006&width=480",
+    "logoSystem": "The visible system appears to use a simple FYN Wellness wordmark or name lockup, with the brand name carrying the meaning Fuel Your Nutrition. A stronger future system could add a secondary blue cell, droplet, phycocyanin ring or Y-vessel icon for sachets, reels, lids and community markers.",
+    "photographyStyle": "Shoot on matte white, pale blue or soft clinical grey surfaces with bright, soft commercial lighting and minimal hard shadows. Keep styling sparse: sachet, pack, clear cylindrical glass, water, ice and the electric blue liquid as the hero; use tight crops, product-and-ritual close-ups, side or backlight to make the blue drink glow, and avoid earthy green-powder wellness clichés.",
+    "packagingStyle": "Sachet-based daily ritual packaging with a blue-and-white clean clinical feel, bold Hydra naming, functional ingredient hierarchy and front-of-pack claims around no added sugar, no artificial colour, no caffeine, no preservatives, natural and low calorie. The strongest asset is the blue drink cue, so packaging should feel slim, portable, premium, photogenic and recognisable on a desk, in a gym bag or by a bedside table.",
+    "visualIdentity": "FYN’s design system is anchored by electric blue spirulina against clean white and pale clinical neutrals, making blue the ownable signal for cellular hydration. The overall identity should feel futuristic but simple: clean sans typography, product-led imagery, restrained layouts and a repeatable blue daily-ritual cue.",
+    "competitors": [
+      {
+        "name": "Fast&Up",
+        "note": "Indian sports nutrition and hydration brand competing on electrolytes, energy and functional hydration, with a more athletic and performance-led positioning."
+      },
+      {
+        "name": "What’s Up Wellness",
+        "note": "Indian D2C wellness brand built around gummies and easy daily formats for beauty, sleep, stress and gut health; competes for the same young urban supplement consumer with a more fun and mass-accessible tone."
+      },
+      {
+        "name": "Wellbeing Nutrition",
+        "note": "Premium Indian supplement and wellness brand spanning melts, collagen, greens, protein, beauty and functional nutrition; competes in science-backed daily wellness formats."
+      },
+      {
+        "name": "Kapiva",
+        "note": "Ayurveda-led Indian wellness brand with a broad portfolio of juices, gummies, powders and targeted health products; competes for trust, natural ingredients and daily wellness routines through more traditional wellness codes."
+      }
+    ],
+    "social": [
+      {
+        "platform": "Instagram",
+        "handle": "@fynwellness",
+        "url": "https://www.instagram.com/fynwellness",
+        "note": "Official handle linked from the website; content was not fully crawlable, but the platform is likely the primary consumer-facing home for blue ritual visuals, product education, founder explainers and short-form wellness hooks."
+      },
+      {
+        "platform": "LinkedIn",
+        "handle": "FYN Wellness",
+        "url": "https://in.linkedin.com/company/fyn-wellness",
+        "note": "The richest public storytelling channel, with founder-led and team-led posts around cellular health, startup journey, product conviction and category thinking; voice is earnest, strategic, explanatory and ambitious."
+      }
+    ],
+    "press": [
+      {
+        "title": "FYN Wellness Company Profile",
+        "source": "CB Insights",
+        "url": "https://www.cbinsights.com/company/fyn-wellness"
+      },
+      {
+        "title": "FYN Wellness LinkedIn Company Page",
+        "source": "LinkedIn",
+        "url": "https://in.linkedin.com/company/fyn-wellness"
+      },
+      {
+        "title": "Avni Singhal LinkedIn Profile Referencing FYN Wellness and BeyondXcelerate Activity",
+        "source": "LinkedIn",
+        "url": "https://in.linkedin.com/in/avni-singhal-aa6786357"
+      }
+    ],
+    "insights": [
+      "The real enemy is not dehydration; it is wellness fatigue, the private frustration of doing everything right and still not feeling different.",
+      "Blue is the brand’s strongest semiotic weapon: a way to stand apart from green powders, pink beauty supplements, gold collagen and neon sports hydration.",
+      "The benefit stack should ladder into one mechanism: when cells function better, different people may feel it first as energy, skin, recovery or digestion.",
+      "The founder story is stronger than the ingredient story; unresolved personal health frustration makes the science emotionally relevant.",
+      "FYN needs proof rituals more than claims: 30-day diaries, customer routines, taste tests, nutritionist explainers, founder videos and repeat-use evidence.",
+      "The single-product focus is an advantage in a market full of supplement sprawl; discipline and obsession should become part of the brand mythology."
+    ],
+    "website": "https://www.fynwellness.com",
+    "instagram": "@fynwellness",
+    "sources": 6,
+    "foundReal": true,
+    "inferred": false
+  },
+  "catalog": [
+    {
+      "id": "shopify-8379704148159",
+      "name": "Hydra",
+      "category": "Hydration Mix",
+      "collection": "antioxidant",
+      "description": "Normal hydration stops at the surface. Hydra reaches your cells. Supercharged by Blue Spirulina, the only superfood with no cell wall. That means 95% of it absorbs directly, compared to 30% from most things you consume. Nothing locked out. Nothing wasted. The blue pigment inside, Phycocyanin, acts as a cellular antioxidant, protecting and repairing at the deepest level. Bioactive peptides reach your cells directly, no conversion needed. And the electrolytes come straight from",
+      "price": "3000.00",
+      "url": "https://www.fynwellness.com/products/hydra-monthly-pack-cellular-hydration-mix",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0709/3564/2303/files/Hero.png?v=1775135619",
+        "https://cdn.shopify.com/s/files/1/0709/3564/2303/files/3.png?v=1775135619",
+        "https://cdn.shopify.com/s/files/1/0709/3564/2303/files/6.png?v=1775135619",
+        "https://cdn.shopify.com/s/files/1/0709/3564/2303/files/Nutritional_Info_e8e33aa1-caf7-4df8-ad65-d02cafad8372.png?v=1775135619"
+      ]
+    }
+  ],
+  "ready": true
+}

@@ -8,3 +8,8 @@ node_modules
 *.tsbuildinfo
 next-env.d.ts
 generated/
+
+# SQLite runtime store — live data, not source; the -wal/-shm are transient journals.
+data/tastebud.db
+data/tastebud.db-wal
+data/tastebud.db-shm

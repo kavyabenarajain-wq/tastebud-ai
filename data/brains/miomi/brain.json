@@ -1,0 +1,171 @@
+{
+  "name": "Miomi",
+  "website": "https://miomi.co.in",
+  "research": {
+    "summary": "Miomi is a real Indian womenswear brand focused on bra-free tops with built-in support. Its core promise is expressed through the manifesto line “The Future Is Bra Free” and its Brafree construction: integrated inner support, sculpted cups and an underbody band designed to lift, shape and support without wires, visible straps, a separate bra or extra layering.",
+    "essence": "Support, without the bra.",
+    "voice": "Confident, freeing, direct, modern-feminine and functional; it speaks in clear problem-solution claims like “No Bra Needed” and “The Future Is Bra Free,” balancing engineered product proof with a sense of everyday liberation.",
+    "competitors": [
+      "Nykd by Nykaa",
+      "BlissClub",
+      "Zivame",
+      "Uniqlo",
+      "Westside"
+    ],
+    "ambassadors": [],
+    "instagram": "",
+    "website": "https://miomi.co.in",
+    "palette": [
+      {
+        "hex": "#F6EFE8",
+        "role": "warm studio background / skin-friendly neutral"
+      },
+      {
+        "hex": "#E2C8B6",
+        "role": "soft nude accent for intimate-apparel adjacency"
+      },
+      {
+        "hex": "#B98F7A",
+        "role": "warm blush-brown support tone"
+      },
+      {
+        "hex": "#2B2421",
+        "role": "deep text / manifesto contrast"
+      },
+      {
+        "hex": "#FFFFFF",
+        "role": "clean product-page white space"
+      }
+    ],
+    "aesthetic": "Clean DTC fashion studio photography centred on fit proof: model-led images of fitted bra-free tops on warm neutral or white studio backgrounds, with occasional product/construction visuals showing the built-in cups, underbody band and inner support system. Colour grade is warm, natural and low-contrast with accurate skin tones rather than glossy lingerie styling. Styling is sparse: the top is the focus, paired with simple everyday bottoms such as denim or trousers, minimal jewellery and little to no prop density. Lighting is soft, diffused front or side light that reveals neckline, cup shape and torso contour without harsh shadows. Crops include torso-focused frames to demonstrate support, three-quarter model shots for styling context, and close-ups/diagram-style product views to explain the Brafree engineering. The visual balance is primarily models for confidence and wearability, supported by product-only construction imagery for functional proof.",
+    "foundReal": true,
+    "logo": "https://miomi.co.in/favicon.png",
+    "productImages": [],
+    "products": [],
+    "photoRules": {
+      "category": "General product",
+      "grade": "Use clean studio or soft domestic settings with warm natural skin tones, diffused daylight or large softbox lighting, minimal props and sparse styling. Prioritize model-led torso crops, three-quarter styling frames, movement shots, side profiles, neckline close-ups, underband details and product diagrams that prove the Brafree support system without making the imagery feel overtly lingerie-coded.",
+      "signatures": [
+        "Use clean studio or soft domestic settings with warm natural skin tones, diffused daylight or large softbox lighting, minimal props and sparse styling. Prioritize model-led torso crops, three-quarter styling frames, movement shots, side profiles, neckline close-ups, underband details and product diagrams that prove the Brafree support system without making the imagery feel overtly lingerie-coded."
+      ],
+      "neverDo": [
+        "a floating product on a gradient void",
+        "flat, even, sourceless light",
+        "a plastic CGI-render look",
+        "random scattered geometric props",
+        "a concentric spotlight halo behind the subject"
+      ],
+      "colorGrade": {
+        "rMul": 1,
+        "gMul": 1,
+        "bMul": 1,
+        "saturation": 1.02,
+        "brightness": 1,
+        "contrast": 1.05,
+        "grain": 0.45,
+        "sharpen": 0.7
+      }
+    },
+    "sources": 5
+  },
+  "intelligence": {
+    "overview": "Miomi is an Indian womenswear brand built around bra-free tops with integrated support. Its core promise is captured in the line “The Future Is Bra Free,” using its Brafree construction to offer lift, shape and support without a separate bra, wires, visible straps or extra layering.",
+    "purpose": "To let women get dressed without negotiating with a bra.",
+    "mission": "To engineer stylish tops with built-in lift, shape and support so women can move through everyday life without needing separate innerwear.",
+    "vision": "To make bra-free dressing feel normal, supported, designed and socially comfortable for the modern Indian wardrobe.",
+    "story": "Miomi’s public story is currently product-led rather than founder-led. The brand appears to have been born from the everyday wardrobe frustration of wanting to wear fitted, cropped or strappy tops without visible bra straps, uncomfortable wires, bulky lines or extra layering, leading to the creation of Brafree built-in support.",
+    "values": [
+      "Freedom from bras",
+      "Engineered comfort",
+      "Support without restriction",
+      "Everyday confidence",
+      "Modern femininity",
+      "Clean silhouettes",
+      "Practical sensuality"
+    ],
+    "positioning": "Miomi makes bra-free tops with built-in support for women who want clean silhouettes without the discomfort of bras.",
+    "audience": "Urban, digitally native Indian women, roughly 18 to 34, who wear fitted tanks, crop tops, camisoles, going-out tops and soft everyday separates, and want to skip the bra while still feeling secure, shaped and comfortable.",
+    "persona": "Ananya is 24, lives in Mumbai, Bengaluru, Delhi NCR or Pune, and moves between hybrid work, coffee runs, commutes, dinners, dates and weekend trips. Her wardrobe is built around ribbed tanks, denim, loose trousers, linen shirts, minimal jewellery and sneakers or kitten heels, but she hates strap-show, cup gaps, sweat, underwire marks and the constant question of which bra works under which top. She wants a top that looks like outerwear but behaves like invisible support, so she can feel put-together without feeling constructed.",
+    "toneOfVoice": "Confident, freeing, direct, sensual and functional.",
+    "personality": [
+      "Liberating",
+      "Engineered",
+      "Minimal",
+      "Modern-feminine",
+      "Assured",
+      "Problem-solving",
+      "Quietly bold"
+    ],
+    "palette": [
+      {
+        "hex": "#F6EFE8",
+        "role": "warm studio background / skin-friendly neutral"
+      },
+      {
+        "hex": "#E2C8B6",
+        "role": "soft nude accent for intimate-apparel adjacency"
+      },
+      {
+        "hex": "#B98F7A",
+        "role": "warm blush-brown support tone"
+      },
+      {
+        "hex": "#2B2421",
+        "role": "deep text / manifesto contrast"
+      },
+      {
+        "hex": "#FFFFFF",
+        "role": "clean product-page white space"
+      }
+    ],
+    "typography": {
+      "display": "Modern sans-serif with enough weight for short manifesto statements such as “The Future Is Bra Free” and “No Bra Needed.”",
+      "text": "Clean minimal sans-serif for direct product explanations and support claims.",
+      "note": "The system appears slogan-heavy, using repetition and concise functional phrases as a graphic and verbal device; exact fonts are unverified."
+    },
+    "logo": "https://miomi.co.in/favicon.png",
+    "logoSystem": "The accessible site identifies Miomi as the brand mark, but no detailed logo file or lockup was available. Strategically, the name’s soft mirrored sound suits a simple, rounded, modern wordmark that feels intimate and fashion-tech rather than traditional lingerie.",
+    "photographyStyle": "Use clean studio or soft domestic settings with warm natural skin tones, diffused daylight or large softbox lighting, minimal props and sparse styling. Prioritize model-led torso crops, three-quarter styling frames, movement shots, side profiles, neckline close-ups, underband details and product diagrams that prove the Brafree support system without making the imagery feel overtly lingerie-coded.",
+    "packagingStyle": "Packaging imagery was not available. The most fitting direction is modern comfort-tech fashion packaging: compact mailers, soft neutral surfaces, simple care inserts explaining the Brafree structure and a confident “No Bra Needed” unboxing moment without lace, satin or traditional lingerie cues.",
+    "visualIdentity": "Miomi’s identity is built around a clean, direct DTC fashion system where minimal silhouettes meet functional proof. The design language should balance elegant outerwear styling with visible engineering cues, making the support system feel credible, modern and effortless.",
+    "competitors": [
+      {
+        "name": "Nykd by Nykaa",
+        "note": "Direct functional competitor through innerwear and inbuilt-bra tank products, with strong awareness in the Indian intimatewear market."
+      },
+      {
+        "name": "BlissClub",
+        "note": "Adjacent competitor in women’s activewear, support bras and comfort-led technical clothing for Indian women."
+      },
+      {
+        "name": "Zivame",
+        "note": "Large Indian lingerie player competing for the same support and comfort problem, though more traditional-innerwear-led."
+      },
+      {
+        "name": "Uniqlo bra tops",
+        "note": "Global benchmark for built-in bra camisoles and bra tops, often used by consumers as a reference for this category."
+      },
+      {
+        "name": "Westside",
+        "note": "Mass-market substitute for camisoles and tops with inbuilt support, competing on accessibility and price."
+      }
+    ],
+    "social": [],
+    "press": [],
+    "insights": [
+      "Miomi’s strongest asset is not just comfort; it is permission. The brand gives women cultural and practical permission to leave the house without a bra while still feeling supported.",
+      "The Brafree construction needs to be shown constantly as proof. A bold “no bra” promise invites skepticism, so diagrams, movement tests, side profiles and underband close-ups should become core brand assets.",
+      "“No Bra Needed” is the clearest commercial stamp, while “The Future Is Bra Free” is the emotional manifesto. The brand should use both, but keep the visual world refined so the claim does not feel gimmicky.",
+      "The Indian climate angle is a major opportunity. Heat, sweat and layering make the bra problem more physical, so “one less layer” can become a powerful comfort and styling message.",
+      "Miomi needs a stronger founder or fit-science story. A product this technical benefits from credibility around why it was built, how it was tested and what makes it different from a padded camisole.",
+      "Miomi is competing with habits as much as brands. Its real enemy is the reflex to wear a bra under everything, so the creative should dramatize the difference between padded, improvised support and truly engineered support."
+    ],
+    "website": "https://miomi.co.in",
+    "instagram": "",
+    "sources": 5,
+    "foundReal": true,
+    "inferred": false
+  },
+  "catalog": [],
+  "ready": true
+}

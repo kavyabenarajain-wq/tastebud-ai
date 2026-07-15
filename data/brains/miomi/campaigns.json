@@ -1,0 +1,118 @@
+[
+  {
+    "id": "cmp-mr998ap2-82gyy",
+    "name": "Ad Campaign",
+    "type": "ad",
+    "copy": {
+      "headline": "No bra, no compromise",
+      "subline": "Built-in support for a clean, held shape",
+      "cta": "Shop bra-free",
+      "caption": "Miomi tops shape, support and smooth—so you can wear fitted silhouettes without the bra underneath. Freedom, held in place. #Miomi #BraFree",
+      "treatment": {
+        "headlineArchetype": "bold-disruptive",
+        "ctaArchetype": "benefit",
+        "layout": "mega",
+        "anchor": "top-left",
+        "align": "left",
+        "case": "sentence",
+        "weight": "bold",
+        "scale": "hero",
+        "ctaStyle": "solid",
+        "ink": "dark"
+      }
+    },
+    "outputs": [
+      {
+        "id": "1783344432422-1-square-52hoo",
+        "url": "/api/img/1783344484154-4jl9g-rf.png",
+        "format": "square",
+        "aspect": "1:1",
+        "angle": "Front, straight-on, eye level — pure-white studio sweep campaign hero",
+        "at": "2026-07-06T13:28:04.230Z"
+      },
+      {
+        "id": "1783344432422-1-story-d6n2x",
+        "url": "/api/img/1783344484682-rme2r-crop.png",
+        "format": "story",
+        "aspect": "9:16",
+        "angle": "Front, straight-on, eye level — pure-white studio sweep campaign hero",
+        "at": "2026-07-06T13:28:04.779Z"
+      },
+      {
+        "id": "1783344432422-1-feed-tns5q",
+        "url": "/api/img/1783344486292-dm6fa-crop.png",
+        "format": "feed",
+        "aspect": "4:5",
+        "angle": "Front, straight-on, eye level — pure-white studio sweep campaign hero",
+        "at": "2026-07-06T13:28:06.329Z"
+      },
+      {
+        "id": "1783344432422-1-landscape-nswtx",
+        "url": "/api/img/1783344492100-p45ha-crop.png",
+        "format": "landscape",
+        "aspect": "16:9",
+        "angle": "Front, straight-on, eye level — pure-white studio sweep campaign hero",
+        "at": "2026-07-06T13:28:12.134Z"
+      }
+    ],
+    "createdAt": "2026-07-06T13:28:12.134Z",
+    "updatedAt": "2026-07-06T13:28:12.137Z"
+  },
+  {
+    "id": "cmp-mr98j1d5-twap6",
+    "name": "Instagram Creative",
+    "type": "instagram",
+    "copy": {
+      "headline": "Clean lines, no bra",
+      "subline": "Built-in support that moves with you",
+      "cta": "Go bra-free",
+      "caption": "A seamless white backdrop for the only layer you need: soft, fitted, and built to support without a bra. Wear the shape, skip the squeeze. #Miomi #BraFree"
+    },
+    "outputs": [
+      {
+        "id": "1783343253929-4-4ot63",
+        "url": "/api/img/1783343319128-68s68-crop.png",
+        "aspect": "4:5",
+        "angle": "Left Side Profile / Construction Proof",
+        "at": "2026-07-06T13:08:39.193Z"
+      },
+      {
+        "id": "1783343253929-6-xqlsa",
+        "url": "/api/img/1783343330027-bol4o-crop.png",
+        "aspect": "4:5",
+        "angle": "Macro Close-Up / Fabric + Finish Detail",
+        "at": "2026-07-06T13:08:50.115Z"
+      },
+      {
+        "id": "1783343253929-2-na1ty",
+        "url": "/api/img/1783343330518-fl2lj-crop.png",
+        "aspect": "4:5",
+        "angle": "45° Front-Left / Sculptural Support Still-Life",
+        "at": "2026-07-06T13:08:50.577Z"
+      },
+      {
+        "id": "1783343253929-5-llbzy",
+        "url": "/api/img/1783343332581-qve3z-crop.png",
+        "aspect": "4:5",
+        "angle": "Low Hero Angle / Monumental Bra-Free Form",
+        "at": "2026-07-06T13:08:52.675Z"
+      },
+      {
+        "id": "1783343253929-1-9atyp",
+        "url": "/api/img/1783343335089-c0xvf-crop.png",
+        "aspect": "4:5",
+        "angle": "Front / Campaign Clean Hero",
+        "at": "2026-07-06T13:08:55.169Z"
+      },
+      {
+        "id": "1783343253929-3-50kvb",
+        "url": "/api/img/1783343346730-tunnw-crop.png",
+        "aspect": "4:5",
+        "angle": "Top-Down 90° / Product Diagram Flat-Lay",
+        "at": "2026-07-06T13:09:06.811Z"
+      }
+    ],
+    "createdAt": "2026-07-06T13:09:06.811Z",
+    "updatedAt": "2026-07-06T13:09:06.812Z"
+  }
+]

@@ -2,11 +2,14 @@ import type { NextRequest } from "next/server";
 import { readSkill, loadIndustryPlaybook } from "@/lib/skills";
 import { loadBrandProfile } from "@/lib/brand";
 import { artDirect, activeBrain, fallbackPlan, campaignCopy, STANDARD_PRODUCT_ANGLES, DETAIL_SHOTS } from "@/lib/llm";
-import { renderShot, renderModelShot, activeRenderer, qcImage, analyzeProduct } from "@/lib/image";
+import { renderShot, renderModelShot, activeRenderer, qcImage, analyzeProduct, describeReferenceScene } from "@/lib/image";
 import { reformatImage } from "@/lib/reformat";
+import { enlargeInPlace } from "@/lib/finish";
+import { detectCategory, canWear } from "@/lib/productCategory";
 import { analyzePlacement } from "@/lib/placement";
-import type { ResolvedBrief, BrandProfile, CampaignCopy, CampaignOutput } from "@/lib/types";
-import { buildBrief, buildModelBrief, counts, formatToAspect } from "@/lib/brief";
+import { normHex, defaultBgColor } from "@/lib/copyLayout";
+import type { ResolvedBrief, BrandProfile, CampaignCopy, CampaignOutput, CreativeTypeId, ModelPerson, PaletteColor } from "@/lib/types";
+import { buildBrief, buildModelBrief, counts, formatToAspect, parsePeopleCount } from "@/lib/brief";
 import { brainToProfile } from "@/lib/onboard";
 import { buildCompliance, complianceToNegatives } from "@/lib/compliance";
 import { CREATIVE_TYPES, FORMATS, carouselDirective, isV2Type, type FormatId } from "@/lib/creativeTypes";
@@ -34,12 +37,29 @@ function compactMemory(brain: ResolvedBrief["brand"]): { approved: string[]; rej
   return { approved, rejected, preferences };
 }
 
+/**
+ * Keep the copy's colour treatment INSIDE the brand: normalise the layout agent's bgColor /
+ * inkColor to a real hex, defaulting a colour-background to the palette's primary — so a
+ * brand-colour band/canvas never bakes as a wrong or fallback-black fill in the export.
+ */
+function sanitizeCopyColors(copy: CampaignCopy, palette?: PaletteColor[]): CampaignCopy {
+  const t = copy.treatment;
+  if (!t) return copy;
+  const next = { ...t };
+  if (t.bg && t.bg !== "scrim") next.bgColor = normHex(t.bgColor) ?? defaultBgColor(palette) ?? "#141414";
+  else delete next.bgColor;
+  if (t.inkColor) { const ink = normHex(t.inkColor); if (ink) next.inkColor = ink; else delete next.inkColor; }
+  return { ...copy, treatment: next };
+}
+
+type CreativeSpec = (typeof CREATIVE_TYPES)[CreativeTypeId] | undefined;
+
 export async function POST(req: NextRequest) {
   const body = (await req.json()) as ResolvedBrief;
   const mode = body.mode === "model-photoshoot" ? "model-photoshoot" : "product-photoshoot";
   // A v2 creative type (instagram / story / carousel / ad) rides the product spine with
   // its own directive, aspect(s), copy and fan-out. Absent → exactly today's behaviour.
-  const creative = isV2Type(body.creativeType) ? CREATIVE_TYPES[body.creativeType] : undefined;
+  const creative: CreativeSpec = isV2Type(body.creativeType) ? CREATIVE_TYPES[body.creativeType] : undefined;
   const enc = new TextEncoder();
 
   const stream = new ReadableStream<Uint8Array>({
@@ -47,132 +67,73 @@ export async function POST(req: NextRequest) {
       const send = (o: unknown) => controller.enqueue(enc.encode(JSON.stringify(o) + "\n"));
       try {
         const isModel = mode === "model-photoshoot";
+        // ── GROUP SHOOT resolution — the fix for "3–4 models in one shoot". A cast of 2+ people
+        //    can come from the UI toggle (explicit `models` with reference photos) OR simply from
+        //    the client asking ("three models", "me and two friends"). Resolve it BEFORE the brief
+        //    so the whole pipeline (brief → planner → renderer) knows it's a group. Runs before any
+        //    single-model default so a group ask always wins.
+        if (isModel) {
+          const explicit = (body.models ?? []).filter(Boolean);
+          if (explicit.length >= 2) {
+            body.models = explicit.slice(0, 4);
+          } else {
+            const n = parsePeopleCount(body.express);
+            if (n >= 2) body.models = Array.from({ length: n }, (_, i): ModelPerson => ({ source: "build", name: `Person ${i + 1}` }));
+          }
+        }
         send({ type: "status", phase: "art-direction", brain: activeBrain(), renderer: activeRenderer() });
 
+        // ══ SHARED PRE-PASSES — computed ONCE and reused by the primary run AND any companions.
+        //    This is what makes "a product shoot that ALSO makes stories/posts" fast: the
+        //    expensive brand load, product-colour vision pass, industry lookup, memory compaction
+        //    and reference description all run a SINGLE time for the whole bundle. ═══════════════
         const skill = await readSkill(mode);
         const profile: BrandProfile = body.brand?.name ? brainToProfile(body.brand) : await loadBrandProfile().catch(() => ({ id: "none", name: body.brand?.name || "Brand" }));
-        let { angles, perAngle, total } = counts(body);
-        // Carousel: the sequence length IS the shot count — one frame per swipe, no variations.
-        if (creative?.frames) {
-          const f = creative.frames;
-          angles = Math.max(f.min, Math.min(f.max, body.frames ?? f.def));
-          perAngle = 1;
-          total = angles;
-        }
         const sceneBrief = isModel ? buildModelBrief(body) : buildBrief(body);
         // Route to the product's INDUSTRY PLAYBOOK (perfume → fragrance.md, etc.) and inject it
         // for real — the master skill only NAMES the playbooks; the planner needs the actual text.
-        // Detect from the brand's category/products + this brief. Product mode only.
         const rb = (profile.rulebook ?? {}) as Record<string, unknown>;
         const routeText = [
           body.brand?.category, body.brand?.productType, body.brand?.name,
           rb.category, rb.productType, rb.aesthetic, profile.name,
           body.express, sceneBrief,
         ].filter((v) => typeof v === "string").join(" \n ");
-        // Load the category playbook for BOTH modes — a model shoot still needs the
-        // product's category taste (palette/surface/substance/mood) so the product reads right.
         const industry = await loadIndustryPlaybook(routeText).catch(() => null);
         if (industry) send({ type: "status", phase: "industry", playbook: industry.label });
-        // Product angle direction: the STANDARD angles guarantee camera VARIETY across the
-        // set, but they are a coverage backbone — NOT a rigid catalogue sequence. The art
-        // director leads with editorial TASTE treatments and uses these to keep angles
-        // genuinely distinct; one clean straight-on hero stays in for fidelity.
-        const angleGuide = isModel
-          ? ""
-          : `\n\nCAMERA VARIETY — across the ${angles} shot${angles > 1 ? "s" : ""}, make the camera angles genuinely DISTINCT (avoid near-duplicates). Use these STANDARD PRODUCT ANGLES as the variety backbone, and ALWAYS keep one clean straight-on eye-level hero for product fidelity: ${STANDARD_PRODUCT_ANGLES.slice(0, 6).map((a, i) => `${i + 1}) ${a}`).join("; ")}. ` +
-            `But this is a CREATIVE shoot, not a catalogue: choose an editorial TASTE treatment per shot (see the taste library) and pair it with a fitting angle — do NOT just march down the standard list. For detail / texture coverage, draw from the DETAIL SHOTS: ${DETAIL_SHOTS.join(", ")}. Tag every shot with a short angle/treatment label.`;
-        // The creative type's craft (scroll-stop feed frame, story safe-zones, the
-        // carousel narrative arc, the ad's copy space) rides the brief — the planner
-        // schema and everything downstream stay unchanged.
-        const typeDirective = creative ? (creative.id === "carousel" ? carouselDirective(angles) : creative.directive ?? "") : "";
-        const brief =
-          `${sceneBrief}\n\n` +
-          `SHOT COUNT — produce EXACTLY ${angles} DISTINCT ${isModel ? "frame" : "camera angle"}${angles > 1 ? "s" : ""}, and for EACH ${isModel ? "frame" : "angle"} ${perAngle} shot${perAngle > 1 ? "s" : ""} ` +
-          `${perAngle > 1 ? "(variations — slightly different framing, pose, styling or crop)" : ""}. ` +
-          `Total ${total} shots. Tag every shot with its ${isModel ? "frame label" : "angle"}. ` +
-          `${isModel ? "Keep the SAME person, wardrobe, light and grade across the set so it reads as one coherent shoot." : "Keep light, surface and treatment consistent so the set reads as one shoot."}` +
-          angleGuide +
-          (typeDirective ? `\n\n${typeDirective}` : "");
-        // Vision pre-pass: LOOK at the uploaded product so the (otherwise blind) art
-        // director can key the scene to the real packaging colour. Runs whenever a product
-        // is present — in model mode too, so the set/wardrobe harmonise with the product.
-        // Best-effort — null just falls back to brand text.
+        // Vision pre-pass: LOOK at the uploaded product so the (otherwise blind) art director can
+        // key the scene to the real packaging colour. Serial before the plan (its colours feed it).
         const heroProduct = (body.products ?? []).filter(Boolean)[0];
         const observed = !heroProduct ? null : await analyzeProduct(heroProduct).catch(() => null);
         if (observed?.colors.length) send({ type: "status", phase: "product-colour", colors: observed.colors });
-        // Brand memory — the "sharper every campaign" loop. Compact the founder's kept /
-        // rejected art-direction into short clauses the planner can lean on (bounded).
+        // Brand memory — the "sharper every campaign" loop, compacted for the planner.
         const memory = compactMemory(body.brand);
         if (memory) send({ type: "status", phase: "memory", approved: memory.approved.length, rejected: memory.rejected.length });
-        let plan;
-        try {
-          plan = await artDirect({ skill, profile, brief, industry, productColors: observed?.colors, productMaterial: observed?.material, forModel: isModel, memory });
-        } catch {
-          // Brain unreachable → deterministic plan so the shoot still renders.
-          plan = fallbackPlan(sceneBrief, angles, perAngle, mode);
-        }
-        const planned = plan.shots.slice(0, total);
-        const aspect = creative?.aspect ?? formatToAspect(body.panel?.format);
-
-        // Storyboard: hand the client every shot up front so it can show skeleton cards.
-        const stamp = Date.now();
-        const rand = () => Math.random().toString(36).slice(2, 7);
-        // Ad campaigns fan ONE planned concept out across placements — artDirect ran
-        // once (the concept), each placement renders natively at its own aspect.
-        const fanFormats: FormatId[] = creative?.fanOutFormats
-          ? (((body.formats?.length ? body.formats : creative.fanOutFormats) as string[]).filter((f): f is FormatId => f in FORMATS))
-          : [];
-        type Stub = { id: string; angle: string; aspect: string; format?: FormatId; seq?: number; groupId?: string; planIdx: number };
-        const stubs: Stub[] = [];
-        planned.forEach((s, idx) => {
-          if (fanFormats.length) {
-            for (const f of fanFormats) stubs.push({ id: `${stamp}-${idx + 1}-${f}-${rand()}`, angle: s.angle, aspect: FORMATS[f].aspect, format: f, groupId: `g${stamp.toString(36)}-${idx + 1}`, planIdx: idx });
-          } else {
-            stubs.push({ id: `${stamp}-${idx + 1}-${rand()}`, angle: s.angle, aspect, seq: creative?.frames ? idx + 1 : undefined, groupId: creative?.frames ? `g${stamp.toString(36)}` : undefined, planIdx: idx });
-          }
-        });
-
-        // A v2 type persists as a CAMPAIGN — the container grouping this brief's
-        // sequence / fan-out (campaigns.json, separate from brain.json by design).
-        const slug = creative && body.brand?.name ? slugify(body.brand.name) : null;
-        const campaignId = slug ? `cmp-${stamp.toString(36)}-${rand()}` : undefined;
-        const campaignName = body.campaignName?.trim() || body.express?.trim().slice(0, 64) || creative?.runLabel || "Campaign";
-        const outputs: CampaignOutput[] = [];
-
-        send({ type: "plan", angles: plan.angles, count: stubs.length, qc: plan.qc, aspect, creativeType: creative?.id, campaignId, shots: stubs.map((st) => ({ id: st.id, angle: st.angle, aspect: st.aspect, format: st.format, seq: st.seq })) });
-
-        // Copy (headline / CTA / caption) is written in parallel with the renders and
-        // streamed as DATA — overlaid in the UI, never baked into the image.
-        const copyPromise: Promise<CampaignCopy> = creative?.needsCopy
-          ? campaignCopy({ profile, brief: sceneBrief, type: creative.id, frames: creative.frames ? angles : undefined })
-              .then((generated) => {
-                const copy: CampaignCopy = { ...generated, ...(body.copy ?? {}) }; // the client's own typed copy wins
-                if (Object.values(copy).some(Boolean)) send({ type: "copy", copy, campaignId });
-                return copy;
-              })
-              .catch(() => body.copy ?? {})
-          : Promise.resolve(body.copy ?? {});
-
         const products = body.products ?? [];
         const modelRefs = body.modelRefs ?? [];
-        // The deterministic finishing grade — keyed to the brand's OWN photos (derived at
-        // research time). Applied by sharp AFTER the model so the final colour never comes
-        // from the image model and the whole set reads as one photographer. Undefined →
-        // renderer falls back to a subtle neutral filmic grade (still off the flat AI look).
+        // Product category → whether a human can genuinely WEAR it. Non-wearables (food,
+        // drink, furniture, an object) tell the renderer to suppress wardrobe prose and ban
+        // "worn" so a model is never made to wear an ice cream or a sofa.
+        const modelCategory = detectCategory(body.brand?.category, body.brand?.productType, body.brand?.name, body.express);
+        const productWearable = canWear(modelCategory);
+        // Multi-model: 2+ DISTINCT people in one frame. `renderPeople` carries only the people
+        // who have a reference photo (used to build the per-person identity lock); `isGroup`
+        // also covers built-attribute groups so the single-identity QC doesn't false-fail them.
+        const groupModels = (body.models ?? []).filter(Boolean);
+        const isGroup = groupModels.length >= 2;
+        const renderPeople = groupModels.map((m) => ({ name: m.name, refs: (m.refs ?? []).filter(Boolean) })).filter((pp) => pp.refs.length);
+        const modelPeople = renderPeople.length >= 2 ? renderPeople : undefined;
+        // The deterministic finishing grade — keyed to the brand's OWN photos (derived at research
+        // time), applied by sharp AFTER the model so the final colour never comes from the model.
         const finish = body.brand?.research?.photoRules?.colorGrade;
-
-        // References are STYLE/look references the client EXPLICITLY added. We do NOT
-        // auto-inject the brand's harvested product photos: in edit mode every extra
-        // input image competes with the chosen product and dilutes its fidelity (and
-        // slows the call). The product the client selected/uploaded must be reproduced
-        // exactly — it is the one, faithful base. Brand resonance comes from the
-        // art-director's text aesthetic, not from competing reference images.
-        // Style references belong ONLY to the plain product / model photoshoots — never
-        // to a v2 creative type (instagram / story / carousel / ad), whose look is driven
-        // by the brand world + copy, not a pasted reference. Drop them here so a reference
-        // left over from an earlier product shoot can't bleed into a campaign render.
-        const references = creative ? [] : (body.references ?? []).filter(Boolean);
+        // Style references are the client's EXPLICIT look references. They belong ONLY to a plain
+        // product/model shoot (the primary run when it is not a v2 type) — never to a v2 companion,
+        // whose look is driven by the brand world + copy. Kick describeReferenceScene off NOW so its
+        // 3–6s hides entirely behind analyzeProduct + the planner instead of serializing after them.
+        const primaryReferences = creative ? [] : (body.references ?? []).filter(Boolean);
         const referencesAreBrand = false;
+        const refScenePromise: Promise<string | null> = primaryReferences.length
+          ? describeReferenceScene(primaryReferences[0]).catch(() => null)
+          : Promise.resolve(null);
         const MODEL_CHECKLIST = [
           "A real photographed human, not a 3D/CGI/plastic/doll/AI render",
           "Skin has real texture and pores, never waxy or airbrushed",
@@ -183,103 +144,208 @@ export async function POST(req: NextRequest) {
           "Clean seamless background to every edge; no text, watermark, caption or border on the image",
         ];
 
-        // Render one shot: regenerate once, plus once more if the QC vision pass rejects it.
-        const renderOne = async (idx: number): Promise<void> => {
-          const stub = stubs[idx];
-          const shot = planned[stub.planIdx];
-          send({ type: "rendering", id: stub.id, angle: shot.angle });
-          // Compliance rides with THIS shot — brand do-not + industry + per-shot negatives,
-          // stamped on the payload and fed as extra renderer negatives so it holds on every
-          // downstream reshoot/edit/resize (not just the first planner prompt).
-          const compliance = buildCompliance({ profile, industry, planNegatives: shot.negatives, observedColors: observed?.colors, isModel });
-          const extraNegatives = complianceToNegatives(compliance);
-          // The generated product MUST match the client's uploaded product exactly. So the
-          // fidelity QC runs on EVERY attempt (not just the first) whenever a product is in
-          // play — a render that drifts from the upload is never shipped unchecked. We keep
-          // retrying up to MAX_ATTEMPTS; only if all fail do we fall back to the last render
-          // (best-effort), and then it is flagged unverified rather than passed off as clean.
-          const heroRef = (products ?? []).filter(Boolean)[0];
-          const gateFidelity = isModel || !!heroRef; // model → human bar; product → match-the-upload
-          // 2 attempts: the initial render + one QC-gated reshoot. Both are QC'd (nothing ships
-          // blind), but we cap here so a stubborn shot can't triple the render time. Env-tunable.
-          const MAX_ATTEMPTS = Math.max(1, Number(process.env.QC_MAX_ATTEMPTS) || 2);
-          let url: string | null = null;
-          let fallback: string | null = null; // last successful render, used only if every QC fails
-          let lastReasons: string[] = [];
-          let lastErr = "render failed";
-          for (let attempt = 0; attempt < MAX_ATTEMPTS && !url; attempt++) {
-            try {
-              const candidate = isModel
-                ? await renderModelShot({ id: stub.id, prompt: shot.prompt, negatives: shot.negatives, extraNegatives, modelRefs, products, references, referencesAreBrand, aspect: stub.aspect, imageSize: "2K", finish })
-                : await renderShot({ id: stub.id, prompt: shot.prompt, angle: shot.angle, negatives: shot.negatives, extraNegatives, products, references, referencesAreBrand, aspect: stub.aspect, imageSize: "2K", finish });
-              fallback = candidate;
-              if (gateFidelity) {
-                // Per-attempt craft + fidelity check. Product mode compares the generated
-                // frame against the uploaded product (qcImage's productRef branch); model
-                // mode adds the human bar. When a STYLE reference is driving a restage, the
-                // product may be re-formed to fit the new scene, so QC judges the fabric /
-                // print / colourway (not the folded shape) — else a correct restage fails QC.
-                const restage = !isModel && references.length > 0;
-                // When the client pasted a likeness reference, QC must verify the generated
-                // person IS that individual — not just that it's a clean, realistic human.
-                const modelRef = isModel ? modelRefs.filter(Boolean)[0] : undefined;
-                const verdict = await qcImage({ url: candidate, checklist: isModel ? MODEL_CHECKLIST : [], brand: profile.name, productRef: heroRef, modelRef, restage });
-                if (!verdict.pass) {
-                  lastReasons = verdict.reasons;
-                  send({ type: "qc", id: stub.id, reasons: verdict.reasons, attempt: attempt + 1, of: MAX_ATTEMPTS });
-                  continue;
+        const stamp = Date.now();
+        const rand = () => Math.random().toString(36).slice(2, 7);
+
+        // Companion v2 types to ALSO produce from this one action (a product shoot that also
+        // yields Instagram stories + posts). De-duped, v2-only, minus the primary type. Only on
+        // the product spine — a model shoot doesn't auto-spawn campaigns. Empty → today's behaviour.
+        const companionTypes: CreativeTypeId[] = isModel
+          ? []
+          : ([...new Set((body.companions ?? []).filter(isV2Type))] as CreativeTypeId[]).filter((t) => t !== body.creativeType);
+
+        // One request → the primary run + each companion, each with its OWN plan / copy / campaign,
+        // all sharing the pre-passes above. Tagged with `run` so the client stacks a card per run.
+        const runOne = async (spec: CreativeSpec, runKey: string): Promise<void> => {
+          const isPrimary = runKey === "primary";
+          let { angles, perAngle, total } = counts(body);
+          // A companion gets its own small set — the product panel's counts belong to the product
+          // shoot, not to the story/post. Stories/posts → 3 distinct options; an ad → 1 concept fanned.
+          if (!isPrimary) {
+            if (spec?.id === "story" || spec?.id === "instagram") { angles = 3; perAngle = 1; total = 3; }
+            else { angles = 1; perAngle = 1; total = 1; }
+          }
+          // Carousel: the sequence length IS the shot count — one frame per swipe, no variations.
+          if (spec?.frames) {
+            const f = spec.frames;
+            angles = Math.max(f.min, Math.min(f.max, body.frames ?? f.def));
+            perAngle = 1;
+            total = angles;
+          }
+          // Product angle direction: the STANDARD angles guarantee camera VARIETY across the set,
+          // a coverage backbone (not a rigid catalogue). The art director leads with editorial taste.
+          const angleGuide = isModel
+            ? ""
+            : `\n\nCAMERA VARIETY — this is the #1 requirement: the ${angles} shot${angles > 1 ? "s" : ""} MUST look like GENUINELY DIFFERENT camera angles, never the same front view with a different background or shadow. Keep exactly ONE clean straight-on eye-level hero for fidelity; EVERY OTHER shot must use DRAMATICALLY different geometry drawn from: ${STANDARD_PRODUCT_ANGLES.slice(0, 8).map((a, i) => `${i + 1}) ${a}`).join("; ")}. ` +
+              `HARD RULE for a ${angles}-shot set: include at LEAST one true TOP-DOWN / flat-lay (product laid flat, shot from directly above), at least one SIDE profile or LOW/HIGH angle, and at least one MACRO detail — and do NOT use more than one near-front / three-quarter-frontal view. Spread the dramatic angles across the set; never cluster similar frontal shots. ` +
+              `It is a CREATIVE shoot, not a catalogue: pair each angle with an editorial TASTE treatment (see the taste library). For detail / texture coverage, draw from the DETAIL SHOTS: ${DETAIL_SHOTS.join(", ")}. Tag every shot with its explicit angle label (e.g. "Top-down flat-lay", "Low angle", "Side profile") so the renderer can move the camera.`;
+          // The creative type's craft (scroll-stop feed frame, story safe-zones, the carousel arc,
+          // the ad's copy space) rides the brief — the planner schema stays unchanged.
+          const typeDirective = spec ? (spec.id === "carousel" ? carouselDirective(angles) : spec.directive ?? "") : "";
+          // A SET of parallel posts/stories must not look templated: each option is its OWN shoot,
+          // with its clean negative space in a DIFFERENT region so the overlaid copy never repeats
+          // its position and never sits on the product. Pairs with the N distinct copy variants.
+          const setDirective =
+            spec && (spec.id === "story" || spec.id === "instagram") && angles > 1
+              ? `\n\nTHIS IS A SET OF ${angles} SEPARATE ${spec.id === "story" ? "STORIES" : "POSTS"} — NOT ONE SHOT REPEATED. Make each option a genuinely different creative: a different scene / setting, a different composition and camera move, and a different product moment, so no two look like recolours of each other. CRUCIAL for the copy: give each option a LARGE clean area of negative space, and put that empty area in a DIFFERENT part of the frame across the set (e.g. option 1 leaves the TOP open, option 2 the BOTTOM, option 3 one SIDE) — the product must sit clear of that empty region so the headline never overlaps it.`
+              : "";
+          const brief =
+            `${sceneBrief}\n\n` +
+            `SHOT COUNT — produce EXACTLY ${angles} DISTINCT ${isModel ? "frame" : "camera angle"}${angles > 1 ? "s" : ""}, and for EACH ${isModel ? "frame" : "angle"} ${perAngle} shot${perAngle > 1 ? "s" : ""} ` +
+            `${perAngle > 1 ? "(variations — slightly different framing, pose, styling or crop)" : ""}. ` +
+            `Total ${total} shots. Tag every shot with its ${isModel ? "frame label" : "angle"}. ` +
+            `${isModel ? (isGroup ? `THIS IS A GROUP SHOOT — every frame shows the SAME cast of ${groupModels.length} distinct people together (never a solo portrait, never fewer), with consistent wardrobe, light and grade across the set.` : "Keep the SAME person, wardrobe, light and grade across the set so it reads as one coherent shoot.") : "Keep light, surface and treatment consistent so the set reads as one shoot."}` +
+            angleGuide +
+            (typeDirective ? `\n\n${typeDirective}` : "") +
+            setDirective;
+
+          let plan;
+          try {
+            plan = await artDirect({ skill, profile, brief, industry, productColors: observed?.colors, productMaterial: observed?.material, forModel: isModel, memory });
+          } catch {
+            // Brain unreachable → deterministic plan so the shoot still renders.
+            plan = fallbackPlan(sceneBrief, angles, perAngle, mode);
+          }
+          const planned = plan.shots.slice(0, total);
+          const aspect = spec?.aspect ?? formatToAspect(body.panel?.format);
+
+          // Ad campaigns fan ONE planned concept out across placements — artDirect ran once
+          // (the concept), each placement renders natively at its own aspect.
+          const fanFormats: FormatId[] = spec?.fanOutFormats
+            ? (((body.formats?.length ? body.formats : spec.fanOutFormats) as string[]).filter((f): f is FormatId => f in FORMATS))
+            : [];
+          type Stub = { id: string; angle: string; aspect: string; format?: FormatId; seq?: number; groupId?: string; planIdx: number };
+          const stubs: Stub[] = [];
+          const runStamp = `${stamp}${runKey === "primary" ? "" : `-${runKey}`}`;
+          planned.forEach((s, idx) => {
+            if (fanFormats.length) {
+              for (const f of fanFormats) stubs.push({ id: `${runStamp}-${idx + 1}-${f}-${rand()}`, angle: s.angle, aspect: FORMATS[f].aspect, format: f, groupId: `g${stamp.toString(36)}-${runKey}-${idx + 1}`, planIdx: idx });
+            } else {
+              stubs.push({ id: `${runStamp}-${idx + 1}-${rand()}`, angle: s.angle, aspect, seq: spec?.frames ? idx + 1 : undefined, groupId: spec?.frames ? `g${stamp.toString(36)}-${runKey}` : undefined, planIdx: idx });
+            }
+          });
+
+          // A v2 type persists as a CAMPAIGN — the container grouping this brief's sequence /
+          // fan-out (campaigns.json, separate from brain.json by design).
+          const slug = spec && body.brand?.name ? slugify(body.brand.name) : null;
+          const campaignId = slug ? `cmp-${stamp.toString(36)}-${runKey}-${rand()}` : undefined;
+          const campaignName = (isPrimary && body.campaignName?.trim()) || body.express?.trim().slice(0, 64) || spec?.runLabel || "Campaign";
+          const outputs: CampaignOutput[] = [];
+
+          send({ type: "plan", run: runKey, angles: plan.angles, count: stubs.length, qc: plan.qc, aspect, creativeType: spec?.id, campaignId, shots: stubs.map((st) => ({ id: st.id, angle: st.angle, aspect: st.aspect, format: st.format, seq: st.seq })) });
+
+          // Style references + the described reference scene apply only to a plain product/model
+          // primary run (v2 companions force references=[]). refScene resolves from the promise
+          // kicked off in the shared block, so it's already hidden behind the planner.
+          const references = spec ? [] : primaryReferences;
+          const refScene = spec ? null : await refScenePromise;
+          if (refScene && isPrimary) send({ type: "status", phase: "reference", matched: true });
+
+          // Copy (headline / CTA / caption), written in parallel with the renders and streamed as
+          // DATA — overlaid in the UI, never baked. A multi-option story/post run gets N DISTINCT
+          // variants so the words never repeat. The client's typed copy only overrides the primary.
+          const copyVariants = (spec?.id === "story" || spec?.id === "instagram") && angles > 1 ? angles : undefined;
+          const typedCopy = isPrimary ? body.copy ?? {} : {};
+          const copyPromise: Promise<CampaignCopy> = spec?.needsCopy
+            ? campaignCopy({ profile, brief: sceneBrief, type: spec.id, frames: spec.frames ? angles : undefined, variants: copyVariants })
+                .then((generated) => {
+                  const copy: CampaignCopy = sanitizeCopyColors({ ...generated, ...typedCopy }, profile.palette);
+                  if (Object.values(copy).some(Boolean)) send({ type: "copy", run: runKey, copy, campaignId });
+                  return copy;
+                })
+                .catch(() => typedCopy)
+            : Promise.resolve(typedCopy);
+
+          // Best-effort copy-placement jobs run OFF the render lane (they only produce an overlay
+          // hint) so they never hold a pool worker or delay the next shot; awaited once before save.
+          const placementJobs: Promise<void>[] = [];
+
+          // Render one shot: regenerate once, plus once more if the QC vision pass rejects it.
+          const renderOne = async (idx: number): Promise<void> => {
+            const stub = stubs[idx];
+            const shot = planned[stub.planIdx];
+            send({ type: "rendering", id: stub.id, angle: shot.angle });
+            const compliance = buildCompliance({ profile, industry, planNegatives: shot.negatives, observedColors: observed?.colors, isModel });
+            const extraNegatives = complianceToNegatives(compliance);
+            const heroRef = (products ?? []).filter(Boolean)[0];
+            const gateFidelity = isModel || !!heroRef; // model → human bar; product → match-the-upload
+            const MAX_ATTEMPTS = Math.max(1, Number(process.env.QC_MAX_ATTEMPTS) || 2);
+            let url: string | null = null;
+            let fallback: string | null = null;
+            let lastReasons: string[] = [];
+            let lastErr = "render failed";
+            for (let attempt = 0; attempt < MAX_ATTEMPTS && !url; attempt++) {
+              try {
+                const candidate = isModel
+                  ? await renderModelShot({ id: stub.id, prompt: shot.prompt, negatives: shot.negatives, extraNegatives, modelRefs, people: modelPeople, groupCount: isGroup ? groupModels.length : undefined, products, references, referencesAreBrand, wearable: productWearable, aspect: stub.aspect, imageSize: "2K", finish })
+                  : await renderShot({ id: stub.id, prompt: shot.prompt, angle: shot.angle, negatives: shot.negatives, extraNegatives, products, references, referencesAreBrand, refScene: refScene ?? undefined, aspect: stub.aspect, imageSize: "2K", finish });
+                fallback = candidate;
+                if (gateFidelity) {
+                  const restage = !isModel && references.length > 0;
+                  // A group frame has several faces; comparing the whole shot to ONE reference
+                  // would false-fail people 2..N. Skip the single-identity gate for groups —
+                  // per-person likeness is enforced by the prompt lock + negatives instead.
+                  const modelRef = isModel && !isGroup ? modelRefs.filter(Boolean)[0] : undefined;
+                  const verdict = await qcImage({ url: candidate, checklist: isModel ? MODEL_CHECKLIST : [], brand: profile.name, productRef: heroRef, modelRef, restage });
+                  if (!verdict.pass) {
+                    lastReasons = verdict.reasons;
+                    send({ type: "qc", id: stub.id, reasons: verdict.reasons, attempt: attempt + 1, of: MAX_ATTEMPTS });
+                    continue;
+                  }
                 }
+                url = candidate;
+              } catch (err) {
+                lastErr = (err as Error).message;
               }
-              url = candidate;
-            } catch (err) {
-              lastErr = (err as Error).message;
             }
-          }
-          // Every attempt rendered but none matched the product → ship the last frame rather
-          // than dropping the shot, but flag it (reusing the drift badge the ShotCard already
-          // renders) so the client sees a "check brand" warning instead of a silent mismatch.
-          const drift = !url && !!fallback;
-          if (drift) { url = fallback; }
-          // Placement sizing — the renderer only emits a few fixed sizes (gpt-image gives
-          // 2:3 / 1:1 / 3:2), so a story / feed / landscape placement comes back at the
-          // NEAREST size, not its real 9:16 / 4:5 / 16:9. A v2 creative (instagram / story /
-          // carousel / ad) must ship the EXACT placement size or the ad platform rejects or
-          // crops it — so correct the plate to the declared aspect. reformatImage centre-
-          // crops deterministically (the product pixels stay put); best-effort, never drop.
-          if (url && creative && stub.aspect) {
-            try { url = (await reformatImage({ src: url, targetAspect: stub.aspect })).url; }
-            catch { /* keep the uncorrected plate rather than losing the shot */ }
-          }
-          if (url) {
-            send({ type: "shot", shot: { id: stub.id, angle: shot.angle, prompt: shot.prompt, negatives: shot.negatives, compliance, url, aspect: stub.aspect, format: stub.format, seq: stub.seq, groupId: stub.groupId, drift: drift || undefined, driftReasons: drift ? lastReasons : undefined } });
-            // Image-aware copy placement: read THIS frame's negative space and stream where its
-            // copy should sit, so the set varies placement per shot (the run treatment keeps the
-            // voice). Sent AFTER the shot so the image appears immediately; best-effort.
-            let placement;
-            if (creative?.needsCopy) {
-              placement = (await analyzePlacement(url, stub.aspect).catch(() => null)) ?? undefined;
-              if (placement) send({ type: "placement", id: stub.id, placement });
+            const drift = !url && !!fallback;
+            if (drift) { url = fallback; }
+            if (url && spec && stub.aspect) {
+              try { url = (await reformatImage({ src: url, targetAspect: stub.aspect })).url; }
+              catch { /* keep the uncorrected plate rather than losing the shot */ }
             }
-            outputs.push({ id: stub.id, url, format: stub.format, aspect: stub.aspect, angle: shot.angle, seq: stub.seq, ...(placement ? { placement } : {}), at: new Date().toISOString() });
-          } else send({ type: "shotError", id: stub.id, angle: shot.angle, error: lastErr });
+            if (url) {
+              const finalUrl = url;
+              // Always-on free 4K: enlarge + re-sharpen the accepted plate in place so the
+              // downloadable original and every derived thumbnail are crisp at ~4K. Real
+              // super-resolution stays the opt-in keeper upgrade (/api/upscale).
+              await enlargeInPlace(finalUrl);
+              send({ type: "shot", run: runKey, shot: { id: stub.id, angle: shot.angle, prompt: shot.prompt, negatives: shot.negatives, compliance, url: finalUrl, aspect: stub.aspect, format: stub.format, seq: stub.seq, groupId: stub.groupId, drift: drift || undefined, driftReasons: drift ? lastReasons : undefined } });
+              const output: CampaignOutput = { id: stub.id, url: finalUrl, format: stub.format, aspect: stub.aspect, angle: shot.angle, seq: stub.seq, at: new Date().toISOString() };
+              outputs.push(output);
+              // Image-aware copy placement runs OFF the render lane — the shot pixels are already
+              // shown; this only decides WHERE the overlay copy sits (clear of the product), and it
+              // writes the hint back onto the saved output. Detached so it never delays the next shot.
+              if (spec?.needsCopy) {
+                placementJobs.push(
+                  analyzePlacement(finalUrl, stub.aspect).catch(() => null).then((placement) => {
+                    if (placement) { output.placement = placement; send({ type: "placement", id: stub.id, placement }); }
+                  })
+                );
+              }
+            } else send({ type: "shotError", id: stub.id, angle: shot.angle, error: lastErr });
+          };
+
+          // Every shot renders in parallel (pool). The OpenAI SDK backs off on any 429 so extra
+          // lanes are safe. Env-tunable (RENDER_CONCURRENCY) if a provider's rate limit is tighter.
+          const CONCURRENCY = Math.max(1, Number(process.env.RENDER_CONCURRENCY) || 8);
+          const allIdx = stubs.map((_, idx) => idx);
+          let cursor = 0;
+          const worker = async () => { while (cursor < allIdx.length) { await renderOne(allIdx[cursor++]); } };
+          await Promise.all(Array.from({ length: Math.min(CONCURRENCY, allIdx.length) }, worker));
+          // Let the detached placement passes finish so the persisted outputs carry their hints.
+          await Promise.all(placementJobs);
+          if (spec && slug && campaignId && outputs.length) {
+            const copy = await copyPromise;
+            const at = new Date().toISOString();
+            await saveCampaign(slug, { id: campaignId, name: campaignName, type: spec.id, brief: body.express?.trim() || undefined, copy, outputs, createdAt: at, updatedAt: at }).catch(() => {});
+          }
         };
 
-        // Every shot renders in parallel (pool) for maximum speed. Sized so a full
-        // six-angle set (and most carousel/fan-out runs) fires in a SINGLE wave rather
-        // than 5-then-stragglers — the OpenAI SDK backs off on any 429 so extra lanes are
-        // safe. Env-tunable (RENDER_CONCURRENCY) if a provider's rate limit is tighter.
-        const CONCURRENCY = Math.max(1, Number(process.env.RENDER_CONCURRENCY) || 8);
-        const allIdx = stubs.map((_, idx) => idx);
-        let cursor = 0;
-        const worker = async () => { while (cursor < allIdx.length) { await renderOne(allIdx[cursor++]); } };
-        await Promise.all(Array.from({ length: Math.min(CONCURRENCY, allIdx.length) }, worker));
-        // Persist the campaign in ONE write after the pool settles — the parallel
-        // workers would otherwise race the read-modify-write on campaigns.json.
-        if (creative && slug && campaignId && outputs.length) {
-          const copy = await copyPromise;
-          const at = new Date().toISOString();
-          await saveCampaign(slug, { id: campaignId, name: campaignName, type: creative.id, brief: body.express?.trim() || undefined, copy, outputs, createdAt: at, updatedAt: at }).catch(() => {});
-        }
+        // Primary run first (today's behaviour), then each companion — sequentially so the render
+        // pools don't collectively blow a provider's rate limit. Shared pre-passes are never repeated.
+        await runOne(creative, "primary");
+        for (const t of companionTypes) await runOne(CREATIVE_TYPES[t], t);
         send({ type: "done" });
       } catch (err) {
         send({ type: "error", error: (err as Error).message });

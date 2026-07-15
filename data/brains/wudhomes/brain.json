@@ -1,0 +1,2564 @@
+{
+  "name": "Wudhomes",
+  "website": "wudhomes.com",
+  "research": {
+    "summary": "Wudhomes is a real Bengaluru-based contemporary home and furniture brand focused on making custom sofa buying simpler, clearer and more personal for Indian homes. The brand positions itself around joyful, low-stress furniture decisions, combining free design guidance, custom sizing and fabric choices, India-made craftsmanship, transparent construction details and approachable pricing.",
+    "essence": "Custom sofas for modern Indian homes, designed with you and built transparently.",
+    "voice": "Simple, warm, helpful, reassuring and practical, with a lightly playful use of the “wud” name. The brand speaks like a friendly furniture expert: design-aware but not intimidating, transparent about materials, and focused on helping customers make confident choices.",
+    "competitors": [
+      "Furnishka",
+      "Pepperfry",
+      "Homsofa Decor",
+      "Prestige Dream Decor",
+      "Pelikas"
+    ],
+    "ambassadors": [
+      "Vasu Arneja",
+      "Aditya Singh",
+      "Omkar Lande"
+    ],
+    "instagram": "@wudhomes",
+    "website": "wudhomes.com",
+    "palette": [
+      {
+        "hex": "#F6F1EA",
+        "role": "warm ivory background"
+      },
+      {
+        "hex": "#2F2A25",
+        "role": "charcoal brown primary text"
+      },
+      {
+        "hex": "#B8874F",
+        "role": "warm walnut wood tone"
+      },
+      {
+        "hex": "#C88A3D",
+        "role": "amber upholstery accent"
+      },
+      {
+        "hex": "#6F7657",
+        "role": "olive green sofa fabric"
+      },
+      {
+        "hex": "#D8C7B2",
+        "role": "beige linen neutral"
+      },
+      {
+        "hex": "#8A8278",
+        "role": "stone grey upholstery"
+      },
+      {
+        "hex": "#7A4E3A",
+        "role": "muted terracotta accent"
+      }
+    ],
+    "aesthetic": "Warm contemporary Indian apartment photography: sofas shot in clean living-room settings with light neutral walls, warm wood floors, marble or wood coffee tables, simple rugs, side tables, cushions and occasional plants. Colour grade is natural and warm, with earthy upholstery tones such as beige, olive, amber, tan, grey and cream rather than high-gloss showroom saturation. Styling density is medium-light: enough props to show scale and comfort, but not luxury-editorial maximalism. Lighting is soft daylight, usually side-lit as if from apartment windows, with minimal harsh flash. Crops are commerce-friendly: front and three-quarter sofa angles, full sofa or living-room fit shots, product-card crops, and tighter detail crops for stitching, upholstery texture, cushions, legs and construction proof. The imagery is mostly product and finished-home-result led rather than model-led, with an opportunity for more visible human service moments such as measuring rooms, choosing swatches and delivery installation.",
+    "foundReal": true,
+    "logo": "https://wudhomes.com/cdn/shop/files/Asset_39_1.png?v=1777472480&width=480",
+    "productImages": [
+      "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/kutkollipouf.png?v=1782468322",
+      "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/matkapouf.png?v=1782468271",
+      "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/KukurmuttuPouf.png?v=1782468112",
+      "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/sofa1.png?v=1779707146",
+      "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/2_4ee7ca3e-01ab-457e-ac2b-057ec36494ed.png?v=1689427470",
+      "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Ball1.webp?v=1762333343",
+      "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/1_b6e23ecb-5f7b-4075-a288-d26661923b29.png?v=1689427343",
+      "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/finllttu.png?v=1762332797",
+      "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Group86.png?v=1771576512",
+      "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/2_35dafdd4-f453-4c97-9ec7-249435bb40a5.png?v=1772192694",
+      "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Palaai-sofa-3-seater-iso.png?v=1777639472",
+      "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Group3_0d8699f7-2943-4f8f-b2d7-f7bdb8306bd2.png?v=1763756686"
+    ],
+    "products": [
+      {
+        "name": "Kutkolli Pouf",
+        "image": "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/kutkollipouf.png?v=1782468322"
+      },
+      {
+        "name": "Matka Pouf",
+        "image": "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/matkapouf.png?v=1782468271"
+      },
+      {
+        "name": "Kukurmutta Pouf",
+        "image": "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/KukurmuttuPouf.png?v=1782468112"
+      },
+      {
+        "name": "Gulchin 3 Seater Sofa",
+        "image": "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/sofa1.png?v=1779707146"
+      },
+      {
+        "name": "Gola Side Table (Small)",
+        "image": "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/2_4ee7ca3e-01ab-457e-ac2b-057ec36494ed.png?v=1689427470"
+      },
+      {
+        "name": "Gola Side Table (Big)",
+        "image": "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Ball1.webp?v=1762333343"
+      },
+      {
+        "name": "Gola Side Table Set",
+        "image": "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/1_b6e23ecb-5f7b-4075-a288-d26661923b29.png?v=1689427343"
+      },
+      {
+        "name": "Lattu Side Table",
+        "image": "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/finllttu.png?v=1762332797"
+      },
+      {
+        "name": "Jaswanti Leather 3 Seater Sofa",
+        "image": "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Group86.png?v=1771576512"
+      },
+      {
+        "name": "Kesar 3 Seater Sofa",
+        "image": "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/2_35dafdd4-f453-4c97-9ec7-249435bb40a5.png?v=1772192694"
+      },
+      {
+        "name": "Paalai Leather 3 Seater Sofa",
+        "image": "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Palaai-sofa-3-seater-iso.png?v=1777639472"
+      },
+      {
+        "name": "Tagar Leather 3 Seater Sofa",
+        "image": "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Group3_0d8699f7-2943-4f8f-b2d7-f7bdb8306bd2.png?v=1763756686"
+      },
+      {
+        "name": "Kumud Leather 3 Seater Sofa",
+        "image": "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/kumud1.png?v=1763726174"
+      },
+      {
+        "name": "Aangan 2 Seater Sofa",
+        "image": "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/aangan-sofa-2-seater-iso.png?v=1777639619"
+      },
+      {
+        "name": "Aboli 2 Seater Sofa",
+        "image": "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/43.png?v=1772196252"
+      },
+      {
+        "name": "Jamun 2 Seater Sofa",
+        "image": "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_5hwqyc5hwqyc5hwq_1_6c125d96-a8f1-46ec-934d-73478c1b9970.png?v=1772523360"
+      },
+      {
+        "name": "Amaltas 2 Seater Sofa",
+        "image": "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_dxnlx7dxnlx7dxnl_1_1b0d23ca-bb91-46e0-a528-cea51228d42c.png?v=1772446054"
+      },
+      {
+        "name": "Juhi 2 Seater Sofa",
+        "image": "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/20250827_22n25_Off_White_Boucle_Armchair_remix_01k3p769ytehwrcwz5hww4b5m6.png?v=1763588003"
+      },
+      {
+        "name": "Juhi 1 Seater Sofa",
+        "image": "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_scdwomscdwomscdw1.png?v=1763553714"
+      },
+      {
+        "name": "Juhi 3 Seater Sofa",
+        "image": "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_q48c27q48c27q48c_d51f4684-dd87-434f-ac0f-bc58c4c290a1.png?v=1763546813"
+      },
+      {
+        "name": "Bela 3+L Sofa",
+        "image": "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/70.png?v=1772200055"
+      },
+      {
+        "name": "Amaltas 2+L Sofa",
+        "image": "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Group_64.png?v=1772444370"
+      },
+      {
+        "name": "Amaltas 3+L Sofa",
+        "image": "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Group_60_fd0fccd3-8939-4227-a74d-35e64ce8a1af.png?v=1772432302"
+      },
+      {
+        "name": "Jamun 1 Seater Sofa",
+        "image": "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_r79pwtr79pwtr79p_1_08141309-d127-4607-9990-363ae657f20a.png?v=1772523239"
+      },
+      {
+        "name": "Gulab 1 Seater Sofa",
+        "image": "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/73.png?v=1772257630"
+      },
+      {
+        "name": "Gulab 3 Seater Sofa",
+        "image": "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/78.png?v=1772257544"
+      },
+      {
+        "name": "Malti 3 Seater Sofa",
+        "image": "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_jnm7bxjnm7bxjnm7.png?v=1761933415"
+      },
+      {
+        "name": "Jamun 3 Seater Sofa",
+        "image": "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_6ylg5w6ylg5w6ylg_76c18bd2-abb8-4b88-8cd0-4c7e2060baea.png?v=1772523416"
+      },
+      {
+        "name": "Bela 2+L Sofa",
+        "image": "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/61.png?v=1772228071"
+      },
+      {
+        "name": "Karavi 2 Seater Sofa",
+        "image": "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/karavi-sofa-2-seater-iso.png?v=1777457604"
+      },
+      {
+        "name": "Karavi 1 Seater Sofa",
+        "image": "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/123.png?v=1761807957"
+      },
+      {
+        "name": "Karavi 3 Seater Sofa",
+        "image": "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/krvi.png?v=1761807271"
+      },
+      {
+        "name": "Mogra 1 Seater Sofa",
+        "image": "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/MOGRA_1_FINL.png?v=1761806728"
+      },
+      {
+        "name": "Mogra 3 Seater Sofa",
+        "image": "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/MOGRAFINL.png?v=1761806773"
+      },
+      {
+        "name": "Bakul 2 Seater Sofa",
+        "image": "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/101.png?v=1772271685"
+      },
+      {
+        "name": "Bakul 1 Seater Sofa",
+        "image": "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/98.png?v=1772271534"
+      },
+      {
+        "name": "Tulsi 1 Seater Sofa",
+        "image": "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_60otxr60otxr60ot.png?v=1761762836"
+      },
+      {
+        "name": "Tulsi 3 Seater Sofa",
+        "image": "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_ceirkkceirkkceir.png?v=1761762442"
+      },
+      {
+        "name": "Gulmohar 1 Seater Sofa",
+        "image": "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/GLMHR1.png?v=1761748566"
+      },
+      {
+        "name": "Gulmohar 3 Seater Sofa",
+        "image": "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/glmhr.png?v=1761747373"
+      },
+      {
+        "name": "Bela 1 Seater Sofa",
+        "image": "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/56.png?v=1772228080"
+      },
+      {
+        "name": "Bela 3 Seater Sofa",
+        "image": "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/67.png?v=1772228060"
+      },
+      {
+        "name": "Amaltas 1 Seater Sofa",
+        "image": "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_d8gj6zd8gj6zd8gj_1.png?v=1772445505"
+      },
+      {
+        "name": "Amaltas 3 Seater Sofa",
+        "image": "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/amlts_7a3e6920-dc43-4543-a602-a3a5a5d3a5ca.png?v=1772447851"
+      },
+      {
+        "name": "Amra 3 Seater Sofa",
+        "image": "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/amra-sofa-3-seater-iso.png?v=1777458635"
+      },
+      {
+        "name": "Aangan 3 Seater Sofa",
+        "image": "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/92.png?v=1772268736"
+      },
+      {
+        "name": "Ketaki 3+L Sofa",
+        "image": "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/34.png?v=1772195335"
+      },
+      {
+        "name": "Ketaki 2+L Sofa",
+        "image": "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/34.png?v=1772195335"
+      },
+      {
+        "name": "Ketaki 1 Seater Sofa",
+        "image": "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/31.png?v=1772195077"
+      },
+      {
+        "name": "Ketaki 3 Seater Sofa",
+        "image": "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/22_0d28b908-6f6d-458c-9033-47938d3687fb.png?v=1772228037"
+      },
+      {
+        "name": "Kaner 2+L Sofa",
+        "image": "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/kaner-sofa-2-plus-l-iso.png?v=1777458047"
+      },
+      {
+        "name": "Kaner 3+L Sofa",
+        "image": "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/kaner-sofa-3-plus-l-iso.png?v=1777458077"
+      },
+      {
+        "name": "Aboli 1 Seater Sofa",
+        "image": "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/41.png?v=1772196671"
+      },
+      {
+        "name": "Aboli 3 Seater Sofa",
+        "image": "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/50.png?v=1772196193"
+      },
+      {
+        "name": "Kaner 2 Seater Sofa",
+        "image": "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/kaner-sofa-2-seater-iso.png?v=1777457951"
+      },
+      {
+        "name": "Kaner 3 Seater Sofa",
+        "image": "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/kaner-sofa-3-seater-iso.png?v=1777457994"
+      },
+      {
+        "name": "Kaner 1 Seater Sofa",
+        "image": "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/kaner-sofa-1-seater-iso.png?v=1777457878"
+      },
+      {
+        "name": "Bakul 3 Seater Sofa",
+        "image": "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/106.png?v=1772271779"
+      },
+      {
+        "name": "Kesar 2 Seater Sofa",
+        "image": "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/10_38890f75-eda2-450d-9813-e8b53157ccb8.png?v=1772193414"
+      },
+      {
+        "name": "Kesar 2+L Sofa",
+        "image": "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/16.png?v=1772194237"
+      }
+    ],
+    "photoRules": {
+      "category": "General product",
+      "grade": "Shoot in modern Indian apartment interiors with light walls, warm floors, simple living-room layouts and natural daylight from windows. Use warm-neutral colour grading, earthy upholstery tones such as olive, amber, beige, tan, grey, cream and muted jewel shades, plus medium-light styling with cushions, rugs, coffee tables, side tables and plants. Compose front three-quarter sofa angles, full-room fit shots and tight macro crops of stitching, legs, cushions, upholstery texture and construction details; add documentary service moments such as measuring, swatch selection, designer consultation and installation.",
+      "signatures": [
+        "Shoot in modern Indian apartment interiors with light walls, warm floors, simple living-room layouts and natural daylight from windows. Use warm-neutral colour grading, earthy upholstery tones such as olive, amber, beige, tan, grey, cream and muted jewel shades, plus medium-light styling with cushions, rugs, coffee tables, side tables and plants. Compose front three-quarter sofa angles, full-room fit shots and tight macro crops of stitching, legs, cushions, upholstery texture and construction details; add documentary service moments such as measuring, swatch selection, designer consultation and installation."
+      ],
+      "neverDo": [
+        "a floating product on a gradient void",
+        "flat, even, sourceless light",
+        "a plastic CGI-render look",
+        "random scattered geometric props",
+        "a concentric spotlight halo behind the subject"
+      ],
+      "colorGrade": {
+        "rMul": 1.06,
+        "gMul": 0.981165168753476,
+        "bMul": 0.94,
+        "saturation": 1.08,
+        "brightness": 1,
+        "contrast": 1.06,
+        "grain": 0.5,
+        "sharpen": 0.75
+      }
+    },
+    "sources": 17
+  },
+  "intelligence": {
+    "overview": "Wudhomes is a live contemporary home-and-furniture brand based in Bengaluru, India, currently focused on making custom sofas simpler for modern Indian homes. Its core promise is practical and emotional: beautiful designs, easy choices, and customisation that does not feel complicated.",
+    "purpose": "To make well-designed, durable, customised furniture feel accessible, understandable and joyful for Indian households.",
+    "mission": "To deliver great design at great prices through simple choices, in-house design guidance, India-made craftsmanship and transparent customisation.",
+    "vision": "To become the most trusted contemporary furniture brand for customisable Indian homes, where buying a sofa feels guided, personal and reassuring.",
+    "story": "Wudhomes presents itself as an early-stage Bengaluru contemporary home and furniture startup with the line Designed Around You. Its public story is operational rather than mythic: a custom-sofa-first brand building a guided buying model through free consultation, factory or store visits, and a Designer-at-Home approach that helps customers choose furniture based on their room, light, layout and lifestyle.",
+    "values": [
+      "Personalisation without complexity",
+      "Durability you can inspect",
+      "Design access",
+      "Indian craftsmanship",
+      "Transparent materials",
+      "Affordable quality",
+      "Planet-conscious sourcing",
+      "Helpful human guidance"
+    ],
+    "positioning": "Custom sofas for modern Indian homes, designed with you, built transparently and priced sensibly.",
+    "audience": "Urban Indian homeowners and renters, especially Bengaluru apartment households, who care about design but feel uncertain about sofa size, durability, fabric choice, configuration and fair pricing.",
+    "persona": "Ananya Rao is a 32-year-old design-aware professional living in Sarjapur, HSR, Whitefield or Bellandur, upgrading a new apartment or rental with her partner and possibly a young child. She wants a warm, modern, Pinterest-clean living room, is comfortable spending on the right sofa, but needs the price justified through materials, fit and service. She has saved references and measured her wall, yet still feels stuck between a 3-seater, L-shape or custom depth; Wudhomes wins her by offering swatches, design advice, custom sizing, factory or store visits, transparent construction details and reassuring human guidance.",
+    "toneOfVoice": "Simple, helpful, warm, reassuring and lightly playful.",
+    "personality": [
+      "Approachable",
+      "Transparent",
+      "Design-led",
+      "Practical",
+      "Consultative",
+      "Indian contemporary",
+      "Patient",
+      "Service-minded"
+    ],
+    "palette": [
+      {
+        "hex": "#F6F1EA",
+        "role": "warm ivory background"
+      },
+      {
+        "hex": "#2F2A25",
+        "role": "charcoal brown primary text"
+      },
+      {
+        "hex": "#B8874F",
+        "role": "warm walnut wood tone"
+      },
+      {
+        "hex": "#C88A3D",
+        "role": "amber upholstery accent"
+      },
+      {
+        "hex": "#6F7657",
+        "role": "olive green sofa fabric"
+      },
+      {
+        "hex": "#D8C7B2",
+        "role": "beige linen neutral"
+      },
+      {
+        "hex": "#8A8278",
+        "role": "stone grey upholstery"
+      },
+      {
+        "hex": "#7A4E3A",
+        "role": "muted terracotta accent"
+      }
+    ],
+    "typography": {
+      "display": "Clean contemporary sans-serif headings with a commerce-first, functional feel.",
+      "text": "Legible modern sans-serif body copy designed for clarity, product explanation and easy buying decisions.",
+      "note": "Typography does not appear to be the distinctive brand asset; the identity is carried more by direct language, product imagery, construction details and the wudhomes name."
+    },
+    "logo": "https://wudhomes.com/cdn/shop/files/Asset_39_1.png?v=1777472480&width=480",
+    "logoSystem": "A lowercase wudhomes wordmark system built around the memorable wud spelling, which signals wood and furniture while feeling short, ownable and lightly playful. The brand uses the @wudhomes handle consistently across its site-linked social presence.",
+    "photographyStyle": "Shoot in modern Indian apartment interiors with light walls, warm floors, simple living-room layouts and natural daylight from windows. Use warm-neutral colour grading, earthy upholstery tones such as olive, amber, beige, tan, grey, cream and muted jewel shades, plus medium-light styling with cushions, rugs, coffee tables, side tables and plants. Compose front three-quarter sofa angles, full-room fit shots and tight macro crops of stitching, legs, cushions, upholstery texture and construction details; add documentary service moments such as measuring, swatch selection, designer consultation and installation.",
+    "packagingStyle": "Packaging is not publicly documented. The more important branded moment appears to be delivery and installation by Wudhomes technicians, so the brand should treat protective wrapping, setup, care instructions and a post-install checklist as part of the customer experience.",
+    "visualIdentity": "The current visual identity reads as warm, contemporary and commerce-led: clean sans-serif type, approachable product presentation, Indian botanical product names, earthy upholstery colours and natural wood or marble surfaces. The system has strong strategic clarity but could become more distinctive through tactile fabric macro photography, construction diagrams, modular sofa line drawings and a warmer Indian-home editorial style.",
+    "competitors": [
+      {
+        "name": "Furnishka",
+        "note": "Bengaluru and India furniture brand with a large sofa and recliner assortment, customisation messaging and a Marathahalli presence."
+      },
+      {
+        "name": "Pepperfry",
+        "note": "Major Indian online furniture marketplace competing on breadth, discounts and national awareness, though less directly on intimate custom-sofa consultation."
+      },
+      {
+        "name": "Homsofa Decor",
+        "note": "Bengaluru custom sofa and furniture shop in HBR Layout competing on local custom manufacturing, repair knowledge and workshop credibility."
+      },
+      {
+        "name": "Prestige Dream Decor",
+        "note": "Bengaluru custom sofa and furniture studio positioning around premium sofas and custom furniture for modern homes."
+      },
+      {
+        "name": "Pelikas",
+        "note": "Bengaluru customised sofa manufacturer offering choices across size, colour and material including leather, leatherette and fabric."
+      }
+    ],
+    "social": [
+      {
+        "platform": "Instagram",
+        "handle": "@wudhomes",
+        "url": "https://www.instagram.com/wudhomes/",
+        "note": "Site-linked consumer-facing visual channel; content role is product reveals, sofa colours, customer homes, fabric and configuration explainers, with a short, warm and conversion-oriented voice; cadence not verified."
+      },
+      {
+        "platform": "LinkedIn",
+        "handle": "Wudhomes",
+        "url": "https://in.linkedin.com/company/wudhomes",
+        "note": "Active company-building and hiring channel describing Wudhomes as a Bengaluru retail startup with the tagline Designed Around You; content style is practical, founder/operator-led and focused on roles, pilots and business growth."
+      }
+    ],
+    "press": [],
+    "insights": [
+      "The strongest brand asset is decision relief, not customisation alone; Wudhomes should own the promise of helping people know what to choose.",
+      "The what-is-inside construction story can become a signature content system through split-section diagrams, foam and fabric explainers, rub-count education and durability comparisons.",
+      "The Indian botanical product names create a warm, ownable world that feels more relevant than generic imported furniture naming.",
+      "The buying journey should be shown, not hidden: measuring rooms, choosing depths, testing swatches, visiting the factory, installing the final sofa and solving real apartment constraints.",
+      "Price transparency can become a trust weapon by explaining what changes cost across fabric, size, configuration, foam, legs, delivery and custom work.",
+      "The proposition is sharper than the visual system; Wudhomes needs a more distinctive design language built from warm neutrals, tactile materials, modular graphics and real Bengaluru homes."
+    ],
+    "website": "wudhomes.com",
+    "instagram": "@wudhomes",
+    "sources": 17,
+    "foundReal": true,
+    "inferred": false
+  },
+  "catalog": [
+    {
+      "id": "shopify-10385386996012",
+      "name": "Kutkolli Pouf",
+      "price": "2990.00",
+      "url": "https://wudhomes.com/products/kutkolli-pouf",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/kutkollipouf.png?v=1782468322"
+      ]
+    },
+    {
+      "id": "shopify-10385385652524",
+      "name": "Matka Pouf",
+      "price": "3990.00",
+      "url": "https://wudhomes.com/products/matka-pouf",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/matkapouf.png?v=1782468271"
+      ]
+    },
+    {
+      "id": "shopify-10385381654828",
+      "name": "Kukurmutta Pouf",
+      "price": "3990.00",
+      "url": "https://wudhomes.com/products/kukurmutta-pouf",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/KukurmuttuPouf.png?v=1782468112"
+      ]
+    },
+    {
+      "id": "shopify-10127681945900",
+      "name": "Gulchin 3 Seater Sofa",
+      "collection": "badge_Customisable",
+      "description": "Features Best in class HR foam by Sleepwell for consistent comfort and shape retention. Frame made with with a combination of high quality branded 16-18mm plywood and neem wood or pine wood , kiln-dried and treated. Elastic webbing + zig-zag springs for firm, even seat support. 200+ fabric options available across textures and colours. Customisation available for sizes, configurations, and fabric selection and bespoke detailing.",
+      "variants": [
+        "Cream - Chenille / 78 inch - suggested / 23 inch",
+        "Cream - Chenille / 84 inch / 23 inch",
+        "Chai - Chenille / 78 inch - suggested / 23 inch",
+        "Chai - Chenille / 84 inch / 23 inch",
+        "Dust - Chenille / 78 inch - suggested / 23 inch",
+        "Dust - Chenille / 84 inch / 23 inch",
+        "Mitti - Chenille / 78 inch - suggested / 23 inch",
+        "Mitti - Chenille / 84 inch / 23 inch",
+        "Cocoa - Chenille / 78 inch - suggested / 23 inch",
+        "Cocoa - Chenille / 84 inch / 23 inch",
+        "Espresso - Chenille / 78 inch - suggested / 23 inch",
+        "Espresso - Chenille / 84 inch / 23 inch",
+        "Wheatgrass - Chenille / 78 inch - suggested / 23 inch",
+        "Wheatgrass - Chenille / 84 inch / 23 inch",
+        "Charcoal Olive - Chenille / 78 inch - suggested / 23 inch",
+        "Charcoal Olive - Chenille / 84 inch / 23 inch",
+        "Khaki - Chenille / 78 inch - suggested / 23 inch",
+        "Khaki - Chenille / 84 inch / 23 inch",
+        "Rust - Chenille / 78 inch - suggested / 23 inch",
+        "Rust - Chenille / 84 inch / 23 inch"
+      ],
+      "price": "24900.00",
+      "url": "https://wudhomes.com/products/gulchin-3-seater-sofa",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/sofa1.png?v=1779707146",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/sofa2.png?v=1779707146"
+      ]
+    },
+    {
+      "id": "gola-side-table-small",
+      "name": "Gola Side Table (Small)",
+      "category": "Side End Table",
+      "collection": "Side End Table",
+      "description": "The Ball Side Table features exquisitely designed side table, meticulously sculpted from solid wood. It's elegant aesthetics, characterized by smooth curves, enhance the overall beauty of any space. With their natural beauty and versatility, the Ball Side Table is a perfect blend of form and function Product Details: Finish : Natural , Walnut Material : Solid Acacia Wood Dimensions (Inch) : 11.5 L × 11.5 W × 20 H Warranty : 2 Years Warranty Brand : WudHomes Ships in : 7-10 Da",
+      "variants": [
+        "Natural",
+        "Walnut"
+      ],
+      "price": "2990.00",
+      "url": "https://wudhomes.com/products/ball-side-table-small",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/2_4ee7ca3e-01ab-457e-ac2b-057ec36494ed.png?v=1689427470",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/1_30b2d957-5015-4515-b260-cac3e155d016.png?v=1689427528",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/3_58b92f23-16dc-47b6-a274-39f07c0edac7.png?v=1689427528"
+      ]
+    },
+    {
+      "id": "gola-side-table-big",
+      "name": "Gola Side Table (Big)",
+      "category": "Side End Table",
+      "collection": "Side End Table",
+      "description": "The Ball Side Table features exquisitely designed side table, meticulously sculpted from solid wood. It's elegant aesthetics, characterized by smooth curves, enhance the overall beauty of any space. With their natural beauty and versatility, the Ball Side Table is a perfect blend of form and function Product Details: Finish : Natural , Walnut Material : Solid Acacia Wood Dimensions (Inch) : 11.5 L × 11.5 W × 22.5 H Warranty : 2 Years Warranty Brand : WudHomes Ships in : 7-10 ",
+      "variants": [
+        "Natural",
+        "Walnut"
+      ],
+      "price": "3490.00",
+      "url": "https://wudhomes.com/products/ball-side-table-big",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Ball1.webp?v=1762333343",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Ball2.webp?v=1762333343",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Ball3.webp?v=1762333343"
+      ]
+    },
+    {
+      "id": "gola-side-table-set",
+      "name": "Gola Side Table Set",
+      "category": "Side End Table",
+      "collection": "Side End Table",
+      "description": "The Ball Side Table set features two exquisitely designed side tables, both meticulously sculpted from solid wood. Their elegant aesthetics, characterized by smooth curves, enhance the overall beauty of any space. With their natural beauty and versatility, the Ball Side Table set is a perfect blend of form and function Product Details: Finish : Natural , Walnut Material : Solid Acacia Wood Dimensions (Inch) : Big ( 11.5 L × 11.5 W × 22.5 H ) , Small ( 11.5 L × 11.5 W × 20 H )",
+      "variants": [
+        "Natural",
+        "Walnut"
+      ],
+      "price": "6390.00",
+      "url": "https://wudhomes.com/products/ball-side-table-set",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/1_b6e23ecb-5f7b-4075-a288-d26661923b29.png?v=1689427343",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/3_7a047f1d-4d4c-4582-9a09-3282268fa414.png?v=1689427343",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/2_86b64f45-48f9-4fc3-99fb-e2385b0ac763.png?v=1689427343"
+      ]
+    },
+    {
+      "id": "lattu-side-table",
+      "name": "Lattu Side Table",
+      "category": "Side End Table",
+      "collection": "Side End Table",
+      "description": "The Lattu Side Table features exquisitely designed side table, meticulously sculpted from solid wood. It's elegant aesthetics, characterized by smooth curves, enhance the overall beauty of any space. With their natural beauty and versatility, the Lattu Side Table is a perfect blend of form and function Product Details: Finish : Natural , Walnut Material : Solid Acacia Wood Dimensions (Inch) : 11.5 L × 11.5 W × 22.5 H Warranty : 2 Years Warranty Brand : WudHomes Ships in : 7-1",
+      "variants": [
+        "Natural",
+        "Walnut"
+      ],
+      "price": "3490.00",
+      "url": "https://wudhomes.com/products/lattu-side-table",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/finllttu.png?v=1762332797",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/ltu.jpg?v=1762332797"
+      ]
+    },
+    {
+      "id": "shopify-10241319797036",
+      "name": "Jaswanti Leather 3 Seater Sofa",
+      "collection": "badge_Customisable",
+      "description": "•⁠ ⁠Frame crafted using a combination of high-quality 16–18 mm plywood and solid neem wood - kiln-dried and treated for extended durability and long life. •⁠ ⁠Best-in-class Sleepwell foam for consistent comfort and long-lasting shape retention. •⁠ ⁠Elastic webbing for even seat support and reduced sagging over time. •⁠ ⁠Removable and washable back cushion covers for easy everyday care. •⁠ ⁠A solid hardwood base frame adds warmth, strength, and architectural character. •⁠ ⁠Not",
+      "variants": [
+        "Sweet Corn / 78 / 20",
+        "Sweet Corn / 78 / 23 - Suggested",
+        "Sweet Corn / 78 / 26",
+        "Sweet Corn / 84 - Suggested / 20",
+        "Sweet Corn / 84 - Suggested / 23 - Suggested",
+        "Sweet Corn / 84 - Suggested / 26",
+        "Sweet Corn / 90 / 20",
+        "Sweet Corn / 90 / 23 - Suggested",
+        "Sweet Corn / 90 / 26",
+        "Lino / 78 / 20",
+        "Lino / 78 / 23 - Suggested",
+        "Lino / 78 / 26",
+        "Lino / 84 - Suggested / 20",
+        "Lino / 84 - Suggested / 23 - Suggested",
+        "Lino / 84 - Suggested / 26",
+        "Lino / 90 / 20",
+        "Lino / 90 / 23 - Suggested",
+        "Lino / 90 / 26",
+        "Stone Castle / 78 / 20",
+        "Stone Castle / 78 / 23 - Suggested"
+      ],
+      "price": "69900.00",
+      "url": "https://wudhomes.com/products/jaswanti-leather-3-seater-sofa",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Group86.png?v=1771576512",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/dfdfdf.png?v=1771576567"
+      ]
+    },
+    {
+      "id": "shopify-10121796124972",
+      "name": "Kesar 3 Seater Sofa",
+      "collection": "badge_Customisable",
+      "description": "•⁠ ⁠Frame crafted using a combination of high-quality 16–18 mm plywood and solid neem wood - kiln-dried and treated for extended durability and long life. •⁠ ⁠Best-in-class Sleepwell foam for consistent comfort and long-lasting shape retention. •⁠ ⁠Elastic webbing for even seat support and reduced sagging over time. •⁠ ⁠Removable and washable back cushion covers for easy everyday care. •⁠ ⁠Not mass-produced. Made-to-order, fresh for your home. •⁠ ⁠Handmade in Bengaluru, India",
+      "variants": [
+        "Cream - Velvet / 78 / 20",
+        "Cream - Velvet / 78 / 23 - Suggested",
+        "Cream - Velvet / 78 / 26",
+        "Cream - Velvet / 84 - Suggested / 20",
+        "Cream - Velvet / 84 - Suggested / 23 - Suggested",
+        "Cream - Velvet / 84 - Suggested / 26",
+        "Cream - Velvet / 90 / 20",
+        "Cream - Velvet / 90 / 23 - Suggested",
+        "Cream - Velvet / 90 / 26",
+        "Chai - Velvet / 78 / 20",
+        "Chai - Velvet / 78 / 23 - Suggested",
+        "Chai - Velvet / 78 / 26",
+        "Chai - Velvet / 84 - Suggested / 20",
+        "Chai - Velvet / 84 - Suggested / 23 - Suggested",
+        "Chai - Velvet / 84 - Suggested / 26",
+        "Chai - Velvet / 90 / 20",
+        "Chai - Velvet / 90 / 23 - Suggested",
+        "Chai - Velvet / 90 / 26",
+        "Grey - Velvet / 78 / 20",
+        "Grey - Velvet / 78 / 23 - Suggested"
+      ],
+      "price": "34900.00",
+      "url": "https://wudhomes.com/products/kesar-3-seater-sofa",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/2_35dafdd4-f453-4c97-9ec7-249435bb40a5.png?v=1772192694",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/3_7068f23b-c049-4557-b4cc-96c877aad13c.png?v=1772192694",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/4_7bcbfb5e-e5fd-4cb4-80cd-6a8fee4cddf5.png?v=1772192694",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/5_cfc66eb6-7421-4345-a3a6-776ccd8d4a0f.png?v=1772192694",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_eox72keox72keox7.png?v=1772449799",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/7_809ad2e8-1ab8-4d4b-a65c-9cbdfb271a99.png?v=1772449799",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/8_fc71b4ee-a59d-4c00-ac6e-62c3bf15eafd.png?v=1772449799",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_l5lfe2l5lfe2l5lf.png?v=1772449799"
+      ]
+    },
+    {
+      "id": "shopify-10151139180844",
+      "name": "Paalai Leather 3 Seater Sofa",
+      "collection": "badge_Customisable",
+      "description": "•⁠ ⁠Frame crafted using a combination of high-quality 16–18 mm plywood and solid neem wood - kiln-dried and treated for extended durability and long life. •⁠ ⁠Best-in-class Sleepwell foam for consistent comfort and long-lasting shape retention. •⁠ ⁠Elastic webbing for even seat support and reduced sagging over time. •⁠ ⁠Removable and washable back cushion covers for easy everyday care. •⁠ ⁠Not mass-produced. Made-to-order, fresh for your home. •⁠ ⁠Handmade in Bengaluru, India",
+      "variants": [
+        "Silver River / 78 - Suggested / 20",
+        "Silver River / 78 - Suggested / 23 - Suggested",
+        "Silver River / 78 - Suggested / 26",
+        "Silver River / 84 / 20",
+        "Silver River / 84 / 23 - Suggested",
+        "Silver River / 84 / 26",
+        "Silver River / 90 / 20",
+        "Silver River / 90 / 23 - Suggested",
+        "Silver River / 90 / 26",
+        "Biscotto / 78 - Suggested / 20",
+        "Biscotto / 78 - Suggested / 23 - Suggested",
+        "Biscotto / 78 - Suggested / 26",
+        "Biscotto / 84 / 20",
+        "Biscotto / 84 / 23 - Suggested",
+        "Biscotto / 84 / 26",
+        "Biscotto / 90 / 20",
+        "Biscotto / 90 / 23 - Suggested",
+        "Biscotto / 90 / 26",
+        "Bamboo / 78 - Suggested / 20",
+        "Bamboo / 78 - Suggested / 23 - Suggested"
+      ],
+      "price": "49900.00",
+      "url": "https://wudhomes.com/products/paalai-leather-3-seater-sofa",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Palaai-sofa-3-seater-iso.png?v=1777639472",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_3z9aql3z9aql3z9a.png?v=1763826588"
+      ]
+    },
+    {
+      "id": "shopify-10150765723948",
+      "name": "Tagar Leather 3 Seater Sofa",
+      "collection": "badge_Customisable",
+      "description": "•⁠ ⁠Frame crafted using a combination of high-quality 16–18 mm plywood and solid neem wood - kiln-dried and treated for extended durability and long life. •⁠ ⁠Best-in-class Sleepwell foam for consistent comfort and long-lasting shape retention. •⁠ ⁠Elastic webbing for even seat support and reduced sagging over time. •⁠ ⁠Removable and washable back cushion covers for easy everyday care. •⁠ ⁠Not mass-produced. Made-to-order, fresh for your home. •⁠ ⁠Handmade in Bengaluru, India",
+      "variants": [
+        "Bamboo / 78 / 20",
+        "Bamboo / 78 / 23 - Suggested",
+        "Bamboo / 78 / 26",
+        "Bamboo / 80 / 20",
+        "Bamboo / 80 / 23 - Suggested",
+        "Bamboo / 80 / 26",
+        "Bamboo / 90 - Suggested / 20",
+        "Bamboo / 90 - Suggested / 23 - Suggested",
+        "Bamboo / 90 - Suggested / 26",
+        "Lino / 78 / 20",
+        "Lino / 78 / 23 - Suggested",
+        "Lino / 78 / 26",
+        "Lino / 80 / 20",
+        "Lino / 80 / 23 - Suggested",
+        "Lino / 80 / 26",
+        "Lino / 90 - Suggested / 20",
+        "Lino / 90 - Suggested / 23 - Suggested",
+        "Lino / 90 - Suggested / 26",
+        "Espresso / 78 / 20",
+        "Espresso / 78 / 23 - Suggested"
+      ],
+      "price": "69900.00",
+      "url": "https://wudhomes.com/products/tagar-3-seater-sofa",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Group3_0d8699f7-2943-4f8f-b2d7-f7bdb8306bd2.png?v=1763756686",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_3p2ilc3p2ilc3p2i1.png?v=1763756686",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_ci20c4ci20c4ci201.png?v=1763756686",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_qvy8lgqvy8lgqvy81.png?v=1763756686",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_yu31n9yu31n9yu31_1.png?v=1763756686",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_snk7besnk7besnk7_fa9d55e1-dd4a-44d1-8118-66a5428138da.png?v=1763756686"
+      ]
+    },
+    {
+      "id": "shopify-10150569836844",
+      "name": "Kumud Leather 3 Seater Sofa",
+      "collection": "badge_Customisable",
+      "description": "•⁠ ⁠Frame crafted using a combination of high-quality 16–18 mm plywood and solid neem wood - kiln-dried and treated for extended durability and long life. •⁠ ⁠Best-in-class Sleepwell foam for consistent comfort and long-lasting shape retention. •⁠ ⁠Elastic webbing for even seat support and reduced sagging over time. •⁠ ⁠Removable and washable back cushion covers for easy everyday care. •⁠ ⁠Not mass-produced. Made-to-order, fresh for your home. •⁠ ⁠Handmade in Bengaluru, India",
+      "variants": [
+        "Silver River / 78 / 20",
+        "Silver River / 78 / 23 - Suggested",
+        "Silver River / 78 / 26",
+        "Silver River / 84 - Suggested / 20",
+        "Silver River / 84 - Suggested / 23 - Suggested",
+        "Silver River / 84 - Suggested / 26",
+        "Silver River / 90 / 20",
+        "Silver River / 90 / 23 - Suggested",
+        "Silver River / 90 / 26",
+        "Bamboo / 78 / 20",
+        "Bamboo / 78 / 23 - Suggested",
+        "Bamboo / 78 / 26",
+        "Bamboo / 84 - Suggested / 20",
+        "Bamboo / 84 - Suggested / 23 - Suggested",
+        "Bamboo / 84 - Suggested / 26",
+        "Bamboo / 90 / 20",
+        "Bamboo / 90 / 23 - Suggested",
+        "Bamboo / 90 / 26",
+        "Lino / 78 / 20",
+        "Lino / 78 / 23 - Suggested"
+      ],
+      "price": "59900.00",
+      "url": "https://wudhomes.com/products/kumud-3-seater-sofa",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/kumud1.png?v=1763726174",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/kumud2.png?v=1763726174",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Group1.png?v=1763726174",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_hzzt7fhzzt7fhzzt1.png?v=1763726174",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_ioutdgioutdgiout1.png?v=1763726174",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_b3n1gmb3n1gmb3n1.png?v=1763726162"
+      ]
+    },
+    {
+      "id": "shopify-10149102354732",
+      "name": "Aangan 2 Seater Sofa",
+      "collection": "badge_Customisable",
+      "description": "•⁠ ⁠Frame crafted using a combination of high-quality 16–18 mm plywood and solid neem wood - kiln-dried and treated for extended durability and long life. •⁠ ⁠Best-in-class Sleepwell foam for consistent comfort and long-lasting shape retention. •⁠ ⁠Elastic webbing for even seat support and reduced sagging over time. •⁠ ⁠Framed in exposed solid hardwood, defining the silhouette and adding warmth with a clean architectural presence. •⁠ ⁠Not mass-produced. Made-to-order, fresh f",
+      "variants": [
+        "Cream - Chenille / 54 / 20",
+        "Cream - Chenille / 54 / 23 - Suggested",
+        "Cream - Chenille / 54 / 26",
+        "Cream - Chenille / 60 - Suggested / 20",
+        "Cream - Chenille / 60 - Suggested / 23 - Suggested",
+        "Cream - Chenille / 60 - Suggested / 26",
+        "Cream - Chenille / 66 / 20",
+        "Cream - Chenille / 66 / 23 - Suggested",
+        "Cream - Chenille / 66 / 26",
+        "Chai - Chenille / 54 / 20",
+        "Chai - Chenille / 54 / 23 - Suggested",
+        "Chai - Chenille / 54 / 26",
+        "Chai - Chenille / 60 - Suggested / 20",
+        "Chai - Chenille / 60 - Suggested / 23 - Suggested",
+        "Chai - Chenille / 60 - Suggested / 26",
+        "Chai - Chenille / 66 / 20",
+        "Chai - Chenille / 66 / 23 - Suggested",
+        "Chai - Chenille / 66 / 26",
+        "Dust - Chenille / 54 / 20",
+        "Dust - Chenille / 54 / 23 - Suggested"
+      ],
+      "price": "37900.00",
+      "url": "https://wudhomes.com/products/aangan-2-seater-sofa",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/aangan-sofa-2-seater-iso.png?v=1777639619",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/85.png?v=1772268622",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/86.png?v=1772268622",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/89.png?v=1772268622",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/88.png?v=1772268622",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_334h25334h25334h.png?v=1772268622"
+      ]
+    },
+    {
+      "id": "shopify-10149067030828",
+      "name": "Aboli 2 Seater Sofa",
+      "collection": "badge_Customisable",
+      "description": "Features Best in class HR foam by Sleepwell for consistent comfort and shape retention. Frame made with with a combination of high quality branded 16-18mm plywood and neem wood or pine wood , kiln-dried and treated. Elastic webbing + zig-zag springs for firm, even seat support. 200+ fabric options available across textures and colours. Customisation available for sizes, configurations, and fabric selection and bespoke detailing.",
+      "variants": [
+        "Cream - Chenille / 54 / 20",
+        "Cream - Chenille / 54 / 23 - Suggested",
+        "Cream - Chenille / 54 / 26",
+        "Cream - Chenille / 60 - Suggested / 20",
+        "Cream - Chenille / 60 - Suggested / 23 - Suggested",
+        "Cream - Chenille / 60 - Suggested / 26",
+        "Cream - Chenille / 66 / 20",
+        "Cream - Chenille / 66 / 23 - Suggested",
+        "Cream - Chenille / 66 / 26",
+        "Chai - Chenille / 54 / 20",
+        "Chai - Chenille / 54 / 23 - Suggested",
+        "Chai - Chenille / 54 / 26",
+        "Chai - Chenille / 60 - Suggested / 20",
+        "Chai - Chenille / 60 - Suggested / 23 - Suggested",
+        "Chai - Chenille / 60 - Suggested / 26",
+        "Chai - Chenille / 66 / 20",
+        "Chai - Chenille / 66 / 23 - Suggested",
+        "Chai - Chenille / 66 / 26",
+        "Dust - Chenille / 54 / 20",
+        "Dust - Chenille / 54 / 23 - Suggested"
+      ],
+      "price": "18900.00",
+      "url": "https://wudhomes.com/products/aboli-2-seater-sofa",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/43.png?v=1772196252",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/44_c3f4b622-7819-41a5-81aa-231b3af9d044.png?v=1772196252",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/45.png?v=1772196252",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/46.png?v=1772196252",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/47.png?v=1772196252",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_1nd8rx1nd8rx1nd81.png?v=1772196252"
+      ]
+    },
+    {
+      "id": "shopify-10149066342700",
+      "name": "Jamun 2 Seater Sofa",
+      "collection": "badge_Customisable",
+      "description": "•⁠ ⁠Frame crafted using a combination of high-quality 16–18 mm plywood and solid neem wood - kiln-dried and treated for extended durability and long life. •⁠ ⁠Best-in-class Sleepwell foam for consistent comfort and long-lasting shape retention. •⁠ ⁠Elastic webbing for even seat support and reduced sagging over time. •⁠ ⁠A solid hardwood base frame adds warmth, strength, and architectural character. •⁠ ⁠Not mass-produced. Made-to-order, fresh for your home. •⁠ ⁠Handmade in Ben",
+      "variants": [
+        "Cream - Chenille / 54 / 20",
+        "Cream - Chenille / 54 / 23 - Suggested",
+        "Cream - Chenille / 54 / 26",
+        "Cream - Chenille / 60 - Suggested / 20",
+        "Cream - Chenille / 60 - Suggested / 23 - Suggested",
+        "Cream - Chenille / 60 - Suggested / 26",
+        "Cream - Chenille / 66 / 20",
+        "Cream - Chenille / 66 / 23 - Suggested",
+        "Cream - Chenille / 66 / 26",
+        "Chai - Chenille / 54 / 20",
+        "Chai - Chenille / 54 / 23 - Suggested",
+        "Chai - Chenille / 54 / 26",
+        "Chai - Chenille / 60 - Suggested / 20",
+        "Chai - Chenille / 60 - Suggested / 23 - Suggested",
+        "Chai - Chenille / 60 - Suggested / 26",
+        "Chai - Chenille / 66 / 20",
+        "Chai - Chenille / 66 / 23 - Suggested",
+        "Chai - Chenille / 66 / 26",
+        "Dust - Chenille / 54 / 20",
+        "Dust - Chenille / 54 / 23 - Suggested"
+      ],
+      "price": "33900.00",
+      "url": "https://wudhomes.com/products/jamun-2-seater-sofa",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_5hwqyc5hwqyc5hwq_1_6c125d96-a8f1-46ec-934d-73478c1b9970.png?v=1772523360",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_b1me1db1me1db1me_1_15a7aa34-2809-4f47-bd1a-649607cbd9fc.png?v=1772523360",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_iilugciilugciilu_1_466bb172-18e4-4620-a42c-0c861ec393eb.png?v=1772523360",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_hrufldhrufldhruf_92cea6aa-aeb3-499b-8d5f-ba99ac071f2d.png?v=1772523416",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_qrzgzyqrzgzyqrzg_fa02107e-6c80-42c6-9538-41afa7b4a2af.png?v=1772523416",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_fxj8y2fxj8y2fxj8_1.png?v=1772523360",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/78_20_d41cecb9-2075-4cf6-b1bb-8e4de738faf5.png?v=1772523360",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/84_20_29665197-4138-4ec9-bbe3-e12b4dbc7edf.png?v=1772523360"
+      ]
+    },
+    {
+      "id": "shopify-10149065523500",
+      "name": "Amaltas 2 Seater Sofa",
+      "collection": "badge_Customisable",
+      "description": "•⁠ ⁠Frame crafted using a combination of high-quality 16–18 mm plywood and solid neem wood - kiln-dried and treated for extended durability and long life. •⁠ ⁠Best-in-class Sleepwell foam for consistent comfort and long-lasting shape retention. •⁠ ⁠Elastic webbing for even seat support and reduced sagging over time. •⁠ ⁠Removable and washable back cushion covers for easy everyday care. •⁠ ⁠Not mass-produced. Made-to-order, fresh for your home. •⁠ ⁠Handmade in Bengaluru, India",
+      "variants": [
+        "Cream - Chenille / 54 / 20",
+        "Cream - Chenille / 54 / 23 - Suggested",
+        "Cream - Chenille / 54 / 26",
+        "Cream - Chenille / 60 - Suggested / 20",
+        "Cream - Chenille / 60 - Suggested / 23 - Suggested",
+        "Cream - Chenille / 60 - Suggested / 26",
+        "Cream - Chenille / 66 / 20",
+        "Cream - Chenille / 66 / 23 - Suggested",
+        "Cream - Chenille / 66 / 26",
+        "Chai - Chenille / 54 / 20",
+        "Chai - Chenille / 54 / 23 - Suggested",
+        "Chai - Chenille / 54 / 26",
+        "Chai - Chenille / 60 - Suggested / 20",
+        "Chai - Chenille / 60 - Suggested / 23 - Suggested",
+        "Chai - Chenille / 60 - Suggested / 26",
+        "Chai - Chenille / 66 / 20",
+        "Chai - Chenille / 66 / 23 - Suggested",
+        "Chai - Chenille / 66 / 26",
+        "Dust - Chenille / 54 / 20",
+        "Dust - Chenille / 54 / 23 - Suggested"
+      ],
+      "price": "29900.00",
+      "url": "https://wudhomes.com/products/amaltas-2-seater-sofa",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_dxnlx7dxnlx7dxnl_1_1b0d23ca-bb91-46e0-a528-cea51228d42c.png?v=1772446054",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_n2337n2337n2337n_1_2d51d684-edd1-46a3-bde0-da7fcf06dd31.png?v=1772446054",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_4rdlfg4rdlfg4rdl_1.png?v=1772446054",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_7htfd17htfd17htf_7b29b017-b322-4f8a-bdac-211f8248cfed.png?v=1772446054",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_9zhvr19zhvr19zhv_f9c07bea-d8ae-402b-af43-ac1b9fb04bb7.png?v=1772446054",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_z3jhupz3jhupz3jh_1.png?v=1772446054"
+      ]
+    },
+    {
+      "id": "shopify-10148832477484",
+      "name": "Juhi 2 Seater Sofa",
+      "collection": "badge_Customisable",
+      "description": "•⁠ ⁠Frame crafted using a combination of high-quality 16–18 mm plywood and solid neem wood - kiln-dried and treated for extended durability and long life. •⁠ ⁠Best-in-class Sleepwell foam for consistent comfort and long-lasting shape retention. •⁠ ⁠Elastic webbing for even seat support and reduced sagging over time. •⁠ ⁠Not mass-produced. Made-to-order, fresh for your home. •⁠ ⁠Handmade in Bengaluru, India - with love.",
+      "variants": [
+        "Cream - Chenille / 54 / 20",
+        "Cream - Chenille / 54 / 23 - Suggested",
+        "Cream - Chenille / 54 / 26",
+        "Cream - Chenille / 60 - Suggested / 20",
+        "Cream - Chenille / 60 - Suggested / 23 - Suggested",
+        "Cream - Chenille / 60 - Suggested / 26",
+        "Cream - Chenille / 66 / 20",
+        "Cream - Chenille / 66 / 23 - Suggested",
+        "Cream - Chenille / 66 / 26",
+        "Chai - Chenille / 54 / 20",
+        "Chai - Chenille / 54 / 23 - Suggested",
+        "Chai - Chenille / 54 / 26",
+        "Chai - Chenille / 60 - Suggested / 20",
+        "Chai - Chenille / 60 - Suggested / 23 - Suggested",
+        "Chai - Chenille / 60 - Suggested / 26",
+        "Chai - Chenille / 66 / 20",
+        "Chai - Chenille / 66 / 23 - Suggested",
+        "Chai - Chenille / 66 / 26",
+        "Dust - Chenille / 54 / 20",
+        "Dust - Chenille / 54 / 23 - Suggested"
+      ],
+      "price": "33900.00",
+      "url": "https://wudhomes.com/products/juhi-2-seater-sofa",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/20250827_22n25_Off_White_Boucle_Armchair_remix_01k3p769ytehwrcwz5hww4b5m6.png?v=1763588003",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_mmzhuhmmzhuhmmzh_1.png?v=1763588003",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_s4btpzs4btpzs4bt_1.png?v=1763588003",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_7ygr3p7ygr3p7ygr.png?v=1763588003",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_uc132uc132uc132u.png?v=1763588003",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_5ywzaw5ywzaw5ywz_1.png?v=1763588003"
+      ]
+    },
+    {
+      "id": "shopify-10148768710956",
+      "name": "Juhi 1 Seater Sofa",
+      "collection": "badge_Customisable",
+      "description": "•⁠ ⁠Frame crafted using a combination of high-quality 16–18 mm plywood and solid neem wood - kiln-dried and treated for extended durability and long life. •⁠ ⁠Best-in-class Sleepwell foam for consistent comfort and long-lasting shape retention. •⁠ ⁠Elastic webbing for even seat support and reduced sagging over time. •⁠ ⁠Not mass-produced. Made-to-order, fresh for your home. •⁠ ⁠Handmade in Bengaluru, India - with love.",
+      "variants": [
+        "Cream - Chenille / 42 / 20",
+        "Cream - Chenille / 42 / 23 - Suggested",
+        "Cream - Chenille / 42 / 26",
+        "Chai - Chenille / 42 / 20",
+        "Chai - Chenille / 42 / 23 - Suggested",
+        "Chai - Chenille / 42 / 26",
+        "Dust - Chenille / 42 / 20",
+        "Dust - Chenille / 42 / 23 - Suggested",
+        "Dust - Chenille / 42 / 26",
+        "Mitti - Chenille / 42 / 20",
+        "Mitti - Chenille / 42 / 23 - Suggested",
+        "Mitti - Chenille / 42 / 26",
+        "Cocoa - Chenille / 42 / 20",
+        "Cocoa - Chenille / 42 / 23 - Suggested",
+        "Cocoa - Chenille / 42 / 26",
+        "Espresso - Chenille / 42 / 20",
+        "Espresso - Chenille / 42 / 23 - Suggested",
+        "Espresso - Chenille / 42 / 26",
+        "Wheatgrass - Chenille / 42 / 20",
+        "Wheatgrass - Chenille / 42 / 23 - Suggested"
+      ],
+      "price": "26900.00",
+      "url": "https://wudhomes.com/products/juhi-1-seater-sofa",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_scdwomscdwomscdw1.png?v=1763553714",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_pj3fs0pj3fs0pj3f_1_1.png?v=1763553714",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_x8nnitx8nnitx8nn.png?v=1763553714",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_9dcr8a9dcr8a9dcr.png?v=1763553714",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_qpt13nqpt13nqpt1.png?v=1763553714",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_pll2czpll2czpll2.png?v=1763553714"
+      ]
+    },
+    {
+      "id": "shopify-10148719591724",
+      "name": "Juhi 3 Seater Sofa",
+      "collection": "badge_Customisable",
+      "description": "•⁠ ⁠Frame crafted using a combination of high-quality 16–18 mm plywood and solid neem wood - kiln-dried and treated for extended durability and long life. •⁠ ⁠Best-in-class Sleepwell foam for consistent comfort and long-lasting shape retention. •⁠ ⁠Elastic webbing for even seat support and reduced sagging over time. •⁠ ⁠Not mass-produced. Made-to-order, fresh for your home. •⁠ ⁠Handmade in Bengaluru, India - with love.",
+      "variants": [
+        "Cream - Chenille / 90 / 20",
+        "Cream - Chenille / 90 / 23 - Suggested",
+        "Cream - Chenille / 90 / 26",
+        "Cream - Chenille / 84 - Suggested / 20",
+        "Cream - Chenille / 84 - Suggested / 23 - Suggested",
+        "Cream - Chenille / 84 - Suggested / 26",
+        "Cream - Chenille / 78 / 20",
+        "Cream - Chenille / 78 / 23 - Suggested",
+        "Cream - Chenille / 78 / 26",
+        "Chai - Chenille / 90 / 20",
+        "Chai - Chenille / 90 / 23 - Suggested",
+        "Chai - Chenille / 90 / 26",
+        "Chai - Chenille / 84 - Suggested / 20",
+        "Chai - Chenille / 84 - Suggested / 23 - Suggested",
+        "Chai - Chenille / 84 - Suggested / 26",
+        "Chai - Chenille / 78 / 20",
+        "Chai - Chenille / 78 / 23 - Suggested",
+        "Chai - Chenille / 78 / 26",
+        "Dust - Chenille / 90 / 20",
+        "Dust - Chenille / 90 / 23 - Suggested"
+      ],
+      "price": "44900.00",
+      "url": "https://wudhomes.com/products/juhi-3-seater-sofa",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_q48c27q48c27q48c_d51f4684-dd87-434f-ac0f-bc58c4c290a1.png?v=1763546813",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_dn9xoddn9xoddn9x_1d1290b2-ad05-4564-888f-82302e76f006.png?v=1763546813",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_owjliyowjliyowjl_043ebc24-cf6f-4931-ad49-b3ac2997f263.png?v=1763546813",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_cmkjylcmkjylcmkj_916d8f02-bfe0-4844-9ca7-740f24f3d492.png?v=1763546813",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_uyvn6euyvn6euyvn_ca5e1547-b5e1-4dc0-b860-7fb10e01bcbe.png?v=1763546813",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_933n4o933n4o933n-Copy.png?v=1763546784"
+      ]
+    },
+    {
+      "id": "shopify-10140543910188",
+      "name": "Bela 3+L Sofa",
+      "collection": "badge_Customisable",
+      "description": "Features Best in class HR foam by Sleepwell for consistent comfort and shape retention. Frame made with with a combination of high quality branded 16-18mm plywood and neem wood or pine wood , kiln-dried and treated. Elastic webbing + zig-zag springs for firm, even seat support. 200+ fabric options available across textures and colours. Customisation available for sizes, configurations, and fabric selection and bespoke detailing.",
+      "variants": [
+        "Cream - Chenille / 102 - Suggested / 20",
+        "Cream - Chenille / 102 - Suggested / 23 - Suggested",
+        "Cream - Chenille / 102 - Suggested / 26",
+        "Cream - Chenille / 108 / 20",
+        "Cream - Chenille / 108 / 23 - Suggested",
+        "Cream - Chenille / 108 / 26",
+        "Cream - Chenille / 114 / 20",
+        "Cream - Chenille / 114 / 23 - Suggested",
+        "Cream - Chenille / 114 / 26",
+        "Chai - Chenille / 102 - Suggested / 20",
+        "Chai - Chenille / 102 - Suggested / 23 - Suggested",
+        "Chai - Chenille / 102 - Suggested / 26",
+        "Chai - Chenille / 108 / 20",
+        "Chai - Chenille / 108 / 23 - Suggested",
+        "Chai - Chenille / 108 / 26",
+        "Chai - Chenille / 114 / 20",
+        "Chai - Chenille / 114 / 23 - Suggested",
+        "Chai - Chenille / 114 / 26",
+        "Dust - Chenille / 102 - Suggested / 20",
+        "Dust - Chenille / 102 - Suggested / 23 - Suggested"
+      ],
+      "price": "44900.00",
+      "url": "https://wudhomes.com/products/bela-3-l-sofa",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/70.png?v=1772200055",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/69.png?v=1772200055"
+      ]
+    },
+    {
+      "id": "shopify-10135294771500",
+      "name": "Amaltas 2+L Sofa",
+      "collection": "badge_Customisable",
+      "description": "•⁠ ⁠Frame crafted using a combination of high-quality 16–18 mm plywood and solid neem wood - kiln-dried and treated for extended durability and long life. •⁠ ⁠Best-in-class Sleepwell foam for consistent comfort and long-lasting shape retention. •⁠ ⁠Elastic webbing for even seat support and reduced sagging over time. •⁠ ⁠Removable and washable back cushion covers for easy everyday care. •⁠ ⁠Not mass-produced. Made-to-order, fresh for your home. •⁠ ⁠Handmade in Bengaluru, India",
+      "variants": [
+        "Cream - Chenille / 78 / 20",
+        "Cream - Chenille / 78 / 23 - Suggested",
+        "Cream - Chenille / 78 / 26",
+        "Cream - Chenille / 84 - Suggested / 20",
+        "Cream - Chenille / 84 - Suggested / 23 - Suggested",
+        "Cream - Chenille / 84 - Suggested / 26",
+        "Cream - Chenille / 90 / 20",
+        "Cream - Chenille / 90 / 23 - Suggested",
+        "Cream - Chenille / 90 / 26",
+        "Chai - Chenille / 78 / 20",
+        "Chai - Chenille / 78 / 23 - Suggested",
+        "Chai - Chenille / 78 / 26",
+        "Chai - Chenille / 84 - Suggested / 20",
+        "Chai - Chenille / 84 - Suggested / 23 - Suggested",
+        "Chai - Chenille / 84 - Suggested / 26",
+        "Chai - Chenille / 90 / 20",
+        "Chai - Chenille / 90 / 23 - Suggested",
+        "Chai - Chenille / 90 / 26",
+        "Dust - Chenille / 78 / 20",
+        "Dust - Chenille / 78 / 23 - Suggested"
+      ],
+      "price": "61900.00",
+      "url": "https://wudhomes.com/products/amaltas-2-l-sofa",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Group_64.png?v=1772444370",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Group_63.png?v=1772444370"
+      ]
+    },
+    {
+      "id": "shopify-10135287103788",
+      "name": "Amaltas 3+L Sofa",
+      "collection": "badge_Customisable",
+      "description": "•⁠ ⁠Frame crafted using a combination of high-quality 16–18 mm plywood and solid neem wood - kiln-dried and treated for extended durability and long life. •⁠ ⁠Best-in-class Sleepwell foam for consistent comfort and long-lasting shape retention. •⁠ ⁠Elastic webbing for even seat support and reduced sagging over time. •⁠ ⁠Removable and washable back cushion covers for easy everyday care. •⁠ ⁠Not mass-produced. Made-to-order, fresh for your home. •⁠ ⁠Handmade in Bengaluru, India",
+      "variants": [
+        "Cream - Chenille / 102 / 20",
+        "Cream - Chenille / 102 / 23",
+        "Cream - Chenille / 102 / 26",
+        "Cream - Chenille / 108 - Suggested / 20",
+        "Cream - Chenille / 108 - Suggested / 23",
+        "Cream - Chenille / 108 - Suggested / 26",
+        "Cream - Chenille / 114 / 20",
+        "Cream - Chenille / 114 / 23",
+        "Cream - Chenille / 114 / 26",
+        "Chai - Chenille / 102 / 20",
+        "Chai - Chenille / 102 / 23",
+        "Chai - Chenille / 102 / 26",
+        "Chai - Chenille / 108 - Suggested / 20",
+        "Chai - Chenille / 108 - Suggested / 23",
+        "Chai - Chenille / 108 - Suggested / 26",
+        "Chai - Chenille / 114 / 20",
+        "Chai - Chenille / 114 / 23",
+        "Chai - Chenille / 114 / 26",
+        "Dust - Chenille / 102 / 20",
+        "Dust - Chenille / 102 / 23"
+      ],
+      "price": "69900.00",
+      "url": "https://wudhomes.com/products/amaltas-3-l-sofa",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Group_60_fd0fccd3-8939-4227-a74d-35e64ce8a1af.png?v=1772432302",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Group_59.png?v=1772432302"
+      ]
+    },
+    {
+      "id": "shopify-10135135977772",
+      "name": "Jamun 1 Seater Sofa",
+      "collection": "badge_Customisable",
+      "description": "•⁠ ⁠Frame crafted using a combination of high-quality 16–18 mm plywood and solid neem wood - kiln-dried and treated for extended durability and long life. •⁠ ⁠Best-in-class Sleepwell foam for consistent comfort and long-lasting shape retention. •⁠ ⁠Elastic webbing for even seat support and reduced sagging over time. •⁠ ⁠A solid hardwood base frame adds warmth, strength, and architectural character. •⁠ ⁠Not mass-produced. Made-to-order, fresh for your home. •⁠ ⁠Handmade in Ben",
+      "variants": [
+        "Cream - Chenille / 36 / 20",
+        "Cream - Chenille / 36 / 23 - Suggested",
+        "Cream - Chenille / 36 / 26",
+        "Chai - Chenille / 36 / 20",
+        "Chai - Chenille / 36 / 23 - Suggested",
+        "Chai - Chenille / 36 / 26",
+        "Dust - Chenille / 36 / 20",
+        "Dust - Chenille / 36 / 23 - Suggested",
+        "Dust - Chenille / 36 / 26",
+        "Mitti - Chenille / 36 / 20",
+        "Mitti - Chenille / 36 / 23 - Suggested",
+        "Mitti - Chenille / 36 / 26",
+        "Cocoa - Chenille / 36 / 20",
+        "Cocoa - Chenille / 36 / 23 - Suggested",
+        "Cocoa - Chenille / 36 / 26",
+        "Espresso - Chenille / 36 / 20",
+        "Espresso - Chenille / 36 / 23 - Suggested",
+        "Espresso - Chenille / 36 / 26",
+        "Wheatgrass - Chenille / 36 / 20",
+        "Wheatgrass - Chenille / 36 / 23 - Suggested"
+      ],
+      "price": "26900.00",
+      "url": "https://wudhomes.com/products/jamun-1-seater-sofa",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_r79pwtr79pwtr79p_1_08141309-d127-4607-9990-363ae657f20a.png?v=1772523239",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_xsoy79xsoy79xsoy_0db8979d-491c-4f9b-9983-dc7c95f1193e.png?v=1772523239"
+      ]
+    },
+    {
+      "id": "shopify-10131102925100",
+      "name": "Gulab 1 Seater Sofa",
+      "collection": "badge_Customisable",
+      "description": "•⁠ ⁠Frame crafted using a combination of high-quality 16–18 mm plywood and solid neem wood - kiln-dried and treated for extended durability and long life. •⁠ ⁠Best-in-class Sleepwell foam for consistent comfort and long-lasting shape retention. •⁠ ⁠Elastic webbing for even seat support and reduced sagging over time. •⁠ ⁠Not mass-produced. Made-to-order, fresh for your home. •⁠ ⁠Handmade in Bengaluru, India - with love.",
+      "variants": [
+        "Cream - Chenille / 19 inch / 20",
+        "Cream - Chenille / 19 inch / 23 - Suggested",
+        "Cream - Chenille / 19 inch / 26",
+        "Chai - Chenille / 19 inch / 20",
+        "Chai - Chenille / 19 inch / 23 - Suggested",
+        "Chai - Chenille / 19 inch / 26",
+        "Dust - Chenille / 19 inch / 20",
+        "Dust - Chenille / 19 inch / 23 - Suggested",
+        "Dust - Chenille / 19 inch / 26",
+        "Mitti - Chenille / 19 inch / 20",
+        "Mitti - Chenille / 19 inch / 23 - Suggested",
+        "Mitti - Chenille / 19 inch / 26",
+        "Cocoa - Chenille / 19 inch / 20",
+        "Cocoa - Chenille / 19 inch / 23 - Suggested",
+        "Cocoa - Chenille / 19 inch / 26",
+        "Espresso - Chenille / 19 inch / 20",
+        "Espresso - Chenille / 19 inch / 23 - Suggested",
+        "Espresso - Chenille / 19 inch / 26",
+        "Wheatgrass - Chenille / 19 inch / 20",
+        "Wheatgrass - Chenille / 19 inch / 23 - Suggested"
+      ],
+      "price": "39900.00",
+      "url": "https://wudhomes.com/products/gulab-1-seater-sofa",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/73.png?v=1772257630",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/72.png?v=1772257630"
+      ]
+    },
+    {
+      "id": "shopify-10130550358316",
+      "name": "Gulab 3 Seater Sofa",
+      "collection": "badge_Customisable",
+      "description": "•⁠ ⁠Frame crafted using a combination of high-quality 16–18 mm plywood and solid neem wood - kiln-dried and treated for extended durability and long life. •⁠ ⁠Best-in-class Sleepwell foam for consistent comfort and long-lasting shape retention. •⁠ ⁠Elastic webbing for even seat support and reduced sagging over time. •⁠ ⁠Not mass-produced. Made-to-order, fresh for your home. •⁠ ⁠Handmade in Bengaluru, India - with love.",
+      "variants": [
+        "Cream - Chenille / 78 / 20",
+        "Cream - Chenille / 78 / 23 - Suggested",
+        "Cream - Chenille / 78 / 26",
+        "Cream - Chenille / 84 / 20",
+        "Cream - Chenille / 84 / 23 - Suggested",
+        "Cream - Chenille / 84 / 26",
+        "Cream - Chenille / 90 - Suggested / 20",
+        "Cream - Chenille / 90 - Suggested / 23 - Suggested",
+        "Cream - Chenille / 90 - Suggested / 26",
+        "Chai - Chenille / 78 / 20",
+        "Chai - Chenille / 78 / 23 - Suggested",
+        "Chai - Chenille / 78 / 26",
+        "Chai - Chenille / 84 / 20",
+        "Chai - Chenille / 84 / 23 - Suggested",
+        "Chai - Chenille / 84 / 26",
+        "Chai - Chenille / 90 - Suggested / 20",
+        "Chai - Chenille / 90 - Suggested / 23 - Suggested",
+        "Chai - Chenille / 90 - Suggested / 26",
+        "Dust - Chenille / 78 / 20",
+        "Dust - Chenille / 78 / 23 - Suggested"
+      ],
+      "price": "39900.00",
+      "url": "https://wudhomes.com/products/gulab-3-seater-sofa",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/78.png?v=1772257544",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/77_ba33db71-b387-4d8f-91d7-1d0a15e09e16.png?v=1772265507",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/79.png?v=1772265507",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/80.png?v=1772265507",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/82.png?v=1772265507",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/81.png?v=1772265507",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_8pwnxu8pwnxu8pwn.png?v=1772257544"
+      ]
+    },
+    {
+      "id": "shopify-10130491867436",
+      "name": "Malti 3 Seater Sofa",
+      "collection": "badge_Customisable",
+      "description": "•⁠ ⁠Frame crafted using a combination of high-quality 16–18 mm plywood and solid neem wood - kiln-dried and treated for extended durability and long life. •⁠ ⁠Best-in-class Sleepwell foam for consistent comfort and long-lasting shape retention. •⁠ ⁠Elastic webbing for even seat support and reduced sagging over time. •⁠ ⁠Not mass-produced. Made-to-order, fresh for your home. •⁠ ⁠Handmade in Bengaluru, India - with love.",
+      "variants": [
+        "Cream - Chenille / 78 / 20",
+        "Cream - Chenille / 78 / 23 - Suggested",
+        "Cream - Chenille / 78 / 26",
+        "Cream - Chenille / 80 / 20",
+        "Cream - Chenille / 80 / 23 - Suggested",
+        "Cream - Chenille / 80 / 26",
+        "Cream - Chenille / 90 - Suggested / 20",
+        "Cream - Chenille / 90 - Suggested / 23 - Suggested",
+        "Cream - Chenille / 90 - Suggested / 26",
+        "Chai - Chenille / 78 / 20",
+        "Chai - Chenille / 78 / 23 - Suggested",
+        "Chai - Chenille / 78 / 26",
+        "Chai - Chenille / 80 / 20",
+        "Chai - Chenille / 80 / 23 - Suggested",
+        "Chai - Chenille / 80 / 26",
+        "Chai - Chenille / 90 - Suggested / 20",
+        "Chai - Chenille / 90 - Suggested / 23 - Suggested",
+        "Chai - Chenille / 90 - Suggested / 26",
+        "Dust - Chenille / 78 / 20",
+        "Dust - Chenille / 78 / 23 - Suggested"
+      ],
+      "price": "49900.00",
+      "url": "https://wudhomes.com/products/jamun-3-seater-sofa-1",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_jnm7bxjnm7bxjnm7.png?v=1761933415",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_ywvdqzywvdqzywvd.png?v=1761933415",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_pqrtdkpqrtdkpqrt.png?v=1763493661",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_kuekdtkuekdtkuek.png?v=1763493661",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_2acl9q2acl9q2acl.png?v=1763493661",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_1k2git1k2git1k2g.png?v=1763493661"
+      ]
+    },
+    {
+      "id": "shopify-10127892906284",
+      "name": "Jamun 3 Seater Sofa",
+      "collection": "badge_Customisable",
+      "description": "•⁠ ⁠Frame crafted using a combination of high-quality 16–18 mm plywood and solid neem wood - kiln-dried and treated for extended durability and long life. •⁠ ⁠Best-in-class Sleepwell foam for consistent comfort and long-lasting shape retention. •⁠ ⁠Elastic webbing for even seat support and reduced sagging over time. •⁠ ⁠A solid hardwood base frame adds warmth, strength, and architectural character. •⁠ ⁠Not mass-produced. Made-to-order, fresh for your home. •⁠ ⁠Handmade in Ben",
+      "variants": [
+        "Cream - Chenille / 78 / 20",
+        "Cream - Chenille / 78 / 23 - Suggested",
+        "Cream - Chenille / 78 / 26",
+        "Cream - Chenille / 84 - Suggested / 20",
+        "Cream - Chenille / 84 - Suggested / 23 - Suggested",
+        "Cream - Chenille / 84 - Suggested / 26",
+        "Cream - Chenille / 90 / 20",
+        "Cream - Chenille / 90 / 23 - Suggested",
+        "Cream - Chenille / 90 / 26",
+        "Chai - Chenille / 78 / 20",
+        "Chai - Chenille / 78 / 23 - Suggested",
+        "Chai - Chenille / 78 / 26",
+        "Chai - Chenille / 84 - Suggested / 20",
+        "Chai - Chenille / 84 - Suggested / 23 - Suggested",
+        "Chai - Chenille / 84 - Suggested / 26",
+        "Chai - Chenille / 90 / 20",
+        "Chai - Chenille / 90 / 23 - Suggested",
+        "Chai - Chenille / 90 / 26",
+        "Dust - Chenille / 78 / 20",
+        "Dust - Chenille / 78 / 23 - Suggested"
+      ],
+      "price": "44900.00",
+      "url": "https://wudhomes.com/products/jamun-3-seater-sofa",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_6ylg5w6ylg5w6ylg_76c18bd2-abb8-4b88-8cd0-4c7e2060baea.png?v=1772523416",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_o5cb95o5cb95o5cb_fd3394bb-00ad-4e9c-8dbc-9550dbe2b548.png?v=1772523416",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_2xv9mi2xv9mi2xv9_e8c6e873-e42f-41ee-9cec-68f49d5689d1.png?v=1772523416",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_hrufldhrufldhruf_92cea6aa-aeb3-499b-8d5f-ba99ac071f2d.png?v=1772523416",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_qrzgzyqrzgzyqrzg_fa02107e-6c80-42c6-9538-41afa7b4a2af.png?v=1772523416",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_vnhs8xvnhs8xvnhs.png?v=1772523416"
+      ]
+    },
+    {
+      "id": "shopify-10127677194540",
+      "name": "Bela 2+L Sofa",
+      "collection": "badge_Customisable",
+      "description": "Features Best in class HR foam by Sleepwell for consistent comfort and shape retention. Frame made with with a combination of high quality branded 16-18mm plywood and neem wood or pine wood , kiln-dried and treated. Elastic webbing + zig-zag springs for firm, even seat support. 200+ fabric options available across textures and colours. Customisation available for sizes, configurations, and fabric selection and bespoke detailing.",
+      "variants": [
+        "Cream - Chenille / 78 - Suggested / 20",
+        "Cream - Chenille / 78 - Suggested / 23 - Suggested",
+        "Cream - Chenille / 78 - Suggested / 26",
+        "Cream - Chenille / 84 / 20",
+        "Cream - Chenille / 84 / 23 - Suggested",
+        "Cream - Chenille / 84 / 26",
+        "Cream - Chenille / 90 / 20",
+        "Cream - Chenille / 90 / 23 - Suggested",
+        "Cream - Chenille / 90 / 26",
+        "Chai - Chenille / 78 - Suggested / 20",
+        "Chai - Chenille / 78 - Suggested / 23 - Suggested",
+        "Chai - Chenille / 78 - Suggested / 26",
+        "Chai - Chenille / 84 / 20",
+        "Chai - Chenille / 84 / 23 - Suggested",
+        "Chai - Chenille / 84 / 26",
+        "Chai - Chenille / 90 / 20",
+        "Chai - Chenille / 90 / 23 - Suggested",
+        "Chai - Chenille / 90 / 26",
+        "Dust - Chenille / 78 - Suggested / 20",
+        "Dust - Chenille / 78 - Suggested / 23 - Suggested"
+      ],
+      "price": "39900.00",
+      "url": "https://wudhomes.com/products/bela-2-l-sofa",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/61.png?v=1772228071",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/60.png?v=1772228071"
+      ]
+    },
+    {
+      "id": "shopify-10127670903084",
+      "name": "Karavi 2 Seater Sofa",
+      "collection": "badge_Customisable",
+      "description": "•⁠ ⁠Frame crafted using a combination of high-quality 16–18 mm plywood and solid neem wood - kiln-dried and treated for extended durability and long life. •⁠ ⁠Best-in-class Sleepwell foam for consistent comfort and long-lasting shape retention. •⁠ ⁠Elastic webbing for even seat support and reduced sagging over time. •⁠ ⁠Not mass-produced. Made-to-order, fresh for your home. •⁠ ⁠Handmade in Bengaluru, India - with love.",
+      "variants": [
+        "Cream - Chenille / 54 / 20",
+        "Cream - Chenille / 54 / 23 - Suggested",
+        "Cream - Chenille / 54 / 26",
+        "Cream - Chenille / 60 - Suggested / 20",
+        "Cream - Chenille / 60 - Suggested / 23 - Suggested",
+        "Cream - Chenille / 60 - Suggested / 26",
+        "Cream - Chenille / 66 / 20",
+        "Cream - Chenille / 66 / 23 - Suggested",
+        "Cream - Chenille / 66 / 26",
+        "Chai - Chenille / 54 / 20",
+        "Chai - Chenille / 54 / 23 - Suggested",
+        "Chai - Chenille / 54 / 26",
+        "Chai - Chenille / 60 - Suggested / 20",
+        "Chai - Chenille / 60 - Suggested / 23 - Suggested",
+        "Chai - Chenille / 60 - Suggested / 26",
+        "Chai - Chenille / 66 / 20",
+        "Chai - Chenille / 66 / 23 - Suggested",
+        "Chai - Chenille / 66 / 26",
+        "Dust - Chenille / 54 / 20",
+        "Dust - Chenille / 54 / 23 - Suggested"
+      ],
+      "price": "29900.00",
+      "url": "https://wudhomes.com/products/bakul-2-seater-sofa-copy",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/karavi-sofa-2-seater-iso.png?v=1777457604",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_q9yaccq9yaccq9ya_1.png?v=1761814891"
+      ]
+    },
+    {
+      "id": "shopify-10127541207340",
+      "name": "Karavi 1 Seater Sofa",
+      "collection": "badge_Customisable",
+      "description": "•⁠ ⁠Frame crafted using a combination of high-quality 16–18 mm plywood and solid neem wood - kiln-dried and treated for extended durability and long life. •⁠ ⁠Best-in-class Sleepwell foam for consistent comfort and long-lasting shape retention. •⁠ ⁠Elastic webbing for even seat support and reduced sagging over time. •⁠ ⁠Not mass-produced. Made-to-order, fresh for your home. •⁠ ⁠Handmade in Bengaluru, India - with love.",
+      "variants": [
+        "Cream - Chenille / 42 / 20",
+        "Cream - Chenille / 42 / 23 - Suggested",
+        "Cream - Chenille / 42 / 26",
+        "Chai - Chenille / 42 / 20",
+        "Chai - Chenille / 42 / 23 - Suggested",
+        "Chai - Chenille / 42 / 26",
+        "Dust - Chenille / 42 / 20",
+        "Dust - Chenille / 42 / 23 - Suggested",
+        "Dust - Chenille / 42 / 26",
+        "Mitti - Chenille / 42 / 20",
+        "Mitti - Chenille / 42 / 23 - Suggested",
+        "Mitti - Chenille / 42 / 26",
+        "Cocoa - Chenille / 42 / 20",
+        "Cocoa - Chenille / 42 / 23 - Suggested",
+        "Cocoa - Chenille / 42 / 26",
+        "Espresso - Chenille / 42 / 20",
+        "Espresso - Chenille / 42 / 23 - Suggested",
+        "Espresso - Chenille / 42 / 26",
+        "Wheatgrass - Chenille / 42 / 20",
+        "Wheatgrass - Chenille / 42 / 23 - Suggested"
+      ],
+      "price": "23900.00",
+      "url": "https://wudhomes.com/products/karavi-1-seater-sofa",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/123.png?v=1761807957",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/1223.png?v=1761807957"
+      ]
+    },
+    {
+      "id": "shopify-10127522660652",
+      "name": "Karavi 3 Seater Sofa",
+      "collection": "badge_Customisable",
+      "description": "•⁠ ⁠Frame crafted using a combination of high-quality 16–18 mm plywood and solid neem wood - kiln-dried and treated for extended durability and long life. •⁠ ⁠Best-in-class Sleepwell foam for consistent comfort and long-lasting shape retention. •⁠ ⁠Elastic webbing for even seat support and reduced sagging over time. •⁠ ⁠Not mass-produced. Made-to-order, fresh for your home. •⁠ ⁠Handmade in Bengaluru, India - with love.",
+      "variants": [
+        "Cream - Chenille / 78 / 20",
+        "Cream - Chenille / 78 / 23 - Suggested",
+        "Cream - Chenille / 78 / 26",
+        "Cream - Chenille / 84 - Suggested / 20",
+        "Cream - Chenille / 84 - Suggested / 23 - Suggested",
+        "Cream - Chenille / 84 - Suggested / 26",
+        "Cream - Chenille / 90 / 20",
+        "Cream - Chenille / 90 / 23 - Suggested",
+        "Cream - Chenille / 90 / 26",
+        "Chai - Chenille / 78 / 20",
+        "Chai - Chenille / 78 / 23 - Suggested",
+        "Chai - Chenille / 78 / 26",
+        "Chai - Chenille / 84 - Suggested / 20",
+        "Chai - Chenille / 84 - Suggested / 23 - Suggested",
+        "Chai - Chenille / 84 - Suggested / 26",
+        "Chai - Chenille / 90 / 20",
+        "Chai - Chenille / 90 / 23 - Suggested",
+        "Chai - Chenille / 90 / 26",
+        "Dust - Chenille / 78 / 20",
+        "Dust - Chenille / 78 / 23 - Suggested"
+      ],
+      "price": "39900.00",
+      "url": "https://wudhomes.com/products/karavi-3-seater-sofa-1",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/krvi.png?v=1761807271",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/krvi2.png?v=1761807271",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/krvi_ly.png?v=1763748936",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/krvi_245674d3-dbd2-48aa-88d5-614885ae8199.png?v=1763748937"
+      ]
+    },
+    {
+      "id": "shopify-10127499395372",
+      "name": "Mogra 1 Seater Sofa",
+      "collection": "badge_Customisable",
+      "description": "•⁠ ⁠Frame crafted using a combination of high-quality 16–18 mm plywood and solid neem wood - kiln-dried and treated for extended durability and long life. •⁠ ⁠Best-in-class Sleepwell foam for consistent comfort and long-lasting shape retention. •⁠ ⁠Elastic webbing for even seat support and reduced sagging over time. •⁠ ⁠Removable and washable back cushion covers for easy everyday care. •⁠ ⁠Not mass-produced. Made-to-order, fresh for your home. •⁠ ⁠Handmade in Bengaluru, India",
+      "variants": [
+        "Cream - Chenille / 42 / 20",
+        "Cream - Chenille / 42 / 23 - Suggested",
+        "Cream - Chenille / 42 / 26",
+        "Chai - Chenille / 42 / 20",
+        "Chai - Chenille / 42 / 23 - Suggested",
+        "Chai - Chenille / 42 / 26",
+        "Dust - Chenille / 42 / 20",
+        "Dust - Chenille / 42 / 23 - Suggested",
+        "Dust - Chenille / 42 / 26",
+        "Mitti - Chenille / 42 / 20",
+        "Mitti - Chenille / 42 / 23 - Suggested",
+        "Mitti - Chenille / 42 / 26",
+        "Cocoa - Chenille / 42 / 20",
+        "Cocoa - Chenille / 42 / 23 - Suggested",
+        "Cocoa - Chenille / 42 / 26",
+        "Espresso - Chenille / 42 / 20",
+        "Espresso - Chenille / 42 / 23 - Suggested",
+        "Espresso - Chenille / 42 / 26",
+        "Wheatgrass - Chenille / 42 / 20",
+        "Wheatgrass - Chenille / 42 / 23 - Suggested"
+      ],
+      "price": "23900.00",
+      "url": "https://wudhomes.com/products/mogra-1-seater-sofa",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/MOGRA_1_FINL.png?v=1761806728",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_ypp4ijypp4ijypp4.png?v=1761806882"
+      ]
+    },
+    {
+      "id": "shopify-10127494775084",
+      "name": "Mogra 3 Seater Sofa",
+      "collection": "badge_Customisable",
+      "description": "•⁠ ⁠Frame crafted using a combination of high-quality 16–18 mm plywood and solid neem wood - kiln-dried and treated for extended durability and long life. •⁠ ⁠Best-in-class Sleepwell foam for consistent comfort and long-lasting shape retention. •⁠ ⁠Elastic webbing for even seat support and reduced sagging over time. •⁠ ⁠Removable and washable back cushion covers for easy everyday care. •⁠ ⁠Not mass-produced. Made-to-order, fresh for your home. •⁠ ⁠Handmade in Bengaluru, India",
+      "variants": [
+        "Cream - Chenille / 78 / 20",
+        "Cream - Chenille / 78 / 23 - Suggested",
+        "Cream - Chenille / 78 / 26",
+        "Cream - Chenille / 84 - Suggested / 20",
+        "Cream - Chenille / 84 - Suggested / 23 - Suggested",
+        "Cream - Chenille / 84 - Suggested / 26",
+        "Cream - Chenille / 90 / 20",
+        "Cream - Chenille / 90 / 23 - Suggested",
+        "Cream - Chenille / 90 / 26",
+        "Chai - Chenille / 78 / 20",
+        "Chai - Chenille / 78 / 23 - Suggested",
+        "Chai - Chenille / 78 / 26",
+        "Chai - Chenille / 84 - Suggested / 20",
+        "Chai - Chenille / 84 - Suggested / 23 - Suggested",
+        "Chai - Chenille / 84 - Suggested / 26",
+        "Chai - Chenille / 90 / 20",
+        "Chai - Chenille / 90 / 23 - Suggested",
+        "Chai - Chenille / 90 / 26",
+        "Dust - Chenille / 78 / 20",
+        "Dust - Chenille / 78 / 23 - Suggested"
+      ],
+      "price": "39900.00",
+      "url": "https://wudhomes.com/products/mogra-3-seater-sofa",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/MOGRAFINL.png?v=1761806773",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_lq70zhlq70zhlq70_9244a6f9-f3ac-4fa2-af08-884c53c51248.png?v=1761806773",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_fzxt05fzxt05fzxt.png?v=1763494505",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_n1acq4n1acq4n1ac.png?v=1763494505",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_ob2icmob2icmob2i.png?v=1763494505",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_c0yarmc0yarmc0ya.png?v=1763494505"
+      ]
+    },
+    {
+      "id": "shopify-10126289174828",
+      "name": "Bakul 2 Seater Sofa",
+      "collection": "badge_Customisable",
+      "description": "•⁠ ⁠Frame crafted using a combination of high-quality 16–18 mm plywood and solid neem wood - kiln-dried and treated for extended durability and long life. •⁠ ⁠Best-in-class Sleepwell foam for consistent comfort and long-lasting shape retention. •⁠ ⁠Elastic webbing for even seat support and reduced sagging over time. •⁠ ⁠Not mass-produced. Made-to-order, fresh for your home. •⁠ ⁠Handmade in Bengaluru, India - with love.",
+      "variants": [
+        "Cream - Chenille / 54 / 20",
+        "Cream - Chenille / 54 / 23 - Suggested",
+        "Cream - Chenille / 54 / 26",
+        "Cream - Chenille / 60 - Suggested / 20",
+        "Cream - Chenille / 60 - Suggested / 23 - Suggested",
+        "Cream - Chenille / 60 - Suggested / 26",
+        "Cream - Chenille / 66 / 20",
+        "Cream - Chenille / 66 / 23 - Suggested",
+        "Cream - Chenille / 66 / 26",
+        "Chai - Chenille / 54 / 20",
+        "Chai - Chenille / 54 / 23 - Suggested",
+        "Chai - Chenille / 54 / 26",
+        "Chai - Chenille / 60 - Suggested / 20",
+        "Chai - Chenille / 60 - Suggested / 23 - Suggested",
+        "Chai - Chenille / 60 - Suggested / 26",
+        "Chai - Chenille / 66 / 20",
+        "Chai - Chenille / 66 / 23 - Suggested",
+        "Chai - Chenille / 66 / 26",
+        "Dust - Chenille / 54 / 20",
+        "Dust - Chenille / 54 / 23 - Suggested"
+      ],
+      "price": "33900.00",
+      "url": "https://wudhomes.com/products/bakul-2-seater-sofa",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/101.png?v=1772271685",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/100.png?v=1772271685"
+      ]
+    },
+    {
+      "id": "shopify-10126286324012",
+      "name": "Bakul 1 Seater Sofa",
+      "collection": "badge_Customisable",
+      "description": "•⁠ ⁠Frame crafted using a combination of high-quality 16–18 mm plywood and solid neem wood - kiln-dried and treated for extended durability and long life. •⁠ ⁠Best-in-class Sleepwell foam for consistent comfort and long-lasting shape retention. •⁠ ⁠Elastic webbing for even seat support and reduced sagging over time. •⁠ ⁠Not mass-produced. Made-to-order, fresh for your home. •⁠ ⁠Handmade in Bengaluru, India - with love.",
+      "variants": [
+        "Cream - Chenille / 36 / 20",
+        "Cream - Chenille / 36 / 23 - Suggested",
+        "Cream - Chenille / 36 / 26",
+        "Chai - Chenille / 36 / 20",
+        "Chai - Chenille / 36 / 23 - Suggested",
+        "Chai - Chenille / 36 / 26",
+        "Dust - Chenille / 36 / 20",
+        "Dust - Chenille / 36 / 23 - Suggested",
+        "Dust - Chenille / 36 / 26",
+        "Mitti - Chenille / 36 / 20",
+        "Mitti - Chenille / 36 / 23 - Suggested",
+        "Mitti - Chenille / 36 / 26",
+        "Cocoa - Chenille / 36 / 20",
+        "Cocoa - Chenille / 36 / 23 - Suggested",
+        "Cocoa - Chenille / 36 / 26",
+        "Espresso - Chenille / 36 / 20",
+        "Espresso - Chenille / 36 / 23 - Suggested",
+        "Espresso - Chenille / 36 / 26",
+        "Wheatgrass - Chenille / 36 / 20",
+        "Wheatgrass - Chenille / 36 / 23 - Suggested"
+      ],
+      "price": "26900.00",
+      "url": "https://wudhomes.com/products/bakul-1-seater-sofa",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/98.png?v=1772271534",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/97.png?v=1772271534"
+      ]
+    },
+    {
+      "id": "shopify-10126284783916",
+      "name": "Tulsi 1 Seater Sofa",
+      "collection": "badge_Customisable",
+      "description": "•⁠ ⁠Frame crafted using a combination of high-quality 16–18 mm plywood and solid neem wood - kiln-dried and treated for extended durability and long life. •⁠ ⁠Best-in-class Sleepwell foam for consistent comfort and long-lasting shape retention. •⁠ ⁠Elastic webbing for even seat support and reduced sagging over time. •⁠ ⁠Removable and washable back cushion covers for easy everyday care. •⁠ ⁠Not mass-produced. Made-to-order, fresh for your home. •⁠ ⁠Handmade in Bengaluru, India",
+      "variants": [
+        "Cream - Chenille / 36 / 20",
+        "Cream - Chenille / 36 / 23 - Suggested",
+        "Cream - Chenille / 36 / 26",
+        "Chai - Chenille / 36 / 20",
+        "Chai - Chenille / 36 / 23 - Suggested",
+        "Chai - Chenille / 36 / 26",
+        "Dust - Chenille / 36 / 20",
+        "Dust - Chenille / 36 / 23 - Suggested",
+        "Dust - Chenille / 36 / 26",
+        "Mitti - Chenille / 36 / 20",
+        "Mitti - Chenille / 36 / 23 - Suggested",
+        "Mitti - Chenille / 36 / 26",
+        "Cocoa - Chenille / 36 / 20",
+        "Cocoa - Chenille / 36 / 23 - Suggested",
+        "Cocoa - Chenille / 36 / 26",
+        "Espresso - Chenille / 36 / 20",
+        "Espresso - Chenille / 36 / 23 - Suggested",
+        "Espresso - Chenille / 36 / 26",
+        "Wheatgrass - Chenille / 36 / 20",
+        "Wheatgrass - Chenille / 36 / 23 - Suggested"
+      ],
+      "price": "17900.00",
+      "url": "https://wudhomes.com/products/tulsi-1-seater-sofa",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_60otxr60otxr60ot.png?v=1761762836",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/tulsi.png?v=1761762836"
+      ]
+    },
+    {
+      "id": "shopify-10126283407660",
+      "name": "Tulsi 3 Seater Sofa",
+      "collection": "badge_Customisable",
+      "description": "•⁠ ⁠Frame crafted using a combination of high-quality 16–18 mm plywood and solid neem wood - kiln-dried and treated for extended durability and long life. •⁠ ⁠Best-in-class Sleepwell foam for consistent comfort and long-lasting shape retention. •⁠ ⁠Elastic webbing for even seat support and reduced sagging over time. •⁠ ⁠Removable and washable back cushion covers for easy everyday care. •⁠ ⁠Not mass-produced. Made-to-order, fresh for your home. •⁠ ⁠Handmade in Bengaluru, India",
+      "variants": [
+        "Cream - Chenille / 78 / 20",
+        "Cream - Chenille / 78 / 23 - Suggested",
+        "Cream - Chenille / 78 / 26",
+        "Cream - Chenille / 84 - Suggested / 20",
+        "Cream - Chenille / 84 - Suggested / 23 - Suggested",
+        "Cream - Chenille / 84 - Suggested / 26",
+        "Cream - Chenille / 90 / 20",
+        "Cream - Chenille / 90 / 23 - Suggested",
+        "Cream - Chenille / 90 / 26",
+        "Chai - Chenille / 78 / 20",
+        "Chai - Chenille / 78 / 23 - Suggested",
+        "Chai - Chenille / 78 / 26",
+        "Chai - Chenille / 84 - Suggested / 20",
+        "Chai - Chenille / 84 - Suggested / 23 - Suggested",
+        "Chai - Chenille / 84 - Suggested / 26",
+        "Chai - Chenille / 90 / 20",
+        "Chai - Chenille / 90 / 23 - Suggested",
+        "Chai - Chenille / 90 / 26",
+        "Dust - Chenille / 78 / 20",
+        "Dust - Chenille / 78 / 23 - Suggested"
+      ],
+      "price": "29900.00",
+      "url": "https://wudhomes.com/products/tulsi-3-seater-sofa",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_ceirkkceirkkceir.png?v=1761762442",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_teq6gsteq6gsteq6.png?v=1761762443",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_o174f0o174f0o174.png?v=1763497304",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_swhh4eswhh4eswhh.png?v=1763497304",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_djqtf0djqtf0djqt.png?v=1763497304",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_tab7e3tab7e3tab7.png?v=1763497294"
+      ]
+    },
+    {
+      "id": "shopify-10126213742892",
+      "name": "Gulmohar 1 Seater Sofa",
+      "collection": "badge_Customisable",
+      "description": "•⁠ ⁠Frame crafted using a combination of high-quality 16–18 mm plywood and solid neem wood - kiln-dried and treated for extended durability and long life. •⁠ ⁠Best-in-class Sleepwell foam for consistent comfort and long-lasting shape retention. •⁠ ⁠Elastic webbing for even seat support and reduced sagging over time. •⁠ ⁠Removable and washable back cushion covers for easy everyday care. •⁠ ⁠Not mass-produced. Made-to-order, fresh for your home. •⁠ ⁠Handmade in Bengaluru, India",
+      "variants": [
+        "Cream - Chenille / 36 / 20",
+        "Cream - Chenille / 36 / 23 - Suggested",
+        "Cream - Chenille / 36 / 26",
+        "Chai - Chenille / 36 / 20",
+        "Chai - Chenille / 36 / 23 - Suggested",
+        "Chai - Chenille / 36 / 26",
+        "Dust - Chenille / 36 / 20",
+        "Dust - Chenille / 36 / 23 - Suggested",
+        "Dust - Chenille / 36 / 26",
+        "Mitti - Chenille / 36 / 20",
+        "Mitti - Chenille / 36 / 23 - Suggested",
+        "Mitti - Chenille / 36 / 26",
+        "Cocoa - Chenille / 36 / 20",
+        "Cocoa - Chenille / 36 / 23 - Suggested",
+        "Cocoa - Chenille / 36 / 26",
+        "Espresso - Chenille / 36 / 20",
+        "Espresso - Chenille / 36 / 23 - Suggested",
+        "Espresso - Chenille / 36 / 26",
+        "Wheatgrass - Chenille / 36 / 20",
+        "Wheatgrass - Chenille / 36 / 23 - Suggested"
+      ],
+      "price": "20900.00",
+      "url": "https://wudhomes.com/products/gulmohar-1-seater-sofa",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/GLMHR1.png?v=1761748566",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/GLMHR_HM.png?v=1761748645"
+      ]
+    },
+    {
+      "id": "shopify-10126211973420",
+      "name": "Gulmohar 3 Seater Sofa",
+      "collection": "badge_Customisable",
+      "description": "•⁠ ⁠Frame crafted using a combination of high-quality 16–18 mm plywood and solid neem wood - kiln-dried and treated for extended durability and long life. •⁠ ⁠Best-in-class Sleepwell foam for consistent comfort and long-lasting shape retention. •⁠ ⁠Elastic webbing for even seat support and reduced sagging over time. •⁠ ⁠Removable and washable back cushion covers for easy everyday care. •⁠ ⁠Not mass-produced. Made-to-order, fresh for your home. •⁠ ⁠Handmade in Bengaluru, India",
+      "variants": [
+        "78 / 20 / Cream - Chenille",
+        "78 / 20 / Chai - Chenille",
+        "78 / 20 / Dust - Chenille",
+        "78 / 20 / Mitti - Chenille",
+        "78 / 20 / Cocoa - Chenille",
+        "78 / 20 / Espresso - Chenille",
+        "78 / 20 / Wheatgrass - Chenille",
+        "78 / 20 / Charcoal Olive - Chenille",
+        "78 / 20 / Khaki - Chenille",
+        "78 / 20 / Rust - Chenille",
+        "78 / 20 / Gulal - Chenille",
+        "78 / 20 / Charcoal - Chenille",
+        "78 / 20 / Burgundy - Chenille",
+        "78 / 20 / Ink - Chenille",
+        "78 / 20 / Taupe Olive - Chenille",
+        "78 / 23 - Suggested / Cream - Chenille",
+        "78 / 23 - Suggested / Chai - Chenille",
+        "78 / 23 - Suggested / Dust - Chenille",
+        "78 / 23 - Suggested / Mitti - Chenille",
+        "78 / 23 - Suggested / Cocoa - Chenille"
+      ],
+      "price": "34900.00",
+      "url": "https://wudhomes.com/products/gulmohar-3-seater-sofa",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/glmhr.png?v=1761747373",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_hrtxsjhrtxsjhrtx_8a23fe34-b887-41d3-b30a-85c031109c45.png?v=1772453409",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_6rmsnq6rmsnq6rms_1c271e6d-3716-41f9-9ab7-fc54f5302df1.png?v=1772453409",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_gwve8hgwve8hgwve_340041ff-de41-4b1b-b353-93e1036d3827.png?v=1772453409",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_lx054ilx054ilx05_057e92f7-be85-4965-ba03-c6cd6d793364.png?v=1772453409",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_lht8sxlht8sxlht8.png?v=1772453409"
+      ]
+    },
+    {
+      "id": "shopify-10126208925996",
+      "name": "Bela 1 Seater Sofa",
+      "collection": "badge_Customisable",
+      "description": "Features Best in class HR foam by Sleepwell for consistent comfort and shape retention. Frame made with with a combination of high quality branded 16-18mm plywood and neem wood or pine wood , kiln-dried and treated. Elastic webbing + zig-zag springs for firm, even seat support. 200+ fabric options available across textures and colours. Customisation available for sizes, configurations, and fabric selection and bespoke detailing.",
+      "variants": [
+        "Cream - Chenille / 36 / 20",
+        "Cream - Chenille / 36 / 23 - Suggested",
+        "Cream - Chenille / 36 / 26",
+        "Chai - Chenille / 36 / 20",
+        "Chai - Chenille / 36 / 23 - Suggested",
+        "Chai - Chenille / 36 / 26",
+        "Dust - Chenille / 36 / 20",
+        "Dust - Chenille / 36 / 23 - Suggested",
+        "Dust - Chenille / 36 / 26",
+        "Mitti - Chenille / 36 / 20",
+        "Mitti - Chenille / 36 / 23 - Suggested",
+        "Mitti - Chenille / 36 / 26",
+        "Cocoa - Chenille / 36 / 20",
+        "Cocoa - Chenille / 36 / 23 - Suggested",
+        "Cocoa - Chenille / 36 / 26",
+        "Espresso - Chenille / 36 / 20",
+        "Espresso - Chenille / 36 / 23 - Suggested",
+        "Espresso - Chenille / 36 / 26",
+        "Wheatgrass - Chenille / 36 / 20",
+        "Wheatgrass - Chenille / 36 / 23 - Suggested"
+      ],
+      "price": "14900.00",
+      "url": "https://wudhomes.com/products/bela-1-seater-sofa",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/56.png?v=1772228080",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/55_7e3c1a12-35c3-48f0-91ea-00d5cd90bd21.png?v=1772228080"
+      ]
+    },
+    {
+      "id": "shopify-10123087151404",
+      "name": "Bela 3 Seater Sofa",
+      "collection": "badge_Customisable",
+      "description": "Features Best in class HR foam by Sleepwell for consistent comfort and shape retention. Frame made with with a combination of high quality branded 16-18mm plywood and neem wood or pine wood , kiln-dried and treated. Elastic webbing + zig-zag springs for firm, even seat support. 200+ fabric options available across textures and colours. Customisation available for sizes, configurations, and fabric selection and bespoke detailing.",
+      "variants": [
+        "Cream - Chenille / 78 - Suggested / 20",
+        "Cream - Chenille / 78 - Suggested / 23 - Suggested",
+        "Cream - Chenille / 78 - Suggested / 26",
+        "Cream - Chenille / 84 / 20",
+        "Cream - Chenille / 84 / 23 - Suggested",
+        "Cream - Chenille / 84 / 26",
+        "Cream - Chenille / 90 / 20",
+        "Cream - Chenille / 90 / 23 - Suggested",
+        "Cream - Chenille / 90 / 26",
+        "Chai - Chenille / 78 - Suggested / 20",
+        "Chai - Chenille / 78 - Suggested / 23 - Suggested",
+        "Chai - Chenille / 78 - Suggested / 26",
+        "Chai - Chenille / 84 / 20",
+        "Chai - Chenille / 84 / 23 - Suggested",
+        "Chai - Chenille / 84 / 26",
+        "Chai - Chenille / 90 / 20",
+        "Chai - Chenille / 90 / 23 - Suggested",
+        "Chai - Chenille / 90 / 26",
+        "Dust - Chenille / 78 - Suggested / 20",
+        "Dust - Chenille / 78 - Suggested / 23 - Suggested"
+      ],
+      "price": "24900.00",
+      "url": "https://wudhomes.com/products/bela-3-seater-sofa",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/67.png?v=1772228060",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/63.png?v=1772228060",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/64.png?v=1772228060",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/65_62edcf8a-739d-4b53-9cb5-d44924c4fabd.png?v=1772228060",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/66_2f0bfddb-9792-4b6d-b375-d33fcaaabd18.png?v=1772228060",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_palb1hpalb1hpalb.png?v=1772198700"
+      ]
+    },
+    {
+      "id": "shopify-10123084464428",
+      "name": "Amaltas 1 Seater Sofa",
+      "collection": "badge_Customisable",
+      "description": "•⁠ ⁠Frame crafted using a combination of high-quality 16–18 mm plywood and solid neem wood - kiln-dried and treated for extended durability and long life. •⁠ ⁠Best-in-class Sleepwell foam for consistent comfort and long-lasting shape retention. •⁠ ⁠Elastic webbing for even seat support and reduced sagging over time. •⁠ ⁠Removable and washable back cushion covers for easy everyday care. •⁠ ⁠Not mass-produced. Made-to-order, fresh for your home. •⁠ ⁠Handmade in Bengaluru, India",
+      "variants": [
+        "Cream - Chenille / 42 / 20",
+        "Cream - Chenille / 42 / 23 - Suggested",
+        "Cream - Chenille / 42 / 26",
+        "Chai - Chenille / 42 / 20",
+        "Chai - Chenille / 42 / 23 - Suggested",
+        "Chai - Chenille / 42 / 26",
+        "Dust - Chenille / 42 / 20",
+        "Dust - Chenille / 42 / 23 - Suggested",
+        "Dust - Chenille / 42 / 26",
+        "Mitti - Chenille / 42 / 20",
+        "Mitti - Chenille / 42 / 23 - Suggested",
+        "Mitti - Chenille / 42 / 26",
+        "Cocoa - Chenille / 42 / 20",
+        "Cocoa - Chenille / 42 / 23 - Suggested",
+        "Cocoa - Chenille / 42 / 26",
+        "Espresso - Chenille / 42 / 20",
+        "Espresso - Chenille / 42 / 23 - Suggested",
+        "Espresso - Chenille / 42 / 26",
+        "Wheatgrass - Chenille / 42 / 20",
+        "Wheatgrass - Chenille / 42 / 23 - Suggested"
+      ],
+      "price": "23900.00",
+      "url": "https://wudhomes.com/products/amaltas-1-seater-sofa",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_d8gj6zd8gj6zd8gj_1.png?v=1772445505",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_ihysm0ihysm0ihys_cfdaf9ae-ba42-4905-8cad-00d59eff2514.png?v=1772445505"
+      ]
+    },
+    {
+      "id": "shopify-10123082891564",
+      "name": "Amaltas 3 Seater Sofa",
+      "collection": "badge_Customisable",
+      "description": "•⁠ ⁠Frame crafted using a combination of high-quality 16–18 mm plywood and solid neem wood - kiln-dried and treated for extended durability and long life. •⁠ ⁠Best-in-class Sleepwell foam for consistent comfort and long-lasting shape retention. •⁠ ⁠Elastic webbing for even seat support and reduced sagging over time. •⁠ ⁠Removable and washable back cushion covers for easy everyday care. •⁠ ⁠Not mass-produced. Made-to-order, fresh for your home. •⁠ ⁠Handmade in Bengaluru, India",
+      "variants": [
+        "Cream - Chenille / 78 / 20",
+        "Cream - Chenille / 78 / 23 - Suggested",
+        "Cream - Chenille / 78 / 26",
+        "Cream - Chenille / 84 - Suggested / 20",
+        "Cream - Chenille / 84 - Suggested / 23 - Suggested",
+        "Cream - Chenille / 84 - Suggested / 26",
+        "Cream - Chenille / 90 / 20",
+        "Cream - Chenille / 90 / 23 - Suggested",
+        "Cream - Chenille / 90 / 26",
+        "Chai - Chenille / 78 / 20",
+        "Chai - Chenille / 78 / 23 - Suggested",
+        "Chai - Chenille / 78 / 26",
+        "Chai - Chenille / 84 - Suggested / 20",
+        "Chai - Chenille / 84 - Suggested / 23 - Suggested",
+        "Chai - Chenille / 84 - Suggested / 26",
+        "Chai - Chenille / 90 / 20",
+        "Chai - Chenille / 90 / 23 - Suggested",
+        "Chai - Chenille / 90 / 26",
+        "Dust - Chenille / 78 / 20",
+        "Dust - Chenille / 78 / 23 - Suggested"
+      ],
+      "price": "39900.00",
+      "url": "https://wudhomes.com/products/amaltas-3-seater-sofa",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/amlts_7a3e6920-dc43-4543-a602-a3a5a5d3a5ca.png?v=1772447851",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_1a6z691a6z691a6z_510a1166-da2a-4ded-808a-d9521e317469.png?v=1772447851",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_kcyy8rkcyy8rkcyy_cb0fef41-f8e5-4477-aa80-cd907383c89c.png?v=1772447851",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_lw4lhvlw4lhvlw4l_eafb1ace-a515-4d1f-b664-552a67fb783e.png?v=1772447851",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_s6w9e8s6w9e8s6w9_611ce8aa-5415-47c3-9351-6c637166f34d.png?v=1772447851",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_dqbgu9dqbgu9dqbg.png?v=1772447851"
+      ]
+    },
+    {
+      "id": "shopify-10122958307628",
+      "name": "Amra 3 Seater Sofa",
+      "collection": "badge_Customisable",
+      "description": "•⁠ ⁠Frame crafted using a combination of high-quality 16–18 mm plywood and solid neem wood - kiln-dried and treated for extended durability and long life. •⁠ ⁠Best-in-class Sleepwell foam for consistent comfort and long-lasting shape retention. •⁠ ⁠Elastic webbing for even seat support and reduced sagging over time. •⁠ ⁠Removable and washable back cushion covers for easy everyday care. •⁠ ⁠Not mass-produced. Made-to-order, fresh for your home. •⁠ ⁠Handmade in Bengaluru, India",
+      "variants": [
+        "Cream - Chenille / 78 / 20",
+        "Cream - Chenille / 78 / 23 - Suggested",
+        "Cream - Chenille / 78 / 26",
+        "Cream - Chenille / 84 / 20",
+        "Cream - Chenille / 84 / 23 - Suggested",
+        "Cream - Chenille / 84 / 26",
+        "Cream - Chenille / 90 - Suggested / 20",
+        "Cream - Chenille / 90 - Suggested / 23 - Suggested",
+        "Cream - Chenille / 90 - Suggested / 26",
+        "Chai - Chenille / 78 / 20",
+        "Chai - Chenille / 78 / 23 - Suggested",
+        "Chai - Chenille / 78 / 26",
+        "Chai - Chenille / 84 / 20",
+        "Chai - Chenille / 84 / 23 - Suggested",
+        "Chai - Chenille / 84 / 26",
+        "Chai - Chenille / 90 - Suggested / 20",
+        "Chai - Chenille / 90 - Suggested / 23 - Suggested",
+        "Chai - Chenille / 90 - Suggested / 26",
+        "Dust - Chenille / 78 / 20",
+        "Dust - Chenille / 78 / 23 - Suggested"
+      ],
+      "price": "42900.00",
+      "url": "https://wudhomes.com/products/amra-3-seater-sofa",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/amra-sofa-3-seater-iso.png?v=1777458635",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_recnq5recnq5recn.png?v=1761673872"
+      ]
+    },
+    {
+      "id": "shopify-10122948641068",
+      "name": "Aangan 3 Seater Sofa",
+      "collection": "badge_Customisable",
+      "description": "•⁠ ⁠Frame crafted using a combination of high-quality 16–18 mm plywood and solid neem wood - kiln-dried and treated for extended durability and long life. •⁠ ⁠Best-in-class Sleepwell foam for consistent comfort and long-lasting shape retention. •⁠ ⁠Elastic webbing for even seat support and reduced sagging over time. •⁠ ⁠Framed in exposed solid hardwood, defining the silhouette and adding warmth with a clean architectural presence. •⁠ ⁠Not mass-produced. Made-to-order, fresh f",
+      "variants": [
+        "Cream - Chenille / 78 / 20",
+        "Cream - Chenille / 78 / 23 - Suggested",
+        "Cream - Chenille / 78 / 26",
+        "Cream - Chenille / 84 - Suggested / 20",
+        "Cream - Chenille / 84 - Suggested / 23 - Suggested",
+        "Cream - Chenille / 84 - Suggested / 26",
+        "Cream - Chenille / 90 / 20",
+        "Cream - Chenille / 90 / 23 - Suggested",
+        "Cream - Chenille / 90 / 26",
+        "Chai - Chenille / 78 / 20",
+        "Chai - Chenille / 78 / 23 - Suggested",
+        "Chai - Chenille / 78 / 26",
+        "Chai - Chenille / 84 - Suggested / 20",
+        "Chai - Chenille / 84 - Suggested / 23 - Suggested",
+        "Chai - Chenille / 84 - Suggested / 26",
+        "Chai - Chenille / 90 / 20",
+        "Chai - Chenille / 90 / 23 - Suggested",
+        "Chai - Chenille / 90 / 26",
+        "Dust - Chenille / 78 / 20",
+        "Dust - Chenille / 78 / 23 - Suggested"
+      ],
+      "price": "49900.00",
+      "url": "https://wudhomes.com/products/aangan-3-seater-sofa",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/92.png?v=1772268736",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/91.png?v=1772268736",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/93.png?v=1772268736",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/94.png?v=1772268736",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/95.png?v=1772268736",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_iqmzvuiqmzvuiqmz.png?v=1772268736"
+      ]
+    },
+    {
+      "id": "shopify-10122942906668",
+      "name": "Ketaki 3+L Sofa",
+      "collection": "badge_Customisable",
+      "description": "•⁠ ⁠Frame crafted using a combination of high-quality 16–18 mm plywood and solid neem wood - kiln-dried and treated for extended durability and long life. •⁠ ⁠Best-in-class Sleepwell foam for consistent comfort and long-lasting shape retention. •⁠ ⁠Elastic webbing for even seat support and reduced sagging over time. •⁠ ⁠Removable and washable back cushion covers for easy everyday care. •⁠ ⁠Not mass-produced. Made-to-order, fresh for your home. •⁠ ⁠Handmade in Bengaluru, India",
+      "variants": [
+        "Cream - Chenille / 102 / 20",
+        "Cream - Chenille / 102 / 23 - Suggested",
+        "Cream - Chenille / 102 / 26",
+        "Cream - Chenille / 108 / 20",
+        "Cream - Chenille / 108 / 23 - Suggested",
+        "Cream - Chenille / 108 / 26",
+        "Cream - Chenille / 114 - Suggested / 20",
+        "Cream - Chenille / 114 - Suggested / 23 - Suggested",
+        "Cream - Chenille / 114 - Suggested / 26",
+        "Chai - Chenille / 102 / 20",
+        "Chai - Chenille / 102 / 23 - Suggested",
+        "Chai - Chenille / 102 / 26",
+        "Chai - Chenille / 108 / 20",
+        "Chai - Chenille / 108 / 23 - Suggested",
+        "Chai - Chenille / 108 / 26",
+        "Chai - Chenille / 114 - Suggested / 20",
+        "Chai - Chenille / 114 - Suggested / 23 - Suggested",
+        "Chai - Chenille / 114 - Suggested / 26",
+        "Dust - Chenille / 102 / 20",
+        "Dust - Chenille / 102 / 23 - Suggested"
+      ],
+      "price": "78900.00",
+      "url": "https://wudhomes.com/products/ketaki-3-l-sofa",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/34.png?v=1772195335",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/35.png?v=1772195336"
+      ]
+    },
+    {
+      "id": "shopify-10122941169964",
+      "name": "Ketaki 2+L Sofa",
+      "collection": "badge_Customisable",
+      "description": "•⁠ ⁠Frame crafted using a combination of high-quality 16–18 mm plywood and solid neem wood - kiln-dried and treated for extended durability and long life. •⁠ ⁠Best-in-class Sleepwell foam for consistent comfort and long-lasting shape retention. •⁠ ⁠Elastic webbing for even seat support and reduced sagging over time. •⁠ ⁠Removable and washable back cushion covers for easy everyday care. •⁠ ⁠Not mass-produced. Made-to-order, fresh for your home. •⁠ ⁠Handmade in Bengaluru, India",
+      "variants": [
+        "Cream - Chenille / 78 / 20",
+        "Cream - Chenille / 78 / 23 - Suggested",
+        "Cream - Chenille / 78 / 26",
+        "Cream - Chenille / 84 / 20",
+        "Cream - Chenille / 84 / 23 - Suggested",
+        "Cream - Chenille / 84 / 26",
+        "Cream - Chenille / 90 - Suggested / 20",
+        "Cream - Chenille / 90 - Suggested / 23 - Suggested",
+        "Cream - Chenille / 90 - Suggested / 26",
+        "Chai - Chenille / 78 / 20",
+        "Chai - Chenille / 78 / 23 - Suggested",
+        "Chai - Chenille / 78 / 26",
+        "Chai - Chenille / 84 / 20",
+        "Chai - Chenille / 84 / 23 - Suggested",
+        "Chai - Chenille / 84 / 26",
+        "Chai - Chenille / 90 - Suggested / 20",
+        "Chai - Chenille / 90 - Suggested / 23 - Suggested",
+        "Chai - Chenille / 90 - Suggested / 26",
+        "Dust - Chenille / 78 / 20",
+        "Dust - Chenille / 78 / 23 - Suggested"
+      ],
+      "price": "69900.00",
+      "url": "https://wudhomes.com/products/ketaki-2-l-sofa",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/34.png?v=1772195335",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/35.png?v=1772195336"
+      ]
+    },
+    {
+      "id": "shopify-10122939433260",
+      "name": "Ketaki 1 Seater Sofa",
+      "collection": "badge_Customisable",
+      "description": "•⁠ ⁠Frame crafted using a combination of high-quality 16–18 mm plywood and solid neem wood - kiln-dried and treated for extended durability and long life. •⁠ ⁠Best-in-class Sleepwell foam for consistent comfort and long-lasting shape retention. •⁠ ⁠Elastic webbing for even seat support and reduced sagging over time. •⁠ ⁠Removable and washable back cushion covers for easy everyday care. •⁠ ⁠Not mass-produced. Made-to-order, fresh for your home. •⁠ ⁠Handmade in Bengaluru, India",
+      "variants": [
+        "Cream - Chenille / 36 / 20",
+        "Cream - Chenille / 36 / 23 - Suggested",
+        "Cream - Chenille / 36 / 26",
+        "Chai - Chenille / 36 / 20",
+        "Chai - Chenille / 36 / 23 - Suggested",
+        "Chai - Chenille / 36 / 26",
+        "Dust - Chenille / 36 / 20",
+        "Dust - Chenille / 36 / 23 - Suggested",
+        "Dust - Chenille / 36 / 26",
+        "Mitti - Chenille / 36 / 20",
+        "Mitti - Chenille / 36 / 23 - Suggested",
+        "Mitti - Chenille / 36 / 26",
+        "Cocoa - Chenille / 36 / 20",
+        "Cocoa - Chenille / 36 / 23 - Suggested",
+        "Cocoa - Chenille / 36 / 26",
+        "Espresso - Chenille / 36 / 20",
+        "Espresso - Chenille / 36 / 23 - Suggested",
+        "Espresso - Chenille / 36 / 26",
+        "Wheatgrass - Chenille / 36 / 20",
+        "Wheatgrass - Chenille / 36 / 23 - Suggested"
+      ],
+      "price": "26900.00",
+      "url": "https://wudhomes.com/products/ketaki-1-seater-sofa",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/31.png?v=1772195077",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/32.png?v=1772195077"
+      ]
+    },
+    {
+      "id": "shopify-10122934255916",
+      "name": "Ketaki 3 Seater Sofa",
+      "collection": "badge_Customisable",
+      "description": "•⁠ ⁠Frame crafted using a combination of high-quality 16–18 mm plywood and solid neem wood - kiln-dried and treated for extended durability and long life. •⁠ ⁠Best-in-class Sleepwell foam for consistent comfort and long-lasting shape retention. •⁠ ⁠Elastic webbing for even seat support and reduced sagging over time. •⁠ ⁠Removable and washable back cushion covers for easy everyday care. •⁠ ⁠Not mass-produced. Made-to-order, fresh for your home. •⁠ ⁠Handmade in Bengaluru, India",
+      "variants": [
+        "Cream - Chenille / 78 / 20",
+        "Cream - Chenille / 78 / 23 - Suggested",
+        "Cream - Chenille / 78 / 26",
+        "Cream - Chenille / 84 / 20",
+        "Cream - Chenille / 84 / 23 - Suggested",
+        "Cream - Chenille / 84 / 26",
+        "Cream - Chenille / 90 - Suggested / 20",
+        "Cream - Chenille / 90 - Suggested / 23 - Suggested",
+        "Cream - Chenille / 90 - Suggested / 26",
+        "Chai - Chenille / 78 / 20",
+        "Chai - Chenille / 78 / 23 - Suggested",
+        "Chai - Chenille / 78 / 26",
+        "Chai - Chenille / 84 / 20",
+        "Chai - Chenille / 84 / 23 - Suggested",
+        "Chai - Chenille / 84 / 26",
+        "Chai - Chenille / 90 - Suggested / 20",
+        "Chai - Chenille / 90 - Suggested / 23 - Suggested",
+        "Chai - Chenille / 90 - Suggested / 26",
+        "Dust - Chenille / 78 / 20",
+        "Dust - Chenille / 78 / 23 - Suggested"
+      ],
+      "price": "44900.00",
+      "url": "https://wudhomes.com/products/ketaki-3-seater-sofa",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/22_0d28b908-6f6d-458c-9033-47938d3687fb.png?v=1772228037",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/23.png?v=1772228037",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/24.png?v=1772228037",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/25.png?v=1772195026",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/26.png?v=1772195026",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_anvehwanvehwanve.png?v=1772195026"
+      ]
+    },
+    {
+      "id": "shopify-10122932027692",
+      "name": "Kaner 2+L Sofa",
+      "collection": "badge_Customisable",
+      "description": "Features Best in class HR foam by Sleepwell for consistent comfort and shape retention. Frame made with with a combination of high quality branded 16-18mm plywood and neem wood or pine wood , kiln-dried and treated. Elastic webbing + zig-zag springs for firm, even seat support. 200+ fabric options available across textures and colours. Customisation available for sizes, configurations, and fabric selection and bespoke detailing.",
+      "variants": [
+        "Cream - Chenille / 17 inch / 12 inch",
+        "Cream - Chenille / 17 inch / 13 inch",
+        "Cream - Chenille / 17 inch / 14 inch",
+        "Cream - Chenille / 18 inch / 12 inch",
+        "Cream - Chenille / 18 inch / 13 inch",
+        "Cream - Chenille / 18 inch / 14 inch",
+        "Cream - Chenille / 19 inch / 12 inch",
+        "Cream - Chenille / 19 inch / 13 inch",
+        "Cream - Chenille / 19 inch / 14 inch",
+        "Chai - Chenille / 17 inch / 12 inch",
+        "Chai - Chenille / 17 inch / 13 inch",
+        "Chai - Chenille / 17 inch / 14 inch",
+        "Chai - Chenille / 18 inch / 12 inch",
+        "Chai - Chenille / 18 inch / 13 inch",
+        "Chai - Chenille / 18 inch / 14 inch",
+        "Chai - Chenille / 19 inch / 12 inch",
+        "Chai - Chenille / 19 inch / 13 inch",
+        "Chai - Chenille / 19 inch / 14 inch",
+        "Dust - Chenille / 17 inch / 12 inch",
+        "Dust - Chenille / 17 inch / 13 inch"
+      ],
+      "sizes": [
+        "17 inch",
+        "18 inch",
+        "19 inch"
+      ],
+      "price": "55900.00",
+      "url": "https://wudhomes.com/products/kaner-2-l-sofa",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/kaner-sofa-2-plus-l-iso.png?v=1777458047",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_9pyqo79pyqo79pyq.png?v=1761668152"
+      ]
+    },
+    {
+      "id": "shopify-10122931798316",
+      "name": "Kaner 3+L Sofa",
+      "collection": "badge_Customisable",
+      "description": "Features Best in class HR foam by Sleepwell for consistent comfort and shape retention. Frame made with with a combination of high quality branded 16-18mm plywood and neem wood or pine wood , kiln-dried and treated. Elastic webbing + zig-zag springs for firm, even seat support. 200+ fabric options available across textures and colours. Customisation available for sizes, configurations, and fabric selection and bespoke detailing.",
+      "variants": [
+        "Cream - Chenille / 17 inch / 12 inch",
+        "Cream - Chenille / 17 inch / 13 inch",
+        "Cream - Chenille / 17 inch / 14 inch",
+        "Cream - Chenille / 18 inch / 12 inch",
+        "Cream - Chenille / 18 inch / 13 inch",
+        "Cream - Chenille / 18 inch / 14 inch",
+        "Cream - Chenille / 19 inch / 12 inch",
+        "Cream - Chenille / 19 inch / 13 inch",
+        "Cream - Chenille / 19 inch / 14 inch",
+        "Chai - Chenille / 17 inch / 12 inch",
+        "Chai - Chenille / 17 inch / 13 inch",
+        "Chai - Chenille / 17 inch / 14 inch",
+        "Chai - Chenille / 18 inch / 12 inch",
+        "Chai - Chenille / 18 inch / 13 inch",
+        "Chai - Chenille / 18 inch / 14 inch",
+        "Chai - Chenille / 19 inch / 12 inch",
+        "Chai - Chenille / 19 inch / 13 inch",
+        "Chai - Chenille / 19 inch / 14 inch",
+        "Dust - Chenille / 17 inch / 12 inch",
+        "Dust - Chenille / 17 inch / 13 inch"
+      ],
+      "sizes": [
+        "17 inch",
+        "18 inch",
+        "19 inch"
+      ],
+      "price": "62900.00",
+      "url": "https://wudhomes.com/products/kaner-2-seater-sofa-copy",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/kaner-sofa-3-plus-l-iso.png?v=1777458077",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_i2ivkqi2ivkqi2iv.png?v=1761668390"
+      ]
+    },
+    {
+      "id": "shopify-10122926063916",
+      "name": "Aboli 1 Seater Sofa",
+      "collection": "badge_Customisable",
+      "description": "Features Best in class HR foam by Sleepwell for consistent comfort and shape retention. Frame made with with a combination of high quality branded 16-18mm plywood and neem wood or pine wood , kiln-dried and treated. Elastic webbing + zig-zag springs for firm, even seat support. 200+ fabric options available across textures and colours. Customisation available for sizes, configurations, and fabric selection and bespoke detailing.",
+      "variants": [
+        "Cream - Chenille / 36 / 20",
+        "Cream - Chenille / 36 / 23 - Suggested",
+        "Cream - Chenille / 36 / 26",
+        "Chai - Chenille / 36 / 20",
+        "Chai - Chenille / 36 / 23 - Suggested",
+        "Chai - Chenille / 36 / 26",
+        "Dust - Chenille / 36 / 20",
+        "Dust - Chenille / 36 / 23 - Suggested",
+        "Dust - Chenille / 36 / 26",
+        "Mitti - Chenille / 36 / 20",
+        "Mitti - Chenille / 36 / 23 - Suggested",
+        "Mitti - Chenille / 36 / 26",
+        "Cocoa - Chenille / 36 / 20",
+        "Cocoa - Chenille / 36 / 23 - Suggested",
+        "Cocoa - Chenille / 36 / 26",
+        "Espresso - Chenille / 36 / 20",
+        "Espresso - Chenille / 36 / 23 - Suggested",
+        "Espresso - Chenille / 36 / 26",
+        "Wheatgrass - Chenille / 36 / 20",
+        "Wheatgrass - Chenille / 36 / 23 - Suggested"
+      ],
+      "price": "14900.00",
+      "url": "https://wudhomes.com/products/aboli-1-seater-sofa",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/41.png?v=1772196671",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/40.png?v=1772196671"
+      ]
+    },
+    {
+      "id": "shopify-10122923049260",
+      "name": "Aboli 3 Seater Sofa",
+      "collection": "badge_Customisable",
+      "description": "Features Best in class HR foam by Sleepwell for consistent comfort and shape retention. Frame made with with a combination of high quality branded 16-18mm plywood and neem wood or pine wood , kiln-dried and treated. Elastic webbing + zig-zag springs for firm, even seat support. 200+ fabric options available across textures and colours. Customisation available for sizes, configurations, and fabric selection and bespoke detailing.",
+      "variants": [
+        "Cream - Chenille / 78 / 20",
+        "Cream - Chenille / 78 / 23 - Suggested",
+        "Cream - Chenille / 78 / 26",
+        "Cream - Chenille / 84 - Suggested / 20",
+        "Cream - Chenille / 84 - Suggested / 23 - Suggested",
+        "Cream - Chenille / 84 - Suggested / 26",
+        "Cream - Chenille / 90 / 20",
+        "Cream - Chenille / 90 / 23 - Suggested",
+        "Cream - Chenille / 90 / 26",
+        "Chai - Chenille / 78 / 20",
+        "Chai - Chenille / 78 / 23 - Suggested",
+        "Chai - Chenille / 78 / 26",
+        "Chai - Chenille / 84 - Suggested / 20",
+        "Chai - Chenille / 84 - Suggested / 23 - Suggested",
+        "Chai - Chenille / 84 - Suggested / 26",
+        "Chai - Chenille / 90 / 20",
+        "Chai - Chenille / 90 / 23 - Suggested",
+        "Chai - Chenille / 90 / 26",
+        "Dust - Chenille / 78 / 20",
+        "Dust - Chenille / 78 / 23 - Suggested"
+      ],
+      "price": "24900.00",
+      "url": "https://wudhomes.com/products/aboli-3-seater-sofa",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/50.png?v=1772196193",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/49.png?v=1772196193",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/51.png?v=1772196193",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/52.png?v=1772196193",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/53.png?v=1772196193",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_49blit49blit49bl.png?v=1772196193"
+      ]
+    },
+    {
+      "id": "shopify-10122920722732",
+      "name": "Kaner 2 Seater Sofa",
+      "collection": "badge_Customisable",
+      "description": "Features Best in class HR foam by Sleepwell for consistent comfort and shape retention. Frame made with with a combination of high quality branded 16-18mm plywood and neem wood or pine wood , kiln-dried and treated. Elastic webbing + zig-zag springs for firm, even seat support. 200+ fabric options available across textures and colours. Customisation available for sizes, configurations, and fabric selection and bespoke detailing.",
+      "variants": [
+        "Cream - Chenille / 17 inch / 12 inch",
+        "Cream - Chenille / 17 inch / 13 inch",
+        "Cream - Chenille / 17 inch / 14 inch",
+        "Cream - Chenille / 18 inch / 12 inch",
+        "Cream - Chenille / 18 inch / 13 inch",
+        "Cream - Chenille / 18 inch / 14 inch",
+        "Cream - Chenille / 19 inch / 12 inch",
+        "Cream - Chenille / 19 inch / 13 inch",
+        "Cream - Chenille / 19 inch / 14 inch",
+        "Chai - Chenille / 17 inch / 12 inch",
+        "Chai - Chenille / 17 inch / 13 inch",
+        "Chai - Chenille / 17 inch / 14 inch",
+        "Chai - Chenille / 18 inch / 12 inch",
+        "Chai - Chenille / 18 inch / 13 inch",
+        "Chai - Chenille / 18 inch / 14 inch",
+        "Chai - Chenille / 19 inch / 12 inch",
+        "Chai - Chenille / 19 inch / 13 inch",
+        "Chai - Chenille / 19 inch / 14 inch",
+        "Dust - Chenille / 17 inch / 12 inch",
+        "Dust - Chenille / 17 inch / 13 inch"
+      ],
+      "sizes": [
+        "17 inch",
+        "18 inch",
+        "19 inch"
+      ],
+      "price": "26900.00",
+      "url": "https://wudhomes.com/products/kaner-2-seater-sofa",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/kaner-sofa-2-seater-iso.png?v=1777457951",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_8mtfs28mtfs28mtf.png?v=1761665396"
+      ]
+    },
+    {
+      "id": "shopify-10122920001836",
+      "name": "Kaner 3 Seater Sofa",
+      "collection": "badge_Customisable",
+      "description": "Features Best in class HR foam by Sleepwell for consistent comfort and shape retention. Frame made with with a combination of high quality branded 16-18mm plywood and neem wood or pine wood , kiln-dried and treated. Elastic webbing + zig-zag springs for firm, even seat support. 200+ fabric options available across textures and colours. Customisation available for sizes, configurations, and fabric selection and bespoke detailing.",
+      "variants": [
+        "Cream - Chenille / 17 inch / 12 inch",
+        "Cream - Chenille / 17 inch / 13 inch",
+        "Cream - Chenille / 17 inch / 14 inch",
+        "Cream - Chenille / 18 inch / 12 inch",
+        "Cream - Chenille / 18 inch / 13 inch",
+        "Cream - Chenille / 18 inch / 14 inch",
+        "Cream - Chenille / 19 inch / 12 inch",
+        "Cream - Chenille / 19 inch / 13 inch",
+        "Cream - Chenille / 19 inch / 14 inch",
+        "Chai - Chenille / 17 inch / 12 inch",
+        "Chai - Chenille / 17 inch / 13 inch",
+        "Chai - Chenille / 17 inch / 14 inch",
+        "Chai - Chenille / 18 inch / 12 inch",
+        "Chai - Chenille / 18 inch / 13 inch",
+        "Chai - Chenille / 18 inch / 14 inch",
+        "Chai - Chenille / 19 inch / 12 inch",
+        "Chai - Chenille / 19 inch / 13 inch",
+        "Chai - Chenille / 19 inch / 14 inch",
+        "Dust - Chenille / 17 inch / 12 inch",
+        "Dust - Chenille / 17 inch / 13 inch"
+      ],
+      "sizes": [
+        "17 inch",
+        "18 inch",
+        "19 inch"
+      ],
+      "price": "34900.00",
+      "url": "https://wudhomes.com/products/kaner-3-seater-sofa",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/kaner-sofa-3-seater-iso.png?v=1777457994",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_lc899blc899blc89.png?v=1761664886",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_fbipgwfbipgwfbip.png?v=1763492917",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_fkpsoifkpsoifkps.png?v=1763492917",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_td8daytd8daytd8d.png?v=1763492933",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_srvcrgsrvcrgsrvc.png?v=1763492933"
+      ]
+    },
+    {
+      "id": "shopify-10122920198444",
+      "name": "Kaner 1 Seater Sofa",
+      "collection": "badge_Customisable",
+      "description": "Features Best in class HR foam by Sleepwell for consistent comfort and shape retention. Frame made with with a combination of high quality branded 16-18mm plywood and neem wood or pine wood , kiln-dried and treated. Elastic webbing + zig-zag springs for firm, even seat support. 200+ fabric options available across textures and colours. Customisation available for sizes, configurations, and fabric selection and bespoke detailing.",
+      "variants": [
+        "17 inch / 12 inch",
+        "17 inch / 13 inch",
+        "17 inch / 14 inch",
+        "18 inch / 12 inch",
+        "18 inch / 13 inch",
+        "18 inch / 14 inch",
+        "19 inch / 12 inch",
+        "19 inch / 13 inch",
+        "19 inch / 14 inch"
+      ],
+      "sizes": [
+        "17 inch",
+        "18 inch",
+        "19 inch"
+      ],
+      "price": "20900.00",
+      "url": "https://wudhomes.com/products/kaner-1-seater-sofa",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/kaner-sofa-1-seater-iso.png?v=1777457878"
+      ]
+    },
+    {
+      "id": "shopify-10122917151020",
+      "name": "Bakul 3 Seater Sofa",
+      "collection": "badge_Customisable",
+      "description": "•⁠ ⁠Frame crafted using a combination of high-quality 16–18 mm plywood and solid neem wood - kiln-dried and treated for extended durability and long life. •⁠ ⁠Best-in-class Sleepwell foam for consistent comfort and long-lasting shape retention. •⁠ ⁠Elastic webbing for even seat support and reduced sagging over time. •⁠ ⁠Not mass-produced. Made-to-order, fresh for your home. •⁠ ⁠Handmade in Bengaluru, India - with love.",
+      "variants": [
+        "Cream - Chenille / 78 / 20",
+        "Cream - Chenille / 78 / 23 - Suggested",
+        "Cream - Chenille / 78 / 26",
+        "Cream - Chenille / 84 - Suggested / 20",
+        "Cream - Chenille / 84 - Suggested / 23 - Suggested",
+        "Cream - Chenille / 84 - Suggested / 26",
+        "Cream - Chenille / 90 / 20",
+        "Cream - Chenille / 90 / 23 - Suggested",
+        "Cream - Chenille / 90 / 26",
+        "Chai - Chenille / 78 / 20",
+        "Chai - Chenille / 78 / 23 - Suggested",
+        "Chai - Chenille / 78 / 26",
+        "Chai - Chenille / 84 - Suggested / 20",
+        "Chai - Chenille / 84 - Suggested / 23 - Suggested",
+        "Chai - Chenille / 84 - Suggested / 26",
+        "Chai - Chenille / 90 / 20",
+        "Chai - Chenille / 90 / 23 - Suggested",
+        "Chai - Chenille / 90 / 26",
+        "Dust - Chenille / 78 / 20",
+        "Dust - Chenille / 78 / 23 - Suggested"
+      ],
+      "price": "44900.00",
+      "url": "https://wudhomes.com/products/bakul-3-seater-sofa-1",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/106.png?v=1772271779",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_pamd47pamd47pamd_371ef92b-bbb6-486d-838d-400ea23f23f0.png?v=1772448788",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_hylr6qhylr6qhylr_72e42df1-dc83-4aa4-9dd2-6ae0b9690dbd.png?v=1772448788",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_mujs6dmujs6dmujs.png?v=1772448788",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_1ofvl61ofvl61ofv_17d96f96-4ac5-41c0-92f6-8de01d514719.png?v=1772448788",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/107.png?v=1772448788",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/Gemini_Generated_Image_xuo9oqxuo9oqxuo9.png?v=1772448788"
+      ]
+    },
+    {
+      "id": "shopify-10121918120236",
+      "name": "Kesar 2 Seater Sofa",
+      "collection": "badge_Customisable",
+      "description": "•⁠ ⁠Frame crafted using a combination of high-quality 16–18 mm plywood and solid neem wood - kiln-dried and treated for extended durability and long life. •⁠ ⁠Best-in-class Sleepwell foam for consistent comfort and long-lasting shape retention. •⁠ ⁠Elastic webbing for even seat support and reduced sagging over time. •⁠ ⁠Removable and washable back cushion covers for easy everyday care. •⁠ ⁠Not mass-produced. Made-to-order, fresh for your home. •⁠ ⁠Handmade in Bengaluru, India",
+      "variants": [
+        "Cream - Chenille / 54 / 20",
+        "Cream - Chenille / 54 / 23 - Suggested",
+        "Cream - Chenille / 54 / 26",
+        "Cream - Chenille / 60 - Suggested / 20",
+        "Cream - Chenille / 60 - Suggested / 23 - Suggested",
+        "Cream - Chenille / 60 - Suggested / 26",
+        "Cream - Chenille / 66 / 20",
+        "Cream - Chenille / 66 / 23 - Suggested",
+        "Cream - Chenille / 66 / 26",
+        "Chai - Chenille / 54 / 20",
+        "Chai - Chenille / 54 / 23 - Suggested",
+        "Chai - Chenille / 54 / 26",
+        "Chai - Chenille / 60 - Suggested / 20",
+        "Chai - Chenille / 60 - Suggested / 23 - Suggested",
+        "Chai - Chenille / 60 - Suggested / 26",
+        "Chai - Chenille / 66 / 20",
+        "Chai - Chenille / 66 / 23 - Suggested",
+        "Chai - Chenille / 66 / 26",
+        "Dust - Chenille / 54 / 20",
+        "Dust - Chenille / 54 / 23 - Suggested"
+      ],
+      "price": "25900.00",
+      "url": "https://wudhomes.com/products/kesar-2-seater-sofa",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/10_38890f75-eda2-450d-9813-e8b53157ccb8.png?v=1772193414",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/11_ed5d7cee-8d34-4c51-acb0-26b610dae873.png?v=1772193414"
+      ]
+    },
+    {
+      "id": "shopify-10121918841132",
+      "name": "Kesar 2+L Sofa",
+      "collection": "badge_Customisable",
+      "description": "•⁠ ⁠Frame crafted using a combination of high-quality 16–18 mm plywood and solid neem wood - kiln-dried and treated for extended durability and long life. •⁠ ⁠Best-in-class Sleepwell foam for consistent comfort and long-lasting shape retention. •⁠ ⁠Elastic webbing for even seat support and reduced sagging over time. •⁠ ⁠Removable and washable back cushion covers for easy everyday care. •⁠ ⁠Not mass-produced. Made-to-order, fresh for your home. •⁠ ⁠Handmade in Bengaluru, India",
+      "variants": [
+        "Cream - Chenille / 78 / 20",
+        "Cream - Chenille / 78 / 23 - Suggested",
+        "Cream - Chenille / 78 / 26",
+        "Cream - Chenille / 84 - Suggested / 20",
+        "Cream - Chenille / 84 - Suggested / 23 - Suggested",
+        "Cream - Chenille / 84 - Suggested / 26",
+        "Cream - Chenille / 90 / 20",
+        "Cream - Chenille / 90 / 23 - Suggested",
+        "Cream - Chenille / 90 / 26",
+        "Chai - Chenille / 78 / 20",
+        "Chai - Chenille / 78 / 23 - Suggested",
+        "Chai - Chenille / 78 / 26",
+        "Chai - Chenille / 84 - Suggested / 20",
+        "Chai - Chenille / 84 - Suggested / 23 - Suggested",
+        "Chai - Chenille / 84 - Suggested / 26",
+        "Chai - Chenille / 90 / 20",
+        "Chai - Chenille / 90 / 23 - Suggested",
+        "Chai - Chenille / 90 / 26",
+        "Dust - Chenille / 78 / 20",
+        "Dust - Chenille / 78 / 23 - Suggested"
+      ],
+      "price": "55900.00",
+      "url": "https://wudhomes.com/products/kesar-2-l-sectional-sofa",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/16.png?v=1772194237",
+        "https://cdn.shopify.com/s/files/1/0739/9479/7356/files/17.png?v=1772194236"
+      ]
+    }
+  ],
+  "ready": true,
+  "memory": {
+    "approvedShots": [],
+    "rejectedShots": [
+      {
+        "id": "1783506131388-1-w38tc-story-e1x9-landscape-pt6l",
+        "url": "/api/img/1783506282667-vvyke-pad.png",
+        "angle": "Front, straight-on, eye-level hero — maximal floral editorial backdrop · Story 9:16 · Landscape 16:9",
+        "prompt": "",
+        "panel": {
+          "background": "",
+          "surface": "",
+          "vibe": "",
+          "composition": "",
+          "lighting": "",
+          "styling": "",
+          "format": "",
+          "numAngles": 1,
+          "shotsPerAngle": 1
+        },
+        "mode": "product-photoshoot",
+        "decision": "reject",
+        "at": "2026-07-08T10:24:46.388Z"
+      },
+      {
+        "id": "1783506131388-1-w38tc-square-dmq8",
+        "url": "/api/img/1783506228487-necgo-pad.png",
+        "angle": "Front, straight-on, eye-level hero — maximal floral editorial backdrop · Square 1:1",
+        "prompt": "",
+        "panel": {
+          "background": "",
+          "surface": "",
+          "vibe": "",
+          "composition": "",
+          "lighting": "",
+          "styling": "",
+          "format": "",
+          "numAngles": 1,
+          "shotsPerAngle": 1
+        },
+        "mode": "product-photoshoot",
+        "decision": "reject",
+        "at": "2026-07-08T10:24:01.182Z"
+      }
+    ],
+    "heroShots": [
+      {
+        "id": "1783506131388-1-w38tc",
+        "url": "/api/img/1783506131388-1-w38tc.png",
+        "angle": "Front, straight-on, eye-level hero — maximal floral editorial backdrop",
+        "prompt": "Photographed on a Sony A7R V with a 50mm prime lens at f/2.8, straight-on at eye level, Kodak Portra 400 colour treatment with gentle highlight roll-off, fine film grain, natural contrast and no HDR sharpness. Brand/category read applied: Wudhomes has no strongly researched photography signature, so build from a refined home-editorial world with real materials, botanical abundance, Indian craft warmth and campaign-grade set design; the client’s floral-background request is the creative authority. The product exactly as in the reference image is centred as the unmistakable hero in the middle of a very lush, maximal floral background. Build a real photographed set: an abundant wall and floor sweep of fresh, crisp, identifiable flowers and foliage arranged with rhythm around the product, including marigold garlands, jasmine clusters, bougainvillea, gulmohar-like red-orange blossoms, deep green leaves and a few tonal petals, all forming a vibrant botanical surround while leaving a clean breathing gap around the product silhouette so its real form remains clear. The product itself must remain exactly as in the reference image: same shape, proportions, colour, material, texture, label or markings if present, no redesign, no recolouring, no added parts. The product is positioned naturally on the real surface appropriate to its base, grounded with a believable contact shadow; the floral backdrop continues behind and around it with genuine depth, not a flat printed pattern. Use warm directional daylight from upper left, creating soft but visible shadows in the flowers and a natural falloff into the deeper greenery; the product front is sharp and faithful, while the farthest flowers recede slightly out of focus. Composition is centred, editorial and abundant but not messy: the product occupies the middle third, flowers frame it densely to every edge, and the whole image feels like a real campaign photograph made on a botanical set. Include exactly one honest camera imperfection: fine film grain only.",
+        "negatives": [
+          "Do not alter, restyle, reshape, recolour, relabel or rename the product; it must match the reference image exactly.",
+          "No invented product details, extra parts, duplicated components, warped geometry, melted edges or changed proportions.",
+          "No warped, misspelled, duplicated or invented label text, logo, tag, stitching, engraving or branding if present on the product.",
+          "No humans, hands, fingers, arms, legs, feet, models or body parts anywhere in frame.",
+          "No generic gradient background, no void, no pedestal, no plinth, no podium, no concentric spotlight halo.",
+          "No random geometric cubes, pebbles, confetti bokeh, arbitrary swirling fabric or CGI-style staging.",
+          "No fake flat floral wallpaper; flowers must look like real fresh botanicals with depth, stems, petals and natural variation.",
+          "No messy clutter that hides the product; keep a clear breathing gap around the product silhouette.",
+          "No plastic render look, waxy over-smoothing, excessive HDR, artificial sharpening or unreal reflections.",
+          "No floating product; ensure real grounding, contact shadow and physically plausible perspective.",
+          "No visible lights, stands, cables, tripods, reflectors, umbrellas or studio equipment.",
+          "No stale, wilted, crushed or dirty florals; botanicals should look fresh and intentional."
+        ],
+        "panel": {
+          "background": "",
+          "surface": "",
+          "vibe": "",
+          "composition": "",
+          "lighting": "",
+          "styling": "",
+          "format": "",
+          "numAngles": 1,
+          "shotsPerAngle": 1
+        },
+        "mode": "product-photoshoot",
+        "decision": "hero",
+        "at": "2026-07-08T10:24:04.553Z"
+      }
+    ],
+    "updatedAt": "2026-07-08T10:24:46.397Z"
+  }
+}

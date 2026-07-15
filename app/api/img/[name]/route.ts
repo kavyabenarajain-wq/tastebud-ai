@@ -28,7 +28,7 @@ export async function GET(req: Request, { params }: { params: { name: string } }
   const file = basename(params.name);
   const src = join(GEN, file);
   const { searchParams } = new URL(req.url);
-  const w = Math.min(2048, Math.max(0, Number(searchParams.get("w")) || 0));
+  const w = Math.min(3072, Math.max(0, Number(searchParams.get("w")) || 0));
 
   // Full-res original.
   if (!w) {
@@ -51,7 +51,7 @@ export async function GET(req: Request, { params }: { params: { name: string } }
     /* not cached yet — build it */
   }
   try {
-    const out = await sharp(src).resize({ width: w, withoutEnlargement: true }).webp({ quality: 72 }).toBuffer();
+    const out = await sharp(src).resize({ width: w, withoutEnlargement: true }).webp({ quality: 82 }).toBuffer();
     mkdir(CACHE, { recursive: true })
       .then(() => writeFile(thumb, out))
       .catch(() => {});

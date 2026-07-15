@@ -1,0 +1,621 @@
+{
+  "name": "Cozybear",
+  "website": "https://cozybear.in/?srsltid=AfmBOoo8V45C-jCJMd07IfDP74trpVatSPbZfB4p62z5eiAs4t6coHd1",
+  "research": {
+    "summary": "Cozy Bear is a live Indian D2C home-living and lifestyle brand positioned as a Gen Z-focused destination for quirky, expressive room decor. It sells tufted rugs, mug rugs, keyboard rugs, cushions, throws, crochet collectibles, mirrors, lamps, quirky objects and denim bean bags, with collections rooted in pop culture, anime, Formula 1, Pride, gaming, gifting and personal room styling.",
+    "essence": "Soft, funny, fandom-fluent decor for young Indians turning ordinary rented rooms, desks and corners into personal worlds.",
+    "voice": "Playful, cheeky, cozy, internet-native and informal; uses Gen Z-coded phrases like “soft AF,” “slay,” “LIT AF,” “unapologetically YOU” and rejects boring/basic decor with a friendly, founder-led small-brand warmth.",
+    "competitors": [
+      "Chumbak",
+      "The Wishing Chair",
+      "Vaaree",
+      "Pepperfry",
+      "Urban Ladder",
+      "Jaipur Rugs"
+    ],
+    "ambassadors": [
+      "Sidak",
+      "Priyal"
+    ],
+    "instagram": "https://www.instagram.com/cozybear.in/",
+    "website": "https://cozybear.in/?srsltid=AfmBOoo8V45C-jCJMd07IfDP74trpVatSPbZfB4p62z5eiAs4t6coHd1",
+    "palette": [
+      {
+        "hex": "#FFFFFF",
+        "role": "clean commerce background"
+      },
+      {
+        "hex": "#111111",
+        "role": "near-black UI text and graphic contrast"
+      },
+      {
+        "hex": "#F6EFE6",
+        "role": "warm cozy off-white / room neutral"
+      },
+      {
+        "hex": "#D8BFA3",
+        "role": "soft beige textile and wicker neutral"
+      },
+      {
+        "hex": "#7FA0C4",
+        "role": "denim blue / casual youth-living accent"
+      },
+      {
+        "hex": "#F7A8C8",
+        "role": "candy pink / playful Gen Z accent"
+      },
+      {
+        "hex": "#E53935",
+        "role": "racing red / pop-culture and F1 energy"
+      },
+      {
+        "hex": "#FFD447",
+        "role": "bright yellow meme and decor accent"
+      },
+      {
+        "hex": "#4CAF50",
+        "role": "playful green / quirky product accent"
+      }
+    ],
+    "aesthetic": "Bright product-led D2C photography with white or light neutral product-grid backgrounds, plus styled room and desk vignettes. Products are shot on floors, tabletops, sofas, beds, wicker chairs, coffee tables and gaming/work desks; keyboard rugs appear with keyboards, monitors and desk accessories, while throws and cushions are draped into cozy corners. Colour grade is clean, warm and commercially bright with saturated product colours preserved. Styling density is low to medium: the product stays central, with practical lifestyle props like mugs, keyboards, gaming accessories, sofas, chairs and room objects. Lighting is soft, diffused and mostly frontal or side-frontal, with minimal harsh shadows and enough texture detail to show tufted pile, embroidery, chenille and crochet yarn. Crops are centered and e-commerce-friendly for product cards, with flat-lay or slightly angled compositions for rugs and closer tactile crops for soft goods. The brand is predominantly product-only and room-object led rather than model-led; humans are not the visual focus.",
+    "foundReal": true,
+    "logo": "https://cozybear.in/cdn/shop/files/Cozy_Bear_Logo-3.png?v=1742188351&width=480",
+    "productImages": [
+      "http://cozybear.in/cdn/shop/files/1.jpg?v=1739363773",
+      "https://cozybear.in/cdn/shop/files/1.jpg?v=1739363773",
+      "https://cozybear.in/cdn/shop/files/2_52d0fc27-c4d1-480f-87a7-b3fc0d92ae25_100x@2x.png?v=1739721109",
+      "https://cozybear.in/cdn/shop/files/2_52d0fc27-c4d1-480f-87a7-b3fc0d92ae25_100x.png?v=1739721109",
+      "https://cozybear.in/cdn/shop/collections/D4A93376-0C64-4CC1-A0AA-2EF0BC96EBB8_1500x.jpg?v=1751032442",
+      "https://cozybear.in/cdn/shop/collections/Screenshot_2025-02-27_at_1.27.29_PM_1500x.png?v=1768392394",
+      "https://cozybear.in/cdn/shop/collections/c3d116ef38e03a2c6353fb8cb1c118a2_1500x.jpg?v=1768381366",
+      "https://cozybear.in/cdn/shop/collections/WhatsApp_Image_2025-06-30_at_15.37.37_1500x.jpg?v=1767700535",
+      "https://cozybear.in/cdn/shop/collections/9F4E944A-4D90-4CD6-AB44-90A64E9E468D_1500x.jpg?v=1751272826",
+      "https://cozybear.in/cdn/shop/collections/WhatsApp_Image_2026-01-17_at_4.29.34_PM_1_c3d8c3ef-61e7-41d0-b201-3e2f32b62897_1500x.jpg?v=1768822388",
+      "https://cozybear.in/cdn/shop/collections/PunchNeedle_PunchNeedleCoaster_Punch_HarryPotter_HandmadeNeedleCoaster_1500x.jpg?v=1752758362",
+      "https://cozybear.in/cdn/shop/collections/Blast_off_into_a_world_of_color_with_this_c90afd16-2c79-4e81-a114-41edc580ce70_1500x.jpg?v=1751032637"
+    ],
+    "products": [
+      {
+        "name": "Diet Coke Can Tufted Rug"
+      },
+      {
+        "name": "Slay Rug Regular price Rs. 1,490.00 Regular price Rs. 1,690.00 Sale price Rs. 1,"
+      },
+      {
+        "name": "Snoopy Love Hug Rug Regular price Rs. 1,790.00 Regular price Rs. 2,090.00 Sale p"
+      },
+      {
+        "name": "Pink Bow Rug Regular price Rs. 2,090.00 Regular price Rs. 2,590.00 Sale price Rs"
+      },
+      {
+        "name": "F*ck Rules Rug Regular price Rs. 1,590.00 Regular price Rs. 1,990.00 Sale price "
+      },
+      {
+        "name": "Groovy Snoopy Rug Regular price Rs. 1,690.00 Regular price Rs. 2,190.00 Sale pri"
+      },
+      {
+        "name": "Spidey Sense Rug 🕸️ Regular price Rs. 3,490.00 Regular price Rs. 4,090.00 Sale "
+      },
+      {
+        "name": "High Time"
+      },
+      {
+        "name": "Bare Intentions Rug"
+      },
+      {
+        "name": "Out & Loud Rug"
+      },
+      {
+        "name": "Slay Rug"
+      },
+      {
+        "name": "Snoopy Love Hug Rug"
+      },
+      {
+        "name": "Pink Bow Rug"
+      },
+      {
+        "name": "I’ll Be There For You Mug Rug"
+      },
+      {
+        "name": "Crumb Mood"
+      },
+      {
+        "name": "Kaleshi Aurat Mug Rug"
+      },
+      {
+        "name": "Pink Bow Mug Rug"
+      },
+      {
+        "name": "Midnight Blink Hand Tufted Keyboard Rug"
+      },
+      {
+        "name": "Formula 1 Hand-Tufted Keyboard Rug"
+      },
+      {
+        "name": "Itachi Hand-Tufted Keyboard Rug"
+      },
+      {
+        "name": "Ghost Cat Hand Tufted Keyboard Rug"
+      },
+      {
+        "name": "One-Eye Mood Green Cushion Cover"
+      },
+      {
+        "name": "Watermelon Crush Cushion Cover"
+      },
+      {
+        "name": "Stitch Character Embroidered Cushion Cover"
+      },
+      {
+        "name": "Always Hot Cushion Cover"
+      },
+      {
+        "name": "Ironman Amigurumi"
+      },
+      {
+        "name": "Captain America Amigurumi"
+      },
+      {
+        "name": "Superman Amigurumi"
+      },
+      {
+        "name": "Batman Amigurumi"
+      },
+      {
+        "name": "Pink Pataka Throw"
+      },
+      {
+        "name": "Pretty Pout Throw"
+      },
+      {
+        "name": "Couch Safari Throw"
+      },
+      {
+        "name": "Soft Chenille Pink Throw"
+      },
+      {
+        "name": "Moonlight Mirrors (Set of 5)"
+      },
+      {
+        "name": "Evil Eye Mirror"
+      },
+      {
+        "name": "Evil Eye with Hooks Mirror"
+      },
+      {
+        "name": "Three Musketeers Mirror (Set of 3)"
+      },
+      {
+        "name": "Sunset Wave Lamp"
+      },
+      {
+        "name": "Mushroom Bloom Lamp"
+      },
+      {
+        "name": "Bubble Wave Lamp"
+      },
+      {
+        "name": "+1"
+      },
+      {
+        "name": "Cactus Charm Jewellery Tree"
+      },
+      {
+        "name": "Zen Bonsai Balance Game"
+      },
+      {
+        "name": "Spider Man Hand-Tufted Keyboard Rug"
+      },
+      {
+        "name": "Chandni Pink Throw"
+      },
+      {
+        "name": "Mellow Dots Cushion"
+      },
+      {
+        "name": "Platform 9¾"
+      }
+    ],
+    "photoRules": {
+      "category": "General product",
+      "grade": "Use bright, clean, commercial product photography on white or light neutral backgrounds, mixed with styled desk and room vignettes. Products stay the hero, with low-to-medium prop density: mugs, keyboards, monitors, gaming accessories, sofas, beds, wicker chairs, coffee tables and cozy room corners. Lighting should be soft and diffused with minimal harsh shadows; crops should show centered product cards, flat or angled rug views, desk products in use and closeups that reveal tufted pile, embroidery, chenille, crochet yarn and tactile depth.",
+      "signatures": [
+        "Use bright, clean, commercial product photography on white or light neutral backgrounds, mixed with styled desk and room vignettes. Products stay the hero, with low-to-medium prop density: mugs, keyboards, monitors, gaming accessories, sofas, beds, wicker chairs, coffee tables and cozy room corners. Lighting should be soft and diffused with minimal harsh shadows; crops should show centered product cards, flat or angled rug views, desk products in use and closeups that reveal tufted pile, embroidery, chenille, crochet yarn and tactile depth."
+      ],
+      "neverDo": [
+        "a floating product on a gradient void",
+        "flat, even, sourceless light",
+        "a plastic CGI-render look",
+        "random scattered geometric props",
+        "a concentric spotlight halo behind the subject"
+      ],
+      "colorGrade": {
+        "rMul": 0.9713108553087322,
+        "gMul": 1.014039720156077,
+        "bMul": 1.001366059290316,
+        "saturation": 0.9539327105654535,
+        "brightness": 1,
+        "contrast": 1.06,
+        "grain": 0.5,
+        "sharpen": 0.75
+      }
+    },
+    "sources": 9
+  },
+  "intelligence": {
+    "overview": "Cozy Bear is a live Indian D2C home-living and lifestyle brand at cozybear.in, positioning itself as India’s only Gen Z focused home-living brand. It sells quirky, innovative and versatile decor across rugs, mug rugs, keyboard rugs, cushions, throws, crochet collectibles, lamps, mirrors, quirky objects and denim bean bags, with a strong focus on fandom, memes, desk setups and rented-room self-expression.",
+    "purpose": "To help young Indians make their rooms feel like themselves.",
+    "mission": "To make expressive, affordable, playful home-living objects that turn everyday rooms into personal moodboards.",
+    "vision": "To become the go-to Gen Z home-living brand in India for rooms that feel less like landlord boxes and more like personal universes.",
+    "story": "Cozy Bear was founded by Sidak and Priyal from the belief that a room is not just four walls, but an expression of the person living in it. Priyal is presented as the detail-led aesthetic perfectionist focused on comfort, quality and meaning, while Sidak is framed as the storyteller and startup builder pushing the brand to grow from scratch. The brand describes itself as more than decor: a movement to bring art into modern living spaces.",
+    "values": [
+      "Self-expression over safe decor",
+      "Comfort with attitude",
+      "Youth-culture fluency",
+      "Accessible room upgrades",
+      "Small-brand warmth",
+      "Playful utility",
+      "Personal spaces matter"
+    ],
+    "positioning": "Quirky home-living for the generation that decorates by vibe, fandom and mood.",
+    "audience": "Urban Indian Gen Z and young millennials, roughly 16 to 30, living in hostels, PGs, rented apartments, first homes, bedrooms in family homes, gaming setups, creator corners and work-from-home desks; also gift buyers, fandom communities, content creators and young couples or friends looking for playful decor.",
+    "persona": "Aanya or Kabir is 21, living in a PG, hostel, rented flat or bedroom in a city like Bengaluru, Delhi NCR, Mumbai, Pune, Hyderabad, Chandigarh or Jaipur. Their room is the one place that feels fully theirs, so they hate brown landlord furniture, generic marketplace decor and adult-looking neutrals. They buy when they move rooms, reset for a semester, start a first job, upgrade a gaming setup, see a room-tour Reel, enter F1 season, celebrate Pride or need a birthday gift. Their aesthetic is Pinterest board meets Instagram meme page meets soft textured comfort, and the win is when friends ask, “Where did you get that?”",
+    "toneOfVoice": "Playful, cheeky, cozy, internet-native, informal and encouraging.",
+    "personality": [
+      "Fun roommate",
+      "Stylist friend",
+      "Fandom kid",
+      "Comfort maximalist",
+      "Small-brand hustler",
+      "Trend-aware",
+      "Unapologetic"
+    ],
+    "palette": [
+      {
+        "hex": "#FFFFFF",
+        "role": "clean commerce background"
+      },
+      {
+        "hex": "#111111",
+        "role": "near-black UI text and graphic contrast"
+      },
+      {
+        "hex": "#F6EFE6",
+        "role": "warm cozy off-white / room neutral"
+      },
+      {
+        "hex": "#D8BFA3",
+        "role": "soft beige textile and wicker neutral"
+      },
+      {
+        "hex": "#7FA0C4",
+        "role": "denim blue / casual youth-living accent"
+      },
+      {
+        "hex": "#F7A8C8",
+        "role": "candy pink / playful Gen Z accent"
+      },
+      {
+        "hex": "#E53935",
+        "role": "racing red / pop-culture and F1 energy"
+      },
+      {
+        "hex": "#FFD447",
+        "role": "bright yellow meme and decor accent"
+      },
+      {
+        "hex": "#4CAF50",
+        "role": "playful green / quirky product accent"
+      }
+    ],
+    "typography": {
+      "display": "Rounded, bold, friendly sans-serif suited to banners, drops, collection titles and social overlays.",
+      "text": "Clean geometric or neo-grotesk sans-serif with mobile-first e-commerce legibility.",
+      "note": "Typography is not the main signature; product form, naming, photography and internet-native captions carry more of the brand personality."
+    },
+    "logo": "https://cozybear.in/cdn/shop/files/Cozy_Bear_Logo-3.png?v=1742188351&width=480",
+    "logoSystem": "The site uses a Cozy Bear wordmark or logo lockup in the header, identified in crawl data as an image with alt text “Cozy Bear.” It behaves like a friendly D2C badge rather than a luxury monogram: approachable, soft, youthful and scalable across website, social avatar, packaging and inserts.",
+    "photographyStyle": "Use bright, clean, commercial product photography on white or light neutral backgrounds, mixed with styled desk and room vignettes. Products stay the hero, with low-to-medium prop density: mugs, keyboards, monitors, gaming accessories, sofas, beds, wicker chairs, coffee tables and cozy room corners. Lighting should be soft and diffused with minimal harsh shadows; crops should show centered product cards, flat or angled rug views, desk products in use and closeups that reveal tufted pile, embroidery, chenille, crochet yarn and tactile depth.",
+    "packagingStyle": "Detailed official packaging is not shown on the site. The most consistent packaging direction is a soft-goods D2C room-upgrade kit: kraft or white mailer base, Cozy Bear sticker or seal, care instructions, freebie card, social CTA to tag @cozybear.in and playful copy that feels personal rather than generic.",
+    "visualIdentity": "Cozy Bear’s visual system is product-led rather than governed by a rigid corporate palette: clean white commerce layouts, dark UI text, soft cozy neutrals and loud pop-culture colour moments from the products themselves. The overall world should feel bright, tactile, youthful, meme-fluent and room-transforming, with visual personality coming from rugs, cushions, throws, desk styling, fandom references and cheeky copy.",
+    "competitors": [
+      {
+        "name": "Chumbak",
+        "note": "A well-known Indian playful lifestyle and home brand associated with bold colours, cheerful prints, gifting and youthful decor; broader and more established, but less Gen Z-room-specific and less desk-led."
+      },
+      {
+        "name": "The Wishing Chair",
+        "note": "A whimsical, illustrated, giftable decor brand competing for customers who want charming expressive home accents rather than neutral furnishings."
+      },
+      {
+        "name": "Vaaree",
+        "note": "A modern Indian home-decor e-commerce player competing on affordable room-to-room variety, utility and convenience; more mature and home-wide, while Cozy Bear is more subcultural and youth-coded."
+      },
+      {
+        "name": "Pepperfry",
+        "note": "A default Indian furniture and decor e-commerce destination with broad selection, logistics and trust; competes when customers furnish rooms from scratch but lacks Cozy Bear’s Gen Z fandom and meme specificity."
+      },
+      {
+        "name": "Urban Ladder",
+        "note": "A mainstream furniture and decor platform with scale and trust; competes for room furnishing budgets but is less focused on playful identity accents."
+      },
+      {
+        "name": "Jaipur Rugs",
+        "note": "An adjacent rug competitor that owns craft, quality and premium trust, while Cozy Bear owns pop-culture personality, affordability and youth-room relevance."
+      }
+    ],
+    "social": [
+      {
+        "platform": "Instagram",
+        "handle": "@cozybear.in",
+        "url": "https://instagram.com/cozybear.in/",
+        "note": "Primary brand-culture channel linked from the official site; expected content style is product drops, room-styling Reels, desk and gaming setup content, founder or behind-the-scenes posts, meme-led captions, customer room features and fandom hooks around anime, F1, Pride, Friends, Harry Potter and superheroes. Cadence was not verifiable from crawl data."
+      },
+      {
+        "platform": "Facebook",
+        "handle": "",
+        "url": "",
+        "note": "Linked from the official site as a Facebook profile; likely a secondary trust, catalogue and retargeting presence rather than the main cultural channel. Cadence and exact content style were not verifiable from crawl data."
+      },
+      {
+        "platform": "LinkedIn",
+        "handle": "Cozy Bear",
+        "url": "https://in.linkedin.com/company/cozybear",
+        "note": "Company page describes Cozy Bear as a Bengaluru-based retail furniture and home-furnishings company; content style appears founder-led, hiring-focused, startup-building-in-public and brand-update oriented, including language around chaos, Canva and caffeine."
+      }
+    ],
+    "press": [],
+    "insights": [
+      "Cozy Bear’s real category is identity decor, not generic home decor: the strongest products signal fandom, humour, queerness, desk culture, internet fluency and personal taste.",
+      "The keyboard rug is a strategic wedge because students, gamers, coders, creators and young WFH professionals all curate desks, and the product is unusual, giftable and visually strong for Reels.",
+      "The brand has strong founder energy but needs more brand-system discipline: tighter product naming, packaging, drop architecture, photography templates, review systems, UGC prompts and colour rules.",
+      "The “India’s only Gen Z focused Home Living Brand” claim is memorable but must be continuously proven through real Gen Z utility, pricing, cultural timing, campus relevance and creator collaboration.",
+      "Cozy Bear can own rented-room transformation for young Indians who cannot paint walls or buy heavy furniture but can use rugs, throws, cushions, lights, mirrors and desk objects to make a space theirs.",
+      "Trust is the next growth bottleneck: handmade and tufted products need clear delivery timelines, verified reviews, making-process content, care guides, quality benchmarks and customer room reveals."
+    ],
+    "website": "https://cozybear.in/?srsltid=AfmBOoo8V45C-jCJMd07IfDP74trpVatSPbZfB4p62z5eiAs4t6coHd1",
+    "instagram": "https://www.instagram.com/cozybear.in/",
+    "sources": 9,
+    "foundReal": true,
+    "inferred": false
+  },
+  "catalog": [
+    {
+      "id": "diet-coke-can-tufted-rug",
+      "name": "Diet Coke Can Tufted Rug",
+      "images": []
+    },
+    {
+      "id": "slay-rug-regular-price-rs-1-490-00-regular-price",
+      "name": "Slay Rug Regular price Rs. 1,490.00 Regular price Rs. 1,690.00 Sale price Rs. 1,",
+      "images": []
+    },
+    {
+      "id": "snoopy-love-hug-rug-regular-price-rs-1-790-00-re",
+      "name": "Snoopy Love Hug Rug Regular price Rs. 1,790.00 Regular price Rs. 2,090.00 Sale p",
+      "images": []
+    },
+    {
+      "id": "pink-bow-rug-regular-price-rs-2-090-00-regular-p",
+      "name": "Pink Bow Rug Regular price Rs. 2,090.00 Regular price Rs. 2,590.00 Sale price Rs",
+      "images": []
+    },
+    {
+      "id": "f-ck-rules-rug-regular-price-rs-1-590-00-regular",
+      "name": "F*ck Rules Rug Regular price Rs. 1,590.00 Regular price Rs. 1,990.00 Sale price ",
+      "images": []
+    },
+    {
+      "id": "groovy-snoopy-rug-regular-price-rs-1-690-00-regu",
+      "name": "Groovy Snoopy Rug Regular price Rs. 1,690.00 Regular price Rs. 2,190.00 Sale pri",
+      "images": []
+    },
+    {
+      "id": "spidey-sense-rug-regular-price-rs-3-490-00-regul",
+      "name": "Spidey Sense Rug 🕸️ Regular price Rs. 3,490.00 Regular price Rs. 4,090.00 Sale ",
+      "images": []
+    },
+    {
+      "id": "high-time",
+      "name": "High Time",
+      "images": []
+    },
+    {
+      "id": "bare-intentions-rug",
+      "name": "Bare Intentions Rug",
+      "images": []
+    },
+    {
+      "id": "out-loud-rug",
+      "name": "Out & Loud Rug",
+      "images": []
+    },
+    {
+      "id": "slay-rug",
+      "name": "Slay Rug",
+      "images": []
+    },
+    {
+      "id": "snoopy-love-hug-rug",
+      "name": "Snoopy Love Hug Rug",
+      "images": []
+    },
+    {
+      "id": "pink-bow-rug",
+      "name": "Pink Bow Rug",
+      "images": []
+    },
+    {
+      "id": "i-ll-be-there-for-you-mug-rug",
+      "name": "I’ll Be There For You Mug Rug",
+      "images": []
+    },
+    {
+      "id": "crumb-mood",
+      "name": "Crumb Mood",
+      "images": []
+    },
+    {
+      "id": "kaleshi-aurat-mug-rug",
+      "name": "Kaleshi Aurat Mug Rug",
+      "images": []
+    },
+    {
+      "id": "pink-bow-mug-rug",
+      "name": "Pink Bow Mug Rug",
+      "images": []
+    },
+    {
+      "id": "midnight-blink-hand-tufted-keyboard-rug",
+      "name": "Midnight Blink Hand Tufted Keyboard Rug",
+      "images": []
+    },
+    {
+      "id": "formula-1-hand-tufted-keyboard-rug",
+      "name": "Formula 1 Hand-Tufted Keyboard Rug",
+      "images": []
+    },
+    {
+      "id": "itachi-hand-tufted-keyboard-rug",
+      "name": "Itachi Hand-Tufted Keyboard Rug",
+      "images": []
+    },
+    {
+      "id": "ghost-cat-hand-tufted-keyboard-rug",
+      "name": "Ghost Cat Hand Tufted Keyboard Rug",
+      "images": []
+    },
+    {
+      "id": "one-eye-mood-green-cushion-cover",
+      "name": "One-Eye Mood Green Cushion Cover",
+      "images": []
+    },
+    {
+      "id": "watermelon-crush-cushion-cover",
+      "name": "Watermelon Crush Cushion Cover",
+      "images": []
+    },
+    {
+      "id": "stitch-character-embroidered-cushion-cover",
+      "name": "Stitch Character Embroidered Cushion Cover",
+      "images": []
+    },
+    {
+      "id": "always-hot-cushion-cover",
+      "name": "Always Hot Cushion Cover",
+      "images": []
+    },
+    {
+      "id": "ironman-amigurumi",
+      "name": "Ironman Amigurumi",
+      "images": []
+    },
+    {
+      "id": "captain-america-amigurumi",
+      "name": "Captain America Amigurumi",
+      "images": []
+    },
+    {
+      "id": "superman-amigurumi",
+      "name": "Superman Amigurumi",
+      "images": []
+    },
+    {
+      "id": "batman-amigurumi",
+      "name": "Batman Amigurumi",
+      "images": []
+    },
+    {
+      "id": "pink-pataka-throw",
+      "name": "Pink Pataka Throw",
+      "images": []
+    },
+    {
+      "id": "pretty-pout-throw",
+      "name": "Pretty Pout Throw",
+      "images": []
+    },
+    {
+      "id": "couch-safari-throw",
+      "name": "Couch Safari Throw",
+      "images": []
+    },
+    {
+      "id": "soft-chenille-pink-throw",
+      "name": "Soft Chenille Pink Throw",
+      "images": []
+    },
+    {
+      "id": "moonlight-mirrors-set-of-5",
+      "name": "Moonlight Mirrors (Set of 5)",
+      "images": []
+    },
+    {
+      "id": "evil-eye-mirror",
+      "name": "Evil Eye Mirror",
+      "images": []
+    },
+    {
+      "id": "evil-eye-with-hooks-mirror",
+      "name": "Evil Eye with Hooks Mirror",
+      "images": []
+    },
+    {
+      "id": "three-musketeers-mirror-set-of-3",
+      "name": "Three Musketeers Mirror (Set of 3)",
+      "images": []
+    },
+    {
+      "id": "sunset-wave-lamp",
+      "name": "Sunset Wave Lamp",
+      "images": []
+    },
+    {
+      "id": "mushroom-bloom-lamp",
+      "name": "Mushroom Bloom Lamp",
+      "images": []
+    },
+    {
+      "id": "bubble-wave-lamp",
+      "name": "Bubble Wave Lamp",
+      "images": []
+    },
+    {
+      "id": "1",
+      "name": "+1",
+      "images": []
+    },
+    {
+      "id": "cactus-charm-jewellery-tree",
+      "name": "Cactus Charm Jewellery Tree",
+      "images": []
+    },
+    {
+      "id": "zen-bonsai-balance-game",
+      "name": "Zen Bonsai Balance Game",
+      "images": []
+    },
+    {
+      "id": "spider-man-hand-tufted-keyboard-rug",
+      "name": "Spider Man Hand-Tufted Keyboard Rug",
+      "images": []
+    },
+    {
+      "id": "chandni-pink-throw",
+      "name": "Chandni Pink Throw",
+      "images": []
+    },
+    {
+      "id": "mellow-dots-cushion",
+      "name": "Mellow Dots Cushion",
+      "images": []
+    },
+    {
+      "id": "platform-9",
+      "name": "Platform 9¾",
+      "images": []
+    }
+  ],
+  "ready": true
+}

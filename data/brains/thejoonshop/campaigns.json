@@ -1,0 +1,282 @@
+[
+  {
+    "id": "cmp-mrhsxkj2-primary-1tbli",
+    "name": "Carousel",
+    "type": "carousel",
+    "copy": {
+      "headline": "minimal perfumes",
+      "subline": "Alcohol-free, moisturising, and made to move",
+      "cta": "shop now",
+      "caption": "Our Korean-formulated solid perfume melts onto pulse points with a soft, close scent—no alcohol, no spill, no over-spraying. Made for bags, desks, flights, and Indian days. #Thejoonshop",
+      "frames": [
+        {
+          "headline": "Perfume you can touch"
+        },
+        {
+          "headline": "Made with skin in mind"
+        },
+        {
+          "headline": "Wear it close"
+        }
+      ],
+      "treatment": {
+        "headlineArchetype": "problem-solution",
+        "ctaArchetype": "experience",
+        "layout": "editorial-top",
+        "anchor": "top-left",
+        "align": "left",
+        "case": "sentence",
+        "weight": "regular",
+        "scale": "standard",
+        "ctaStyle": "text-link",
+        "ink": "light"
+      }
+    },
+    "outputs": [
+      {
+        "id": "1783861253678-2-t4xm0",
+        "url": "/api/img/1783861350507-oufd6-crop.png",
+        "aspect": "4:5",
+        "angle": "Frame 2 — Develop — Side-profile macro close-up, left",
+        "seq": 2,
+        "at": "2026-07-12T13:02:30.544Z",
+        "placement": {
+          "layout": "editorial-top",
+          "anchor": "top-left",
+          "ink": "light"
+        }
+      },
+      {
+        "id": "1783861253678-1-znejm",
+        "url": "/api/img/1783861350888-7oshd-crop.png",
+        "aspect": "4:5",
+        "angle": "Frame 1 — Hook — Top-down flat-lay",
+        "seq": 1,
+        "at": "2026-07-12T13:02:30.942Z",
+        "placement": {
+          "layout": "lower-third",
+          "ink": "light"
+        }
+      },
+      {
+        "id": "1783861253678-3-xvi9c",
+        "url": "/api/img/1783861353453-n14v7-crop.png",
+        "aspect": "4:5",
+        "angle": "Frame 3 — Close — Front, straight-on eye-level hero",
+        "seq": 3,
+        "at": "2026-07-12T13:02:33.513Z",
+        "placement": {
+          "layout": "split",
+          "ink": "light"
+        }
+      }
+    ],
+    "createdAt": "2026-07-12T13:02:33.527Z",
+    "updatedAt": "2026-07-12T13:02:33.528Z"
+  },
+  {
+    "id": "cmp-mrhohnpy-primary-pc1pb",
+    "name": "Ad Campaign",
+    "type": "ad",
+    "copy": {
+      "headline": "minimal perfumes",
+      "subline": "Alcohol-free solid perfume for pockets and pulse points",
+      "cta": "shop now",
+      "caption": "Our Korean-formulated solid perfume melts onto pulse points with no alcohol, no spill, and a moisturising feel. Made for bags, desks, flights, and the quieter way to be remembered.",
+      "treatment": {
+        "headlineArchetype": "benefit-led",
+        "ctaArchetype": "experience",
+        "layout": "mega",
+        "anchor": "top-left",
+        "align": "left",
+        "case": "sentence",
+        "weight": "regular",
+        "scale": "impact",
+        "ctaStyle": "text-link",
+        "ink": "light"
+      }
+    },
+    "outputs": [
+      {
+        "id": "1783853792854-1-square-3b0wh",
+        "url": "/api/img/1783853874423-bnavg-rf.png",
+        "format": "square",
+        "aspect": "1:1",
+        "angle": "Top-down 90° flat-lay macro campaign hero",
+        "at": "2026-07-12T10:57:54.483Z",
+        "placement": {
+          "layout": "editorial-top",
+          "anchor": "top-left",
+          "ink": "light"
+        }
+      },
+      {
+        "id": "1783853792854-1-story-0z9z4",
+        "url": "/api/img/1783853881524-89szu-crop.png",
+        "format": "story",
+        "aspect": "9:16",
+        "angle": "Top-down 90° flat-lay macro campaign hero",
+        "at": "2026-07-12T10:58:01.563Z",
+        "placement": {
+          "layout": "editorial-top",
+          "anchor": "top-right",
+          "ink": "light"
+        }
+      },
+      {
+        "id": "1783853792854-1-feed-m6zwj",
+        "url": "/api/img/1783853881516-v7p0s-crop.png",
+        "format": "feed",
+        "aspect": "4:5",
+        "angle": "Top-down 90° flat-lay macro campaign hero",
+        "at": "2026-07-12T10:58:01.567Z",
+        "placement": {
+          "layout": "editorial-top",
+          "anchor": "top-left",
+          "ink": "light"
+        }
+      },
+      {
+        "id": "1783853792854-1-landscape-1t0q9",
+        "url": "/api/img/1783853884415-ia9io-crop.png",
+        "format": "landscape",
+        "aspect": "16:9",
+        "angle": "Top-down 90° flat-lay macro campaign hero",
+        "at": "2026-07-12T10:58:04.466Z",
+        "placement": {
+          "layout": "side-rail",
+          "anchor": "center-right",
+          "ink": "light"
+        }
+      }
+    ],
+    "createdAt": "2026-07-12T10:58:04.479Z",
+    "updatedAt": "2026-07-12T10:58:04.480Z"
+  },
+  {
+    "id": "cmp-mrhlnupw-hidup",
+    "name": "Story",
+    "type": "story",
+    "copy": {
+      "headline": "Fragrance, made intimate",
+      "subline": "Solid perfume with every note laid bare",
+      "cta": "Explore the notes",
+      "caption": "We keep fragrance close: Korean-formulated, alcohol-free, and made to move with skin. In this set, the product sits with its notes arranged like a quiet recipe.",
+      "variants": [
+        {
+          "headline": "Scent, without the sting",
+          "subline": "A solid perfume that melts onto skin",
+          "cta": "Wear it close",
+          "caption": "Our alcohol-free solid perfume softens into pulse points without the sharp bite of a spray. Clean, compact, and never a public cloud."
+        },
+        {
+          "headline": "Your handbag’s quiet perfume",
+          "subline": "Compact fragrance for calm touch-ups anywhere",
+          "cta": "Carry it softly",
+          "caption": "Swipe on a measured veil when the day moves. No glass bottle, no overspray, no fuss."
+        }
+      ],
+      "treatment": {
+        "headlineArchetype": "benefit-led",
+        "ctaArchetype": "experience",
+        "layout": "editorial-top",
+        "anchor": "top-left",
+        "align": "left",
+        "case": "sentence",
+        "weight": "regular",
+        "scale": "standard",
+        "ctaStyle": "text-link",
+        "ink": "dark"
+      }
+    },
+    "outputs": [
+      {
+        "id": "1783849043012-2-b99fr",
+        "url": "/api/img/1783849073093-13chx-crop.png",
+        "aspect": "9:16",
+        "angle": "Top-down 90° flat-lay macro detail",
+        "placement": {
+          "layout": "side-rail",
+          "anchor": "center-right",
+          "ink": "dark"
+        },
+        "at": "2026-07-12T09:37:53.213Z"
+      },
+      {
+        "id": "1783849043012-1-h0ssr",
+        "url": "/api/img/1783849075955-qvrkk-crop.png",
+        "aspect": "9:16",
+        "angle": "Front, straight-on eye-level hero",
+        "placement": {
+          "layout": "editorial-top",
+          "anchor": "top-left"
+        },
+        "at": "2026-07-12T09:37:56.074Z"
+      }
+    ],
+    "createdAt": "2026-07-12T09:37:56.074Z",
+    "updatedAt": "2026-07-12T09:37:56.075Z"
+  },
+  {
+    "id": "cmp-mrhldi0m-gqibd",
+    "name": "Instagram Creative",
+    "type": "instagram",
+    "copy": {
+      "headline": "Scent, held close",
+      "subline": "Korean-formulated solid perfume for skin, bags and modern days",
+      "cta": "Shop the ritual",
+      "caption": "A clean, alcohol-free fragrance that melts into skin and moves with you. Compact, quiet, and made for scent that stays personal.",
+      "variants": [
+        {
+          "headline": "No cloud, just skin",
+          "subline": "Alcohol-free fragrance that stays softly personal",
+          "cta": "Wear it close",
+          "caption": "Our solid perfume melts in gently, without the sting or spray of traditional scent. Made for the days you want fragrance to feel intimate, not announced."
+        },
+        {
+          "headline": "Pocketed for every pause",
+          "subline": "A compact balm perfume for days in motion",
+          "cta": "Carry your scent",
+          "caption": "Slip it into the smallest bag and refresh wherever the day takes you. Clean, skin-loving fragrance with no glass bottle, no bulk, no public cloud."
+        }
+      ],
+      "treatment": {
+        "headlineArchetype": "benefit-led",
+        "ctaArchetype": "experience",
+        "layout": "editorial-top",
+        "anchor": "top-left",
+        "align": "left",
+        "case": "sentence",
+        "weight": "regular",
+        "scale": "minimal",
+        "ctaStyle": "text-link",
+        "ink": "light"
+      }
+    },
+    "outputs": [
+      {
+        "id": "1783848559990-2-31y9p",
+        "url": "/api/img/1783848588846-crzfl-crop.png",
+        "aspect": "4:5",
+        "angle": "Top-down 90° flat-lay macro detail / high angle",
+        "placement": {
+          "layout": "split"
+        },
+        "at": "2026-07-12T09:29:48.955Z"
+      },
+      {
+        "id": "1783848559990-1-0px2w",
+        "url": "/api/img/1783848590953-tgltn-crop.png",
+        "aspect": "4:5",
+        "angle": "Front, straight-on, eye-level hero",
+        "placement": {
+          "layout": "editorial-top",
+          "anchor": "top-right"
+        },
+        "at": "2026-07-12T09:29:51.044Z"
+      }
+    ],
+    "createdAt": "2026-07-12T09:29:51.044Z",
+    "updatedAt": "2026-07-12T09:29:51.045Z"
+  }
+]

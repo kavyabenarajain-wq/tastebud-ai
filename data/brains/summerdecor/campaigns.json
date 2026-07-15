@@ -1,0 +1,198 @@
+[
+  {
+    "id": "cmp-mr6fj46h-kwn8q",
+    "name": "Ad Campaign",
+    "type": "ad",
+    "copy": {
+      "headline": "Your room wants the loud one",
+      "subline": "Limited-run décor, shot clean in its own colour",
+      "cta": "Shop the drop",
+      "caption": "A clean hit of colour for homes that refuse the rented-room personality. Limited pieces, zero beige behaviour. #Summerdecor #AntiBeige"
+    },
+    "outputs": [
+      {
+        "id": "1783173616361-1-story-q08l4",
+        "url": "/api/img/1783173659941-msvym-crop.png",
+        "format": "story",
+        "aspect": "9:16",
+        "angle": "Front, straight-on, eye-level / bold colour-matched studio campaign hero",
+        "at": "2026-07-04T14:00:59.994Z"
+      },
+      {
+        "id": "1783173616361-1-square-sczac",
+        "url": "/api/img/1783173663750-p6uu5-rf.png",
+        "format": "square",
+        "aspect": "1:1",
+        "angle": "Front, straight-on, eye-level / bold colour-matched studio campaign hero",
+        "at": "2026-07-04T14:01:03.809Z"
+      },
+      {
+        "id": "1783173616361-1-landscape-vppg6",
+        "url": "/api/img/1783173667629-3lsfp-crop.png",
+        "format": "landscape",
+        "aspect": "16:9",
+        "angle": "Front, straight-on, eye-level / bold colour-matched studio campaign hero",
+        "at": "2026-07-04T14:01:07.696Z"
+      },
+      {
+        "id": "1783173616361-1-feed-mbnzy",
+        "url": "/api/img/1783173700487-sxz3r-crop.png",
+        "format": "feed",
+        "aspect": "4:5",
+        "angle": "Front, straight-on, eye-level / bold colour-matched studio campaign hero",
+        "at": "2026-07-04T14:01:40.553Z"
+      }
+    ],
+    "createdAt": "2026-07-04T14:01:40.553Z",
+    "updatedAt": "2026-07-04T14:01:40.555Z"
+  },
+  {
+    "id": "cmp-mr6euh16-n6c76",
+    "name": "Ad Campaign",
+    "type": "ad",
+    "copy": {
+      "headline": "Colour, without the chaos",
+      "subline": "Limited-run pieces for rooms allergic to beige",
+      "cta": "Shop the drop",
+      "caption": "A clean hit of colour, made for Indian homes that refuse to look borrowed. Two limited-run pieces, zero beige behaviour. #Summerdecor"
+    },
+    "outputs": [
+      {
+        "id": "1783172466618-1-square-hgazy",
+        "url": "/api/img/1783172466618-1-square-hgazy.png",
+        "format": "square",
+        "aspect": "1:1",
+        "angle": "Front, straight-on, eye-level / bold colour-matched studio campaign hero",
+        "at": "2026-07-04T13:41:47.301Z"
+      },
+      {
+        "id": "1783172466618-1-landscape-zvuhr",
+        "url": "/api/img/1783172466618-1-landscape-zvuhr.png",
+        "format": "landscape",
+        "aspect": "16:9",
+        "angle": "Front, straight-on, eye-level / bold colour-matched studio campaign hero",
+        "at": "2026-07-04T13:41:50.792Z"
+      },
+      {
+        "id": "1783172466618-1-story-mycpy",
+        "url": "/api/img/1783172466618-1-story-mycpy.png",
+        "format": "story",
+        "aspect": "9:16",
+        "angle": "Front, straight-on, eye-level / bold colour-matched studio campaign hero",
+        "at": "2026-07-04T13:41:51.830Z"
+      },
+      {
+        "id": "1783172466618-1-feed-kfila",
+        "url": "/api/img/1783172466618-1-feed-kfila.png",
+        "format": "feed",
+        "aspect": "4:5",
+        "angle": "Front, straight-on, eye-level / bold colour-matched studio campaign hero",
+        "at": "2026-07-04T13:42:23.551Z"
+      }
+    ],
+    "createdAt": "2026-07-04T13:42:23.551Z",
+    "updatedAt": "2026-07-04T13:42:23.555Z"
+  },
+  {
+    "id": "cmp-mr6ckped-jtcug",
+    "name": "Ad Campaign",
+    "type": "ad",
+    "copy": {
+      "headline": "All Colour, No Beige",
+      "subline": "A limited-run piece for rooms with a pulse",
+      "cta": "Shop the drop",
+      "caption": "Colour-matched, clean, and very much not here to blend into your landlord’s wall. Limited-run décor for Indian homes that like their corners with personality."
+    },
+    "outputs": [
+      {
+        "id": "1783168651669-1-feed-ct8qf",
+        "url": "/api/img/1783168651669-1-feed-ct8qf.png",
+        "format": "feed",
+        "aspect": "4:5",
+        "angle": "Front, straight-on, eye level / bold colour-matched studio campaign hero",
+        "at": "2026-07-04T12:38:03.842Z"
+      },
+      {
+        "id": "1783168651669-1-landscape-mqvno",
+        "url": "/api/img/1783168651669-1-landscape-mqvno.png",
+        "format": "landscape",
+        "aspect": "16:9",
+        "angle": "Front, straight-on, eye level / bold colour-matched studio campaign hero",
+        "at": "2026-07-04T12:38:04.393Z"
+      },
+      {
+        "id": "1783168651669-1-story-iw9b1",
+        "url": "/api/img/1783168651669-1-story-iw9b1.png",
+        "format": "story",
+        "aspect": "9:16",
+        "angle": "Front, straight-on, eye level / bold colour-matched studio campaign hero",
+        "at": "2026-07-04T12:38:07.674Z"
+      },
+      {
+        "id": "1783168651669-1-square-obzbw",
+        "url": "/api/img/1783168651669-1-square-obzbw.png",
+        "format": "square",
+        "aspect": "1:1",
+        "angle": "Front, straight-on, eye level / bold colour-matched studio campaign hero",
+        "at": "2026-07-04T12:38:30.361Z"
+      }
+    ],
+    "createdAt": "2026-07-04T12:38:30.361Z",
+    "updatedAt": "2026-07-04T12:38:30.365Z"
+  },
+  {
+    "id": "cmp-mr6cicpv-ze5ah",
+    "name": "Carousel",
+    "type": "carousel",
+    "copy": {
+      "headline": "One colour, zero landlord energy",
+      "subline": "Limited-run décor that makes beige behave",
+      "cta": "Shop the drop",
+      "caption": "A clean colour hit for rooms that refuse to look borrowed. Summerdecor pieces are made in limited runs, so if it speaks fluent you, don’t overthink it. #Summerdecor #AntiBeige"
+    },
+    "outputs": [
+      {
+        "id": "1783168541923-4-1lc6z",
+        "url": "/api/img/1783168541923-4-1lc6z.png",
+        "aspect": "4:5",
+        "angle": "Frame 4 — Develop — Top-down 90° flat-lay / Graphic silhouette study",
+        "seq": 4,
+        "at": "2026-07-04T12:36:13.776Z"
+      },
+      {
+        "id": "1783168541923-1-tdglj",
+        "url": "/api/img/1783168541923-1-tdglj.png",
+        "aspect": "4:5",
+        "angle": "Frame 1 — Hook — Low angle, looking up / Bold colour-block campaign still-life",
+        "seq": 1,
+        "at": "2026-07-04T12:36:22.005Z"
+      },
+      {
+        "id": "1783168541923-3-azsis",
+        "url": "/api/img/1783168541923-3-azsis.png",
+        "aspect": "4:5",
+        "angle": "Frame 3 — Develop — 45° front-left three-quarter / Dimensional product portrait",
+        "seq": 3,
+        "at": "2026-07-04T12:36:43.651Z"
+      },
+      {
+        "id": "1783168541923-5-g8ln8",
+        "url": "/api/img/1783168541923-5-g8ln8.png",
+        "aspect": "4:5",
+        "angle": "Frame 5 — Close — Front, straight-on, eye level / Calm full-product fidelity frame",
+        "seq": 5,
+        "at": "2026-07-04T12:36:44.509Z"
+      },
+      {
+        "id": "1783168541923-2-ojb5g",
+        "url": "/api/img/1783168541923-2-ojb5g.png",
+        "aspect": "4:5",
+        "angle": "Frame 2 — Develop — Macro close-up / Branding, label and material detail",
+        "seq": 2,
+        "at": "2026-07-04T12:36:45.032Z"
+      }
+    ],
+    "createdAt": "2026-07-04T12:36:45.032Z",
+    "updatedAt": "2026-07-04T12:36:45.034Z"
+  }
+]

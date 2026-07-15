@@ -1,0 +1,302 @@
+{
+  "brandName": "serene",
+  "monogram": "SP",
+  "tagline": "whispered opulence",
+  "category": "luxury unstitched womenswear",
+  "isApparel": true,
+  "mission": "to dress south asian women in quietly commanding clothes that honour their rituals without drowning them in noise.",
+  "vision": "to become the most trusted name in contemplative luxury lawn and formals—where every season feels like a calm, cinematic chapter in her life.",
+  "positioning": "serene stands apart from shouty, trend-chasing lawn by crafting architected, story-led 3-piece suits that feel like heirlooms in motion—soft-spoken in palette, rigorous in detail, and unmistakably cinematic.",
+  "purpose": "to give women a wardrobe of easeful grandeur: garments that carry the emotional weight of celebration while letting her move, breathe and feel entirely herself.",
+  "manifesto": [
+    "we believe true luxury doesn’t need to speak over you. it frames you. it steps back. it lets your gestures, your laughter, your stories be the loudest thing in the room.",
+    "born in lahore’s layered light and carved archways, serene is our love letter to rituals—eid mornings, late-night mehndis, small family dinners that somehow become memories you never forget. we build clothes for those scenes, not for billboards.",
+    "every serene suit is a choreography of fabric, thread and air. borders that catch the light but never snag the moment, dupattas that float instead of fuss, colours tuned to warmth so your skin is always the softest highlight."
+  ],
+  "identityIntro": [
+    "serene’s identity is built like its clothes: a balance of architecture and air. sharp, structural silhouettes meet softened edges, warm ivory grounds and deep charcoal type that feel as composed as a heritage courtyard at golden hour.",
+    "our palette leans into powder blues, blushes and mint aquas against cream and warm beige, with maroon and softened black reserved like kohl for emphasis. the result is an atmosphere: calm, cinematic, quietly grand—even before a single stitch is seen."
+  ],
+  "world": [
+    {
+      "title": "architecture",
+      "sub": "arches, courtyards, heritage",
+      "body": "serene lives in spaces with bones: arches, stone steps, jharokas and carved doors that echo the linearity of our borders and panels. every backdrop is chosen to feel like a real home—lived-in, sun-worn, elegant—so the clothes read as part of her life, not a set."
+    },
+    {
+      "title": "light",
+      "sub": "golden, softened, cinematic",
+      "body": "our light is always borrowed from early morning and late afternoon: directional, warm, shadow-kissed but never harsh. skin tones are rendered in golden-beige, whites tilt creamy, and even our blacks are softened so nothing feels brittle or overproduced."
+    },
+    {
+      "title": "motion",
+      "sub": "drapes, gestures, ease",
+      "body": "we never treat the dupatta as a static prop; it’s a moving script. serene images capture micro-moments—adjusting a border, walking a corridor, turning on a staircase—so you can almost feel the fabric’s weight, fall and air between each thread."
+    },
+    {
+      "title": "detail",
+      "sub": "embroidery, borders, story",
+      "body": "close-ups are used sparingly and purposefully: to reveal how a maroon thread sits against champagne gold, how a lace edge breaks against an ankle, how a motif travels from bodice to cuff. each detail shot must feel like a secret you discover, not a shout for attention."
+    }
+  ],
+  "statement": [
+    "serene is the pause in a category obsessed with spectacle. where others pile on motifs and volume, we edit—composing each suit like a passage of poetry: considered, rhythmic, leaving room for breath and imagination.",
+    "while mainstream lawn chases virality and maximalism, serene chooses longevity. our silhouettes nod to couture, our embroidery maps the body with intention, and our colours are tuned to live beyond a single season, a single eid, a single trend."
+  ],
+  "beliefs": [
+    {
+      "title": "quiet is a luxury",
+      "sub": "restraint, space, presence",
+      "body": "we believe the rarest luxury in fashion is restraint—the courage to leave space. serene designs ensure there’s always one quiet plane for the eye to rest, so the woman wearing it remains the focal point, not the print."
+    },
+    {
+      "title": "ritual deserves rigour",
+      "sub": "craft, consistency, trust",
+      "body": "our clothes are made for high-stakes moments—family photos, first eid as a bride, the last wedding with a grandparent—so our craft has to be unforgivingly precise. from thread tension to border placement, we obsess over technical rigour so her memories never feel compromised."
+    },
+    {
+      "title": "comfort is charisma",
+      "sub": "ease, movement, confidence",
+      "body": "we reject the idea that beauty must be cumbersome. serene cuts, fabric weights and lining choices privilege movement and breath, because a woman who isn’t adjusting her outfit every five minutes radiates a different, deeper kind of charisma."
+    }
+  ],
+  "quotes": [
+    "let the clothes whisper; let her carry the room.",
+    "we design for the moment she forgets she’s dressed up."
+  ],
+  "logo": {
+    "concept": [
+      "a custom wordmark where the double ‘e’ in serene subtly mirrors two facing arches, evoking old Lahore courtyards and a quiet sense of symmetry.",
+      "high-contrast serif letterforms with long, measured extenders give the mark a tailored, couture feel without loud flourishes.",
+      "a finely drawn dot above the ‘i’ shifts slightly forward, hinting at movement of a dupatta and the modern woman stepping ahead."
+    ],
+    "colorNote": "the core wordmark lives primarily in Midnight Courtyard on light bases, and in Ivory Breeze knocked out on deep grounds; Champagne Zari is reserved only for rare, ceremonial usages (packaging seals, Eid edits).",
+    "variations": [
+      {
+        "name": "Primary Horizontal Wordmark",
+        "use": "default for all brand touchpoints, from storefront facias to website headers and catalog covers."
+      },
+      {
+        "name": "Stacked Centered Wordmark",
+        "use": "use on square formats and social avatars where a vertical, altar-like presence is needed."
+      },
+      {
+        "name": "Monogram ‘S’ Ligature",
+        "use": "deploy sparingly on garment labels, buttons, zipper pulls and favicon where space is extremely tight."
+      },
+      {
+        "name": "Reversed Wordmark on Ground",
+        "use": "use Ivory Breeze or Champagne Zari wordmark on Midnight Courtyard or Rumi Maroon backgrounds for campaign key visuals and gift boxes."
+      }
+    ],
+    "safety": [
+      "always keep a minimum clear space equal to the height of the lowercase ‘e’ around the logo on all sides.",
+      "never place the wordmark directly over busy embroidery or patterned photography; use a solid color panel or soft fade.",
+      "scale the logo responsively, but never below 24px height in digital or 5mm in print to preserve legibility."
+    ],
+    "donts": [
+      "never stretch, condense or skew the wordmark; scaling must remain proportional in all directions.",
+      "never apply drop shadows, bevels or gradient fills to the logo; it should read as a single, flat tone.",
+      "never place the logo in random colours; only approved palette colours and specific use-cases are allowed.",
+      "never outline the wordmark or add decorative frames that compete with its refined simplicity.",
+      "never place the logo over high-contrast edges in photos; if necessary, introduce a soft overlay or block.",
+      "never replace the custom ‘S’ with system fonts in social posts or retailer artwork; request correct assets instead."
+    ]
+  },
+  "color": {
+    "philosophy": [
+      "serene’s palette is drawn from Lahore’s quiet hours: ivory courtyards before guests arrive, the blue-grey of monsoon skies, henna-tinted foliage, and the deep maroon of evening mehfils. it rejects the shrill neons and generic pastels of the category in favor of tones that feel slow, cinematic and lived-in.",
+      "each color is chosen to behave like fabric: soft in its transitions, rich in layering, and always flattering to South Asian skin tones. the system lets embroidery, not backgrounds, do the shouting—our grounds stay calm and architectural, while accents carry the memory of zari, henna and dusk light."
+    ],
+    "palette": [
+      {
+        "name": "Ivory Breeze",
+        "hex": "%23F7F1E7",
+        "role": "primary base background",
+        "meaning": "the quiet, creamy ivory of lawn unfurled on a charpai—our default canvas for layouts, e-commerce and typographic clarity."
+      },
+      {
+        "name": "Monsoon Veil",
+        "hex": "%23DDE7F3",
+        "role": "secondary base wash",
+        "meaning": "a soft, powdery blue-grey that cools compositions, echoing shaded verandas and overcast skies without ever feeling cold."
+      },
+      {
+        "name": "Henna Jade",
+        "hex": "%239AB8A3",
+        "role": "signature accent mid-tone",
+        "meaning": "a muted jade that recalls dried henna and courtyard foliage, used to gently draw the eye to buttons, dividers and key labels."
+      },
+      {
+        "name": "Rumi Maroon",
+        "hex": "%237C1230",
+        "role": "festive brand color",
+        "meaning": "a deep, literary maroon—like old poetry covers and velvet dupattas—that signals Eid, weddings and limited editions."
+      },
+      {
+        "name": "Midnight Courtyard",
+        "hex": "%2314181C",
+        "role": "ground / core typography",
+        "meaning": "a near-black blue-charcoal inspired by shaded archways; it anchors type and UI elements without the harshness of pure black."
+      },
+      {
+        "name": "Champagne Zari",
+        "hex": "%23CFA66A",
+        "role": "metallic accent highlight",
+        "meaning": "a warm champagne gold referencing zari and jewelry, used sparingly to signal touchpoints of delight: seals, borders and key icons."
+      }
+    ],
+    "hierarchy": [
+      {
+        "title": "STRUCTURE",
+        "sub": "Midnight Courtyard, Monsoon Veil",
+        "body": "use Midnight Courtyard for all primary body text, navigation, form labels and icons; it should carry the structural weight of the interface. Monsoon Veil can be used for subtle section tints, table rows and dividers where a whisper of separation is needed without harsh lines."
+      },
+      {
+        "title": "ABUNDANCE",
+        "sub": "Ivory Breeze, Henna Jade",
+        "body": "Ivory Breeze is the default background for websites, lookbooks and packaging interiors, ensuring garments and photography always breathe. Henna Jade steps in for supportive blocks—filter chips, tags, badges and infographics—adding calm color fields that never compete with outfit photography."
+      },
+      {
+        "title": "HIGHLIGHT",
+        "sub": "Rumi Maroon, Champagne Zari",
+        "body": "Rumi Maroon is the primary highlight for CTAs, collection titles, price tags and festive campaign strokes, especially when the brand wants to feel celebratory but still composed. Champagne Zari is reserved for ultra-select elements—foil stamps, dividing rules on premium print, micro-icons in hero banners—so that its appearance always feels intentional and rare."
+      }
+    ]
+  },
+  "typography": {
+    "philosophy": [
+      "serene speaks in a low, confident voice: editorial but unhurried, like a quietly opulent villa at golden hour. our type system balances couture sharpness with a human softness, echoing the tension between intricate embroidery and effortless drape.",
+      "we deliberately avoid the shouty, maximalist scripts of the category. instead, we use sculpted, high-contrast headlines paired with a clean, contemporary sans to feel both rooted in heritage and unmistakably modern."
+    ],
+    "displayFont": "Fraunces",
+    "sansFont": "Plus Jakarta Sans",
+    "fonts": [
+      {
+        "name": "serene display",
+        "role": "Primary headlines & wordmarks",
+        "note": "Fraunces brings a high-contrast, slightly calligraphic elegance that mirrors threadwork and arch details without slipping into cliché script."
+      },
+      {
+        "name": "serene sans",
+        "role": "Body, UI & utilities",
+        "note": "Plus Jakarta Sans is a calm, structured grotesque that keeps long product names, sizes and pricing readable while feeling urban and contemporary."
+      }
+    ],
+    "scale": [
+      {
+        "name": "H1",
+        "spec": "Display · 56px · tracking +4% · line height 1.06",
+        "use": "collection titles, campaign headlines, hero statements on home and lookbook covers."
+      },
+      {
+        "name": "H2",
+        "spec": "Display · 34px · tracking +3% · line height 1.1",
+        "use": "category headers, seasonal drops, landing-page section titles and key claims."
+      },
+      {
+        "name": "H3",
+        "spec": "Sans · 20px · tracking +6% · line height 1.3",
+        "use": "subheads, outfit names, editorial intros and call-outs on campaign layouts."
+      },
+      {
+        "name": "Body",
+        "spec": "Sans · 14px · tracking +2% · line height 1.6",
+        "use": "product descriptions, care instructions, captions and UI copy across site and print."
+      }
+    ],
+    "rules": [
+      "set all headlines in Fraunces Title or SemiBold; avoid all caps to preserve the soft, written quality.",
+      "use Plus Jakarta Sans in Regular and Medium weights only; reserve Bold for buttons, price and key CTAs.",
+      "default alignment is left; centre-align H1 only when it sits in generous negative space (hero, cover, invitation).",
+      "avoid more than two sizes on a single surface: one headline size + one body size keeps layouts calm.",
+      "use small caps only for micro-labels (e.g. \"fabric\", \"delivery\"); never for full headlines.",
+      "for urdu or bilingual applications, visually pair the urdu script with Fraunces by matching stroke thickness and generous line spacing."
+    ],
+    "inUse": [
+      {
+        "title": "quiet power headlines",
+        "sub": "H1 · fraunces · minimal words",
+        "body": "keep campaign titles to three words or fewer, letting the weight of Fraunces and ample white space do the work. avoid exclamation marks; the mood is composed, not performative."
+      },
+      {
+        "title": "names as poetry",
+        "sub": "H3 + body · product naming",
+        "body": "write outfit names in Fraunces H3 and follow with a single line of Plus Jakarta Sans body, e.g. “zohra” plus a short, sensory descriptor like “chiffon, dusk maroon, hand-threaded hems.”"
+      },
+      {
+        "title": "elevated ecommerce",
+        "sub": "sans-led grids",
+        "body": "use Plus Jakarta Sans for all grid and listing views to keep information clean; introduce Fraunces only when a product is selected, so the transition from browse to desire feels cinematic."
+      },
+      {
+        "title": "print invitations",
+        "sub": "balance serif & sans",
+        "body": "on cards and lookbooks, lead with a Fraunces H2 title and anchor details (date, venue, pricing) in Plus Jakarta Sans Body to keep the overall effect formal yet legible in low light."
+      }
+    ]
+  },
+  "intentIntro": [
+    "this brand is not here to out-sparkle or out-shout the lawn market; it’s here to reframe what celebration looks like. serene’s intent is to engineer a new archetype of festive dressing: cinematic yet calm, ornate yet breathable, rooted in culture yet free of costume.",
+    "every choice—from our creamy ivory base (#F8F3EB) to our deep charcoal typography (#0F1A20) and champagne gold accents (#CFA66A)—is made to serve that archetype. we are building a world where a woman can step into eid, a nikah, or a quiet dinner and feel simultaneously dressed and at ease."
+  ],
+  "patternStory": {
+    "title": "architectures of calm",
+    "body": "our patterns are not random florals; they are quiet architectures of calm, drawn from arches, jaalis and the negative space between threads. each motif begins with the geometry of old lahore and sindh—arched windows, lattice shadows, inlaid stone—and is then softened into flowing, textile-ready repeats. the result is a visual language that feels like standing in a sunlit courtyard: structured, gentle, and always with room to breathe."
+  },
+  "waxSeal": null,
+  "patternSystem": [
+    "build patterns from simple, repeatable modules inspired by arches, lattice screens and border trims, then scale them between 25% and 200% for variety.",
+    "use opacity in a narrow band (8–18%) when patterns sit behind type; never allow them to compete with legibility or embroidery details.",
+    "crop patterns boldly at edges so they feel like a fragment of a larger architecture, especially on lookbooks, swing tags and packaging interiors.",
+    "layer only two pattern densities at once: a broad, airy motif plus a fine border or corner accent; avoid full-bleed, high-density fills.",
+    "avoid patterns on product-detail pages and care labels—these surfaces must stay almost clinically clean to let fabric, colour and information breathe."
+  ],
+  "photography": {
+    "philosophy": [
+      "serene photography is about women inhabiting spaces, not posing in front of backdrops. every frame should feel like a paused moment in a story—an open doorway, a step on a staircase, a hand resting on carved wood—where the garment is naturally in motion.",
+      "we reject the hyper-saturated, everything-everywhere styling common in the category. our colour grade is warm, slightly lifted and quietly cinematic, giving skin a golden softness and allowing pastels, jewel tones and blacks to sit together without shouting.",
+      "composition favours stature and clarity: full-length frames that honour the three-piece silhouette, mid-shots that celebrate embroidery, and detail crops that read like textile studies. the viewer should feel they can almost hear the rustle of the dupatta and the echo of footsteps in a courtyard."
+    ],
+    "inUse": [
+      {
+        "title": "FRAMING",
+        "sub": "architecture as partner",
+        "body": "use doorways, arches and staircases to frame the model, giving a natural structure around the outfit. avoid busy props; a single carved chair, vase or jaali panel is enough to suggest place."
+      },
+      {
+        "title": "CROP",
+        "sub": "full look, then detail",
+        "body": "for hero images, shoot the full outfit head-to-toe with a slight upward angle to dignify posture. follow each hero with a mid-shot of bodice and sleeves, then a tight crop of borders and motifs against a neutral surface."
+      },
+      {
+        "title": "LIGHT",
+        "sub": "diffused, directional warmth",
+        "body": "shoot in soft, directional light that mimics early morning or late afternoon; avoid harsh midday sun and on-camera flash. keep shadows gentle and lifted so deep maroons, blacks and metallic thread remain visible without losing contrast."
+      },
+      {
+        "title": "POSE & MOTION",
+        "sub": "drapes that breathe",
+        "body": "direct models to move—walking, turning, ascending steps, adjusting dupattas—so we can capture fabric in motion and natural body language. limit overtly dramatic, editorial poses; the energy is poised, grounded and wearable, even at its most festive."
+      }
+    ]
+  },
+  "applications": [
+    {
+      "label": "launch packaging concepts",
+      "slots": 3
+    },
+    {
+      "label": "retail & in-store touchpoints",
+      "slots": 3
+    },
+    {
+      "label": "digital experience & social templates",
+      "slots": 3
+    }
+  ],
+  "intent": [
+    "we intend to own the space of ‘whispered opulence’ in south asian womenswear: clothes that read as couture from a distance but reveal a softness and practicality up close. by holding this line—between structure and ease, heritage and modernity—we become the default choice for women who want their wardrobes to keep up with their lives, not constrain them.",
+    "over time, serene’s discipline in imagery, palette, silhouette and storytelling will make it instantly recognisable even in a crowded feed: warm architectural frames, moving dupattas, calm faces, and clothes that feel like they’ve always belonged to her, even when they’re brand new. this is our north star and our filter—if it doesn’t serve that feeling, it doesn’t carry the serene name."
+  ]
+}

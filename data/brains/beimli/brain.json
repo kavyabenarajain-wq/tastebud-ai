@@ -1,0 +1,487 @@
+{
+  "name": "Beimli",
+  "website": "https://beimli.in",
+  "research": {
+    "summary": "be imli is a Mumbai-based D2C maternity, postpartum, nursing and feeding-wear brand for Indian women. It positions itself against frumpy, shapeless, emotionally diminishing maternity clothing with the core idea that women do not stop having taste when they become pregnant. The brand sells a tight essentials capsule including wireless feeding bras, clasp feeding camisoles, zipless nursing tees and gift cards through a live Shopify storefront.",
+    "essence": "Modern maternity and nursing essentials for Indian women who became pregnant, not invisible.",
+    "voice": "Honest, intimate, conversational and slightly irreverent; anti-frumpy, emotionally observant and product-specific, using lines that sound like the customer's own internal monologue while explaining practical details such as clips, stretch, seams, belly coverage and feeding access.",
+    "competitors": [
+      "Morph Maternity",
+      "Wobbly Walk",
+      "Momzjoy",
+      "Mumzhug"
+    ],
+    "ambassadors": [
+      "Parul",
+      "Tanisha"
+    ],
+    "instagram": "https://www.instagram.com/be.imli/",
+    "website": "https://beimli.in",
+    "palette": [
+      {
+        "hex": "#FFFFFF",
+        "role": "clean ecommerce background and main negative space"
+      },
+      {
+        "hex": "#F7F3ED",
+        "role": "warm off-white editorial surface"
+      },
+      {
+        "hex": "#111111",
+        "role": "near-black typography and wordmark"
+      },
+      {
+        "hex": "#8A8A8A",
+        "role": "soft grey product tone, close to the 5AM bra colour"
+      },
+      {
+        "hex": "#8FA7B4",
+        "role": "muted blue product tone, close to the Cool Side camisole colour"
+      },
+      {
+        "hex": "#F8F7F3",
+        "role": "soft white product tone, close to the Nothing On tee colour"
+      },
+      {
+        "hex": "#E7B8BF",
+        "role": "muted pink accent from shop colour filtering"
+      },
+      {
+        "hex": "#7D8B72",
+        "role": "muted green accent from shop colour filtering"
+      }
+    ],
+    "aesthetic": "Minimal product-led maternity essentials photography on clean white or warm off-white ecommerce surfaces, with muted natural colour grading and very low prop density. Products are shown as modern capsule basics rather than sentimental pregnancy objects: bras, camisoles and tees photographed clearly with soft shadows, uncluttered backgrounds and restrained styling. Lighting is diffused and even, likely front or three-quarter natural-soft studio light, avoiding harsh contrast or glossy fashion drama. Crops should alternate between full product/model ecommerce views and tight functional close-ups of nursing clips, zipless access, straps, belly-covering length, seams, stretch and fabric texture. The visual world is product-first with selective model use, focused on pregnant or postpartum Indian women looking real-but-elevated at home or in everyday settings, not heavily posed maternity-glow portraits; styling is sparse, adult and capsule-like, with no baby clutter, hospital cues, nursery pastels or decorative props.",
+    "foundReal": true,
+    "logo": "https://beimli.in/cdn/shop/files/Favicon_version_of_imli_brand_logo_in_green_color_A1C65D_square_format_simple_and_clean_design_that_works_at_small_sizes.png?v=1780057640&width=480",
+    "productImages": [
+      "https://cdn.shopify.com/s/files/1/0739/4246/6614/files/sundaying_tee_in_nothing_on_placeholder.png?v=1783338525",
+      "https://cdn.shopify.com/s/files/1/0739/4246/6614/files/no_fuss_blue_place_holder.png?v=1783337910",
+      "https://cdn.shopify.com/s/files/1/0739/4246/6614/files/justincaseburgandyplaceholder.png?v=1783337802",
+      "https://cdn.shopify.com/s/files/1/0739/4246/6614/files/giftcardPDPimage.png?v=1783322423",
+      "https://cdn.shopify.com/s/files/1/0739/4246/6614/files/justuscamiincoolsideblue.jpg?v=1783334063",
+      "https://cdn.shopify.com/s/files/1/0739/4246/6614/files/all_day_bra_in_worn_in_green.jpg?v=1783353175",
+      "http://beimli.in/cdn/shop/files/all_day_bra_in_worn_in_green.jpg?v=1783353175",
+      "http://beimli.in/cdn/shop/files/justuscamiincoolsideblue.jpg?v=1783334063",
+      "http://beimli.in/cdn/shop/files/sundaying_tee_in_nothing_on_placeholder.png?v=1783338525",
+      "http://beimli.in/cdn/shop/files/no_fuss_blue_place_holder.png?v=1783337910",
+      "http://beimli.in/cdn/shop/files/landing_page.png?v=1781777964",
+      "https://beimli.in/cdn/shop/files/landing_page.png?v=1781777964"
+    ],
+    "products": [
+      {
+        "name": "'Sundaying' Zipless Feeding Cotton Tee",
+        "image": "https://cdn.shopify.com/s/files/1/0739/4246/6614/files/sundaying_tee_in_nothing_on_placeholder.png?v=1783338525"
+      },
+      {
+        "name": "'No Fuss' Invisible Zip Feeding Cotton Tee",
+        "image": "https://cdn.shopify.com/s/files/1/0739/4246/6614/files/no_fuss_blue_place_holder.png?v=1783337910"
+      },
+      {
+        "name": "'Just In Case' Concealed Flap Feeding Cotton Top",
+        "image": "https://cdn.shopify.com/s/files/1/0739/4246/6614/files/justincaseburgandyplaceholder.png?v=1783337802"
+      },
+      {
+        "name": "The 'be imli' gift card",
+        "image": "https://cdn.shopify.com/s/files/1/0739/4246/6614/files/giftcardPDPimage.png?v=1783322423"
+      },
+      {
+        "name": "'Just Us' Clasp Feeding Camisole",
+        "image": "https://cdn.shopify.com/s/files/1/0739/4246/6614/files/justuscamiincoolsideblue.jpg?v=1783334063"
+      },
+      {
+        "name": "'All Day' Wireless Feeding Bra",
+        "image": "https://cdn.shopify.com/s/files/1/0739/4246/6614/files/all_day_bra_in_worn_in_green.jpg?v=1783353175"
+      },
+      {
+        "name": "Wireless Feeding Bra",
+        "image": "http://beimli.in/cdn/shop/files/all_day_bra_in_worn_in_green.jpg?v=1783353175"
+      },
+      {
+        "name": "Wireless Nursing Camisole",
+        "image": "http://beimli.in/cdn/shop/files/justuscamiincoolsideblue.jpg?v=1783334063"
+      },
+      {
+        "name": "&#39;Sundaying&#39; Zipless Feeding Cotton Tee",
+        "image": "http://beimli.in/cdn/shop/files/sundaying_tee_in_nothing_on_placeholder.png?v=1783338525"
+      },
+      {
+        "name": "&#39;No Fuss&#39; Invisible Zip Feeding Cotton Tee",
+        "image": "http://beimli.in/cdn/shop/files/no_fuss_blue_place_holder.png?v=1783337910"
+      }
+    ],
+    "photoRules": {
+      "category": "General product",
+      "grade": "Use product-led, essentials-first photography on clean low-distraction backgrounds with soft natural colour grading and low styling density. Show Indian pregnant and postpartum women in real-but-elevated daily moments: on the sofa, on a work call, opening the door, feeding discreetly, holding a baby with one arm, stepping out for errands. Include tight functional close-ups of nursing clips, zipless access, flap coverage, seams, belly length, stretch recovery, under-layer coverage and fabric against skin; avoid sentimental maternity-glow staging, baby clutter and over-propped nursery scenes.",
+      "signatures": [
+        "Use product-led, essentials-first photography on clean low-distraction backgrounds with soft natural colour grading and low styling density. Show Indian pregnant and postpartum women in real-but-elevated daily moments: on the sofa, on a work call, opening the door, feeding discreetly, holding a baby with one arm, stepping out for errands. Include tight functional close-ups of nursing clips, zipless access, flap coverage, seams, belly length, stretch recovery, under-layer coverage and fabric against skin; avoid sentimental maternity-glow staging, baby clutter and over-propped nursery scenes."
+      ],
+      "neverDo": [
+        "a floating product on a gradient void",
+        "flat, even, sourceless light",
+        "a plastic CGI-render look",
+        "random scattered geometric props",
+        "a concentric spotlight halo behind the subject"
+      ],
+      "colorGrade": {
+        "rMul": 1.0119316002989025,
+        "gMul": 0.9943001527600804,
+        "bMul": 0.9977821304858567,
+        "saturation": 0.9341491079619113,
+        "brightness": 1,
+        "contrast": 1.06,
+        "grain": 0.5,
+        "sharpen": 0.75
+      }
+    },
+    "sources": 15
+  },
+  "intelligence": {
+    "overview": "be imli is a Mumbai-based D2C maternity, postpartum, nursing and feeding wear brand for Indian women. It positions against the emotional failure of conventional maternity wear: the idea that a woman should lower her standards, lose her taste or disappear once she becomes pregnant.",
+    "purpose": "To restore selfhood, taste and daily ease to Indian women through pregnancy, postpartum and nursing, especially in the private, invisible hours when fashion usually abandons them.",
+    "mission": "To make maternity and nursing clothes that work with a changing body instead of against it, using considered seams, stretch, waistbands, feeding access, breathable fabrics, no fussy hardware and silhouettes women would actually want to wear beyond the maternity moment.",
+    "vision": "To redefine Indian maternity wear from a temporary, frumpy compromise into a modern capsule wardrobe for women who are still working, social, ambitious and aesthetically alive.",
+    "story": "be imli was started by Parul and Tanisha after they became angry at how Indian maternity wear treated pregnant women as an afterthought: shapeless fits, dull colours and products hidden in the corner of mainstream fashion. Before making products, they spoke to 50+ women and found that the need was not just maternity clothing, but the desire not to disappear. The name comes from imli, or tamarind, khatti-meethi, tart and sweet at once, used as a metaphor for pregnancy and early motherhood: excited and exhausted, glowing and overwhelmed, changing while still being oneself.",
+    "values": [
+      "Selfhood over motherhood clichés",
+      "Function without humiliation",
+      "Indian reality over imported aspiration",
+      "Listening as product development",
+      "Taste as dignity",
+      "Comfort without surrender",
+      "Modern essentials over maternity costume"
+    ],
+    "positioning": "Modern maternity and nursing essentials for Indian women who refuse to disappear.",
+    "audience": "Urban and semi-urban Indian women entering pregnancy or postpartum who do not identify with traditional mommy styling: digital-first, style-aware, often working, social and bilingual women in cities such as Mumbai, Delhi, Bangalore and Hyderabad who need clothing for home, work, errands, travel, feeding and recovery.",
+    "persona": "Aarohi, 31, Bangalore or Mumbai, is six months pregnant, still working, still going out, still buying skincare and still saving outfit references. She has no patience for clothes that make her look like she has been put on pause; she has tried sizing up regular T-shirts, stolen her husband’s old tees and bought one maternity nighty that made her feel instantly invisible. Her day moves from laptop to sofa to doctor visit to Swiggy lunch to WhatsApp family advice to an evening plan she may cancel, and late at night she is searching for feeding tops that do not look ugly. She wants clothes that are soft, breathable, discreet, easy to nurse in and not embarrassing if the doorbell rings or a friend drops by.",
+    "toneOfVoice": "Honest, intimate, observant, slightly irreverent and anti-frumpy.",
+    "personality": [
+      "Stylish elder sister",
+      "Product nerd",
+      "Quiet rebel",
+      "Emotionally intelligent founder-friend",
+      "Anti-nighty campaigner",
+      "Direct",
+      "Empathetic",
+      "Practical"
+    ],
+    "palette": [
+      {
+        "hex": "#FFFFFF",
+        "role": "clean ecommerce background and main negative space"
+      },
+      {
+        "hex": "#F7F3ED",
+        "role": "warm off-white editorial surface"
+      },
+      {
+        "hex": "#111111",
+        "role": "near-black typography and wordmark"
+      },
+      {
+        "hex": "#8A8A8A",
+        "role": "soft grey product tone, close to the 5AM bra colour"
+      },
+      {
+        "hex": "#8FA7B4",
+        "role": "muted blue product tone, close to the Cool Side camisole colour"
+      },
+      {
+        "hex": "#F8F7F3",
+        "role": "soft white product tone, close to the Nothing On tee colour"
+      },
+      {
+        "hex": "#E7B8BF",
+        "role": "muted pink accent from shop colour filtering"
+      },
+      {
+        "hex": "#7D8B72",
+        "role": "muted green accent from shop colour filtering"
+      }
+    ],
+    "typography": {
+      "display": "Clean, contemporary, editorial-feeling headlines with short declarative sentences and emotional tension.",
+      "text": "Plain, readable, digital-native body copy with a conversational rhythm and minimal ornament.",
+      "note": "The brand relies less on decorative typography and more on copy cadence, white space and sharp lines such as You didn’t stop having taste. We kept up."
+    },
+    "logo": "https://beimli.in/cdn/shop/files/Favicon_version_of_imli_brand_logo_in_green_color_A1C65D_square_format_simple_and_clean_design_that_works_at_small_sizes.png?v=1780057640&width=480",
+    "logoSystem": "The logo appears as a quiet lowercase be imli wordmark with no overt maternity iconography, baby symbol, bump silhouette or floral mother-child cliché. The spacing gives it a phrase-like quality, almost a behavioural invitation, while the tamarind metaphor carries the emotional meaning.",
+    "photographyStyle": "Use product-led, essentials-first photography on clean low-distraction backgrounds with soft natural colour grading and low styling density. Show Indian pregnant and postpartum women in real-but-elevated daily moments: on the sofa, on a work call, opening the door, feeding discreetly, holding a baby with one arm, stepping out for errands. Include tight functional close-ups of nursing clips, zipless access, flap coverage, seams, belly length, stretch recovery, under-layer coverage and fabric against skin; avoid sentimental maternity-glow staging, baby clutter and over-propped nursery scenes.",
+    "packagingStyle": "No confirmed packaging system or unboxing imagery was visible in the provided research.",
+    "visualIdentity": "be imli’s visual identity is minimal, soft, direct and editorial rather than decorative. It uses a lowercase wordmark, generous white space, near-black copy, warm neutrals and muted product colours such as grey, off-white, soft blue, pink and green to feel more like an adult capsule wardrobe label than a nursery-coded maternity brand.",
+    "competitors": [
+      {
+        "name": "Morph Maternity",
+        "note": "A long-standing Indian maternity and nursing wear player with a broader one-stop assortment; be imli is narrower, younger, sharper, more editorial and more emotionally insurgent."
+      },
+      {
+        "name": "Wobbly Walk",
+        "note": "An Indian maternity and nursing fashion brand focused on stylish, comfortable, functional pregnancy and postpartum wear; be imli owns a more pointed you did not disappear territory."
+      },
+      {
+        "name": "Momzjoy",
+        "note": "An Indian maternity and nursing fashion wear brand with concealed nursing access and a broader fashion-led range; be imli is more capsule, copy-led and insight-led."
+      },
+      {
+        "name": "Mumzhug",
+        "note": "A maternity and feeding wear brand with visible emphasis on ethnic, occasion and traditional outfits; be imli is more modern essentials, home-to-outside and urban capsule."
+      }
+    ],
+    "social": [
+      {
+        "platform": "Instagram",
+        "handle": "@be.imli",
+        "url": "https://www.instagram.com/be.imli/",
+        "note": "Official site-linked visual and community channel; Instagram content could not be fully fetched, but its likely role is reels, product demos, fit education, founder POV, customer quotes and anti-frumpy maternity storytelling."
+      },
+      {
+        "platform": "LinkedIn",
+        "handle": "be imli",
+        "url": "https://www.linkedin.com/company/beimli/",
+        "note": "Active founder-building and category-insight channel with candid, research-led, empathetic and slightly confrontational posts about pregnancy realities, sizing up, frumpy nightwear, consumer research and women-led D2C building."
+      },
+      {
+        "platform": "Facebook",
+        "handle": "",
+        "url": "",
+        "note": "Official website links to Facebook, but the page content and exact handle were not accessible in the provided research."
+      }
+    ],
+    "press": [
+      {
+        "title": "be imli company profile",
+        "source": "CB Insights",
+        "url": "https://www.cbinsights.com/company/be-imli"
+      }
+    ],
+    "insights": [
+      "The enemy is not pregnancy; the enemy is disappearance. The strongest brand tension is the social and retail erasure of pregnant women through shapeless clothes, dull colours, hidden maternity tabs and the assumption that taste no longer matters.",
+      "Invisible hours is the richest campaign platform. The brand should make the sofa-to-street, 6 a.m. to 11 p.m. reality visible: laptop, doctor visit, doorbell, feeding, pumping, family WhatsApp, food delivery and one hand always occupied.",
+      "Product proof must be tactile and demonstrable. One-handed clips, zipless access, no underwire, cotton touching baby, 4-way stretch, long belly coverage and concealed feeding should be shown in close-up videos and stills, not just claimed in copy.",
+      "The brand should own not maternity-looking. The premium promise is not trendiness but invisible function: clothes that work for pregnancy and feeding without announcing themselves as maternity wear.",
+      "The founder voice is a strategic asset. The research-led, emotionally literate sharpness should not be over-polished because it separates be imli from sweeter and more conventional maternity brands.",
+      "The small launch assortment can be framed as strength. Instead of offering dozens of average SKUs, be imli can own the anti-decision capsule: the few pieces women actually reach for every day."
+    ],
+    "website": "https://beimli.in",
+    "instagram": "https://www.instagram.com/be.imli/",
+    "sources": 15,
+    "foundReal": true,
+    "inferred": false
+  },
+  "catalog": [
+    {
+      "id": "sundaying-zipless-feeding-cotton-tee",
+      "name": "'Sundaying' Zipless Feeding Cotton Tee",
+      "category": "Top",
+      "collection": "cotton",
+      "description": "Some days you don't leave the sofa. Some days you do. Sundaying works either way. What's in it Zipless feeding access Outer flap covers the access point completely — nothing visible from the outside Relaxed fit, short sleeves — easy to move in, easy to wear all day Braless-friendly Only cotton touches you and your baby — no synthetics against skin What's not in it No zip — no metal or plastic against your skin or your baby's face Nothing to fumble with one-handed No visible a",
+      "variants": [
+        "S / 'Nothing On' White",
+        "M / 'Nothing On' White",
+        "L / 'Nothing On' White",
+        "XL / 'Nothing On' White",
+        "2XL / 'Nothing On' White"
+      ],
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "2XL"
+      ],
+      "colours": [
+        "'Nothing On' White"
+      ],
+      "price": "2400.00",
+      "url": "https://beimli.in/products/sundaying-zipless-nursing-tee",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0739/4246/6614/files/sundaying_tee_in_nothing_on_placeholder.png?v=1783338525"
+      ]
+    },
+    {
+      "id": "no-fuss-invisible-zip-feeding-cotton-tee",
+      "name": "'No Fuss' Invisible Zip Feeding Cotton Tee",
+      "category": "Top",
+      "collection": "cotton",
+      "description": "Grab it. Put it on. Feed. That's it. What's in it Invisible horizontal zip across the full chest Relaxed straight fit — works over a bump works after 100% cotton against your skin and your baby 220GSM — heavy enough to hold its shape, light enough for daily wear What's not in it No flap, no extra layers No synthetics against skin No bulk",
+      "variants": [
+        "S / 'Clear Sky' Blue",
+        "M / 'Clear Sky' Blue",
+        "L / 'Clear Sky' Blue",
+        "XL / 'Clear Sky' Blue",
+        "2XL / 'Clear Sky' Blue"
+      ],
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "2XL"
+      ],
+      "colours": [
+        "'Clear Sky' Blue"
+      ],
+      "price": "2400.00",
+      "url": "https://beimli.in/products/no-fuss-invisible-zip-nursing-tee",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0739/4246/6614/files/no_fuss_blue_place_holder.png?v=1783337910"
+      ]
+    },
+    {
+      "id": "shopify-8823122493494",
+      "name": "'Just In Case' Concealed Flap Feeding Cotton Top",
+      "category": "Top",
+      "collection": "cotton",
+      "description": "For the days you want to look put together — and still feed without anyone knowing. What's in it Invisible zip under a front flap — fully concealed Gathered lower panel and 3/4 flounce sleeves, fancy shmnacy Button keyhole at back — fits over a bump without pulling 100% cotton against your skin and your baby 220GSM — structured enough to hold its shape through a full day out What's not in it No visible access point — from the outside, it's just a top No synthetics against ski",
+      "variants": [
+        "S / 'Somewhere To Be' Burgandy",
+        "M / 'Somewhere To Be' Burgandy",
+        "L / 'Somewhere To Be' Burgandy",
+        "XL / 'Somewhere To Be' Burgandy",
+        "2XL / 'Somewhere To Be' Burgandy"
+      ],
+      "sizes": [
+        "S",
+        "M",
+        "L",
+        "XL",
+        "2XL"
+      ],
+      "colours": [
+        "'Somewhere To Be' Burgandy"
+      ],
+      "price": "2500.00",
+      "url": "https://beimli.in/products/just-in-case-concealed-flap-nursing-top",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0739/4246/6614/files/justincaseburgandyplaceholder.png?v=1783337802"
+      ]
+    },
+    {
+      "id": "shopify-8695973478454",
+      "name": "The 'be imli' gift card",
+      "collection": "Gift",
+      "description": "Celebrate the special journey of motherhood with a thoughtful gift. A gift card says, \"I'm thinking of you, and I want you to feel cherished during this beautiful time. Treat yourself to something special.\" Our be imli Gift Card is the perfect way to show your love and support to an expecting mother in your life—whether it's your sister, best friend, or someone equally dear. Let her choose exactly what she needs and loves from our curated collection. Perfect for baby showers,",
+      "variants": [
+        "₹500",
+        "₹1000",
+        "₹2000"
+      ],
+      "price": "500.00",
+      "url": "https://beimli.in/products/the-be-imli-gift-card",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0739/4246/6614/files/giftcardPDPimage.png?v=1783322423"
+      ]
+    },
+    {
+      "id": "just-us-clasp-feeding-camisole",
+      "name": "'Just Us' Clasp Feeding Camisole",
+      "category": "Intimates",
+      "collection": "clasp",
+      "description": "For when it's just you. Or just the two of you. What's in it Nursing clips on both straps — discreet, easy, one-handed access Removable built-in cups — wear with or without, your call Engineered stretch that moves with your bump and your postpartum body — no pulling, no digging in Long length that covers your belly through every trimester and beyond Holds its shape wash after wash What's not in it No zip No underwire No stiff panels Nothing that reminds you it's a \"maternity\"",
+      "variants": [
+        "'Cool Side' Blue / XS/S",
+        "'Cool Side' Blue / M/L",
+        "'Cool Side' Blue / XL",
+        "'Cool Side' Blue / 2XL",
+        "'Bright &' Peachy / XS/S",
+        "'Bright &' Peachy / M/L",
+        "'Bright &' Peachy / XL",
+        "'Bright &' Peachy / 2XL",
+        "'3AM' Grey / XS/S",
+        "'3AM' Grey / M/L",
+        "'3AM' Grey / XL",
+        "'3AM' Grey / 2XL"
+      ],
+      "sizes": [
+        "XS/S",
+        "M/L",
+        "XL",
+        "2XL"
+      ],
+      "colours": [
+        "'Cool Side' Blue",
+        "'Bright &' Peachy",
+        "'3AM' Grey"
+      ],
+      "price": "1400.00",
+      "url": "https://beimli.in/products/cami-with-clasp",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0739/4246/6614/files/justuscamiincoolsideblue.jpg?v=1783334063",
+        "https://cdn.shopify.com/s/files/1/0739/4246/6614/files/justuscamiinbrightpeachy.jpg?v=1783334062",
+        "https://cdn.shopify.com/s/files/1/0739/4246/6614/files/justuscamiin3amgrey.jpg?v=1783334063"
+      ]
+    },
+    {
+      "id": "all-day-wireless-feeding-bra",
+      "name": "'All Day' Wireless Feeding Bra",
+      "category": "Intimates",
+      "collection": "clasp",
+      "description": "The bra you forget you're wearing — until you need it. What's in it Nursing clips on both straps — open one-handed, no fumbling Removable drop-in cups — wear with or without, your call 4-way stretch — expands with you, snaps back after every wash Works with hands-free pumps — no extra kit needed What's not in it No underwire digging in No zip against skin No synthetic padding",
+      "variants": [
+        "'5AM' grey / XS/S",
+        "'5AM' grey / M/L",
+        "'5AM' grey / XL",
+        "'5AM' grey / 2XL",
+        "'Worn In' Green / XS/S",
+        "'Worn In' Green / M/L",
+        "'Worn In' Green / XL",
+        "'Worn In' Green / 2XL",
+        "'Staying In' Mauve / XS/S",
+        "'Staying In' Mauve / M/L",
+        "'Staying In' Mauve / XL",
+        "'Staying In' Mauve / 2XL"
+      ],
+      "sizes": [
+        "XS/S",
+        "M/L",
+        "XL",
+        "2XL"
+      ],
+      "colours": [
+        "'5AM' grey",
+        "'Worn In' Green",
+        "'Staying In' Mauve"
+      ],
+      "price": "1000.00",
+      "url": "https://beimli.in/products/bra-with-clasp",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0739/4246/6614/files/all_day_bra_in_worn_in_green.jpg?v=1783353175",
+        "https://cdn.shopify.com/s/files/1/0739/4246/6614/files/all_day_bra_in_staying_in_mauve.jpg?v=1783353175",
+        "https://cdn.shopify.com/s/files/1/0739/4246/6614/files/all_day_bra_in_5am_grey.jpg?v=1783353571"
+      ]
+    },
+    {
+      "id": "wireless-feeding-bra",
+      "name": "Wireless Feeding Bra",
+      "url": "https://beimli.in/products/bra-with-clasp",
+      "images": [
+        "http://beimli.in/cdn/shop/files/all_day_bra_in_worn_in_green.jpg?v=1783353175"
+      ]
+    },
+    {
+      "id": "wireless-nursing-camisole",
+      "name": "Wireless Nursing Camisole",
+      "url": "https://beimli.in/products/cami-with-clasp",
+      "images": [
+        "http://beimli.in/cdn/shop/files/justuscamiincoolsideblue.jpg?v=1783334063"
+      ]
+    },
+    {
+      "id": "39-sundaying-39-zipless-feeding-cotton-tee",
+      "name": "&#39;Sundaying&#39; Zipless Feeding Cotton Tee",
+      "url": "https://beimli.in/products/sundaying-zipless-nursing-tee",
+      "images": [
+        "http://beimli.in/cdn/shop/files/sundaying_tee_in_nothing_on_placeholder.png?v=1783338525"
+      ]
+    },
+    {
+      "id": "39-no-fuss-39-invisible-zip-feeding-cotton-tee",
+      "name": "&#39;No Fuss&#39; Invisible Zip Feeding Cotton Tee",
+      "url": "https://beimli.in/products/no-fuss-invisible-zip-nursing-tee",
+      "images": [
+        "http://beimli.in/cdn/shop/files/no_fuss_blue_place_holder.png?v=1783337910"
+      ]
+    }
+  ],
+  "ready": true
+}

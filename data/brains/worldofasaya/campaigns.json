@@ -1,0 +1,265 @@
+[
+  {
+    "id": "cmp-mrf916zd-9mgsl",
+    "name": "Story",
+    "type": "story",
+    "copy": {
+      "headline": "Clinically made for Indian skin",
+      "subline": "For pigmentation, marks, oiliness and sun-stressed days",
+      "cta": "Shop the ritual",
+      "caption": "Worldofasaya treats melanin-rich Indian skin as its own science, not a Western template. Built for the concerns our skin lives with every day. #IndianSkin #Worldofasaya",
+      "treatment": {
+        "headlineArchetype": "authority",
+        "ctaArchetype": "experience",
+        "layout": "editorial-top",
+        "anchor": "top-left",
+        "align": "left",
+        "case": "sentence",
+        "weight": "regular",
+        "scale": "standard",
+        "ctaStyle": "text-link",
+        "ink": "dark"
+      }
+    },
+    "outputs": [
+      {
+        "id": "1783706898073-1-6d4ow",
+        "url": "/api/img/1783706945709-9j31d-crop.png",
+        "aspect": "9:16",
+        "angle": "Front, straight-on, eye-level hero",
+        "placement": {
+          "layout": "center",
+          "ink": "dark"
+        },
+        "at": "2026-07-10T18:09:05.832Z"
+      },
+      {
+        "id": "1783706898073-3-vvl5t",
+        "url": "/api/img/1783706945774-y4huv-crop.png",
+        "aspect": "9:16",
+        "angle": "Macro close-up, side profile",
+        "placement": {
+          "layout": "editorial-top",
+          "anchor": "top-left",
+          "ink": "dark"
+        },
+        "at": "2026-07-10T18:09:05.888Z"
+      },
+      {
+        "id": "1783706898073-2-3ooqy",
+        "url": "/api/img/1783706948625-qerdx-crop.png",
+        "aspect": "9:16",
+        "angle": "Top-down flat-lay",
+        "placement": {
+          "layout": "editorial-top",
+          "anchor": "top-left",
+          "ink": "dark"
+        },
+        "at": "2026-07-10T18:09:08.728Z"
+      }
+    ],
+    "createdAt": "2026-07-10T18:09:08.728Z",
+    "updatedAt": "2026-07-10T18:09:08.729Z"
+  },
+  {
+    "id": "cmp-mrf3j1yx-rubdm",
+    "name": "Story",
+    "type": "story",
+    "copy": {
+      "headline": "Indian skin, clinically understood",
+      "subline": "For pigmentation, marks, oiliness, dehydration and sun damage",
+      "cta": "Shop the ritual",
+      "caption": "Worldofasaya builds skincare around melanin-rich Indian skin, not Western defaults. Clinically driven care for the concerns your skin actually lives with. #Worldofasaya",
+      "treatment": {
+        "headlineArchetype": "authority",
+        "ctaArchetype": "confidence",
+        "layout": "editorial-top",
+        "anchor": "top-center",
+        "align": "center",
+        "case": "sentence",
+        "weight": "regular",
+        "scale": "standard",
+        "ctaStyle": "text-link",
+        "ink": "dark"
+      }
+    },
+    "outputs": [
+      {
+        "id": "1783697653689-2-kp5gr",
+        "url": "/api/img/1783697682133-eyymg-crop.png",
+        "aspect": "9:16",
+        "angle": "45° front-left three-quarter / editorial colour-block separation",
+        "placement": {
+          "layout": "side-rail",
+          "anchor": "center-right",
+          "ink": "light"
+        },
+        "at": "2026-07-10T15:34:42.260Z"
+      },
+      {
+        "id": "1783697653689-4-tiea0",
+        "url": "/api/img/1783697682401-f1o2m-crop.png",
+        "aspect": "9:16",
+        "angle": "Left side profile / silhouette and packaging-depth study",
+        "placement": {
+          "layout": "side-rail",
+          "anchor": "center-right",
+          "ink": "light"
+        },
+        "at": "2026-07-10T15:34:42.501Z"
+      },
+      {
+        "id": "1783697653689-3-5skxu",
+        "url": "/api/img/1783697682524-ytff4-crop.png",
+        "aspect": "9:16",
+        "angle": "Top-down 90° flat-lay / product-only graphic negative space",
+        "placement": {
+          "layout": "editorial-top",
+          "anchor": "top-right"
+        },
+        "at": "2026-07-10T15:34:42.637Z"
+      },
+      {
+        "id": "1783697653689-6-tcavc",
+        "url": "/api/img/1783697684624-267q8-crop.png",
+        "aspect": "9:16",
+        "angle": "Macro close-up / branding, label and material detail",
+        "placement": {
+          "layout": "side-rail",
+          "anchor": "center-right",
+          "ink": "light"
+        },
+        "at": "2026-07-10T15:34:44.756Z"
+      },
+      {
+        "id": "1783697653689-1-0bqan",
+        "url": "/api/img/1783697685671-82wtz-crop.png",
+        "aspect": "9:16",
+        "angle": "Front straight-on eye-level / colour-matched high-key hero",
+        "placement": {
+          "layout": "editorial-top",
+          "anchor": "top-right"
+        },
+        "at": "2026-07-10T15:34:45.802Z"
+      },
+      {
+        "id": "1783697653689-5-m1meq",
+        "url": "/api/img/1783697686197-m6zs1-crop.png",
+        "aspect": "9:16",
+        "angle": "Low angle looking up / monumental clean studio hero",
+        "placement": {
+          "layout": "editorial-top",
+          "anchor": "top-right"
+        },
+        "at": "2026-07-10T15:34:46.320Z"
+      }
+    ],
+    "createdAt": "2026-07-10T15:34:46.320Z",
+    "updatedAt": "2026-07-10T15:34:46.321Z"
+  },
+  {
+    "id": "cmp-mrf3f3ei-xlkcc",
+    "name": "Carousel",
+    "type": "carousel",
+    "copy": {
+      "headline": "Pigmentation isn’t a flaw",
+      "subline": "Clinical care for melanin-rich Indian skin",
+      "cta": "Shop your ritual",
+      "caption": "Your skin doesn’t need to be corrected to a Western ideal. It needs pigment-aware care that treats marks, dullness and sun stress with respect.",
+      "frames": [
+        {
+          "headline": "Pigmentation isn’t a flaw"
+        },
+        {
+          "headline": "It needs context"
+        },
+        {
+          "headline": "Melanin reacts differently"
+        },
+        {
+          "headline": "So should skincare"
+        },
+        {
+          "headline": "Treat, don’t erase"
+        }
+      ],
+      "treatment": {
+        "headlineArchetype": "authority",
+        "ctaArchetype": "confidence",
+        "layout": "editorial-top",
+        "anchor": "top-left",
+        "align": "left",
+        "case": "sentence",
+        "weight": "regular",
+        "scale": "standard",
+        "ctaStyle": "text-link",
+        "ink": "dark"
+      }
+    },
+    "outputs": [
+      {
+        "id": "1783697468922-5-g2t74",
+        "url": "/api/img/1783697498068-wns31-crop.png",
+        "aspect": "4:5",
+        "angle": "Frame 5 — Close — Front, straight-on, eye level / calm full-product hero with negative space",
+        "seq": 5,
+        "placement": {
+          "layout": "editorial-top",
+          "anchor": "top-right"
+        },
+        "at": "2026-07-10T15:31:38.204Z"
+      },
+      {
+        "id": "1783697468922-2-8ijrq",
+        "url": "/api/img/1783697498098-y5n8k-crop.png",
+        "aspect": "4:5",
+        "angle": "Frame 2 — Develop — Macro close-up / branding and packaging detail",
+        "seq": 2,
+        "placement": {
+          "layout": "side-rail",
+          "anchor": "center-right",
+          "ink": "light"
+        },
+        "at": "2026-07-10T15:31:38.294Z"
+      },
+      {
+        "id": "1783697468922-1-eud60",
+        "url": "/api/img/1783697499052-4c3lc-crop.png",
+        "aspect": "4:5",
+        "angle": "Frame 1 — Hook — Low angle, looking up / bold colour-matched studio hero",
+        "seq": 1,
+        "placement": {
+          "layout": "side-rail",
+          "anchor": "center-right"
+        },
+        "at": "2026-07-10T15:31:39.168Z"
+      },
+      {
+        "id": "1783697468922-3-5dluo",
+        "url": "/api/img/1783697499242-7uzg2-crop.png",
+        "aspect": "4:5",
+        "angle": "Frame 3 — Develop — 45° front-left three-quarter / sculptural product-only colour-block",
+        "seq": 3,
+        "placement": {
+          "layout": "editorial-top",
+          "anchor": "top-right"
+        },
+        "at": "2026-07-10T15:31:39.334Z"
+      },
+      {
+        "id": "1783697468922-4-3oxii",
+        "url": "/api/img/1783697499960-uiesy-crop.png",
+        "aspect": "4:5",
+        "angle": "Frame 4 — Develop — Top-down 90° flat-lay / graphic centered product study",
+        "seq": 4,
+        "placement": {
+          "layout": "lower-third",
+          "ink": "light"
+        },
+        "at": "2026-07-10T15:31:40.087Z"
+      }
+    ],
+    "createdAt": "2026-07-10T15:31:40.087Z",
+    "updatedAt": "2026-07-10T15:31:40.087Z"
+  }
+]

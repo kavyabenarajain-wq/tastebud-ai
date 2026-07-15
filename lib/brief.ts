@@ -1,4 +1,10 @@
-import type { ResolvedBrief, BrandBrain } from "./types";
+import type { ResolvedBrief, BrandBrain, ModelPerson, ModelSpec } from "./types";
+import { detectCategory, resolveInteraction, canWear, naturalActions } from "./productCategory";
+
+/** Detect the product category from whatever brand text we have (category is often null). */
+function briefCategory(b: ResolvedBrief) {
+  return detectCategory(b.brand?.category, b.brand?.productType, b.brand?.name, b.express);
+}
 
 /** Category-specific art direction — what makes THIS kind of product look its best. */
 export function categoryDirective(b?: BrandBrain): string | undefined {
@@ -152,16 +158,94 @@ function describeModel(m: NonNullable<ResolvedBrief["model"]>): string {
   );
 }
 
+const NUM_WORD: Record<string, number> = { one: 1, two: 2, three: 3, four: 4, five: 5, six: 6, couple: 2, duo: 2, trio: 3, quartet: 4 };
+
+/**
+ * Read a requested number of PEOPLE from the client's own words — "3 models", "three to
+ * four people", "a trio", "me and two friends". Returns 0 when it isn't a group ask, and
+ * caps at 4 (identity holds poorly past four). This is what makes "shoot 3 models" work
+ * from plain chat, with no toggle or reference uploads.
+ */
+export function parsePeopleCount(text?: string): number {
+  if (!text) return 0;
+  const t = ` ${text.toLowerCase()} `;
+  const noun = "people|persons?|models?|friends?|women|woman|men|man|guys|girls|boys|ladies|characters?|subjects?|humans?|figures?|dancers?";
+  const num = "\\d{1,2}|one|two|three|four|five|six|couple|duo|trio|quartet";
+  let best = 0;
+  // "<num> [to <num>] [different] <people-noun>" → take the higher end of any range.
+  const re = new RegExp(`\\b(${num})\\b(?:\\s*(?:to|-|–|—|or)\\s*(${num}))?\\s+(?:different\\s+|distinct\\s+|separate\\s+|more\\s+)?(?:${noun})\\b`, "g");
+  for (let m = re.exec(t); m; m = re.exec(t)) {
+    const a = NUM_WORD[m[1]] ?? parseInt(m[1], 10);
+    const b = m[2] ? (NUM_WORD[m[2]] ?? parseInt(m[2], 10)) : 0;
+    best = Math.max(best, Number.isFinite(a) ? a : 0, Number.isFinite(b) ? b : 0);
+  }
+  if (/\btrio\b/.test(t)) best = Math.max(best, 3);
+  if (/\b(duo|couple)\b/.test(t)) best = Math.max(best, 2);
+  if (/\bquartet\b/.test(t)) best = Math.max(best, 4);
+  const gm = t.match(new RegExp(`\\bgroup of (${num})\\b`));
+  if (gm) best = Math.max(best, (NUM_WORD[gm[1]] ?? parseInt(gm[1], 10)) || 0);
+  // "me / myself and N (friends)" counts the speaker too.
+  const meAnd = t.match(new RegExp(`\\b(?:me|myself|i)\\s+and\\s+(${num})\\b`));
+  if (meAnd) best = Math.max(best, ((NUM_WORD[meAnd[1]] ?? parseInt(meAnd[1], 10)) || 0) + 1);
+  return best < 2 ? 0 : Math.min(4, best);
+}
+
+/** Compact per-person attribute prose for a built model in a group cast. */
+function personBits(spec?: ModelSpec): string {
+  const bits: string[] = [];
+  if (spec?.gender?.trim()) bits.push(spec.gender.trim().toLowerCase());
+  if (spec?.ageRange?.trim()) bits.push(`in their ${spec.ageRange.trim().replace(/^in their /i, "")}`);
+  if (spec?.ethnicity?.trim()) bits.push(`${spec.ethnicity.trim()} heritage`);
+  if (spec?.skinTone?.trim()) bits.push(`${spec.skinTone.trim().toLowerCase()} skin`);
+  const hair = [spec?.hairStyle?.trim(), spec?.hairColor?.trim()].filter(Boolean).join(", ");
+  if (hair) bits.push(`${hair} hair`.toLowerCase());
+  if (spec?.eyes?.trim()) bits.push(`${spec.eyes.trim().toLowerCase()} eyes`);
+  if (spec?.bodyType?.trim()) bits.push(`${spec.bodyType.trim().toLowerCase()} build`);
+  return bits.length ? `a real, specific ${bits.join(", ")}` : "a real, specific model cast for this brand";
+}
+
+/** Describe a CAST of 3–4 distinct people for a group shoot. */
+function describePeople(models: ModelPerson[]): string {
+  const lines = models.map((p, i) => {
+    const who = p.name?.trim() || `Person ${i + 1}`;
+    const desc = p.source === "reference"
+      ? "provided as a likeness reference photo — reproduce THAT exact person faithfully, never beautified away"
+      : personBits(p.spec);
+    return `• ${who} — ${desc}.`;
+  });
+  return (
+    `GROUP SHOOT — this is a set with ${models.length} DISTINCT people. EVERY frame shows all ${models.length} of them together (never a solo portrait, never fewer), each a different individual with their own face, body, hair and styling (varied and diverse) — NEVER blend, merge, average, clone or duplicate a face:\n` +
+    lines.join("\n") +
+    `\nCompose them as a believable group: natural spacing, real eyelines and interaction, consistent scale, one shared light and grade. Hold the same ${models.length} people across every frame of the set.`
+  );
+}
+
 /** Turn the model spec + light scene panel + express prompt into a model-shoot brief. */
 export function buildModelBrief(b: ResolvedBrief): string {
   const p = b.panel ?? {};
   const lines: string[] = [];
   if (b.express?.trim()) lines.push(`★ WHAT THE CLIENT ASKED FOR, IN THEIR OWN WORDS — the single most important instruction, execute it precisely: "${b.express.trim()}". This is the primary direction for the shoot. Deliver EXACTLY this. It OVERRIDES the brand's usual look and defaults wherever they differ — only reproducing the real product exactly, the human-realism bar, and the brand's do-not list outrank it. Do not replace their request with a default aesthetic.`);
-  if (b.model) lines.push(describeModel(b.model));
+  const models = (b.models ?? []).filter(Boolean);
+  if (models.length >= 2) lines.push(describePeople(models));
+  else if (b.model) lines.push(describeModel(b.model));
 
-  const use = b.model?.productUse?.trim();
-  if (use && PRODUCT_USE_MAP[use]) lines.push(`Product interaction: ${PRODUCT_USE_MAP[use]}.`);
-  else if ((b.products?.length ?? 0) > 0) lines.push(`Product interaction: ${PRODUCT_USE_MAP.Held}.`);
+  // Product interaction MUST match the product category — a person eats/licks/shows food,
+  // sips a drink, wears apparel/jewellery, applies beauty, sits/lounges/sleeps on furniture,
+  // and holds/uses an object. A "worn" request on something un-wearable (an ice cream, a
+  // sofa) is corrected here rather than obeyed — you cannot wear a food or a piece of
+  // furniture. This is the single guardrail every model shoot funnels through.
+  if ((b.products?.length ?? 0) > 0) {
+    const category = briefCategory(b);
+    const { action, overridden } = resolveInteraction(category, b.model?.productUse);
+    const guard = canWear(category)
+      ? ""
+      : ` The model can NEVER wear, drape, put on or hold this like a garment — it is a ${category} product, not clothing.`;
+    lines.push(
+      `Product interaction — the model is ${action}, at true real-world scale with real contact, occlusion and a real contact shadow. ` +
+      `Interact with the product the way its category naturally allows (${naturalActions(category)}).${guard}` +
+      (overridden ? ` (An unsuitable interaction was requested and corrected to fit a ${category} product.)` : "")
+    );
+  }
 
   const field = (label: string, v?: string) => { if (v?.trim()) lines.push(`${label}: ${v.trim()}`); };
   field("Setting / background", bgPhrase(p.background));
@@ -171,7 +255,7 @@ export function buildModelBrief(b: ResolvedBrief): string {
   field("Output format", p.format);
   field("Must include", p.include);
 
-  if ((b.products?.length ?? 0) > 0) lines.push(`Product uploaded: ${b.products!.length}. It is the client's REAL product — reproduce it exactly (shape, cut, fabric, wash/colour, label, every word of text) and place it on the model at true real-world scale with real contact, occlusion and shadow. IF IT IS CLOTHING, IT IS THE FIXED WARDROBE HERO: the model wears this exact garment in every frame, identical across the whole set — do NOT invent, substitute, recolour or restyle the clothing; style only around it (other layers, accessories, setting, hair).`);
+  if ((b.products?.length ?? 0) > 0) lines.push(`Product uploaded: ${b.products!.length}. It is the client's REAL product — reproduce it exactly (shape, cut, fabric, wash/colour, label, every word of text) and place it in the shot with the model at true real-world scale with real contact, occlusion and shadow, used in the category-appropriate way described above. ONLY IF IT IS CLOTHING / APPAREL is it the FIXED WARDROBE HERO the model wears in every frame, identical across the whole set — do NOT invent, substitute, recolour or restyle the clothing; style only around it (other layers, accessories, setting, hair).`);
   if (b.references?.length) lines.push(`STYLE REFERENCE PROVIDED (${b.references.length}) — match its art direction: wardrobe register, set, palette, lighting and composition. It is a LOOK reference only — never copy any person or product from it.`);
 
   lines.push(

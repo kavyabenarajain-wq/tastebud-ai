@@ -32,7 +32,12 @@ export function brainToProfile(b: BrandBrain): BrandProfile {
       competitors: (intel?.competitors ?? []).map((c) => c.name).filter(Boolean).length
         ? (intel?.competitors ?? []).map((c) => c.name).filter(Boolean)
         : b.research?.competitors,
-      ambassadors: b.research?.ambassadors,
+      ambassadors: (intel?.ambassadors ?? []).map((a) => [a.name, a.handle && `(${a.handle})`, a.note && `— ${a.note}`].filter(Boolean).join(" ")).filter(Boolean).length
+        ? (intel?.ambassadors ?? []).map((a) => [a.name, a.handle && `(${a.handle})`, a.note && `— ${a.note}`].filter(Boolean).join(" ")).filter(Boolean)
+        : b.research?.ambassadors,
+      // Marketing history the director should walk in already knowing — build on what worked, don't just repeat it.
+      campaigns: (intel?.campaigns ?? []).map((c) => [c.title, c.year && `(${c.year})`, c.channel && `· ${c.channel}`, c.fronted && `· fronted by ${c.fronted}`, c.description && `— ${c.description}`].filter(Boolean).join(" ")).filter(Boolean),
+      socialProof: (intel?.socialProof ?? []).map((p) => [p.type && `${p.type}:`, p.text].filter(Boolean).join(" ")).filter(Boolean),
       products: (b.catalog ?? []).map((p) => p.name).filter(Boolean).slice(0, 40).length
         ? (b.catalog ?? []).map((p) => p.name).filter(Boolean).slice(0, 40)
         : (b.research?.products ?? []).map((p) => p.name).filter(Boolean),

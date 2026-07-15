@@ -47,6 +47,8 @@ HOW YOU WORK:
 - Lead with a confident recommendation the user can accept by saying "go".
 - READINESS: you can generate as soon as a model is established (built attributes OR a pasted reference) and there's a brand floor. A product is OPTIONAL — a pure portrait / model shoot is fine. The moment you can produce, OFFER TO.
 - If the client pastes a reference person, reassure them you'll reproduce THAT person faithfully and never beautify them away.
+- MATCH THE INTERACTION TO THE PRODUCT — basic sense: a person EATS, licks or shows FOOD; SIPS or pours a DRINK; WEARS apparel or jewellery; APPLIES beauty; SITS ON, lounges on or sleeps on FURNITURE; HOLDS and uses an object. A person can NEVER wear food or furniture. Pick the action the product's category actually allows; when several genuinely fit, offer a couple of on-brand options in a sentence, or just choose the strongest and go.
+- You can cast MORE THAN ONE person — up to about four. If the client wants a group ("me and two friends", "three models"), ask briefly who's in frame and what each is doing, then shoot the group.
 - NEVER expose prompts, model names, angle codes, JSON or internal mechanics. Stay in the brand's register. Keep replies to two or three warm sentences.
 
 YOUR TOOLS (call them to drive the screen):
@@ -61,11 +63,11 @@ FLOW: establish the model (build or reference) → optionally a product and a sc
 
 const tools: OpenAI.Chat.Completions.ChatCompletionTool[] = [
   { type: "function", function: { name: "set_model_source", description: "Switch the left model builder between building a model and using a pasted reference photo.", parameters: { type: "object", properties: { source: { type: "string", enum: ["build", "reference"] } }, required: ["source"] } } },
-  { type: "function", function: { name: "patch_model", description: "Capture model attributes the client described in chat so the left builder fills in.", parameters: { type: "object", properties: { gender: { type: "string" }, ageRange: { type: "string" }, ethnicity: { type: "string" }, skinTone: { type: "string" }, hairColor: { type: "string" }, hairStyle: { type: "string" }, eyes: { type: "string" }, bodyType: { type: "string" }, vibe: { type: "string" }, expression: { type: "string" }, productUse: { type: "string", enum: ["Worn", "Held", "Applied", "In-context", "None"] } } } } },
+  { type: "function", function: { name: "patch_model", description: "Capture model attributes the client described in chat so the left builder fills in.", parameters: { type: "object", properties: { gender: { type: "string" }, ageRange: { type: "string" }, ethnicity: { type: "string" }, skinTone: { type: "string" }, hairColor: { type: "string" }, hairStyle: { type: "string" }, eyes: { type: "string" }, bodyType: { type: "string" }, vibe: { type: "string" }, expression: { type: "string" }, productUse: { type: "string", enum: ["Worn", "Held", "Applied", "Eaten", "Sipped", "Poured", "SatOn", "LoungedOn", "SleptOn", "Used", "Shown", "In-context", "None"], description: "How the model physically interacts with the product — MUST fit the product's category (food is Eaten/Shown, a drink is Sipped, furniture is SatOn/LoungedOn, apparel/jewellery is Worn, beauty is Applied, an object is Used/Held). Never Worn for food or furniture." } } } } },
   { type: "function", function: { name: "request_reference_upload", description: "Ask for and open the reference uploader (a photo of the person the client wants in the shoot).", parameters: { type: "object", properties: { message: { type: "string" } } } } },
   { type: "function", function: { name: "request_product_upload", description: "Ask for and open the product uploader. Only when a product should be worn/held/applied and none is uploaded.", parameters: { type: "object", properties: { message: { type: "string" } } } } },
   { type: "function", function: { name: "show_scene", description: "Reveal the optional scene controls (setting, lighting, mood, composition, format, counts).", parameters: { type: "object", properties: {} } } },
-  { type: "function", function: { name: "generate_model_shoot", description: "Generate the model photoshoot now. Call once a model is established (built or reference) and a brand floor exists.", parameters: { type: "object", properties: { express: { type: "string", description: "The client's request in THEIR OWN WORDS, verbatim — the primary direction for the shoot (e.g. 'walking through a rainy Tokyo street at night'). ALWAYS fill this with what they actually asked for; it drives the whole shot." }, background: { type: "string" }, vibe: { type: "string" }, lighting: { type: "string" }, composition: { type: "string" }, format: { type: "string", enum: ["Portrait 4:5", "Square 1:1", "Story 9:16", "Wide 16:9"] }, productUse: { type: "string", enum: ["Worn", "Held", "Applied", "In-context", "None"] }, numAngles: { type: "number" }, shotsPerAngle: { type: "number" } } } } },
+  { type: "function", function: { name: "generate_model_shoot", description: "Generate the model photoshoot now. Call once a model is established (built or reference) and a brand floor exists.", parameters: { type: "object", properties: { express: { type: "string", description: "The client's request in THEIR OWN WORDS, verbatim — the primary direction for the shoot (e.g. 'walking through a rainy Tokyo street at night'). ALWAYS fill this with what they actually asked for; it drives the whole shot. If the shoot involves MULTIPLE people, state the number here in words (e.g. 'three models on a beach', 'a group of four friends') so the group is produced." }, background: { type: "string" }, vibe: { type: "string" }, lighting: { type: "string" }, composition: { type: "string" }, format: { type: "string", enum: ["Portrait 4:5", "Square 1:1", "Story 9:16", "Wide 16:9"] }, productUse: { type: "string", enum: ["Worn", "Held", "Applied", "Eaten", "Sipped", "Poured", "SatOn", "LoungedOn", "SleptOn", "Used", "Shown", "In-context", "None"], description: "How the model physically interacts with the product — MUST fit the product's category (food is Eaten/Shown, a drink is Sipped, furniture is SatOn/LoungedOn, apparel/jewellery is Worn, beauty is Applied, an object is Used/Held). Never Worn for food or furniture." }, numAngles: { type: "number" }, shotsPerAngle: { type: "number" } } } } },
 ];
 
 export function activeAgentBrain(): string {
@@ -89,11 +91,13 @@ export async function runModelAgent(args: {
   profile: BrandProfile | null;
   state: ModelConvState;
   messages: ChatMsg[];
+  memory?: string; // recalled per-brand agent memory (preferences/facts/summary from past sessions)
 }): Promise<{ reply: string; actions: ModelAgentAction[] }> {
   const system = [
     PERSONA,
     `ACTIVE SKILL (governs your craft):\n${args.skill}`,
     args.profile ? `ACTIVE BRAND PROFILE (the floor for every blank):\n${JSON.stringify(args.profile)}` : "BRAND: none yet — the user has no brand profile.",
+    ...(args.memory?.trim() ? [args.memory.trim()] : []),
     `CONVERSATION STATE:\n${JSON.stringify(args.state)}`,
   ].join("\n\n---\n\n");
 

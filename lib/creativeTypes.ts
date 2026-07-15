@@ -48,7 +48,7 @@ export interface CreativeTypeSpec {
 const IG_DIRECTIVE =
   "INSTAGRAM CREATIVE — this frame is judged mid thumb-scroll: it must STOP THE SCROLL at first glance. " +
   "One bold, single-minded editorial idea — striking colour or light, real texture, a real place — never a bland catalogue packshot. " +
-  "Compose with INTENTIONAL NEGATIVE SPACE in the top or bottom third where a caption overlay could sit. " +
+  "COPY SAFE ZONE (non-negotiable): reserve a CLEAN, UNCLUTTERED BAND across either the TOP third OR the BOTTOM third as genuine EMPTY negative space for an overlaid headline/caption. Keep the product AND every key detail ENTIRELY OUT of that band — do NOT let the product fill the whole frame; anchor it firmly in the opposite two-thirds so the reserved band stays deliberate calm space the type can sit on WITHOUT ever touching or overlapping the product. " +
   "Render the photograph CLEAN: absolutely no text, headline, logo, UI or border baked into the image — copy is overlaid later as real typography.";
 
 const STORY_DIRECTIVE =
@@ -59,7 +59,7 @@ const STORY_DIRECTIVE =
 const AD_DIRECTIVE =
   "AD CAMPAIGN — ONE hero campaign concept built to convert: the kind of frame that runs PAID on Instagram and Meta. " +
   "Choose the single STRONGEST concept for this brand and brief and commit to it — bold product presence, one clear focal idea, real light and a real place, instantly legible at feed size on a phone. " +
-  "Compose with clean negative space in the top or bottom third where the headline and CTA will be OVERLAID as real typography later. " +
+  "COPY SAFE ZONE (non-negotiable): reserve a CLEAN, UNCLUTTERED BAND across the TOP third OR the BOTTOM third as genuine EMPTY negative space where the headline and CTA are OVERLAID later — keep the product and every key detail fully OUT of that band so the type never touches or overlaps the product; do NOT fill the entire frame with the product, anchor it in the opposite two-thirds. " +
   "The photograph itself renders CLEAN — absolutely no text, headline, button, badge or logo baked into the image.";
 
 /** The carousel directive is built per-run because it teaches the narrative arc for exactly N frames. */
@@ -68,7 +68,8 @@ export function carouselDirective(n: number): string {
     `CAROUSEL — one idea told across ${n} swipes. This is a SEQUENCE, not ${n} disconnected images: design ONE scene world (same set, same palette, same light, same grade) and carry it through every frame so swiping feels continuous — one shoot, one story. ` +
     `Frame 1 is the HOOK: the boldest, most scroll-stopping frame of the set — it is the cover and earns the swipe. ` +
     `The middle frames DEVELOP the idea — a closer texture or material moment, the product in use or in context, an ingredient or detail study — each a genuinely different composition and distance, never a near-duplicate. ` +
-    `The FINAL frame is the CLOSE: a calm, resolved full-product frame with generous negative space where a call-to-action overlay could sit. ` +
+    `The FINAL frame is the CLOSE: a calm, resolved full-product frame. ` +
+    `COPY SAFE ZONE (non-negotiable): EVERY frame carries overlaid text, so on EVERY frame reserve a CLEAN, UNCLUTTERED BAND in the SAME position across the whole set — pick the TOP third OR the BOTTOM third once and keep it consistent for continuity — as genuine EMPTY negative space for that frame's overlaid copy. Keep the product and every key detail ENTIRELY OUT of that band so the type never overlaps the product; do NOT let the product fill the frame on any frame. ` +
     `Label every shot "Frame k — role" (e.g. "Frame 1 — Hook"). Render every frame CLEAN — no text, numbers, arrows or UI baked in.`
   );
 }

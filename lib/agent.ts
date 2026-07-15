@@ -26,6 +26,7 @@ export type AgentAction =
   | { type: "start_brand_conversation" }
   | { type: "open_brand_studio" }
   | { type: "research_brand"; name: string }
+  | { type: "select_brand"; name: string }
   | { type: "generate_shoot"; brief: ShootBrief };
 
 export type ConvState = {
@@ -77,6 +78,7 @@ const tools: OpenAI.Chat.Completions.ChatCompletionTool[] = [
   { type: "function", function: { name: "show_panel", description: "Reveal the optional fine-tune panel (background, surface, vibe, lighting, composition, format, angles, shots). Use ONLY after shots are on the canvas and the user is unsatisfied or wants to adjust specifics — never upfront before the first generation.", parameters: { type: "object", properties: {} } } },
   { type: "function", function: { name: "start_brand_conversation", description: "Begin the lightweight in-chat brand intake (palette, mood, 3-5 adjectives). Use when there is no brand profile and the user prefers a quick chat.", parameters: { type: "object", properties: {} } } },
   { type: "function", function: { name: "open_brand_studio", description: "Route the user to the fuller Brand Studio page.", parameters: { type: "object", properties: {} } } },
+  { type: "function", function: { name: "select_brand", description: "Switch the workspace to one of the user's ALREADY-SAVED brands, locking every next creative (palette, voice, guidelines) to it. Use when the user says to work on / switch to / open a specific brand by name (e.g. 'let's do Olipop', 'switch to Poppi'). Only pick from the SAVED BRANDS list in context; never invent a name. To build a brand-new brand instead, use open_brand_studio.", parameters: { type: "object", properties: { name: { type: "string", description: "The exact brand name to switch to, copied from the SAVED BRANDS list." } }, required: ["name"] } } },
   { type: "function", function: { name: "generate_shoot", description: "Generate the product photoshoot now. Call once you have a goal, a brand floor, and at least one product image.", parameters: { type: "object", properties: { express: { type: "string", description: "The client's request in THEIR OWN WORDS, verbatim — the primary direction for the shoot (e.g. 'on a sunny beach with a surfboard at golden hour'). ALWAYS fill this with what they actually asked for; it drives the whole shot." }, background: { type: "string" }, surface: { type: "string" }, vibe: { type: "string" }, lighting: { type: "string" }, composition: { type: "string" }, styling: { type: "string", description: "How dressed the scene is: Minimal / clean, A few props, Maximal — prop-rich, Ingredient scatter, or Bold colour-block.", enum: ["Minimal / clean", "A few props", "Maximal — prop-rich", "Ingredient scatter", "Bold colour-block"] }, format: { type: "string", enum: ["Portrait 4:5", "Square 1:1", "Story 9:16", "Wide 16:9"] }, numAngles: { type: "number", description: "Number of DISTINCT camera angles/looks to shoot. The client calls this 'angles' (and usually 'shots'/'images' too): '6 angles' or '6 shots' → 6." }, shotsPerAngle: { type: "number", description: "How many pictures (variations) of EACH angle. Only > 1 when the client explicitly wants multiple versions of the SAME angle. Default 1." } } } } },
 ];
 
@@ -106,6 +108,10 @@ function brandBriefForAgent(p: BrandProfile): string {
   if (comp.length) L.push(`Reference / competitor brands: ${comp.join(", ")}`);
   const amb = list(rb.ambassadors);
   if (amb.length) L.push(`Faces / ambassadors: ${amb.join(", ")}`);
+  const campaigns = list(rb.campaigns);
+  if (campaigns.length) L.push(`Their past marketing campaigns (you know these — build on what worked, echo the ones that landed, never blindly repeat): ${campaigns.slice(0, 8).join(" | ")}`);
+  const proof = list(rb.socialProof);
+  if (proof.length) L.push(`Social proof / traction (lean on it where relevant): ${proof.slice(0, 8).join("; ")}`);
   if (s(rb.summary)) L.push(`Visual identity: ${s(rb.summary)}`);
   const products = list(rb.products);
   if (products.length) L.push(`Their product line-up (real catalogue): ${products.slice(0, 40).join(", ")}`);
@@ -127,6 +133,7 @@ function defaultReply(actions: AgentAction[]): string {
   if (a.type === "show_panel") return "I've opened the fine-tune panel on the left — tweak anything, or just say go.";
   if (a.type === "start_brand_conversation") return "Let's set your brand quickly — what three or four words describe its feel?";
   if (a.type === "open_brand_studio") return "Opening Brand Studio so you can build the full profile.";
+  if (a.type === "select_brand") return `Switching to ${a.name} — palette, voice and guidelines are loading, and everything I make next stays on-brand.`;
   return "Got it.";
 }
 
@@ -135,11 +142,18 @@ export async function runAgent(args: {
   profile: BrandProfile | null;
   state: ConvState;
   messages: ChatMsg[];
+  memory?: string; // recalled per-brand agent memory (preferences/facts/summary from past sessions)
+  availableBrands?: string[]; // the user's saved brand names — the pool select_brand may switch to
 }): Promise<{ reply: string; actions: AgentAction[] }> {
+  const saved = (args.availableBrands ?? []).filter((n) => n && n.trim());
   const system = [
     PERSONA,
     `ACTIVE SKILL (governs your craft):\n${args.skill}`,
     args.profile ? `ACTIVE BRAND — what you already know (the floor for every blank; never re-interview it):\n${brandBriefForAgent(args.profile)}` : "BRAND: none yet — the user has no brand profile.",
+    saved.length
+      ? `SAVED BRANDS (the user can switch between these — call select_brand with the EXACT name to lock the workspace to one; everything you then make stays inside that brand): ${saved.join(", ")}.`
+      : "SAVED BRANDS: none besides the active one.",
+    ...(args.memory?.trim() ? [args.memory.trim()] : []),
     `CONVERSATION STATE:\n${JSON.stringify(args.state)}`,
   ].join("\n\n---\n\n");
 
@@ -159,6 +173,7 @@ export async function runAgent(args: {
     const name = tc.function.name;
     if (name === "generate_shoot") actions.push({ type: "generate_shoot", brief: a as ShootBrief });
     else if (name === "request_product_upload") actions.push({ type: "request_product_upload", message: a.message as string | undefined });
+    else if (name === "select_brand" && typeof a.name === "string" && a.name.trim()) actions.push({ type: "select_brand", name: a.name.trim() });
     else if (name === "show_panel" || name === "start_brand_conversation" || name === "open_brand_studio") actions.push({ type: name });
   }
 

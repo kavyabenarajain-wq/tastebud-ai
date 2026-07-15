@@ -85,11 +85,18 @@ export function categoryBook(category?: string, productType?: string): Book {
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
+/** fetch with a hard abort — no request in the research pipeline may hang the studio build. */
+const timedFetch = (url: string, init: RequestInit, ms: number): Promise<Response> => {
+  const ctrl = new AbortController();
+  const t = setTimeout(() => ctrl.abort(), ms);
+  return fetch(url, { ...init, signal: ctrl.signal }).finally(() => clearTimeout(t));
+};
+
 /** Fetch an image URL/path to a Gemini inline part (base64). Null on any failure. */
 async function toInlinePart(url: string): Promise<{ mime_type: string; data: string } | null> {
   try {
     if (!/^https?:\/\//i.test(url)) return null; // brand feed photos are always remote URLs
-    const res = await fetch(url);
+    const res = await timedFetch(url, {}, 8000);
     const ct = (res.headers.get("content-type") || "").split(";")[0].trim();
     if (!ct.startsWith("image/")) return null;
     const data = Buffer.from(await res.arrayBuffer()).toString("base64");
@@ -143,11 +150,16 @@ export async function extractPhotoRules(args: {
 
     let j: any;
     for (let i = 0; i < 3; i++) {
-      const res = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${key}`, {
-        method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(body),
-      });
-      j = await res.json();
-      if (!j.error) break;
+      try {
+        const res = await timedFetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${key}`, {
+          method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(body),
+        }, 30_000);
+        j = await res.json();
+        if (!j.error) break;
+      } catch (e) {
+        // timeout / network — retry, then let the outer catch degrade to the category book.
+        if (i === 2) throw e;
+      }
       if (i < 2) await sleep(600 * 2 ** i);
     }
     const text: string = (j?.candidates?.[0]?.content?.parts ?? []).map((p: any) => p.text ?? "").join("");

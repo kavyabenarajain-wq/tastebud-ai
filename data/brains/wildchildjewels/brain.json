@@ -1,0 +1,1240 @@
+{
+  "name": "Wildchildjewels",
+  "website": "https://www.wildchildjewels.com",
+  "research": {
+    "summary": "Wild Child Jewels is a Delhi-based, female-founded e-commerce jewellery brand offering affordable, gold-plated everyday pieces—especially charms, initials, teddies and hearts—designed to channel childhood nostalgia and help young women express their ‘inner wildchild’ through playful, customisable jewellery and IRL charm experiences.",
+    "essence": "A gold-plated, charm-driven jewellery playground where nostalgic motifs and custom experiences let young women wear their wild stories every day.",
+    "voice": "Playful, nostalgic and hype-yet-warm, speaking like the fun best friend who drags you to a matcha rave. Language is informal, trend-aware and slightly cheeky, full of encouragement to experiment—‘stack this, charm that, unleash your inner wildchild’—while staying approachable and customer-first. Copy leans into memories, inside jokes and sentimental motifs (teddies, hearts, initials), framing jewellery as a daily ritual of self-expression rather than a rare luxury.",
+    "competitors": [
+      "CaratLane (Charms Collection)",
+      "REIN Madras (Charm Bar)",
+      "PALMONAS",
+      "Enesse Jewelry"
+    ],
+    "ambassadors": [
+      "Aditi Kane",
+      "Muskan Chanana"
+    ],
+    "instagram": "https://www.instagram.com/wildchildjewels.in",
+    "website": "https://www.wildchildjewels.com",
+    "palette": [
+      {
+        "hex": "#F7E8F5",
+        "role": "soft pastel backdrop / backgrounds evoking dreamy, nostalgic mood"
+      },
+      {
+        "hex": "#FFE6B3",
+        "role": "warm highlight / accent blocks echoing golden glow around jewellery"
+      },
+      {
+        "hex": "#FDF8F2",
+        "role": "primary light surface / product background for e-commerce shots"
+      },
+      {
+        "hex": "#D99AC5",
+        "role": "brand accent / buttons, badges and playful UI details"
+      },
+      {
+        "hex": "#CFA06B",
+        "role": "gold metal accent / typography accents and illustrative gold hints"
+      },
+      {
+        "hex": "#2E2A32",
+        "role": "primary text / logo colour for contrast against light pastels"
+      }
+    ],
+    "aesthetic": "Product and social photography focuses on gold-plated charms, initials and teddies shot in a warm, dreamy, Instagram-native style. Backgrounds and surfaces are predominantly light, matte and softly feminine: pastel creams, blush and nude tones on seamless paper or fabric, with occasional textured surfaces like satin, lace or diary pages to nod to nostalgia and bedroom-core aesthetics. Jewellery is often laid on everyday props—a closed book, a mirror tile, a café table, a makeup pouch or a soft knit—grounding the pieces in daily life. Colour grading is warm and slightly golden, enhancing the yellow-gold plating and giving skin tones a gentle glow; contrast is moderate so stones and pavé details stay crisp without harsh blacks. Lighting is soft, diffused and usually directional from about 45°, mimicking window light; there are subtle specular highlights on metal but no aggressive hard shadows, maintaining a flattering, dreamy look. Styling density alternates between clean, single-product e-commerce shots (one pendant or ring centred on a neutral background, often with a faint shadow) and medium-density lifestyle arrangements with 2–4 pieces stacked or layered—neck stacks, ring stacks and charm clusters—to emphasise mix-and-match play. Props include charm trays, small dishes, ribbons, stickers, Polaroid-style photos and café elements like matcha cups, reflecting their IRL Charm Bar and Matcha Rave culture. Crops are tight and intimate: close-ups of pendants on collarbones, wrists with charm bracelets shot from above, ear stacks filling most of the frame, and smiles showing tooth gems. Frames are mostly vertical for Reels and Stories, with product-only hero shots used on the website and more candid, motion-filled model shots on Instagram. Models appear as real, trend-aware young women styled in Y2K/coquette-inspired outfits; their faces are sometimes partially cropped to keep attention on the jewellery while still conveying personality and movement.",
+    "foundReal": true,
+    "logo": "https://www.wildchildjewels.com/cdn/shop/files/Logooo.png?v=1710342232&width=480",
+    "productImages": [
+      "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/Pinkyheart2_jpg.heic?v=1752686778",
+      "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/4EAD3A35-4F8D-49F4-B8CB-4A97895BDA5F.jpg?v=1778958221",
+      "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/IMG-4170.png?v=1774885044",
+      "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/5DFBD9FB-E457-43D8-A6AE-63E57B550B84.jpg?v=1764366175",
+      "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/13000DA2-6548-49EC-BA4F-3CB02A9A527C.jpg?v=1764366167",
+      "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/17933440-BBB0-442A-9D51-0063EA8A294E.jpg?v=1764366183",
+      "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/51575C30-E198-4723-9C24-B4DFB8801408.jpg?v=1764362013",
+      "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/28493F58-FAB7-4F56-92BF-C9572CFCCC8F.png?v=1764366537",
+      "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/A0ACD5E9-5761-479B-8E82-28ACF042B157.jpg?v=1764330580",
+      "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/Celestenecklace2.jpg?v=1710252865",
+      "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/33C3B1E0-7824-46AD-A336-37E3679BCA20.jpg?v=1752686823",
+      "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/D0BCD960-5E07-4F8E-A863-0B8AAE785C75.jpg?v=1751696930"
+    ],
+    "products": [
+      {
+        "name": "Pink Heart Earrings",
+        "image": "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/Pinkyheart2_jpg.heic?v=1752686778"
+      },
+      {
+        "name": "The mirchi necklace",
+        "image": "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/4EAD3A35-4F8D-49F4-B8CB-4A97895BDA5F.jpg?v=1778958221"
+      },
+      {
+        "name": "Kareena Kapoor in Chunky Funky earrings silver",
+        "image": "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/IMG-4170.png?v=1774885044"
+      },
+      {
+        "name": "Frosted linked stack ring",
+        "image": "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/5DFBD9FB-E457-43D8-A6AE-63E57B550B84.jpg?v=1764366175"
+      },
+      {
+        "name": "Pink linked stack ring",
+        "image": "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/13000DA2-6548-49EC-BA4F-3CB02A9A527C.jpg?v=1764366167"
+      },
+      {
+        "name": "Pink heart tennis necklace",
+        "image": "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/17933440-BBB0-442A-9D51-0063EA8A294E.jpg?v=1764366183"
+      },
+      {
+        "name": "Alaia anklet",
+        "image": "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/51575C30-E198-4723-9C24-B4DFB8801408.jpg?v=1764362013"
+      },
+      {
+        "name": "Iced pink hoop earrings",
+        "image": "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/28493F58-FAB7-4F56-92BF-C9572CFCCC8F.png?v=1764366537"
+      },
+      {
+        "name": "Pink drop necklace",
+        "image": "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/A0ACD5E9-5761-479B-8E82-28ACF042B157.jpg?v=1764330580"
+      },
+      {
+        "name": "Celeste Necklace",
+        "image": "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/Celestenecklace2.jpg?v=1710252865"
+      },
+      {
+        "name": "Disha Patani in Twister hoops",
+        "image": "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/33C3B1E0-7824-46AD-A336-37E3679BCA20.jpg?v=1752686823"
+      },
+      {
+        "name": "Aimée necklace",
+        "image": "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/D0BCD960-5E07-4F8E-A863-0B8AAE785C75.jpg?v=1751696930"
+      },
+      {
+        "name": "Bloom necklace",
+        "image": "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/0BB909C4-926E-45B5-AAB8-23F461A114F8.jpg?v=1752732396"
+      },
+      {
+        "name": "Starfish earrings with stones",
+        "image": "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/A736AB14-2063-41CA-81D8-FA3022568B0B.jpg?v=1751659746"
+      },
+      {
+        "name": "Starfish bracelet/cuff (adjustable)",
+        "image": "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/267C71A0-AC44-486D-BF52-5902CACD733C.png?v=1751657218"
+      },
+      {
+        "name": "Heart Tennis necklace",
+        "image": "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/18890604-45B2-49A4-81DD-B30DD768ABDF.jpg?v=1752686564"
+      },
+      {
+        "name": "Heart tennis bracelet silver",
+        "image": "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/D04232C4-3B7F-43E7-ACCD-CBD956785B95.png?v=1753096312"
+      },
+      {
+        "name": "Heart tennis bracelet gold",
+        "image": "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/C5B1F91F-D2F9-4B5E-BF16-868774FDA5A3.png?v=1753096297"
+      },
+      {
+        "name": "Pink heart tennis bracelet",
+        "image": "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/363EAD71-944D-4938-80B6-01E56EE3E70F.png?v=1753096372"
+      },
+      {
+        "name": "Evil eye hand chain",
+        "image": "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/62171659-3846-412A-916E-8F53F4FDDBB2.jpg?v=1751658924"
+      },
+      {
+        "name": "Star hand chain",
+        "image": "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/A29A10EB-4CF0-4466-877B-9A33ECF7140A.jpg?v=1751655966"
+      },
+      {
+        "name": "Khushi Kapoor in Coastal Dreams Earrings",
+        "image": "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/Celebstyle.jpg?v=1738176222"
+      },
+      {
+        "name": "Silver Dome ring",
+        "image": "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/3FB90AA9-193D-4819-B634-B324EAEB114A.jpg?v=1736515741"
+      },
+      {
+        "name": "Two-toned Dome ring",
+        "image": "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/DB46A1DA-2FDE-484F-9EB9-EBE9BD4C5224.jpg?v=1736515950"
+      },
+      {
+        "name": "Chunky funky earrings silver",
+        "image": "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/43091740-8622-4C97-B15D-6CB5166DF7AC.jpg?v=1736586830"
+      },
+      {
+        "name": "Alina Hand chain",
+        "image": "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/F172C75D-B57A-4CAD-9A15-EB9AB76C0F5E.jpg?v=1731141072"
+      },
+      {
+        "name": "Iced initial necklace",
+        "image": "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/D51EBBEA-108C-494A-B091-935A7ABB4D7A.jpg?v=1752686601"
+      },
+      {
+        "name": "Athena cuff silver",
+        "image": "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/52F5C5CA-72D3-42A0-B0B4-C862C3D55BB4.jpg?v=1753096409"
+      },
+      {
+        "name": "The Rocky ring",
+        "image": "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/20277E31-294A-435E-B6CA-F86B0635D01A.png?v=1753781874"
+      },
+      {
+        "name": "The balloon ring silver",
+        "image": "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/81DB31A6-9FBA-4A27-9CC0-1BE29A5E87CC.png?v=1753781882"
+      },
+      {
+        "name": "Athena cuff gold",
+        "image": "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/EC506B10-9ECB-4F74-A2CD-4ED82877EE80.jpg?v=1753096423"
+      },
+      {
+        "name": "Luna cuff",
+        "image": "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/1AF475D5-C988-42E1-8078-683485DAFA2B.jpg?v=1753096392"
+      },
+      {
+        "name": "Yummy gummy",
+        "image": "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/964B6EFD-6700-4FD6-A9E5-440086FA844C.png?v=1752732494"
+      },
+      {
+        "name": "Dragonfly necklace",
+        "image": "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/209763A7-7F28-40ED-BEA7-BECF9FF763B3.jpg?v=1740245042"
+      },
+      {
+        "name": "Alana bracelet",
+        "image": "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/6832F9BE-D4F8-4F96-AA2C-238743045FF8.jpg?v=1718400275"
+      },
+      {
+        "name": "Bamboo hoops",
+        "image": "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/61DF66BB-663A-4C22-BCA8-0E41AE6402E7.jpg?v=1718399253"
+      },
+      {
+        "name": "Starfish earrings",
+        "image": "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/EAE4EBFF-63AE-4F88-A327-D500221D93D2.jpg?v=1718398626"
+      },
+      {
+        "name": "By the sea anklet",
+        "image": "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/D8B55E18-02AF-45FA-8EA8-FCE8F3DC4D72.jpg?v=1752686621"
+      },
+      {
+        "name": "Starfish necklace",
+        "image": "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/EC96E425-1769-4F16-93B9-3EEAD5A4F39F.jpg?v=1718398616"
+      },
+      {
+        "name": "Khushi Kapoor in Celeste necklace",
+        "image": "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/B877C7AD-114C-4D7D-86BE-46E3E95A1CB9.jpg?v=1714404081"
+      },
+      {
+        "name": "Danielle in Alaia",
+        "image": "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/E58277DF-B1AE-4B9F-82DD-5B1B69DFD611.jpg?v=1714404005"
+      },
+      {
+        "name": "Danielle in The sweetheart necklace",
+        "image": "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/3D7FCBE7-32CE-4553-B02E-D57D1C5C5C1A.jpg?v=1714403956"
+      },
+      {
+        "name": "Samiksha Pednekar in Pearlina gold hoops",
+        "image": "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/B76690DE-50AD-4AB2-9140-C7DBC176BA4A.jpg?v=1714403863"
+      },
+      {
+        "name": "Muskan Chanana in Coastal Dreams earrings",
+        "image": "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/4A956D86-CBED-4397-91CA-3894595C3F54.jpg?v=1714403814"
+      },
+      {
+        "name": "Khushi Kapoor in Pearlina gold hoops",
+        "image": "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/E35A859C-2F62-4DA4-BBE2-80F57B5DCC22.jpg?v=1714403756"
+      },
+      {
+        "name": "Isabel necklace",
+        "image": "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/IMG_7498.jpg?v=1711195812"
+      },
+      {
+        "name": "Balloon Star Necklace",
+        "image": "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/Balonstar2.jpg?v=1752732627"
+      },
+      {
+        "name": "The Beetle Necklace",
+        "image": "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/beetle2.heic?v=1752686634"
+      },
+      {
+        "name": "Coastal Dreams Earrings",
+        "image": "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/CoastalDream1.heic?v=1710252809"
+      },
+      {
+        "name": "Pearlina Gold Hoops",
+        "image": "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/Pearlinagoldhoops2_png.heic?v=1710252762"
+      },
+      {
+        "name": "Twister Hoops",
+        "image": "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/twisterhoops2_jpg.heic?v=1752686792"
+      },
+      {
+        "name": "Strawberry Shortcake",
+        "image": "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/9D8F7AC8-A14D-42BF-BCE8-6C40E6711BD9.jpg?v=1714170533"
+      },
+      {
+        "name": "Alaia",
+        "image": "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/Alaia1.jpg?v=1752732662"
+      },
+      {
+        "name": "Iced Teddy Pendant",
+        "image": "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/Icedminii3.jpg?v=1770489319"
+      },
+      {
+        "name": "Emerald Teddy Necklace",
+        "image": "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/Emeraldteddy2.jpg?v=1752686762"
+      },
+      {
+        "name": "Iced Teddy (mini) Necklace",
+        "image": "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/9CFC531B-B9C8-40CC-8C0F-BEA353A0CBAF.png?v=1754045232"
+      },
+      {
+        "name": "Twisted Rope Bracelet",
+        "image": "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/E6FED306-CB19-4DC5-BB65-8FCCC2E01024.jpg?v=1752732720"
+      },
+      {
+        "name": "Hollow Iced Teddy Necklace",
+        "image": "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/Hollowiced1.jpg?v=1752686719"
+      },
+      {
+        "name": "The Sweetheart Necklace",
+        "image": "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/Sweetheart2.jpg?v=1752686729"
+      },
+      {
+        "name": "Iced Cross Necklace",
+        "image": "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/Crossiced2.jpg?v=1752732755"
+      }
+    ],
+    "sources": 15
+  },
+  "intelligence": {
+    "overview": "Wild Child Jewels is a Delhi-based, female-founded e-commerce jewellery brand focused on affordable, gold-plated everyday pieces like necklaces, rings, bracelets and earrings. Rooted in childhood nostalgia and playful self-expression, the brand invites young women to unleash their inner wild child through charm-driven designs and IRL experiences like its Charm Bar and Tooth Gem Bar.",
+    "purpose": "To make playful, nostalgia-charged jewellery accessible and wearable every day, so young women can express a bolder, more uninhibited version of themselves.",
+    "mission": "To design and deliver affordable, gold-plated “everyday special” pieces—charms, initials, teddies, hearts—backed by responsive, customer-first service.",
+    "vision": "To become India’s go-to playful jewellery label for customisable charm experiences—online and in real life—where jewellery, events and community meet.",
+    "story": "Wild Child Jewels was founded by Aditi Kane in Delhi as an online-first jewellery label that fuses gold-plated everyday pieces with early-2000s and childhood nostalgia. Instead of treating jewellery as a distant luxury, the brand builds a charm-driven universe where iced initials, teddy pendants and hearts become daily staples and personal talismans. Beyond e-commerce, they extend this universe into experiences like a Charm Bar and Tooth Gem Bar—seen at collaborations such as Delhi’s first Matcha Rave with Got Tea—and into influencer-designed capsules, positioning Wild Child Jewels as a youthful, experiential brand embedded in contemporary Delhi culture.",
+    "values": [
+      "Playful self-expression",
+      "Nostalgia and sentiment",
+      "Accessibility and affordability",
+      "Customer-centric service",
+      "Community and shared experiences",
+      "Creativity and DIY customisation"
+    ],
+    "positioning": "Gold-plated, nostalgia-charged jewellery for the wild child in your everyday.",
+    "audience": "Young women in urban and semi-urban India—especially 18–30-year-old students and early-career professionals—who are social-media native, trend-aware, value-conscious yet style-driven, and see jewellery as a way to personalise their look through charms, initials and playful motifs.",
+    "persona": "Aanya, 22, lives in Delhi and studies communications while interning at a media agency. Her days are bookmarked by Instagram, Pinterest and Reels, where she saves GRWM outfits, coquette and Y2K-inspired looks, and charm-stacked jewellery boards. She has a limited budget but regularly treats herself to mid-priced ‘haul’ orders, preferring niche Instagram-native brands over generic mall accessories. She loves pieces that feel like inside jokes—an iced initial, a tiny teddy, a heart-key pendant—and mixes them into layered neck stacks and charm bracelets she proudly tags in her OOTD posts. Aanya expects brands to be responsive on DMs, fun and slightly cheeky in tone, and plugged into the same influencer and event ecosystem she follows, so she gravitates to Wild Child Jewels for its nostalgic motifs, customisable charm experiences and presence at cool local events.",
+    "toneOfVoice": "Playful, nostalgic, hype yet warm, slightly cheeky and approachable.",
+    "personality": [
+      "Fun and energetic",
+      "Nostalgic and sentimental",
+      "Approachable and friendly",
+      "Creative and crafty",
+      "Trend-aware but not intimidating",
+      "Community-oriented"
+    ],
+    "palette": [
+      {
+        "hex": "#F7E8F5",
+        "role": "soft pastel backdrop / backgrounds evoking dreamy, nostalgic mood"
+      },
+      {
+        "hex": "#FFE6B3",
+        "role": "warm highlight / accent blocks echoing golden glow around jewellery"
+      },
+      {
+        "hex": "#FDF8F2",
+        "role": "primary light surface / product background for e-commerce shots"
+      },
+      {
+        "hex": "#D99AC5",
+        "role": "brand accent / buttons, badges and playful UI details"
+      },
+      {
+        "hex": "#CFA06B",
+        "role": "gold metal accent / typography accents and illustrative gold hints"
+      },
+      {
+        "hex": "#2E2A32",
+        "role": "primary text / logo colour for contrast against light pastels"
+      }
+    ],
+    "typography": {
+      "display": "Friendly, soft-edged display typography that feels youthful and playful rather than formal luxury, likely in a rounded or slightly retro sans style suited to headlines and brand marks.",
+      "text": "Clean, highly legible sans-serif body type optimised for mobile e-commerce use, prioritising clarity and readability for product descriptions and transactional content.",
+      "note": "Exact typefaces and font names could not be verified without direct visual access to the website or brand materials; descriptions are directional based on category norms and brand positioning."
+    },
+    "logo": "https://www.wildchildjewels.com/cdn/shop/files/Logooo.png?v=1710342232&width=480",
+    "logoSystem": "The logo system appears to centre on a wordmark of the name “Wild Child Jewels,” likely configured for one-colour use across digital, packaging and charm experiences, with simplified versions or initials for small formats like favicons and social avatars. Given the Instagram-native context, the mark prioritises legibility at small sizes and flexibility over complex iconography.",
+    "photographyStyle": "Photography should emphasise warm, golden tones that flatter gold-plated metal, shot on soft, matte backdrops in light or pastel hues to convey playfulness and nostalgia. Product imagery alternates between macro close-ups of single pieces for clarity and styled stacks (necklaces, rings, bracelets) to show layering, often incorporating props like charm trays, beads, stickers, matcha cups or everyday surfaces (desks, diaries, café tables). Lighting is soft and diffused to avoid harsh shadows while allowing subtle specular highlights on stones and metal, and social content leans into candid, in-motion crops of ear stacks, neck stacks, charm bracelets and tooth gems.",
+    "packagingStyle": "Packaging is likely built around small branded jewellery boxes or pouches with the logo on the lid or drawstring, sized for necklaces, rings, bracelets and earrings shipped via e-commerce. Interiors probably use thin foam or card inserts to hold chains and charms in place, while outer colours and finishes skew towards light, giftable tones that echo the brand’s nostalgic, playful positioning rather than heavy, ultra-lux cues.",
+    "visualIdentity": "Wild Child Jewels’ visual identity orients around warm gold as a constant, layered over a likely soft, playful colour world and friendly typography that feels more ‘cute but clear’ than strictly luxurious. The overall system blends charm-forward details, nostalgic motifs and Instagram-native compositions to create a recognisable look that works across website, social reels, IRL charm experiences and packaging without losing its youthful, accessible feel.",
+    "competitors": [
+      {
+        "name": "CaratLane – Charms collection",
+        "note": "Large, more premium Indian jewellery brand offering gold and diamond charms and personalised jewellery; acts as a trust-heavy, mainstream competitor that normalises charm stacking for a broad audience."
+      },
+      {
+        "name": "REIN Madras – Charm Bar",
+        "note": "Chennai-based brand with its own Charm Bar concept where customers design personalised charm bangles and necklaces; very close in experiential concept to Wild Child Jewels’ charm customisation."
+      },
+      {
+        "name": "PALMONAS",
+        "note": "Contemporary demi-fine brand in India offering gold-toned everyday jewellery and charm bracelets, positioned around everyday elegance and anti-tarnish pieces for a similar young, urban audience."
+      },
+      {
+        "name": "Enesse Jewelry",
+        "note": "India-crafted charm-focused brand offering personalised charm bracelets and necklaces with a somewhat more mature aesthetic but structurally similar product offering."
+      },
+      {
+        "name": "Marketplace and fast-fashion jewellery sellers",
+        "note": "Broader competition from personalised and charm jewellery across platforms like Myntra, Flipkart, Etsy and independent Instagram stores, which crowd the low-to-mid price segment and compete on price and variety."
+      }
+    ],
+    "social": [
+      {
+        "platform": "Instagram",
+        "handle": "@wildchildjewels.in",
+        "url": "https://www.instagram.com/wildchildjewels.in",
+        "note": "Primary and most active channel, used for product drops, collection launches, influencer collaborations, event promotion (e.g., Matcha Rave, Charm Bar, Tooth Gem Bar), UGC reposts and customer service via DMs; content likely leans on reels, OOTD styling and close-up product shots in a playful, hype yet warm voice."
+      },
+      {
+        "platform": "YouTube",
+        "handle": "@WildChildJewels",
+        "url": "https://www.youtube.com/@WildChildJewels/videos",
+        "note": "Small channel with limited videos and subscribers, likely repurposing short-form content such as lookbooks, product highlights and event recaps to extend visibility beyond Instagram."
+      },
+      {
+        "platform": "Website",
+        "handle": "wildchildjewels.com",
+        "url": "https://www.wildchildjewels.com",
+        "note": "Official e-commerce hub hosting product catalogues, brand story snippets and contact information, serving as the transactional backbone for promotions surfaced through Instagram and coupon platforms."
+      }
+    ],
+    "press": [
+      {
+        "title": "Delhi’s Quirkiest & Shiniest Matcha Rave Is Coming To Got Tea In Collab With Wild Child Jewels",
+        "source": "So City / So Delhi",
+        "url": "https://so.city/delhi/article/delhis-quirkiest-shiniest-matcha-rave-is-coming-to-got-tea-in-collab-with-wild-childs-jewels"
+      },
+      {
+        "title": "Wild Child Jewels company profile",
+        "source": "Crunchbase",
+        "url": "https://www.crunchbase.com/organization/wild-child-jewels"
+      },
+      {
+        "title": "Wild Child Jewels brand description and contact listing",
+        "source": "SignalHire",
+        "url": "https://www.signalhire.com/companies/wild-child-jewels"
+      },
+      {
+        "title": "Seller listing for Wild Child Jewels (Jewelry & Accessories, Delhi)",
+        "source": "Vouchkart",
+        "url": "https://www.vouchkart.com/sellers/india/delhi/jewelry-accessories"
+      }
+    ],
+    "insights": [
+      "Their real differentiation is not simply affordable gold-plated jewellery, but the deliberate fusion of nostalgia and everyday wearability—teddies, hearts, initials and charm systems that feel like personal lore and inside jokes—which should be treated as the narrative spine of all campaigns.",
+      "Charm experiences like the Charm Bar and Tooth Gem Bar are a strategic moat: by turning jewellery into a participatory, social activity at events such as the Matcha Rave, Wild Child Jewels can own the ‘jewellery as experience’ territory for Gen Z and young millennials in India.",
+      "Influencer co-creation has already been de-risked via the Muskan Chanana capsule, suggesting a scalable model for a recurring ‘Wild Child Collabs’ program with limited drops, strong stories and UGC-friendly designs that keep the brand in constant conversation.",
+      "Their verbal cues—dreams, childhood nostalgia, inner wildchild—are strong but under-formalised; codifying a clearer lexicon, tagline architecture and visual grammar (colour, type, iconography, photography rules) would evolve them from a cute Instagram brand into a coherent, defensible label.",
+      "Coupon tracking and discount visibility signal price sensitivity, but the emotional territory they occupy is about specialness and self-expression; tightening their stance around ‘affordable but special’ rather than ‘cheap and plentiful’ will preserve margin and brand equity as the charm market crowds.",
+      "Events and pop-ups are functioning as powerful brand-builders, giving Wild Child Jewels cultural capital and memorability; planning a consistent calendar of charm bars at cafés, campus activations and festival tie-ins can make them a brand people physically experience and associate with good times, not just one more jewellery handle in their feed."
+    ],
+    "website": "https://www.wildchildjewels.com",
+    "instagram": "https://www.instagram.com/wildchildjewels.in",
+    "sources": 15,
+    "foundReal": true,
+    "inferred": false
+  },
+  "catalog": [
+    {
+      "id": "shopify-8879018934589",
+      "name": "Pink Heart Earrings",
+      "description": "18k gold filled heart earrings Size: 34x15mm Nickel Free Base Material: Brass",
+      "price": "2399.00",
+      "url": "https://www.wildchildjewels.com/products/pink-heart-earrings",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/Pinkyheart2_jpg.heic?v=1752686778",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/IMG_0499.jpg?v=1752686778",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/Pinkyheart1.jpg?v=1752686778"
+      ]
+    },
+    {
+      "id": "shopify-10347542708541",
+      "name": "The mirchi necklace",
+      "description": "A playful chilli pendant on a waxed cord finished with a glossy enamel coating for that perfect pop of colour. Easy to throw on, and made to add just the right amount of edge to your everyday stack. Waxed cord Metal base with enamel coating Pendant size: 2 × 8 cm Weight: 21 g Adjustable length",
+      "price": "1549.00",
+      "url": "https://www.wildchildjewels.com/products/the-mirchi-necklace",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/4EAD3A35-4F8D-49F4-B8CB-4A97895BDA5F.jpg?v=1778958221",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/7F0F03E4-054A-4017-954C-FA4D9C89D571.jpg?v=1778958221",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/7A706162-8E80-4B1A-95BD-DCA75DF46BDA.jpg?v=1779000242"
+      ]
+    },
+    {
+      "id": "shopify-10273408024893",
+      "name": "Kareena Kapoor in Chunky Funky earrings silver",
+      "price": "1997.00",
+      "url": "https://www.wildchildjewels.com/products/kareena-kapoor-in-chunky-funky-earrings-silver",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/IMG-4170.png?v=1774885044",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/IMG-4171.jpg?v=1774885043",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/FullSizeRender_9fad0fdf-39b4-44be-9b6c-841e41044500.jpg?v=1774885044",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/43091740-8622-4C97-B15D-6CB5166DF7AC.jpg?v=1736586830",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/AFFE3EFE-A44F-4D56-A494-DFE688A81007.png?v=1736590321"
+      ]
+    },
+    {
+      "id": "shopify-10161299128637",
+      "name": "Frosted linked stack ring",
+      "description": "The Frosted Linked Stack Ring features four pavé-set eternity bands seamlessly linked Each band is encrusted with 5A grade CZ for that high-shine, iced out finish that catches the light from every angle. Designed to look like a perfectly layered stack with the ease of a single ring, it's your go-to for everyday sparkle or elevated nights out. Plating: Rhodium Finish: High-shine silver tone Stones: 5A CZ Material: Brass Ring Size Guide Size 6 Circumference: 52 mm Diameter: 16.",
+      "variants": [
+        "6",
+        "7"
+      ],
+      "sizes": [
+        "6",
+        "7"
+      ],
+      "price": "3099.00",
+      "url": "https://www.wildchildjewels.com/products/frosted-linked-stack-ring",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/5DFBD9FB-E457-43D8-A6AE-63E57B550B84.jpg?v=1764366175",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/946290F9-B6CB-4D58-8CAA-C2E7D28A3AD3.jpg?v=1764366175",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/043F1F5F-2A33-4794-BFF9-B6EC24F5A766.jpg?v=1781610120",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/5888B473-D292-4077-BFDD-C70B948271F7.jpg?v=1781610082"
+      ]
+    },
+    {
+      "id": "shopify-10161305452861",
+      "name": "Pink linked stack ring",
+      "description": "A playful twist on classic stacking. The Iced Pink Linked Stack Ring features three seamlessly linked bands- a soft light pink pavé band, a plain gold plated band and a rich deeper pink pavé band- creating a perfectly balanced, layered look in one single ring. The two pink bands are set with 5A CZ for a shiny, candy like sparkle while the gold band adds a clean, minimal contrast- the mix gives this piece its signature balance of soft and bold. Finish: Gold plated Material: Br",
+      "variants": [
+        "6",
+        "7"
+      ],
+      "sizes": [
+        "6",
+        "7"
+      ],
+      "price": "2699.00",
+      "url": "https://www.wildchildjewels.com/products/iced-pink-linked-stack-ring",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/13000DA2-6548-49EC-BA4F-3CB02A9A527C.jpg?v=1764366167",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/D6A1CBE0-4D0D-44DE-B0B9-E437D233FEBD.jpg?v=1764366167",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/760DCD0F-8ED2-49DF-88F8-0B1182544129.jpg?v=1764363960",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/F1F9C721-0FD5-4FE3-BE01-743B1CBDA4FC.jpg?v=1764363960",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/D7C07FD6-0D1F-40F5-AC35-1D5FB26F69F2.png?v=1765262046",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/7FEA76DC-0AF4-4841-96EF-DA08197417B9.jpg?v=1764363960"
+      ]
+    },
+    {
+      "id": "shopify-10161212358973",
+      "name": "Pink heart tennis necklace",
+      "description": "A playful take on the classic tennis necklace, this piece features precision-set 5A pink heart-cut cubic zirconia in a sleek, continuous silhouette. Crafted on a brass base with rose-gold plating and a fold-over clasp closure, it sits perfectly along the neckline and catches light from every angle. Details: • Material: Brass base • Stone: 5A Pink cubic zirconia • Length: 41cm • Stone cut: Heart • Plating: Rose gold • Closure: Fold-over clasp • Fit: Tennis style, sits close to",
+      "price": "3299.00",
+      "url": "https://www.wildchildjewels.com/products/pink-heart-tennis-necklace",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/17933440-BBB0-442A-9D51-0063EA8A294E.jpg?v=1764366183",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/A59D2953-0D7B-4379-AB59-233D0E5D4CED.jpg?v=1764366183",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/F0E12A7D-E5CD-4F4A-8D64-06192CC7F452.jpg?v=1764364935",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/5BEB9E24-8756-45A2-9941-577E411ABA37.jpg?v=1764364550"
+      ]
+    },
+    {
+      "id": "shopify-10161310302525",
+      "name": "Alaia anklet",
+      "description": "A delicate gold-finish anklet featuring tear 5A cubic zirconia details that catch the light with every step. This Alaia anklet blends minimal gold links with subtle sparkle for an effortlessly chic look. Perfect for pairing with heels, sneakers or barefoot moments. Material: Gold-plated brass Length: 25cm + 5cm extender Stones 5A Cubic Zirconia Closure: Lobster clasp with extender JEWELRY CARE This piece is crafted in brass, a naturally reactive metal. To maintain its finish ",
+      "price": "2749.00",
+      "url": "https://www.wildchildjewels.com/products/alaia-anklet",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/51575C30-E198-4723-9C24-B4DFB8801408.jpg?v=1764362013",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/B9F6637E-F10C-4096-A9BF-C0CED9E646BF.jpg?v=1764330580",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/4CC883AE-882D-443F-A74E-06F4312930ED.jpg?v=1764363001"
+      ]
+    },
+    {
+      "id": "shopify-10161325572413",
+      "name": "Iced pink hoop earrings",
+      "description": "A classic hoop reimagined with a soft pink sparkle. These 30 mm hoops feature precision-set pink AAAA cubic zirconia stones on a warm gold-plated base for a refined yet playful look. Designed to elevate everyday outfits and shine effortlessly at night. • Material: Gold-plated brass • Stones: Pink AAAA Cubic Zirconia • Diameter: 30 mm • Closure: Secure hinged closure • Lightweight comfortable for extended wear JEWELRY CARE This piece is crafted in brass, a naturally reactive m",
+      "price": "1889.00",
+      "url": "https://www.wildchildjewels.com/products/iced-pink-hoop-earrings",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/28493F58-FAB7-4F56-92BF-C9572CFCCC8F.png?v=1764366537",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/20710587-DC9B-44F8-AEEA-29B7946B7B3F.jpg?v=1764366536",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/786DB740-71ED-43D8-9C78-900F979C90DF.jpg?v=1764366536",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/9B8A48D3-F117-4F48-94DD-64A095A7139E.jpg?v=1764366536",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/91620CC7-E5D8-4898-99CE-B99C8F8EC6BB.jpg?v=1764366536",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/1DED5D26-59D1-4B5A-AA56-9741518EA46A.jpg?v=1764366536",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/9B67531E-7B62-4C74-9263-AF46EC76246D.jpg?v=1764366536"
+      ]
+    },
+    {
+      "id": "shopify-10161372430653",
+      "name": "Pink drop necklace",
+      "description": "A dainty pink heart drop necklace with three heart-shaped cubic zirconia stones placed along a sleek rose gold chain. Lightweight, sparkly and perfect for everyday wear or layering with your favourite chains. Made with a brass base and rose-gold plating for a soft pink finish. Details: • Weight: 4.5 g • Length: 41cm +5cm extender • Base material: Brass • Plating: Rose gold • Stone: AAAa pink cubic zirconia • Chain type: Link chain • Closure: Lobster clasp • Adjustable length ",
+      "price": "1899.00",
+      "url": "https://www.wildchildjewels.com/products/pink-drop-necklace",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/A0ACD5E9-5761-479B-8E82-28ACF042B157.jpg?v=1764330580",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/A59D2953-0D7B-4379-AB59-233D0E5D4CED.jpg?v=1764366183",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/F0E12A7D-E5CD-4F4A-8D64-06192CC7F452.jpg?v=1764364935"
+      ]
+    },
+    {
+      "id": "shopify-9129202647357",
+      "name": "Celeste Necklace",
+      "description": "18k gold plated stainless steel necklace with a freshwater pearl Length: 38cm + 5cm extender",
+      "price": "1899.00",
+      "url": "https://www.wildchildjewels.com/products/celeste-necklace",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/Celestenecklace2.jpg?v=1710252865",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/Celestenecklace1.jpg?v=1710252865"
+      ]
+    },
+    {
+      "id": "shopify-9989015306557",
+      "name": "Disha Patani in Twister hoops",
+      "description": "Pvd Gold Plated Titanium Steel earrings Weight: 27.96g Size: 3.06x2.33cm",
+      "price": "2099.00",
+      "url": "https://www.wildchildjewels.com/products/disha-patani-in-twister-hoops",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/33C3B1E0-7824-46AD-A336-37E3679BCA20.jpg?v=1752686823",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/twisterhoops1.jpg?v=1752686792",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/twisterhoops2_jpg.heic?v=1752686792"
+      ]
+    },
+    {
+      "id": "shopify-9977512067389",
+      "name": "Aimée necklace",
+      "description": "Stainless steel ammonite choker in silver/gold Plating: 18k gold Length: 42+5.5cm Adjustable - Water resistant this necklace is made for beach days, tropical getaways, or whenever you want to add a little ocean-inspired fun to your look.",
+      "variants": [
+        "Silver",
+        "Gold"
+      ],
+      "colours": [
+        "Silver",
+        "Gold"
+      ],
+      "price": "2249.00",
+      "url": "https://www.wildchildjewels.com/products/ammonite-necklace-silver",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/D0BCD960-5E07-4F8E-A863-0B8AAE785C75.jpg?v=1751696930",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/2905E0A1-DFFB-4100-B51E-4C65FC0372D8.jpg?v=1751696951",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/BD1F11C2-EADA-4E8E-94FC-AF8AE74C55BA.jpg?v=1751696951",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/09DFD8B9-92BA-401C-947F-FC8B40AE9891.jpg?v=1751696951",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/B3FC8560-2226-4649-934F-8A9ECE216276.jpg?v=1751696951"
+      ]
+    },
+    {
+      "id": "shopify-9977514000701",
+      "name": "Bloom necklace",
+      "description": "Stainless steel flower choker Weight:23.69g Length:42+5.5cm Adjustable Charm size: 3.4x3.5cm This necklace is made for beach days, tropical getaways, or whenever you want to add a little fun to your look.",
+      "price": "2299.00",
+      "url": "https://www.wildchildjewels.com/products/flower-choker",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/0BB909C4-926E-45B5-AAB8-23F461A114F8.jpg?v=1752732396",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/AA855F0D-1ED1-47D1-BD61-ABCCEDD6C3B4.jpg?v=1752732396",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/AD80E1E1-8EFE-4F6E-9388-30B8E58D4875.jpg?v=1751656319"
+      ]
+    },
+    {
+      "id": "shopify-9977517146429",
+      "name": "Starfish earrings with stones",
+      "description": "18k gold plated stainless steel starfish earrings with cubic zirconia stones Size: 28.5mm Weight: 8.4g Plating: 18k gold Material: Stainless steel -Water resistant These earrings are made for beach days, tropical getaways, or whenever you want to add a little ocean-inspired fun to your look.",
+      "price": "2199.00",
+      "url": "https://www.wildchildjewels.com/products/starfish-earrings-with-stones",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/A736AB14-2063-41CA-81D8-FA3022568B0B.jpg?v=1751659746",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/F2C202CF-9208-4E31-A952-E86E1C635587.jpg?v=1751659746",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/563E6F0B-6065-4E40-BF6B-6BFDA88E1C5D.jpg?v=1751659746",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/C98839F6-31B8-4BF2-9147-AFB4EC09670A.png?v=1751659746"
+      ]
+    },
+    {
+      "id": "shopify-9977518096701",
+      "name": "Starfish bracelet/cuff (adjustable)",
+      "description": "18k gold plated starfish bracelet/cuff Material: stainless steel Plating: 18k gold Size: Ajdustable This bracelet/cuff is made for beach days, tropical getaways, or whenever you want to add a little ocean-inspired fun to your look.",
+      "price": "2048.00",
+      "url": "https://www.wildchildjewels.com/products/starfish-bracelet-cuff-adjustable",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/267C71A0-AC44-486D-BF52-5902CACD733C.png?v=1751657218",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/413CCDF9-C173-4A10-B227-CF336D867D29.png?v=1751657218",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/B8F7D7F8-EC6A-448B-A7E6-4C7326043534.jpg?v=1751657218",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/21273B0E-9D51-49AA-B0DC-D056B117527C.png?v=1751657218",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/3F4F82ED-9F05-4450-BBFB-03E444587EB2.jpg?v=1753096297"
+      ]
+    },
+    {
+      "id": "shopify-9977519538493",
+      "name": "Heart Tennis necklace",
+      "description": "Gold plated brass tennis necklace with 5A cz hearts Material: Brass 5A cubic zirconia The Wild Child Heart Tennis Necklace is a playful take on the classic tennis style- cute, iconic, and made for stacking. Jewelry care: Avoid wearing the jewelry in the shower or getting it wet. If you sweat while wearing it, gently wipe it with a cloth and store it in a jewelry pouch/bag* Lotions, perfumes , hair sprays, etc. contain substances that accelerate tarnishing. So, for the longevi",
+      "price": "3648.00",
+      "url": "https://www.wildchildjewels.com/products/heart-tennis-necklace",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/18890604-45B2-49A4-81DD-B30DD768ABDF.jpg?v=1752686564",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/BC2CA0D8-94BD-4244-80A4-E98759876795.png?v=1752686564",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/C98839F6-31B8-4BF2-9147-AFB4EC09670A.png?v=1751659746"
+      ]
+    },
+    {
+      "id": "shopify-9977523503421",
+      "name": "Heart tennis bracelet silver",
+      "description": "Heart tennis bracelet Material: Brass 5A Cubic Zirconia Size: 17cm The Wild Child Heart Tennis Bracelet is a playful take on the classic tennis style- cute, iconic, and made for stacking. Jewelry care: Avoid wearing the jewelry in the shower or getting it wet. If you sweat while wearing it, gently wipe it with a cloth and store it in a jewelry pouch/bag* Lotions, perfumes , hair sprays, etc. contain substances that accelerate tarnishing. So, for the longevity of the pieces, p",
+      "price": "2105.00",
+      "url": "https://www.wildchildjewels.com/products/heart-tennis-bracelet-silver",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/D04232C4-3B7F-43E7-ACCD-CBD956785B95.png?v=1753096312",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/263939D2-A65F-4413-8CC8-A66D749C8CF7.jpg?v=1753096312",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/444970B9-56B8-4E14-A5EA-F2FD7A2BFCC6.jpg?v=1751657921"
+      ]
+    },
+    {
+      "id": "shopify-9977524027709",
+      "name": "Heart tennis bracelet gold",
+      "description": "Gold plated heart tennis bracelet Material: Brass 5A Cubic Zirconia Size: 17cm The Wild Child Heart Tennis Bracelet is a playful take on the classic tennis style- cute, iconic, and made for stacking. Jewelry Care: Avoid wearing the jewelry in the shower or getting it wet. If you sweat while wearing it, gently wipe it with a cloth and store it in a jewelry pouch/bag* Lotions, perfumes , hair sprays, etc. contain substances that accelerate tarnishing. So, for the longevity of t",
+      "price": "2148.00",
+      "url": "https://www.wildchildjewels.com/products/heart-tennis-bracelet-in-gold",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/C5B1F91F-D2F9-4B5E-BF16-868774FDA5A3.png?v=1753096297",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/3F4F82ED-9F05-4450-BBFB-03E444587EB2.jpg?v=1753096297",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/82227D69-E5B5-4AD5-BC7A-395BC06D7896.jpg?v=1753096372"
+      ]
+    },
+    {
+      "id": "shopify-9977524945213",
+      "name": "Pink heart tennis bracelet",
+      "description": "Gold plated 5A cz pink heart tennis bracelet Material: Brass Size: 17cm 5A Cubic Zirconia The Wild Child Heart Tennis Bracelet is a playful take on the classic tennis style- cute, iconic, and made for stacking. Jewelry Care: Avoid wearing the jewelry in the shower or getting it wet. If you sweat while wearing it, gently wipe it with a cloth and store it in a jewelry pouch/bag* Lotions, perfumes , hair sprays, etc. contain substances that accelerate tarnishing. So, for the lon",
+      "price": "2748.00",
+      "url": "https://www.wildchildjewels.com/products/pink-heart-tennis-bracelet",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/363EAD71-944D-4938-80B6-01E56EE3E70F.png?v=1753096372",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/82227D69-E5B5-4AD5-BC7A-395BC06D7896.jpg?v=1753096372",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/381232C1-6588-4715-A8B2-048F146C6BE2.jpg?v=1751659165",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/3F4F82ED-9F05-4450-BBFB-03E444587EB2.jpg?v=1753096297",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/009B0D71-2F84-458C-9540-0E8A445C7C9E.jpg?v=1751659132"
+      ]
+    },
+    {
+      "id": "shopify-9977525928253",
+      "name": "Evil eye hand chain",
+      "description": "Gold plated blue enamel evil eye hand chain Size: 15+ 4cm extension Adjustable Material: Brass Jewelry Care: Avoid wearing the jewelry in the shower or getting it wet. If you sweat while wearing it, gently wipe it with a cloth and store it in a jewelry pouch/bag* Lotions, perfumes , hair sprays, etc. contain substances that accelerate tarnishing. So, for the longevity of the pieces, put the necklace on as the finishing touch to your outfit. Over time, with normal wear, the go",
+      "price": "1846.00",
+      "url": "https://www.wildchildjewels.com/products/evil-eye-hand-chain",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/62171659-3846-412A-916E-8F53F4FDDBB2.jpg?v=1751658924",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/4BFF036E-538A-44F5-8D41-DD6A05543999.png?v=1751658924",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/C882F186-F3A8-4491-9C95-5AE28C3EE702.jpg?v=1751658912",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/0999E01B-DD30-48FA-A578-1DF4EAC3B72D.jpg?v=1751658912",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/4A500B41-33B0-431C-9B23-4A14CA23ACFB.png?v=1751658912"
+      ]
+    },
+    {
+      "id": "shopify-9977528353085",
+      "name": "Star hand chain",
+      "description": "Gold plated CZ star hand chain Size: 15+ 4cm extension Adjustable Material: Brass Jewelry Care: Avoid wearing the jewelry in the shower or getting it wet. If you sweat while wearing it, gently wipe it with a cloth and store it in a jewelry pouch/bag* Lotions, perfumes , hair sprays, etc. contain substances that accelerate tarnishing. So, for the longevity of the pieces, put the necklace on as the finishing touch to your outfit. Over time, with normal wear, the gold plating ma",
+      "price": "1887.00",
+      "url": "https://www.wildchildjewels.com/products/star-hand-chain",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/A29A10EB-4CF0-4466-877B-9A33ECF7140A.jpg?v=1751655966",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/D27D1B2C-504F-4DE6-AB13-59F0D3C42456.jpg?v=1751659111",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/65308619-44C7-4D3F-830E-A3C6069F9C21.jpg?v=1751659111"
+      ]
+    },
+    {
+      "id": "shopify-9809525604669",
+      "name": "Khushi Kapoor in Coastal Dreams Earrings",
+      "description": "Gold plated shell earrings Material: stainless steel Nickel free Size: 2.3cmx1.2cm Weight: 2.08g (super light weight)",
+      "price": "1699.00",
+      "url": "https://www.wildchildjewels.com/products/khushi-kapoor-in-coastal-dreams-earrings",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/Celebstyle.jpg?v=1738176222",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/FA6CEB5B-2A18-4CBB-B215-99838B9922D3.jpg?v=1714403814"
+      ]
+    },
+    {
+      "id": "shopify-9780189102397",
+      "name": "Silver Dome ring",
+      "description": "316L stainless steel ring -water resistant -tarnish free Size: 6 and 7 Weight: 13.7g",
+      "variants": [
+        "Size 6",
+        "Size 7"
+      ],
+      "sizes": [
+        "Size 6",
+        "Size 7"
+      ],
+      "price": "1899.00",
+      "url": "https://www.wildchildjewels.com/products/silver-chunky-ring",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/3FB90AA9-193D-4819-B634-B324EAEB114A.jpg?v=1736515741",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/IMG-9089_cc262b88-6c43-4a67-bff3-51cd82dce852.png?v=1736589553"
+      ]
+    },
+    {
+      "id": "shopify-9780190445885",
+      "name": "Two-toned Dome ring",
+      "description": "316 stainless steel ring -water resistant -tarnish free Weight: 13.7g size: 7",
+      "price": "1904.00",
+      "url": "https://www.wildchildjewels.com/products/mixed-metal-chunky-ring",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/DB46A1DA-2FDE-484F-9EB9-EBE9BD4C5224.jpg?v=1736515950",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/IMG-9089_834d59ab-b425-45c9-a521-9340b47529d4.png?v=1736589426"
+      ]
+    },
+    {
+      "id": "shopify-9781095268669",
+      "name": "Chunky funky earrings silver",
+      "description": "316L stainless steel earrings Size: 3.4*4cm Weight: 23gm",
+      "price": "1997.00",
+      "url": "https://www.wildchildjewels.com/products/chunky-earrings",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/43091740-8622-4C97-B15D-6CB5166DF7AC.jpg?v=1736586830",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/B0F9D163-4FE5-410B-A846-9B7EF05CB972.jpg?v=1736586830",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/AFFE3EFE-A44F-4D56-A494-DFE688A81007.png?v=1736590321"
+      ]
+    },
+    {
+      "id": "alina-hand-chain",
+      "name": "Alina Hand chain",
+      "description": "18k gold plated stainless steel hand chain Material: Stainless steel, Cubic Zirconia Weight: 2.6g Length: 7.08+1.57in Ring: 10cm (diameter)",
+      "price": "1949.00",
+      "url": "https://www.wildchildjewels.com/products/alina-hand-chain",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/F172C75D-B57A-4CAD-9A15-EB9AB76C0F5E.jpg?v=1731141072",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/63C5D169-BF8B-470E-A719-B72FDCD74DC7.jpg?v=1731140232",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/E1FC6140-BE11-48EC-BB56-D7978ADDD116.jpg?v=1731140835",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/31FE1530-1C7C-4B70-886D-972D788F3EFC.jpg?v=1731140835",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/0983A875-E4D1-4AD5-968A-DD3BE2F13483.jpg?v=1731141760"
+      ]
+    },
+    {
+      "id": "iced-initial-necklace",
+      "name": "Iced initial necklace",
+      "description": "18k gold plated pave cubic zirconia initial pendant DM or Email us to place an order for the second pendant. Letter pendant: Brass Adjustable length Kaia: 40cm + 5cm extension- Stainless Steel This pendant is made with a brass base and gold plating . If you have metal sensitivities or are prone to allergic reactions, we recommend avoiding prolonged wear or choosing a hypoallergenic option. JEWELRY CARE Avoid contact with water : Keep your charm dry to prevent tarnishing. Stee",
+      "variants": [
+        "A / Kaia",
+        "B / Kaia",
+        "C / Kaia",
+        "D / Kaia",
+        "E / Kaia",
+        "F / Kaia",
+        "G / Kaia",
+        "H / Kaia",
+        "I / Kaia",
+        "J / Kaia",
+        "K / Kaia",
+        "L / Kaia",
+        "M / Kaia",
+        "N / Kaia",
+        "O / Kaia",
+        "P / Kaia",
+        "Q / Kaia",
+        "R / Kaia",
+        "S / Kaia",
+        "T / Kaia"
+      ],
+      "price": "2499.00",
+      "url": "https://www.wildchildjewels.com/products/iced-initial-pendant",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/D51EBBEA-108C-494A-B091-935A7ABB4D7A.jpg?v=1752686601",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/C6FC3D28-8EC7-4AFB-94C4-EDFEFF5C53B9.jpg?v=1752686601",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/5DBB4C36-FCB8-46E3-892C-8D80B5C50E4D.png?v=1738384090",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/964B6EFD-6700-4FD6-A9E5-440086FA844C.png?v=1752732494",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/7F990B8A-C611-4E8B-AF3B-ED719D7AF1FF.jpg?v=1738384090",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/015A14CF-446E-4A9E-9526-D2F1501FA5F0.jpg?v=1738384090",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/964B04C0-9132-48DB-913E-E233D29832DF.jpg?v=1738384090",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/4F9C7FE5-08E2-4E93-B4DD-66665B335ADB.jpg?v=1738384090"
+      ]
+    },
+    {
+      "id": "shopify-9678278885693",
+      "name": "Athena cuff silver",
+      "description": "Stainless steel cuff Inner diameter: 61.5mm Opening: 31mm Width: Widest: 15.5mmmm Narrowest: 5.5mm Weight: 53g",
+      "price": "2199.00",
+      "url": "https://www.wildchildjewels.com/products/athena-cuff-silver",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/52F5C5CA-72D3-42A0-B0B4-C862C3D55BB4.jpg?v=1753096409",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/556DA870-6D22-4BAA-A0B6-F95661CE0F82.png?v=1753096409"
+      ]
+    },
+    {
+      "id": "shopify-9678342783293",
+      "name": "The Rocky ring",
+      "description": "Stainless steel ring with cubic zirconia Inner diameter: 17.8mm Width: 13.5mm",
+      "price": "1849.00",
+      "url": "https://www.wildchildjewels.com/products/the-rocky-ring",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/20277E31-294A-435E-B6CA-F86B0635D01A.png?v=1753781874",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/B97CCC9B-344C-444A-B413-59FAFAD997D6.jpg?v=1753781874"
+      ]
+    },
+    {
+      "id": "shopify-9678348190013",
+      "name": "The balloon ring silver",
+      "description": "Stainless steel ring Inner diameter: 18.3mm Opening width: Widest: 12.2mm Narrowest: 5.6mm",
+      "price": "1899.00",
+      "url": "https://www.wildchildjewels.com/products/the-balloon-ring-silver",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/81DB31A6-9FBA-4A27-9CC0-1BE29A5E87CC.png?v=1753781882",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/FB459DE0-0DA5-4A8F-B6E7-582CA2A9AFCC.jpg?v=1753781882"
+      ]
+    },
+    {
+      "id": "shopify-9678341833021",
+      "name": "Athena cuff gold",
+      "description": "PVD 18k Gold plated stainless steel cuff Inner diameter: 61.5mm Opening: 31mm Width: Widest: 15.5mmmm Narrowest: 5.5mm Weight: 53g",
+      "price": "2199.00",
+      "url": "https://www.wildchildjewels.com/products/athena-cuff-gold",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/EC506B10-9ECB-4F74-A2CD-4ED82877EE80.jpg?v=1753096423",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/CE1F1302-BB4A-4D44-BAD3-80902079DEB8.png?v=1753096423"
+      ]
+    },
+    {
+      "id": "shopify-9678342193469",
+      "name": "Luna cuff",
+      "description": "PVD 18k Gold plated stainless steel cuff Inner diameter: 62mm Opening: 30.5mm Width: Widest: 35.1mm Narrowest: 6.6mm Weight: 58g",
+      "price": "2249.00",
+      "url": "https://www.wildchildjewels.com/products/luna-cuff",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/1AF475D5-C988-42E1-8078-683485DAFA2B.jpg?v=1753096392",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/0928AD06-3AE4-46C5-9FFF-4079C95EB993.png?v=1753096392"
+      ]
+    },
+    {
+      "id": "yummy-gummy",
+      "name": "Yummy gummy",
+      "description": "Colorful gummies to add pops of color to your life gold plated resin gummies Bail material: copper Size: 10*15mm JEWELRY CARE for Your Charm Avoid contact with water : Keep your charm dry to prevent tarnishing. Steer clear of sweat and perfume : These can speed up tarnishing, so avoid wearing your charm during workouts or after applying perfume. Store in a dry place : Always keep your charm in a dry spot. If it gets wet, gently pat it dry with a clean cloth before storing. Us",
+      "variants": [
+        "White / Kaia",
+        "White / Alaia",
+        "White / Twisted rope",
+        "Yellow / Kaia",
+        "Yellow / Alaia",
+        "Yellow / Twisted rope",
+        "Lavender / Kaia",
+        "Lavender / Alaia",
+        "Lavender / Twisted rope"
+      ],
+      "price": "2157.00",
+      "url": "https://www.wildchildjewels.com/products/yummy-gummy",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/964B6EFD-6700-4FD6-A9E5-440086FA844C.png?v=1752732494",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/F9EDDBDD-68A7-4A7C-9B5C-D6C83E98B466.png?v=1752732494",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/353891B1-C7D4-406F-96E0-2503C4F6B64A.png?v=1752732494",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/517A3AA0-FA82-4949-BA07-B185358D89B4.png?v=1752732494",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/C9857A91-013C-49F8-B063-FFF74D16660A.jpg?v=1752732494",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/5E06DB1D-F6AF-404C-B348-6E095EE160B7.jpg?v=1752732494",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/953296A3-E59D-4DFC-A623-4ECBD4EE67F6.jpg?v=1752732494",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/793DCA02-DA5D-4001-9AC4-72ED70E72AE4.jpg?v=1752732494"
+      ]
+    },
+    {
+      "id": "dragonfly-necklace",
+      "name": "Dragonfly necklace",
+      "description": "Gold plated Dragonfly necklace Dragon fly charm: Material: Brass Size: 45x40x6.5mm Chain material: stainless steel Size: 40cm + 5cm extender",
+      "price": "2099.00",
+      "url": "https://www.wildchildjewels.com/products/dragonfly-necklace",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/209763A7-7F28-40ED-BEA7-BECF9FF763B3.jpg?v=1740245042",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/FE97026A-F27C-4CAF-AE21-856B7C39D0D8.jpg?v=1740245117"
+      ]
+    },
+    {
+      "id": "alana-bracelet",
+      "name": "Alana bracelet",
+      "description": "18k gold plated stainless steel bracelet Size: 3.6mm * 65mm",
+      "price": "2096.00",
+      "url": "https://www.wildchildjewels.com/products/alana-bracelet",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/6832F9BE-D4F8-4F96-AA2C-238743045FF8.jpg?v=1718400275",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/FullSizeRender_46909403-6ed1-4037-9c3f-b166c90dbd83.jpg?v=1718450037",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/9138DF8E-E3BE-46EF-93AE-1505E7EDF297.png?v=1718450037"
+      ]
+    },
+    {
+      "id": "shopify-9503980290365",
+      "name": "Bamboo hoops",
+      "description": "18k gold plated stainless steel hoop earrings Size: 4.6cm -Waterproof -Hypoallergenic",
+      "price": "2099.00",
+      "url": "https://www.wildchildjewels.com/products/bamboo-hoops",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/61DF66BB-663A-4C22-BCA8-0E41AE6402E7.jpg?v=1718399253",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/FullSizeRender_7ba666be-776e-4617-9fd5-7be1f8cdabec.jpg?v=1718448998"
+      ]
+    },
+    {
+      "id": "shopify-9503962562877",
+      "name": "Starfish earrings",
+      "description": "18k Gold plated stainless steel starfish earrings size: 2.52cm -Water resistant",
+      "price": "2056.00",
+      "url": "https://www.wildchildjewels.com/products/starfish-earrings",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/EAE4EBFF-63AE-4F88-A327-D500221D93D2.jpg?v=1718398626",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/IMG-1188.png?v=1718398626"
+      ]
+    },
+    {
+      "id": "shopify-9503985860925",
+      "name": "By the sea anklet",
+      "description": "18k gold- plated stainless steel anklet with shells and multicolor stones size: 21 cm + 5 cm extension -Waterproof -Skin friendly",
+      "price": "1949.00",
+      "url": "https://www.wildchildjewels.com/products/by-the-sea-anklet",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/D8B55E18-02AF-45FA-8EA8-FCE8F3DC4D72.jpg?v=1752686621",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/IMG-1187.png?v=1752686621"
+      ]
+    },
+    {
+      "id": "shopify-9503967150397",
+      "name": "Starfish necklace",
+      "description": "18k gold plated stainless steel starfish necklace Length: 50cm + 5cm extension -Water resistant",
+      "price": "2199.00",
+      "url": "https://www.wildchildjewels.com/products/starfish-necklace",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/EC96E425-1769-4F16-93B9-3EEAD5A4F39F.jpg?v=1718398616",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/597BFDF7-A99A-4EE3-97AC-8991C861935E.png?v=1718397972"
+      ]
+    },
+    {
+      "id": "shopify-9360369090877",
+      "name": "Khushi Kapoor in Celeste necklace",
+      "description": "18k gold plated stainless steel necklace with a freshwater pearl Length: 38cm + 5cm extender",
+      "price": "1899.00",
+      "url": "https://www.wildchildjewels.com/products/khushi-kapoor-in-celeste-necklace",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/B877C7AD-114C-4D7D-86BE-46E3E95A1CB9.jpg?v=1714404081",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/FD09FFA1-CD57-40DA-BA0F-D35354D795F1.jpg?v=1714404081"
+      ]
+    },
+    {
+      "id": "shopify-9360367124797",
+      "name": "Danielle in Alaia",
+      "description": "18k Gold plated snake herringbone chain - standard length is 41cm+5cm extender base metal: brass",
+      "price": "2349.00",
+      "url": "https://www.wildchildjewels.com/products/danielle-in-alaia",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/E58277DF-B1AE-4B9F-82DD-5B1B69DFD611.jpg?v=1714404005",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/49228740-44FF-4B8E-B101-88DC06705B40.png?v=1718483606"
+      ]
+    },
+    {
+      "id": "shopify-9360365093181",
+      "name": "Danielle in The sweetheart necklace",
+      "description": "18k gold filled heart pendant with snake chain Pendant Size: 23x18mm Chain length: 42cm + 5cm extension Material: nickel free brass and zirconia Skin friendly Water resistant",
+      "price": "1899.00",
+      "url": "https://www.wildchildjewels.com/products/danielle-in-the-sweetheart-necklace",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/3D7FCBE7-32CE-4553-B02E-D57D1C5C5C1A.jpg?v=1714403956",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/FCD8F66D-1818-40F3-8F37-4E81DC5F8174.webp?v=1714403956",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/CCA9805D-B562-42B5-8B88-2C354FA9566A.jpg?v=1714403956"
+      ]
+    },
+    {
+      "id": "shopify-9360363684157",
+      "name": "Samiksha Pednekar in Pearlina gold hoops",
+      "description": "Pvd gold plated stainless steel hoops Size: 20mmx5mm Weight: 13.05g",
+      "price": "2099.00",
+      "url": "https://www.wildchildjewels.com/products/samiksha-pednekar-in-pearlina-gold-hoops",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/B76690DE-50AD-4AB2-9140-C7DBC176BA4A.jpg?v=1714403863",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/8FB278FA-E941-4BFC-A14F-615058AD0FD4.png?v=1714403863"
+      ]
+    },
+    {
+      "id": "shopify-9360362504509",
+      "name": "Muskan Chanana in Coastal Dreams earrings",
+      "description": "Gold plated shell earrings Material: stainless steel Nickel free Size: 2.3cmx1.2cm Weight: 2.08g (super light weight)",
+      "price": "1699.00",
+      "url": "https://www.wildchildjewels.com/products/muskan-chanana-in-coastal-dreams-earrings",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/4A956D86-CBED-4397-91CA-3894595C3F54.jpg?v=1714403814",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/FA6CEB5B-2A18-4CBB-B215-99838B9922D3.jpg?v=1714403814"
+      ]
+    },
+    {
+      "id": "shopify-9360360833341",
+      "name": "Khushi Kapoor in Pearlina gold hoops",
+      "description": "Pvd gold plated stainless steel hoops Size: 20mmx5mm Weight: 13.05g",
+      "price": "2099.00",
+      "url": "https://www.wildchildjewels.com/products/khushi-kapoor-in-pearlina-gold-hoops",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/E35A859C-2F62-4DA4-BBE2-80F57B5DCC22.jpg?v=1714403756",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/D74BA07A-BCB7-44E0-818B-07CD496A6F1B.jpg?v=1714403757"
+      ]
+    },
+    {
+      "id": "shopify-9179599831357",
+      "name": "Isabel necklace",
+      "description": "Gold plated stainless steel necklace with freshwater pearls Length: 37+ 5cm Tassel chain length: 8cm",
+      "price": "2249.00",
+      "url": "https://www.wildchildjewels.com/products/isabel-necklace",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/IMG_7498.jpg?v=1711195812"
+      ]
+    },
+    {
+      "id": "shopify-9129202778429",
+      "name": "Balloon Star Necklace",
+      "description": "18k gold filled charm Size: 16x14mm 18k gold plated chain standard length is 40cm + 5cm extension Pendant material: brass Chain material: Stainless steel",
+      "price": "1878.00",
+      "url": "https://www.wildchildjewels.com/products/balloon-star-necklace",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/Balonstar2.jpg?v=1752732627",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/Balonstar1.jpg?v=1752732627"
+      ]
+    },
+    {
+      "id": "shopify-9129202712893",
+      "name": "The Beetle Necklace",
+      "description": "18K gold filled beetle pendant with snake chain Chain length: 42cm + 5cm extension Pendant size: 38x17x7.5mm Pendant material: Brass Chain material: Stainless Steel JEWELRY CARE Avoid contact with water : Keep your jewelry dry to prevent tarnishing. Steer clear of sweat and perfume : These can speed up tarnishing, so avoid wearing your charm during workouts or after applying perfume. Store in a dry place : Always keep your jewelry in a dry spot. If it gets wet, gently pat it ",
+      "price": "1899.00",
+      "url": "https://www.wildchildjewels.com/products/the-beetle-necklace",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/beetle2.heic?v=1752686634",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/beetle1.jpg?v=1752686634"
+      ]
+    },
+    {
+      "id": "shopify-9129202516285",
+      "name": "Coastal Dreams Earrings",
+      "description": "Gold plated shell earrings Material: stainless steel Nickel free Size: 2.3cmx1.2cm Weight: 2.08g (super light weight)",
+      "price": "1699.00",
+      "url": "https://www.wildchildjewels.com/products/coastal-dreams-earrings",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/CoastalDream1.heic?v=1710252809",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/CoastalDream2_heic.png?v=1710252809"
+      ]
+    },
+    {
+      "id": "shopify-9129202417981",
+      "name": "Pearlina Gold Hoops",
+      "description": "Pvd gold plated stainless steel hoops Size: 20mmx5mm Weight: 13.05g",
+      "price": "2099.00",
+      "url": "https://www.wildchildjewels.com/products/pearlina-gold-hoops",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/Pearlinagoldhoops2_png.heic?v=1710252762",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/Pearlinagoldhoops1.png?v=1710252762"
+      ]
+    },
+    {
+      "id": "shopify-9129202385213",
+      "name": "Twister Hoops",
+      "description": "Pvd Gold Plated Titanium Steel earrings Weight: 27.96g Size: 3.06x2.33cm",
+      "price": "2099.00",
+      "url": "https://www.wildchildjewels.com/products/twister-hoops",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/twisterhoops2_jpg.heic?v=1752686792",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/twisterhoops1.jpg?v=1752686792",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/33C3B1E0-7824-46AD-A336-37E3679BCA20.jpg?v=1752686823"
+      ]
+    },
+    {
+      "id": "shopify-8879020769597",
+      "name": "Strawberry Shortcake",
+      "description": "Freshwater pearls and glass beads Surgical Stainless steel lobster clasps Hypoallergenic stainless steel extender Standard length is 16.5 inches",
+      "price": "2800.00",
+      "url": "https://www.wildchildjewels.com/products/strawberry-shortcake",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/9D8F7AC8-A14D-42BF-BCE8-6C40E6711BD9.jpg?v=1714170533",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/808860B3-07C6-4036-8DB4-2EC017F31130.jpg?v=1730787989"
+      ]
+    },
+    {
+      "id": "shopify-8879020441917",
+      "name": "Alaia",
+      "description": "- 18k Gold plated snake herringbone chain - standard length is 41cm+5cm extender Base material: Brass",
+      "price": "2349.00",
+      "url": "https://www.wildchildjewels.com/products/alaia",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/Alaia1.jpg?v=1752732662",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/Alaia2.jpg?v=1752732662"
+      ]
+    },
+    {
+      "id": "iced-teddy-pendant",
+      "name": "Iced Teddy Pendant",
+      "description": "18k gold plated Cubic zirconia micropave teddy charm Size: 27x17mm Nickel free Base material: Brass Adjustable length Kaia: 40cm + 5cm extension- Stainless Steel",
+      "variants": [
+        "Kaia"
+      ],
+      "price": "2583.00",
+      "url": "https://www.wildchildjewels.com/products/iced-teddy-pendant",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/Icedminii3.jpg?v=1770489319",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/Icedpendant1.jpg?v=1770489319",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/CAFBDDC1-E61D-4460-B595-20AE7702DB7C.jpg?v=1773676715",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/B5FF8CCA-6967-4C98-A630-9296AD5A4545.jpg?v=1773676715"
+      ]
+    },
+    {
+      "id": "shopify-8879018967357",
+      "name": "Emerald Teddy Necklace",
+      "description": "18k gold stainless plated chain with brass gold plated teddy charm Standard length: 40cm + 5cm extension (adjustable length) Chain thickness: 1mm Chain material: Stainless Steel Teddy charm material: Brass",
+      "price": "1899.00",
+      "url": "https://www.wildchildjewels.com/products/emerald-teddy-necklace",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/Emeraldteddy2.jpg?v=1752686762",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/Emeraldteddy1.jpg?v=1752686762"
+      ]
+    },
+    {
+      "id": "shopify-8879018672445",
+      "name": "Iced Teddy (mini) Necklace",
+      "description": "Cubic zirconia Micropave 18k gold plated teddy charm with gold plated stainless steel chain Chain length: 40cm + 5cm extension Chain thickness: 1mm Charm size: 17x10mm Teddy Charm material: Brass Chain material: Stainless steel JEWELRY CARE Avoid contact with water : Keep your jewelry dry to prevent tarnishing. Steer clear of sweat and perfume : These can speed up tarnishing, so avoid wearing your charm during workouts or after applying perfume. Store in a dry place : Always ",
+      "price": "2049.00",
+      "url": "https://www.wildchildjewels.com/products/iced-teddy-mini-necklace",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/9CFC531B-B9C8-40CC-8C0F-BEA353A0CBAF.png?v=1754045232",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/Icedmini1.jpg?v=1754045232",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/Icedminii2.jpg?v=1754045232",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/3C3AD106-58C9-4C2A-983A-A2EDE00EA526.jpg?v=1781171050"
+      ]
+    },
+    {
+      "id": "shopify-8879017591101",
+      "name": "Twisted Rope Bracelet",
+      "description": "18k gold plated bracelet Material: Stainless steel -Water resistant Size: Adjustable",
+      "price": "1899.00",
+      "url": "https://www.wildchildjewels.com/products/twisted-rope-bracelet",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/E6FED306-CB19-4DC5-BB65-8FCCC2E01024.jpg?v=1752732720",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/D5DE611B-DC92-4BE1-9199-8782C990E566.jpg?v=1752732720"
+      ]
+    },
+    {
+      "id": "shopify-8879017525565",
+      "name": "Hollow Iced Teddy Necklace",
+      "description": "18k gold filled Hollow teddy pendant with snake chain or tennis chain Pendant size: 30x21mm Chain length: 40cm + 5cm extender - Gold plated - Water resistant - Skin friendly Pendant material: Brass Chain material: Stainless Steel",
+      "price": "1899.00",
+      "url": "https://www.wildchildjewels.com/products/hollow-iced-teddy-necklace",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/Hollowiced1.jpg?v=1752686719",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/Hollowiced2.jpg?v=1752686719"
+      ]
+    },
+    {
+      "id": "shopify-8879017460029",
+      "name": "The Sweetheart Necklace",
+      "description": "18k gold filled heart pendant with snake chain Pendant Size: 23x18mm Chain length: 40cm + 5cm extension Heart pendant Material: nickel free brass and zirconia Chain Material: Stainless Steel Skin friendly Water resistant",
+      "price": "1896.00",
+      "url": "https://www.wildchildjewels.com/products/the-sweetheart-necklace",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/Sweetheart2.jpg?v=1752686729",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/Sweetheart1.jpg?v=1752686729"
+      ]
+    },
+    {
+      "id": "shopify-8879017296189",
+      "name": "Iced Cross Necklace",
+      "description": "18k gold filled cross pendant with stainless steel chain Chain length: 40cm+ 5cm Pendant size: 30x20mm Cross pendant material: Brass Chain material: stainless steel JEWELRY CARE Avoid contact with water : Keep your jewelry dry to prevent tarnishing. Steer clear of sweat and perfume : These can speed up tarnishing, so avoid wearing your charm during workouts or after applying perfume. Store in a dry place : Always keep your jewelry in a dry spot. If it gets wet, gently pat it ",
+      "price": "1849.00",
+      "url": "https://www.wildchildjewels.com/products/iced-cross-necklace",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/Crossiced2.jpg?v=1752732755",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/Crossiced1.jpg?v=1752732755",
+        "https://cdn.shopify.com/s/files/1/0797/9529/0429/files/Crossiced3_jpg.png?v=1710250946"
+      ]
+    }
+  ],
+  "ready": true
+}

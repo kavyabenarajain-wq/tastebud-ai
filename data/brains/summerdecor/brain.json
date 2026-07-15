@@ -1,0 +1,935 @@
+{
+  "name": "Summerdecor",
+  "website": "https://summerdecor.in",
+  "research": {
+    "summary": "Summer Decor is a real Indian DTC home decor brand selling bedsheets, wall art, ceramics and decor objects through summerdecor.in. Its positioning is anti-beige, warm, colourful and personality-led, with copy such as “Forever Warm Forever Bright,” “Never beige. Never Basic.” and “Homes shouldn’t have to be hotel lobbies.” The brand appears young, founder-led and drop-oriented, with limited pieces per design and a focus on expressive, accessible-premium home products for urban Indian consumers.",
+    "essence": "Bold, limited-run home decor for Indian homes that refuse to look beige, rented, impersonal or borrowed.",
+    "voice": "Warm, punchy, irreverent, founder-led, design-aware and anti-beige. The brand speaks in short declarative lines, rejects anonymous hotel-lobby interiors, and makes colourful decorating feel personal, youthful and emotionally warm rather than formal or luxury-coded.",
+    "competitors": [
+      "Nestasia",
+      "The Wishing Chair",
+      "Pinklay",
+      "Safomasi"
+    ],
+    "ambassadors": [
+      "Risheek Nawka"
+    ],
+    "instagram": "unverified",
+    "website": "https://summerdecor.in",
+    "palette": [
+      {
+        "hex": "#FFF3DD",
+        "role": "warm cream base"
+      },
+      {
+        "hex": "#E94B2E",
+        "role": "arancia orange accent"
+      },
+      {
+        "hex": "#C81E3A",
+        "role": "crimson/cherry red hero"
+      },
+      {
+        "hex": "#F5B733",
+        "role": "ochre yellow accent"
+      },
+      {
+        "hex": "#1F5FBF",
+        "role": "cobalt blue contrast"
+      },
+      {
+        "hex": "#16845B",
+        "role": "emerald green accent"
+      },
+      {
+        "hex": "#F46F8C",
+        "role": "watermelon pink highlight"
+      }
+    ],
+    "aesthetic": "Website-led, product-first colourful home-commerce photography: bold graphic bedsheets, wall art and ceramics are presented as high-colour hero objects rather than neutral catalogue basics. Reproduce with warm cream or sunlit domestic backgrounds, simple beds, tabletops and wall surfaces; saturated fruit and jewel tones against breathable off-white space; medium styling density with home props such as fruit, books, plates, flowers or small decor objects; soft natural daylight from the side or front-side with gentle shadows and a warm grade; close crops that show textile pattern, ceramic shape and canvas presence, mixed with wider room/product setup shots. The look should stay product-led over model-led, using occasional hands or lived-in cues only to make the pieces feel domestic, young and usable rather than studio-sterile.",
+    "foundReal": true,
+    "logo": "https://summerdecor.in/cdn/shop/files/SUMMER_1_91d68a64-ff7f-4d36-bf2c-b6089ab12df7.png?v=1772030989&width=480",
+    "productImages": [
+      "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/ChatGPT_Image_Jun_7_2026_11_52_00_PM.png?v=1780901533",
+      "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/ChatGPTImageJun7_2026_11_37_09PM.png?v=1780900694",
+      "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/f9f36d28-e0d0-4edc-823a-8f27884295d3.png?v=1780899889",
+      "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/WhatsAppImage2026-05-30at5.03.57AM.jpg?v=1780885206",
+      "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/WhatsAppImage2026-05-30at4.15.14AM_3.jpg?v=1780884883",
+      "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/WhatsAppImage2026-05-30at11.38.13AM_2.jpg?v=1780884032",
+      "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/WhatsAppImage2026-05-30at3.57.01AM_1.jpg?v=1780882801",
+      "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/ChatGPTImageMay23_2026_08_26_46PM.png?v=1779548738",
+      "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/acd4aa48-d3fa-49a5-a8bf-9f3210042d4c.png?v=1777453895",
+      "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/ad82e308-0a27-4981-aa00-8418f82e0aab.jpg?v=1775062338",
+      "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/5b38d025-d958-4287-9727-e560159a2b82.jpg?v=1775062093",
+      "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/Gemini_Generated_Image_lrjdi3lrjdi3lrjd.png?v=1775061873"
+    ],
+    "products": [
+      {
+        "name": "The Anguria Sheet",
+        "image": "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/ChatGPT_Image_Jun_7_2026_11_52_00_PM.png?v=1780901533"
+      },
+      {
+        "name": "The Arancia Sheet",
+        "image": "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/ChatGPTImageJun7_2026_11_37_09PM.png?v=1780900694"
+      },
+      {
+        "name": "The Ciliegia Sheet",
+        "image": "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/f9f36d28-e0d0-4edc-823a-8f27884295d3.png?v=1780899889"
+      },
+      {
+        "name": "The Trinket Trays",
+        "image": "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/WhatsAppImage2026-05-30at5.03.57AM.jpg?v=1780885206"
+      },
+      {
+        "name": "Piccolo: The Fruit Basins",
+        "image": "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/WhatsAppImage2026-05-30at4.15.14AM_3.jpg?v=1780884883"
+      },
+      {
+        "name": "Prima Mess: The Tiered Decks",
+        "image": "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/WhatsAppImage2026-05-30at11.38.13AM_2.jpg?v=1780884032"
+      },
+      {
+        "name": "Dolce Mess: The Aperitivo Plates",
+        "image": "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/WhatsAppImage2026-05-30at3.57.01AM_1.jpg?v=1780882801"
+      },
+      {
+        "name": "The Azure Sheet Set",
+        "image": "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/ChatGPTImageMay23_2026_08_26_46PM.png?v=1779548738"
+      },
+      {
+        "name": "The Flamingo Bedsheet",
+        "image": "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/acd4aa48-d3fa-49a5-a8bf-9f3210042d4c.png?v=1777453895"
+      },
+      {
+        "name": "The Happy Place Canvas",
+        "image": "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/ad82e308-0a27-4981-aa00-8418f82e0aab.jpg?v=1775062338"
+      },
+      {
+        "name": "The Fuchia Hearts Canvas",
+        "image": "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/5b38d025-d958-4287-9727-e560159a2b82.jpg?v=1775062093"
+      },
+      {
+        "name": "The Liquid Checkered Canvas",
+        "image": "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/Gemini_Generated_Image_lrjdi3lrjdi3lrjd.png?v=1775061873"
+      },
+      {
+        "name": "The Tangerine Grid Canvas",
+        "image": "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/Gemini_Generated_Image_mfvzdgmfvzdgmfvz_1.png?v=1775061965"
+      },
+      {
+        "name": "The Emerald Meridian Set",
+        "image": "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/796cd535d9857eb2aa9d3b0324f8a5a4.jpg?v=1773214793"
+      },
+      {
+        "name": "The Navy Flow Canvas",
+        "image": "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/d2ad3181ad77762a8a69776891b3aaed.jpg?v=1773136497"
+      },
+      {
+        "name": "The Ochre Bloom Canvas",
+        "image": "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/unnamed.jpg?v=1773136174"
+      },
+      {
+        "name": "The Manifest Canvas",
+        "image": "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/e12f2004918b2451a5b1b0df7ece3aa8.jpg?v=1773135615"
+      },
+      {
+        "name": "The Cobalt Meridian Canvas",
+        "image": "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/383d092d69621e518dc208746c56b127.jpg?v=1773135295"
+      },
+      {
+        "name": "The Crimson Cadence Bedsheet",
+        "image": "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/WhatsApp_Image_2026-04-17_at_10.37.55_AM.jpg?v=1777363096"
+      },
+      {
+        "name": "The Chromatic Halo Canvas",
+        "image": "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/eb1a3f7a4142c0f2544e17b92b271cd0.jpg?v=1772052286"
+      },
+      {
+        "name": "The Solstice Flow Canvas",
+        "image": "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/5627ffdf9d255be9bd9568424b2982fa.jpg?v=1772051831"
+      },
+      {
+        "name": "The Cobalt Latitude Bedsheet",
+        "image": "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/WhatsApp_Image_2026-04-17_at_10.37.07_AM.jpg?v=1777376472"
+      },
+      {
+        "name": "The Ochre Horizon Bedsheet",
+        "image": "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/0b0f0122fbcc1626cfea544a36bdf980.jpg?v=1772036451"
+      },
+      {
+        "name": "The Eclipse Ray Rug",
+        "image": "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/image_5.png?v=1771965142"
+      },
+      {
+        "name": "The Terra Block Rug",
+        "image": "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/Gemini_Generated_Image_ukgv4wukgv4wukgv_1_c0feeb0b-df89-4e18-803f-801d3ff05ff8.png?v=1771964974"
+      },
+      {
+        "name": "The Meridian Drift Rug",
+        "image": "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/image_4.png?v=1771964731"
+      },
+      {
+        "name": "The Solar Flow Rug",
+        "image": "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/d63961b76ed224b5522a42c6fae6bd84.jpg?v=1771960075"
+      }
+    ],
+    "sources": 6
+  },
+  "intelligence": {
+    "overview": "Summer Decor is a young Indian DTC home décor brand built around bold colour, warmth and a rejection of anonymous beige interiors. Its own language, including “Forever Warm Forever Bright,” “Never beige. Never Basic.” and “Homes shouldn’t have to be hotel lobbies,” positions the brand as an accessible-premium alternative for expressive Indian homes.",
+    "purpose": "To make Indian homes feel alive, personal and emotionally warm through bold, limited-run décor that is still usable, durable and accessible.",
+    "mission": "To create vibrant, design-led home objects such as bedsheets, wall art, ceramics, rugs and accessories that help people move beyond safe interiors without needing a full interior designer or luxury budget.",
+    "vision": "To become the colourful, contemporary Indian home brand for people who want their rooms to feel collected, expressive and recognisably theirs, not like a showroom, hotel lobby or Pinterest duplicate.",
+    "story": "Founder Risheek Nawka says he came to Summer Decor after running a canvas business and spending time around interiors, where he noticed many Indian homes looked the same. Seeing a gap for bold, vibrant home décor in India that felt worth owning, he built Summer Decor as a founder-led answer to bland mass décor and inaccessible designer interiors.",
+    "values": [
+      "Colour over caution",
+      "Warmth over formality",
+      "Personality over sameness",
+      "Limited-run collectability",
+      "Material practicality",
+      "Made-to-order intimacy",
+      "Accessible design confidence"
+    ],
+    "positioning": "Bold, limited-run home décor for Indian homes that refuse to look rented, beige or borrowed.",
+    "audience": "Urban, design-aware Indian consumers including students, first-apartment renters, young founders, creative professionals, young couples and aesthetically fluent families who want expressive rooms without committing to a luxury interior project.",
+    "persona": "Ananya or Kabir is 24 to 32, living in Bengaluru, Mumbai, Delhi, Pune or Hyderabad, and finally has a room or apartment worth caring about. They save interiors reels, hate builder-beige flats, like cafés, art prints, statement bedding, ceramics and objects that photograph well, but worry that bold décor might look tacky or hard to style. They buy Summer Decor when moving into a new rental, refreshing a bedroom, hosting friends or looking for a gift cooler than candles; what they are really buying is permission to have a home with personality.",
+    "toneOfVoice": "Warm, punchy, irreverent, design-aware and anti-beige.",
+    "personality": [
+      "Colour contrarian",
+      "Young collector",
+      "Friend with taste",
+      "Founder-led",
+      "Scrappy",
+      "Optimistic",
+      "Dopamine decorator",
+      "Direct"
+    ],
+    "palette": [
+      {
+        "hex": "#FFF3DD",
+        "role": "warm cream base"
+      },
+      {
+        "hex": "#E94B2E",
+        "role": "arancia orange accent"
+      },
+      {
+        "hex": "#C81E3A",
+        "role": "crimson/cherry red hero"
+      },
+      {
+        "hex": "#F5B733",
+        "role": "ochre yellow accent"
+      },
+      {
+        "hex": "#1F5FBF",
+        "role": "cobalt blue contrast"
+      },
+      {
+        "hex": "#16845B",
+        "role": "emerald green accent"
+      },
+      {
+        "hex": "#F46F8C",
+        "role": "watermelon pink highlight"
+      }
+    ],
+    "typography": {
+      "display": "Clean contemporary sans-serif with high-contrast, declarative headlines; no verified typeface name available.",
+      "text": "Plainspoken modern sans-serif suited to Shopify-style DTC commerce, short product names and benefit-led copy; no verified typeface name available.",
+      "note": "The verbal identity carries more expression than the typography. The brand does not read as ornate, heritage or craft-traditional; it reads young, graphic and direct."
+    },
+    "logo": "https://summerdecor.in/cdn/shop/files/SUMMER_1_91d68a64-ff7f-4d36-bf2c-b6089ab12df7.png?v=1772030989&width=480",
+    "logoSystem": "The visible identity appears to be wordmark-led around the name “Summer Decor,” with no verified complex emblem or crest surfaced. The strongest brand assets are the phrase architecture: “Forever Warm Forever Bright,” “Never beige. Never Basic.” and “Homes shouldn’t have to be hotel lobbies.”",
+    "photographyStyle": "Use warm natural daylight, creamy whites, saturated but not neon colour and lived-in Indian rooms rather than grey studio cataloguing. Shoot sunlit beds, fruit-coloured ceramics on dining tables, textured cotton, wall art clusters and warm floors; style with fruit, books, plates, cups, lamps, flowers or laptops at medium density. Use overhead bedding shots, tactile close-ups of weave and ceramic relief, wide room-transformation frames, soft side shadows, occasional hands or lounging bodies, and asymmetric editorial crops that make bold colour feel usable rather than chaotic.",
+    "packagingStyle": "No verified packaging imagery surfaced. Strategically, the packaging should support the limited-edition promise through edition cards, care instructions, warm high-colour inserts and a sense of receiving a numbered design object rather than a commodity parcel.",
+    "visualIdentity": "Summer Decor’s visual identity is best understood as Mediterranean-fruit-meets-Indian-modern: citrus orange, cherry red, watermelon pink and green, cobalt blue, emerald, ochre and warm neutrals used with clean DTC layouts and punchy anti-beige copy. The system should make saturated colour feel livable, collected and emotionally warm rather than noisy or novelty-driven.",
+    "competitors": [
+      {
+        "name": "Nestasia",
+        "note": "A larger Indian lifestyle and home décor store with broad categories across ceramicware, glassware, soft furnishings, planters, faux florals and decorative objects; competes on range, gifting and accessible design variety."
+      },
+      {
+        "name": "The Wishing Chair",
+        "note": "A homegrown Indian lifestyle brand leaning into self-expression, ceramics, wall art, handcrafted objects, maximalist design, vibrant colour, bold patterns and Indian heritage; one of the closest tonal competitors."
+      },
+      {
+        "name": "Pinklay",
+        "note": "An Indian home décor and lifestyle brand rooted in colour, craft and story-led design, with categories including quilts, bedsheets, rugs, ceramics, curtains and tableware; more craft-and-culture coded but serving a similar house-proud consumer."
+      },
+      {
+        "name": "Safomasi",
+        "note": "A Delhi-based independent interiors brand known for colourful, travel-inspired fabrics, rugs and premium homewares; more premium and illustration-led, but adjacent in joy, pattern and colour."
+      }
+    ],
+    "social": [
+      {
+        "platform": "Website",
+        "handle": "Summer Decor",
+        "url": "https://summerdecor.in",
+        "note": "Primary official channel; drop-led commerce with collections, product benefits, testimonials, founder-origin copy and declarative anti-beige brand language."
+      },
+      {
+        "platform": "LinkedIn",
+        "handle": "Risheek Nawka",
+        "url": "https://in.linkedin.com/in/risheek-nawka-b336452b0",
+        "note": "Founder-led build-in-public channel rather than a verified official brand page; posts cover hiring, milestones, startup learnings, revenue claims and brand development in a candid youthful voice."
+      }
+    ],
+    "press": [],
+    "insights": [
+      "The anti-beige idea is the sharpest brand asset. Summer Decor should keep naming the enemy as impersonal, safe interiors rather than diluting into generic colourful décor.",
+      "Bedsheets are the gateway product because they are high-impact, affordable relative to furniture, easy to ship and capable of transforming a room instantly.",
+      "Limited editions need to become ritual, not just a product detail. Edition numbers, drop names, launch countdowns, archive pages and collector cards can make scarcity emotionally valuable.",
+      "The founder story is useful, but the bigger cultural story is stronger: a generation of Indian renters, first-home owners and young families wants rooms shaped by identity, internet taste, cafés, films and travel, not only by interior designers.",
+      "The brand must teach people how to live with bold colour. Styling recipes, room edits and “one bold move” guides can reduce the fear that colourful décor will look tacky or chaotic.",
+      "Warmth should be owned as much as colour. “Forever Warm Forever Bright” gives the brand emotional endurance beyond dopamine décor trends."
+    ],
+    "website": "https://summerdecor.in",
+    "instagram": "unverified",
+    "sources": 6,
+    "foundReal": true,
+    "inferred": false
+  },
+  "catalog": [
+    {
+      "id": "the-anguria-sheet",
+      "name": "The Anguria Sheet",
+      "description": "Comes with 2 pillow cases; size 27' x 17'. 300 thread count, super soft, long staple cotton bedsheets. An absolute splash of high-saturation energy to transform your space . Woven from our signature premium 90% long-staple cotton blend at a crisp, highly breathable 300 thread count , these sheets deliver an incredibly smooth, soft hand-feel alongside a satisfyingly heavy, structured drape. The soft pastel-pink canvas is scattered with a vibrant, illustrative watercolor waterm",
+      "variants": [
+        "King (108' x 108')",
+        "Single (108' x 54')",
+        "King - Duvet Cover"
+      ],
+      "sizes": [
+        "King (108' x 108')",
+        "Single (108' x 54')",
+        "King - Duvet Cover"
+      ],
+      "price": "2999.00",
+      "url": "https://summerdecor.in/products/the-anguria-sheet",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/ChatGPT_Image_Jun_7_2026_11_52_00_PM.png?v=1780901533",
+        "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/Screenshot2026-06-07234222.png?v=1780901510",
+        "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/ChatGPT_Image_Jun_7_2026_11_53_39_PM.png?v=1780901632"
+      ]
+    },
+    {
+      "id": "the-arancia-sheet",
+      "name": "The Arancia Sheet",
+      "description": "Comes with 2 pillow cases; size 27' x 17'. 300 thread count, super soft, long staple cotton bedsheets. Sun-drenched texture that entirely alters the mood of the room. Woven from a premium 90% long-staple cotton blend at a crisp, breathable 300 thread count , this set pairs an ultra-soft touch with a satisfying, heavy drape. We swapped boring solids for a vibrant, high-saturation orange gingham grid, layered with a playful scattered citrus motif to add geometric structure and ",
+      "variants": [
+        "King (108' x 108')",
+        "Single (108' x 54')",
+        "King - Duvet Cover"
+      ],
+      "sizes": [
+        "King (108' x 108')",
+        "Single (108' x 54')",
+        "King - Duvet Cover"
+      ],
+      "price": "2999.00",
+      "url": "https://summerdecor.in/products/the-arancia-sheet",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/ChatGPTImageJun7_2026_11_37_09PM.png?v=1780900694",
+        "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/Screenshot2026-06-07233332.png?v=1780900696"
+      ]
+    },
+    {
+      "id": "the-ciliegia-sheet",
+      "name": "The Ciliegia Sheet",
+      "description": "Comes with 2 pillow cases; size 27' x 17'. 300 thread count, super soft, long staple cotton bedsheets. Sweet, crisp, and unapologetically high-character. Built with a premium 90% long-staple cotton blend and woven at a precise, breathable 300 thread count , these sheets strike the perfect balance between crisp structure and smooth, cloud-like softness. The cream-toned base is scattered with a vibrant, high-saturation cherry motif, beautifully contrasted by a heavy, reversible",
+      "variants": [
+        "King (108' x 108')",
+        "Single (108' x 54')",
+        "King - Duvet Cover"
+      ],
+      "sizes": [
+        "King (108' x 108')",
+        "Single (108' x 54')",
+        "King - Duvet Cover"
+      ],
+      "price": "2999.00",
+      "url": "https://summerdecor.in/products/the-ciliegia-sheet",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/f9f36d28-e0d0-4edc-823a-8f27884295d3.png?v=1780899889",
+        "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/Screenshot_2026-06-07_231839.png?v=1780899962"
+      ]
+    },
+    {
+      "id": "the-trinket-trays",
+      "name": "The Trinket Trays",
+      "description": "Organized chaos, elevated. Your daily essentials shouldn't live in a basic plastic sorting bin or a flat, uninspired dish. The Melograno Trinket Tray is an architectural ceramic asset designed to bring structure and a punch of high-saturation character to your vanity, desk, or entryway setup. Molded into a chunky, sculptural pomegranate cross-section, this 6-inch tray features six distinct, deep-set segments. The interior cavities are finished with a rich, high-gloss pink gla",
+      "variants": [
+        "The Melograno"
+      ],
+      "price": "1599.00",
+      "url": "https://summerdecor.in/products/the-trinket-trays",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/WhatsAppImage2026-05-30at5.03.57AM.jpg?v=1780885206",
+        "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/WhatsAppImage2026-05-30at5.03.58AM_1.jpg?v=1780885206",
+        "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/WhatsAppImage2026-05-30at5.03.58AM_2.jpg?v=1780885206",
+        "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/WhatsAppImage2026-05-30at5.03.58AM.jpg?v=1780885206"
+      ]
+    },
+    {
+      "id": "piccolo-the-fruit-basins",
+      "name": "Piccolo: The Fruit Basins",
+      "description": "Product Description A vibrant tabletop statement that refuses to blend into the background. Boring, uniform serving bowls have spent long enough flattening the mood of your kitchen. The Dolce Mess Fruit Basins are heavy-spec, high-saturation ceramic showpieces designed to act as architectural anchors for your table, counter, or workspace setup. Molded with a chunky, wavy silhouette, each 5-inch basin features a beautifully irregular, organic rim that frames whatever is inside",
+      "variants": [
+        "Limone: Yellow",
+        "Anguria: Red",
+        "All"
+      ],
+      "price": "2499.00",
+      "url": "https://summerdecor.in/products/piccolo-the-fruit-basins",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/WhatsAppImage2026-05-30at4.15.14AM_3.jpg?v=1780884883",
+        "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/WhatsAppImage2026-05-30at4.34.03AM_1.jpg?v=1780884884",
+        "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/WhatsApp_Image_2026-05-30_at_4.15.13_AM_1.jpg?v=1780884896",
+        "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/WhatsAppImage2026-05-30at4.34.03AM_2.jpg?v=1780884883"
+      ]
+    },
+    {
+      "id": "prima-mess-the-tiered-decks",
+      "name": "Prima Mess: The Tiered Decks",
+      "description": "Stop juggling a cluttered sea of small bowls, side plates, and leaking ramekins on your breakfast table. The Prima Mess Tiered Decks are an elegant, multi-level ceramic asset designed to streamline your spread while bringing the sun-drenched atmosphere of an early morning European café straight to your space. Handcrafted with a fluid, organic silhouette, each deck features an integrated, elevated 2-inch dip basin connected to a spacious 7-inch main serving platter. Detailed w",
+      "variants": [
+        "Orange",
+        "Cherry",
+        "Lemon",
+        "All"
+      ],
+      "price": "2999.00",
+      "url": "https://summerdecor.in/products/prima-mess-the-tiered-decks",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/WhatsAppImage2026-05-30at11.38.13AM_2.jpg?v=1780884032",
+        "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/WhatsAppImage2026-05-30at11.38.12AM.jpg?v=1780884032",
+        "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/WhatsAppImage2026-05-30at4.59.03AM_1.jpg?v=1780884032",
+        "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/WhatsAppImage2026-05-30at11.38.13AM_1.jpg?v=1780884032",
+        "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/WhatsAppImage2026-05-30at11.38.13AM.jpg?v=1780884032"
+      ]
+    },
+    {
+      "id": "dolce-mess-the-aperitivo-plates",
+      "name": "Dolce Mess: The Aperitivo Plates",
+      "description": "Embrace the chaos. The dinner party isn't meant to be perfect. Flawless, matching porcelain sets are a relic of the past. The Dolce Mess Ceramic Plates are a deliberate antidote to clinical table settings, engineered to bring a heavy dose of raw, sun-drenched Italian energy to your space. Each 3.5-inch plate is individually handcrafted, giving it a beautifully wavy, irregular wavy rim that catches the light like a coastal afternoon. Saturated with high-contrast pastel ticking",
+      "variants": [
+        "Bella : Yellow",
+        "Limon: Blue",
+        "Pomodoro: Green",
+        "Amore: Pink",
+        "Dolche Mess: The set"
+      ],
+      "price": "999.00",
+      "url": "https://summerdecor.in/products/dolce-mess-the-aperitivo-plates",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/WhatsAppImage2026-05-30at3.57.01AM_1.jpg?v=1780882801",
+        "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/WhatsAppImage2026-05-30at3.57.14AM.jpg?v=1780882802",
+        "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/WhatsAppImage2026-05-30at4.58.56AM.jpg?v=1780882801",
+        "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/WhatsAppImage2026-05-30at4.58.57AM_1.jpg?v=1780882801",
+        "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/WhatsAppImage2026-05-30at4.58.57AM_2.jpg?v=1780882801",
+        "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/WhatsAppImage2026-05-30at4.58.57AM.jpg?v=1780882801"
+      ]
+    },
+    {
+      "id": "shopify-10283147690264",
+      "name": "The Azure Sheet Set",
+      "description": "Comes with 2 pillow cases; size 27' x 17'. 300 thread count, super soft, long staple cotton bedhsheets. Most striped sheets look like a basic hospital ward or a generic seaside rental. The Azure Sheet Set is engineered to be an architectural asset for your bed. We took a classic, vintage-inspired ticking stripe and saturated it with a striking, high-contrast cerulean blue that cuts right through the safe, \"sad beige\" status quo. Blend: 90% cotton (For super a soft feel) + 10%",
+      "variants": [
+        "King (108' x 108')",
+        "Single (108' x 54')"
+      ],
+      "sizes": [
+        "King (108' x 108')",
+        "Single (108' x 54')"
+      ],
+      "price": "2999.00",
+      "url": "https://summerdecor.in/products/the-cobalt-latitude-bedsheet-copy-2",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/ChatGPTImageMay23_2026_08_26_46PM.png?v=1779548738",
+        "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/Gemini_Generated_Image_ggetayggetaygget.png?v=1779548785"
+      ]
+    },
+    {
+      "id": "shopify-10254716240152",
+      "name": "The Flamingo Bedsheet",
+      "description": "Comes with 2 pillow cases; size 27' x 17'. 300 thread count, super soft, long staple cotton bedhsheets. Sleep in high-definition vibrance. The Flamingo set brings the \"Summer\" design language to the bedroom, trading passive neutrals for an architectural, high-energy stripe. Designed with a bold, mustard-gold and crisp cream palette, this set is built for the \"Anti-Beige\" homeowner who treats their bedroom as a personal gallery. Architectural Weight: Crafted from high-density,",
+      "variants": [
+        "King (108' x 108')",
+        "Single (108' x 54')"
+      ],
+      "sizes": [
+        "King (108' x 108')",
+        "Single (108' x 54')"
+      ],
+      "price": "2999.00",
+      "url": "https://summerdecor.in/products/the-flamingo-bedsheet",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/acd4aa48-d3fa-49a5-a8bf-9f3210042d4c.png?v=1777453895"
+      ]
+    },
+    {
+      "id": "shopify-10215914340632",
+      "name": "The Happy Place Canvas",
+      "description": "Bring a sense of composed energy to your space with the Happy Place Canvas. This sophisticated abstract piece features organic, flowing bands of muted teal-blue and burnt orange-red against a textured cream background. Encased in a beautiful, natural light wood (oak) frame, this minimalist composition is designed to offer a subtle, sophisticated focal point that feels calm and connected to nature. Perfect for Scandi, Japandi, or mid-century modern interiors. Key Features: Hig",
+      "variants": [
+        "9\" x 12\"",
+        "12\" x 16\"",
+        "15\" x 20\""
+      ],
+      "sizes": [
+        "9\" x 12\"",
+        "12\" x 16\"",
+        "15\" x 20\""
+      ],
+      "price": "949.00",
+      "url": "https://summerdecor.in/products/happy-place",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/ad82e308-0a27-4981-aa00-8418f82e0aab.jpg?v=1775062338"
+      ]
+    },
+    {
+      "id": "shopify-10215867089176",
+      "name": "The Fuchia Hearts Canvas",
+      "description": "Bring sophisticated energy to your walls with the Fuchia Hearts Canvas. This contemporary piece features two overlapping textured geometric blocks in vibrant fuchsia and tangerine. Layered in the center is a translucent vermilion oval, creating a captivating depth and color mix. Set against a soft, creamy white background, this print offers a striking contrast that feels bold yet refined. Perfect for modern living rooms, offices, or bedrooms looking for a clean pop of color. ",
+      "variants": [
+        "9\" x 12\"",
+        "12\" x 16\"",
+        "15\" x 20\""
+      ],
+      "sizes": [
+        "9\" x 12\"",
+        "12\" x 16\"",
+        "15\" x 20\""
+      ],
+      "price": "949.00",
+      "url": "https://summerdecor.in/products/the-liquid-checkered-canvas-copy",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/5b38d025-d958-4287-9727-e560159a2b82.jpg?v=1775062093"
+      ]
+    },
+    {
+      "id": "shopify-10215800013080",
+      "name": "The Liquid Checkered Canvas",
+      "description": "Transition your space from static to dynamic with our Liquid Checkered Canvas . By distorting the traditional grid, this piece adds a sense of movement and architectural interest to your home. The color story is carefully curated to bridge the gap between bold and soothing, making it an ideal companion for warm-toned interiors, terracotta accents, and modern acrylic furniture. Gallery Quality: Printed with high-definition clarity for a sharp, borderless look. Matte Texture: E",
+      "variants": [
+        "9\" x 12\"",
+        "12\" x 16\"",
+        "15\" x 20\"",
+        "44\" x 33\""
+      ],
+      "sizes": [
+        "9\" x 12\"",
+        "12\" x 16\"",
+        "15\" x 20\"",
+        "44\" x 33\""
+      ],
+      "price": "949.00",
+      "url": "https://summerdecor.in/products/the-liquid-checkered-canvas",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/Gemini_Generated_Image_lrjdi3lrjdi3lrjd.png?v=1775061873"
+      ]
+    },
+    {
+      "id": "shopify-10215684833560",
+      "name": "The Tangerine Grid Canvas",
+      "description": "levate your space with the Tangerine Grid, a high-definition statement piece designed for the modern home. Featuring a crisp, white grid over a punchy, saturated orange backdrop, this canvas brings a structured yet bold energy to any room. Printed on professional-grade gallery canvas, the colors remain vivid and consistent from every angle. Its clean lines and lack of traditional shading make it the perfect anchor for a contemporary gallery wall or as a standalone pop of colo",
+      "variants": [
+        "9\" x 12\"",
+        "12\" x 16\"",
+        "15\" x 20\""
+      ],
+      "sizes": [
+        "9\" x 12\"",
+        "12\" x 16\"",
+        "15\" x 20\""
+      ],
+      "price": "949.00",
+      "url": "https://summerdecor.in/products/the-solar-squares-canvas",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/Gemini_Generated_Image_mfvzdgmfvzdgmfvz_1.png?v=1775061965"
+      ]
+    },
+    {
+      "id": "the-emerald-meridian-set",
+      "name": "The Emerald Meridian Set",
+      "description": "Comes with 2 pillow cases; size 27' x 17'. 300 thread count, super soft, long staple cotton bedhsheets. The Emerald Meridian Set is an architectural take on the classic vertical stripe, bringing a surge of crisp, verdant energy to your sleeping environment. Saturated in a deep forest green and bright white, this set acts as a high-contrast visual anchor that firmly rejects the \"beige\" status quo. Each piece is crafted from premium 100% long-staple cotton, offering a substanti",
+      "variants": [
+        "King - 108' x 108'",
+        "Single - 108' x 54'"
+      ],
+      "sizes": [
+        "King - 108' x 108'",
+        "Single - 108' x 54'"
+      ],
+      "price": "2999.00",
+      "url": "https://summerdecor.in/products/the-cobalt-latitude-bedsheet-copy-1",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/796cd535d9857eb2aa9d3b0324f8a5a4.jpg?v=1773214793",
+        "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/WhatsApp_Image_2026-04-14_at_8.28.31_PM.jpg?v=1777363691",
+        "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/WhatsApp_Image_2026-04-14_at_8.28.32_PM.jpg?v=1777363692"
+      ]
+    },
+    {
+      "id": "shopify-10171580842264",
+      "name": "The Navy Flow Canvas",
+      "description": "The Navy Flow Canvas is a vertical study in organic movement and high-contrast architectural forms. Featuring fluid, deep cobalt waves against a crisp cream base, this piece translates the kinetic energy of our rug collection into a sophisticated wall-bound statement. Engineered with a high-build matte finish, the design interacts with natural light to highlight its layered depth and structural presence. It is a curated cultural asset designed to pair seamlessly with the Meri",
+      "variants": [
+        "9\" x 12\"",
+        "12\" x 16\"",
+        "15\" x 20\""
+      ],
+      "sizes": [
+        "9\" x 12\"",
+        "12\" x 16\"",
+        "15\" x 20\""
+      ],
+      "price": "949.00",
+      "url": "https://summerdecor.in/products/the-ochre-bloom-canvas-copy",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/d2ad3181ad77762a8a69776891b3aaed.jpg?v=1773136497"
+      ]
+    },
+    {
+      "id": "shopify-10171579400472",
+      "name": "The Ochre Bloom Canvas",
+      "description": "The Ochre Bloom Canvas is a vibrant study in organic spontaneity and optimistic design. Featuring energetic mustard-yellow floral motifs and a central blue mantra, this piece translates the \"Anti-Beige\" spirit of SUMMER into a playful yet architectural vertical statement. Engineered with a high-build matte finish, the canvas interacts with natural light to highlight its layered depth and hand-painted aesthetic. It is a curated cultural asset designed to pair seamlessly with t",
+      "variants": [
+        "9\" x 12\"",
+        "12\" x 16\"",
+        "15\" x 20\""
+      ],
+      "sizes": [
+        "9\" x 12\"",
+        "12\" x 16\"",
+        "15\" x 20\""
+      ],
+      "price": "949.00",
+      "url": "https://summerdecor.in/products/the-manifest-canvas-copy",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/unnamed.jpg?v=1773136174"
+      ]
+    },
+    {
+      "id": "shopify-10171576451352",
+      "name": "The Manifest Canvas",
+      "description": "The Manifest Canvas is a vertical study in kinetic energy and organic movement. High-saturation orange tones collide with crisp white waves to create a vibrant, 3D topography that anchors any wall. Engineered with a high-build matte finish, the design catches shifting light to highlight its architectural depth and shadow-play. It is a bold, \"Anti-Beige\" statement piece designed to transform your vertical space into a curated modern gallery. 400 GSM Wood framed canvas.",
+      "variants": [
+        "9\" x 12\"",
+        "12\" x 16\"",
+        "15\" x 20\""
+      ],
+      "sizes": [
+        "9\" x 12\"",
+        "12\" x 16\"",
+        "15\" x 20\""
+      ],
+      "price": "949.00",
+      "url": "https://summerdecor.in/products/the-cobalt-meridian-canvas-copy",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/e12f2004918b2451a5b1b0df7ece3aa8.jpg?v=1773135615"
+      ]
+    },
+    {
+      "id": "shopify-10171568652568",
+      "name": "The Cobalt Meridian Canvas",
+      "description": "The Cobalt Meridian Canvas is an architectural study in disciplined vertical lines and mindful centering. Deep cobalt stripes anchor the frame, creating a rhythmic visual structure that draws the eye toward a clear, central message of presence. Engineered to pair seamlessly with the Meridian Drift rug and Cobalt Latitude bedding, this piece serves as the vertical finality for a curated, high-saturation environment. It is a \"Deep-Spec\" cultural asset designed for the collector",
+      "variants": [
+        "9\" x 12\"",
+        "12\" x 16\"",
+        "18\" x 24\""
+      ],
+      "sizes": [
+        "9\" x 12\"",
+        "12\" x 16\"",
+        "18\" x 24\""
+      ],
+      "price": "949.00",
+      "url": "https://summerdecor.in/products/a",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/383d092d69621e518dc208746c56b127.jpg?v=1773135295"
+      ]
+    },
+    {
+      "id": "the-crimson-cadence-bedsheet",
+      "name": "The Crimson Cadence Bedsheet",
+      "description": "Comes with 2 pillow cases; size 27' x 17'. 300 thread count, super soft, long staple cotton bedhsheets. The Crimson Cadence Set is a rhythmic study in disciplined horizontal geometry and saturated tonal contrast. Merging deep burgundy stripes with a soft blush base, this collection provides a sophisticated, high-energy anchor that rejects the passivity of traditional neutral bedding. Engineered from premium blend of 100% long-staple cotton, the fabric offers a substantial arc",
+      "variants": [
+        "King - 108' x 108'",
+        "Single - 108' x 54'"
+      ],
+      "sizes": [
+        "King - 108' x 108'",
+        "Single - 108' x 54'"
+      ],
+      "price": "2999.00",
+      "url": "https://summerdecor.in/products/the-cobalt-latitude-bedsheet-copy",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/WhatsApp_Image_2026-04-17_at_10.37.55_AM.jpg?v=1777363096",
+        "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/ACF2C0D2-0CA6-4B99-96AC-5760700D99C9.jpg?v=1779210907"
+      ]
+    },
+    {
+      "id": "shopify-10111943475480",
+      "name": "The Chromatic Halo Canvas",
+      "description": "The Chromatic Halo Canvas is a vibrant study in overlapping forms and visual energy, featuring bold magenta and orange shapes anchored by a striking red ring. This piece translates the \"Anti-Beige\" philosophy of Summer into a vertical statement, replacing empty walls with high-saturation color and kinetic movement. Engineered with a high-build matte finish, the canvas captures light to emphasize its layered depth and sculptural presence in any modern room. It is a curated cul",
+      "variants": [
+        "9\" x 12\"",
+        "12\" x 16\"",
+        "15\" x 20\""
+      ],
+      "sizes": [
+        "9\" x 12\"",
+        "12\" x 16\"",
+        "15\" x 20\""
+      ],
+      "price": "949.00",
+      "url": "https://summerdecor.in/products/the-chromatic-halo-canvas",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/eb1a3f7a4142c0f2544e17b92b271cd0.jpg?v=1772052286"
+      ]
+    },
+    {
+      "id": "shopify-10111932727576",
+      "name": "The Solstice Flow Canvas",
+      "description": "The Solstice Flow Canvas is a vertical study in kinetic energy and organic movement. High-saturation orange tones collide with crisp white waves to create a vibrant, 3D topography that anchors any wall. Engineered with a high-build matte finish, the design catches shifting light to highlight its architectural depth and shadow-play. It is a bold, \"Anti-Beige\" statement piece designed to transform your vertical space into a curated modern gallery. 400 GSM Wood framed canvas.",
+      "variants": [
+        "12\" x 9\"",
+        "16\" x 12\"",
+        "20\" x 15\""
+      ],
+      "sizes": [
+        "12\" x 9\"",
+        "16\" x 12\"",
+        "20\" x 15\""
+      ],
+      "price": "949.00",
+      "url": "https://summerdecor.in/products/the-solstice-flow-canvas",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/5627ffdf9d255be9bd9568424b2982fa.jpg?v=1772051831"
+      ]
+    },
+    {
+      "id": "the-cobalt-latitude-bedsheet",
+      "name": "The Cobalt Latitude Bedsheet",
+      "description": "Comes with 2 pillow cases; size 27' x 17'. 300 thread count, super soft, long staple cotton bedhsheets. The Cobalt Latitude Set is an architectural take on the classic nautical stripe, bringing crisp vertical energy to the bedroom. Saturated in a deep coastal blue and bright white, this set acts as a high-contrast visual anchor that defies the \"beige\" trend. Each piece is crafted from 100% long-staple cotton, offering a substantial, heavy-drape feel that maintains its structu",
+      "variants": [
+        "King (108' x 108')",
+        "Single (108' x 54')"
+      ],
+      "sizes": [
+        "King (108' x 108')",
+        "Single (108' x 54')"
+      ],
+      "price": "2999.00",
+      "url": "https://summerdecor.in/products/the-high-noon-bedsheet",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/WhatsApp_Image_2026-04-17_at_10.37.07_AM.jpg?v=1777376472",
+        "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/WhatsApp_Image_2026-04-17_at_10.37.33_AM.jpg?v=1777376574",
+        "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/Cozybedroomwithstripedbedding.png?v=1775372241",
+        "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/Gemini_Generated_Image_gph9cdgph9cdgph9.png?v=1775376996"
+      ]
+    },
+    {
+      "id": "the-ochre-horizon-bedsheet",
+      "name": "The Ochre Horizon Bedsheet",
+      "description": "Comes with 2 pillow cases; size 27' x 17'. 300 thread count, super soft, long staple cotton bedhsheets. Sleep in high-definition vibrance. The Ochre Horizon set brings the \"Summer\" design language to the bedroom, trading passive neutrals for an architectural, high-energy stripe. Designed with a bold, mustard-gold and crisp cream palette, this set is built for the \"Anti-Beige\" homeowner who treats their bedroom as a personal gallery. Architectural Weight: Crafted from high-den",
+      "variants": [
+        "King (108' x 108')",
+        "Single (108' x 54')"
+      ],
+      "sizes": [
+        "King (108' x 108')",
+        "Single (108' x 54')"
+      ],
+      "price": "2999.00",
+      "url": "https://summerdecor.in/products/the-ochre-horizon-bedsheet",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/0b0f0122fbcc1626cfea544a36bdf980.jpg?v=1772036451",
+        "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/WhatsApp_Image_2026-04-17_at_10.36.56_AM.jpg?v=1777363507",
+        "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/7b8769be5a2754a2f7ec492e17af4fce.jpg?v=1772036559"
+      ]
+    },
+    {
+      "id": "shopify-10109026173208",
+      "name": "The Eclipse Ray Rug",
+      "description": "Ground control for the modern home. The Terra Block is our most architectural piece in the Summer collection, a study in elevation and geometry. It features plush, raised panels of vibrant sky blue set against a recessed grid of burnt orange and cream. This is floor art with genuine topography. The blue squares are tufted at a higher pile height and intensely carved around the perimeter, making them appear to float above the surface. The structural grid below provides a warm,",
+      "variants": [
+        "2'x1.25'",
+        "2.5'x2'",
+        "3'x2.5'",
+        "5'x3.75'"
+      ],
+      "sizes": [
+        "2'x1.25'",
+        "2.5'x2'",
+        "3'x2.5'",
+        "5'x3.75'"
+      ],
+      "price": "2750.00",
+      "url": "https://summerdecor.in/products/the-eclipse-ray-rug",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/image_5.png?v=1771965142",
+        "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/ChatGPT_Image_Feb_25_2026_12_22_31_AM.png?v=1771959183"
+      ]
+    },
+    {
+      "id": "shopify-10109019685144",
+      "name": "The Terra Block Rug",
+      "description": "Ground control for the modern home. The Terra Block is our most architectural piece in the Summer collection, a study in elevation and geometry. It features plush, raised panels of vibrant sky blue set against a recessed grid of burnt orange and cream. This is floor art with genuine topography. The blue squares are tufted at a higher pile height and intensely carved around the perimeter, making them appear to float above the surface. The structural grid below provides a warm,",
+      "variants": [
+        "2' x 1.25'",
+        "2.5' x 2'",
+        "3' x 2.5'",
+        "5'x3.75'"
+      ],
+      "sizes": [
+        "2' x 1.25'",
+        "2.5' x 2'",
+        "3' x 2.5'",
+        "5'x3.75'"
+      ],
+      "price": "2750.00",
+      "url": "https://summerdecor.in/products/the-terra-block-rug",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/Gemini_Generated_Image_ukgv4wukgv4wukgv_1_c0feeb0b-df89-4e18-803f-801d3ff05ff8.png?v=1771964974",
+        "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/image_2.png?v=1771951567"
+      ]
+    },
+    {
+      "id": "shopify-10109017391384",
+      "name": "The Meridian Drift Rug",
+      "description": "Where rigid architecture meets summer fluidity. The Meridian Drift is designed for the space that needs both structure and spontaneity. It features a striking contrast between a disciplined, architectural grey grid and free-flowing, organic \"amoeba\" forms in burnt orange and sky blue. The magic is in the technical execution. The geometric grey lines are carved sharply for high definition, while the colored organic shapes are left slightly higher and softer, creating a tactile",
+      "variants": [
+        "2' x 1.25'",
+        "2.5' x 2'",
+        "3' x 2.5'",
+        "5'x3.75'"
+      ],
+      "sizes": [
+        "2' x 1.25'",
+        "2.5' x 2'",
+        "3' x 2.5'",
+        "5'x3.75'"
+      ],
+      "price": "2750.00",
+      "url": "https://summerdecor.in/products/the-meridian-drift-rug",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/image_4.png?v=1771964731",
+        "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/Gemini_Generated_Image_gzsrgfgzsrgfgzsr.png?v=1771964804"
+      ]
+    },
+    {
+      "id": "shopify-10109002645784",
+      "name": "The Solar Flow Rug",
+      "description": "Bring the heat without the noise. The Solar Flow rug is pure kinetic energy for your floor, dominated by molten, organic shapes in our signature burnt orange against a calming cream base. This isn't just a pattern; it's a landscape. Every curve of the vibrant orange is meticulously hand-carved with a deep bevel, creating a canyon-like separation from the cream pile. This sculptural depth allows light to catch the edges, making the rug look different as the sun moves through y",
+      "variants": [
+        "2' x 1.25'",
+        "2.5'x2'",
+        "3' x 2.5'",
+        "5'x3.75'"
+      ],
+      "sizes": [
+        "2' x 1.25'",
+        "2.5'x2'",
+        "3' x 2.5'",
+        "5'x3.75'"
+      ],
+      "price": "2750.00",
+      "url": "https://summerdecor.in/products/the-blaze-flow-rug",
+      "images": [
+        "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/d63961b76ed224b5522a42c6fae6bd84.jpg?v=1771960075",
+        "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/7d905069-0813-4037-a12a-9aabcae0995b.png?v=1771953377",
+        "https://cdn.shopify.com/s/files/1/0974/5088/5400/files/Your_paragraph_text.png?v=1772564343"
+      ]
+    }
+  ],
+  "ready": true,
+  "memory": {
+    "approvedShots": [
+      {
+        "id": "1783168651669-1-landscape-mqvno",
+        "url": "/api/img/1783168651669-1-landscape-mqvno.png",
+        "angle": "Front, straight-on, eye level / bold colour-matched studio campaign hero",
+        "prompt": "Photographed on a Canon EOS R5 with a 50mm f/1.8 prime at f/2.2, straight-on at eye level, Kodak Portra 400 colour treatment with gentle highlight roll-off, fine grain, saturated but not neon colour, no HDR or digital over-sharpening. Brand read: Summerdecor normally shoots warm natural daylight, creamy whites, saturated Indian-home colour, tactile lived-in styling and asymmetric editorial crops; for this client-directed shot, translate that warmth and punch into a clean product-only colour-block campaign frame. Industry playbook note: product category is not determinable from the text alone, so use the generic product-photography engine and preserve the product exactly as in the reference image. The product exactly as in the reference image is placed upright and centred slightly below the vertical midpoint, photographed as the sole subject. The entire frame is one seamless, edge-to-edge, uniform studio colour field sampled from the product reference: match the dominant colour of the product’s own packaging exactly, then shift the backdrop only a fraction deeper or lighter so the product separates cleanly while still feeling colour-matched. No visible horizon line, no texture, no props, no environmental scene. Bold vibrant campaign composition with clean negative space reserved in the upper third for future headline and CTA overlay, but absolutely no text added in the photograph. Warm directional daylight effect from the upper left creates a soft side shadow and a real contact shadow directly beneath the product, with subtle falloff and believable grounding. Product fidelity is absolute: reproduce the real product exactly as in the reference image, including its true shape, colours, label, typography, logo, proportions, cap/closure/details and material finish; keep all brand marks sharp, legible and undistorted. Real photographic material behaviour, natural shadow density, no floating, no CGI sheen, no retouching that changes the product.",
+        "negatives": [
+          "no people",
+          "no model",
+          "no hands",
+          "no fingers",
+          "no arms",
+          "no legs",
+          "no feet",
+          "no body parts",
+          "no props",
+          "no fruit",
+          "no books",
+          "no cups",
+          "no flowers",
+          "no furniture",
+          "no room setting",
+          "no textured surface",
+          "no marble",
+          "no stone",
+          "no wood",
+          "no fabric sweep",
+          "no colour-block split",
+          "no gradient background",
+          "no spotlight halo",
+          "no pedestal",
+          "no podium",
+          "no plinth",
+          "no geometric cubes",
+          "no pebbles",
+          "no confetti",
+          "no bokeh particles",
+          "no swirling fabric",
+          "no environment",
+          "no horizon line",
+          "no baked-in headline",
+          "no CTA",
+          "no badge",
+          "no added logo",
+          "no extra text",
+          "no warped text",
+          "no invented label text",
+          "no misspelled logo",
+          "no duplicated logo",
+          "no altered product colour",
+          "no reshaped product",
+          "no extra caps",
+          "no extra pumps",
+          "no melted geometry",
+          "no floating product",
+          "no impossible reflections",
+          "no CGI render",
+          "no plastic waxy surface",
+          "no HDR over-sharpening",
+          "no visible lights",
+          "no light stands",
+          "no cables",
+          "no tripod",
+          "no clutter"
+        ],
+        "panel": {
+          "background": "Match the product",
+          "surface": "",
+          "vibe": "Bold & vibrant",
+          "composition": "",
+          "lighting": "",
+          "styling": "",
+          "format": "",
+          "numAngles": 1,
+          "shotsPerAngle": 1
+        },
+        "mode": "product-photoshoot",
+        "decision": "keep",
+        "at": "2026-07-04T12:38:35.208Z"
+      }
+    ],
+    "rejectedShots": [],
+    "heroShots": [],
+    "updatedAt": "2026-07-04T12:38:35.326Z"
+  }
+}

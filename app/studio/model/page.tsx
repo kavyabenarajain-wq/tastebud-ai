@@ -9,6 +9,7 @@ import { ShootStage } from "@/components/tastebud/ShootStage";
 import { BrandBrainPanel } from "@/components/tastebud/BrandBrainPanel";
 import { thumb } from "@/lib/thumb";
 import type { ModelSpec, BrandBrain, ShotCompliance } from "@/lib/types";
+import { detectCategory, interactionOptions } from "@/lib/productCategory";
 
 /**
  * PAGE 8 — Studio workspace (Model mode).
@@ -55,7 +56,8 @@ const MODEL_OPTIONS: Record<"gender" | "ageRange" | "ethnicity" | "skinTone" | "
   vibe: ["Editorial / high-fashion", "Next door / relatable", "Luxury / refined", "Sporty / active", "Streetwear / cool", "Natural / minimal", "Warm / approachable", "Bold / striking"],
   expression: ["Serene / neutral", "Soft smile", "Confident", "Candid laugh", "Intense / editorial", "Joyful"],
 };
-const PRODUCT_USE = ["Worn", "Held", "Applied", "In-context", "None"];
+// "How it's used" options are derived per product category (see productCategory.ts) so a
+// sofa never offers "Worn" and an ice cream offers Eat / Show — never wear-the-food nonsense.
 
 const SCENE_OPTIONS: Record<"background" | "vibe" | "lighting" | "composition" | "format", string[]> = {
   background: ["Pure white", "Pure black", "Art-directed", "Soft cream", "Warm beige", "Sand / tan", "Studio backdrop", "Outdoor / natural", "Urban / street", "Interior / home", "Sage green", "Deep navy", "Terracotta", "Soft gradient glow"],
@@ -76,6 +78,7 @@ export default function ModelWorkspace() {
   const [source, setSource] = useState<Source>("build");
   const [model, setModel] = useState<ModelSpec>(EMPTY_MODEL);
   const [modelRefs, setModelRefs] = useState<Img[]>([]);
+  const [group, setGroup] = useState(false); // treat each reference photo as a DIFFERENT person (3–4 in one frame)
   const [products, setProducts] = useState<Img[]>([]);
   const [scene, setScene] = useState<Scene>(EMPTY_SCENE);
   const [showScene, setShowScene] = useState(false);
@@ -191,6 +194,11 @@ export default function ModelWorkspace() {
       panel: { background: sc.background, vibe: sc.vibe, lighting: sc.lighting, composition: sc.composition, format: sc.format, numAngles: sc.numAngles, shotsPerAngle: sc.shotsPerAngle },
       products: products.map((p) => p.url),
       modelRefs: source === "reference" ? modelRefs.map((r) => r.url) : [],
+      // Group shoot: each reference photo is a DISTINCT person (cap 4) → the renderer builds a
+      // per-person identity lock. Off / <2 photos → single-model path, unchanged.
+      models: group && source === "reference" && modelRefs.length >= 2
+        ? modelRefs.slice(0, 4).map((r, i) => ({ source: "reference" as const, name: `Person ${i + 1}`, refs: [r.url] }))
+        : undefined,
       model: { ...model, source },
       brand: brain.name ? brain : undefined,
     };
@@ -355,6 +363,12 @@ export default function ModelWorkspace() {
                   </div>
                 ))}
               </div>
+              {modelRefs.length >= 2 && (
+                <label className="flex cursor-pointer select-none items-center gap-2 text-[12px] text-muted">
+                  <input type="checkbox" checked={group} onChange={(e) => setGroup(e.target.checked)} className="accent-ink" />
+                  <span>Each photo is a <span className="text-ink">different person</span> (group shoot, up to 4)</span>
+                </label>
+              )}
             </div>
           )}
 
@@ -369,7 +383,7 @@ export default function ModelWorkspace() {
                 </div>
               ))}
             </div>
-            {products.length > 0 && <div className="mt-3"><Sel label="How it’s used" value={model.productUse ?? ""} opts={PRODUCT_USE} onChange={(v) => setM({ productUse: v })} /></div>}
+            {products.length > 0 && <div className="mt-3"><Sel label="How it’s used" value={model.productUse ?? ""} opts={interactionOptions(detectCategory(brain.category, brain.productType, brain.name ?? brandName))} onChange={(v) => setM({ productUse: v })} /></div>}
           </div>
 
           <div className="mt-6 border-t border-hairline pt-4">
@@ -493,13 +507,14 @@ function labelFor(k: string): string {
   return map[k] ?? k;
 }
 
-function Sel({ label, value, opts, onChange }: { label: string; value: string; opts: string[]; onChange: (v: string) => void }) {
+function Sel({ label, value, opts, onChange }: { label: string; value: string; opts: (string | { value: string; label: string })[]; onChange: (v: string) => void }) {
+  const norm = opts.map((o) => (typeof o === "string" ? { value: o, label: o } : o));
   return (
     <label className="flex flex-col gap-1">
       <span className="text-[11px] uppercase tracking-wide text-muted">{label}</span>
       <select value={value} onChange={(e) => onChange(e.target.value)} className="rounded-md border border-hairline bg-canvas px-2.5 py-1.5 text-sm focus:border-ink">
         <option value="">— from brand —</option>
-        {opts.map((o) => <option key={o} value={o}>{o}</option>)}
+        {norm.map((o) => <option key={o.value} value={o.value}>{o.label}</option>)}
       </select>
     </label>
   );

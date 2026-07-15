@@ -1,0 +1,875 @@
+[
+  {
+    "id": "cmp-mrc7be8x-xmt8s",
+    "name": "make 6",
+    "type": "story",
+    "brief": "make 6",
+    "copy": {
+      "headline": "Make room for six",
+      "subline": "Clean lines, vivid light, calmer living",
+      "cta": "Bring it home",
+      "caption": "A quiet Wudhomes piece, staged in colour but made for real rooms. Minimal, warm and easy to live with. #Wudhomes #ModernLiving",
+      "treatment": {
+        "headlineArchetype": "aspirational/identity",
+        "ctaArchetype": "experience",
+        "layout": "editorial-top",
+        "anchor": "top-left",
+        "align": "left",
+        "case": "sentence",
+        "weight": "regular",
+        "scale": "standard",
+        "ctaStyle": "text-link",
+        "ink": "light"
+      }
+    },
+    "outputs": [
+      {
+        "id": "1783522616289-4-5sjjh",
+        "url": "/api/img/1783522674518-yk8id-crop.png",
+        "aspect": "9:16",
+        "angle": "Left side profile — sculptural silhouette with coloured shadow",
+        "placement": {
+          "layout": "editorial-top",
+          "anchor": "top-left"
+        },
+        "at": "2026-07-08T14:57:54.625Z"
+      },
+      {
+        "id": "1783522616289-1-jezwm",
+        "url": "/api/img/1783522676992-rm04c-crop.png",
+        "aspect": "9:16",
+        "angle": "Front, straight-on, eye-level hero — neon colour-wash studio campaign",
+        "placement": {
+          "layout": "editorial-top",
+          "anchor": "top-right",
+          "ink": "light"
+        },
+        "at": "2026-07-08T14:57:57.114Z"
+      },
+      {
+        "id": "1783522616289-3-wg9z3",
+        "url": "/api/img/1783522678953-mc1go-crop.png",
+        "aspect": "9:16",
+        "angle": "Top-down 90° flat-lay — graphic minimal still-life",
+        "placement": {
+          "layout": "editorial-top",
+          "anchor": "top-left",
+          "ink": "dark"
+        },
+        "at": "2026-07-08T14:57:59.062Z"
+      },
+      {
+        "id": "1783522616289-6-1vaku",
+        "url": "/api/img/1783522685787-rwfbi-crop.png",
+        "aspect": "9:16",
+        "angle": "Macro close-up — authentic material / edge / branding detail",
+        "placement": {
+          "layout": "side-rail",
+          "anchor": "center-left",
+          "ink": "dark"
+        },
+        "at": "2026-07-08T14:58:05.900Z"
+      },
+      {
+        "id": "1783522616289-5-hsw9y",
+        "url": "/api/img/1783522696170-yabnz-crop.png",
+        "aspect": "9:16",
+        "angle": "Low angle looking up — monumental neon hero",
+        "placement": {
+          "layout": "editorial-top",
+          "anchor": "top-center",
+          "ink": "light"
+        },
+        "at": "2026-07-08T14:58:16.299Z"
+      },
+      {
+        "id": "1783522616289-2-jieiw",
+        "url": "/api/img/1783522700671-9iid5-crop.png",
+        "aspect": "9:16",
+        "angle": "45° front-left three-quarter — bold gel-gradient depth",
+        "placement": {
+          "layout": "editorial-top",
+          "anchor": "top-right",
+          "ink": "dark"
+        },
+        "at": "2026-07-08T14:58:20.800Z"
+      }
+    ],
+    "createdAt": "2026-07-08T14:58:20.800Z",
+    "updatedAt": "2026-07-08T14:58:20.802Z"
+  },
+  {
+    "id": "cmp-mrc75v35-0k2x8",
+    "name": "make 6",
+    "type": "instagram",
+    "brief": "make 6",
+    "copy": {
+      "headline": "Make room for six",
+      "subline": "Solid wood, made for everyday gatherings",
+      "cta": "Bring it home",
+      "caption": "A bold setting for the Wudhomes piece built to host more — more plates, more stories, more time at the table. Crafted to make six feel effortless.",
+      "treatment": {
+        "headlineArchetype": "benefit-led",
+        "ctaArchetype": "experience",
+        "layout": "split",
+        "anchor": "top-left",
+        "align": "left",
+        "case": "sentence",
+        "weight": "bold",
+        "scale": "impact",
+        "ctaStyle": "text-link",
+        "ink": "light"
+      }
+    },
+    "outputs": [
+      {
+        "id": "1783522358177-2-yyai7",
+        "url": "/api/img/1783522422449-przob-crop.png",
+        "aspect": "4:5",
+        "angle": "45° front-left three-quarter / punchy flash editorial",
+        "placement": {
+          "layout": "split",
+          "ink": "dark"
+        },
+        "at": "2026-07-08T14:53:42.572Z"
+      },
+      {
+        "id": "1783522358177-1-4pjos",
+        "url": "/api/img/1783522423816-5xosd-crop.png",
+        "aspect": "4:5",
+        "angle": "Front straight-on eye-level hero / bold two-tone colour-block",
+        "placement": {
+          "layout": "editorial-top",
+          "anchor": "top-left",
+          "ink": "dark"
+        },
+        "at": "2026-07-08T14:53:43.920Z"
+      },
+      {
+        "id": "1783522358177-3-olbak",
+        "url": "/api/img/1783522424057-z1fn6-crop.png",
+        "aspect": "4:5",
+        "angle": "Top-down 90° flat-lay / graphic negative-space composition",
+        "placement": {
+          "layout": "split"
+        },
+        "at": "2026-07-08T14:53:44.157Z"
+      },
+      {
+        "id": "1783522358177-5-gl4h4",
+        "url": "/api/img/1783522433270-2s8fn-crop.png",
+        "aspect": "4:5",
+        "angle": "Low angle looking up / monumental campaign hero",
+        "placement": {
+          "layout": "editorial-top",
+          "anchor": "top-left",
+          "ink": "dark"
+        },
+        "at": "2026-07-08T14:53:53.391Z"
+      },
+      {
+        "id": "1783522358177-6-60m2m",
+        "url": "/api/img/1783522434729-w61t5-crop.png",
+        "aspect": "4:5",
+        "angle": "Macro close-up / material, edge, stitching or detail texture",
+        "placement": {
+          "layout": "side-rail",
+          "anchor": "center-left",
+          "ink": "dark"
+        },
+        "at": "2026-07-08T14:53:54.854Z"
+      },
+      {
+        "id": "1783522358177-4-o6584",
+        "url": "/api/img/1783522438391-393yk-crop.png",
+        "aspect": "4:5",
+        "angle": "Left side profile / silhouette and material read",
+        "placement": {
+          "layout": "split"
+        },
+        "at": "2026-07-08T14:53:58.506Z"
+      }
+    ],
+    "createdAt": "2026-07-08T14:53:58.506Z",
+    "updatedAt": "2026-07-08T14:53:58.507Z"
+  },
+  {
+    "id": "cmp-mrc06k1d-nqtdb",
+    "name": "Instagram Creative",
+    "type": "instagram",
+    "copy": {
+      "headline": "Colour that feels at home",
+      "subline": "A design detail made to live beautifully",
+      "cta": "Explore Wudhomes",
+      "caption": "A clean pop of colour for spaces that deserve better details. Bring home Wudhomes, made to sit beautifully in your everyday. #Wudhomes",
+      "treatment": {
+        "headlineArchetype": "luxury-minimal",
+        "ctaArchetype": "exploration",
+        "layout": "editorial-top",
+        "anchor": "top-left",
+        "align": "left",
+        "case": "sentence",
+        "weight": "regular",
+        "scale": "standard",
+        "ctaStyle": "text-link",
+        "ink": "light"
+      }
+    },
+    "outputs": [
+      {
+        "id": "1783510633201-2-asb1s",
+        "url": "/api/img/1783510684373-p6vbr-crop.png",
+        "aspect": "4:5",
+        "angle": "45° front-left three-quarter — graphic flash shadow with top-third negative space",
+        "placement": {
+          "layout": "side-rail",
+          "anchor": "center-left",
+          "ink": "dark"
+        },
+        "at": "2026-07-08T11:38:04.493Z"
+      },
+      {
+        "id": "1783510633201-1-0ky88",
+        "url": "/api/img/1783510686004-sel8p-crop.png",
+        "aspect": "4:5",
+        "angle": "Front, straight-on, eye-level hero — bold colour-match studio field",
+        "placement": {
+          "layout": "editorial-top",
+          "anchor": "top-left",
+          "ink": "dark"
+        },
+        "at": "2026-07-08T11:38:06.141Z"
+      },
+      {
+        "id": "1783510633201-4-aee8r",
+        "url": "/api/img/1783510686470-kgt3l-crop.png",
+        "aspect": "4:5",
+        "angle": "Left side profile — silhouette study on seamless matched hue",
+        "placement": {
+          "layout": "editorial-top",
+          "anchor": "top-right",
+          "ink": "dark"
+        },
+        "at": "2026-07-08T11:38:06.568Z"
+      },
+      {
+        "id": "1783510633201-6-h2jfg",
+        "url": "/api/img/1783510689613-rs6li-crop.png",
+        "aspect": "4:5",
+        "angle": "Macro close-up — material / edge / branding detail on matched monochrome field",
+        "placement": {
+          "layout": "split"
+        },
+        "at": "2026-07-08T11:38:09.726Z"
+      },
+      {
+        "id": "1783510633201-5-ub4mb",
+        "url": "/api/img/1783510690483-fn5bt-crop.png",
+        "aspect": "4:5",
+        "angle": "Low angle looking up — monumental saturated colour-block hero",
+        "placement": {
+          "layout": "side-rail",
+          "anchor": "center-left"
+        },
+        "at": "2026-07-08T11:38:10.612Z"
+      },
+      {
+        "id": "1783510633201-3-gq109",
+        "url": "/api/img/1783510696779-64xlu-crop.png",
+        "aspect": "4:5",
+        "angle": "Top-down 90° flat-lay — product-only colour field with off-centre editorial crop",
+        "placement": {
+          "layout": "split"
+        },
+        "at": "2026-07-08T11:38:16.909Z"
+      }
+    ],
+    "createdAt": "2026-07-08T11:38:16.909Z",
+    "updatedAt": "2026-07-08T11:38:16.910Z"
+  },
+  {
+    "id": "cmp-mrc02llo-xeu95",
+    "name": "Instagram Creative",
+    "type": "instagram",
+    "copy": {
+      "headline": "Home, made quietly better",
+      "subline": "Considered essentials for the spaces you live in",
+      "cta": "Shop the edit",
+      "caption": "Wudhomes is made for the details that make a room feel settled, considered and yours. Bring home pieces that work beautifully without shouting for attention. #Wudhomes",
+      "treatment": {
+        "headlineArchetype": "aspirational/identity",
+        "ctaArchetype": "exploration",
+        "layout": "editorial-top",
+        "anchor": "top-left",
+        "align": "left",
+        "case": "sentence",
+        "weight": "regular",
+        "scale": "standard",
+        "ctaStyle": "text-link",
+        "ink": "light"
+      }
+    },
+    "outputs": [
+      {
+        "id": "1783510448604-3-jiz4c",
+        "url": "/api/img/1783510530774-4hh7o-crop.png",
+        "aspect": "4:5",
+        "angle": "Top-down 90° flat-lay / graphic negative-space composition",
+        "placement": {
+          "layout": "split",
+          "ink": "dark"
+        },
+        "at": "2026-07-08T11:35:30.892Z"
+      },
+      {
+        "id": "1783510448604-4-wgpsb",
+        "url": "/api/img/1783510532871-zqs46-crop.png",
+        "aspect": "4:5",
+        "angle": "Left side profile / hard-shadow silhouette study",
+        "placement": {
+          "layout": "split"
+        },
+        "at": "2026-07-08T11:35:33.000Z"
+      },
+      {
+        "id": "1783510448604-5-2dkyl",
+        "url": "/api/img/1783510535991-8opj9-crop.png",
+        "aspect": "4:5",
+        "angle": "Low hero angle looking up / monumental colour-block campaign frame",
+        "placement": {
+          "layout": "split",
+          "ink": "dark"
+        },
+        "at": "2026-07-08T11:35:36.118Z"
+      },
+      {
+        "id": "1783510448604-6-bjylc",
+        "url": "/api/img/1783510546841-1bh0j-crop.png",
+        "aspect": "4:5",
+        "angle": "Macro close-up / material, label, edge and texture detail",
+        "placement": {
+          "layout": "editorial-top",
+          "anchor": "top-right",
+          "ink": "dark"
+        },
+        "at": "2026-07-08T11:35:46.964Z"
+      },
+      {
+        "id": "1783510448604-2-ismgi",
+        "url": "/api/img/1783510549858-of53d-crop.png",
+        "aspect": "4:5",
+        "angle": "45° front-left three-quarter / grouped range still-life",
+        "placement": {
+          "layout": "split",
+          "ink": "dark"
+        },
+        "at": "2026-07-08T11:35:49.976Z"
+      },
+      {
+        "id": "1783510448604-1-tcoe5",
+        "url": "/api/img/1783510551792-n2008-crop.png",
+        "aspect": "4:5",
+        "angle": "Front eye-level hero / bold colour-match studio fidelity",
+        "placement": {
+          "layout": "split",
+          "ink": "dark"
+        },
+        "at": "2026-07-08T11:35:51.903Z"
+      }
+    ],
+    "createdAt": "2026-07-08T11:35:51.903Z",
+    "updatedAt": "2026-07-08T11:35:51.903Z"
+  },
+  {
+    "id": "cmp-mrbz9jsy-74b26",
+    "name": "Story",
+    "type": "story",
+    "copy": {
+      "headline": "Warmth, in full colour",
+      "subline": "Wood-led design for rooms with a pulse",
+      "cta": "Bring it home",
+      "caption": "A bold little moment for the corner that deserves more than background energy. Designed by Wudhomes to make everyday spaces feel considered.",
+      "treatment": {
+        "headlineArchetype": "emotional",
+        "ctaArchetype": "experience",
+        "layout": "editorial-top",
+        "anchor": "top-left",
+        "align": "left",
+        "case": "sentence",
+        "weight": "bold",
+        "scale": "standard",
+        "ctaStyle": "text-link",
+        "ink": "dark"
+      }
+    },
+    "outputs": [
+      {
+        "id": "1783509093250-3-fk9mq",
+        "url": "/api/img/1783509163046-2n6g0-crop.png",
+        "aspect": "9:16",
+        "angle": "Top-down 90° flat-lay / graphic two-tone layout",
+        "placement": {
+          "layout": "editorial-top",
+          "anchor": "top-left"
+        },
+        "at": "2026-07-08T11:12:43.181Z"
+      },
+      {
+        "id": "1783509093250-5-eozjo",
+        "url": "/api/img/1783509165641-rh4gj-crop.png",
+        "aspect": "9:16",
+        "angle": "Low angle looking up / monumental colour-block hero",
+        "placement": {
+          "layout": "editorial-top",
+          "anchor": "top-right",
+          "ink": "dark"
+        },
+        "at": "2026-07-08T11:12:45.769Z"
+      },
+      {
+        "id": "1783509093250-4-754ik",
+        "url": "/api/img/1783509168527-1nv4h-crop.png",
+        "aspect": "9:16",
+        "angle": "Left side profile / unexpected compressed crop",
+        "placement": {
+          "layout": "editorial-top",
+          "anchor": "top-left",
+          "ink": "dark"
+        },
+        "at": "2026-07-08T11:12:48.652Z"
+      },
+      {
+        "id": "1783509093250-1-es1vo",
+        "url": "/api/img/1783509177717-uexip-crop.png",
+        "aspect": "9:16",
+        "angle": "Front straight-on eye-level hero / bold colour-block campaign",
+        "placement": {
+          "layout": "editorial-top",
+          "anchor": "top-right",
+          "ink": "dark"
+        },
+        "at": "2026-07-08T11:12:57.830Z"
+      },
+      {
+        "id": "1783509093250-2-tktum",
+        "url": "/api/img/1783509180844-3q5nu-crop.png",
+        "aspect": "9:16",
+        "angle": "45° front-left three-quarter / sun-flash editorial diagonal",
+        "placement": {
+          "layout": "editorial-top",
+          "anchor": "top-left",
+          "ink": "dark"
+        },
+        "at": "2026-07-08T11:13:00.955Z"
+      },
+      {
+        "id": "1783509093250-6-xtige",
+        "url": "/api/img/1783509184492-8bmoz-crop.png",
+        "aspect": "9:16",
+        "angle": "Macro close-up / material-branding texture detail",
+        "placement": {
+          "layout": "side-rail",
+          "anchor": "center-right",
+          "ink": "dark"
+        },
+        "at": "2026-07-08T11:13:04.607Z"
+      }
+    ],
+    "createdAt": "2026-07-08T11:13:04.607Z",
+    "updatedAt": "2026-07-08T11:13:04.607Z"
+  },
+  {
+    "id": "cmp-mrbyspmi-riky5",
+    "name": "Carousel",
+    "type": "carousel",
+    "copy": {
+      "headline": "Colour comes home",
+      "subline": "A clean pop for a more considered space",
+      "cta": "Shop the edit",
+      "caption": "A single Wudhomes piece, set against its own shade. Made to stand out, settle in, and make the room feel intentional. #Wudhomes",
+      "frames": [
+        {
+          "headline": "Colour comes home"
+        },
+        {
+          "headline": "One shade, fully committed"
+        },
+        {
+          "headline": "Clean lines, quiet impact"
+        },
+        {
+          "headline": "Made to settle in"
+        },
+        {
+          "headline": "Bring it home"
+        }
+      ],
+      "treatment": {
+        "headlineArchetype": "luxury-minimal",
+        "ctaArchetype": "exploration",
+        "layout": "editorial-top",
+        "anchor": "top-left",
+        "align": "left",
+        "case": "sentence",
+        "weight": "regular",
+        "scale": "standard",
+        "ctaStyle": "text-link",
+        "ink": "dark"
+      }
+    },
+    "outputs": [
+      {
+        "id": "1783508307642-2-3hjnq",
+        "url": "/api/img/1783508377245-nxy32-crop.png",
+        "aspect": "4:5",
+        "angle": "Frame 2 — Develop — 45° front-left three-quarter / graphic product portrait",
+        "seq": 2,
+        "placement": {
+          "layout": "editorial-top",
+          "anchor": "top-left"
+        },
+        "at": "2026-07-08T10:59:37.342Z"
+      },
+      {
+        "id": "1783508307642-1-ta9ps",
+        "url": "/api/img/1783508385374-8l3wo-crop.png",
+        "aspect": "4:5",
+        "angle": "Frame 1 — Hook — Low angle, looking up / bold colour-block flash",
+        "seq": 1,
+        "placement": {
+          "layout": "center",
+          "ink": "dark"
+        },
+        "at": "2026-07-08T10:59:45.494Z"
+      },
+      {
+        "id": "1783508307642-4-nvadc",
+        "url": "/api/img/1783508387449-sxuws-crop.png",
+        "aspect": "4:5",
+        "angle": "Frame 4 — Develop — Macro close-up / material, edge, stitching, label or detail fidelity",
+        "seq": 4,
+        "placement": {
+          "layout": "editorial-top",
+          "anchor": "top-center",
+          "ink": "dark"
+        },
+        "at": "2026-07-08T10:59:47.553Z"
+      },
+      {
+        "id": "1783508307642-3-8bten",
+        "url": "/api/img/1783508394520-4dvgk-crop.png",
+        "aspect": "4:5",
+        "angle": "Frame 3 — Develop — Top-down 90° flat-lay / silhouette and shadow study",
+        "seq": 3,
+        "placement": {
+          "layout": "editorial-top",
+          "anchor": "top-left",
+          "ink": "dark"
+        },
+        "at": "2026-07-08T10:59:54.650Z"
+      },
+      {
+        "id": "1783508307642-5-m2510",
+        "url": "/api/img/1783508416209-fyoqr-crop.png",
+        "aspect": "4:5",
+        "angle": "Frame 5 — Close — Front, straight-on eye-level / calm full-product hero with negative space",
+        "seq": 5,
+        "placement": {
+          "layout": "split",
+          "ink": "dark"
+        },
+        "at": "2026-07-08T11:00:16.326Z"
+      }
+    ],
+    "createdAt": "2026-07-08T11:00:16.326Z",
+    "updatedAt": "2026-07-08T11:00:16.326Z"
+  },
+  {
+    "id": "cmp-mrbypru2-izdcp",
+    "name": "Carousel",
+    "type": "carousel",
+    "copy": {
+      "headline": "Make room for calm",
+      "subline": "One piece. One colour. All attention.",
+      "cta": "Shop the edit",
+      "caption": "A clean colour-matched study in form, finish, and quiet presence. Wudhomes pieces are made to hold space beautifully. #Wudhomes",
+      "frames": [
+        {
+          "headline": "make room for calm"
+        },
+        {
+          "headline": "one colour, one focus"
+        },
+        {
+          "headline": "form that settles in"
+        },
+        {
+          "headline": "nothing fighting for attention"
+        },
+        {
+          "headline": "shop the edit"
+        }
+      ],
+      "treatment": {
+        "headlineArchetype": "luxury-minimal",
+        "ctaArchetype": "exploration",
+        "layout": "editorial-top",
+        "anchor": "top-left",
+        "align": "left",
+        "case": "lower",
+        "weight": "regular",
+        "scale": "standard",
+        "ctaStyle": "text-link",
+        "ink": "light"
+      }
+    },
+    "outputs": [
+      {
+        "id": "1783508170538-5-piz9n",
+        "url": "/api/img/1783508203596-ubdno-crop.png",
+        "aspect": "4:5",
+        "angle": "Frame 5 — Close — Front, straight-on eye-level / calm full-product hero with negative space",
+        "seq": 5,
+        "placement": {
+          "layout": "split"
+        },
+        "at": "2026-07-08T10:56:43.714Z"
+      },
+      {
+        "id": "1783508170538-4-8uifn",
+        "url": "/api/img/1783508211125-lejy7-crop.png",
+        "aspect": "4:5",
+        "angle": "Frame 4 — Develop — Macro close-up / material, stitching, edge or label detail",
+        "seq": 4,
+        "placement": {
+          "layout": "side-rail",
+          "anchor": "center-right",
+          "ink": "light"
+        },
+        "at": "2026-07-08T10:56:51.248Z"
+      },
+      {
+        "id": "1783508170538-2-4dhls",
+        "url": "/api/img/1783508216326-zdo0w-crop.png",
+        "aspect": "4:5",
+        "angle": "Frame 2 — Develop — 45° front-left three-quarter / sculptural product portrait",
+        "seq": 2,
+        "placement": {
+          "layout": "split"
+        },
+        "at": "2026-07-08T10:56:56.461Z"
+      },
+      {
+        "id": "1783508170538-3-9nhct",
+        "url": "/api/img/1783508217366-llm0n-crop.png",
+        "aspect": "4:5",
+        "angle": "Frame 3 — Develop — Top-down 90° / graphic silhouette study",
+        "seq": 3,
+        "placement": {
+          "layout": "split",
+          "ink": "light"
+        },
+        "at": "2026-07-08T10:56:57.501Z"
+      },
+      {
+        "id": "1783508170538-1-tqdcy",
+        "url": "/api/img/1783508221937-x0f3n-crop.png",
+        "aspect": "4:5",
+        "angle": "Frame 1 — Hook — Low angle, looking up / bold colour-block",
+        "seq": 1,
+        "placement": {
+          "layout": "split",
+          "ink": "light"
+        },
+        "at": "2026-07-08T10:57:02.053Z"
+      }
+    ],
+    "createdAt": "2026-07-08T10:57:02.053Z",
+    "updatedAt": "2026-07-08T10:57:02.054Z"
+  },
+  {
+    "id": "cmp-mrbymrth-l0k6z",
+    "name": "Story",
+    "type": "story",
+    "copy": {
+      "headline": "Warmth, made modern",
+      "subline": "Thoughtful pieces for a home that feels considered",
+      "cta": "Shop the edit",
+      "caption": "Wudhomes brings quiet character into everyday spaces, with design that feels natural, refined and lived-in.",
+      "treatment": {
+        "headlineArchetype": "luxury-minimal",
+        "ctaArchetype": "exploration",
+        "layout": "editorial-top",
+        "anchor": "top-left",
+        "align": "left",
+        "case": "sentence",
+        "weight": "regular",
+        "scale": "standard",
+        "ctaStyle": "text-link",
+        "ink": "light"
+      }
+    },
+    "outputs": [
+      {
+        "id": "1783508030549-6-g5s2w",
+        "url": "/api/img/1783508069491-knh3s-crop.png",
+        "aspect": "9:16",
+        "angle": "Macro close-up / material, edge, branding or texture detail",
+        "placement": {
+          "layout": "split",
+          "ink": "light"
+        },
+        "at": "2026-07-08T10:54:29.599Z"
+      },
+      {
+        "id": "1783508030549-5-eyc47",
+        "url": "/api/img/1783508069957-5zbo3-crop.png",
+        "aspect": "9:16",
+        "angle": "Low angle looking up / monumental hero",
+        "placement": {
+          "layout": "editorial-top",
+          "anchor": "top-center",
+          "ink": "light"
+        },
+        "at": "2026-07-08T10:54:30.055Z"
+      },
+      {
+        "id": "1783508030549-2-mc4hy",
+        "url": "/api/img/1783508072664-wz4xc-crop.png",
+        "aspect": "9:16",
+        "angle": "45° front-left three-quarter / sculptural colour-block",
+        "placement": {
+          "layout": "split"
+        },
+        "at": "2026-07-08T10:54:32.785Z"
+      },
+      {
+        "id": "1783508030549-3-ivmj8",
+        "url": "/api/img/1783508073548-2eowo-crop.png",
+        "aspect": "9:16",
+        "angle": "Top-down 90° flat-lay / graphic negative-space study",
+        "placement": {
+          "layout": "editorial-top",
+          "anchor": "top-left",
+          "ink": "dark"
+        },
+        "at": "2026-07-08T10:54:33.672Z"
+      },
+      {
+        "id": "1783508030549-4-f7hkr",
+        "url": "/api/img/1783508075013-37nqu-crop.png",
+        "aspect": "9:16",
+        "angle": "Left side profile / silhouette and depth study",
+        "placement": {
+          "layout": "editorial-top",
+          "anchor": "top-center"
+        },
+        "at": "2026-07-08T10:54:35.140Z"
+      },
+      {
+        "id": "1783508030549-1-3zvsp",
+        "url": "/api/img/1783508076340-5hcwp-crop.png",
+        "aspect": "9:16",
+        "angle": "Front eye-level hero / colour-matched flash campaign",
+        "placement": {
+          "layout": "split"
+        },
+        "at": "2026-07-08T10:54:36.464Z"
+      }
+    ],
+    "createdAt": "2026-07-08T10:54:36.464Z",
+    "updatedAt": "2026-07-08T10:54:36.465Z"
+  },
+  {
+    "id": "cmp-mrbyibj1-2xc8i",
+    "name": "Instagram Creative",
+    "type": "instagram",
+    "copy": {
+      "headline": "Let the room warm up",
+      "subline": "Natural texture, bold colour, easy everyday presence",
+      "cta": "Bring it home",
+      "caption": "Set against saturated colour, our latest Wudhomes piece does what good design should: add warmth without asking for attention.",
+      "treatment": {
+        "headlineArchetype": "outcome-first",
+        "ctaArchetype": "action",
+        "layout": "editorial-top",
+        "anchor": "top-left",
+        "align": "left",
+        "case": "sentence",
+        "weight": "regular",
+        "scale": "standard",
+        "ctaStyle": "text-link",
+        "ink": "dark"
+      }
+    },
+    "outputs": [
+      {
+        "id": "1783507822813-5-45dz5",
+        "url": "/api/img/1783507860677-ai8jf-crop.png",
+        "aspect": "4:5",
+        "angle": "Low angle looking up — monumental flash hero",
+        "placement": {
+          "layout": "split"
+        },
+        "at": "2026-07-08T10:51:00.786Z"
+      },
+      {
+        "id": "1783507822813-4-c88zv",
+        "url": "/api/img/1783507864071-df2lp-crop.png",
+        "aspect": "4:5",
+        "angle": "Left side profile — sculptural silhouette with caption-space crop",
+        "placement": {
+          "layout": "split"
+        },
+        "at": "2026-07-08T10:51:04.173Z"
+      },
+      {
+        "id": "1783507822813-3-p361r",
+        "url": "/api/img/1783507865053-5nkel-crop.png",
+        "aspect": "4:5",
+        "angle": "Top-down 90° flat-lay — two-tone colour-field composition",
+        "placement": {
+          "layout": "split",
+          "ink": "light"
+        },
+        "at": "2026-07-08T10:51:05.177Z"
+      },
+      {
+        "id": "1783507822813-6-q1qwx",
+        "url": "/api/img/1783507866588-v1fux-crop.png",
+        "aspect": "4:5",
+        "angle": "Macro close-up — material / edge / stitching or surface-detail study",
+        "placement": {
+          "layout": "side-rail",
+          "anchor": "center-left",
+          "ink": "light"
+        },
+        "at": "2026-07-08T10:51:06.710Z"
+      },
+      {
+        "id": "1783507822813-1-810ll",
+        "url": "/api/img/1783507867324-taz0w-crop.png",
+        "aspect": "4:5",
+        "angle": "Front, straight-on, eye-level hero — bold colour-block campaign frame",
+        "placement": {
+          "layout": "split"
+        },
+        "at": "2026-07-08T10:51:07.441Z"
+      },
+      {
+        "id": "1783507822813-2-bsh2n",
+        "url": "/api/img/1783507868097-0dskd-crop.png",
+        "aspect": "4:5",
+        "angle": "45° front-left three-quarter — sun/flash editorial with graphic shadow",
+        "placement": {
+          "layout": "editorial-top",
+          "anchor": "top-left",
+          "ink": "light"
+        },
+        "at": "2026-07-08T10:51:08.224Z"
+      }
+    ],
+    "createdAt": "2026-07-08T10:51:08.224Z",
+    "updatedAt": "2026-07-08T10:51:08.224Z"
+  }
+]

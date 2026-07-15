@@ -13,11 +13,13 @@ export function WorkBar({
   back = "/studio/products",
   backLabel = "Back",
   right,
+  hideRightBack = false,
 }: {
   brand?: string;
   back?: string;
   backLabel?: string;
   right?: ReactNode;
+  hideRightBack?: boolean; // opt-in: drop the duplicate right-side "Back" (the left chevron already goes back)
 }) {
   return (
     <header className="flex h-14 items-center justify-between border-b border-hairline px-6">
@@ -35,9 +37,11 @@ export function WorkBar({
       </div>
       <div className="flex items-center gap-5 text-[13px] text-muted">
         {right}
-        <Link href={back} className="transition-opacity hover:opacity-60">
-          {backLabel}
-        </Link>
+        {!hideRightBack && (
+          <Link href={back} className="transition-opacity hover:opacity-60">
+            {backLabel}
+          </Link>
+        )}
       </div>
     </header>
   );

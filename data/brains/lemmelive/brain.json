@@ -1,0 +1,451 @@
+{
+  "name": "Lemmelive",
+  "website": "https://lemmelive.com/?srsltid=AfmBOoqwJBkVaQ-IeHr9AErXTBPU6ZtKYIHtkFYsMeqXlH-1YCmBrgPQ",
+  "research": {
+    "summary": "Lemme is a women’s supplement and wellness brand founded by Kourtney Kardashian Barker, selling science-backed gummies, capsules, chews, liquids, and bundles across digestion, beauty, mood, sleep, energy, weight management, women’s health, and intimacy. The brand makes supplements feel like colorful, craveable daily rituals rather than clinical chores, combining benefit-led product names, candy-coded packaging, playful copy, and mass-retail accessibility.",
+    "essence": "Science-backed supplements made irresistible: women’s wellness dressed like candy, spoken like a best friend, and designed for routines people actually keep.",
+    "voice": "Playful, cheeky, intimate, benefit-led, reassuring, and culturally fluent. Copy uses casual lowercase phrasing, flirtatious “lemme…” constructions, quick fixes, sensory language, and approachable science cues rather than formal pharmaceutical language.",
+    "competitors": [
+      "OLLY",
+      "HUM Nutrition",
+      "Ritual",
+      "Love Wellness"
+    ],
+    "ambassadors": [
+      "Kourtney Kardashian Barker"
+    ],
+    "instagram": "@lemme",
+    "website": "https://lemmelive.com/?srsltid=AfmBOoqwJBkVaQ-IeHr9AErXTBPU6ZtKYIHtkFYsMeqXlH-1YCmBrgPQ",
+    "palette": [
+      {
+        "hex": "#B79BEA",
+        "role": "signature lavender / core Lemme wellness color"
+      },
+      {
+        "hex": "#6E3FD9",
+        "role": "deep violet contrast and product-world accent"
+      },
+      {
+        "hex": "#D8FF49",
+        "role": "acid green energy, metabolism, and high-impact launch pop"
+      },
+      {
+        "hex": "#FF6AAE",
+        "role": "bubblegum pink for feminine beauty and intimacy cues"
+      },
+      {
+        "hex": "#FFF3E2",
+        "role": "soft cream background and edible warmth"
+      },
+      {
+        "hex": "#E94D65",
+        "role": "berry red gummy and fruit appetite cue"
+      },
+      {
+        "hex": "#111111",
+        "role": "clean black for commerce text, claims, and contrast"
+      },
+      {
+        "hex": "#FFFFFF",
+        "role": "white clinical cleanliness and e-commerce negative space"
+      }
+    ],
+    "aesthetic": "Glossy candy-lab studio photography on seamless monochrome sets in lavender, cream, bubblegum pink, lime green, pale yellow, sky blue, and berry red. Surfaces are smooth acrylic, glossy plastic, or softly matte beauty-counter planes, never rustic or domestic. The color grade is high-key, saturated, clean, and edible, with translucent gummy highlights, juicy fruit tones, and cosmetic shine. Styling density is medium to high: bottles, gummies, capsules, fruit, lips, clouds, hands, liquid splashes, tubes, magnifying glasses, and surreal oversized wellness props are arranged like beauty campaign still lifes. Lighting is soft studio light from the front or top-front, with minimal shadows and gentle specular highlights. Crops are tight and social-first: front-facing packshots for commerce, macro gummy close-ups, floating product compositions, symmetrical stacks, and cutout-style surreal vignettes. Product-only imagery dominates the site and shop experience, while founder/model imagery appears mainly for campaigns, launches, retail activations, and social content.",
+    "foundReal": true,
+    "logo": "https://lemmelive.com/cdn/shop/files/favicon_64x64.png?v=1658195520&width=480",
+    "productImages": [
+      "https://lemmelive.com/cdn/shop/files/Lemme_Password_Meta_Image_1200x630.png?v=1659625593",
+      "https://lemmelive.com/cdn/shop/files/Collection_Chill_ed1c19f6-d38c-44bc-b172-b85b312af708.png?v=1769015297&amp;width=920",
+      "https://lemmelive.com/cdn/shop/files/Collection_debloat_capsules_2.png?v=1770727932&amp;width=920",
+      "https://lemmelive.com/cdn/shop/files/LEMME_CURB_ARTISTIC_nobkgrd_2000x2000_483f6df8-7b17-4522-a15e-eb184fc31a75_12.png?v=1726104722&amp;width=224",
+      "https://lemmelive.com/cdn/shop/files/LEMME_CURB_ARTISTIC_nobkgrd_2000x2000_483f6df8-7b17-4522-a15e-eb184fc31a75_11.png?v=1726104722&amp;width=224",
+      "https://lemmelive.com/cdn/shop/files/LEMME_CURB_ARTISTIC_nobkgrd_2000x2000_483f6df8-7b17-4522-a15e-eb184fc31a75_9.png?v=1726104723&amp;width=224",
+      "https://lemmelive.com/cdn/shop/files/Collection_tg-bundle_35921ffd-0c2a-4fd4-b179-a1c7d33c5754.png?v=1771848992&amp;width=224",
+      "https://lemmelive.com/cdn/shop/files/lemme-glp-1.png?v=1771847983&amp;width=224",
+      "https://lemmelive.com/cdn/shop/files/lemme-purr-nav_1.png?v=1726843062&amp;width=224",
+      "https://lemmelive.com/cdn/shop/files/LEMME_CURB_ARTISTIC_nobkgrd_2000x2000_483f6df8-7b17-4522-a15e-eb184fc31a75_4.png?v=1726104722&amp;width=224",
+      "https://lemmelive.com/cdn/shop/files/Nav_Sleep_2_629200b0-8550-4814-97e6-4c2ed4bcef13.png?v=1730056714&amp;width=224",
+      "https://lemmelive.com/cdn/shop/files/LEMME_CURB_ARTISTIC_nobkgrd_2000x2000_483f6df8-7b17-4522-a15e-eb184fc31a75_5.png?v=1726104723&amp;width=224"
+    ],
+    "products": [
+      {
+        "name": "Lemme Chill Gummies"
+      },
+      {
+        "name": "Lemme Debloat Capsules"
+      },
+      {
+        "name": "Build Your Bundle"
+      },
+      {
+        "name": "Reset™ GLP-1 Support"
+      },
+      {
+        "name": "Purr Gummies"
+      },
+      {
+        "name": "Debloat Gummies"
+      },
+      {
+        "name": "Sleep Gummies"
+      },
+      {
+        "name": "Burn Capsules"
+      },
+      {
+        "name": "Shop Lemme Reset TM"
+      },
+      {
+        "name": "Shop lemme metabolism"
+      },
+      {
+        "name": "FREE SHIPPING on subscription orders FREE SHIPPING on subscription orders FREE S"
+      },
+      {
+        "name": "Lemme Purr Gummies Vaginal Probiotic Gummies* $30"
+      },
+      {
+        "name": "Lemme Debloat Gummies Daily Digestive Gummies* $30"
+      },
+      {
+        "name": "Lemme Sleep Gummies Sleep Tight Gummies* $30"
+      },
+      {
+        "name": "Build a Bundle"
+      },
+      {
+        "name": "SHOP CREATINE"
+      },
+      {
+        "name": "Lemme Play Gummies"
+      },
+      {
+        "name": "Lemme Colostrum Liquid"
+      },
+      {
+        "name": "Lemme Tone Gummies"
+      },
+      {
+        "name": "Lemme Grow Capsules"
+      },
+      {
+        "name": "Lemme Immunity Gummies"
+      },
+      {
+        "name": "Lemme Debloat Gummies"
+      },
+      {
+        "name": "SUBSCRIBE NOW"
+      }
+    ],
+    "photoRules": {
+      "category": "General product",
+      "grade": "Use high-key studio lighting, saturated candy colors, glossy or softly matte seamless backgrounds, tight social-first crops, and minimal hard shadows. Reproduce the look with lavender, cream, candy pink, lime, sky blue, berry red, or pale yellow sets; product-first compositions; macro gummy close-ups; floating pack arrangements; surreal props such as oversized gummies, fruit, liquid splashes, clouds, lips, hands, magnifying glasses, and dreamy wellness illustrations.",
+      "signatures": [
+        "Use high-key studio lighting, saturated candy colors, glossy or softly matte seamless backgrounds, tight social-first crops, and minimal hard shadows. Reproduce the look with lavender, cream, candy pink, lime, sky blue, berry red, or pale yellow sets; product-first compositions; macro gummy close-ups; floating pack arrangements; surreal props such as oversized gummies, fruit, liquid splashes, clouds, lips, hands, magnifying glasses, and dreamy wellness illustrations."
+      ],
+      "neverDo": [
+        "a floating product on a gradient void",
+        "flat, even, sourceless light",
+        "a plastic CGI-render look",
+        "random scattered geometric props",
+        "a concentric spotlight halo behind the subject"
+      ],
+      "colorGrade": {
+        "rMul": 1.0526049042305454,
+        "gMul": 0.9724411119094067,
+        "bMul": 0.9983458441302332,
+        "saturation": 0.9849341473114368,
+        "brightness": 1,
+        "contrast": 1.06,
+        "grain": 0.5,
+        "sharpen": 0.75
+      }
+    },
+    "sources": 12
+  },
+  "intelligence": {
+    "overview": "Lemme is a science-backed women’s supplement and wellness brand founded by Kourtney Kardashian Barker and operated by KK Nutrition, Inc. The brand turns gummies, capsules, chews, liquids, and bundles into colorful, benefit-led rituals across digestion, beauty, women’s health, mood, sleep, energy, metabolism, weight management, and intimacy.",
+    "purpose": "To make women’s supplement routines feel less clinical, less joyless, and less intimidating by turning daily wellness into a sensory, playful, self-care ritual.",
+    "mission": "To create delicious, premium, science-backed supplements with clinically studied ingredients, third-party testing, and a cleaner, more sustainable material story.",
+    "vision": "To become the default modern supplement brand for women who want results they can feel, products they are happy to display, and a wellness routine that fits beauty culture, self-care, social media, and accessible retail.",
+    "story": "Lemme was introduced by Kourtney Kardashian Barker in September 2022 after what the launch announcement described as her decades-long passion for health and wellness and five years of research with scientists, doctors, and botanists. The origin story centers on her frustration with finding the right supplements and her desire to create science-backed products people would actually look forward to taking every day.",
+    "values": [
+      "Delicious compliance",
+      "Science-backed reassurance",
+      "Clean-ish formulation",
+      "Sustainability as permission to indulge",
+      "Pop-wellness accessibility",
+      "Benefit-led self-care"
+    ],
+    "positioning": "Lemme makes science-backed supplements feel like the treat you actually want to take every day.",
+    "audience": "Wellness-aware women who already believe in supplements but want the category to feel more modern, sensorial, feminine, culturally fluent, and easy to integrate into beauty and self-care routines.",
+    "persona": "Sofia is 31, lives in a city like Austin, Los Angeles, Miami, Chicago, or Brooklyn, and works in marketing, beauty, fashion, fitness, creator partnerships, or a flexible corporate role. Her routine includes Pilates or strength classes, oat matcha, Target and Ulta runs, TikTok wellness trends, clean-girl beauty, and saved posts about gut health, hormones, cortisol, sleep, and hair growth. She wants help with bloating before events, inconsistent sleep, stress, hair shedding, low energy, cycle concerns, intimate-health anxiety, and the general distrust of ugly supplement bottles. She wants science-backed, but she also wants cute, fast, frictionless, social-proofed, and good enough to leave on the bathroom counter.",
+    "toneOfVoice": "Playful, intimate, cheeky, benefit-led, reassuring, and conversational.",
+    "personality": [
+      "Flirty scientist",
+      "Glossy big sister",
+      "Candy-colored wellness maximalist",
+      "Pop-cultural authority",
+      "Retail-ready",
+      "DTC-native",
+      "Cheeky but reassuring"
+    ],
+    "palette": [
+      {
+        "hex": "#B79BEA",
+        "role": "signature lavender / core Lemme wellness color"
+      },
+      {
+        "hex": "#6E3FD9",
+        "role": "deep violet contrast and product-world accent"
+      },
+      {
+        "hex": "#D8FF49",
+        "role": "acid green energy, metabolism, and high-impact launch pop"
+      },
+      {
+        "hex": "#FF6AAE",
+        "role": "bubblegum pink for feminine beauty and intimacy cues"
+      },
+      {
+        "hex": "#FFF3E2",
+        "role": "soft cream background and edible warmth"
+      },
+      {
+        "hex": "#E94D65",
+        "role": "berry red gummy and fruit appetite cue"
+      },
+      {
+        "hex": "#111111",
+        "role": "clean black for commerce text, claims, and contrast"
+      },
+      {
+        "hex": "#FFFFFF",
+        "role": "white clinical cleanliness and e-commerce negative space"
+      }
+    ],
+    "typography": {
+      "display": "Rounded, lower-case, friendly, bold sans-serif styling with a bubbly beauty-commerce feel.",
+      "text": "Clean, legible sans-serif commerce typography that supports product claims, pricing, variants, subscriptions, and disclaimers.",
+      "note": "The type system feels like bubble-sans meets beauty-commerce utility, balancing playful headlines with rational product information."
+    },
+    "logo": "https://lemmelive.com/cdn/shop/files/favicon_64x64.png?v=1658195520&width=480",
+    "logoSystem": "The logo is a simple lowercase “lemme” wordmark that doubles as a conversational naming device. It extends naturally into product names such as Lemme Chill, Lemme Debloat, Lemme Purr, Lemme Sleep, Lemme Burn, Lemme Grow, Lemme Play, and Lemme Reset.",
+    "photographyStyle": "Use high-key studio lighting, saturated candy colors, glossy or softly matte seamless backgrounds, tight social-first crops, and minimal hard shadows. Reproduce the look with lavender, cream, candy pink, lime, sky blue, berry red, or pale yellow sets; product-first compositions; macro gummy close-ups; floating pack arrangements; surreal props such as oversized gummies, fruit, liquid splashes, clouds, lips, hands, magnifying glasses, and dreamy wellness illustrations.",
+    "packagingStyle": "Packaging looks more like beauty, candy, or countertop self-care than traditional supplements, using rounded bottles or jars, bright SKU-specific color blocking, large product names, benefit-first descriptors, flavor cues, and polished DTC design with mass-retail readability. The brand also emphasizes gummy bottles and caps made from 100% post-consumer recycled content.",
+    "visualIdentity": "Lemme’s design system is candy-colored, high-saturation, rounded, feminine, and social-first, with each SKU living in its own vivid benefit-coded color world. The overall identity balances glossy pleasure with enough clinical clarity to support claims, testing language, ingredients, and retailer credibility.",
+    "competitors": [
+      {
+        "name": "OLLY",
+        "note": "Mass-market gummy vitamin benchmark with colorful, benefit-led products and strong Target, drugstore, and grocery visibility."
+      },
+      {
+        "name": "HUM Nutrition",
+        "note": "Beauty-wellness supplement brand competing across hair, skin, gut, mood, and women’s wellness with a more nutritionist-led feel."
+      },
+      {
+        "name": "Ritual",
+        "note": "Premium vitamin and supplement brand with stronger emphasis on traceability, transparency, subscriptions, and minimalist evidence-led design."
+      },
+      {
+        "name": "Love Wellness",
+        "note": "Women’s health supplement competitor focused on vaginal health, gut health, pH balance, and body concerns, making it especially close to products like Purr and Debloat."
+      }
+    ],
+    "social": [
+      {
+        "platform": "Instagram",
+        "handle": "@lemme",
+        "url": "https://www.instagram.com/lemme",
+        "note": "Primary visual home for glossy product launches, founder moments, colorful SKU education, Reels, retail displays, UGC-style testimonials, gummy macro imagery, wellness routines, and cheeky benefit-led copy."
+      },
+      {
+        "platform": "TikTok",
+        "handle": "@lemme",
+        "url": "https://www.tiktok.com/@lemme",
+        "note": "Trend-led and launch-heavy channel for wellness explainers, creator seeding, taste tests, routine content, and “what I take for” style product storytelling."
+      },
+      {
+        "platform": "X/Twitter",
+        "handle": "@lemme",
+        "url": "https://x.com/lemme",
+        "note": "Secondary announcement channel for launch reminders, press amplification, retailer news, and customer-service redirects."
+      },
+      {
+        "platform": "Facebook",
+        "handle": "Lemme",
+        "url": "",
+        "note": "Official site-linked channel likely used for product education, ads, reviews, retargeting, retail conversion, and older millennial reach."
+      }
+    ],
+    "press": [
+      {
+        "title": "Kourtney Kardashian Barker Introduces Lemme",
+        "source": "PR Newswire",
+        "url": "https://www.prnewswire.com/news-releases/kourtney-kardashian-barker-introduces-lemme-301622051.html"
+      },
+      {
+        "title": "Kourtney Kardashian Barker celebrates Lemme at Target",
+        "source": "Target",
+        "url": "https://corporate.target.com/news-features/article/2024/03/kourtney-kardashian-barker-lemme"
+      },
+      {
+        "title": "Kourtney Kardashian Launches Vitamins and Supplements Brand Lemme",
+        "source": "Nylon",
+        "url": "https://www.nylon.com/beauty/kourtney-kardashian-launches-vitamins-and-supplements-brand-lemme"
+      },
+      {
+        "title": "Kourtney Kardashian Barker on Lemme GLP-1",
+        "source": "Vogue",
+        "url": "https://www.vogue.com/article/kourtney-kardashian-barker-lemme-glp1"
+      },
+      {
+        "title": "Kourtney Kardashian Barker’s Lemme supplement brand expands at Target",
+        "source": "Retail Dive",
+        "url": "https://www.retaildive.com/news/kourtney-kardashian-barker-lemme-supplement-brand-target/703878/"
+      },
+      {
+        "title": "Unregulated GLP-1 supplements boom",
+        "source": "Axios",
+        "url": "https://www.axios.com/2024/12/10/unregulated-glp-1-supplements-boom"
+      },
+      {
+        "title": "Kylie Jenner and Kourtney Kardashian Barker collaboration coverage",
+        "source": "Marie Claire",
+        "url": "https://www.marieclaire.com/fashion/celebrity-style/kylie-jenner-kourtney-kardashian-barker-collaboration-black-skirt-sets/"
+      }
+    ],
+    "insights": [
+      "Lemme’s strongest moat is craveable compliance: it wins by making supplement adherence feel pleasurable, beautiful, and emotionally rewarding.",
+      "The “lemme” naming system is a brand engine, functioning as both product architecture and conversational copy platform.",
+      "The candy-gloss visual world is stronger than the proof world, so the next opportunity is making clinical substantiation as ownable and memorable as the packaging.",
+      "The brand should refine rather than dilute its femininity, because its power comes from making bloating, vaginal health, intimacy, hair shedding, sleep, cravings, and body concerns feel normal and unshameful.",
+      "Kourtney Kardashian Barker provides reach and cultural permission, but long-term trust must come from experts, ingredient transparency, retailer validation, customer routines, and efficacy storytelling.",
+      "The distinctive creative territory is beauty-counter supplement candy for grown women with real body concerns: not too pharmaceutical, not too childish, and never generic wellness."
+    ],
+    "website": "https://lemmelive.com/?srsltid=AfmBOoqwJBkVaQ-IeHr9AErXTBPU6ZtKYIHtkFYsMeqXlH-1YCmBrgPQ",
+    "instagram": "@lemme",
+    "sources": 12,
+    "foundReal": true,
+    "inferred": false
+  },
+  "catalog": [
+    {
+      "id": "lemme-chill-gummies",
+      "name": "Lemme Chill Gummies",
+      "images": []
+    },
+    {
+      "id": "lemme-debloat-capsules",
+      "name": "Lemme Debloat Capsules",
+      "images": []
+    },
+    {
+      "id": "build-your-bundle",
+      "name": "Build Your Bundle",
+      "images": []
+    },
+    {
+      "id": "reset-glp-1-support",
+      "name": "Reset™ GLP-1 Support",
+      "images": []
+    },
+    {
+      "id": "purr-gummies",
+      "name": "Purr Gummies",
+      "images": []
+    },
+    {
+      "id": "debloat-gummies",
+      "name": "Debloat Gummies",
+      "images": []
+    },
+    {
+      "id": "sleep-gummies",
+      "name": "Sleep Gummies",
+      "images": []
+    },
+    {
+      "id": "burn-capsules",
+      "name": "Burn Capsules",
+      "images": []
+    },
+    {
+      "id": "shop-lemme-reset-tm",
+      "name": "Shop Lemme Reset TM",
+      "images": []
+    },
+    {
+      "id": "shop-lemme-metabolism",
+      "name": "Shop lemme metabolism",
+      "images": []
+    },
+    {
+      "id": "free-shipping-on-subscription-orders-free-shippi",
+      "name": "FREE SHIPPING on subscription orders FREE SHIPPING on subscription orders FREE S",
+      "images": []
+    },
+    {
+      "id": "lemme-purr-gummies-vaginal-probiotic-gummies-30",
+      "name": "Lemme Purr Gummies Vaginal Probiotic Gummies* $30",
+      "images": []
+    },
+    {
+      "id": "lemme-debloat-gummies-daily-digestive-gummies-30",
+      "name": "Lemme Debloat Gummies Daily Digestive Gummies* $30",
+      "images": []
+    },
+    {
+      "id": "lemme-sleep-gummies-sleep-tight-gummies-30",
+      "name": "Lemme Sleep Gummies Sleep Tight Gummies* $30",
+      "images": []
+    },
+    {
+      "id": "build-a-bundle",
+      "name": "Build a Bundle",
+      "images": []
+    },
+    {
+      "id": "shop-creatine",
+      "name": "SHOP CREATINE",
+      "images": []
+    },
+    {
+      "id": "lemme-play-gummies",
+      "name": "Lemme Play Gummies",
+      "images": []
+    },
+    {
+      "id": "lemme-colostrum-liquid",
+      "name": "Lemme Colostrum Liquid",
+      "images": []
+    },
+    {
+      "id": "lemme-tone-gummies",
+      "name": "Lemme Tone Gummies",
+      "images": []
+    },
+    {
+      "id": "lemme-grow-capsules",
+      "name": "Lemme Grow Capsules",
+      "images": []
+    },
+    {
+      "id": "lemme-immunity-gummies",
+      "name": "Lemme Immunity Gummies",
+      "images": []
+    },
+    {
+      "id": "lemme-debloat-gummies",
+      "name": "Lemme Debloat Gummies",
+      "images": []
+    },
+    {
+      "id": "subscribe-now",
+      "name": "SUBSCRIBE NOW",
+      "images": []
+    }
+  ],
+  "ready": true
+}

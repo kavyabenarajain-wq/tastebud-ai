@@ -60,6 +60,10 @@ const IntelligenceSchema = z.object({
   social: z.array(z.object({ platform: z.string().default(""), handle: z.string().default(""), url: z.string().default(""), note: z.string().default("") })).default([]),
   press: z.array(z.object({ title: z.string().default(""), source: z.string().default(""), url: z.string().default("") })).default([]),
   insights: z.array(z.string()).default([]),
+  // Marketing history the director actually references — sourced from the Meta Ad Library, Instagram, press.
+  campaigns: z.array(z.object({ title: z.string().default(""), year: z.string().default(""), channel: z.string().default(""), description: z.string().default(""), fronted: z.string().default(""), url: z.string().default("") })).default([]),
+  ambassadors: z.array(z.object({ name: z.string().default(""), handle: z.string().default(""), note: z.string().default("") })).default([]),
+  socialProof: z.array(z.object({ type: z.string().default(""), text: z.string().default(""), source: z.string().default(""), url: z.string().default("") })).default([]),
 });
 
 const withTimeout = async (url: string, init: RequestInit, ms: number): Promise<Response> => {
@@ -222,7 +226,7 @@ function collectImages(html: string, base: string): Set<string> {
  * logo. Tries the Shopify catalogue first (richest), then JSON-LD and product-page links.
  * Best-effort and defensive: returns whatever resolves, or empty on any failure.
  */
-async function harvestBrandSite(website: string): Promise<{ logo?: string; productImages: string[]; catalog: StudioProduct[] }> {
+async function harvestBrandSite(website: string, onCatalog?: (partial: { catalog: StudioProduct[]; logo?: string }) => void): Promise<{ logo?: string; productImages: string[]; catalog: StudioProduct[] }> {
   try {
     const base = /^https?:/i.test(website) ? website : `https://${website.replace(/^\/+/, "")}`;
     const html = await fetchText(base);
@@ -273,6 +277,11 @@ async function harvestBrandSite(website: string): Promise<{ logo?: string; produ
     const pick = apple || ogLogo || icon;
     let logo: string | undefined;
     if (pick) { const abs = absolutize(pick, base); if (abs) logo = upscaleLogo(abs); }
+
+    // Stream the catalogue + logo NOW — the product library only needs these, and they're
+    // ready before the (slower) homepage-image HEAD verification below. So the library fills
+    // the moment the crawl parses the catalogue, not after every image URL is validated.
+    if (products.length) onCatalog?.({ catalog: products, logo });
 
     // Real product photos: catalogue hero images first, then a pass over homepage imagery.
     const fromCatalog = products.flatMap((p) => p.images.slice(0, 1));
@@ -346,10 +355,12 @@ function researchQuestion(brain: BrandBrain): string {
     `2) IDENTITY & STORY. Their real PURPOSE, MISSION, VISION, brand STORY / origin, and CORE VALUES. A sharp POSITIONING line. Who exactly they are FOR (target audience) and a vivid CUSTOMER PERSONA. Their TONE OF VOICE (3-5 words) and BRAND PERSONALITY traits.\n` +
     `3) VISUAL IDENTITY. Their real COLOUR palette (hex sampled from their actual site/feed, never invented), TYPOGRAPHY feel (display + text), LOGO system, PACKAGING style, and their PHOTOGRAPHY SIGNATURE described concretely enough to reproduce: backgrounds & surfaces, colour grade, styling density & props, lighting quality/direction, crops/compositions, product-only vs models.\n` +
     `4) PRODUCTS. Their product line / hero products and collections.\n` +
-    `5) MARKET. 3-4 real COMPETITORS (with a one-line note each) and any ambassadors/founders/faces.\n` +
+    `5) MARKET & FACES. 3-4 real COMPETITORS (one-line note each). And their BRAND AMBASSADORS / faces — the creators, celebrities, athletes, models or founders who represent them: search the web AND their Instagram (tagged posts, collabs, mentions) for each one's NAME, @HANDLE, and what they did for the brand.\n` +
     `6) SOCIAL. Their active platforms (Instagram, TikTok, LinkedIn, YouTube, Pinterest, X, Facebook) — content style, posting cadence, community, and voice on each.\n` +
-    `7) PERCEPTION. Notable PRESS / articles / interviews / podcasts / reviews / awards / collaborations, and how the internet actually perceives them.\n` +
-    `8) INSIGHTS. 3-6 sharp KEY INSIGHTS a creative director would act on. And ARTICULATE the brand better than the founder did — an elevated one-line ESSENCE.\n` +
+    `7) PAST CAMPAIGNS. Find their real PAST & CURRENT marketing campaigns. CHECK THE META AD LIBRARY (facebook.com/ads/library — search the brand's page) for ads they are running or have run; scan their INSTAGRAM feed, reels and highlights for campaign launches and collabs; and press for campaign coverage. For EACH campaign capture: a title/theme, approx YEAR, the CHANNEL (Meta/Instagram ads, influencer, TV, OOH, email), a one-line description, WHO fronted it (ambassador/creator), and a source URL.\n` +
+    `8) SOCIAL PROOF. Concrete proof of traction: awards, notable press features, follower scale per platform, viral moments, celebrity or UGC endorsements, retailer stockists, standout reviews/testimonials — each with a source.\n` +
+    `9) PERCEPTION. How the internet actually perceives them — sentiment, community love or criticism, reputation.\n` +
+    `10) INSIGHTS. 3-6 sharp KEY INSIGHTS a creative director would act on. And ARTICULATE the brand better than the founder did — an elevated one-line ESSENCE.\n` +
     `Be specific, real, and tasteful — never generic. If the brand has little web presence, research its exact CATEGORY & niche for the relevant market instead and say so.`
   );
 }
@@ -369,7 +380,12 @@ async function groundedDossier(brain: BrandBrain): Promise<{ dossier: string; so
   // 1) Live web search via the Responses API — funded, reliable, actually grounds on the
   //    real brand. Try each configured provider in order (OpenAI first, Azure second) so a
   //    depleted OpenAI balance fails over to Azure instead of silently dropping grounding.
-  for (const { client, model } of chatClients()) {
+  for (const { client, model, name } of chatClients()) {
+    // Hard cap the grounded pass so a stalled web_search browsing loop can NEVER hang the route
+    // (which would leave the studio spinning forever). On timeout we abort and fail over to the
+    // next provider, then Gemini, then the fast un-grounded synthesis — research always finishes.
+    const ctrl = new AbortController();
+    const to = setTimeout(() => ctrl.abort(), 55_000);
     try {
       // Bound the browsing loop: `low` reasoning + a tool-call cap keep the grounded pass
       // fast (well under the route's maxDuration) and, crucially, cheap — web_search is a
@@ -379,12 +395,15 @@ async function groundedDossier(brain: BrandBrain): Promise<{ dossier: string; so
       const res: any = await client.responses.create({
         model,
         tools: [{ type: "web_search" }],
-        max_tool_calls: 8,
+        // Fewer, sharper searches: the brand's own site + a couple of perception/competitor
+        // queries is enough to ground the dossier, and each web_search is metered + slow — so
+        // capping tighter is the single biggest research-speed lever without losing accuracy.
+        max_tool_calls: 4,
         reasoning: { effort: "low" },
         input: `${q}\n\n${siteHost(brain.website)
           ? `START by browsing ${(brain.website || "").trim()} directly (search \`site:${siteHost(brain.website)}\`), read its own pages, then use the wider web only for competitors, press and perception. Never let a different same-named brand replace it.`
           : "Use web search to find and verify the REAL brand (official site, Instagram, press) before answering."} Then write the dossier as detailed prose.`,
-      } as any);
+      } as any, { signal: ctrl.signal, maxRetries: 0 });
       const dossier: string = res.output_text ?? "";
       // Count grounding: unique cited URLs, else the number of searches the model ran.
       const urls = new Set<string>();
@@ -396,8 +415,13 @@ async function groundedDossier(brain: BrandBrain): Promise<{ dossier: string; so
       if (dossier.trim() && searches > 0) return { dossier, sources: urls.size || searches, inferred: false };
       if (dossier.trim()) return { dossier, sources: 0, inferred: true };
       // Empty result but no error — provider answered without grounding; try the next one.
-    } catch {
-      /* quota/transient on this provider → try the next, then Gemini / synthesis */
+    } catch (e) {
+      // quota/transient/timeout on this provider → try the next, then Gemini / synthesis.
+      // Log it so a broken grounding path is visible in the server console instead of silent.
+      const aborted = (e as { name?: string })?.name === "AbortError" || ctrl.signal.aborted;
+      console.warn(`[research] grounded dossier via ${name} failed${aborted ? " (timed out after 55s)" : ""}:`, (e as Error)?.message ?? e);
+    } finally {
+      clearTimeout(to);
     }
   }
 
@@ -405,16 +429,17 @@ async function groundedDossier(brain: BrandBrain): Promise<{ dossier: string; so
   const key = process.env.GEMINI_API_KEY;
   if (key) {
     try {
-      const gRes = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${key}`, {
+      const gRes = await withTimeout(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${key}`, {
         method: "POST", headers: { "content-type": "application/json" },
         body: JSON.stringify({ contents: [{ parts: [{ text: q }] }], tools: [{ google_search: {} }] }),
-      });
+      }, 45_000);
       const gJson: any = await gRes.json();
       const dossier: string = (gJson.candidates?.[0]?.content?.parts ?? []).map((p: any) => p.text ?? "").join("");
       const sources: number = gJson.candidates?.[0]?.groundingMetadata?.groundingChunks?.length ?? 0;
       if (dossier.trim()) return { dossier, sources, inferred: false };
-    } catch {
-      /* fall through to synthesis */
+      console.warn("[research] Gemini grounding returned no dossier:", gJson?.error?.message ?? "empty");
+    } catch (e) {
+      console.warn("[research] Gemini grounding failed:", (e as Error)?.message ?? e);
     }
   }
 
@@ -450,6 +475,37 @@ async function structureResearch(dossier: string, brain: BrandBrain): Promise<z.
   }
 }
 
+/**
+ * Structure BOTH the core research AND the full intelligence dossier in ONE LLM call.
+ * Two calls on the same dossier was pure latency (and double the tokens); folding them
+ * into a single {research, intelligence} response roughly halves the structuring time.
+ * Falls back to the two separate calls (in parallel) if the combined parse ever fails.
+ */
+const CombinedSchema = z.object({ research: ResearchSchema, intelligence: IntelligenceSchema });
+async function structureAll(dossier: string, brain: BrandBrain): Promise<{ research: z.infer<typeof ResearchSchema>; intelligence: z.infer<typeof IntelligenceSchema> }> {
+  try {
+    const content = await chatComplete({
+      max_completion_tokens: 4000,
+      messages: [
+        { role: "system", content:
+          `Convert this brand research into STRICT JSON with EXACTLY two top-level keys: "research" and "intelligence".\n\n` +
+          `"research" keys: summary, essence, voice, competitors (array of brand names), ambassadors (array), instagram (string), website (string root URL), palette (array of {hex, role}), aesthetic (string), foundReal (boolean). The "aesthetic" MUST be a concrete, reproducible PHOTOGRAPHY SIGNATURE — backgrounds & surfaces, colour grade, styling density & props, lighting quality/direction, crops, product-only vs models — describing what is ACTUALLY on their site/Instagram. For palette: ${brain.palette ? `the founder stated colours — use THOSE, converted to hex: ${brain.palette}` : "sample from their real feed or propose a fitting palette"}; always give hex codes.\n\n` +
+          `"intelligence" keys (fill every one you can; leave "" or [] if genuinely unknown — never invent hard facts, but DO articulate positioning/persona/insight): overview (2-3 sentences), purpose, mission, vision, story, values (array), positioning (one sharp line), audience, persona (a vivid paragraph), toneOfVoice (short), personality (array), typography {display, text, note}, logoSystem, photographyStyle (concrete & reproducible), packagingStyle, visualIdentity, competitors (array of {name, note}), social (array of {platform, handle, url, note}), press (array of {title, source, url}), insights (array of 3-6 sharp creative-director takeaways), campaigns (array of {title, year, channel, description, fronted, url} — their real PAST/CURRENT marketing campaigns from the Meta Ad Library, Instagram and press), ambassadors (array of {name, handle, note} — the faces/creators/celebrities who represent them), socialProof (array of {type, text, source, url} — awards, notable press, follower scale, viral moments, celebrity/UGC endorsements, stockists).\n\n` +
+          `Keep research.palette and intelligence.palette CONSISTENT. Every string must be plain text (not an object). Return JSON only.` },
+        { role: "user", content: dossier },
+      ],
+    });
+    const parsed = parseLenient(CombinedSchema, content);
+    // A degenerate parse (model ignored the shape) → let the fallback do the focused calls.
+    if (!parsed.research.summary && !parsed.intelligence.overview && !parsed.research.palette.length) throw new Error("combined structuring empty");
+    return { research: parsed.research, intelligence: parsed.intelligence };
+  } catch {
+    // Safety net: the two focused calls, in parallel (original behaviour).
+    const [research, intelligence] = await Promise.all([structureResearch(dossier, brain), buildIntelligence(dossier)]);
+    return { research, intelligence };
+  }
+}
+
 /** Structure the full Brand Intelligence dossier (the permanent Brand Brain). */
 async function buildIntelligence(dossier: string): Promise<z.infer<typeof IntelligenceSchema>> {
   try {
@@ -458,7 +514,7 @@ async function buildIntelligence(dossier: string): Promise<z.infer<typeof Intell
       messages: [
         { role: "system", content:
           `Convert this brand research into STRICT JSON for a Brand Intelligence dossier. Use EXACTLY these keys, filling every one you can from the research (leave "" or [] if genuinely unknown — never invent hard facts, but DO articulate positioning/persona/insight):\n` +
-          `overview (2-3 sentences), purpose, mission, vision, story (origin narrative), values (array of short phrases), positioning (one sharp line), audience (who it's for), persona (a vivid one-paragraph customer), toneOfVoice (short), personality (array of traits), typography {display, text, note}, logoSystem, photographyStyle (concrete & reproducible), packagingStyle, visualIdentity (overall design system in a sentence or two), competitors (array of {name, note}), social (array of {platform, handle, url, note} — one per active platform, note = content style/cadence/voice), press (array of {title, source, url}), insights (array of 3-6 sharp creative-director takeaways).\n` +
+          `overview (2-3 sentences), purpose, mission, vision, story (origin narrative), values (array of short phrases), positioning (one sharp line), audience (who it's for), persona (a vivid one-paragraph customer), toneOfVoice (short), personality (array of traits), typography {display, text, note}, logoSystem, photographyStyle (concrete & reproducible), packagingStyle, visualIdentity (overall design system in a sentence or two), competitors (array of {name, note}), social (array of {platform, handle, url, note} — one per active platform, note = content style/cadence/voice), press (array of {title, source, url}), insights (array of 3-6 sharp creative-director takeaways), campaigns (array of {title, year, channel, description, fronted, url} — real PAST/CURRENT marketing campaigns from the Meta Ad Library, Instagram and press), ambassadors (array of {name, handle, note} — the faces/creators/celebrities who represent them), socialProof (array of {type, text, source, url} — awards, press, follower scale, viral moments, endorsements, stockists).\n` +
           `Every string must be plain text (not an object). Return JSON only.` },
         { role: "user", content: dossier },
       ],
@@ -485,10 +541,17 @@ export async function researchBrand(brain: BrandBrain, opts: ResearchOpts = {}):
   //    carries the full catalogue as the source of truth.
   const crawlSite = brain.website?.trim() || (await resolveWebsite(brain.name ?? ""));
   const emptyHarvest = { productImages: [] as string[], logo: undefined as string | undefined, catalog: [] as StudioProduct[] };
-  const harvestPromise = (crawlSite ? harvestBrandSite(crawlSite) : Promise.resolve(emptyHarvest)).then((h) => {
+  // Fire the product library the INSTANT the catalogue parses (before image verification /
+  // the whole research pass), so products stop "taking a lot of time" to appear. productImages
+  // is omitted here (undefined) so the client keeps what it has until the enriched pass lands.
+  const emitCatalogEarly = (partial: { catalog: StudioProduct[]; logo?: string }) => {
     if (crawlSite) onStage("website", { website: crawlSite });
-    onStage("catalog", { count: h.catalog.length });
+    onStage("catalog", { count: partial.catalog.length });
+    onStage("products", { catalog: partial.catalog, logo: partial.logo, website: crawlSite });
+  };
+  const harvestPromise = (crawlSite ? harvestBrandSite(crawlSite, emitCatalogEarly) : Promise.resolve(emptyHarvest)).then((h) => {
     onStage("images", { count: h.productImages.length });
+    // Re-emit with the verified productImages now attached (catalogue already streamed early).
     onStage("products", { catalog: h.catalog, productImages: h.productImages, logo: h.logo, website: crawlSite });
     return h;
   }).catch(() => emptyHarvest);
@@ -496,25 +559,25 @@ export async function researchBrand(brain: BrandBrain, opts: ResearchOpts = {}):
   // 2) Grounded (or synthesized) dossier — runs concurrently with the crawl above.
   const { dossier, sources, inferred } = await groundedDossier(brain);
 
-  // 3) Structure core research + full intelligence in parallel.
-  const [structured, intel] = await Promise.all([structureResearch(dossier, brain), buildIntelligence(dossier)]);
-
-  // The site actually crawled (pasted URL) wins for storage; fall back to the LLM's URL.
-  const website = crawlSite || brain.website?.trim() || structured.website?.trim() || "";
+  // 3) Structure the dossier AND read the brand's photo rulebook CONCURRENTLY. Both are slow LLM
+  //    round-trips with no dependency on each other, so running them in parallel (instead of
+  //    back-to-back) takes the vision pass off the critical path. The rulebook mostly reads the
+  //    real pixels; the researched aesthetic is only a hint, so the brand vibe stands in here.
+  const structurePromise = structureAll(dossier, brain);
   const harvested = await harvestPromise;
-  // Now that the grounded palette exists, re-emit the images stage enriched with it.
-  onStage("images", { count: harvested.productImages.length, palette: structured.palette });
-
-  // Read the brand's OWN photos and distil their photographic rulebook — the light, lens,
-  // grade, surfaces and the hard "they never do this" list — plus a numeric colour grade
-  // for the finishing pass, keyed to their real pixels. Category-aware (food book, etc.).
-  // Best-effort: on any failure it degrades to the category book + researched aesthetic.
-  const photoRules = await extractPhotoRules({
+  const photoRulesPromise = extractPhotoRules({
     images: harvested.productImages,
     category: brain.category,
     productType: brain.productType,
-    aesthetic: intel.photographyStyle || structured.aesthetic,
+    aesthetic: brain.vibe,
   }).catch(() => undefined);
+
+  const { research: structured, intelligence: intel } = await structurePromise;
+  // The site actually crawled (pasted URL) wins for storage; fall back to the LLM's URL.
+  const website = crawlSite || brain.website?.trim() || structured.website?.trim() || "";
+  // Now that the grounded palette exists, re-emit the images stage enriched with it.
+  onStage("images", { count: harvested.productImages.length, palette: structured.palette });
+  const photoRules = await photoRulesPromise;
 
   const intelligence: BrandIntelligence = {
     overview: intel.overview || structured.summary,
@@ -539,6 +602,9 @@ export async function researchBrand(brain: BrandBrain, opts: ResearchOpts = {}):
     social: (intel.social ?? []).filter((s) => s.platform),
     press: (intel.press ?? []).filter((p) => p.title),
     insights: intel.insights,
+    campaigns: (intel.campaigns ?? []).filter((c) => c.title),
+    ambassadors: (intel.ambassadors ?? []).filter((a) => a.name),
+    socialProof: (intel.socialProof ?? []).filter((p) => p.text),
     website,
     instagram: structured.instagram,
     sources,

@@ -18,7 +18,9 @@ const GEN_DIR = join(process.cwd(), "generated");
 // shift (channels at 1.0), just a whisper of contrast, grain and sharpening so even an
 // un-researched brand's output loses the flat, floaty, color-neutral model look.
 export const NEUTRAL_GRADE: FinishGrade = {
-  rMul: 1, gMul: 1, bMul: 1, saturation: 1.02, brightness: 1.0, contrast: 1.05, grain: 0.45, sharpen: 0.7,
+  // grain kept fine + low so it seats a film texture WITHOUT smearing small label text —
+  // the brand bar is "you can read every single thing", so legibility wins over heavy grain.
+  rMul: 1, gMul: 1, bMul: 1, saturation: 1.02, brightness: 1.0, contrast: 1.05, grain: 0.28, sharpen: 0.75,
 };
 
 const clamp = (v: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, v));
@@ -56,7 +58,7 @@ export async function deriveGrade(imageUrls: string[]): Promise<FinishGrade> {
   // richer output; a muted, desaturated feed → slightly pulled back).
   const chroma = (Math.max(avg.r, avg.g, avg.b) - Math.min(avg.r, avg.g, avg.b)) / luma;
   const saturation = clamp(0.98 + (chroma - 0.15) * 0.4, 0.9, 1.08);
-  return { rMul: cast(avg.r), gMul: cast(avg.g), bMul: cast(avg.b), saturation, brightness: 1.0, contrast: 1.06, grain: 0.5, sharpen: 0.75 };
+  return { rMul: cast(avg.r), gMul: cast(avg.g), bMul: cast(avg.b), saturation, brightness: 1.0, contrast: 1.06, grain: 0.3, sharpen: 0.8 };
 }
 
 /** Apply the grade to one image buffer and return the finished PNG buffer. */
@@ -66,24 +68,57 @@ export async function applyFinish(buf: Buffer, grade: FinishGrade): Promise<Buff
   // channel a = mul × slope, b = 128 × (1 − slope) so grey stays grey while contrast lifts.
   const a = [grade.rMul * c, grade.gMul * c, grade.bMul * c];
   const b = [128 * (1 - c), 128 * (1 - c), 128 * (1 - c)];
+  // Read the dimensions from the INPUT buffer (these ops never resize) instead of encoding
+  // a throwaway intermediate PNG just to measure it — one full 2K encode + decode saved on
+  // EVERY render (incl. QC-rejected attempts), pixels unchanged (sharpen still precedes grain).
+  const meta = await sharp(buf).metadata();
+  const w = meta.width ?? 0, h = meta.height ?? 0;
   let pipe = sharp(buf).removeAlpha().linear(a, b).modulate({ saturation: clamp(grade.saturation ?? 1, 0.85, 1.15), brightness: clamp(grade.brightness ?? 1, 0.95, 1.05) });
   if ((grade.sharpen ?? 0) > 0) pipe = pipe.sharpen({ sigma: clamp(grade.sharpen, 0.3, 1.5) });
-  let out = await pipe.png().toBuffer();
 
   // Film grain — one honest imperfection at the pixel level. A gaussian-noise grey plate
   // in soft-light barely moves mid-tones (grey ≈ no-op) but seats a fine, even grain over
   // the whole frame, so it reads as one film stock rather than a clean digital render.
+  // Composited into the SAME pipeline (after sharpen) so there's a single final encode.
   const g = clamp(grade.grain ?? 0, 0, 1);
-  if (g > 0) {
-    const meta = await sharp(out).metadata();
-    const w = meta.width ?? 0, h = meta.height ?? 0;
-    if (w && h) {
-      const sigma = 5 + g * 12; // subtle → visible-but-not-loud
-      const noise = await sharp({ create: { width: w, height: h, channels: 3, background: "#808080", noise: { type: "gaussian", mean: 128, sigma } } }).png().toBuffer();
-      out = await sharp(out).composite([{ input: noise, blend: "soft-light" }]).png().toBuffer();
-    }
+  if (g > 0 && w && h) {
+    const sigma = 4 + g * 8; // finer grain — seats texture without smearing sub-pixel type
+    const noise = await sharp({ create: { width: w, height: h, channels: 3, background: "#808080", noise: { type: "gaussian", mean: 128, sigma } } }).png().toBuffer();
+    pipe = pipe.composite([{ input: noise, blend: "soft-light" }]);
   }
-  return out;
+  return pipe.png().toBuffer();
+}
+
+/**
+ * Enlarge a served render IN PLACE to ~4K on its long edge, then gently re-sharpen so the
+ * interpolated edges and label text re-crisp. Deterministic (lanczos + unsharp, sharp-only,
+ * no model, no network, no cost), so EVERY accepted shot ships larger and crisper — this is
+ * the always-on "4K" default. Real added-detail super-resolution (Replicate / Gemini) stays
+ * the opt-in keeper upgrade (/api/upscale). Best-effort: any failure leaves the shot as-is,
+ * and an image already at/above the target is left untouched.
+ *
+ * Target long edge is env-tunable (FINISH_TARGET_LONG_EDGE) — drop it if disk/latency bites.
+ */
+export async function enlargeInPlace(servedPath: string, targetLongEdge?: number): Promise<void> {
+  if (!servedPath?.startsWith("/api/img/")) return; // data-URI mock / remote → nothing on disk
+  const target = targetLongEdge || Number(process.env.FINISH_TARGET_LONG_EDGE) || 3840;
+  try {
+    const file = join(GEN_DIR, basename(servedPath));
+    const buf = await readFile(file);
+    const meta = await sharp(buf).metadata();
+    const w = meta.width ?? 0, h = meta.height ?? 0;
+    const long = Math.max(w, h);
+    if (!long || long >= target) return; // already 4K+ → nothing to do
+    const scale = target / long;
+    const out = await sharp(buf)
+      .resize(Math.round(w * scale), Math.round(h * scale), { kernel: "lanczos3" })
+      .sharpen({ sigma: 0.6 }) // re-crisp edges/text after interpolation — gentle, no HDR halos
+      .png()
+      .toBuffer();
+    await writeFile(file, out);
+  } catch {
+    /* enlargement is a bonus — never let it lose the shot */
+  }
 }
 
 /**

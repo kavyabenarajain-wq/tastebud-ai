@@ -1,0 +1,300 @@
+{
+  "brandName": "be imli",
+  "monogram": "BI",
+  "tagline": "soft clothes, sharp selves",
+  "category": "postpartum and maternity wear",
+  "isApparel": false,
+  "mission": "be imli makes warm, intelligent postpartum and maternity pieces for Indian women who want ease without being erased. Every garment is built around the real choreography of feeding, resting, stepping out and returning to herself.",
+  "vision": "To make motherhood dressing feel less like a pause and more like a continuation. be imli wants the fourth trimester to have its own quiet style language: calm, capable, and unmistakably alive.",
+  "positioning": "For pregnant and postpartum women tired of nightwear disguised as care, be imli sits between the sofa and the street: soft enough for recovery, considered enough for being seen. It is maternity dressing with a little imli in it — gentle, grounded, and not bland.",
+  "purpose": "To return agency to a body that everyone suddenly comments on. be imli exists so a woman can feed, heal, host, nap, walk downstairs, answer the door, and still feel like the main character of her own life.",
+  "manifesto": [
+    "Motherhood does not arrive with a uniform, yet the world keeps offering women the same tired disguise: loose, apologetic, and forgettable. be imli begins with a refusal to vanish.",
+    "We believe softness can have a spine. A nursing opening can be discreet without being dull, a waistband can forgive without collapsing, and a colour can calm the room without draining the woman inside it.",
+    "imli is comfort with tang. It is the memory of home, the small sour spark on the tongue, the proof that warmth does not need to be sweet all the time."
+  ],
+  "identityIntro": [
+    "The identity for be imli is domestic but not sleepy, tender but never decorative. It takes its cues from warm cream walls, pistachio cottons, tamarind chutney, old wooden chairs, late-afternoon light, and the private strength of women moving through recovery with a hundred tiny tasks still in their hands.",
+    "The system should feel held rather than styled. Soft greens and beige create the hush; tamarind brown gives the brand its depth; a tomato-tang accent appears sparingly, like a laugh in a quiet room."
+  ],
+  "world": [
+    {
+      "title": "Tamarind",
+      "sub": "tang, memory, warmth",
+      "body": "imli gives the brand its emotional signature: familiar, Indian, slightly mischievous, and impossible to flatten into generic softness. It keeps the world from becoming too pastel, too polite, or too nursery-coded."
+    },
+    {
+      "title": "Recovery",
+      "sub": "rest, function, dignity",
+      "body": "The brand lives in the overlooked hours after birth: feeding at 3 a.m., sitting cross-legged on the bed, meeting a neighbour in the lift, walking to the paediatrician. Clothes must respect swelling, leaking, tenderness and heat without making any of it feel clinical."
+    },
+    {
+      "title": "Threshold",
+      "sub": "home, street, return",
+      "body": "be imli owns the space between inside and outside — not occasionwear, not pyjamas, but the pieces a woman reaches for when the day could go either way. This threshold is where postpartum identity is rebuilt in small, visible choices."
+    },
+    {
+      "title": "Quiet",
+      "sub": "calm, skin, breath",
+      "body": "Calm is treated as a design material, not an aesthetic filter. Colours are low-saturation and skin-kind, silhouettes breathe, and imagery should use natural Indian light rather than glossy perfection."
+    }
+  ],
+  "statement": [
+    "be imli is not here to make motherhood look effortless. It is here to make effort feel less lonely, less hidden, and better dressed.",
+    "Against a category crowded with bows, baby pastels, medical utility and shapeless compromise, be imli chooses grown-woman calm. The brand speaks to the mother, not just the bump, the baby, or the sale banner."
+  ],
+  "beliefs": [
+    {
+      "title": "Softness should not mean surrender",
+      "sub": "ease, structure, selfhood",
+      "body": "A postpartum garment should stretch, open and forgive, but it should still have intention in its line. be imli designs for comfort that holds a woman’s shape of mind, not just her changing body."
+    },
+    {
+      "title": "The mother is not a background character",
+      "sub": "visibility, agency, presence",
+      "body": "Most maternity language turns the woman into a vessel or a patient; be imli keeps her appetite, humour, vanity, tiredness and taste in the frame. Product photography should show her doing ordinary things with quiet authority, not posing as an accessory to motherhood."
+    },
+    {
+      "title": "Home is a serious design context",
+      "sub": "domestic, real, refined",
+      "body": "The bed, balcony, kitchen chair and clinic waiting room are not lesser stages; they are where postpartum life actually happens. be imli treats these places with the same visual care a fashion house might give a hotel lobby or runway."
+    }
+  ],
+  "quotes": [
+    "not maternity wear. mother-wear, with a pulse.",
+    "for the days that begin in bed and end at the door."
+  ],
+  "logo": {
+    "concept": [
+      "A quiet wordmark with a small, deliberate “imli” curl — like a tamarind pod, a nursing loop, and a breath drawn in.",
+      "The idea is not babyish softness; it is soft intelligence: clothes that know the body is changing, without announcing it to the room.",
+      "Letterforms should feel rounded but not cute, with generous spacing so the brand lands warm, composed, and grown-up."
+    ],
+    "colorNote": "The logo should live primarily in deep green or tamarind brown on warm cream. Avoid black as the default; be imli should feel rooted, sun-warmed and human, not cosmetic or corporate.",
+    "variations": [
+      {
+        "name": "Primary wordmark",
+        "use": "For website header, garment labels, packaging fronts and any place where the brand needs a calm full signature."
+      },
+      {
+        "name": "Stacked wordmark",
+        "use": "For square formats, care cards, thank-you notes and social profile spaces where the horizontal lockup becomes too small."
+      },
+      {
+        "name": "Imli curl monogram",
+        "use": "For buttons, woven tabs, tissue seals, favicon and small moments where the brand can whisper rather than declare."
+      },
+      {
+        "name": "Single-colour stamp",
+        "use": "For low-ink applications, recycled mailers, size stickers and monochrome embroidery where tactility matters more than polish."
+      }
+    ],
+    "safety": [
+      "Keep clear space at least the height of the lowercase “b” around the mark.",
+      "Use the wordmark only on calm fields: cream, pale pistachio, deep green or photography with quiet negative space.",
+      "At small sizes, use the monogram instead of forcing the full wordmark to behave."
+    ],
+    "donts": [
+      "Never add baby icons, hearts, bottles, rattles or mother-and-child silhouettes.",
+      "Never set the logo in harsh black unless production leaves no alternative.",
+      "Never stretch, squeeze or over-round the wordmark into a nursery aesthetic.",
+      "Never place the mark over busy fabric folds, faces, hands or bump details.",
+      "Never use metallic gold, glossy gradients or boutique-wedding effects.",
+      "Never pair the logo with loud sale badges or high-contrast ecommerce clutter."
+    ]
+  },
+  "color": {
+    "philosophy": [
+      "be imli’s colour world begins in the Indian home after lunch: cream cotton curtains, green balcony plants, tamarind in a steel dabba, warm skin, washed wooden furniture. It is postpartum without pastel clichés — calm, edible, breathable, and quietly sensorial.",
+      "Against a category split between hospital-clean whites and maternity brands that overperform sweetness, this palette owns a more adult tenderness. The colours support changing bodies with warmth and dignity: enough softness for recovery, enough spice to feel like oneself."
+    ],
+    "palette": [
+      {
+        "name": "Malai Cream",
+        "hex": "#F6EFE5",
+        "role": "near-light base",
+        "meaning": "A warm resting field that feels like laundered cotton, not blank white."
+      },
+      {
+        "name": "Neem Shadow",
+        "hex": "#2F4A35",
+        "role": "near-dark ground",
+        "meaning": "A rooted green that gives the brand steadiness, privacy and grown-up calm."
+      },
+      {
+        "name": "Raw Imli",
+        "hex": "#8A4F2B",
+        "role": "brand colour",
+        "meaning": "The tamarind note: earthy, tangy and unmistakably Indian without becoming decorative."
+      },
+      {
+        "name": "Pistachio Milk",
+        "hex": "#B9C89A",
+        "role": "mid accent",
+        "meaning": "A softened green that brings freshness without clinical maternity-wellness codes."
+      },
+      {
+        "name": "Chutney Red",
+        "hex": "#D85A3A",
+        "role": "brand highlight",
+        "meaning": "A small spark of appetite and aliveness — used sparingly, like the taste that wakes the plate."
+      },
+      {
+        "name": "Kokum Blush",
+        "hex": "#C9A7B8",
+        "role": "soft brand colour",
+        "meaning": "A muted rose-purple that holds tenderness, soreness and beauty without turning sugary."
+      }
+    ],
+    "hierarchy": [
+      {
+        "title": "STRUCTURE",
+        "sub": "NEEM SHADOW, RAW IMLI, MALAI CREAM",
+        "body": "Neem Shadow carries navigation, primary type and the most serious brand moments; it gives postpartum calm a spine. Raw Imli is used for logo alternates, section titles and tactile packaging details, while Malai Cream keeps the whole system breathable and close to cloth."
+      },
+      {
+        "title": "ABUNDANCE",
+        "sub": "MALAI CREAM, PISTACHIO MILK, KOKUM BLUSH",
+        "body": "These are the colours of comfort, fit education and slower storytelling: product pages, care inserts, size guidance and model-led domestic photography. Use them in broad, quiet fields so the body and garment remain the subject, not the graphic system."
+      },
+      {
+        "title": "HIGHLIGHT",
+        "sub": "CHUTNEY RED, RAW IMLI",
+        "body": "Chutney Red is the little pulse — nursing access callouts, limited drops, important fit notes and moments that need the eye quickly. It should never flood a layout; its power is in appearing like a tangy accent against cream, green and brown."
+      }
+    ]
+  },
+  "typography": {
+    "philosophy": [
+      "be imli’s typography should feel like a calm room with one bright, sour-sweet note: soft enough for postpartum tenderness, precise enough for clothing that solves real problems. The letterforms must resist the usual maternity codes of rounded cuteness and clinical wellness.",
+      "Headlines carry the tamarind personality — a little tang, a little curve, a memorable silhouette. Text stays quietly capable, because sizing notes, nursing access, fabric care and fit reassurance need to be read in one tired glance."
+    ],
+    "displayFont": "Fraunces",
+    "sansFont": "Nunito Sans",
+    "fonts": [
+      {
+        "name": "imli display",
+        "role": "Headlines, campaign lines, product names, emotional moments",
+        "note": "Fraunces has a warm, edible sharpness: its curves feel human and maternal, while its high-contrast details give be imli a point of view beyond beige maternity minimalism."
+      },
+      {
+        "name": "ghar sans",
+        "role": "Body copy, size guides, care labels, navigation, functional information",
+        "note": "Nunito Sans is soft without becoming childish; it brings the ease of a spoken instruction, ideal for a brand that must guide women through changing bodies without sounding medical."
+      }
+    ],
+    "scale": [
+      {
+        "name": "H1",
+        "spec": "Fraunces · 64px · tracking -1% · line height 0.98",
+        "use": "Use for homepage heroes, campaign declarations and collection openings where the brand should feel intimate but unmistakable."
+      },
+      {
+        "name": "H2",
+        "spec": "Fraunces · 38px · tracking -0.5% · line height 1.08",
+        "use": "Use for product-story sections, editorial headers and moments that need warmth with authority."
+      },
+      {
+        "name": "H3",
+        "spec": "Nunito Sans · 18px · weight 700 · tracking +6% · line height 1.25 · uppercase",
+        "use": "Use for utility labels like FIT, NURSING ACCESS, FABRIC, WASH, and trimester-led guidance."
+      },
+      {
+        "name": "Body",
+        "spec": "Nunito Sans · 16px · weight 400 · tracking 0% · line height 1.55",
+        "use": "Use for all explanatory copy: fit notes, founder letters, delivery information and reassurance-led product detail."
+      }
+    ],
+    "rules": [
+      "Set Fraunces in lowercase whenever possible; be imli should feel spoken, not announced from a stage.",
+      "Keep body copy in warm charcoal or deep green, never pure black; the brand should read like cotton in sunlight, not ink on a hospital form.",
+      "Use uppercase Nunito Sans only for small functional labels, with generous tracking so information feels sorted and breathable.",
+      "Avoid centered paragraphs except for short emotional lines; product information should align left like a helpful note on a bedside table.",
+      "Let one word occasionally sit in tamarind brown or tomato red for tang, but never colour entire paragraphs; the accent should be tasted, not poured."
+    ],
+    "inUse": [
+      {
+        "title": "still you, just softer",
+        "sub": "HOMEPAGE HERO",
+        "body": "A Fraunces headline that protects identity at the exact moment clothes often erase it. Pair with a quiet Nunito Sans line: “Maternity and nursing wear made for the home, the outing, and the hour in between.”"
+      },
+      {
+        "title": "opens where you need it",
+        "sub": "PRODUCT DETAIL",
+        "body": "Use uppercase Nunito Sans labels to turn nursing access into calm information, not a hidden trick. The copy should name the mechanism clearly — side zip, overlap panel, wrap opening — so the wearer trusts the garment before trying it on."
+      },
+      {
+        "title": "for the balcony errand",
+        "sub": "COLLECTION CARD",
+        "body": "Fraunces can name use-cases like tiny chapters of the day: balcony chai, quick pharmacy run, first lunch outside. This moves be imli away from occasion-led maternity and into the honest rhythm of postpartum life."
+      },
+      {
+        "title": "soft waist. real pocket. no nightie energy.",
+        "sub": "FEATURE CALLOUT",
+        "body": "Short, lightly opinionated lines help the brand stand against shapeless compromise. The tone is affectionate but exact: it says what women have been thinking without turning discomfort into a campaign gimmick."
+      }
+    ]
+  },
+  "intentIntro": [
+    "The intent is to build a brand that feels like an exhale with flavour. Warm beige and soft green create safety; tamarind brown and tomato red bring the bite that makes be imli memorable rather than merely soothing."
+  ],
+  "patternStory": {
+    "title": "the tamarind leaf trail",
+    "body": "The pattern system is built from the imli leaf: small paired ovals arranged along a fine stem, repeated like a quiet domestic rhythm. It avoids baby motifs, florals and wellness mandalas; instead it gives the brand an Indian, botanical memory that feels adult, breathable and slightly tangy.\n\nUse the leaf as a soft infrastructure across tissue paper, garment tags, wash-care cards and website backgrounds. In cream and pistachio it becomes almost invisible, like sunlight through curtains; in tamarind brown it can frame a product moment with more appetite and recall."
+  },
+  "waxSeal": null,
+  "patternSystem": [
+    "Scale: keep leaf units small, between 6–14mm in print; they should feel woven into the surface, not stamped on top.",
+    "Opacity: use 8–18% for background fields, 35–50% for packaging interiors, and full colour only for small signature moments.",
+    "Cropping: crop stems at edges so the pattern feels continuous, like a sari border glimpsed rather than a wallpaper repeat.",
+    "Layering: pair only with flat cream, beige, pistachio or deep green grounds; never layer over busy photography or garment textures.",
+    "When to avoid: do not use on size guides, nursing-access diagrams or dense product pages where clarity matters more than atmosphere."
+  ],
+  "photography": {
+    "philosophy": [
+      "be imli should photograph postpartum life as lived, not performed. The world is sunlit rooms, balcony corners, sofa arms, tiled floors, feeding pauses, phone alarms, water bottles and the half-finished chai that makes the moment believable.",
+      "The body is never treated as a before-and-after project. Show the bump, the softness, the changed waist, the practical opening, the hand in the pocket — with the dignity of someone still getting dressed for herself.",
+      "Colour should stay warm, low-contrast and skin-real: cream walls, green plants, wood, cotton bedding, beige upholstery and one small tangy accent. No candy nursery palettes, no over-smoothed skin, no glamorous maternity goddess lighting."
+    ],
+    "inUse": [
+      {
+        "title": "FRAMING",
+        "sub": "three-quarter honesty",
+        "body": "Frame from shoulder to mid-calf or full body so fit, drape and access are visible in one read. Avoid cropping the bump into a symbol; the woman remains the subject, the garment is the support."
+      },
+      {
+        "title": "CROP",
+        "sub": "show the mechanism",
+        "body": "Use close crops for nursing panels, waist adjusters, sleeve movement and pocket depth. The crop should feel like a friend showing you how it works, not a catalogue diagram."
+      },
+      {
+        "title": "LIGHT",
+        "sub": "late morning calm",
+        "body": "Prefer side light from windows, balconies or shaded verandahs with soft shadows intact. Keep whites warm and greens muted so the palette sits close to pistachio, cream and deep leaf rather than bright influencer teal."
+      },
+      {
+        "title": "CASTING",
+        "sub": "real stages, real posture",
+        "body": "Cast visibly pregnant and postpartum women across Indian skin tones, heights and body softness, including seated, leaning, feeding-ready and walking poses. Do not over-direct posture; the slight slouch, protective hand and practical adjustment are part of the truth."
+      }
+    ]
+  },
+  "applications": [
+    {
+      "label": "packaging ideas",
+      "slots": 3
+    },
+    {
+      "label": "garment details",
+      "slots": 3
+    },
+    {
+      "label": "digital moments",
+      "slots": 3
+    }
+  ],
+  "intent": [
+    "Every touchpoint should protect the woman from category noise: no baby icons, no candy palettes, no over-smiling stock-mother performance. Use intimate crops, tactile fabric details, handwritten-feeling warmth, and plainspoken copy that acknowledges the body without dramatizing it.",
+    "be imli should become the piece she recommends in a WhatsApp group with unusual conviction: “wear this, you’ll feel like yourself.” That is the commercial ambition and the emotional contract — not to decorate postpartum, but to give it a calmer, sharper uniform of its own."
+  ]
+}

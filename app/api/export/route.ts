@@ -68,7 +68,7 @@ export async function POST(req: NextRequest) {
     if (fallbackInter && !satoriFonts.some((f) => f.name === "Inter" && f.weight === 400)) satoriFonts.push({ name: "Inter", weight: 400, data: fallbackInter });
     if (!satoriFonts.length) return NextResponse.json({ url: src }); // offline — no baking possible
 
-    const shadow = spec.ink === "#ffffff" ? "0 1px 14px rgba(0,0,0,0.38)" : "0 1px 12px rgba(255,255,255,0.42)";
+    const shadow = spec.textShadow; // resolved once in copyLayout — "none" over a brand-colour fill
 
     // One block → one satori div. fontPct is a % of WIDTH so px here and cqw in the preview
     // scale identically; letter-spacing (em) converts against the resolved pixel size.
@@ -91,7 +91,7 @@ export async function POST(req: NextRequest) {
       // overlaps it (and diverges from the CSS preview, which wraps correctly).
       return h(
         "div",
-        { width: "100%", marginTop: gapTop, fontFamily: fam, fontWeight: b.weight, fontSize: fs, letterSpacing: ls, lineHeight: b.lineHeight, color: b.family === "display" ? spec.ink : (spec.ink === "#ffffff" ? "rgba(255,255,255,0.92)" : "rgba(20,20,20,0.9)"), textAlign, textShadow: shadow, wordBreak: "break-word" },
+        { width: "100%", marginTop: gapTop, fontFamily: fam, fontWeight: b.weight, fontSize: fs, letterSpacing: ls, lineHeight: b.lineHeight, color: b.family === "display" ? spec.ink : spec.subInk, textAlign, textShadow: shadow, wordBreak: "break-word" },
         cast,
       );
     };
@@ -103,9 +103,21 @@ export async function POST(req: NextRequest) {
         flexDirection: "column",
         position: "absolute",
         alignItems,
-        // Explicit width (not maxWidth) so text blocks resolve a definite wrap width.
+        // Explicit width (not maxWidth) so text blocks resolve a definite wrap width. Yoga is
+        // border-box (matches the browser's Tailwind reset) so panel padding sits INSIDE this.
         width: Math.round(c.maxW * W),
       };
+      // Brand-colour panel behind the copy (band / block). Padding is a % of frame width, so px
+      // here and cqw in the preview scale identically.
+      if (c.panel) {
+        const pad = (pct: number) => Math.round((pct / 100) * W);
+        style.backgroundColor = c.panel.color;
+        style.paddingLeft = pad(c.panel.padX);
+        style.paddingRight = pad(c.panel.padX);
+        style.paddingTop = pad(c.panel.padY);
+        style.paddingBottom = pad(c.panel.padY);
+        if (c.panel.radius) style.borderRadius = pad(c.panel.radius);
+      }
       if (c.ax === "left") style.left = Math.round(c.x * W);
       else if (c.ax === "right") style.right = Math.round((1 - c.x) * W);
       else style.left = Math.round(c.x * W);
@@ -118,11 +130,12 @@ export async function POST(req: NextRequest) {
       return h("div", style, c.blocks.map((b, i) => blockNode(b, c.align, i === 0)));
     };
 
-    const root = h(
-      "div",
-      { display: "flex", position: "relative", width: W, height: H, backgroundImage: spec.scrim },
-      spec.clusters.map(clusterNode),
-    );
+    // Root: a "canvas" fill covers the whole plate (poster / text-led); otherwise the photo shows
+    // through and the scrim (when present) carries legibility. satori dislikes backgroundImage:"none".
+    const rootStyle: Record<string, unknown> = { display: "flex", position: "relative", width: W, height: H };
+    if (spec.canvasBg) rootStyle.backgroundColor = spec.canvasBg;
+    if (spec.scrim && spec.scrim !== "none") rootStyle.backgroundImage = spec.scrim;
+    const root = h("div", rootStyle, spec.clusters.map(clusterNode));
 
     const svg = await satori(root as unknown as React.ReactNode, {
       width: W,

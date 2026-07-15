@@ -1,0 +1,176 @@
+[
+  {
+    "id": "cmp-mr7hzu2g-fcu33",
+    "name": "Ad Campaign",
+    "type": "ad",
+    "copy": {
+      "headline": "Hydration your cells can use",
+      "subline": "Designed to support energy, skin and recovery",
+      "cta": "Shop the ritual",
+      "caption": "FYN is not another wellness add-on. It’s cellular hydration for bodies that are done consuming more and feeling less.",
+      "treatment": {
+        "headlineArchetype": "benefit-led",
+        "ctaArchetype": "experience",
+        "placement": "top",
+        "align": "left",
+        "case": "sentence",
+        "weight": "regular",
+        "scale": "minimal",
+        "ctaStyle": "text-link"
+      }
+    },
+    "outputs": [
+      {
+        "id": "1783238221816-1-square-pbm0k",
+        "url": "/api/img/1783238250856-vjv79-rf.png",
+        "format": "square",
+        "aspect": "1:1",
+        "angle": "Front, straight-on, eye level / In-context cellular hydration ritual campaign hero",
+        "at": "2026-07-05T07:57:30.905Z"
+      },
+      {
+        "id": "1783238221816-1-landscape-tdinz",
+        "url": "/api/img/1783238256310-s1tqw-crop.png",
+        "format": "landscape",
+        "aspect": "16:9",
+        "angle": "Front, straight-on, eye level / In-context cellular hydration ritual campaign hero",
+        "at": "2026-07-05T07:57:36.384Z"
+      },
+      {
+        "id": "1783238221816-1-story-qbh9j",
+        "url": "/api/img/1783238256622-gdru4-crop.png",
+        "format": "story",
+        "aspect": "9:16",
+        "angle": "Front, straight-on, eye level / In-context cellular hydration ritual campaign hero",
+        "at": "2026-07-05T07:57:36.665Z"
+      },
+      {
+        "id": "1783238221816-1-feed-zi49y",
+        "url": "/api/img/1783238259513-r7o5i-crop.png",
+        "format": "feed",
+        "aspect": "4:5",
+        "angle": "Front, straight-on, eye level / In-context cellular hydration ritual campaign hero",
+        "at": "2026-07-05T07:57:39.574Z"
+      }
+    ],
+    "createdAt": "2026-07-05T07:57:39.574Z",
+    "updatedAt": "2026-07-05T07:57:39.577Z"
+  },
+  {
+    "id": "cmp-mr6v6928-xl1sz",
+    "name": "Instagram Creative",
+    "type": "instagram",
+    "copy": {
+      "headline": "Hydration your cells can use",
+      "subline": "Blue spirulina for energy that feels less borrowed",
+      "cta": "Start the ritual",
+      "caption": "FYN was built on one conviction: wellness should be felt, not just consumed. Our blue spirulina cellular-hydration ritual supports daily energy, skin and recovery from the inside."
+    },
+    "outputs": [
+      {
+        "id": "1783199890016-1-cnb0f",
+        "url": "/api/img/1783199951255-qtnyg-crop.png",
+        "aspect": "4:5",
+        "angle": "Front, straight-on, eye-level hero / bold colour-matched studio",
+        "at": "2026-07-04T21:19:11.322Z"
+      }
+    ],
+    "createdAt": "2026-07-04T21:19:11.322Z",
+    "updatedAt": "2026-07-04T21:19:11.324Z"
+  },
+  {
+    "id": "cmp-mr6s3mkm-jyk43",
+    "name": "please write the cta = headline in different ways - different fo",
+    "type": "ad",
+    "brief": "please write the cta = headline in different ways - different font and not same potition",
+    "copy": {
+      "headline": "Hydrate Your Cells",
+      "subline": "Blue spirulina hydration that feels like progress",
+      "cta": "Hydrate Your Cells",
+      "caption": "FYN Wellness starts where most routines skip: cellular hydration powered by blue spirulina. For energy, glow and a ritual that finally makes sense."
+    },
+    "outputs": [
+      {
+        "id": "1783194728710-1-landscape-txy1e",
+        "url": "/api/img/1783194763840-519l4-crop.png",
+        "format": "landscape",
+        "aspect": "16:9",
+        "angle": "Front, straight-on, eye-level hero / bold colour-matched studio campaign still",
+        "at": "2026-07-04T19:52:43.906Z"
+      },
+      {
+        "id": "1783194728710-1-feed-1f2vi",
+        "url": "/api/img/1783194764564-8h2sl-crop.png",
+        "format": "feed",
+        "aspect": "4:5",
+        "angle": "Front, straight-on, eye-level hero / bold colour-matched studio campaign still",
+        "at": "2026-07-04T19:52:44.632Z"
+      },
+      {
+        "id": "1783194728710-1-square-wcrb9",
+        "url": "/api/img/1783194767170-eny1l-rf.png",
+        "format": "square",
+        "aspect": "1:1",
+        "angle": "Front, straight-on, eye-level hero / bold colour-matched studio campaign still",
+        "at": "2026-07-04T19:52:47.215Z"
+      },
+      {
+        "id": "1783194728710-1-story-kpfbb",
+        "url": "/api/img/1783194786990-r5b09-crop.png",
+        "format": "story",
+        "aspect": "9:16",
+        "angle": "Front, straight-on, eye-level hero / bold colour-matched studio campaign still",
+        "at": "2026-07-04T19:53:07.066Z"
+      }
+    ],
+    "createdAt": "2026-07-04T19:53:07.066Z",
+    "updatedAt": "2026-07-04T19:53:07.066Z"
+  },
+  {
+    "id": "cmp-mr6rxyb5-fx8fg",
+    "name": "Ad Campaign",
+    "type": "ad",
+    "copy": {
+      "headline": "Cellular hydration, made blue",
+      "subline": "Blue spirulina hydration for skin, energy and daily glow",
+      "cta": "Shop the ritual",
+      "caption": "FYN turns blue spirulina into a daily cellular-hydration ritual for people who want wellness to actually show up. Less consumption, more felt difference. #FYNWellness"
+    },
+    "outputs": [
+      {
+        "id": "1783194463985-1-square-zk6m0",
+        "url": "/api/img/1783194511888-xetv3-rf.png",
+        "format": "square",
+        "aspect": "1:1",
+        "angle": "Front, straight-on, eye-level hero / bold colour-matched studio campaign",
+        "at": "2026-07-04T19:48:31.949Z"
+      },
+      {
+        "id": "1783194463985-1-story-veuv7",
+        "url": "/api/img/1783194515656-118w3-crop.png",
+        "format": "story",
+        "aspect": "9:16",
+        "angle": "Front, straight-on, eye-level hero / bold colour-matched studio campaign",
+        "at": "2026-07-04T19:48:35.702Z"
+      },
+      {
+        "id": "1783194463985-1-feed-uh74l",
+        "url": "/api/img/1783194530154-phbdc-crop.png",
+        "format": "feed",
+        "aspect": "4:5",
+        "angle": "Front, straight-on, eye-level hero / bold colour-matched studio campaign",
+        "at": "2026-07-04T19:48:50.222Z"
+      },
+      {
+        "id": "1783194463985-1-landscape-f9hn2",
+        "url": "/api/img/1783194534048-b5q3l-crop.png",
+        "format": "landscape",
+        "aspect": "16:9",
+        "angle": "Front, straight-on, eye-level hero / bold colour-matched studio campaign",
+        "at": "2026-07-04T19:48:54.112Z"
+      }
+    ],
+    "createdAt": "2026-07-04T19:48:54.112Z",
+    "updatedAt": "2026-07-04T19:48:54.112Z"
+  }
+]

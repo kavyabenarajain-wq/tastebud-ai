@@ -83,6 +83,13 @@ export type CopyAnchor =
   | "center-left" | "center" | "center-right"
   | "bottom-left" | "bottom-center" | "bottom-right";
 
+// The palette-driven BACKGROUND the copy sits on — the "use the brand's colours as the
+// background" lever. Sourced from the brand's OWN palette hexes so type never rides a bare
+// dark/light scrim by default. "scrim" = today's legibility gradient over the photo; "band"
+// = an edge-to-edge brand-colour strip behind the copy; "block" = a tight brand-colour box
+// hugging the text; "canvas" = the whole frame becomes one brand-colour field (poster/text-led).
+export type CopyBg = "scrim" | "band" | "block" | "canvas";
+
 export interface CopyTreatment {
   headlineArchetype?: string; // e.g. "problem-solution", "luxury-minimal" — traceability
   ctaArchetype?: string; // e.g. "low-commitment", "exclusive"
@@ -97,6 +104,17 @@ export interface CopyTreatment {
   ink?: "light" | "dark"; // type colour for legibility over the scene (light default)
   fontId?: string; // chosen typeface from the font catalog ("brand" / undefined = brand's own pair)
   pinned?: boolean; // user took manual control of positioning → ignore the per-shot auto placement
+  // ── Brand-palette background + explicit colours. Every colour is a resolved HEX (drawn from
+  //    the brand palette) so the live overlay and the export bake agree without re-reading the
+  //    brain. When any of these is set, the layout engine keeps type legible via a contrast pick.
+  bg?: CopyBg; // background mode behind the copy (undefined → "scrim", today's behaviour)
+  bgColor?: string; // brand-palette hex for band/block/canvas fills
+  inkColor?: string; // explicit hex for headline/subline text (overrides light/dark ink)
+  ctaBgColor?: string; // explicit hex for a solid CTA fill
+  ctaInkColor?: string; // explicit hex for the CTA text
+  // ── Manual fine-positioning: a fraction-of-frame offset the user nudges/drags the copy by,
+  //    applied on top of the chosen layout/anchor so they can place type anywhere. Pins the run.
+  nudge?: { x: number; y: number };
 }
 
 // Per-SHOT placement override — derived by analysing where THAT image has negative space,
@@ -113,6 +131,10 @@ export interface CampaignCopy {
   // (frame 1 hook → middle develop → last close/CTA). Index i = seq i+1. The top-level
   // headline/caption still describe the set (used for the feed caption + non-carousel).
   frames?: { headline?: string; subline?: string }[];
+  // A SET of parallel options (e.g. "3 Instagram stories") — each option is its OWN complete
+  // piece with DIFFERENT words. variants[i] belongs to shot i of the run. Distinct from
+  // `frames` (a single sequence): variants never share a narrative, they must not repeat.
+  variants?: { headline?: string; subline?: string; cta?: string; caption?: string }[];
   treatment?: CopyTreatment; // ad only — how the copy is staged (positioning-driven)
 }
 
@@ -211,6 +233,9 @@ export interface BrandIntelligence {
   social?: { platform: string; handle?: string; url?: string; note?: string }[];
   press?: { title: string; source?: string; url?: string }[];
   insights?: string[];
+  campaigns?: { title: string; year?: string; channel?: string; description?: string; fronted?: string; url?: string }[]; // real past/current marketing campaigns (Meta Ad Library, Instagram, press)
+  ambassadors?: { name: string; handle?: string; note?: string }[]; // the faces/creators/celebrities who represent the brand
+  socialProof?: { type?: string; text: string; source?: string; url?: string }[]; // awards, press, follower scale, viral moments, endorsements, stockists
   website?: string;
   instagram?: string;
   sources?: number; // how many grounding sources informed this
@@ -300,6 +325,20 @@ export interface ModelSpec {
   productUse?: string; // how the product is used — Worn / Held / Applied / In-context / None
 }
 
+/**
+ * One person in a multi-model shoot (3–4 distinct people in one frame). Additive to the
+ * single `model` field: when `models` has ≥2 entries the renderer builds a per-person
+ * identity lock; a single person still flows through the original `model` / `modelRefs` path.
+ */
+export interface ModelPerson {
+  id?: string;
+  name?: string;             // display / prompt label, e.g. "Ava" or "Person 1"
+  source: "build" | "reference";
+  refs?: string[];           // pasted reference photo(s) of THIS specific person
+  spec?: ModelSpec;          // built attributes for THIS person (when source: "build")
+  productUse?: string;       // optional per-person interaction; else the shared one applies
+}
+
 /** Both the panel and the express prompt resolve to this. */
 export interface ResolvedBrief {
   mode: ShootMode;
@@ -309,9 +348,11 @@ export interface ResolvedBrief {
   references?: string[]; // optional style/look references to match
   modelRefs?: string[]; // model-photoshoot: pasted reference photo(s) of the person to reproduce
   model?: ModelSpec; // model-photoshoot: the built/curated model
+  models?: ModelPerson[]; // model-photoshoot: 3–4 DISTINCT people in one frame (overrides `model`/`modelRefs` when length ≥ 2)
   brand?: BrandBrain; // the learned brand brain, used as the generation's brand context
   compliance?: ShotCompliance; // carried back on a reshoot/resize so stored rules re-apply
   creativeType?: CreativeTypeId; // instagram/story/carousel/ad — absent = plain product/model shoot (byte-for-byte today's behaviour)
+  companions?: CreativeTypeId[]; // ALSO produce these v2 types from this one action (e.g. a product shoot that also yields stories + posts), sharing the pre-passes
   frames?: number; // carousel: how many frames in the sequence
   formats?: string[]; // ad: placements to fan the one concept out to (lib/creativeTypes FORMATS keys)
   campaignName?: string; // optional name for the persisted campaign
