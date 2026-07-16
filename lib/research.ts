@@ -506,26 +506,28 @@ export async function researchBrand(brain: BrandBrain, opts: ResearchOpts = {}):
     return h;
   }).catch(() => emptyHarvest);
 
-  // 2) The ONE heavy call — structure the brand into JSON from the model's KNOWLEDGE. Kicked off
-  //    NOW (parallel with the crawl) built from brand FACTS ONLY, so it never waits on the crawl's
-  //    image verification. The model knows the brand's products/palette; the crawl's real
-  //    products/images/logo are merged into the result afterward. Collapsing the old
-  //    dossier→structure two-call chain into this single call is what fits the serverless budget.
+  // 2) Await the crawl FIRST so the REAL scraped site + products ANCHOR the structuring to the
+  //    EXACT brand. Without this anchor the model was describing a DIFFERENT company that shares the
+  //    name (the "wrong brand" bug). Still fast: the crawl runs while nothing blocks, and the
+  //    trimmed single structuring call is ~25s, so the whole pass stays well inside 60s.
+  const harvested = await harvestPromise;
+  const site = crawlSite || brain.website?.trim() || "";
+  const productNames = harvested.catalog.map((p) => p.name).filter(Boolean).slice(0, 20);
   const dossier =
+    `Research THIS EXACT brand — the real company that owns ${site || "the products listed below"}, NOT a different, bigger, or better-known company that merely shares the name.\n` +
     `Brand: ${brain.name}${brain.category ? ` — ${brain.category}` : ""}${brain.productType ? ` (${brain.productType})` : ""}.` +
-    (brain.website ? `\nOfficial website: ${brain.website}.` : "") +
+    (site ? `\nOfficial website (the source of truth): ${site}.` : "") +
+    (productNames.length ? `\nTheir ACTUAL products, scraped LIVE from their own site (this is unmistakably the real brand): ${productNames.join(", ")}.` : "") +
     (brain.audience ? `\nAudience: ${brain.audience}.` : "") +
     (brain.vibe ? `\nVibe: ${brain.vibe}.` : "") +
     (brain.palette ? `\nFounder-stated colours: ${brain.palette}.` : "") +
-    `\n\nUse your OWN KNOWLEDGE of this exact brand — recall its real positioning, audience, tone of voice, visual identity, COLOUR PALETTE (real hex codes from their packaging/site), photography signature, competitors and insights. If it is genuinely obscure, reason confidently from its category and closest comparables. Fill every field concretely; NEVER say information is missing.`;
+    `\n\nUsing the site + real products above as the GROUND TRUTH for which brand this is, fill the dossier: positioning, audience, tone of voice, visual identity, COLOUR PALETTE (real hex codes true to THEIR packaging/site), photography signature, competitors and insights. If you don't recognise them, infer confidently from their real products + category — but NEVER substitute or describe a different same-named brand, and NEVER say information is missing.`;
   const sources = 0;
   const inferred = true;
   const structurePromise = structureAll(dossier, brain);
 
-  // 3) The crawl (already running) + the photo rulebook. photoRules needs the verified product
-  //    images, is a nice-to-have (finishing hints) and the pass most likely to be slow (Gemini
-  //    vision), so it's HARD-capped — it can NEVER hold up the palette / brand brain.
-  const harvested = await harvestPromise;
+  // 3) The photo rulebook — a nice-to-have (finishing hints) and the pass most likely to be slow
+  //    (Gemini vision), so it's HARD-capped: it can NEVER hold up the palette / brand brain.
   const photoRulesPromise = Promise.race([
     extractPhotoRules({ images: harvested.productImages, category: brain.category, productType: brain.productType, aesthetic: brain.vibe }).catch(() => undefined),
     new Promise<undefined>((res) => setTimeout(() => res(undefined), 15_000)),
