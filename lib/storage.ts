@@ -45,6 +45,10 @@ export async function putImage(pathname: string, buf: Buffer, contentType = "ima
     const { url } = await put(name, buf, { access: "public", contentType, addRandomSuffix: false, allowOverwrite: true, token });
     return url;
   }
+  // No Blob token found → will write to local disk (fails on Vercel's read-only FS). Log it so the
+  // function logs show WHY generation ENOENTs: the Blob store isn't linked to this project (or the
+  // deploy predates the token being set). Connect the Blob store + redeploy.
+  console.warn("[storage] no Vercel Blob token found — falling back to local disk (read-only on serverless).");
   await mkdir(GEN_DIR, { recursive: true });
   await writeFile(join(GEN_DIR, name), buf);
   return `/api/img/${name}`;

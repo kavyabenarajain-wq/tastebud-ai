@@ -3,6 +3,7 @@ import type { BrandBrain, BrandResearch, BrandIntelligence, StudioProduct } from
 import { chatClients, chatComplete } from "./openaiClient";
 import { parseLenient } from "./coerce";
 import { extractPhotoRules } from "./photoRules";
+import { derivePalette } from "./finish";
 
 /**
  * Brand research. Uses Gemini with live Google Search grounding to study the brand
@@ -536,8 +537,14 @@ export async function researchBrand(brain: BrandBrain, opts: ResearchOpts = {}):
   const { research: structured, intelligence: intel } = await structurePromise;
   // The site actually crawled (pasted URL) wins for storage; fall back to the LLM's URL.
   const website = crawlSite || brain.website?.trim() || structured.website?.trim() || "";
-  // Now that the grounded palette exists, re-emit the images stage enriched with it.
-  onStage("images", { count: harvested.productImages.length, palette: structured.palette });
+  // PALETTE — sample the REAL colours from their actual product photos and PREFER them over the
+  // model's guess (which was wrong for lesser-known brands). Keep the model's role labels where we
+  // have them; fall back to the model palette only if sampling didn't find enough distinct hues.
+  const sampled = brain.palette ? [] : await derivePalette(harvested.productImages).catch(() => []);
+  const palette = sampled.length >= 3
+    ? sampled.map((c, i) => ({ hex: c.hex, ...(structured.palette[i]?.role ? { role: structured.palette[i].role } : {}) }))
+    : structured.palette;
+  onStage("images", { count: harvested.productImages.length, palette });
   const photoRules = await photoRulesPromise;
 
   const intelligence: BrandIntelligence = {
@@ -552,7 +559,7 @@ export async function researchBrand(brain: BrandBrain, opts: ResearchOpts = {}):
     persona: intel.persona,
     toneOfVoice: intel.toneOfVoice || structured.voice,
     personality: intel.personality,
-    palette: structured.palette,
+    palette,
     typography: intel.typography,
     logo: harvested.logo,
     logoSystem: intel.logoSystem,
@@ -582,7 +589,7 @@ export async function researchBrand(brain: BrandBrain, opts: ResearchOpts = {}):
     ambassadors: structured.ambassadors ?? [],
     instagram: structured.instagram ?? "",
     website,
-    palette: structured.palette ?? [],
+    palette: palette ?? [],
     aesthetic: structured.aesthetic ?? "",
     foundReal: structured.foundReal ?? false,
     logo: harvested.logo,

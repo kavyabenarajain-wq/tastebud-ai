@@ -56,6 +56,54 @@ export async function deriveGrade(imageUrls: string[]): Promise<FinishGrade> {
   return { rMul: cast(avg.r), gMul: cast(avg.g), bMul: cast(avg.b), saturation, brightness: 1.0, contrast: 1.06, grain: 0.3, sharpen: 0.8 };
 }
 
+/**
+ * Sample the brand's REAL colours from their scraped product photos (deterministic, sharp-only) so
+ * the palette reflects their ACTUAL packaging — not the model's guess (which was "insanely wrong"
+ * for lesser-known brands). Quantises pixels into coarse buckets across all images, drops
+ * near-white / near-grey backgrounds, dedupes similar hues, and returns the most-frequent distinct
+ * colours strongest-first. Empty on failure → caller keeps the model palette.
+ */
+export async function derivePalette(imageUrls: string[], max = 6): Promise<{ hex: string; role?: string }[]> {
+  const urls = imageUrls.filter(Boolean).slice(0, 6);
+  const buckets = new Map<string, { count: number; r: number; g: number; b: number }>();
+  for (const url of urls) {
+    try {
+      const buf = await readImageBytes(url);
+      const { data, info } = await sharp(buf).removeAlpha().resize(80, 80, { fit: "inside" }).raw().toBuffer({ resolveWithObject: true });
+      const ch = info.channels;
+      for (let i = 0; i + 2 < data.length; i += ch) {
+        const r = data[i], g = data[i + 1], b = data[i + 2];
+        const key = `${r >> 5}-${g >> 5}-${b >> 5}`; // 8×8×8 colour buckets
+        const e = buckets.get(key) ?? { count: 0, r: 0, g: 0, b: 0 };
+        e.count++; e.r += r; e.g += g; e.b += b;
+        buckets.set(key, e);
+      }
+    } catch { /* skip an unreadable image */ }
+  }
+  if (!buckets.size) return [];
+  const sat = (c: { r: number; g: number; b: number }) => Math.max(c.r, c.g, c.b) - Math.min(c.r, c.g, c.b);
+  const nearWhite = (c: { r: number; g: number; b: number }) => c.r > 232 && c.g > 232 && c.b > 232;
+  const nearGrey = (c: { r: number; g: number; b: number }) => sat(c) < 18 && c.r > 60 && c.r < 232;
+  const skinBeige = (c: { r: number; g: number; b: number }) => c.r > c.g && c.g > c.b && c.r - c.b < 95 && c.r > 150; // model skin / tan backgrounds
+  // Rank by pixel count WEIGHTED by saturation — a brand's signature colour is the VIVID one, so a
+  // saturated red beats a muted beige even when beige covers more pixels (skin/background). Muted
+  // greys score ~0.35×, fully-saturated hues score full count.
+  const scored = [...buckets.values()]
+    .map((e) => ({ count: e.count, r: Math.round(e.r / e.count), g: Math.round(e.g / e.count), b: Math.round(e.b / e.count) }))
+    .map((c) => ({ ...c, score: c.count * (0.35 + 0.65 * (sat(c) / 255)) * (skinBeige(c) ? 0.4 : 1) }))
+    .sort((a, b) => b.score - a.score);
+  const strong = scored.filter((c) => !nearWhite(c) && !nearGrey(c)); // the real brand hues
+  const pool = strong.length >= 3 ? strong : scored;
+  const out: { r: number; g: number; b: number }[] = [];
+  for (const c of pool) {
+    if (out.length >= max) break;
+    if (out.some((o) => Math.abs(o.r - c.r) + Math.abs(o.g - c.g) + Math.abs(o.b - c.b) < 64)) continue; // dedupe near-duplicates
+    out.push(c);
+  }
+  const hex = (c: { r: number; g: number; b: number }) => `#${[c.r, c.g, c.b].map((x) => Math.max(0, Math.min(255, x)).toString(16).padStart(2, "0")).join("")}`;
+  return out.map((c) => ({ hex: hex(c) }));
+}
+
 /** Apply the grade to one image buffer and return the finished PNG buffer. */
 export async function applyFinish(buf: Buffer, grade: FinishGrade): Promise<Buffer> {
   const c = clamp(grade.contrast ?? 1, 0.9, 1.2);
