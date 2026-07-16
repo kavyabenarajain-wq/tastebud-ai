@@ -148,20 +148,13 @@ export async function extractPhotoRules(args: {
       `{"light":"their signature light — quality, direction, hard/soft, time of day","lens":"lens/focal-length/aperture/depth-of-field habit you can infer","grade":"the colour grade in words (e.g. warm-neutral, lifted blacks, muted greens, matte)","surfaces":["the surfaces/sets they shoot on"],"composition":"crop, negative space and placement habit","signatures":["3-6 moves they ALWAYS make — their tells"],"neverDo":["4-8 things they NEVER do — clichés absent from their work"]}`;
     const body = { contents: [{ parts: [{ text: prompt }, ...parts.map((p) => ({ inline_data: p }))] }] };
 
+    // ONE attempt, tightly capped — this runs inside the research pipeline's serverless budget,
+    // so a slow/dead Gemini must degrade FAST to the category-book fallback, never block the brain.
     let j: any;
-    for (let i = 0; i < 3; i++) {
-      try {
-        const res = await timedFetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${key}`, {
-          method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(body),
-        }, 30_000);
-        j = await res.json();
-        if (!j.error) break;
-      } catch (e) {
-        // timeout / network — retry, then let the outer catch degrade to the category book.
-        if (i === 2) throw e;
-      }
-      if (i < 2) await sleep(600 * 2 ** i);
-    }
+    const res = await timedFetch(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${key}`, {
+      method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(body),
+    }, 12_000);
+    j = await res.json();
     const text: string = (j?.candidates?.[0]?.content?.parts ?? []).map((p: any) => p.text ?? "").join("");
     const m = text.match(/\{[\s\S]*\}/);
     if (!m) return fallback();

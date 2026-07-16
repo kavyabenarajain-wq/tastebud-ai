@@ -4,7 +4,9 @@ import { saveBrain } from "@/lib/brainStore";
 import type { BrandBrain } from "@/lib/types";
 
 export const runtime = "nodejs";
-export const maxDuration = 180;
+// Vercel Hobby kills a function at 60s (the 180 the route used to ask for was silently capped,
+// so a slow grounded pass never finished). The pipeline is now built to complete well under this.
+export const maxDuration = 60;
 
 /**
  * Streaming brand research for the Asset Studio onboarding. Given just a brand name +

@@ -70,8 +70,24 @@ export async function chatCreate(
   throw lastErr ?? new Error("no chat provider configured");
 }
 
-/** Convenience wrapper over `chatCreate` that returns just the message content string. */
-export async function chatComplete(params: { messages: OpenAI.Chat.ChatCompletionMessageParam[]; max_completion_tokens?: number }): Promise<string> {
-  const r = await chatCreate({ messages: params.messages, max_completion_tokens: params.max_completion_tokens });
+/**
+ * Convenience wrapper over `chatCreate` that returns just the message content string.
+ *
+ * `reasoning_effort` matters on gpt-5.x REASONING models: hidden reasoning is billed against
+ * `max_completion_tokens`, so a heavy prompt with a modest budget can burn the WHOLE budget on
+ * reasoning and return EMPTY content (finish_reason "length"). Passing "low"/"minimal" keeps
+ * reasoning small so the visible answer actually fits (and the call is faster).
+ */
+export async function chatComplete(params: {
+  messages: OpenAI.Chat.ChatCompletionMessageParam[];
+  max_completion_tokens?: number;
+  // gpt-5.x accepts "none" and "xhigh" too; the installed SDK's type lags, so we widen + cast.
+  reasoning_effort?: "none" | "minimal" | "low" | "medium" | "high" | "xhigh";
+}): Promise<string> {
+  const r = await chatCreate({
+    messages: params.messages,
+    max_completion_tokens: params.max_completion_tokens,
+    ...(params.reasoning_effort ? { reasoning_effort: params.reasoning_effort as "low" } : {}),
+  });
   return r.choices[0]?.message?.content ?? "";
 }
