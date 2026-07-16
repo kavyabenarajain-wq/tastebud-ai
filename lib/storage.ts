@@ -28,9 +28,21 @@ function blobToken(): string | undefined {
     || Object.values(process.env).find((v): v is string => typeof v === "string" && /^vercel_blob_rw_/.test(v));
 }
 
-/** True when a Vercel Blob store is connected (its read-write token is present anywhere in env). */
+/**
+ * True when a Vercel Blob store is reachable — EITHER a read-write token, OR a newer OIDC-connected
+ * store (Vercel injects BLOB_STORE_ID and no token; @vercel/blob then authenticates via the runtime
+ * OIDC identity). This is the fix for "connected via OIDC" stores where there is no *_rw_ token.
+ */
 export function blobEnabled(): boolean {
-  return !!blobToken();
+  return !!blobToken() || !!process.env.BLOB_STORE_ID;
+}
+
+/** put() to Blob — pass the read-write token when we have one, else rely on the OIDC connection. */
+async function blobPut(name: string, buf: Buffer, contentType: string): Promise<string> {
+  const token = blobToken();
+  const opts = { access: "public" as const, contentType, addRandomSuffix: false, allowOverwrite: true };
+  const { url } = token ? await put(name, buf, { ...opts, token }) : await put(name, buf, opts);
+  return url;
 }
 
 /**
@@ -40,15 +52,9 @@ export function blobEnabled(): boolean {
  */
 export async function putImage(pathname: string, buf: Buffer, contentType = "image/png"): Promise<string> {
   const name = pathname.replace(/^\/+/, "");
-  const token = blobToken();
-  if (token) {
-    const { url } = await put(name, buf, { access: "public", contentType, addRandomSuffix: false, allowOverwrite: true, token });
-    return url;
-  }
-  // No Blob token found → will write to local disk (fails on Vercel's read-only FS). Log it so the
-  // function logs show WHY generation ENOENTs: the Blob store isn't linked to this project (or the
-  // deploy predates the token being set). Connect the Blob store + redeploy.
-  console.warn("[storage] no Vercel Blob token found — falling back to local disk (read-only on serverless).");
+  if (blobEnabled()) return blobPut(name, buf, contentType);
+  // No Blob store reachable → local disk (fails on Vercel's read-only FS). Log WHY generation ENOENTs.
+  console.warn("[storage] no Vercel Blob store (no token, no BLOB_STORE_ID) — writing to local disk.");
   await mkdir(GEN_DIR, { recursive: true });
   await writeFile(join(GEN_DIR, name), buf);
   return `/api/img/${name}`;
@@ -65,10 +71,9 @@ export async function readImageBytes(ref: string): Promise<Buffer> {
 /** Overwrite an existing image (keep the same URL) with new bytes — the in-place re-write path. */
 export async function overwriteImage(url: string, buf: Buffer, contentType = "image/png"): Promise<void> {
   if (/^https?:\/\//i.test(url)) {
-    const token = blobToken();
-    if (!token) return; // a remote non-blob URL isn't ours to rewrite
+    if (!blobEnabled()) return; // a remote non-blob URL isn't ours to rewrite
     const pathname = new URL(url).pathname.replace(/^\/+/, "");
-    await put(pathname, buf, { access: "public", contentType, addRandomSuffix: false, allowOverwrite: true, token });
+    await blobPut(pathname, buf, contentType);
     return;
   }
   if (url.startsWith("/api/img/")) {
