@@ -35,16 +35,38 @@ export function genId(prefix: string): string {
   return `${prefix}_${Date.now().toString(36)}${Math.random().toString(36).slice(2, 9)}`;
 }
 
-/** Hosted Turso (or any libSQL URL) when configured; else the local file for dev. */
+/**
+ * Resolve a hosted libSQL/Turso connection. The Vercel Turso integration names its env vars with a
+ * CUSTOM PREFIX (e.g. `DATABASE_SKY_WINDOW_URL` + `..._AUTH_TOKEN`), so besides the standard names
+ * we DETECT the URL by its VALUE — any env var set to a `libsql://` URL — and pair it with the
+ * matching-prefix auth token. That way the store just works whatever the integration called them.
+ * Returns null when there's no remote DB configured (→ the local file for dev).
+ */
+function resolveConnection(): { url: string; authToken?: string } | null {
+  const env = process.env;
+  const stdUrl = env.TURSO_DATABASE_URL || env.DATABASE_URL;
+  if (stdUrl) return { url: stdUrl, authToken: env.TURSO_AUTH_TOKEN || env.DATABASE_AUTH_TOKEN };
+  const found = Object.entries(env).find(([, v]) => typeof v === "string" && /^libsql:\/\//i.test(v));
+  if (found) {
+    const [key, url] = found as [string, string];
+    const prefix = key.replace(/_?(DATABASE_)?URL$/i, "");
+    const token =
+      env[`${prefix}_AUTH_TOKEN`] || env[`${prefix}AUTH_TOKEN`] || env[`${prefix}_TOKEN`] ||
+      env.TURSO_AUTH_TOKEN || env.DATABASE_AUTH_TOKEN ||
+      Object.entries(env).find(([k, v]) => /token/i.test(k) && !/blob/i.test(k) && typeof v === "string" && v.length > 20 && (prefix ? k.startsWith(prefix) : true))?.[1];
+    return { url, authToken: token as string | undefined };
+  }
+  return null;
+}
+
+/** Hosted Turso when configured; else the local file for dev. */
 function connectionConfig(): { url: string; authToken?: string } {
-  const url = process.env.TURSO_DATABASE_URL || process.env.DATABASE_URL || `file:${DB_PATH}`;
-  const authToken = process.env.TURSO_AUTH_TOKEN || process.env.DATABASE_AUTH_TOKEN || undefined;
-  return { url, authToken };
+  return resolveConnection() ?? { url: `file:${DB_PATH}`, authToken: undefined };
 }
 
 /** True when pointed at a remote libSQL/Turso DB (vs. the local file) — gates local-only seeding. */
 function isRemote(): boolean {
-  return !!(process.env.TURSO_DATABASE_URL || process.env.DATABASE_URL);
+  return !!resolveConnection();
 }
 
 const SCHEMA = `
@@ -152,6 +174,9 @@ export function getClient(): Promise<Client> {
   if (g.__tastebudClient) return Promise.resolve(g.__tastebudClient);
   if (!g.__tastebudReady) {
     const { url, authToken } = connectionConfig();
+    // One-line startup signal in the server logs: on Vercel this MUST say REMOTE (Turso) — if it
+    // says LOCAL FILE, the Turso env vars weren't detected and writes will fail on the read-only FS.
+    console.log(`[store] libSQL → ${url.startsWith("file:") ? "LOCAL FILE (dev)" : `REMOTE ${(url.split("@").pop() || url).split("?")[0]}`}${url.startsWith("file:") ? "" : authToken ? " +token" : " (NO TOKEN!)"}`);
     const client = createClient({ url, authToken });
     g.__tastebudReady = init(client)
       .then(() => { g.__tastebudClient = client; return client; })
