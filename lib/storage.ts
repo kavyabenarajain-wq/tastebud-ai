@@ -1,6 +1,24 @@
 import { mkdir, writeFile, readFile } from "node:fs/promises";
 import { join, basename } from "node:path";
 import { put } from "@vercel/blob";
+import sharp from "sharp";
+
+/**
+ * Encode a stored image as WebP for the WEB. A 4K render is a ~26MB PNG that a browser can't
+ * display inline (it downloads but shows broken) — the same image as WebP is ~1-3MB and displays
+ * instantly, at effectively identical visual quality (q92). We always store .webp so the served
+ * URL is light; sharp reads it back fine for QC / reformat / export. Falls back to the raw bytes
+ * (keeping the .png name) only if the encode fails.
+ */
+async function toWebp(buf: Buffer, pathname: string): Promise<{ buf: Buffer; name: string; contentType: string }> {
+  const clean = pathname.replace(/^\/+/, "");
+  try {
+    const out = await sharp(buf).webp({ quality: 92 }).toBuffer();
+    return { buf: out, name: clean.replace(/\.(png|jpe?g|webp)$/i, ".webp"), contentType: "image/webp" };
+  } catch {
+    return { buf, name: clean, contentType: "image/png" };
+  }
+}
 
 /**
  * Image storage — one seam, two homes (mirrors the DB store):
@@ -50,13 +68,13 @@ async function blobPut(name: string, buf: Buffer, contentType: string): Promise<
  * Blob when connected, else the local file. addRandomSuffix:false + allowOverwrite keep the
  * URL deterministic from the pathname, so an in-place re-write lands on the SAME URL.
  */
-export async function putImage(pathname: string, buf: Buffer, contentType = "image/png"): Promise<string> {
-  const name = pathname.replace(/^\/+/, "");
-  if (blobEnabled()) return blobPut(name, buf, contentType);
+export async function putImage(pathname: string, buf: Buffer, _contentType = "image/png"): Promise<string> {
+  const { buf: out, name, contentType } = await toWebp(buf, pathname); // → light .webp for the web
+  if (blobEnabled()) return blobPut(name, out, contentType);
   // No Blob store reachable → local disk (fails on Vercel's read-only FS). Log WHY generation ENOENTs.
   console.warn("[storage] no Vercel Blob store (no token, no BLOB_STORE_ID) — writing to local disk.");
   await mkdir(GEN_DIR, { recursive: true });
-  await writeFile(join(GEN_DIR, name), buf);
+  await writeFile(join(GEN_DIR, name), out);
   return `/api/img/${name}`;
 }
 
@@ -69,15 +87,17 @@ export async function readImageBytes(ref: string): Promise<Buffer> {
 }
 
 /** Overwrite an existing image (keep the same URL) with new bytes — the in-place re-write path. */
-export async function overwriteImage(url: string, buf: Buffer, contentType = "image/png"): Promise<void> {
+export async function overwriteImage(url: string, buf: Buffer, _contentType = "image/png"): Promise<void> {
   if (/^https?:\/\//i.test(url)) {
     if (!blobEnabled()) return; // a remote non-blob URL isn't ours to rewrite
     const pathname = new URL(url).pathname.replace(/^\/+/, "");
-    await blobPut(pathname, buf, contentType);
+    const { buf: out, name, contentType } = await toWebp(buf, pathname); // keep the .webp pathname
+    await blobPut(name, out, contentType);
     return;
   }
   if (url.startsWith("/api/img/")) {
+    const { buf: out } = await toWebp(buf, basename(url));
     await mkdir(GEN_DIR, { recursive: true });
-    await writeFile(join(GEN_DIR, basename(url)), buf);
+    await writeFile(join(GEN_DIR, basename(url)), out);
   }
 }
