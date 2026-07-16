@@ -1,9 +1,10 @@
-import { mkdir, writeFile, readFile } from "node:fs/promises";
+import { readFile } from "node:fs/promises";
 import { join, basename } from "node:path";
 import OpenAI, { toFile } from "openai";
 import { runReplicate, firstUrl } from "./replicate";
 import { finishInPlace, NEUTRAL_GRADE } from "./finish";
 import { chatComplete } from "./openaiClient";
+import { putImage } from "./storage";
 import type { FinishGrade } from "./types";
 
 /**
@@ -83,9 +84,8 @@ async function toInline(ref: string): Promise<Inline> {
 }
 
 async function save(id: string, b64: string): Promise<string> {
-  await mkdir(GEN_DIR, { recursive: true });
-  await writeFile(join(GEN_DIR, `${id}.png`), Buffer.from(b64, "base64"));
-  return `/api/img/${id}.png`;
+  // Blob on serverless (Vercel), local /generated file in dev — see lib/storage.ts.
+  return putImage(`${id}.png`, Buffer.from(b64, "base64"));
 }
 
 /** Resolve any ref (data URL, http URL, or local served path) to a base64 data URI — for sending to Replicate. */

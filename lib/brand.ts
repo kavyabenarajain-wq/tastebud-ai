@@ -10,5 +10,8 @@ export async function loadBrandProfile(_id?: string): Promise<BrandProfile> {
 }
 
 export async function saveBrandProfile(profile: BrandProfile): Promise<void> {
-  await writeFile(PROFILE_PATH, JSON.stringify(profile, null, 2), "utf8");
+  // Legacy single-profile save (superseded by the per-brand brain store). Best-effort: the
+  // serverless filesystem is read-only, so a failed write must not throw — the brain is the
+  // real source of truth now.
+  try { await writeFile(PROFILE_PATH, JSON.stringify(profile, null, 2), "utf8"); } catch { /* read-only FS */ }
 }

@@ -1,0 +1,61 @@
+import { mkdir, writeFile, readFile } from "node:fs/promises";
+import { join, basename } from "node:path";
+import { put } from "@vercel/blob";
+
+/**
+ * Image storage — one seam, two homes (mirrors the DB store):
+ *
+ *   • local dev  → the /generated folder on disk, served by /api/img (unchanged behaviour).
+ *   • serverless → Vercel Blob when a store is connected (BLOB_READ_WRITE_TOKEN is set) —
+ *                  because Vercel's filesystem is READ-ONLY, so writing a rendered PNG to
+ *                  /var/task/generated throws ENOENT. Blob returns a public CDN URL instead.
+ *
+ * `toInline()` in image.ts already reads http(s) URLs by fetching, so a Blob URL round-trips
+ * back into the pipeline (reformat / enhance / export / QC) for free. The two in-place ops
+ * (finish / enlarge) use overwriteImage() to re-write the SAME URL.
+ */
+
+const GEN_DIR = join(process.cwd(), "generated");
+
+/** True when a Vercel Blob store is connected (its read-write token is present). */
+export function blobEnabled(): boolean {
+  return !!process.env.BLOB_READ_WRITE_TOKEN;
+}
+
+/**
+ * Persist an image under a STABLE pathname (e.g. "<id>.png") and return its public URL.
+ * Blob when connected, else the local file. addRandomSuffix:false + allowOverwrite keep the
+ * URL deterministic from the pathname, so an in-place re-write lands on the SAME URL.
+ */
+export async function putImage(pathname: string, buf: Buffer, contentType = "image/png"): Promise<string> {
+  const name = pathname.replace(/^\/+/, "");
+  if (blobEnabled()) {
+    const { url } = await put(name, buf, { access: "public", contentType, addRandomSuffix: false, allowOverwrite: true });
+    return url;
+  }
+  await mkdir(GEN_DIR, { recursive: true });
+  await writeFile(join(GEN_DIR, name), buf);
+  return `/api/img/${name}`;
+}
+
+/** Read an image's bytes from a Blob/http URL, a served /api/img path, or a local/public path. */
+export async function readImageBytes(ref: string): Promise<Buffer> {
+  if (/^https?:\/\//i.test(ref)) return Buffer.from(await (await fetch(ref)).arrayBuffer());
+  if (ref.startsWith("/api/img/")) return readFile(join(GEN_DIR, basename(ref)));
+  if (ref.startsWith("/")) return readFile(join(process.cwd(), "public", ref));
+  return readFile(ref);
+}
+
+/** Overwrite an existing image (keep the same URL) with new bytes — the in-place re-write path. */
+export async function overwriteImage(url: string, buf: Buffer, contentType = "image/png"): Promise<void> {
+  if (/^https?:\/\//i.test(url)) {
+    if (!blobEnabled()) return; // a remote non-blob URL isn't ours to rewrite
+    const pathname = new URL(url).pathname.replace(/^\/+/, "");
+    await put(pathname, buf, { access: "public", contentType, addRandomSuffix: false, allowOverwrite: true });
+    return;
+  }
+  if (url.startsWith("/api/img/")) {
+    await mkdir(GEN_DIR, { recursive: true });
+    await writeFile(join(GEN_DIR, basename(url)), buf);
+  }
+}

@@ -1,6 +1,5 @@
 import sharp from "sharp";
-import { join, basename } from "node:path";
-import { readFile, writeFile } from "node:fs/promises";
+import { readImageBytes, overwriteImage } from "./storage";
 import type { FinishGrade } from "./types";
 
 /**
@@ -11,8 +10,6 @@ import type { FinishGrade } from "./types";
  * into one photographer's look without shifting the product's true colour. Pure pixels,
  * no network, no model — sharp only.
  */
-
-const GEN_DIR = join(process.cwd(), "generated");
 
 // A neutral filmic default — used when a brand has no photo-derived grade yet. No colour
 // shift (channels at 1.0), just a whisper of contrast, grain and sharpening so even an
@@ -37,9 +34,7 @@ export async function deriveGrade(imageUrls: string[]): Promise<FinishGrade> {
   const means: { r: number; g: number; b: number }[] = [];
   for (const url of urls) {
     try {
-      const buf = /^https?:\/\//i.test(url)
-        ? Buffer.from(await (await fetch(url)).arrayBuffer())
-        : await readFile(url.startsWith("/api/img/") ? join(GEN_DIR, basename(url)) : url);
+      const buf = await readImageBytes(url);
       // Downscale before stats — we only want the average tone, cheaply.
       const small = await sharp(buf).resize(64, 64, { fit: "inside" }).removeAlpha().toBuffer();
       const { channels } = await sharp(small).stats();
@@ -100,11 +95,10 @@ export async function applyFinish(buf: Buffer, grade: FinishGrade): Promise<Buff
  * Target long edge is env-tunable (FINISH_TARGET_LONG_EDGE) — drop it if disk/latency bites.
  */
 export async function enlargeInPlace(servedPath: string, targetLongEdge?: number): Promise<void> {
-  if (!servedPath?.startsWith("/api/img/")) return; // data-URI mock / remote → nothing on disk
+  if (!servedPath || servedPath.startsWith("data:")) return; // data-URI mock → nothing to enlarge
   const target = targetLongEdge || Number(process.env.FINISH_TARGET_LONG_EDGE) || 3840;
   try {
-    const file = join(GEN_DIR, basename(servedPath));
-    const buf = await readFile(file);
+    const buf = await readImageBytes(servedPath);
     const meta = await sharp(buf).metadata();
     const w = meta.width ?? 0, h = meta.height ?? 0;
     const long = Math.max(w, h);
@@ -115,7 +109,7 @@ export async function enlargeInPlace(servedPath: string, targetLongEdge?: number
       .sharpen({ sigma: 0.6 }) // re-crisp edges/text after interpolation — gentle, no HDR halos
       .png()
       .toBuffer();
-    await writeFile(file, out);
+    await overwriteImage(servedPath, out);
   } catch {
     /* enlargement is a bonus — never let it lose the shot */
   }
@@ -128,11 +122,10 @@ export async function enlargeInPlace(servedPath: string, targetLongEdge?: number
  * through (see image.ts dispatch), so the whole set comes out of one grade.
  */
 export async function finishInPlace(servedPath: string, grade: FinishGrade): Promise<void> {
-  if (!servedPath?.startsWith("/api/img/")) return; // data-URI mock / remote → nothing on disk to grade
+  if (!servedPath || servedPath.startsWith("data:")) return; // data-URI mock → nothing to grade
   try {
-    const file = join(GEN_DIR, basename(servedPath));
-    const finished = await applyFinish(await readFile(file), grade);
-    await writeFile(file, finished);
+    const finished = await applyFinish(await readImageBytes(servedPath), grade);
+    await overwriteImage(servedPath, finished);
   } catch {
     /* leave the un-graded render in place rather than losing the shot */
   }
