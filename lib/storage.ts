@@ -17,9 +17,20 @@ import { put } from "@vercel/blob";
 
 const GEN_DIR = join(process.cwd(), "generated");
 
-/** True when a Vercel Blob store is connected (its read-write token is present). */
+/**
+ * The Blob read-write token. Standard name first; else DETECT it by value — Vercel's Blob
+ * integration can name the var with a custom prefix (e.g. TASTEBUD_AI_BLOB_READ_WRITE_TOKEN), so
+ * we find whichever env var holds a `vercel_blob_rw_…` token. Passed EXPLICITLY to put() so it
+ * never depends on the default env name matching.
+ */
+function blobToken(): string | undefined {
+  return process.env.BLOB_READ_WRITE_TOKEN
+    || Object.values(process.env).find((v): v is string => typeof v === "string" && /^vercel_blob_rw_/.test(v));
+}
+
+/** True when a Vercel Blob store is connected (its read-write token is present anywhere in env). */
 export function blobEnabled(): boolean {
-  return !!process.env.BLOB_READ_WRITE_TOKEN;
+  return !!blobToken();
 }
 
 /**
@@ -29,8 +40,9 @@ export function blobEnabled(): boolean {
  */
 export async function putImage(pathname: string, buf: Buffer, contentType = "image/png"): Promise<string> {
   const name = pathname.replace(/^\/+/, "");
-  if (blobEnabled()) {
-    const { url } = await put(name, buf, { access: "public", contentType, addRandomSuffix: false, allowOverwrite: true });
+  const token = blobToken();
+  if (token) {
+    const { url } = await put(name, buf, { access: "public", contentType, addRandomSuffix: false, allowOverwrite: true, token });
     return url;
   }
   await mkdir(GEN_DIR, { recursive: true });
@@ -49,9 +61,10 @@ export async function readImageBytes(ref: string): Promise<Buffer> {
 /** Overwrite an existing image (keep the same URL) with new bytes — the in-place re-write path. */
 export async function overwriteImage(url: string, buf: Buffer, contentType = "image/png"): Promise<void> {
   if (/^https?:\/\//i.test(url)) {
-    if (!blobEnabled()) return; // a remote non-blob URL isn't ours to rewrite
+    const token = blobToken();
+    if (!token) return; // a remote non-blob URL isn't ours to rewrite
     const pathname = new URL(url).pathname.replace(/^\/+/, "");
-    await put(pathname, buf, { access: "public", contentType, addRandomSuffix: false, allowOverwrite: true });
+    await put(pathname, buf, { access: "public", contentType, addRandomSuffix: false, allowOverwrite: true, token });
     return;
   }
   if (url.startsWith("/api/img/")) {
