@@ -286,12 +286,17 @@ export function numberToAspect(n?: number): string {
   return SUPPORTED_ASPECTS.reduce((best, cur) => (Math.abs(cur[1] - n) < Math.abs(best[1] - n) ? cur : best))[0];
 }
 
-const MAX_TOTAL = 24; // safety cap on a single run
+/**
+ * HARD CAP — no single generation may produce more than this many images. Enforced
+ * authoritatively on the server (the total images a request emits across every run is
+ * clamped to this in /api/generate) and mirrored in the UI so the counts stay honest.
+ */
+export const MAX_IMAGES = 6;
 
 /** angles × shotsPerAngle. shotsPerAngle is shots PER angle (3 angles, 5 shots = 15 images). */
 export function counts(b: ResolvedBrief): { angles: number; perAngle: number; total: number } {
-  const angles = Math.max(1, Math.min(6, b.panel?.numAngles ?? 1));
-  let perAngle = Math.max(1, Math.min(6, b.panel?.shotsPerAngle ?? 1));
-  if (angles * perAngle > MAX_TOTAL) perAngle = Math.max(1, Math.floor(MAX_TOTAL / angles));
+  const angles = Math.max(1, Math.min(MAX_IMAGES, b.panel?.numAngles ?? 1));
+  let perAngle = Math.max(1, Math.min(MAX_IMAGES, b.panel?.shotsPerAngle ?? 1));
+  if (angles * perAngle > MAX_IMAGES) perAngle = Math.max(1, Math.floor(MAX_IMAGES / angles));
   return { angles, perAngle, total: angles * perAngle };
 }

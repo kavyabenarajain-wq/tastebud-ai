@@ -10,7 +10,7 @@ import { BrandBrainPanel } from "@/components/tastebud/BrandBrainPanel";
 import { BrandKitCard } from "@/components/tastebud/BrandKitCard";
 import { ProductLibraryPanel } from "@/components/tastebud/ProductLibraryPanel";
 import { thumb } from "@/lib/thumb";
-import { numberToAspect } from "@/lib/brief";
+import { numberToAspect, MAX_IMAGES } from "@/lib/brief";
 import { CREATIVE_TYPES, FORMATS, FORMAT_IDS, isV2Type, type FormatId } from "@/lib/creativeTypes";
 import { resolveBrandFonts, googleFontHref, fontVars, type BrandFonts } from "@/lib/brandFont";
 import { FONT_CHOICES, BRAND_FONT_ID, resolveFontChoice, catalogFontHref } from "@/lib/fontCatalog";
@@ -657,7 +657,7 @@ export default function CreateWorkspace() {
       if (typeof brief.shotsPerAngle === "number") merged.shotsPerAngle = brief.shotsPerAngle;
       if (brief.productUse && !model.productUse) setM({ productUse: brief.productUse });
       const spec: ModelSpec = { ...model, source, productUse: model.productUse || brief.productUse || "" };
-      const expected = Math.max(1, merged.numAngles) * Math.max(1, merged.shotsPerAngle);
+      const expected = Math.min(MAX_IMAGES, Math.max(1, merged.numAngles) * Math.max(1, merged.shotsPerAngle));
       setBusy(true); setStatus("Casting and art-directing…");
       optimisticStart(runId, kind, expected);
       const ac = new AbortController(); genAbort.current = ac;
@@ -702,8 +702,8 @@ export default function CreateWorkspace() {
         extras.formats = placements;
         expected = merged.numAngles * placements.length;
       } else if (kind === "carousel") {
-        // "6 frames" said in chat lands as numAngles — honour it as the sequence length.
-        const n = typeof brief.numAngles === "number" && brief.numAngles > 1 ? Math.max(3, Math.min(8, brief.numAngles)) : frames;
+        // "6 frames" said in chat lands as numAngles — honour it as the sequence length (capped).
+        const n = typeof brief.numAngles === "number" && brief.numAngles > 1 ? Math.max(3, Math.min(MAX_IMAGES, brief.numAngles)) : Math.min(MAX_IMAGES, frames);
         if (n !== frames) setFrames(n);
         extras.frames = n;
         merged.numAngles = 1;
@@ -720,7 +720,7 @@ export default function CreateWorkspace() {
 
     const STATUS_FOR: Partial<Record<CreativeType, string>> = { ad: "Art-directing the campaign…", carousel: "Writing the arc, art-directing…", instagram: "Art-directing your creative…", story: "Art-directing your story…" };
     setBusy(true); setStatus(STATUS_FOR[kind] ?? "Art-directing the shoot…");
-    optimisticStart(runId, kind, expected);
+    optimisticStart(runId, kind, Math.min(MAX_IMAGES, expected));
     // Route server run-keys → local canvas runs. "primary" is the run we just created; each
     // companion type spins up its own run the first time its plan lands.
     const runKeyToLocal = new Map<string, string>([["primary", runId]]);
@@ -1126,7 +1126,7 @@ export default function CreateWorkspace() {
                   )}
                   {type === "carousel" && (
                     <label className="flex flex-col gap-1"><span className="text-[11px] uppercase tracking-wide text-muted">Frames</span><span className="text-[10px] normal-case text-muted/70">swipes in the sequence — hook to close</span>
-                      <input type="number" min={3} max={8} value={frames} onChange={(e) => setFrames(Math.max(3, Math.min(8, Number(e.target.value))))} className="rounded-md border border-hairline bg-canvas px-2.5 py-1.5 text-sm focus:border-ink" /></label>
+                      <input type="number" min={3} max={MAX_IMAGES} value={frames} onChange={(e) => setFrames(Math.max(3, Math.min(MAX_IMAGES, Number(e.target.value))))} className="rounded-md border border-hairline bg-canvas px-2.5 py-1.5 text-sm focus:border-ink" /></label>
                   )}
                   {(type === "instagram" || type === "story") && (
                     <label className="flex flex-col gap-1"><span className="text-[11px] uppercase tracking-wide text-muted">Options</span><span className="text-[10px] normal-case text-muted/70">alternate takes to choose from</span>

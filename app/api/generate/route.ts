@@ -9,7 +9,7 @@ import { detectCategory, canWear } from "@/lib/productCategory";
 import { analyzePlacement } from "@/lib/placement";
 import { normHex, defaultBgColor } from "@/lib/copyLayout";
 import type { ResolvedBrief, BrandProfile, CampaignCopy, CampaignOutput, CreativeTypeId, ModelPerson, PaletteColor } from "@/lib/types";
-import { buildBrief, buildModelBrief, counts, formatToAspect, parsePeopleCount } from "@/lib/brief";
+import { buildBrief, buildModelBrief, counts, formatToAspect, parsePeopleCount, MAX_IMAGES } from "@/lib/brief";
 import { brainToProfile } from "@/lib/onboard";
 import { buildCompliance, complianceToNegatives } from "@/lib/compliance";
 import { CREATIVE_TYPES, FORMATS, carouselDirective, isV2Type, type FormatId } from "@/lib/creativeTypes";
@@ -154,6 +154,10 @@ export async function POST(req: NextRequest) {
           ? []
           : ([...new Set((body.companions ?? []).filter(isV2Type))] as CreativeTypeId[]).filter((t) => t !== body.creativeType);
 
+        // The whole request's image budget — the primary run spends first, companions get what's
+        // left, and nothing may push the request over MAX_IMAGES total. Enforced when stubs are built.
+        let imageBudget = MAX_IMAGES;
+
         // One request → the primary run + each companion, each with its OWN plan / copy / campaign,
         // all sharing the pre-passes above. Tagged with `run` so the client stacks a card per run.
         const runOne = async (spec: CreativeSpec, runKey: string): Promise<void> => {
@@ -224,6 +228,13 @@ export async function POST(req: NextRequest) {
               stubs.push({ id: `${runStamp}-${idx + 1}-${rand()}`, angle: s.angle, aspect, seq: spec?.frames ? idx + 1 : undefined, groupId: spec?.frames ? `g${stamp.toString(36)}-${runKey}` : undefined, planIdx: idx });
             }
           });
+          // HARD CAP — the single authoritative guard. No request may EVER emit more than MAX_IMAGES
+          // images across all its runs (product set, story/post set, carousel frames, ad fan-out and
+          // any companions), whatever counts a (possibly hand-crafted) request asks for. Clamp this
+          // run to the remaining budget and spend it; a run left with nothing simply produces nothing.
+          if (stubs.length > imageBudget) stubs.length = Math.max(0, imageBudget);
+          imageBudget -= stubs.length;
+          if (!stubs.length) { send({ type: "plan", run: runKey, angles: [], count: 0, qc: [], aspect, creativeType: spec?.id, shots: [] }); return; }
 
           // A v2 type persists as a CAMPAIGN — the container grouping this brief's sequence /
           // fan-out (campaigns.json, separate from brain.json by design).
