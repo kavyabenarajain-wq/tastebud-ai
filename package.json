@@ -9,6 +9,7 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@libsql/client": "^0.14.0",
     "@resvg/resvg-js": "^2.6.2",
     "framer-motion": "^11.11.7",
     "lucide-react": "^0.454.0",
