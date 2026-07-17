@@ -112,7 +112,17 @@ export function buildBrief(b: ResolvedBrief): string {
   const cat = categoryDirective(b.brand);
   if (cat) lines.push(cat);
   if (b.references?.length) lines.push(`STYLE REFERENCE PROVIDED (${b.references.length} image${b.references.length > 1 ? "s" : ""}) — match its look: background, palette, prop styling, lighting and composition. This drives the art direction; treat the panel as secondary.`);
-  lines.push(`Products uploaded: ${b.products?.length ?? 0}.`);
+  // Name the REAL product(s) so the (otherwise blind) planner keys the scene to them and never
+  // drifts to a generic or different item — the strongest text-side product-identity lock.
+  const info = (b.productInfo ?? []).filter((pp) => pp && (pp.name || pp.category));
+  if (info.length) {
+    const each = info.map((pp) => [pp.name && `"${pp.name}"`, pp.category && `(${pp.category})`, pp.variants?.length && `— ${pp.variants.slice(0, 4).join(" / ")}`].filter(Boolean).join(" ")).filter(Boolean);
+    lines.push(`THE PRODUCT(S) TO SHOOT — reproduce the client's REAL item(s) EXACTLY, never a substitute, restyle or different variant: ${each.join("; ")}. The attached product image is the source of truth for shape, label and every word of text.`);
+  } else if ((b.products?.length ?? 0) > 0) {
+    lines.push(`Products uploaded: ${b.products?.length ?? 0}. Reproduce the attached real product exactly — never a substitute or a different product.`);
+  } else {
+    lines.push(`NO PRODUCT PROVIDED — do NOT invent a hero product. Art-direct an on-brand, atmospheric scene in the brand's world (surfaces, environment, light, palette, mood), product-free.`);
+  }
   lines.push("PRIORITY: the client's own-words request (if any, marked ★ above) comes FIRST — deliver it. Then honour any panel choices as hard direction. Then fill ONLY the still-unspecified fields from the Brand Profile. Vibe, lighting and composition must work together as one coherent look.");
   return lines.join("\n");
 }

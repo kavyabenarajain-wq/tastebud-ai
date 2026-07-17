@@ -16,6 +16,13 @@ const config: Config = {
         ink: "#1D1D1F",
         muted: "#6E6E73",
         hairline: "#D2D2D7",
+        // Marketing site only (Claude-like beige world) — the studio tool stays monochrome.
+        cream: "#F0EEE6",
+        paper: "#FAF9F5",
+        carbon: "#191917",
+        clay: "#5C5B53", // darkened from #6F6E66 to clear WCAG AA (4.5:1) on cream/paper for body + eyebrow text
+        linen: "#DCD9CE",
+        terra: "#D97757",
         // dark mode
         "canvas-dk": "#000000",
         "surface-dk": "#0A0A0A",
@@ -25,6 +32,10 @@ const config: Config = {
       fontFamily: {
         sans: ["var(--font-inter)", "system-ui", "-apple-system", "sans-serif"],
         serif: ["var(--font-fraunces)", "Georgia", "serif"],
+        // Marketing site — closest Google stand-ins for Claude's Styrene/Tiempos pair;
+        // swap the sources in app/layout.tsx if the licensed fonts arrive.
+        "site-sans": ["var(--font-site-sans)", "system-ui", "-apple-system", "sans-serif"],
+        "site-serif": ["var(--font-site-serif)", "Georgia", "serif"],
       },
       letterSpacing: { display: "-0.03em", tight: "-0.02em", wide: "0.18em" },
       borderRadius: { card: "12px", control: "10px" },

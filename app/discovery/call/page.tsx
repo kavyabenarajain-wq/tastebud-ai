@@ -11,7 +11,7 @@ import { BackLink } from "@/components/tastebud/BackLink";
  */
 export default function BookCallCTA() {
   return (
-    <main className="flex min-h-screen flex-col bg-canvas">
+    <main className="flex min-h-screen flex-col bg-cream">
       <header className="flex items-center justify-between px-8 py-8">
         <Wordmark size="sm" href="/" />
         <BackLink href="/discovery" />
@@ -31,7 +31,7 @@ export default function BookCallCTA() {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.7, delay: 0.2 }}
-          className="mt-5 text-[15px] text-muted"
+          className="mt-5 text-[15px] text-clay"
         >
           One conversation. A complete brand, delivered.
         </motion.p>
@@ -43,7 +43,7 @@ export default function BookCallCTA() {
         >
           <Link
             href="/discovery/book"
-            className="mt-10 inline-block rounded-full bg-ink px-9 py-3.5 text-sm font-medium text-canvas transition-opacity duration-300 ease-brand hover:opacity-90"
+            className="mt-10 inline-block rounded-full bg-carbon px-9 py-3.5 text-sm font-medium text-cream transition-opacity duration-300 ease-brand hover:opacity-90"
           >
             Choose a time
           </Link>

@@ -10,6 +10,7 @@ import { BrandBrainPanel } from "@/components/tastebud/BrandBrainPanel";
 import { thumb } from "@/lib/thumb";
 import type { ModelSpec, BrandBrain, ShotCompliance } from "@/lib/types";
 import { detectCategory, interactionOptions } from "@/lib/productCategory";
+import { FREE_REDOS_PER_SHOT } from "@/lib/meals";
 
 /**
  * PAGE 8 — Studio workspace (Model mode).
@@ -20,7 +21,7 @@ import { detectCategory, interactionOptions } from "@/lib/productCategory";
 
 type Img = { name: string; url: string };
 type Decision = "keep" | "reject" | "hero";
-type Shot = { id: string; angle: string; prompt: string; url: string; negatives?: string[]; compliance?: ShotCompliance; aspect?: number; pending?: boolean; failed?: boolean; hires?: boolean; decision?: Decision; drift?: boolean; driftReasons?: string[] };
+type Shot = { id: string; angle: string; prompt: string; url: string; negatives?: string[]; compliance?: ShotCompliance; aspect?: number; pending?: boolean; failed?: boolean; hires?: boolean; decision?: Decision; drift?: boolean; driftReasons?: string[]; redos?: number };
 type Msg = { role: "user" | "assistant"; content: string };
 type Scene = { background: string; vibe: string; lighting: string; composition: string; format: string; numAngles: number; shotsPerAngle: number };
 type Source = "build" | "reference";
@@ -228,20 +229,24 @@ export default function ModelWorkspace() {
     setBusy(false); setStatus("");
   }
 
-  async function single(express: string): Promise<Shot | null> {
+  async function single(express: string, redo?: boolean): Promise<Shot | null> {
     let out: Shot | null = null;
     await stream(
-      { ...modelBody({ express, scene: { numAngles: 1, shotsPerAngle: 1 } }), model: { ...model, source } },
+      // A satisfaction redo/refine of one already-paid shot doesn't spend a Meal — the server honours `redo` (see lib/meals).
+      { ...modelBody({ express, scene: { numAngles: 1, shotsPerAngle: 1 } }), model: { ...model, source }, ...(redo ? { redo: true } : {}) },
       { onPlan: () => {}, onReshoot: () => {}, onError: () => {}, onShot: (s) => { if (!out) out = { ...s, aspect: aspectNum(s.aspect) }; } }
     );
     return out;
   }
 
+  // Blind one-click redo — free while the shot is inside its redo allowance; the card swaps to a
+  // directed chat refine once the allowance is spent, so this only ever fires on a free redo.
   async function reshoot(shot: Shot) {
+    const used = shot.redos ?? 0;
     setBusy(true); setStatus("Re-shooting…");
     setShots((cur) => cur.map((s) => (s.id === shot.id ? { ...s, pending: true, failed: false } : s)));
-    const r = await single(shot.angle);
-    setShots((cur) => cur.map((s) => (s.id === shot.id ? (r ? { ...s, url: r.url, aspect: r.aspect, pending: false, failed: false } : { ...s, pending: false, failed: true }) : s)));
+    const r = await single(shot.angle, used < FREE_REDOS_PER_SHOT);
+    setShots((cur) => cur.map((s) => (s.id === shot.id ? (r ? { ...s, url: r.url, aspect: r.aspect, pending: false, failed: false, redos: used + 1 } : { ...s, pending: false, failed: true, redos: used + 1 }) : s)));
     setBusy(false); setStatus("");
   }
 
@@ -254,13 +259,14 @@ export default function ModelWorkspace() {
     if (enhanceOn) {
       try {
         // Re-inject the shot's stored compliance (product + model identity lock) so the edit stays on-brand.
-        const r = await fetch("/api/enhance", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ action: "edit", src: shot.url, prompt: text, compliance: shot.compliance, productRef: products[0]?.url, brand: brain.name }) });
+        // A directed refine fixes a shot you already paid for — free (redo).
+        const r = await fetch("/api/enhance", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ action: "edit", src: shot.url, prompt: text, compliance: shot.compliance, productRef: products[0]?.url, brand: brain.name, redo: true }) });
         const j = await r.json();
         setShots((cur) => cur.map((s) => (s.id === shot.id ? (j.url ? { ...s, url: j.url, hires: false, pending: false, drift: !!j.drift, driftReasons: j.driftReasons ?? [] } : { ...s, pending: false }) : s)));
       } catch { setShots((cur) => cur.map((s) => (s.id === shot.id ? { ...s, pending: false } : s))); }
       setBusy(false); setStatus(""); return;
     }
-    const r = await single(`${shot.angle}. ${text}`);
+    const r = await single(`${shot.angle}. ${text}`, true);
     setShots((cur) => cur.map((s) => (s.id === shot.id ? (r ? { ...s, url: r.url, pending: false } : { ...s, pending: false }) : s)));
     setBusy(false); setStatus("");
   }
@@ -444,13 +450,19 @@ export default function ModelWorkspace() {
                   <div className="px-3 pb-3 pt-2.5">
                     {s.angle && <div className="mb-1 truncate text-[11px] text-muted" title={s.angle}>{s.angle}</div>}
                     {s.url && !s.pending && (
-                      <div className="flex items-center gap-2.5 text-[12px] opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+                      <div className="flex flex-wrap items-center gap-2.5 text-[12px]">
                         <button onClick={() => decide(s, "keep")} className={s.decision === "keep" ? "text-ink" : "text-muted transition-colors hover:text-ink"} title="Keep — teach the brand this worked">Keep</button>
                         <button onClick={() => decide(s, "hero")} className={s.decision === "hero" ? "text-ink" : "text-muted transition-colors hover:text-ink"} title="Hero — the standout of the set">Hero</button>
                         <button onClick={() => decide(s, "reject")} className={s.decision === "reject" ? "text-ink" : "text-muted transition-colors hover:text-ink"} title="Reject — steer future shoots away from this">Reject</button>
                         <span className="h-3 w-px bg-hairline" />
-                        <button onClick={() => setEditing({ id: s.id, text: "" })} className="text-muted transition-colors hover:text-ink">Change</button>
-                        <button onClick={() => reshoot(s)} className="text-muted transition-colors hover:text-ink">Redo</button>
+                        {(s.redos ?? 0) < FREE_REDOS_PER_SHOT ? (
+                          <>
+                            <button onClick={() => setEditing({ id: s.id, text: "" })} className="text-muted transition-colors hover:text-ink" title="Tell me what to change — free">Change</button>
+                            <button onClick={() => reshoot(s)} className="text-muted transition-colors hover:text-ink" title={`Re-roll this shot — ${FREE_REDOS_PER_SHOT - (s.redos ?? 0)} free redo${FREE_REDOS_PER_SHOT - (s.redos ?? 0) === 1 ? "" : "s"} left`}>Redo</button>
+                          </>
+                        ) : (
+                          <button onClick={() => setEditing({ id: s.id, text: "" })} className="text-muted transition-colors hover:text-ink" title="Free redos used — tell me exactly what to change and I'll get it right, free">Refine in chat</button>
+                        )}
                         <button onClick={() => upscale(s)} className="flex items-center gap-1 text-muted transition-colors hover:text-ink"><Sparkles size={12} />4K</button>
                         {enhanceOn && <button onClick={() => enhance(s, "cutout")} className="text-muted transition-colors hover:text-ink">Cutout</button>}
                         {enhanceOn && <button onClick={() => enhance(s, "relight")} className="text-muted transition-colors hover:text-ink">Relight</button>}

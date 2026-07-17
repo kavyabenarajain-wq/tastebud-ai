@@ -61,7 +61,7 @@ export function CanvasTopBar({
           key={it.label}
           data-no-pan
           onClick={() => { it.onClick(); setOpen(null); }}
-          className={`flex w-full items-center px-3.5 py-2 text-left text-[13px] transition-colors hover:bg-surface ${it.danger ? "text-[#c0392b]" : "text-ink"}`}
+          className={`flex w-full items-center px-3.5 py-2 text-left text-[13px] transition-colors hover:bg-surface ${it.danger ? "text-ink font-medium" : "text-ink"}`}
         >
           {it.label}
         </button>
@@ -110,7 +110,7 @@ export function CanvasTopBar({
         {open === "more" && (
           <div className="absolute right-0 top-full z-20 mt-1.5 min-w-[180px] overflow-hidden rounded-xl border border-hairline bg-canvas py-1 shadow-card">
             {moreItems.map((it) => (
-              <button key={it.label} data-no-pan onClick={() => { it.onClick(); setOpen(null); }} className={`flex w-full items-center px-3.5 py-2 text-left text-[13px] transition-colors hover:bg-surface ${it.danger ? "text-[#c0392b]" : "text-ink"}`}>{it.label}</button>
+              <button key={it.label} data-no-pan onClick={() => { it.onClick(); setOpen(null); }} className={`flex w-full items-center px-3.5 py-2 text-left text-[13px] transition-colors hover:bg-surface ${it.danger ? "text-ink font-medium" : "text-ink"}`}>{it.label}</button>
             ))}
           </div>
         )}

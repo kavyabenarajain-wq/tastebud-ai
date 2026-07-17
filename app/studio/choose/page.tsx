@@ -82,7 +82,7 @@ export default function StudioChoose() {
                 <div>
                   <h2 className="font-serif text-3xl font-light tracking-tight text-ink">{p.title}</h2>
                   <p className="mt-3 max-w-xs text-[15px] leading-relaxed text-muted">{p.sub}</p>
-                  <span className="mt-5 inline-block text-sm text-ink opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                  <span className="mt-5 inline-block text-sm text-ink opacity-60 transition-opacity duration-300 group-hover:opacity-100 group-focus-within:opacity-100">
                     Open →
                   </span>
                 </div>

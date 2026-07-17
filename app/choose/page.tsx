@@ -6,68 +6,57 @@ import { Wordmark } from "@/components/tastebud/Wordmark";
 import { BackLink } from "@/components/tastebud/BackLink";
 
 /**
- * PAGE 2 — Choose your path.
- * One quiet question, two equal panels. The wording self-sorts people by situation.
+ * PAGE 2 — Enter the studio.
+ * Brand Discovery was removed here: anyone arriving from a plan already has a brand, so the
+ * single, clear way forward is the Asset Studio. Beige, matching the marketing + pricing world.
  */
-const PATHS = [
-  {
-    href: "/discovery",
-    title: "Brand Discovery",
-    sub: "I don’t have a brand yet. Help me build one.",
-  },
-  {
-    href: "/studio",
-    title: "Asset Studio",
-    sub: "I have a brand. Study it, then make the visuals.",
-  },
-];
-
 export default function Choose() {
   return (
-    <main className="flex min-h-screen flex-col bg-canvas">
+    <main className="flex min-h-screen flex-col bg-cream text-ink">
       <header className="flex items-center justify-between px-8 py-8">
         <Wordmark size="sm" href="/" />
         <BackLink href="/" />
       </header>
 
-      <div className="mx-auto flex w-full max-w-5xl flex-1 flex-col justify-center px-6 pb-24">
+      <div className="mx-auto flex w-full max-w-2xl flex-1 flex-col justify-center px-6 pb-24">
         <motion.p
-          initial={{ opacity: 0, y: 6 }}
+          initial={{ opacity: 0, y: 8 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, ease: [0.4, 0, 0.2, 1] }}
-          className="mb-12 text-center font-serif text-2xl font-light tracking-tight text-ink md:text-3xl"
+          transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1] }}
+          className="mb-3 text-center text-[12px] uppercase tracking-wide text-clay"
         >
-          Where are you starting from?
+          Welcome in
         </motion.p>
+        <motion.h1
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.06, ease: [0.4, 0, 0.2, 1] }}
+          className="mb-10 text-center font-serif text-3xl font-light tracking-tight md:text-4xl"
+        >
+          Let&rsquo;s make something on-brand.
+        </motion.h1>
 
-        <div className="grid gap-px overflow-hidden rounded-card border border-hairline bg-hairline md:grid-cols-2">
-          {PATHS.map((p, i) => (
-            <motion.div
-              key={p.href}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 + i * 0.08, ease: [0.4, 0, 0.2, 1] }}
-            >
-              <Link
-                href={p.href}
-                className="group flex h-full min-h-[44vh] flex-col justify-between bg-canvas p-9 transition-colors duration-300 ease-brand hover:bg-surface md:p-12"
-              >
-                <span className="text-[11px] uppercase tracking-wide text-muted">
-                  {i === 0 ? "the service" : "the tool"}
-                </span>
-                <div>
-                  <h2 className="font-serif text-3xl font-light tracking-tight text-ink md:text-4xl">
-                    {p.title}
-                  </h2>
-                  <p className="mt-3 max-w-xs text-[15px] leading-relaxed text-muted">{p.sub}</p>
-                  <span className="mt-6 inline-block text-sm text-ink opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                    Enter →
-                  </span>
-                </div>
-              </Link>
-            </motion.div>
-          ))}
-        </div>
+        <motion.div
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.14, ease: [0.4, 0, 0.2, 1] }}
+        >
+          <Link
+            href="/studio"
+            className="group flex min-h-[40vh] flex-col justify-between rounded-3xl border border-linen bg-paper p-10 transition-shadow duration-300 ease-brand hover:shadow-card md:p-14"
+          >
+            <span className="text-[11px] uppercase tracking-wide text-clay">the studio</span>
+            <div>
+              <h2 className="font-serif text-3xl font-light tracking-tight md:text-4xl">Asset Studio</h2>
+              <p className="mt-3 max-w-md text-[15px] leading-relaxed text-clay">
+                Study your brand, then make the visuals — product shoots, model shoots and campaigns — all in one place.
+              </p>
+              <span className="mt-8 inline-flex items-center gap-1.5 text-sm font-medium text-ink transition-transform duration-300 ease-brand group-hover:translate-x-1">
+                Enter the studio &rarr;
+              </span>
+            </div>
+          </Link>
+        </motion.div>
       </div>
     </main>
   );

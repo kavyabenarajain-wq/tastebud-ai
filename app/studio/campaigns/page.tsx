@@ -34,6 +34,7 @@ export default function CampaignsPage() {
   const router = useRouter();
   const [brand, setBrand] = useState<string>("");
   const [campaigns, setCampaigns] = useState<Campaign[] | null>(null);
+  const [loadError, setLoadError] = useState(false);
 
   useEffect(() => {
     let name = "";
@@ -48,21 +49,48 @@ export default function CampaignsPage() {
       return;
     }
     setBrand(name);
+    loadCampaigns(name);
+  }, [router]);
+
+  // Kept out of the effect so the error state can offer a real "Retry" — a failed load must not
+  // masquerade as "no campaigns yet" (which would tell a brand with campaigns it has none).
+  function loadCampaigns(name: string) {
+    setLoadError(false);
+    setCampaigns(null);
     fetch(`/api/campaigns/${slugify(name)}`)
       .then((r) => r.json())
       .then((j) => setCampaigns(j.campaigns ?? []))
-      .catch(() => setCampaigns([]));
-  }, [router]);
+      .catch(() => { setLoadError(true); setCampaigns([]); });
+  }
 
   return (
     <div className="flex min-h-screen flex-col bg-canvas text-ink">
       <WorkBar brand={brand} back="/studio/create" backLabel="Studio" />
       <main className="mx-auto w-full max-w-4xl flex-1 px-6 py-10">
-        <h1 className="text-[28px] font-semibold tracking-[-0.02em]">Campaigns</h1>
+        <h1 className="font-serif text-3xl font-light tracking-tight md:text-4xl">Campaigns</h1>
         <p className="mt-1 text-[15px] text-muted">Every ad campaign, carousel and creative this brand has produced — copy and every placement, together.</p>
 
         {campaigns === null ? (
-          <div className="mt-10 text-sm text-muted">Loading…</div>
+          <div className="mt-8 space-y-6" aria-busy="true" aria-label="Loading campaigns">
+            {[0, 1].map((i) => (
+              <div key={i} className="animate-pulse rounded-card border border-hairline bg-canvas p-5">
+                <div className="h-4 w-40 rounded bg-surface" />
+                <div className="mt-4 grid grid-cols-3 gap-3">
+                  <div className="aspect-[4/5] rounded bg-surface" />
+                  <div className="aspect-[4/5] rounded bg-surface" />
+                  <div className="aspect-[4/5] rounded bg-surface" />
+                </div>
+              </div>
+            ))}
+          </div>
+        ) : loadError ? (
+          <div className="mt-10 flex flex-col items-center rounded-card border border-dashed border-hairline py-16 text-center">
+            <Layers size={24} strokeWidth={1.5} className="text-muted" />
+            <p className="mt-3 max-w-sm text-sm text-muted">Couldn&rsquo;t load your campaigns just now.</p>
+            <button onClick={() => loadCampaigns(brand)} className="mt-5 rounded-control bg-ink px-4 py-2 text-sm font-medium text-canvas transition-opacity hover:opacity-90">
+              Retry
+            </button>
+          </div>
         ) : campaigns.length === 0 ? (
           <div className="mt-10 flex flex-col items-center rounded-card border border-dashed border-hairline py-16 text-center">
             <Layers size={24} strokeWidth={1.5} className="text-muted" />

@@ -3,6 +3,8 @@ import { upscaleShot } from "@/lib/image";
 import { numberToAspect } from "@/lib/brief";
 import { enhanceEnabled, upscale } from "@/lib/enhance";
 import { enlargeInPlace } from "@/lib/finish";
+import { ensureGrants, charge, refund, normalizeAccount, DEFAULT_ACCOUNT } from "@/lib/store";
+import { MEAL_COSTS } from "@/lib/meals";
 
 export const runtime = "nodejs";
 export const maxDuration = 180;
@@ -12,8 +14,13 @@ export const maxDuration = 180;
 // neither key is configured, ALWAYS still delivers a crisp deterministic 4K (lanczos +
 // re-sharpen) so the button is never a silent no-op.
 export async function POST(req: NextRequest) {
-  const { url, aspect, face } = (await req.json()) as { url: string; aspect?: number; face?: boolean };
+  const { url, aspect, face, account: rawAccount } = (await req.json()) as { url: string; aspect?: number; face?: boolean; account?: string };
   if (!url) return Response.json({ error: "no url" }, { status: 400 });
+  // MEALS — a keeper upscale costs 1. Observe mode records it; enforced mode refuses at zero.
+  const account = normalizeAccount(rawAccount) ?? DEFAULT_ACCOUNT;
+  await ensureGrants(account).catch(() => {});
+  const meal = await charge(account, MEAL_COSTS.upscale, "upscale").catch(() => ({ ok: true, balance: 0 }));
+  if (!meal.ok) return Response.json({ error: "Out of Meals — 3 free Meals arrive daily, or top up on the pricing page." }, { status: 402 });
   try {
     if (enhanceEnabled()) {
       const out = await upscale({ src: url, scale: 4, faceEnhance: !!face });
@@ -28,6 +35,7 @@ export async function POST(req: NextRequest) {
     await enlargeInPlace(url, 4096);
     return Response.json({ url, via: "native" });
   } catch (err) {
+    await refund(account, MEAL_COSTS.upscale, "refund:upscale").catch(() => {});
     return Response.json({ error: (err as Error).message }, { status: 500 });
   }
 }
