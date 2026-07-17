@@ -1,7 +1,8 @@
 "use client";
 
+import { useRef, useState } from "react";
 import Link from "next/link";
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform, useMotionValueEvent } from "framer-motion";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
 
@@ -14,16 +15,45 @@ const rise = {
 
 /**
  * HOME — the marketing front door.
- * Headline first; scroll to the two doors (demo call / asset studio → pricing);
- * the footer carries the work strip. Palette + type: Claude-like beige and white.
+ * A full-screen "tastebud" intro that animates in and then fades/lifts away as you scroll
+ * smoothly into the site; then the headline, the two doors, how-it-works, and the footer.
  */
 export default function Home() {
+  const introRef = useRef<HTMLElement>(null);
+  // Scroll-linked: as the intro scrolls out (one viewport), fade + lift + gently shrink the
+  // "tastebud" wordmark so the pure brand screen dissolves into the site rather than cutting.
+  const { scrollYProgress } = useScroll({ target: introRef, offset: ["start start", "end start"] });
+  const wordOpacity = useTransform(scrollYProgress, [0, 0.55], [1, 0]);
+  const wordY = useTransform(scrollYProgress, [0, 1], [0, -90]);
+  const wordScale = useTransform(scrollYProgress, [0, 1], [1, 0.9]);
+  // The nav is absent on the pure "tastebud" screen and fades in as you scroll into the site.
+  const headerOpacity = useTransform(scrollYProgress, [0.55, 0.95], [0, 1]);
+  const [navOn, setNavOn] = useState(false);
+  useMotionValueEvent(scrollYProgress, "change", (v) => setNavOn(v > 0.55));
+
   return (
     <main className="bg-cream text-ink">
-      <SiteHeader />
+      {/* Header hidden on the intro screen; fades in (and becomes clickable) as you enter the site. */}
+      <motion.div style={{ opacity: headerOpacity }} className={navOn ? "" : "pointer-events-none"}>
+        <SiteHeader />
+      </motion.div>
+
+      {/* Intro — a whole screen, nothing but the word. Scroll and the motion carries you in. */}
+      <section ref={introRef} className="relative flex h-screen items-center justify-center overflow-hidden px-6 text-center">
+        <motion.div style={{ opacity: wordOpacity, y: wordY, scale: wordScale }}>
+          <motion.h1
+            initial={{ opacity: 0, y: 30, filter: "blur(12px)" }}
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
+            className="font-site-serif text-7xl font-light leading-none tracking-tight text-ink sm:text-8xl md:text-[11rem]"
+          >
+            tastebud
+          </motion.h1>
+        </motion.div>
+      </section>
 
       {/* Hero — one headline, held on a clean field. */}
-      <section className="flex min-h-[92vh] flex-col items-center justify-center px-6 pt-28 text-center">
+      <section id="start" className="flex min-h-[92vh] scroll-mt-0 flex-col items-center justify-center px-6 pt-28 text-center">
         <motion.p
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
@@ -49,14 +79,6 @@ export default function Home() {
           tastebud studies your brand — products, palette, voice — then art-directs
           photoshoots, campaigns and ads that could only be yours.
         </motion.p>
-        <motion.span
-          initial={{ opacity: 0 }}
-          animate={{ opacity: [0, 0.6, 0.3, 0.6] }}
-          transition={{ delay: 1.2, duration: 4, repeat: Infinity, repeatType: "reverse" }}
-          className="mt-16 text-[12px] uppercase tracking-wide text-clay"
-        >
-          Scroll
-        </motion.span>
       </section>
 
       {/* The two doors. */}
@@ -84,7 +106,7 @@ export default function Home() {
 
         <motion.div {...rise} transition={{ ...rise.transition, delay: 0.08 }}>
           <Link
-            href="/pricing"
+            href="/asset-studio#pricing"
             className="group flex h-full min-h-[380px] flex-col justify-between rounded-3xl bg-carbon p-10 text-cream transition-opacity duration-300 hover:opacity-95"
           >
             <span className="text-[11px] uppercase tracking-wide text-cream/50">Go straight in</span>

@@ -17,6 +17,9 @@
   --hairline: #1f1f1f;
 }
 
+html {
+  scroll-behavior: smooth; /* the home intro's "Scroll" cue glides into the site (reduced-motion resets this below) */
+}
 html,
 body {
   background: var(--canvas);
