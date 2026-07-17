@@ -186,7 +186,7 @@ export function AnnotationLayer({ tool, annos, onCommit }: { tool: CanvasTool; a
       case "sticky":
         return (
           <g key={a.id} {...eraseProps}>
-            <rect x={a.x} y={a.y} width={160} height={120} rx={4} fill="#FEF3C7" stroke="rgba(0,0,0,0.08)" />
+            <rect x={a.x} y={a.y} width={160} height={120} rx={4} fill="#F5F5F7" stroke="rgba(0,0,0,0.08)" />
             <foreignObject x={a.x + 10} y={a.y + 8} width={140} height={104}>
               <div style={{ fontFamily: "var(--brand-text)", fontSize: 13, lineHeight: 1.35, color: INK, overflow: "hidden" }}>{a.text}</div>
             </foreignObject>

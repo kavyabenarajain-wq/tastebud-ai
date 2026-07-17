@@ -345,6 +345,7 @@ export interface ResolvedBrief {
   express?: string;
   panel?: PanelParams;
   products: string[]; // data URLs / paths of uploaded product images (optional in model mode)
+  productInfo?: StudioProduct[]; // the SELECTED products in full (name + ALL images + facts) — used to lock identity, pass front+back panels, and enrich the on-pack manifest; falls back to `products` when absent
   references?: string[]; // optional style/look references to match
   modelRefs?: string[]; // model-photoshoot: pasted reference photo(s) of the person to reproduce
   model?: ModelSpec; // model-photoshoot: the built/curated model
@@ -357,6 +358,7 @@ export interface ResolvedBrief {
   formats?: string[]; // ad: placements to fan the one concept out to (lib/creativeTypes FORMATS keys)
   campaignName?: string; // optional name for the persisted campaign
   copy?: CampaignCopy; // client-typed copy overrides (headline / CTA) — win over the generated copy
+  redo?: boolean; // this run is a SATISFACTION redo/refine of one already-paid shot — free, not charged (see lib/meals FREE_REDOS_PER_SHOT)
 }
 
 export interface PlannedShot { angle: string; prompt: string; negatives?: string[]; }

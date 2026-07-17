@@ -246,38 +246,61 @@ async function renderReplicate(id: string, prompt: string, refs: string[], opts:
 }
 
 /** Vision QC: score a rendered shot, and (if given the original) verify the product wasn't altered. */
-export async function qcImage(args: { url: string; checklist: string[]; brand: string; productRef?: string; modelRef?: string; restage?: boolean }): Promise<{ pass: boolean; reasons: string[] }> {
-  // QC runs on Gemini vision whenever its key is present — independent of which
-  // provider rendered the shot — so OpenAI renders still get reviewed.
-  if (!process.env.GEMINI_API_KEY) return { pass: true, reasons: [] };
+/**
+ * Run a vision judgement (prompt + ordered images) and return the raw model text. Tries the
+ * FUNDED OpenAI/Azure vision client first — so QC actually runs in production (the old Gemini-
+ * only path no-op'd whenever GEMINI_API_KEY was absent, silently passing every shot) — then
+ * falls back to Gemini. Images are referenced as "IMAGE 1..N" in the prompt, in the given order.
+ */
+async function visionJudge(prompt: string, imageSrcs: string[]): Promise<string | null> {
+  if (process.env.OPENAI_API_KEY || process.env.AZURE_OPENAI_API_KEY) {
+    try {
+      const imgs = await Promise.all(imageSrcs.map((s) => toDataUri(s)));
+      const content = [
+        { type: "text", text: prompt },
+        ...imgs.map((url) => ({ type: "image_url", image_url: { url } })),
+      ] as unknown as OpenAI.Chat.ChatCompletionUserMessageParam["content"];
+      const out = await chatComplete({ messages: [{ role: "user", content }], max_completion_tokens: 600, reasoning_effort: "low" });
+      if (out && out.trim()) return out;
+    } catch {
+      /* fall through to Gemini */
+    }
+  }
+  if (process.env.GEMINI_API_KEY) {
+    try {
+      const key = process.env.GEMINI_API_KEY!;
+      const model = process.env.GEMINI_QC_MODEL ?? "gemini-2.5-flash";
+      const imgs = await Promise.all(imageSrcs.map(toInline));
+      const parts: any[] = [{ text: prompt }, ...imgs.map((im) => ({ inline_data: { mime_type: im.mimeType, data: im.data } }))];
+      const j = await geminiCall(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${key}`, { contents: [{ parts }] }, 2);
+      return (j.candidates?.[0]?.content?.parts ?? []).map((p: any) => p.text ?? "").join("");
+    } catch {
+      /* fall through to null */
+    }
+  }
+  return null;
+}
+
+export async function qcImage(args: { url: string; checklist: string[]; brand: string; productRef?: string; modelRef?: string; restage?: boolean; manifest?: string[] }): Promise<{ pass: boolean; reasons: string[] }> {
   try {
-    const key = process.env.GEMINI_API_KEY!;
-    const model = process.env.GEMINI_QC_MODEL ?? "gemini-2.5-flash";
-    // Encode the generated frame + any reference images CONCURRENTLY (they're independent
-    // reads) instead of sequential awaits — the payload push order below is unchanged.
-    const [ref, modelImg, prodImg] = await Promise.all([
-      toInline(args.url),
-      args.modelRef ? toInline(args.modelRef) : Promise.resolve(null),
-      args.productRef ? toInline(args.productRef) : Promise.resolve(null),
-    ]);
+    // Ordered reference images → "IMAGE 1..N"; the GENERATED frame under review is ALWAYS last.
+    const refSrcs: string[] = [];
+    if (args.modelRef) refSrcs.push(args.modelRef);
+    if (args.productRef) refSrcs.push(args.productRef);
+    const genIdx = refSrcs.length + 1; // the generated frame's IMAGE index
     const checklist = args.checklist.length
       ? args.checklist
       : ["Real photography, not a 3D/CGI/plastic/AI render", "Product, label and text intact and legible", "On-brand, professional, well-composed", "Background and lighting look intentional and clean"];
-    const parts: any[] = [];
+    // Manifest check — every element the vision pass read off the REAL product must survive into
+    // the shot. Angle-tolerant: an element on a face the camera can't see is not a failure.
+    const manifestClause = args.productRef && args.manifest?.length
+      ? `EVERY ONE of these elements is printed on the REAL product and must be PRESENT, complete and LEGIBLE in the generated photo — FAIL if any visible one is missing, cut off, blurred, garbled, misspelled, translated or altered: ${args.manifest.slice(0, 20).join(" | ")}. (Ignore only an element on a face of the pack genuinely not visible at this camera angle.)\n`
+      : "";
     let prompt: string;
     if (args.modelRef) {
-      // MODEL LIKENESS QC — the client pasted a photo of THEIR person; the generated
-      // model must be unmistakably that same individual, not a lookalike. This is the
-      // gate that was missing: without it a drifting face passed on general realism alone.
-      parts.push({ inline_data: { mime_type: modelImg!.mimeType, data: modelImg!.data } }); // IMAGE 1 = the person
-      let genIdx = 2;
-      let productClause = "";
-      if (args.productRef) {
-        parts.push({ inline_data: { mime_type: prodImg!.mimeType, data: prodImg!.data } });  // IMAGE 2 = the product
-        genIdx = 3;
-        productClause =
-          `IMAGE 2 is the client's REAL product. The product in IMAGE 3 MUST be that SAME product — same shape, cap/closure, label, logo, every word of text and colours (ignore any hand, prop or background in IMAGE 2). A different, restyled or relabelled product is a FAIL.\n`;
-      }
+      const productClause = args.productRef
+        ? `IMAGE 2 is the client's REAL product. The product in IMAGE ${genIdx} MUST be that SAME product — same shape, cap/closure, label, logo, every word of text and colours (ignore any hand, prop or background in IMAGE 2). A different, restyled or relabelled product is a FAIL.\n${manifestClause}`
+        : "";
       const checks = args.checklist.length
         ? `\nIMAGE ${genIdx} must ALSO satisfy ALL of these — fail if any is false:\n` + args.checklist.map((c, i) => `${i + 1}. ${c}`).join("\n") + `\n`
         : "";
@@ -291,7 +314,6 @@ export async function qcImage(args: { url: string; checklist: string[]; brand: s
         `When the person is clearly the same individual${args.productRef ? " and the product matches" : ""} and the photo is clean, pass.\n` +
         `Return STRICT JSON ONLY: {"pass":true|false,"reasons":["short reason", ...]}`;
     } else if (args.productRef) {
-      parts.push({ inline_data: { mime_type: prodImg!.mimeType, data: prodImg!.data } });
       const extra = args.checklist.length ? `\nADDITIONALLY, for IMAGE 2 ALL of the following must be TRUE — fail if any is false:\n` + args.checklist.map((c, i) => `${i + 1}. ${c}`).join("\n") + `\n` : "";
       // Restage mode (a style reference is driving the shot): the product may be legitimately
       // RE-FORMED to fit the reference's arrangement — a duvet cased into pillows, a garment
@@ -310,6 +332,7 @@ export async function qcImage(args: { url: string; checklist: string[]; brand: s
           `IMAGE 1 is the ORIGINAL product the client uploaded. IMAGE 2 is a generated photo of it in a new scene.\n` +
           `IMAGE 1 may also contain a hand, fingers, nails, props or a background — IGNORE all of that and compare ONLY the product object itself.\n` +
           `FAIL if the PRODUCT in IMAGE 2 differs from the product in IMAGE 1 in shape, silhouette, proportions, cap/closure, label, logo, any text/wording, or colours — it must be the SAME product, only in a new setting.\n` +
+          manifestClause +
           `Also fail if IMAGE 2 looks distorted, fake, melted or obviously AI-generated, OR if it reproduces a hand/fingers/background copied from IMAGE 1. Do NOT penalise a different camera angle, background or lighting.${extra}` +
           `When the product clearly matches and the photo is clean, pass.\n` +
           `Return STRICT JSON ONLY: {"pass":true|false,"reasons":["short reason", ...]}`;
@@ -320,12 +343,9 @@ export async function qcImage(args: { url: string; checklist: string[]; brand: s
         `\nFail ONLY if the product looks distorted, fake, warped, melted, mislabelled, or obviously AI-generated. When in doubt, pass.\n` +
         `Return STRICT JSON ONLY: {"pass":true|false,"reasons":["short reason", ...]}`;
     }
-    parts.unshift({ text: prompt });
-    parts.push({ inline_data: { mime_type: ref.mimeType, data: ref.data } });
-    const body = { contents: [{ parts }] };
-    const j = await geminiCall(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${key}`, body, 2);
-    const text: string = (j.candidates?.[0]?.content?.parts ?? []).map((p: any) => p.text ?? "").join("");
-    const m = text.match(/\{[\s\S]*\}/);
+    const raw = await visionJudge(prompt, [...refSrcs, args.url]);
+    if (!raw) return { pass: true, reasons: [] }; // no vision provider → don't block the shoot
+    const m = raw.match(/\{[\s\S]*\}/);
     if (!m) return { pass: true, reasons: [] };
     const parsed = JSON.parse(m[0]);
     return { pass: !!parsed.pass, reasons: Array.isArray(parsed.reasons) ? parsed.reasons : [] };
@@ -335,41 +355,119 @@ export async function qcImage(args: { url: string; checklist: string[]; brand: s
 }
 
 /**
- * Vision pre-pass: LOOK at the uploaded product and report its observed facts —
- * above all the packaging COLOURS — so the (otherwise blind) art director can key
- * the scene to the real product when the client says "match the product". Cheap,
- * runs on Gemini flash; returns null when no key or on any failure (planner then
- * falls back to brand palette text, as before).
+ * Vision pre-pass: LOOK at the uploaded product and report its observed facts so the
+ * (otherwise blind) art director + renderer can key the scene to the REAL product and
+ * reproduce it exactly. Reports three things:
+ *   • colours   — the packaging colours a designer would key a campaign to
+ *   • identity  — one line: WHAT the product actually is (so we never render a different one)
+ *   • elements  — a MANIFEST of everything printed/embossed on the pack (verbatim text,
+ *                 logos, claims, seals, net weight, icons) so nothing is dropped or invented
+ * Accepts one image or several (e.g. front + back panels), so multi-panel text is captured.
+ * Runs on the FUNDED chat/vision client (OpenAI/Azure) — the older Gemini path was dead in
+ * production, so the manifest never actually ran; this makes it real. Best-effort: falls back
+ * to Gemini if that's the only key, and returns null on any failure (callers degrade to brand
+ * palette text + the generic legibility rule, as before).
  */
 export type ProductObservation = {
   colors: { name: string; hex: string; role: string }[];
   material: string;
   summary: string;
+  identity?: string;    // one line — what this product actually is (form, size/volume, category)
+  elements?: string[];  // every distinct on-pack element (text reproduced verbatim), for the must-appear manifest
+  parts?: string[];     // physical packaging parts (cap/closure, front panel, back panel, base) + which carry text
 };
-export async function analyzeProduct(productRef: string): Promise<ProductObservation | null> {
-  if (!process.env.GEMINI_API_KEY || !productRef) return null;
+
+const PRODUCT_INSPECT_PROMPT =
+  `You are a forensic product-packaging analyst prepping a photoshoot. Look ONLY at the product/packaging in the image(s) — IGNORE any hand, fingers, prop, surface or background around it. Report, precisely and LITERALLY, everything that is ON the product so a photographer can reproduce it EXACTLY and omit nothing. Reproduce any text VERBATIM. Report ONLY what you can actually see — never guess, invent or flatter.\n` +
+  `Return STRICT JSON ONLY:\n` +
+  `{"identity":"one line — what this product actually is: form factor, printed size/volume if shown, category (e.g. '250ml frosted-glass bottle of cold-pressed green juice')",` +
+  `"colors":[{"name":"plain colour name","hex":"#RRGGBB","role":"primary|accent|cap|text|background"}],` +
+  `"material":"main material/finish (e.g. frosted glass, matte aluminium tube, glossy carton)",` +
+  `"elements":["EVERY distinct thing printed or embossed on the pack, each as its own short item, text in double quotes — the brand wordmark, the product name, the variant/flavour, every tagline/claim, certifications & seals, net weight/volume, ingredient or benefit callouts, icons/symbols, and any legible fine print"],` +
+  `"parts":["the physical parts visible or clearly implied — cap/closure, neck, front label panel, back panel, base — noting which carry text"],` +
+  `"summary":"one line"}\n` +
+  `Order colours by visual dominance, primary first. Be EXHAUSTIVE on "elements": list each separate line of text as its own item; if two images show different faces, merge everything visible across them.`;
+
+export async function analyzeProduct(productRef: string | string[]): Promise<ProductObservation | null> {
+  const refs = (Array.isArray(productRef) ? productRef : [productRef]).filter(Boolean).slice(0, 3);
+  if (!refs.length) return null;
+  // Preferred path: the funded OpenAI/Azure vision client, which actually runs in production.
+  const parseInto = (raw: string): ProductObservation | null => {
+    const m = raw.match(/\{[\s\S]*\}/);
+    if (!m) return null;
+    let parsed: any;
+    try { parsed = JSON.parse(m[0]); } catch { return null; }
+    const str = (v: unknown) => String(v ?? "").trim();
+    const arr = (v: unknown) => (Array.isArray(v) ? v.map((x) => str(x)).filter(Boolean) : []);
+    const colors = (Array.isArray(parsed.colors) ? parsed.colors : [])
+      .map((c: any) => ({ name: str(c?.name), hex: str(c?.hex), role: str(c?.role) }))
+      .filter((c: any) => c.name || c.hex)
+      .slice(0, 6);
+    const elements = arr(parsed.elements).slice(0, 30);
+    const parts = arr(parsed.parts).slice(0, 12);
+    const identity = str(parsed.identity) || undefined;
+    // A run with no colours AND no manifest saw nothing usable → null (caller falls back).
+    if (!colors.length && !elements.length && !identity) return null;
+    return { colors, material: str(parsed.material), summary: str(parsed.summary), identity, elements: elements.length ? elements : undefined, parts: parts.length ? parts : undefined };
+  };
+  try {
+    if (process.env.OPENAI_API_KEY || process.env.AZURE_OPENAI_API_KEY) {
+      const imgs = await Promise.all(refs.map((r) => toDataUri(r)));
+      const content = [
+        { type: "text", text: PRODUCT_INSPECT_PROMPT },
+        ...imgs.map((url) => ({ type: "image_url", image_url: { url } })),
+      ] as unknown as OpenAI.Chat.ChatCompletionUserMessageParam["content"];
+      const out = await chatComplete({ messages: [{ role: "user", content }], max_completion_tokens: 1400, reasoning_effort: "low" });
+      const res = parseInto(out ?? "");
+      if (res) return res;
+    }
+  } catch {
+    /* fall through to Gemini */
+  }
+  // Fallback path: Gemini vision, for deployments configured that way.
+  if (!process.env.GEMINI_API_KEY) return null;
   try {
     const key = process.env.GEMINI_API_KEY!;
     const model = process.env.GEMINI_QC_MODEL ?? "gemini-2.5-flash";
-    const img = await toInline(productRef);
-    const prompt =
-      `You are a product-photography colour analyst. LOOK at this product's packaging and report ONLY what you can see.\n` +
-      `Identify the DOMINANT brand/packaging colours (the colours a designer would key a campaign to), each with a plain colour name, an approximate hex, and its role ("primary" for the main packaging colour, "accent", "cap", "text", "background").\n` +
-      `Order colours by visual dominance, primary first. IGNORE any hand, prop, surface or background around the product — only the product/packaging itself.\n` +
-      `Also note the main material/finish (e.g. "frosted glass bottle", "matte aluminium tube", "glossy carton") and a one-line summary.\n` +
-      `Return STRICT JSON ONLY: {"colors":[{"name":"","hex":"#RRGGBB","role":""}],"material":"","summary":""}`;
-    const body = { contents: [{ parts: [{ text: prompt }, { inline_data: { mime_type: img.mimeType, data: img.data } }] }] };
+    const parts = await Promise.all(refs.map(toInline));
+    const body = { contents: [{ parts: [{ text: PRODUCT_INSPECT_PROMPT }, ...parts.map((p) => ({ inline_data: { mime_type: p.mimeType, data: p.data } }))] }] };
     const j = await geminiCall(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${key}`, body, 2);
     const text: string = (j.candidates?.[0]?.content?.parts ?? []).map((p: any) => p.text ?? "").join("");
-    const m = text.match(/\{[\s\S]*\}/);
-    if (!m) return null;
-    const parsed = JSON.parse(m[0]);
-    const colors = (Array.isArray(parsed.colors) ? parsed.colors : [])
-      .map((c: any) => ({ name: String(c?.name ?? "").trim(), hex: String(c?.hex ?? "").trim(), role: String(c?.role ?? "").trim() }))
-      .filter((c: any) => c.name || c.hex)
-      .slice(0, 6);
-    if (!colors.length) return null;
-    return { colors, material: String(parsed.material ?? "").trim(), summary: String(parsed.summary ?? "").trim() };
+    return parseInto(text);
+  } catch {
+    return null;
+  }
+}
+
+/**
+ * BRAND-LOOK VISION PASS — the fix for "the model never learns how the brand shoots".
+ * The brand's photographic rulebook only reaches the PLANNER (as prose), and in production the
+ * research-time vision extraction degrades to a generic category fallback — so the renderer sees
+ * neither the brand's real frames nor a true read of their look. This studies the brand's OWN
+ * published photos at generation time on the FUNDED client and writes a concrete shooting spec
+ * the renderer applies directly, so a new shot could sit unnoticed in the brand's real feed.
+ * Best-effort: null on any failure (caller then leans on the planner prose + colour grade).
+ */
+export async function describeBrandLook(brandPhotos: string[]): Promise<string | null> {
+  const refs = (brandPhotos ?? []).filter(Boolean).slice(0, 4);
+  if (!refs.length) return null;
+  if (!process.env.OPENAI_API_KEY && !process.env.AZURE_OPENAI_API_KEY) return null;
+  try {
+    const imgs = await Promise.all(refs.map((r) => toDataUri(r)));
+    const prompt =
+      "You are a photography director studying a brand's OWN published photos so new images can match their feed exactly. " +
+      "Look ONLY at the recurring PHOTOGRAPHIC signature across these frames — NOT the specific products in them. " +
+      "In 4–7 tight, concrete sentences a photographer could execute, capture: (1) the background/environment world and the surfaces they shoot on; " +
+      "(2) light — quality (hard/soft), direction, time of day; (3) the colour grade and palette feel; (4) styling and prop density; " +
+      "(5) camera feel — lens/crop/distance and depth of field; (6) any signature move they repeat. " +
+      "Use a photographer's language only — never marketing words like 'premium' or 'high quality'. No preamble, no headings, no mention of the specific products.";
+    const content = [
+      { type: "text", text: prompt },
+      ...imgs.map((url) => ({ type: "image_url", image_url: { url } })),
+    ] as unknown as OpenAI.Chat.ChatCompletionUserMessageParam["content"];
+    const out = await chatComplete({ messages: [{ role: "user", content }], max_completion_tokens: 900, reasoning_effort: "low" });
+    const t = (out ?? "").trim();
+    return t.length > 20 ? t : null;
   } catch {
     return null;
   }
@@ -638,17 +736,57 @@ export async function renderShot(args: {
   references?: string[]; // style/look references to emulate (NOT the product)
   referencesAreBrand?: boolean; // true when references are the brand's OWN published photos
   refScene?: string; // words describing the reference's scene (from describeReferenceScene) — the authoritative look to recreate on the OpenAI path
+  productIdentity?: string; // what the product actually IS — locks against rendering a different product/variant
+  productManifest?: string; // every element on the pack (from analyzeProduct) — all must appear, legibly
+  brandLook?: string; // how this brand shoots, read off their real feed at gen time (from describeBrandLook)
+  noProduct?: boolean; // no product supplied → render an on-brand scene, never an invented hero product
   aspect?: string;
   imageSize?: string;
   finish?: FinishGrade; // brand grade for the deterministic finishing pass (defaults to NEUTRAL_GRADE)
 }): Promise<string> {
   const products = (args.products ?? []).filter(Boolean);
   const references = (args.references ?? []).filter(Boolean);
+  // Brand-look references (the brand's OWN feed photos, used to match how they shoot) behave
+  // very differently from a client RESTAGE reference: they must NOT trigger the "erase the
+  // reference's hero + vessel" restage rules, must NOT demote the planner's scene, and must NOT
+  // drop the product to low fidelity — the product stays pixel-true; only the look is borrowed.
+  const brandRefs = !!args.referencesAreBrand;
+  const clientRestage = references.length > 0 && !brandRefs;
+  // How this brand actually shoots, read off their real feed at generation time — applied to the
+  // render directly (the researched rulebook only ever reached the planner as prose before).
+  const brandLookBlock = args.brandLook
+    ? `\n\nBRAND PHOTOGRAPHIC WORLD — the finished shot must look like it belongs in this brand's real feed. Reproduce THIS brand's photographic signature (backgrounds, surfaces, light quality & direction, colour grade, palette, styling/prop density, camera feel and crop), but do NOT copy any product, label or text from it — the product comes only from the attached product image(s):\n${args.brandLook}`
+    : "";
+  // NO-HERO-PRODUCT branch — the client gave no product, so we NEVER invent one. Produce an
+  // on-brand atmospheric scene from the brand world + look, with product-lock rules omitted.
+  if (args.noProduct) {
+    const npNeg = [...(args.negatives ?? []), ...(args.extraNegatives ?? []), ...ANTI_CLICHE_NEGATIVES,
+      "inventing, fabricating or depicting any specific product, package, bottle, jar, tube, box, can, pouch, label or logo as a hero",
+      "any garbled, gibberish, warped or fake lettering or text anywhere in frame",
+      "any person, model or human in frame", "a hand, fingers, arm, leg, foot or any body part in frame",
+      "any text, watermark, caption, logo overlay, UI element or border on the image"];
+    const np =
+      `BRAND-WORLD SCENE — NO HERO PRODUCT. The client has NOT provided a product for this shot, so DO NOT invent, fabricate or depict any specific product, package, bottle or logo as a hero. Instead create an on-brand, atmospheric photograph that captures THIS brand's world — its surfaces, environment, light, palette, textures and mood — the kind of contextual / still-life frame a brand runs between product shots.\n\n${args.prompt}` +
+      `\n\nAvoid: ${npNeg.join(", ")}.` +
+      `\n\n${REALISM_ANCHOR}` +
+      `${brandLookBlock}`;
+    // Deliberately NO reference images: an edit-from-image would clone the brand photo (and its
+    // product). The brand look rides as WORDS so the scene is fresh and product-free.
+    return dispatch(args.id, np, [], { aspect: args.aspect, imageSize: args.imageSize, multiSubject: false, finish: args.finish });
+  }
+  // The product's identity + full on-pack manifest — the two levers that stop the model rendering
+  // a DIFFERENT product and stop it dropping any of the product's real text/marks.
+  const identityBlock = args.productIdentity
+    ? `\n\nTHIS PRODUCT — the ONE real item to reproduce is: ${args.productIdentity}. Render THIS exact product; never substitute, swap in or invent a different product, variant, flavour, size, shape or design.`
+    : "";
+  const manifestBlock = args.productManifest
+    ? `\n\nEVERYTHING ON THE PRODUCT — the real product carries these exact elements, and EVERY one that faces the camera in this shot must appear, complete, unbroken and fully legible; do NOT omit, drop, shorten, merge, translate, re-order or invent any of them:\n${args.productManifest}`
+    : "";
   // With a STYLE reference the product may be legitimately RE-FORMED to fit the reference's
   // arrangement (a duvet cased into pillows, a garment folded/stacked) — so the identity to
   // protect is its colour/pattern/print/text, NOT its folded shape (rigid-shape protection
   // stays in PRODUCT_LOCK + the restage block). Without a reference, shape stays locked too.
-  const identityNegative = references.length
+  const identityNegative = clientRestage
     ? "changing the product's colour, pattern, print or text"
     : "changing the product's shape, colour or text";
   const negatives = [...(args.negatives ?? []), ...(args.extraNegatives ?? []), ...ANTI_CLICHE_NEGATIVES, "altering, redrawing, restyling or relabelling the product", identityNegative, "inventing a different product",
@@ -658,9 +796,10 @@ export async function renderShot(args: {
     "inventing a brand label, woven tag, hangtag or care label the real product does not have", "garbled, gibberish, warped or fake lettering or text anywhere on the product",
     // Product photoshoot = product-only. Humans belong in the model shoot.
     "any person, model or human in frame", "a hand, fingers, arm, leg, foot or any body part in frame", "the product being held, worn, touched or carried by a person"];
-  // With a reference, the original hero + its serving vessel must be gone and exactly ONE
-  // product (the client's) may remain — the "remove the ice cream AND the glass" rule.
-  if (references.length) negatives.push(
+  // With a CLIENT restage reference, the original hero + its serving vessel must be gone and
+  // exactly ONE product (the client's) may remain — the "remove the ice cream AND the glass"
+  // rule. Brand-look references depict the brand's OWN world, so this erase rule does not apply.
+  if (clientRestage) negatives.push(
     "keeping the reference photo's original hero item, or its glass, cup, cone, bowl, plate, saucer, tray, stand, jar or wrapper, anywhere in frame",
     "showing two products at once",
     "placing the client's product inside or replacing the contents of the reference's vessel",
@@ -690,15 +829,15 @@ export async function renderShot(args: {
   // make the reference authoritative on composition, background, palette, staging and crop.
   const scene = args.refScene
     ? `SCENE — REBUILD THE REFERENCE'S SET, THEN SWAP IN THE CLIENT'S PRODUCT. The client attached a reference photo they want matched; below is its precise description. Do this in order: (1) REMOVE the reference's OWN hero item AND any vessel, holder or plating that exists only to present it — its glass, cup, cone, bowl, plate, saucer, tray, stand, dish, jar or wrapper — completely: no remnant, silhouette, outline, shadow or reflection of it may survive. (2) Faithfully REBUILD only the SET — the same composition and crop, camera angle, background, surface, unrelated props and staging, lighting direction and quality, shadows, colour grade and mood. (3) PLACE the client's product (from the first image) as the SOLE hero in the vacated spot, at a believable scale with real contact and shadow, using its OWN appropriate presentation — never dropped into or replacing the contents of the reference's vessel, never sitting beside the original. EXACTLY ONE product ends up in the frame: the client's.\n${args.refScene}\n\n(The brand's general taste is STRICTLY SECONDARY and must never override the reference scene above: ${args.prompt})`
-    : references.length
+    : clientRestage
     ? `MOOD / TASTE ONLY (SECONDARY) — the following is the brand's general taste, NOT the scene to build. Where it conflicts with the STYLE REFERENCE described below, the REFERENCE WINS: do NOT let it override the reference's composition, background, surface, palette, arrangement, lighting or crop.\n${args.prompt}`
     : args.prompt;
   let fullPrompt =
-    `${PRODUCT_LOCK}${angleLock}\n\n${scene}` +
+    `${PRODUCT_LOCK}${identityBlock}${angleLock}\n\n${scene}` +
     `\n\nAvoid: ${negatives.join(", ")}.` +
     `\n\n${REALISM_ANCHOR}` +
     `\n\n${PRODUCT_IMPERFECTION}` +
-    `\n\n${PRODUCT_LEGIBILITY}`;
+    `\n\n${PRODUCT_LEGIBILITY}${manifestBlock}${brandLookBlock}`;
   if (references.length) {
     const which = references.length === 1 ? "the LAST attached image is" : `the LAST ${references.length} attached images are`;
     fullPrompt += args.referencesAreBrand
@@ -717,7 +856,7 @@ export async function renderShot(args: {
   // with a WORKING Gemini key, and routing to a dead key would turn a wrong shot into a
   // hard error. Enable with RESTAGE_RENDERER=gemini once GEMINI_API_KEY is valid.
   const preferGemini =
-    references.length > 0 &&
+    clientRestage &&
     process.env.RESTAGE_RENDERER?.trim().toLowerCase() === "gemini" &&
     !!process.env.GEMINI_API_KEY;
   // CAMERA VARIETY vs fidelity: at input_fidelity="high" gpt-image CLONES the uploaded
@@ -731,9 +870,9 @@ export async function renderShot(args: {
   // On the OpenAI path, a restage also needs LOW input_fidelity so the model stops cloning
   // the product photo's own background and rebuilds the reference's scene. Both env-tunable.
   const inputFidelity =
-    references.length > 0 ? (process.env.OPENAI_RESTAGE_FIDELITY || "low")
+    clientRestage ? (process.env.OPENAI_RESTAGE_FIDELITY || "low")
     : rotationAngle ? (process.env.OPENAI_ANGLE_FIDELITY || "low")
-    : undefined; // hero / macro / detail → renderImageSDK default "high" (identity pixel-true)
+    : undefined; // brand-look refs, hero, macro / detail → renderImageSDK default "high" (identity pixel-true)
   return dispatch(args.id, fullPrompt, refs, { aspect: args.aspect, imageSize: args.imageSize, multiSubject, preferGemini, inputFidelity, finish: args.finish });
 }
 

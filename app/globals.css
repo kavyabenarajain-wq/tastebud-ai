@@ -17,6 +17,9 @@
   --hairline: #1f1f1f;
 }
 
+html {
+  scroll-behavior: smooth; /* the home intro's "Scroll" cue glides into the site (reduced-motion resets this below) */
+}
 html,
 body {
   background: var(--canvas);
@@ -27,10 +30,34 @@ body {
   text-rendering: optimizeLegibility;
 }
 
-/* thin near-black focus ring (spec §3) */
+/* Keyboard focus ring (spec §3). Uses `outline`, not `box-shadow`: a box-shadow ring is
+   clipped by the many `overflow-hidden` cards/pills, which made keyboard focus invisible
+   across the studio and flow pages. An outline paints above content and isn't clipped. */
 *:focus-visible {
-  outline: none;
-  box-shadow: 0 0 0 2px var(--canvas), 0 0 0 3.5px var(--ink);
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+  border-radius: 3px;
 }
 
 ::selection { background: var(--ink); color: var(--canvas); }
+
+/* Respect reduced-motion: neutralize CSS transitions/animations (hovers, the footer marquee,
+   reveals) for users who ask for less motion. Framer reveals should also honour useReducedMotion. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Marketing site — endless work strip in the footer. */
+@keyframes site-marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.site-marquee { animation: site-marquee 48s linear infinite; }
+@media (prefers-reduced-motion: reduce) {
+  .site-marquee { animation: none; }
+}

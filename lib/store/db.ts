@@ -76,6 +76,7 @@ CREATE TABLE IF NOT EXISTS accounts (
   id         TEXT PRIMARY KEY,
   email      TEXT,
   name       TEXT,
+  plan       TEXT NOT NULL DEFAULT 'free',
   created_at TEXT NOT NULL
 );
 
@@ -162,6 +163,9 @@ async function init(client: Client): Promise<void> {
     try { await client.execute(p); } catch { /* remote may reject; ignore */ }
   }
   await client.executeMultiple(SCHEMA);
+  // Guarded migration for DBs created before the plan column existed (SQLite allows ADD COLUMN
+  // with a constant default; the catch swallows the duplicate-column error on already-migrated DBs).
+  try { await client.execute("ALTER TABLE accounts ADD COLUMN plan TEXT NOT NULL DEFAULT 'free'"); } catch { /* column exists */ }
   await client.execute({ sql: "INSERT OR IGNORE INTO accounts (id, name, created_at) VALUES (?, ?, ?)", args: [DEFAULT_ACCOUNT, "Default", nowISO()] });
   await seedFromFilesystem(client);
 }

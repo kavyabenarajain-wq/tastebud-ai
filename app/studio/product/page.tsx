@@ -5,10 +5,12 @@ import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { Upload, X, ImageIcon, Loader2, RefreshCw, ArrowUp, SlidersHorizontal, Images, Sparkles, Brain } from "lucide-react";
 import { WorkBar } from "@/components/tastebud/WorkBar";
+import { MealsPill, refreshMeals } from "@/components/tastebud/MealsPill";
+import { DAILY_DRIP, mealsForImages, FREE_REDOS_PER_SHOT } from "@/lib/meals";
 import { ShootStage } from "@/components/tastebud/ShootStage";
 import { BrandBrainPanel } from "@/components/tastebud/BrandBrainPanel";
 import { ProductLibraryPanel } from "@/components/tastebud/ProductLibraryPanel";
-import type { BrandBrain, ShotCompliance } from "@/lib/types";
+import type { BrandBrain, ShotCompliance, StudioProduct } from "@/lib/types";
 
 /**
  * PAGE 8 — Studio workspace (Product mode).
@@ -18,7 +20,7 @@ import type { BrandBrain, ShotCompliance } from "@/lib/types";
 
 type Product = { name: string; url: string };
 type Decision = "keep" | "reject" | "hero";
-type Shot = { id: string; angle: string; prompt: string; url: string; negatives?: string[]; compliance?: ShotCompliance; aspect?: number; pending?: boolean; failed?: boolean; hires?: boolean; decision?: Decision; drift?: boolean; driftReasons?: string[] };
+type Shot = { id: string; angle: string; prompt: string; url: string; negatives?: string[]; compliance?: ShotCompliance; aspect?: number; pending?: boolean; failed?: boolean; hires?: boolean; decision?: Decision; drift?: boolean; driftReasons?: string[]; brandGeneric?: boolean; redos?: number };
 type Msg = { role: "user" | "assistant"; content: string };
 type Panel = { background: string; surface: string; vibe: string; composition: string; lighting: string; styling: string; format: string; numAngles: number; shotsPerAngle: number };
 type Brief = Partial<Panel> & { express?: string };
@@ -146,8 +148,7 @@ export default function ProductWorkspace() {
     if (thinking || busy) return;
     const text = input.trim();
     if (!text) {
-      if (!products.length) { say("assistant", "Add your product photo first — use the upload button."); fileRef.current?.click(); return; }
-      say("assistant", references.length ? "Generating — matching your reference." : "Generating your shoot."); generate({}); return;
+      say("assistant", !products.length ? "Shooting an on-brand scene (no product loaded)." : references.length ? "Generating — matching your reference." : "Generating your shoot."); generate({}); return;
     }
     setInput(""); createTurn(text);
   }
@@ -170,12 +171,31 @@ export default function ProductWorkspace() {
         else if (m.type === "qc") h.onReshoot(m.id);
         else if (m.type === "shot") h.onShot(m.shot);
         else if (m.type === "shotError") h.onError(m.id);
+        else if (m.type === "meals") {
+          if (m.event === "clamped") say("assistant", m.granted > 0
+            ? `You have ${m.balance} Meal${m.balance === 1 ? "" : "s"} left, so I'm shooting ${m.granted} of the ${m.wanted} images. ${DAILY_DRIP} free Meals arrive daily — or top up on the pricing page.`
+            : `You're out of Meals for today — ${DAILY_DRIP} free Meals arrive daily, or top up on the pricing page.`);
+          refreshMeals();
+        }
       }
     }
   }
 
+  // Reconstruct the FULL selected products (every image + their facts) from the brand catalog so
+  // the backend can lock product identity, hand the model front+back panels, and enrich the
+  // on-pack manifest. Falls back to a minimal record for ad-hoc uploads (no catalog match).
+  function productInfoFor(urls: string[]): StudioProduct[] {
+    const cat = brain.catalog ?? [];
+    return urls.filter(Boolean).map((url) => {
+      const match = cat.find((c) => c.images?.includes(url) || c.images?.[0] === url);
+      return match ?? { id: url, name: "", images: [url] };
+    });
+  }
+
   async function generate(brief: Brief) {
-    if (!products.length) { say("assistant", "I’ll need your product photo first — use the upload button."); return; }
+    // No product? Per the readiness rule we still shoot — an on-brand, brand-generic scene with
+    // NO invented hero product (the backend flags it). Product shots need a real product image.
+    if (!products.length) say("assistant", "No product loaded — I’ll shoot an on-brand scene. Upload your product anytime for true product shots.");
     const merged: Panel = { ...panel };
     (["background", "surface", "vibe", "lighting", "composition", "styling", "format"] as const).forEach((k) => { if (!merged[k] && brief[k]) (merged[k] as string) = brief[k] as string; });
     // Honour an explicit count from the agent/user ("6 angles", "3 shots"); otherwise the
@@ -185,7 +205,7 @@ export default function ProductWorkspace() {
     setBusy(true); setShots([]); setStatus("Art-directing the shoot…");
     try {
       await stream(
-        { mode: "product-photoshoot", express: brief.express ?? "", panel: merged, products: products.map((p) => p.url), references: references.map((r) => r.url), brand: brain },
+        { mode: "product-photoshoot", express: brief.express ?? "", panel: merged, products: products.map((p) => p.url), productInfo: productInfoFor(products.map((p) => p.url)), references: references.map((r) => r.url), brand: brain },
         {
           onPlan: (stubs, aspect) => { setStatus(`Shooting ${stubs.length} image${stubs.length > 1 ? "s" : ""}…`); setShots(stubs.map((st) => ({ id: st.id, angle: st.angle, prompt: "", url: "", aspect: aspectNum(aspect), pending: true }))); },
           onReshoot: (id) => setShots((cur) => cur.map((x) => (x.id === id ? { ...x, pending: true } : x))),
@@ -194,23 +214,27 @@ export default function ProductWorkspace() {
         }
       );
     } catch (e) { say("assistant", `Generation hit an error: ${(e as Error).message}`); }
-    setBusy(false); setStatus("");
+    setBusy(false); setStatus(""); refreshMeals();
   }
 
-  async function single(opts: { express: string; products: string[] }): Promise<Shot | null> {
+  async function single(opts: { express: string; products: string[]; redo?: boolean }): Promise<Shot | null> {
     let out: Shot | null = null;
     await stream(
-      { mode: "product-photoshoot", express: opts.express, panel: { numAngles: 1, shotsPerAngle: 1, format: panel.format }, products: opts.products, references: references.map((r) => r.url), brand: brain },
+      // A satisfaction redo/refine of one already-paid shot doesn't spend a Meal — the server honours `redo` (see lib/meals).
+      { mode: "product-photoshoot", express: opts.express, panel: { numAngles: 1, shotsPerAngle: 1, format: panel.format }, products: opts.products, productInfo: productInfoFor(opts.products), references: references.map((r) => r.url), brand: brain, ...(opts.redo ? { redo: true } : {}) },
       { onPlan: () => {}, onReshoot: () => {}, onError: () => {}, onShot: (s) => { if (!out) out = { ...s, aspect: aspectNum(s.aspect) }; } }
     );
     return out;
   }
 
+  // Blind one-click redo — free while the shot is inside its redo allowance; the card swaps to a
+  // directed chat refine once the allowance is spent, so this only ever fires on a free redo.
   async function reshoot(shot: Shot) {
+    const used = shot.redos ?? 0;
     setBusy(true); setStatus("Re-shooting…");
     setShots((cur) => cur.map((s) => (s.id === shot.id ? { ...s, pending: true, failed: false } : s)));
-    const r = await single({ express: shot.angle, products: products.map((p) => p.url) });
-    setShots((cur) => cur.map((s) => (s.id === shot.id ? (r ? { ...s, url: r.url, aspect: r.aspect, pending: false, failed: false } : { ...s, pending: false, failed: true }) : s)));
+    const r = await single({ express: shot.angle, products: products.map((p) => p.url), redo: used < FREE_REDOS_PER_SHOT });
+    setShots((cur) => cur.map((s) => (s.id === shot.id ? (r ? { ...s, url: r.url, aspect: r.aspect, pending: false, failed: false, redos: used + 1 } : { ...s, pending: false, failed: true, redos: used + 1 }) : s)));
     setBusy(false); setStatus("");
   }
 
@@ -223,13 +247,14 @@ export default function ProductWorkspace() {
       try {
         // Re-inject the shot's stored compliance so the edit can't drift off-brand; the route
         // also runs a post-edit product-fidelity re-check and returns a drift flag.
-        const r = await fetch("/api/enhance", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ action: "edit", src: shot.url, prompt: text, compliance: shot.compliance, productRef: products[0]?.url, brand: brain.name }) });
+        // A directed refine fixes a shot you already paid for — free (redo).
+        const r = await fetch("/api/enhance", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ action: "edit", src: shot.url, prompt: text, compliance: shot.compliance, productRef: products[0]?.url, brand: brain.name, redo: true }) });
         const j = await r.json();
         setShots((cur) => cur.map((s) => (s.id === shot.id ? (j.url ? { ...s, url: j.url, hires: false, pending: false, drift: !!j.drift, driftReasons: j.driftReasons ?? [] } : { ...s, pending: false }) : s)));
       } catch { setShots((cur) => cur.map((s) => (s.id === shot.id ? { ...s, pending: false } : s))); }
       setBusy(false); setStatus(""); return;
     }
-    const r = await single({ express: text, products: [shot.url] });
+    const r = await single({ express: text, products: [shot.url], redo: true });
     setShots((cur) => cur.map((s) => (s.id === shot.id ? (r ? { ...s, url: r.url, pending: false } : { ...s, pending: false }) : s)));
     setBusy(false); setStatus("");
   }
@@ -266,10 +291,12 @@ export default function ProductWorkspace() {
     try {
       const r = await fetch("/api/upscale", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ url: shot.url, aspect: shot.aspect }) });
       const j = await r.json();
+      if (r.status === 402) say("assistant", j.error || "Out of Meals — top up on the pricing page.");
       setShots((cur) => cur.map((s) => (s.id === shot.id ? { ...s, url: j.url || s.url, hires: Boolean(j.url), pending: false } : s)));
     } catch {
       setShots((cur) => cur.map((s) => (s.id === shot.id ? { ...s, pending: false } : s)));
     }
+    refreshMeals();
   }
 
   return (
@@ -278,6 +305,7 @@ export default function ProductWorkspace() {
         brand={brain.name}
         right={
           <div className="flex items-center gap-3">
+            <MealsPill />
             <button onClick={() => setShowLibrary(true)} className="flex items-center gap-1.5 rounded-full border border-hairline px-3 py-1 text-[12px] text-ink transition-colors hover:border-ink" title="Your product library">
               <Images size={13} /> Library
             </button>
@@ -318,7 +346,7 @@ export default function ProductWorkspace() {
                 <label className="flex flex-col gap-1"><span className="text-[11px] uppercase tracking-wide text-muted">Shots</span><span className="text-[10px] normal-case text-muted/70">pictures per angle</span>
                   <input type="number" min={1} max={6} value={panel.shotsPerAngle} onChange={(e) => setPanel({ ...panel, shotsPerAngle: Math.max(1, Math.min(6, Number(e.target.value))) })} className="rounded-md border border-hairline bg-canvas px-2.5 py-1.5 text-sm focus:border-ink" /></label>
               </div>
-              <button onClick={() => generate({ express: input.trim() })} disabled={busy || !products.length} className="mt-1 rounded-control bg-ink px-4 py-2 text-sm font-medium text-canvas transition-opacity hover:opacity-90 disabled:opacity-40">{busy ? "Shooting…" : `Generate ${panel.numAngles * panel.shotsPerAngle} image${panel.numAngles * panel.shotsPerAngle > 1 ? "s" : ""}`}</button>
+              <button onClick={() => generate({ express: input.trim() })} disabled={busy} className="mt-1 rounded-control bg-ink px-4 py-2 text-sm font-medium text-canvas transition-opacity hover:opacity-90 disabled:opacity-40">{busy ? "Shooting…" : `Generate ${panel.numAngles * panel.shotsPerAngle} image${panel.numAngles * panel.shotsPerAngle > 1 ? "s" : ""} · ${mealsForImages(Math.min(6, panel.numAngles * panel.shotsPerAngle))} Meal${mealsForImages(Math.min(6, panel.numAngles * panel.shotsPerAngle)) === 1 ? "" : "s"}`}</button>
           </div>
         </div>
         )}
@@ -358,13 +386,19 @@ export default function ProductWorkspace() {
                   </div>
                   <div className="px-3 pb-3 pt-2.5">
                     {s.url && !s.pending && (
-                      <div className="flex items-center gap-2.5 text-[12px] opacity-0 transition-opacity duration-200 group-hover:opacity-100">
+                      <div className="flex flex-wrap items-center gap-2.5 text-[12px]">
                         <button onClick={() => decide(s, "keep")} className={s.decision === "keep" ? "text-ink" : "text-muted transition-colors hover:text-ink"} title="Keep — teach the brand this worked">Keep</button>
                         <button onClick={() => decide(s, "hero")} className={s.decision === "hero" ? "text-ink" : "text-muted transition-colors hover:text-ink"} title="Hero — the standout of the set">Hero</button>
                         <button onClick={() => decide(s, "reject")} className={s.decision === "reject" ? "text-ink" : "text-muted transition-colors hover:text-ink"} title="Reject — steer future shoots away from this">Reject</button>
                         <span className="h-3 w-px bg-hairline" />
-                        <button onClick={() => setEditing({ id: s.id, text: "" })} className="text-muted transition-colors hover:text-ink">Change</button>
-                        <button onClick={() => reshoot(s)} className="text-muted transition-colors hover:text-ink">Redo</button>
+                        {(s.redos ?? 0) < FREE_REDOS_PER_SHOT ? (
+                          <>
+                            <button onClick={() => setEditing({ id: s.id, text: "" })} className="text-muted transition-colors hover:text-ink" title="Tell me what to change — free">Change</button>
+                            <button onClick={() => reshoot(s)} className="text-muted transition-colors hover:text-ink" title={`Re-roll this shot — ${FREE_REDOS_PER_SHOT - (s.redos ?? 0)} free redo${FREE_REDOS_PER_SHOT - (s.redos ?? 0) === 1 ? "" : "s"} left`}>Redo</button>
+                          </>
+                        ) : (
+                          <button onClick={() => setEditing({ id: s.id, text: "" })} className="text-muted transition-colors hover:text-ink" title="Free redos used — tell me exactly what to change and I'll get it right, free">Refine in chat</button>
+                        )}
                         <button onClick={() => upscale(s)} className="flex items-center gap-1 text-muted transition-colors hover:text-ink"><Sparkles size={12} />4K</button>
                         {enhanceOn && <button onClick={() => enhance(s, "cutout")} className="text-muted transition-colors hover:text-ink">Cutout</button>}
                         {enhanceOn && <button onClick={() => enhance(s, "relight")} className="text-muted transition-colors hover:text-ink">Relight</button>}

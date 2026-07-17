@@ -5,11 +5,15 @@ import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { Upload, X, ImageIcon, Loader2, RefreshCw, ArrowUp, SlidersHorizontal, Images, Sparkles, Brain, UserPlus, ScanFace, Package, UserRound, Plus, Minus, Instagram, GalleryHorizontalEnd, Megaphone, RectangleVertical, Layers, Download, Type, AlignLeft, AlignCenter, AlignRight, Shuffle, Square, ChevronDown, Maximize2, Palette } from "lucide-react";
 import { WorkBar } from "@/components/tastebud/WorkBar";
+import { MealsPill, refreshMeals } from "@/components/tastebud/MealsPill";
+import { SignUpRequired } from "@/components/tastebud/StudioAuthGate";
+import { DAILY_DRIP, mealsForImages, FREE_REDOS_PER_SHOT } from "@/lib/meals";
 import { BrandSwitcher } from "@/components/tastebud/BrandSwitcher";
 import { BrandBrainPanel } from "@/components/tastebud/BrandBrainPanel";
 import { BrandKitCard } from "@/components/tastebud/BrandKitCard";
 import { ProductLibraryPanel } from "@/components/tastebud/ProductLibraryPanel";
 import { thumb } from "@/lib/thumb";
+import { activeAccount } from "@/lib/account";
 import { numberToAspect, MAX_IMAGES } from "@/lib/brief";
 import { CREATIVE_TYPES, FORMATS, FORMAT_IDS, isV2Type, type FormatId } from "@/lib/creativeTypes";
 import { resolveBrandFonts, googleFontHref, fontVars, type BrandFonts } from "@/lib/brandFont";
@@ -34,7 +38,7 @@ import { detectCategory, interactionOptions } from "@/lib/productCategory";
 type CreativeType = CreativeTypeId;
 type Img = { name: string; url: string };
 type Decision = "keep" | "reject" | "hero";
-type Shot = { id: string; angle: string; prompt: string; url: string; negatives?: string[]; compliance?: ShotCompliance; aspect?: number; format?: string; seq?: number; groupId?: string; placement?: ShotPlacement; pending?: boolean; failed?: boolean; hires?: boolean; decision?: Decision; drift?: boolean; driftReasons?: string[]; saving?: boolean };
+type Shot = { id: string; angle: string; prompt: string; url: string; negatives?: string[]; compliance?: ShotCompliance; aspect?: number; format?: string; seq?: number; groupId?: string; placement?: ShotPlacement; pending?: boolean; failed?: boolean; hires?: boolean; decision?: Decision; drift?: boolean; driftReasons?: string[]; saving?: boolean; redos?: number };
 type Run = { id: string; kind: CreativeType; label: string; shots: Shot[]; copy?: CampaignCopy };
 type CanvasSnapshot = { runs: Run[]; annos: Anno[] }; // one undo/redo entry — the whole canvas at a point in time
 type Msg = { role: "user" | "assistant"; content: string };
@@ -214,6 +218,15 @@ export default function CreateWorkspace() {
   const [thinking, setThinking] = useState(false);
   const [busy, setBusy] = useState(false);
   const [status, setStatus] = useState("");
+  // Auth: the studio bills a per-account Meals ledger, so acting requires a signed-in email.
+  // The layout gate already blocks unauthenticated mounts; this catches a session dropped
+  // mid-visit — false flips the whole workspace to the "create an account" page.
+  const [authed, setAuthed] = useState<boolean | null>(null);
+  // Live Meals balance for the buy banner + the pre-shoot "you'll run out" warning. `enforced`
+  // mirrors the server: only when it's on does an empty balance actually hard-block a shoot.
+  const [meals, setMeals] = useState<{ balance: number; enforced: boolean } | null>(null);
+  const mealsRef = useRef<{ balance: number; enforced: boolean } | null>(null);
+  mealsRef.current = meals;
   const [editing, setEditing] = useState<{ id: string; text: string } | null>(null);
   const [enhanceOn, setEnhanceOn] = useState(false);
   const [showBrain, setShowBrain] = useState(false);
@@ -312,6 +325,50 @@ export default function CreateWorkspace() {
 
   useEffect(() => { threadRef.current?.scrollTo({ top: threadRef.current.scrollHeight, behavior: "smooth" }); }, [messages, thinking]);
   useEffect(() => { fetch("/api/enhance").then((r) => r.json()).then((j) => setEnhanceOn(!!j.enabled)).catch(() => {}); }, []);
+
+  // Gate on a signed-in account (defence-in-depth behind the layout gate) and keep it live if
+  // the session is cleared mid-visit.
+  useEffect(() => {
+    const check = () => setAuthed(!!activeAccount().email);
+    check();
+    window.addEventListener("storage", check);
+    window.addEventListener("tb:auth", check);
+    return () => { window.removeEventListener("storage", check); window.removeEventListener("tb:auth", check); };
+  }, []);
+
+  // Live Meals balance + enforcement flag. Re-fetched on mount, on `meals:refresh` (a shoot/
+  // upscale/enhance), on an account switch (`storage`/`tb:auth`), and when the tab regains focus
+  // — so the daily drip, a top-up, or a signed-in-elsewhere balance can't leave a stale cached
+  // number driving the banner or the pre-shoot block. A monotonic seq guard keeps the LATEST
+  // response authoritative even if an earlier, slower one resolves after it.
+  useEffect(() => {
+    let alive = true;
+    let seq = 0;
+    const load = () => {
+      const email = activeAccount().email;
+      if (!email) { if (alive) setMeals(null); return; }
+      const mySeq = ++seq;
+      fetch(`/api/meals?account=${encodeURIComponent(email)}`)
+        .then((r) => r.json())
+        .then((j) => { if (alive && mySeq === seq && typeof j.balance === "number") setMeals({ balance: j.balance, enforced: !!j.enforced }); })
+        .catch(() => {});
+    };
+    const onVisible = () => { if (document.visibilityState === "visible") load(); };
+    load();
+    window.addEventListener("meals:refresh", load);
+    window.addEventListener("storage", load);
+    window.addEventListener("tb:auth", load);
+    window.addEventListener("focus", load);
+    document.addEventListener("visibilitychange", onVisible);
+    return () => {
+      alive = false;
+      window.removeEventListener("meals:refresh", load);
+      window.removeEventListener("storage", load);
+      window.removeEventListener("tb:auth", load);
+      window.removeEventListener("focus", load);
+      document.removeEventListener("visibilitychange", onVisible);
+    };
+  }, []);
 
   // Infinite-canvas wheel (bound natively, non-passive): ⌘/Ctrl or pinch zooms toward the cursor;
   // plain scroll / two-finger swipe pans. Zoom stays a CSS transform — never the `zoom` property,
@@ -571,8 +628,32 @@ export default function CreateWorkspace() {
     setThinking(false);
   }
 
+  // Acting in the studio (send a prompt, start a shoot) needs a signed-in account. No email →
+  // flip the workspace to the "create an account" page instead of doing the work.
+  function requireAccount(): boolean {
+    if (activeAccount().email) return true;
+    setAuthed(false);
+    return false;
+  }
+
+  // Meals gate ahead of a shoot. Enforced + empty balance → refuse client-side (never hit the
+  // server for nothing) and point them at Buy Meals. The low-but-nonzero case isn't warned here:
+  // the persistent banner already stands, and if the set out-runs the balance the server clamps
+  // it and reports the EXACT split ("making 2 of 6…") — so a chat warning here would just be a
+  // third, less-precise copy of that. Warn only about the hard stop.
+  function mealsGate(): "ok" | "blocked" {
+    const m = mealsRef.current;
+    if (!m) return "ok"; // balance not loaded yet — let the server be the authority
+    if (m.enforced && m.balance <= 0) {
+      say("assistant", `You're out of Meals, so I can't start a new shoot. ${DAILY_DRIP} free Meals arrive daily — or tap Buy Meals to keep creating now.`);
+      return "blocked";
+    }
+    return "ok";
+  }
+
   function send() {
     if (thinking || busy) return;
+    if (!requireAccount()) return;
     const text = input.trim();
     if (!text) {
       if (type === "model") { startModelShoot(); return; }
@@ -590,7 +671,7 @@ export default function CreateWorkspace() {
 
   // ── Generation pipeline (shared) ──────────────────────────────────────────
   async function stream(body: object, h: { onPlan: (s: { id: string; angle: string; aspect?: string; format?: string; seq?: number }[], a?: string, run?: string, creativeType?: string) => void; onShot: (s: Shot) => void; onError: (id?: string, error?: string) => void; onReshoot: (id: string) => void; onCopy?: (c: CampaignCopy, run?: string) => void; onPlacement?: (id: string, placement: ShotPlacement) => void }, signal?: AbortSignal) {
-    const res = await fetch("/api/generate", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify(body), signal });
+    const res = await fetch("/api/generate", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ ...body, account: activeAccount().email ?? undefined }), signal });
     const reader = res.body!.getReader();
     const dec = new TextDecoder();
     let buf = "";
@@ -609,6 +690,12 @@ export default function CreateWorkspace() {
         else if (m.type === "shot") h.onShot(m.shot);
         else if (m.type === "placement") h.onPlacement?.(m.id, m.placement ?? {});
         else if (m.type === "shotError") h.onError(m.id, m.error);
+        else if (m.type === "meals") {
+          if (m.event === "clamped") say("assistant", m.granted > 0
+            ? `You have ${m.balance} Meal${m.balance === 1 ? "" : "s"} left, so I'm making ${m.granted} of the ${m.wanted} images. ${DAILY_DRIP} free Meals arrive daily — or top up on the pricing page.`
+            : `You're out of Meals for today — ${DAILY_DRIP} free Meals arrive daily, or top up on the pricing page.`);
+          refreshMeals();
+        }
         else if (m.type === "error") say("assistant", `Generation error: ${m.error}`);
       }
     }
@@ -639,13 +726,16 @@ export default function CreateWorkspace() {
   }
 
   async function generate(brief: Brief & { productUse?: string }) {
+    if (!requireAccount()) return;               // signed-in account required to create images
+    if (mealsGate() === "blocked") return;       // out of Meals → refuse + offer Buy Meals
     const kind = typeRef.current;
     const runId = uid("run");
     let errSurfaced = false;
     const surfaceGenError = (error?: string) => {
       if (errSurfaced || !error) return;
       errSurfaced = true;
-      if (/credit|billing|prepay|deplet|exhaust|quota|hard limit|spend/i.test(error)) say("assistant", "This isn’t your brief — the connected image-generation account has hit its billing / spend limit, so new renders are being refused. Raise the spend limit (or top up billing) on the image provider, then hit retry.");
+      if (/\bmeals?\b/i.test(error)) say("assistant", `You're out of Meals — ${DAILY_DRIP} free Meals arrive daily, or top up on the pricing page.`);
+      else if (/credit|billing|prepay|deplet|exhaust|quota|hard limit|spend/i.test(error)) say("assistant", "This isn’t your brief — the connected image-generation account has hit its billing / spend limit, so new renders are being refused. Raise the spend limit (or top up billing) on the image provider, then hit retry.");
       else say("assistant", `The shoot hit an error: ${error}`);
     };
 
@@ -676,7 +766,7 @@ export default function CreateWorkspace() {
       genAbort.current = null;
       (stopped ? stopPending : failPending)(runId);
       if (stopped) say("assistant", "Stopped — I kept every frame that already landed.");
-      setBusy(false); setStatus(""); return;
+      setBusy(false); setStatus(""); refreshMeals(); return;
     }
 
     // Product spine — product photoshoot + the v2 creative types (instagram / story / carousel / ad).
@@ -751,25 +841,32 @@ export default function CreateWorkspace() {
     // the primary AND every companion run.
     for (const local of runKeyToLocal.values()) (stopped ? stopPending : failPending)(local);
     if (stopped) say("assistant", "Stopped — I kept everything already shot.");
-    setBusy(false); setStatus("");
+    setBusy(false); setStatus(""); refreshMeals();
   }
 
   // A single one-off frame (used by reshoot / re-render edits). `format` pins the
   // aspect so a story/landscape card comes back at its own shape, not the default.
-  async function single(express: string, opts?: { products?: string[]; format?: string }): Promise<Shot | null> {
+  async function single(express: string, opts?: { products?: string[]; format?: string; redo?: boolean }): Promise<Shot | null> {
     let out: Shot | null = null;
-    const body = typeRef.current === "model"
+    const base = typeRef.current === "model"
       ? modelBody(express, { ...scene, numAngles: 1, shotsPerAngle: 1, ...(opts?.format ? { format: opts.format } : {}) }, { ...model, source })
       : productBody(express, { ...panel, numAngles: 1, shotsPerAngle: 1, ...(opts?.format ? { format: opts.format } : {}) }, opts?.products);
+    // A satisfaction redo/refine of one already-paid shot rides the same route but doesn't spend
+    // a Meal — the server honours `redo` (see lib/meals FREE_REDOS_PER_SHOT).
+    const body = opts?.redo ? { ...base, redo: true } : base;
     await stream(body, { onPlan: () => {}, onReshoot: () => {}, onError: () => {}, onShot: (s) => { if (!out) out = { ...s, aspect: aspectNum(s.aspect) }; } });
     return out;
   }
 
+  // Blind one-click redo — a fresh roll of the SAME angle. Free while the shot is inside its
+  // redo allowance; the card swaps to a directed chat refine once the allowance is spent, so
+  // this only ever fires on a free redo.
   async function reshoot(shot: Shot) {
+    const used = shot.redos ?? 0;
     setBusy(true); setStatus("Re-shooting…");
     patchShot(shot.id, { pending: true, failed: false });
-    const r = await single(shot.angle, { format: panelFormatFor(shot.aspect) });
-    patchShot(shot.id, r ? { url: r.url, aspect: r.aspect, pending: false, failed: false } : { pending: false, failed: true });
+    const r = await single(shot.angle, { format: panelFormatFor(shot.aspect), redo: used < FREE_REDOS_PER_SHOT });
+    patchShot(shot.id, r ? { url: r.url, aspect: r.aspect, pending: false, failed: false, redos: used + 1 } : { pending: false, failed: true, redos: used + 1 });
     setBusy(false); setStatus("");
   }
 
@@ -779,15 +876,17 @@ export default function CreateWorkspace() {
     patchShot(shot.id, { pending: true });
     // With Replicate on, route through FLUX Kontext — a true instruction edit that keeps the rest
     // faithful and re-injects stored compliance (product + model identity lock). Else re-render.
+    // A directed refine fixes a shot you already paid for — it's free (redo). The escalation
+    // from blind "Redo" to this typed change is exactly what the free-redo policy points people to.
     if (enhanceOn) {
       try {
-        const r = await fetch("/api/enhance", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ action: "edit", src: shot.url, prompt: text, compliance: shot.compliance, productRef: products[0]?.url, brand: brain.name }) });
+        const r = await fetch("/api/enhance", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ action: "edit", src: shot.url, prompt: text, compliance: shot.compliance, productRef: products[0]?.url, brand: brain.name, redo: true, account: activeAccount().email ?? undefined }) });
         const j = await r.json();
         patchShot(shot.id, j.url ? { url: j.url, hires: false, pending: false, drift: !!j.drift, driftReasons: j.driftReasons ?? [] } : { pending: false });
       } catch { patchShot(shot.id, { pending: false }); }
       setBusy(false); setStatus(""); return;
     }
-    const r = typeRef.current === "model" ? await single(`${shot.angle}. ${text}`, { format: panelFormatFor(shot.aspect) }) : await single(text, { products: [shot.url], format: panelFormatFor(shot.aspect) });
+    const r = typeRef.current === "model" ? await single(`${shot.angle}. ${text}`, { format: panelFormatFor(shot.aspect), redo: true }) : await single(text, { products: [shot.url], format: panelFormatFor(shot.aspect), redo: true });
     patchShot(shot.id, r ? { url: r.url, pending: false } : { pending: false });
     setBusy(false); setStatus("");
   }
@@ -810,25 +909,27 @@ export default function CreateWorkspace() {
   async function enhance(shot: Shot, action: "cutout" | "relight", prompt?: string) {
     setBusy(true); setStatus(action === "cutout" ? "Cutting out…" : "Relighting…");
     try {
-      const r = await fetch("/api/enhance", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ action, src: shot.url, prompt, compliance: shot.compliance, productRef: products[0]?.url, brand: brain.name }) });
+      const r = await fetch("/api/enhance", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ action, src: shot.url, prompt, compliance: shot.compliance, productRef: products[0]?.url, brand: brain.name, account: activeAccount().email ?? undefined }) });
       const j = await r.json();
       if (j.url) {
         const tag = action === "cutout" ? "cutout" : "relit";
         appendCardOf(shot.id, { id: `${shot.id}-${tag}-${Math.random().toString(36).slice(2, 6)}`, angle: `${shot.angle} · ${tag}`, prompt: "", url: j.url, aspect: shot.aspect });
       } else { say("assistant", j.error || `${action} failed.`); }
     } catch (e) { say("assistant", `${action} hit an error: ${(e as Error).message}`); }
-    setBusy(false); setStatus("");
+    setBusy(false); setStatus(""); refreshMeals();
   }
 
   async function upscale(shot: Shot) {
     patchShot(shot.id, { pending: true });
     try {
-      const r = await fetch("/api/upscale", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ url: shot.url, aspect: shot.aspect }) });
+      const r = await fetch("/api/upscale", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ url: shot.url, aspect: shot.aspect, account: activeAccount().email ?? undefined }) });
       const j = await r.json();
+      if (r.status === 402) say("assistant", j.error || "Out of Meals — top up on the pricing page.");
       patchShot(shot.id, { url: j.url || shot.url, hires: Boolean(j.url), pending: false });
     } catch {
       patchShot(shot.id, { pending: false });
     }
+    refreshMeals();
   }
 
   // Save an asset. With copy → POST /api/export to bake the headline/CTA into the pixels
@@ -984,6 +1085,17 @@ export default function CreateWorkspace() {
 
   const total = Math.max(1, type === "model" ? scene.numAngles : panel.numAngles) * Math.max(1, type === "model" ? scene.shotsPerAngle : panel.shotsPerAngle);
 
+  // No account (session dropped mid-visit, or a direct link past the layout gate) → the studio
+  // becomes the "create an account" page rather than doing any work. Preserve any ?type= deep
+  // link across the sign-in round-trip so the creative type isn't silently lost.
+  if (authed === false) return <SignUpRequired next={`/studio/create${typeof window !== "undefined" ? window.location.search : ""}`} />;
+
+  // Balance is out or low → a persistent banner above the composer so no one shoots into an empty
+  // wallet without a heads-up and a one-tap way to buy more. Both are gated on `enforced`: in
+  // observe mode nothing ever clamps, so "you'll run out" would be a false alarm.
+  const outOfMeals = !!meals && meals.enforced && meals.balance <= 0;
+  const lowOnMeals = !!meals && meals.enforced && meals.balance > 0 && meals.balance <= 2;
+
   return (
     <div className="flex h-screen flex-col bg-canvas text-ink">
       <WorkBar
@@ -991,6 +1103,7 @@ export default function CreateWorkspace() {
         hideRightBack
         right={
           <div className="flex items-center gap-3">
+            <MealsPill />
             <BrandSwitcher current={brain.name} onSelect={switchBrand} />
             <button onClick={() => router.push("/studio/campaigns")} className="flex items-center gap-1.5 rounded-full border border-hairline px-3 py-1 text-[12px] text-ink transition-colors hover:border-ink" title="Every campaign, carousel and creative this brand has produced">
               <Layers size={13} /> Campaigns
@@ -1091,7 +1204,7 @@ export default function CreateWorkspace() {
                     </div>
                   )}
                 </div>
-                <button onClick={startModelShoot} disabled={busy} className="mt-6 w-full rounded-control bg-ink px-4 py-2.5 text-sm font-medium text-canvas transition-opacity hover:opacity-90 disabled:opacity-40">{busy ? "Shooting…" : `Shoot ${total} image${total > 1 ? "s" : ""}`}</button>
+                <button onClick={startModelShoot} disabled={busy} className="mt-6 w-full rounded-control bg-ink px-4 py-2.5 text-sm font-medium text-canvas transition-opacity hover:opacity-90 disabled:opacity-40">{busy ? "Shooting…" : `Shoot ${total} image${total > 1 ? "s" : ""} · ${mealsForImages(Math.min(MAX_IMAGES, total))} Meal${mealsForImages(Math.min(MAX_IMAGES, total)) === 1 ? "" : "s"}`}</button>
               </>
             ) : (
               <>
@@ -1167,10 +1280,10 @@ export default function CreateWorkspace() {
                     </button>
                   ) : (
                     <button onClick={() => generate({ express: input.trim() })} disabled={!products.length} className="mt-1 rounded-control bg-ink px-4 py-2 text-sm font-medium text-canvas transition-opacity hover:opacity-90 disabled:opacity-40">
-                      {type === "ad" ? `Generate campaign — ${Math.max(1, concepts) * Math.max(1, adFormats.length)} assets`
-                        : type === "carousel" ? `Generate ${frames} frames`
-                        : type === "instagram" || type === "story" ? `Generate ${panel.numAngles} option${panel.numAngles > 1 ? "s" : ""}`
-                        : `Generate ${panel.numAngles * panel.shotsPerAngle} image${panel.numAngles * panel.shotsPerAngle > 1 ? "s" : ""}${companions.length ? ` + ${companions.length} extra${companions.length > 1 ? "s" : ""}` : ""}`}
+                      {type === "ad" ? `Generate campaign — ${Math.max(1, concepts) * Math.max(1, adFormats.length)} assets · ${mealsForImages(Math.min(MAX_IMAGES, Math.max(1, concepts) * Math.max(1, adFormats.length)))} Meals`
+                        : type === "carousel" ? `Generate ${frames} frames · ${mealsForImages(Math.min(MAX_IMAGES, frames))} Meals`
+                        : type === "instagram" || type === "story" ? `Generate ${panel.numAngles} option${panel.numAngles > 1 ? "s" : ""} · ${mealsForImages(Math.min(MAX_IMAGES, panel.numAngles))} Meal${mealsForImages(Math.min(MAX_IMAGES, panel.numAngles)) === 1 ? "" : "s"}`
+                        : `Generate ${panel.numAngles * panel.shotsPerAngle} image${panel.numAngles * panel.shotsPerAngle > 1 ? "s" : ""}${companions.length ? ` + ${companions.length} extra${companions.length > 1 ? "s" : ""}` : ""} · ${mealsForImages(Math.min(MAX_IMAGES, panel.numAngles * panel.shotsPerAngle + companions.length * 3))} Meals`}
                     </button>
                   )}
                 </div>
@@ -1381,6 +1494,27 @@ export default function CreateWorkspace() {
             <div className="px-5 pb-2 text-[12px] text-muted">
               {products.length} product{products.length > 1 ? "s" : ""} in this shoot ·{" "}
               <button onClick={() => setShowLibrary(true)} className="text-ink underline-offset-2 transition-opacity hover:opacity-70">Open library</button>
+            </div>
+          )}
+
+          {/* Meals banner — out (enforced) or running low. Buy Meals opens /pricing in a NEW tab
+              (not a same-tab nav) so the live canvas, chat thread and uploads aren't torn down
+              mid-work; the balance re-fetches on tab focus when they return from checkout. */}
+          {(outOfMeals || lowOnMeals) && (
+            <div className={`mx-5 mb-2 flex items-center gap-3 rounded-card border px-3.5 py-2.5 text-[12px] ${outOfMeals ? "border-ink/25 bg-surface" : "border-hairline bg-canvas"}`}>
+              <span className="flex-1 leading-relaxed text-ink">
+                {outOfMeals
+                  ? <>You&rsquo;re out of Meals. {DAILY_DRIP} free arrive daily — or buy more to keep creating now.</>
+                  : <>{meals!.balance} Meal{meals!.balance === 1 ? "" : "s"} left. Each image is 1 Meal — top up so a shoot doesn&rsquo;t run out.</>}
+              </span>
+              <a
+                href="/pricing"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="shrink-0 rounded-full bg-ink px-3 py-1 font-medium text-canvas transition-opacity hover:opacity-90"
+              >
+                Buy Meals
+              </a>
             </div>
           )}
 
@@ -1766,7 +1900,7 @@ function ShotCard({ s, type, enhanceOn, copy, brandFonts, overlayFonts, onSave, 
             {/* copy overlay — real brand typography staged by the shared free-placement layout.
                This is a live preview of EXACTLY what "Save" bakes into the exported PNG. */}
             {(copy?.headline || copy?.cta) && !s.pending && <CopyOverlay copy={copy} aspect={s.aspect} placement={s.placement} fonts={overlayFonts} />}
-            {s.pending && <div className="absolute inset-0 flex items-center justify-center"><Loader2 size={20} className="animate-spin text-ink" /></div>}
+            {s.pending && <div className="absolute inset-0 animate-pulse bg-surface/40" />}
             {s.hires && !s.pending && <span className="absolute left-2 top-2 rounded-full bg-ink/80 px-2 py-0.5 text-[10px] text-canvas">4K</span>}
             {s.decision === "hero" && !s.pending && <span className="absolute right-2 top-2 rounded-full bg-ink px-2 py-0.5 text-[10px] text-canvas">Hero</span>}
             {s.decision === "keep" && !s.pending && <span className="absolute right-2 top-2 h-2 w-2 rounded-full bg-ink" title="Kept" />}
@@ -1776,10 +1910,7 @@ function ShotCard({ s, type, enhanceOn, copy, brandFonts, overlayFonts, onSave, 
         ) : s.failed ? (
           <button onClick={() => onReshoot(s)} className="flex h-full w-full flex-col items-center justify-center gap-1.5 text-muted transition-colors hover:text-ink"><RefreshCw size={18} /><span className="text-xs">failed · retry</span></button>
         ) : (
-          <div className="relative flex h-full w-full items-center justify-center">
-            <div className="absolute inset-0 animate-pulse bg-hairline/40" />
-            <Loader2 size={18} className="relative animate-spin text-muted" />
-          </div>
+          <div className="h-full w-full animate-pulse bg-hairline/40" />
         )}
         {/* frame order / placement — hairline chips, always visible so the set reads at a glance */}
         {typeof s.seq === "number" && !s.hires && <span className="absolute left-2 top-2 flex h-5 w-5 items-center justify-center rounded-full border border-hairline bg-canvas/90 text-[10px] tabular-nums text-ink">{s.seq}</span>}
@@ -1795,8 +1926,16 @@ function ShotCard({ s, type, enhanceOn, copy, brandFonts, overlayFonts, onSave, 
             <button onClick={() => onDecide(s, "hero")} className={s.decision === "hero" ? "text-ink" : "text-muted transition-colors hover:text-ink"} title="Hero — the standout of the set">Hero</button>
             <button onClick={() => onDecide(s, "reject")} className={s.decision === "reject" ? "text-ink" : "text-muted transition-colors hover:text-ink"} title="Reject — steer future shoots away from this">Reject</button>
             <span className="h-3 w-px bg-hairline" />
-            <button onClick={() => setEditing({ id: s.id, text: "" })} className="text-muted transition-colors hover:text-ink">Change</button>
-            <button onClick={() => onReshoot(s)} className="text-muted transition-colors hover:text-ink">Redo</button>
+            {(s.redos ?? 0) < FREE_REDOS_PER_SHOT ? (
+              <>
+                <button onClick={() => setEditing({ id: s.id, text: "" })} className="text-muted transition-colors hover:text-ink" title="Tell me what to change — free">Change</button>
+                <button onClick={() => onReshoot(s)} className="text-muted transition-colors hover:text-ink" title={`Re-roll this shot — ${FREE_REDOS_PER_SHOT - (s.redos ?? 0)} free redo${FREE_REDOS_PER_SHOT - (s.redos ?? 0) === 1 ? "" : "s"} left`}>Redo</button>
+              </>
+            ) : (
+              // Free blind redos spent — stop the slot machine and point to a DIRECTED refine that
+              // actually converges. Still free: you already paid for this shot.
+              <button onClick={() => setEditing({ id: s.id, text: "" })} className="text-muted transition-colors hover:text-ink" title="Free redos used — tell me exactly what to change and I'll get it right, free">Refine in chat</button>
+            )}
             <button onClick={() => setAdapting(adapting === s.id ? null : s.id)} className={adapting === s.id ? "text-ink" : "text-muted transition-colors hover:text-ink"} title="Adapt this exact image to another placement — crop or extend, never re-rendered">Adapt</button>
             <button onClick={() => onUpscale(s)} className="flex items-center gap-1 text-muted transition-colors hover:text-ink"><Sparkles size={12} />4K</button>
             {enhanceOn && <button onClick={() => onEnhance(s, "cutout")} className="text-muted transition-colors hover:text-ink">Cutout</button>}

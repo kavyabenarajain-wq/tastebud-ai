@@ -24,14 +24,14 @@ function SchedulerSlot() {
       <iframe
         src={SCHEDULER_URL}
         title="Book a call"
-        className="h-[60vh] w-full rounded-card border border-hairline"
+        className="h-[60vh] w-full rounded-card border border-linen"
       />
     );
   }
   return (
-    <div className="flex h-[46vh] flex-col items-center justify-center rounded-card border border-dashed border-hairline bg-surface text-center">
-      <div className="text-[11px] uppercase tracking-wide text-muted">Scheduler</div>
-      <p className="mt-3 max-w-sm text-sm leading-relaxed text-muted">
+    <div className="flex h-[46vh] flex-col items-center justify-center rounded-card border border-dashed border-linen bg-paper text-center">
+      <div className="text-[11px] uppercase tracking-wide text-clay">Scheduler</div>
+      <p className="mt-3 max-w-sm text-sm leading-relaxed text-clay">
         Your Cal.com / Calendly embed lives here. Until it’s connected, confirm below and we’ll hold your slot
         and reach out.
       </p>
@@ -63,7 +63,7 @@ export default function BookCalendar() {
   }
 
   return (
-    <main className="flex min-h-screen flex-col bg-canvas">
+    <main className="flex min-h-screen flex-col bg-cream">
       <header className="flex items-center justify-between px-8 py-8">
         <Wordmark size="sm" href="/" />
         <BackLink href="/discovery/call" />
@@ -78,7 +78,7 @@ export default function BookCalendar() {
             className="flex min-h-[60vh] flex-col items-center justify-center text-center"
           >
             <h1 className="font-serif text-4xl font-light tracking-tight text-ink">You’re booked.</h1>
-            <p className="mt-4 max-w-sm text-[15px] leading-relaxed text-muted">
+            <p className="mt-4 max-w-sm text-[15px] leading-relaxed text-clay">
               Check your email for the confirmation. We’ve started a folder for{" "}
               <span className="text-ink">{form.brand}</span> — we’ll have your brand world ready to build the moment
               we talk.
@@ -89,24 +89,29 @@ export default function BookCalendar() {
             <h1 className="mt-4 font-serif text-3xl font-light tracking-tight text-ink md:text-4xl">
               Pick a time.
             </h1>
-            <p className="mt-3 text-[15px] text-muted">Thirty minutes. Bring everything you have — or nothing.</p>
+            <p className="mt-3 text-[15px] text-clay">Thirty minutes. Bring everything you have — or nothing.</p>
 
             <div className="mt-8">
               <SchedulerSlot />
             </div>
 
-            <div className="mt-8 grid gap-4">
-              <Input label="Your name" value={form.name} onChange={(v) => setForm({ ...form, name: v })} />
-              <Input label="Brand" value={form.brand} onChange={(v) => setForm({ ...form, brand: v })} />
-              <Input label="Email" type="email" value={form.email} onChange={(v) => setForm({ ...form, email: v })} />
-              <button
-                onClick={confirm}
-                disabled={!valid || busy}
-                className="mt-2 rounded-full bg-ink px-7 py-3 text-sm font-medium text-canvas transition-opacity duration-300 ease-brand hover:opacity-90 disabled:opacity-30"
-              >
-                {busy ? "Confirming…" : "Confirm booking"}
-              </button>
-            </div>
+            {/* The manual name/brand/email form is ONLY a fallback for when no scheduler is
+               connected. With Calendly embedded, its own form handles name, email and the
+               confirmation emails — so we hide this to avoid two competing booking forms. */}
+            {!SCHEDULER_URL && (
+              <div className="mt-8 grid gap-4">
+                <Input label="Your name" value={form.name} onChange={(v) => setForm({ ...form, name: v })} />
+                <Input label="Brand" value={form.brand} onChange={(v) => setForm({ ...form, brand: v })} />
+                <Input label="Email" type="email" value={form.email} onChange={(v) => setForm({ ...form, email: v })} />
+                <button
+                  onClick={confirm}
+                  disabled={!valid || busy}
+                  className="mt-2 rounded-full bg-carbon px-7 py-3 text-sm font-medium text-cream transition-opacity duration-300 ease-brand hover:opacity-90 disabled:opacity-30"
+                >
+                  {busy ? "Confirming…" : "Confirm booking"}
+                </button>
+              </div>
+            )}
           </>
         )}
       </div>
@@ -127,12 +132,12 @@ function Input({
 }) {
   return (
     <label className="flex flex-col gap-1.5">
-      <span className="text-[11px] uppercase tracking-wide text-muted">{label}</span>
+      <span className="text-[11px] uppercase tracking-wide text-clay">{label}</span>
       <input
         type={type}
         value={value}
         onChange={(e) => onChange(e.target.value)}
-        className="rounded-control border border-hairline bg-canvas px-3.5 py-2.5 text-[15px] outline-none focus:border-ink"
+        className="rounded-control border border-linen bg-cream px-3.5 py-2.5 text-[15px] outline-none focus:border-ink"
       />
     </label>
   );

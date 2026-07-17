@@ -2,7 +2,7 @@ import type { NextRequest } from "next/server";
 import { readSkill, loadIndustryPlaybook } from "@/lib/skills";
 import { loadBrandProfile } from "@/lib/brand";
 import { artDirect, activeBrain, fallbackPlan, campaignCopy, STANDARD_PRODUCT_ANGLES, DETAIL_SHOTS } from "@/lib/llm";
-import { renderShot, renderModelShot, activeRenderer, qcImage, analyzeProduct, describeReferenceScene } from "@/lib/image";
+import { renderShot, renderModelShot, activeRenderer, qcImage, analyzeProduct, describeReferenceScene, describeBrandLook } from "@/lib/image";
 import { reformatImage } from "@/lib/reformat";
 import { enlargeInPlace } from "@/lib/finish";
 import { detectCategory, canWear } from "@/lib/productCategory";
@@ -14,6 +14,7 @@ import { brainToProfile } from "@/lib/onboard";
 import { buildCompliance, complianceToNegatives } from "@/lib/compliance";
 import { CREATIVE_TYPES, FORMATS, carouselDirective, isV2Type, type FormatId } from "@/lib/creativeTypes";
 import { saveCampaign, slugify } from "@/lib/brainStore";
+import { ensureGrants, chargeUpTo, refund, getBalance, normalizeAccount, DEFAULT_ACCOUNT } from "@/lib/store";
 
 export const runtime = "nodejs";
 export const maxDuration = 300;
@@ -56,6 +57,8 @@ type CreativeSpec = (typeof CREATIVE_TYPES)[CreativeTypeId] | undefined;
 
 export async function POST(req: NextRequest) {
   const body = (await req.json()) as ResolvedBrief;
+  // The signed-in email rides the brief; absent → the shared default bucket (never blocks).
+  const account = normalizeAccount((body as { account?: unknown }).account) ?? DEFAULT_ACCOUNT;
   const mode = body.mode === "model-photoshoot" ? "model-photoshoot" : "product-photoshoot";
   // A v2 creative type (instagram / story / carousel / ad) rides the product spine with
   // its own directive, aspect(s), copy and fan-out. Absent → exactly today's behaviour.
@@ -66,6 +69,8 @@ export async function POST(req: NextRequest) {
     async start(controller) {
       const send = (o: unknown) => controller.enqueue(enc.encode(JSON.stringify(o) + "\n"));
       try {
+        // Land today's drip + this month's plan grant before any charge (idempotent, race-safe).
+        await ensureGrants(account).catch(() => {});
         const isModel = mode === "model-photoshoot";
         // ── GROUP SHOOT resolution — the fix for "3–4 models in one shoot". A cast of 2+ people
         //    can come from the UI toggle (explicit `models` with reference photos) OR simply from
@@ -100,15 +105,49 @@ export async function POST(req: NextRequest) {
         ].filter((v) => typeof v === "string").join(" \n ");
         const industry = await loadIndustryPlaybook(routeText).catch(() => null);
         if (industry) send({ type: "status", phase: "industry", playbook: industry.label });
-        // Vision pre-pass: LOOK at the uploaded product so the (otherwise blind) art director can
-        // key the scene to the real packaging colour. Serial before the plan (its colours feed it).
-        const heroProduct = (body.products ?? []).filter(Boolean)[0];
-        const observed = !heroProduct ? null : await analyzeProduct(heroProduct).catch(() => null);
+        // The SELECTED products in full (name + ALL images + facts). Used to lock product identity,
+        // hand the model front+back panels, and enrich the on-pack manifest. Absent (uploads) →
+        // fall back to the flat image-URL list, i.e. exactly today's behaviour.
+        const productInfo = (body.productInfo ?? []).filter(Boolean);
+        // Product image refs handed to the model: ONE hero image per selected product (the front).
+        // We deliberately do NOT feed multiple faces of one product to the renderer — gpt-image can
+        // double a product from two input images. Falls back to body.products (uploads) when no
+        // catalog info came through — i.e. exactly today's behaviour.
+        const singleProduct = productInfo.length === 1 && (productInfo[0].images ?? []).filter(Boolean).length > 0;
+        const products = productInfo.length
+          ? productInfo.map((p) => (p.images ?? []).filter(Boolean)[0]).filter(Boolean)
+          : (body.products ?? []).filter(Boolean);
+        const heroProduct = products[0];
+        const noProduct = !heroProduct; // no real product → render brand-generic (never invent one)
+        // Vision pre-pass: LOOK at the real product and read BOTH its packaging COLOURS and a full
+        // MANIFEST of everything printed on it — so the scene keys to the real colour, the model
+        // reproduces the exact product, and nothing on the pack is dropped. For a single product we
+        // read its front + back panels (multiple images) so the manifest covers text on EVERY face,
+        // even though only the front image drives the render.
+        const inspectImages = singleProduct ? productInfo[0].images.filter(Boolean).slice(0, 2) : products.slice(0, 1);
+        const inspection = noProduct ? null : await analyzeProduct(inspectImages).catch(() => null);
+        const observed = inspection; // colour/material consumers below are unchanged
         if (observed?.colors.length) send({ type: "status", phase: "product-colour", colors: observed.colors });
+        // Product IDENTITY (stops a different product being rendered) + on-pack MANIFEST (forces every
+        // real element to appear, legibly) — merging what the CAMERA saw with KNOWN catalog facts.
+        const heroInfo = productInfo[0];
+        const idParts: string[] = [];
+        if (heroInfo?.name) idParts.push(`"${heroInfo.name}"`);
+        if (heroInfo?.category) idParts.push(`a ${heroInfo.category}`);
+        if (heroInfo?.variants?.length) idParts.push(`variant/option: ${heroInfo.variants.slice(0, 4).join(" / ")}`);
+        if (inspection?.identity) idParts.push(inspection.identity);
+        const productIdentity = idParts.length ? idParts.join(" — ") : undefined;
+        const productManifest = inspection?.elements?.length ? inspection.elements.join("; ") : undefined;
+        if (productManifest) send({ type: "status", phase: "product-manifest", count: inspection!.elements!.length });
+        // BRAND-LOOK pre-pass: read HOW this brand shoots off their OWN feed photos, at gen time, on
+        // the funded vision client — so the renderer applies their real photographic signature
+        // directly (the researched rulebook only ever reached the planner as prose before). Kicked
+        // off now so its latency hides behind the planner; awaited per-run in the render loop.
+        const brandPhotos = (body.brand?.research?.productImages ?? []).filter(Boolean);
+        const brandLookPromise: Promise<string | null> = brandPhotos.length ? describeBrandLook(brandPhotos.slice(0, 4)).catch(() => null) : Promise.resolve(null);
         // Brand memory — the "sharper every campaign" loop, compacted for the planner.
         const memory = compactMemory(body.brand);
         if (memory) send({ type: "status", phase: "memory", approved: memory.approved.length, rejected: memory.rejected.length });
-        const products = body.products ?? [];
         const modelRefs = body.modelRefs ?? [];
         // Product category → whether a human can genuinely WEAR it. Non-wearables (food,
         // drink, furniture, an object) tell the renderer to suppress wardrobe prose and ban
@@ -130,7 +169,6 @@ export async function POST(req: NextRequest) {
         // whose look is driven by the brand world + copy. Kick describeReferenceScene off NOW so its
         // 3–6s hides entirely behind analyzeProduct + the planner instead of serializing after them.
         const primaryReferences = creative ? [] : (body.references ?? []).filter(Boolean);
-        const referencesAreBrand = false;
         const refScenePromise: Promise<string | null> = primaryReferences.length
           ? describeReferenceScene(primaryReferences[0]).catch(() => null)
           : Promise.resolve(null);
@@ -234,6 +272,24 @@ export async function POST(req: NextRequest) {
           // run to the remaining budget and spend it; a run left with nothing simply produces nothing.
           if (stubs.length > imageBudget) stubs.length = Math.max(0, imageBudget);
           imageBudget -= stubs.length;
+          // MEALS — charge up front for this run's planned images (1 Meal = 1 delivered image),
+          // mirroring the imageBudget clamp: a short balance CLAMPS the set instead of failing it.
+          // One ledger write per run (runs are sequential), never from the concurrent render
+          // workers below — so QC retries are free by construction and the ledger can't race.
+          // Undelivered shots are refunded in the finally-reconciliation after the pool drains.
+          //
+          // SATISFACTION REDO — a redo/refine of one already-paid shot rides this same route with
+          // `redo:true` and is FREE: no debit, so also no refund to reconcile (see lib/meals
+          // FREE_REDOS_PER_SHOT). Changing the ENTIRE thing is a normal run and charges as usual.
+          const isRedo = body.redo === true;
+          const paid = isRedo
+            ? { granted: stubs.length, balance: 0 }
+            : await chargeUpTo(account, stubs.length, `shoot:${runKey}:${stamp.toString(36)}`).catch(() => ({ granted: stubs.length, balance: 0 }));
+          if (paid.granted < stubs.length) {
+            send({ type: "meals", event: "clamped", wanted: stubs.length, granted: paid.granted, balance: paid.balance });
+            imageBudget += stubs.length - paid.granted; // return the unshot budget to later runs
+            stubs.length = paid.granted;
+          }
           if (!stubs.length) { send({ type: "plan", run: runKey, angles: [], count: 0, qc: [], aspect, creativeType: spec?.id, shots: [] }); return; }
 
           // A v2 type persists as a CAMPAIGN — the container grouping this brief's sequence /
@@ -243,14 +299,24 @@ export async function POST(req: NextRequest) {
           const campaignName = (isPrimary && body.campaignName?.trim()) || body.express?.trim().slice(0, 64) || spec?.runLabel || "Campaign";
           const outputs: CampaignOutput[] = [];
 
+          try {
           send({ type: "plan", run: runKey, angles: plan.angles, count: stubs.length, qc: plan.qc, aspect, creativeType: spec?.id, campaignId, shots: stubs.map((st) => ({ id: st.id, angle: st.angle, aspect: st.aspect, format: st.format, seq: st.seq })) });
 
           // Style references + the described reference scene apply only to a plain product/model
           // primary run (v2 companions force references=[]). refScene resolves from the promise
           // kicked off in the shared block, so it's already hidden behind the planner.
-          const references = spec ? [] : primaryReferences;
+          // When the client gave NO explicit look reference, hand a PRODUCT shoot the brand's OWN
+          // feed photos as a LOOK reference (product stays pixel-locked; only the brand's world is
+          // borrowed). Client references always win; model shoots keep today's behaviour.
+          const usingBrandRefs = !isModel && !spec && primaryReferences.length === 0 && brandPhotos.length > 0;
+          const references = spec ? [] : (primaryReferences.length ? primaryReferences : (usingBrandRefs ? brandPhotos.slice(0, 2) : []));
+          const referencesAreBrand = usingBrandRefs;
           const refScene = spec ? null : await refScenePromise;
           if (refScene && isPrimary) send({ type: "status", phase: "reference", matched: true });
+          // How this brand shoots (words), applied to the render — only on a plain product run with
+          // no client reference of its own (a client's explicit look wins, so we don't fight it).
+          const brandLook = (!isModel && !spec && primaryReferences.length === 0) ? await brandLookPromise : null;
+          if (referencesAreBrand && isPrimary) send({ type: "status", phase: "brand-look", matched: true });
 
           // Copy (headline / CTA / caption), written in parallel with the renders and streamed as
           // DATA — overlaid in the UI, never baked. A multi-option story/post run gets N DISTINCT
@@ -289,7 +355,7 @@ export async function POST(req: NextRequest) {
               try {
                 const candidate = isModel
                   ? await renderModelShot({ id: stub.id, prompt: shot.prompt, negatives: shot.negatives, extraNegatives, modelRefs, people: modelPeople, groupCount: isGroup ? groupModels.length : undefined, products, references, referencesAreBrand, wearable: productWearable, aspect: stub.aspect, imageSize: "2K", finish })
-                  : await renderShot({ id: stub.id, prompt: shot.prompt, angle: shot.angle, negatives: shot.negatives, extraNegatives, products, references, referencesAreBrand, refScene: refScene ?? undefined, aspect: stub.aspect, imageSize: "2K", finish });
+                  : await renderShot({ id: stub.id, prompt: shot.prompt, angle: shot.angle, negatives: shot.negatives, extraNegatives, products, references, referencesAreBrand, refScene: refScene ?? undefined, productIdentity, productManifest, brandLook: brandLook ?? undefined, noProduct, aspect: stub.aspect, imageSize: "2K", finish });
                 fallback = candidate;
                 if (gateFidelity) {
                   const restage = !isModel && references.length > 0;
@@ -297,7 +363,7 @@ export async function POST(req: NextRequest) {
                   // would false-fail people 2..N. Skip the single-identity gate for groups —
                   // per-person likeness is enforced by the prompt lock + negatives instead.
                   const modelRef = isModel && !isGroup ? modelRefs.filter(Boolean)[0] : undefined;
-                  const verdict = await qcImage({ url: candidate, checklist: isModel ? MODEL_CHECKLIST : [], brand: profile.name, productRef: heroRef, modelRef, restage });
+                  const verdict = await qcImage({ url: candidate, checklist: isModel ? MODEL_CHECKLIST : [], brand: profile.name, productRef: heroRef, modelRef, restage, manifest: inspection?.elements });
                   if (!verdict.pass) {
                     lastReasons = verdict.reasons;
                     send({ type: "qc", id: stub.id, reasons: verdict.reasons, attempt: attempt + 1, of: MAX_ATTEMPTS });
@@ -321,7 +387,7 @@ export async function POST(req: NextRequest) {
               // downloadable original and every derived thumbnail are crisp at ~4K. Real
               // super-resolution stays the opt-in keeper upgrade (/api/upscale).
               await enlargeInPlace(finalUrl);
-              send({ type: "shot", run: runKey, shot: { id: stub.id, angle: shot.angle, prompt: shot.prompt, negatives: shot.negatives, compliance, url: finalUrl, aspect: stub.aspect, format: stub.format, seq: stub.seq, groupId: stub.groupId, drift: drift || undefined, driftReasons: drift ? lastReasons : undefined } });
+              send({ type: "shot", run: runKey, shot: { id: stub.id, angle: shot.angle, prompt: shot.prompt, negatives: shot.negatives, compliance, url: finalUrl, aspect: stub.aspect, format: stub.format, seq: stub.seq, groupId: stub.groupId, drift: drift || undefined, driftReasons: drift ? lastReasons : undefined, brandGeneric: noProduct || undefined } });
               const output: CampaignOutput = { id: stub.id, url: finalUrl, format: stub.format, aspect: stub.aspect, angle: shot.angle, seq: stub.seq, at: new Date().toISOString() };
               outputs.push(output);
               // Image-aware copy placement runs OFF the render lane — the shot pixels are already
@@ -351,12 +417,22 @@ export async function POST(req: NextRequest) {
             const at = new Date().toISOString();
             await saveCampaign(slug, { id: campaignId, name: campaignName, type: spec.id, brief: body.express?.trim() || undefined, copy, outputs, createdAt: at, updatedAt: at }).catch(() => {});
           }
+          } finally {
+            // MEALS reconciliation — refund every paid-for image that was never delivered
+            // (shotError, thrown worker, client abort closing the stream). You pay per plated
+            // dish, never per attempt in the kitchen. A free redo charged nothing, so there is
+            // nothing to refund — skip it, or we'd CREDIT Meals that were never spent.
+            const undelivered = paid.granted - outputs.length;
+            if (!isRedo && undelivered > 0) await refund(account, undelivered, `refund:shoot:${runKey}`).catch(() => {});
+          }
         };
 
         // Primary run first (today's behaviour), then each companion — sequentially so the render
         // pools don't collectively blow a provider's rate limit. Shared pre-passes are never repeated.
         await runOne(creative, "primary");
         for (const t of companionTypes) await runOne(CREATIVE_TYPES[t], t);
+        // Live balance so the pill updates without a refetch.
+        await getBalance(account).then((balance) => send({ type: "meals", event: "balance", balance })).catch(() => {});
         send({ type: "done" });
       } catch (err) {
         send({ type: "error", error: (err as Error).message });
