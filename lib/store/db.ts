@@ -165,6 +165,61 @@ CREATE TABLE IF NOT EXISTS payments (
   created_at TEXT NOT NULL
 );
 CREATE INDEX IF NOT EXISTS idx_payments_account ON payments (account_id, created_at DESC);
+
+-- Activity timeline: when people come in and what they did (signup / signin / brand_created /
+-- purchase / generate). The "who came, when" record.
+CREATE TABLE IF NOT EXISTS events (
+  id         TEXT PRIMARY KEY,
+  account_id TEXT NOT NULL,
+  type       TEXT NOT NULL,
+  detail     TEXT,
+  created_at TEXT NOT NULL
+);
+CREATE INDEX IF NOT EXISTS idx_events_account ON events (account_id, created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_events_type ON events (type, created_at DESC);
+`;
+
+/**
+ * CRM views — the "everything about who came" picture, refreshed on every boot (CREATE OR REPLACE).
+ * They read the base tables live, so they're always current in the Supabase Table Editor / SQL editor.
+ * Created AFTER the accounts profile columns are added (initSchema orders it), since they reference them.
+ */
+const VIEWS = `
+CREATE OR REPLACE VIEW customer_overview AS
+SELECT
+  a.id                                        AS account,
+  a.email,
+  a.name,
+  a.first_name,
+  a.last_name,
+  a.provider,
+  a.plan,
+  a.created_at                                AS signed_up_at,
+  a.last_seen_at,
+  (SELECT COUNT(*) FROM brands b WHERE b.account_id = a.id)                              AS brand_count,
+  (SELECT string_agg(b.name, ', ' ORDER BY b.updated_at DESC) FROM brands b WHERE b.account_id = a.id) AS brands,
+  COALESCE((SELECT SUM(p.meals)      FROM payments p      WHERE p.account_id = a.id), 0) AS meals_bought,
+  COALESCE((SELECT SUM(p.amount_usd) FROM payments p      WHERE p.account_id = a.id), 0) AS total_spent_usd,
+  COALESCE((SELECT SUM(l.delta)      FROM credit_ledger l WHERE l.account_id = a.id), 0) AS meal_balance,
+  (SELECT MAX(e.created_at) FROM events e WHERE e.account_id = a.id)                     AS last_activity
+FROM accounts a
+WHERE a.id <> 'default';
+
+CREATE OR REPLACE VIEW brand_directory AS
+SELECT
+  b.id             AS brand_id,
+  b.name           AS brand,
+  b.slug,
+  b.account_id     AS owner_account,
+  a.email          AS owner_email,
+  a.name           AS owner_name,
+  b.origin,
+  b.has_research,
+  b.has_guidelines,
+  b.created_at,
+  b.updated_at
+FROM brands b
+LEFT JOIN accounts a ON a.id = b.account_id;
 `;
 
 // ── Pool lifecycle ───────────────────────────────────────────────────────────
@@ -186,9 +241,19 @@ function makePool(): Pool {
 }
 
 async function initSchema(pool: Pool): Promise<void> {
-  await pool.query(SCHEMA); // multi-statement DDL (no params) runs via the simple query protocol
-  // Idempotent guard for DBs created before `plan` existed (Postgres supports IF NOT EXISTS).
-  await pool.query("ALTER TABLE accounts ADD COLUMN IF NOT EXISTS plan TEXT NOT NULL DEFAULT 'free'");
+  await pool.query(SCHEMA); // tables + indexes (multi-statement, no params → simple query protocol)
+  // Idempotent column adds (Postgres supports IF NOT EXISTS). Profile fields enrich `accounts` into
+  // the "who came / their name / how" record the CRM views read. Must precede VIEWS (they cite them).
+  for (const col of [
+    "plan TEXT NOT NULL DEFAULT 'free'",
+    "first_name TEXT",
+    "last_name TEXT",
+    "provider TEXT",
+    "last_seen_at TEXT",
+  ]) {
+    await pool.query(`ALTER TABLE accounts ADD COLUMN IF NOT EXISTS ${col}`);
+  }
+  await pool.query(VIEWS);
   await pool.query("INSERT INTO accounts (id, name, created_at) VALUES ($1, $2, $3) ON CONFLICT DO NOTHING", [DEFAULT_ACCOUNT, "Default", nowISO()]);
 }
 

@@ -1,7 +1,6 @@
 import type { NextRequest } from "next/server";
 import { createPortalSession, dodoConfigured, findCustomerId } from "@/lib/dodo";
-import { sessionEmail } from "@/lib/supabase/account";
-import { supabaseConfigured } from "@/lib/supabase/server";
+import { isDenied, requireBuyer } from "@/lib/billing";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -16,9 +15,10 @@ export const dynamic = "force-dynamic";
  * A caller can now only ever reach their OWN billing profile.
  */
 export async function POST(_req: NextRequest) {
-  if (!supabaseConfigured()) return Response.json({ error: "Sign-in isn't configured." }, { status: 503 });
-  const email = await sessionEmail();
-  if (!email) return Response.json({ error: "Sign in with Google to manage billing." }, { status: 401 });
+  // Authorization is the billing core's job — the portal opens for the verified session ONLY.
+  const buyer = await requireBuyer();
+  if (isDenied(buyer)) return Response.json({ error: buyer.error }, { status: buyer.status });
+  const email = buyer.email;
   if (!dodoConfigured()) return Response.json({ error: "Payments aren't configured yet." }, { status: 503 });
 
   try {

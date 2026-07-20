@@ -1,5 +1,6 @@
 import type { BrandBrain, BrandMemory, ShotMemory } from "../types";
 import { one, all, run, batch, nowISO, genId, DEFAULT_ACCOUNT, brandIdBySlug } from "./db";
+import { logEvent } from "./customers";
 
 /**
  * Brand store — the per-tenant brain + its learned memory, over libSQL (SQLite / Turso).
@@ -113,6 +114,8 @@ export async function saveBrain(
     "INSERT INTO brands (id, account_id, slug, name, brain_json, origin, email, has_research, has_guidelines, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
     [id, account, slug, name, JSON.stringify(merged), origin, email, hasResearch, 0, ts, ts]
   );
+  // Activity timeline: which brand this account is building. Non-blocking — never fails the save.
+  await logEvent(account, "brand_created", name).catch(() => {});
   return { slug, name, origin, email: email ?? undefined, createdAt: ts, updatedAt: ts, hasResearch: !!hasResearch, hasGuidelines: false };
 }
 

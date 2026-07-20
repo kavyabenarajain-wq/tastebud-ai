@@ -8,3 +8,4 @@ export * from "./campaigns";
 export * from "./agentMemory";
 export * from "./credits";
 export * from "./payments";
+export * from "./customers";

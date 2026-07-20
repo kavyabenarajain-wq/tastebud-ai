@@ -1,8 +1,6 @@
 import type { NextRequest } from "next/server";
 import { BUYABLES, type BuyableId, createCheckoutSession, dodoConfigured, listProducts, productIdFor } from "@/lib/dodo";
-import { ensureAccount } from "@/lib/store";
-import { sessionEmail } from "@/lib/supabase/account";
-import { supabaseConfigured } from "@/lib/supabase/server";
+import { isDenied, requireBuyer } from "@/lib/billing";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -29,15 +27,12 @@ export async function POST(req: NextRequest) {
   const buyable = body.product as BuyableId;
   if (!buyable || !(buyable in BUYABLES)) return Response.json({ error: `unknown product: ${body.product}` }, { status: 400 });
 
-  // Identity, server-side, from the Supabase (Google) session cookie — never from the client.
-  if (!supabaseConfigured()) return Response.json({ error: "Sign-in isn't configured, so payments are disabled." }, { status: 503 });
-  const email = await sessionEmail();
-  if (!email) return Response.json({ error: "Sign in with Google to buy Meals." }, { status: 401 });
+  // Identity + account existence come from the billing core (verified session only, never the body).
+  const buyer = await requireBuyer();
+  if (isDenied(buyer)) return Response.json({ error: buyer.error }, { status: buyer.status });
+  const email = buyer.email;
 
   if (!dodoConfigured()) return Response.json({ error: "Payments aren't configured yet." }, { status: 503 });
-
-  // Guarantee the account row exists before money moves, so the grant lands on a real ledger.
-  await ensureAccount(email).catch(() => {});
 
   const proto = req.headers.get("x-forwarded-proto") ?? "http";
   const host = req.headers.get("host") ?? "localhost:3000";

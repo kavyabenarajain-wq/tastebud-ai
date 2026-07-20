@@ -53,13 +53,22 @@ export function AuthSync() {
       window.dispatchEvent(new Event("tb:auth"));
     };
 
+    // Tell the server who signed in ONCE per mount, so the customer profile (name, provider, when)
+    // is captured authoritatively from the session cookie. Fire-and-forget; failure is harmless.
+    let synced = false;
+    const syncProfile = () => {
+      if (synced) return;
+      synced = true;
+      fetch("/api/account/sync", { method: "POST" }).catch(() => {});
+    };
+
     // getUser() revalidates against Supabase rather than trusting the stored session blob.
     supabase.auth.getUser().then(({ data }) => {
-      if (data.user) write(data.user);
+      if (data.user) { write(data.user); syncProfile(); }
     }).catch(() => { /* offline — leave any existing record alone */ });
 
     const { data: sub } = supabase.auth.onAuthStateChange((event, session) => {
-      if (session?.user) write(session.user);
+      if (session?.user) { write(session.user); if (event === "SIGNED_IN") { synced = false; syncProfile(); } }
       else if (event === "SIGNED_OUT") clear();
     });
 
