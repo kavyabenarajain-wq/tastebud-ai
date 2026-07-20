@@ -3,61 +3,73 @@
 @tailwind utilities;
 
 :root {
+  /* Studio tool (monochrome, white) — untouched */
   --canvas: #ffffff;
   --surface: #f5f5f7;
   --ink: #1d1d1f;
   --muted: #6e6e73;
   --hairline: #d2d2d7;
-}
-.dark {
-  --canvas: #000000;
-  --surface: #0a0a0a;
-  --ink: #f5f5f7;
-  --muted: #8a8a8f;
-  --hairline: #1f1f1f;
+  /* Marketing (light, warm, monochrome) */
+  --paper: #faf9f5;
+  --cream: #f0eee6;
+  --carbon: #1a1a17;
 }
 
 html {
-  scroll-behavior: smooth; /* the home intro's "Scroll" cue glides into the site (reduced-motion resets this below) */
+  scroll-behavior: smooth;
+  background: var(--paper);
+  -webkit-text-size-adjust: 100%;
 }
 html,
 body {
-  background: var(--canvas);
-  color: var(--ink);
+  color: var(--carbon);
+  background: var(--paper);
 }
 body {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
 
-/* Keyboard focus ring (spec §3). Uses `outline`, not `box-shadow`: a box-shadow ring is
-   clipped by the many `overflow-hidden` cards/pills, which made keyboard focus invisible
-   across the studio and flow pages. An outline paints above content and isn't clipped. */
+/* Full-screen snap — scoped to the home page only (the home page toggles `.snap` on <html>).
+   OFF on phones: mobile is a normal, comfortably-spaced continuous scroll (full-screen scenes
+   leave big empty gaps on a small screen). Firm "new screen rises up" snap only from tablet up. */
+html.snap {
+  scroll-snap-type: none;
+}
+@media (min-width: 768px) {
+  html.snap {
+    scroll-snap-type: y mandatory;
+  }
+}
+
+/* Keyboard focus ring — ink outline, not clipped by overflow. */
 *:focus-visible {
-  outline: 2px solid var(--ink);
-  outline-offset: 2px;
+  outline: 1.5px solid var(--carbon);
+  outline-offset: 3px;
   border-radius: 3px;
 }
 
-::selection { background: var(--ink); color: var(--canvas); }
+::selection {
+  background: var(--carbon);
+  color: var(--paper);
+}
 
-/* Respect reduced-motion: neutralize CSS transitions/animations (hovers, the footer marquee,
-   reveals) for users who ask for less motion. Framer reveals should also honour useReducedMotion. */
+/* A hairline that grows from the left as it scrolls into view. */
+.rule-grow {
+  transform-origin: left;
+}
+
+/* ── Reduced motion ─────────────────────────────────────────────────────────*/
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
-}
-
-/* Marketing site — endless work strip in the footer. */
-@keyframes site-marquee {
-  from { transform: translateX(0); }
-  to { transform: translateX(-50%); }
-}
-.site-marquee { animation: site-marquee 48s linear infinite; }
-@media (prefers-reduced-motion: reduce) {
-  .site-marquee { animation: none; }
+  html.snap {
+    scroll-snap-type: none;
+  }
 }

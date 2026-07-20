@@ -1,5 +1,5 @@
 import { one, run, nowISO, genId, DEFAULT_ACCOUNT } from "./db";
-import { DAILY_DRIP, PLANS, MEAL_COSTS, type PlanId } from "../meals";
+import { FREE_TRIAL_IMAGES, FREE_TRIAL_DAYS, PLANS, MEAL_COSTS, type PlanId } from "../meals";
 
 /**
  * Meals — the usage ledger (né credits). 1 Meal = 1 delivered image.
@@ -7,8 +7,8 @@ import { DAILY_DRIP, PLANS, MEAL_COSTS, type PlanId } from "../meals";
  * An append-only ledger per account. Balance is SUM(delta) — order-independent, so interleaved
  * writes from two tabs / two serverless instances can never corrupt it (balance_after stays on
  * each row as an informational snapshot only). Grants use DETERMINISTIC primary keys with
- * INSERT OR IGNORE, so the daily drip and monthly plan grant are double-grant-proof at the DB
- * level with no cron and no SELECT-then-INSERT race.
+ * INSERT OR IGNORE, so the free-trial grant and monthly plan grant are double-grant-proof at the
+ * DB level with no cron and no SELECT-then-INSERT race.
  *
  * OBSERVE MODE (CREDITS_ENFORCED unset/0 — the default): every charge/refund/grant WRITES its
  * ledger row so real usage accumulates from day one, but nothing ever refuses — balances may go
@@ -19,9 +19,9 @@ import { DAILY_DRIP, PLANS, MEAL_COSTS, type PlanId } from "../meals";
 
 const ENFORCED = process.env.CREDITS_ENFORCED === "1";
 
-// Owner accounts are UNCAPPED — the daily-Meals cap never applies to them. Everyone else (free
-// accounts) is held to their balance (3/day drip when unpaid). Set MEALS_OWNER_EMAIL to a comma-
-// separated allowlist of owner emails; matched case-insensitively against the billing account.
+// Owner accounts are UNCAPPED — the Meals cap never applies to them. Everyone else (free accounts)
+// is held to their balance (the one-time trial when unpaid — see FREE_TRIAL_IMAGES). Set
+// MEALS_OWNER_EMAIL to a comma-separated allowlist of owner emails; matched case-insensitively.
 const OWNERS = new Set(
   (process.env.MEALS_OWNER_EMAIL || "")
     .split(",")
@@ -39,10 +39,20 @@ export function creditsEnforced(): boolean {
   return ENFORCED;
 }
 
-/** Server-side drip override (ops toggle); falls back to the published DAILY_DRIP. */
-function dripAmount(): number {
-  const n = Number(process.env.MEALS_DAILY_DRIP);
-  return Number.isFinite(n) && n >= 0 ? Math.floor(n) : DAILY_DRIP;
+/** Server-side trial overrides (ops toggles); fall back to the published constants. */
+function trialImages(): number {
+  const n = Number(process.env.MEALS_FREE_TRIAL_IMAGES);
+  return Number.isFinite(n) && n >= 0 ? Math.floor(n) : FREE_TRIAL_IMAGES;
+}
+function trialDays(): number {
+  const n = Number(process.env.MEALS_FREE_TRIAL_DAYS);
+  return Number.isFinite(n) && n > 0 ? Math.floor(n) : FREE_TRIAL_DAYS;
+}
+const DAY_MS = 86_400_000;
+/** Milliseconds a free account still has left in its trial window (≤0 once closed). */
+function trialMsLeft(createdAt?: string): number {
+  const start = createdAt ? Date.parse(createdAt) : NaN;
+  return Number.isFinite(start) ? start + trialDays() * DAY_MS - Date.now() : 0;
 }
 
 /** UTC day stamp — deterministic across serverless regions. */
@@ -125,29 +135,52 @@ export async function netSpendOn(account: string, day: string): Promise<number> 
   return Math.max(0, Number(row?.spent ?? 0));
 }
 
+/** Net Meals spent by an account since an ISO instant (debits minus refunds; expiries excluded). */
+async function netSpendSince(account: string, sinceISO: string): Promise<number> {
+  const row = await one<{ spent: number }>(
+    `SELECT COALESCE(SUM(CASE
+        WHEN delta < 0 AND reason NOT LIKE '%expire%' THEN -delta
+        WHEN delta > 0 AND reason LIKE 'refund:%' THEN -delta
+        ELSE 0 END), 0) AS spent
+     FROM credit_ledger WHERE account_id = ? AND created_at >= ?`,
+    [account, sinceISO],
+  );
+  return Math.max(0, Number(row?.spent ?? 0));
+}
+
 /**
- * Grant today's daily drip exactly once (deterministic PK → INSERT OR IGNORE), expiring the
- * previous drip's unused remainder first (use-or-lose, drip-spends-first convention). Only the
- * most recent drip day can ever be pending — absent days were never granted.
+ * The free trial, reconciled idempotently (deterministic PKs → INSERT OR IGNORE):
+ *   • Free plan, inside the first FREE_TRIAL_DAYS: grant FREE_TRIAL_IMAGES Meals ONCE.
+ *   • Free plan, window closed: expire whatever of that grant is still unspent, ONCE.
+ *   • Paid plan: no-op — Starter / Chef's Table / Banquet live on their monthly Meals alone.
+ * Grant and expire are both PK-guarded, so this is safe to run on every metered request.
  */
-const grantedDays = new Map<string, string>(); // account → last day handled by this process
-export async function ensureDailyGrant(account = DEFAULT_ACCOUNT): Promise<void> {
+const trialReconciled = new Map<string, string>(); // account → day last reconciled in this process
+export async function ensureTrialGrant(account = DEFAULT_ACCOUNT): Promise<void> {
   const today = utcDay();
-  if (grantedDays.get(account) === today) return; // memo: zero queries on repeat calls in-process
-  const drip = dripAmount();
-  // Expire the previous drip's unused remainder (skip when it was fully spent).
-  const last = await one<{ id: string }>(
-    "SELECT id FROM credit_ledger WHERE account_id = ? AND reason LIKE 'drip:%' ORDER BY created_at DESC LIMIT 1", [account]);
-  if (last?.id) {
-    const lastDay = last.id.slice(-10); // led_drip_<account>_<YYYY-MM-DD>
-    if (/^\d{4}-\d{2}-\d{2}$/.test(lastDay) && lastDay < today) {
-      const spent = await netSpendOn(account, lastDay);
-      const unused = Math.max(0, drip - spent);
-      if (unused > 0) await insertLedger(account, -unused, `drip-expire:${lastDay}`, `led_dripexp_${account}_${lastDay}`);
+  if (trialReconciled.get(account) === today) return; // memo: skip repeat work within a process-day
+  if ((await getPlan(account)) !== "free") { trialReconciled.set(account, today); return; } // paid → no trial
+
+  await ensureAccount(account); // guarantee a created_at row to anchor the trial window to
+  const acct = await one<{ created_at: string }>("SELECT created_at FROM accounts WHERE id = ?", [account]);
+  if (!acct?.created_at) return;
+
+  if (trialMsLeft(acct.created_at) > 0) {
+    const grant = trialImages();
+    if (grant > 0) await insertLedger(account, grant, "trial", `led_trial_${account}`);
+  } else {
+    // Window closed — remove the unspent remainder of the trial grant, exactly once. `unused` nets
+    // out spend since signup so a mid-trial top-up (rare) is never wrongly clawed back, and it is
+    // clamped to the live balance so the expiry can never drive it negative.
+    const grant = await one<{ delta: number }>("SELECT delta FROM credit_ledger WHERE id = ?", [`led_trial_${account}`]);
+    const done = await one<{ id: string }>("SELECT id FROM credit_ledger WHERE id = ?", [`led_trialexp_${account}`]);
+    if (grant && !done) {
+      const spent = await netSpendSince(account, acct.created_at);
+      const unused = Math.min(Math.max(0, Number(grant.delta) - spent), Math.max(0, await currentBalance(account)));
+      if (unused > 0) await insertLedger(account, -unused, "trial-expire", `led_trialexp_${account}`);
     }
   }
-  if (drip > 0) await insertLedger(account, drip, `drip:${today}`, `led_drip_${account}_${today}`);
-  grantedDays.set(account, today);
+  trialReconciled.set(account, today);
 }
 
 // ── Accounts ─────────────────────────────────────────────────────────────────
@@ -196,40 +229,56 @@ export async function ensureMonthlyGrant(account = DEFAULT_ACCOUNT): Promise<voi
 
 /**
  * A paid plan landing from the payment provider (activation OR renewal — both are "make this
- * month whole for this plan"). Sets the plan, then grants this month's Meals. If a smaller
- * plan's grant already landed this month (same-month upgrade), tops up the DIFFERENCE with its
- * own deterministic id — so re-deliveries and replays can never double-grant.
+ * month whole for this plan"). Sets the plan, then tops up so this month's granted Meals equal the
+ * plan's monthly total.
+ *
+ * The top-up diffs against the CUMULATIVE Meals already granted this month — the base grant PLUS
+ * any prior upgrade rows — not just the base row. An ascending two-hop upgrade in one month
+ * (starter→pro→studio) would otherwise double-count the intermediate step: pro adds +40 (20→60),
+ * then studio computed against the base 20 alone would add +150 → 210 instead of 170. Diffing
+ * against the running total makes each step top up to exactly the target plan, and the deterministic
+ * per-plan id keeps every step replay-safe.
  */
 export async function applyPlanPurchase(account: string, plan: PlanId): Promise<void> {
   await ensureAccount(account);
   await setPlan(account, plan);
   const month = utcMonth();
-  const existing = await one<{ delta: number }>("SELECT delta FROM credit_ledger WHERE id = ?", [`led_grant_${account}_${month}`]);
-  if (!existing) {
+  const base = await one<{ delta: number }>("SELECT delta FROM credit_ledger WHERE id = ?", [`led_grant_${account}_${month}`]);
+  if (!base) {
+    // First plan grant of the month — just lay down the base monthly grant.
     await ensureMonthlyGrant(account);
     return;
   }
-  const diff = PLANS[plan].monthlyMeals - Number(existing.delta ?? 0);
+  // Cumulative Meals granted this month = base monthly grant + every upgrade top-up so far.
+  const granted = await one<{ sum: number }>(
+    "SELECT COALESCE(SUM(delta), 0) AS sum FROM credit_ledger WHERE account_id = ? AND (id = ? OR id LIKE ?)",
+    [account, `led_grant_${account}_${month}`, `led_grantup_${account}_${month}_%`],
+  );
+  const diff = PLANS[plan].monthlyMeals - Number(granted?.sum ?? 0);
   if (diff > 0) await insertLedger(account, diff, `grant-upgrade:${plan}:${month}`, `led_grantup_${account}_${month}_${plan}`);
 }
 
 /** All periodic grants — call at the top of any metered route. */
 export async function ensureGrants(account = DEFAULT_ACCOUNT): Promise<void> {
-  await ensureDailyGrant(account);
+  await ensureTrialGrant(account);
   await ensureMonthlyGrant(account);
 }
 
-/** The GET /api/meals payload. */
+/** The GET /api/meals payload. `trial` describes the free taste: how many images it grants, how
+ *  many days remain in the window, and whether it is currently active (free plan + still in-window). */
 export async function mealsSnapshot(account = DEFAULT_ACCOUNT): Promise<{
   balance: number; plan: PlanId; enforced: boolean;
-  drip: { amount: number; date: string }; usedToday: number;
+  trial: { images: number; daysLeft: number; active: boolean }; usedToday: number;
   costs: typeof MEAL_COSTS;
 }> {
   await ensureGrants(account);
   const today = utcDay();
-  const [balance, plan, usedToday] = await Promise.all([
+  const [balance, plan, usedToday, acct] = await Promise.all([
     currentBalance(account), getPlan(account), netSpendOn(account, today),
+    one<{ created_at: string }>("SELECT created_at FROM accounts WHERE id = ?", [account]),
   ]);
+  const msLeft = trialMsLeft(acct?.created_at);
+  const trial = { images: trialImages(), daysLeft: Math.max(0, Math.ceil(msLeft / DAY_MS)), active: plan === "free" && msLeft > 0 };
   // Owner accounts are uncapped, so the wallet reports "not enforced" for them — no out/low banners.
-  return { balance, plan, enforced: enforcedFor(account), drip: { amount: dripAmount(), date: today }, usedToday, costs: MEAL_COSTS };
+  return { balance, plan, enforced: enforcedFor(account), trial, usedToday, costs: MEAL_COSTS };
 }

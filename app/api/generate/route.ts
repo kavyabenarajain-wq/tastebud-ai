@@ -15,6 +15,7 @@ import { buildCompliance, complianceToNegatives } from "@/lib/compliance";
 import { CREATIVE_TYPES, FORMATS, carouselDirective, isV2Type, type FormatId } from "@/lib/creativeTypes";
 import { saveCampaign, slugify } from "@/lib/brainStore";
 import { ensureGrants, chargeUpTo, refund, getBalance, normalizeAccount, DEFAULT_ACCOUNT } from "@/lib/store";
+import { sessionEmail } from "@/lib/supabase/account";
 
 export const runtime = "nodejs";
 export const maxDuration = 300;
@@ -58,7 +59,9 @@ type CreativeSpec = (typeof CREATIVE_TYPES)[CreativeTypeId] | undefined;
 export async function POST(req: NextRequest) {
   const body = (await req.json()) as ResolvedBrief;
   // The signed-in email rides the brief; absent → the shared default bucket (never blocks).
-  const account = normalizeAccount((body as { account?: unknown }).account) ?? DEFAULT_ACCOUNT;
+  // Identity comes from the VERIFIED Supabase session first; the client-sent email is only a
+  // fallback for requests made before auth rolled out (and for the shared anonymous bucket).
+  const account = (await sessionEmail()) ?? normalizeAccount((body as { account?: unknown }).account) ?? DEFAULT_ACCOUNT;
   const mode = body.mode === "model-photoshoot" ? "model-photoshoot" : "product-photoshoot";
   // A v2 creative type (instagram / story / carousel / ad) rides the product spine with
   // its own directive, aspect(s), copy and fan-out. Absent → exactly today's behaviour.
@@ -69,7 +72,7 @@ export async function POST(req: NextRequest) {
     async start(controller) {
       const send = (o: unknown) => controller.enqueue(enc.encode(JSON.stringify(o) + "\n"));
       try {
-        // Land today's drip + this month's plan grant before any charge (idempotent, race-safe).
+        // Land the free-trial grant + this month's plan grant before any charge (idempotent, race-safe).
         await ensureGrants(account).catch(() => {});
         const isModel = mode === "model-photoshoot";
         // ── GROUP SHOOT resolution — the fix for "3–4 models in one shoot". A cast of 2+ people
@@ -355,7 +358,10 @@ export async function POST(req: NextRequest) {
               try {
                 const candidate = isModel
                   ? await renderModelShot({ id: stub.id, prompt: shot.prompt, negatives: shot.negatives, extraNegatives, modelRefs, people: modelPeople, groupCount: isGroup ? groupModels.length : undefined, products, references, referencesAreBrand, wearable: productWearable, aspect: stub.aspect, imageSize: "2K", finish })
-                  : await renderShot({ id: stub.id, prompt: shot.prompt, angle: shot.angle, negatives: shot.negatives, extraNegatives, products, references, referencesAreBrand, refScene: refScene ?? undefined, productIdentity, productManifest, brandLook: brandLook ?? undefined, noProduct, aspect: stub.aspect, imageSize: "2K", finish });
+                  // cleanPlate: this creative's headline/CTA are overlaid later as real typography,
+                  // so the RENDER must carry no text of its own — otherwise the model bakes the
+                  // headline into the set and the overlay prints it again on top.
+                  : await renderShot({ id: stub.id, prompt: shot.prompt, angle: shot.angle, negatives: shot.negatives, extraNegatives, products, references, referencesAreBrand, refScene: refScene ?? undefined, productIdentity, productManifest, brandLook: brandLook ?? undefined, noProduct, cleanPlate: !!spec?.needsCopy, aspect: stub.aspect, imageSize: "2K", finish });
                 fallback = candidate;
                 if (gateFidelity) {
                   const restage = !isModel && references.length > 0;

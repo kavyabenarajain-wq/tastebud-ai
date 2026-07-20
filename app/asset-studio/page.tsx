@@ -1,17 +1,10 @@
 "use client";
 
-import Link from "next/link";
-import { motion } from "framer-motion";
 import { SiteHeader } from "@/components/site/SiteHeader";
 import { SiteFooter } from "@/components/site/SiteFooter";
 import { PricingSection } from "@/components/site/PricingSection";
-
-const rise = {
-  initial: { opacity: 0, y: 14 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: "-80px" },
-  transition: { duration: 0.5, ease: [0.4, 0, 0.2, 1] },
-} as const;
+import { CTA } from "@/components/site/Button";
+import { Reveal, Stagger, StaggerItem } from "@/components/site/motion";
 
 const CAPABILITIES = [
   { t: "Product photoshoots", d: "Your exact product — label, shape, colour — in scenes a camera would believe." },
@@ -22,62 +15,52 @@ const CAPABILITIES = [
   { t: "Brand memory", d: "Keep, hero or reject any shot. The studio learns your taste and keeps it." },
 ];
 
-/** ASSET BUILDING — the tool page: what the studio makes; door to pricing (account first). */
+/** ASSET BUILDING — the tool page: what the studio makes; the door to pricing. Light, image-free. */
 export default function AssetStudio() {
   return (
-    <main className="bg-cream text-ink">
+    <main className="bg-paper text-carbon">
       <SiteHeader />
 
-      <section className="mx-auto max-w-4xl px-6 pb-20 pt-44 text-center">
-        <motion.p {...rise} className="text-[12px] uppercase tracking-wide text-clay">
-          Asset building
-        </motion.p>
-        <motion.h1
-          {...rise}
-          transition={{ ...rise.transition, delay: 0.06 }}
-          className="mt-6 font-site-serif text-5xl font-light leading-[1.05] tracking-tight md:text-6xl"
-        >
-          Every asset your brand needs.
-          <br />
-          From a studio that remembers.
-        </motion.h1>
-        <motion.p
-          {...rise}
-          transition={{ ...rise.transition, delay: 0.12 }}
-          className="mx-auto mt-7 max-w-xl text-[17px] leading-relaxed text-clay"
-        >
-          Paste your website once. The studio builds your brand kit, learns your
-          products, and then makes whatever you ask — talking to you like a creative
-          director, not a form.
-        </motion.p>
-        <motion.div {...rise} transition={{ ...rise.transition, delay: 0.18 }} className="mt-10">
-          <Link
-            href="#pricing"
-            className="rounded-xl bg-carbon px-6 py-3 text-[15px] font-medium text-cream transition-opacity duration-300 hover:opacity-85"
-          >
-            See plans &amp; start
-          </Link>
-        </motion.div>
+      {/* Hero */}
+      <section className="mx-auto max-w-4xl px-6 pb-20 pt-36 text-center md:pt-48">
+        <Reveal>
+          <h1 className="font-edito text-5xl font-light leading-[1] tracking-tight md:text-7xl">
+            Every asset your brand needs. From a studio that remembers.
+          </h1>
+        </Reveal>
+        <Reveal delay={0.1}>
+          <p className="mx-auto mt-8 max-w-xl text-[17px] leading-relaxed text-clay">
+            Paste your website once. The studio builds your brand kit, learns your products, and
+            then makes whatever you ask — talking to you like a creative director, not a form.
+          </p>
+        </Reveal>
+        <Reveal delay={0.18} className="mt-10 flex flex-col items-center justify-center gap-4 sm:flex-row">
+          <CTA href="#pricing" variant="solid" size="lg">See plans &amp; start</CTA>
+          <CTA href="/discovery/book" variant="outline" size="lg" arrow={false}>Book a demo</CTA>
+        </Reveal>
       </section>
 
-      <section className="border-t border-linen">
-        <div className="mx-auto grid max-w-5xl gap-5 px-6 py-24 md:grid-cols-3">
-          {CAPABILITIES.map((c, i) => (
-            <motion.div
-              key={c.t}
-              {...rise}
-              transition={{ ...rise.transition, delay: (i % 3) * 0.06 }}
-              className="rounded-3xl border border-linen bg-paper p-8"
-            >
-              <h2 className="font-site-serif text-xl font-light tracking-tight">{c.t}</h2>
-              <p className="mt-2.5 text-[14px] leading-relaxed text-clay">{c.d}</p>
-            </motion.div>
-          ))}
+      {/* Capabilities */}
+      <section className="border-t border-linen bg-cream">
+        <div className="mx-auto max-w-5xl px-6 py-24">
+          <Reveal>
+            <h2 className="mb-14 max-w-2xl font-edito text-4xl font-light leading-[1.02] tracking-tight md:text-5xl">
+              One brief in. Finished work out.
+            </h2>
+          </Reveal>
+          <Stagger className="grid gap-x-10 gap-y-14 md:grid-cols-3">
+            {CAPABILITIES.map((c) => (
+              <StaggerItem key={c.t}>
+                <h2 className="font-edito text-2xl font-light tracking-tight">{c.t}</h2>
+                <p className="mt-3 text-[15px] leading-relaxed text-clay">{c.d}</p>
+              </StaggerItem>
+            ))}
+          </Stagger>
         </div>
       </section>
 
-      {/* Pricing lives here now — there is no separate /pricing page. */}
-      <div className="border-t border-linen pt-16">
+      {/* Pricing (there is no separate /pricing page). */}
+      <div className="border-t border-linen">
         <PricingSection />
       </div>
 

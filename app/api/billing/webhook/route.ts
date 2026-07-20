@@ -1,6 +1,7 @@
 import type { NextRequest } from "next/server";
 import { buyableForProduct, BUYABLES, verifyWebhookSignature } from "@/lib/dodo";
-import { applyPlanPurchase, ensureAccount, normalizeAccount, setPlan, topUp } from "@/lib/store";
+import { ensureAccount, normalizeAccount, setPlan } from "@/lib/store";
+import { grantPlan, grantTopup } from "@/lib/billing";
 import { PLANS, type PlanId } from "@/lib/meals";
 
 export const runtime = "nodejs";
@@ -86,23 +87,24 @@ export async function POST(req: NextRequest) {
       return Response.json({ received: true, ignored: "no account" });
     }
 
+    // All grants + attribution + audit go through the billing CORE (lib/billing) — this route only
+    // verifies the signature and parses the event, then hands the resolved facts to the core.
+    const meta = { buyable: data.metadata?.buyable ?? null, status: type, eventType: type, email: data.customer?.email ?? null, name: data.customer?.name ?? null };
     if (type === "payment.succeeded") {
       if (data.subscription_id) {
-        // A subscription cycle charge (first or renewal): make this month whole for the plan.
         const plan = planFrom(data);
-        if (plan) await applyPlanPurchase(account, plan);
+        if (plan) await grantPlan(account, plan, data.payment_id ?? null, meta);
       } else {
         const meals = packMealsFrom(data);
         if (meals > 0 && data.payment_id) {
-          await ensureAccount(account, data.customer?.email ?? undefined, data.customer?.name ?? undefined);
-          await topUp(account, meals, `dodo:${data.payment_id}`, `led_dodo_${data.payment_id}`);
+          await grantTopup(account, meals, data.payment_id, meta);
           console.log(`[billing] +${meals} Meals → ${account} (${data.payment_id})`);
         }
       }
     } else if (type === "subscription.active" || type === "subscription.renewed" || type === "subscription.plan_changed") {
       const plan = planFrom(data);
       if (plan) {
-        await applyPlanPurchase(account, plan);
+        await grantPlan(account, plan, null, meta); // status sync: grant only, no charge/audit row
         console.log(`[billing] plan ${plan} → ${account} (${type})`);
       }
     } else if (

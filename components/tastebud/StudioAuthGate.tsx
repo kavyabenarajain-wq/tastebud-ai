@@ -7,7 +7,7 @@ import { motion } from "framer-motion";
 import { Sparkles } from "lucide-react";
 import { activeAccount } from "@/lib/account";
 import { Wordmark } from "@/components/tastebud/Wordmark";
-import { DAILY_DRIP } from "@/lib/meals";
+import { FREE_TRIAL_IMAGES, FREE_TRIAL_DAYS } from "@/lib/meals";
 
 /**
  * The "you have to sign up first" page. The Asset Studio is account-only — every shoot bills a
@@ -41,7 +41,7 @@ export function SignUpRequired({ next = "/studio" }: { next?: string }) {
           </h1>
           <p className="mx-auto mt-5 max-w-sm text-[15px] leading-relaxed text-clay">
             The studio is for signed-in creators — every shoot draws from your own Meals. Make a
-            free account and you&rsquo;ll start with {DAILY_DRIP} Meals on the house, every day.
+            free account and you&rsquo;ll start with {FREE_TRIAL_IMAGES} free images to try it — your first {FREE_TRIAL_DAYS} days.
           </p>
 
           <Link

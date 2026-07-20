@@ -643,6 +643,28 @@ const CLEAN_FRAME =
   "IMPORTANT: even if the lighting is described with words like 'softbox', 'studio light', 'lamp', 'window' or 'key light', those words describe ONLY the QUALITY and direction of the light — do NOT render any such light, fixture or equipment as a visible object in the frame. Show only the EFFECT of the light on the subject. " +
   "The background must be clean, even and seamless all the way to every edge. No text, watermark, caption, logo, UI element, button or border anywhere on the image.";
 
+/**
+ * CLEAN PLATE — for creatives whose copy is overlaid later as real typography (story / feed /
+ * carousel / ad). The "render clean" rule used to live ONLY in the creative-type directive, which
+ * is fed to the art-director PLANNER — the image model never saw it, so it happily embossed the
+ * headline into the set and the overlay then printed the same words on top. Text over text.
+ * This block puts the rule where it is actually enforced: the render prompt.
+ */
+const CLEAN_PLATE =
+  "CLEAN PLATE — THIS PHOTOGRAPH IS A BACKGROUND. All headlines, sublines and CTAs are overlaid afterwards in real fonts, so the render itself must contain ZERO added text. " +
+  "Do NOT write, letter, emboss, deboss, engrave, carve, paint, print, stencil, stamp, arrange or spell out ANY word, headline, tagline, slogan, caption, sign, label, sticker, badge or watermark anywhere in the scene — not on the backdrop, surface, wall, table, packaging tissue, ribbon or any prop, and not formed out of petals, powder, cream or any material. " +
+  "The ONLY text permitted anywhere in the entire frame is the text physically printed on the product itself, reproduced exactly as it really is. " +
+  "The reserved negative space must be left GENUINELY EMPTY — empty is correct, not an unfinished look to decorate with type.";
+
+/** Text the model must never invent into the frame. Scoped so the PRODUCT's own printed text
+ *  (required by PRODUCT_LOCK) stays mandatory — only ADDED scene text is banned. */
+const ADDED_TEXT_NEGATIVES = [
+  "any headline, tagline, slogan, caption, title or marketing copy rendered into the scene",
+  "text, lettering, typography or handwriting on the background, surface, wall or any prop",
+  "words embossed, debossed, engraved, carved, painted or spelled out in any material on the set",
+  "any watermark, caption bar, logo overlay, UI element, button, badge, sticker or border on the image",
+];
+
 const WARDROBE_REALISM =
   "WARDROBE REALISM — IF THE PRODUCT IS APPAREL / CLOTHING: the model wears that exact garment in its ANATOMICALLY CORRECT position — trousers and jeans sit at the natural waist/hips and cover the legs down to the ankles; a top covers the torso; a dress hangs full-length; outerwear layers over. Tailor the garment to fit the model's real body and pose with believable drape, fold and fabric behaviour. Dress the model in a COMPLETE, realistic, brand-appropriate outfit — style suitable complementary pieces around the product (for jeans, pair a simple fitted top; for a top, pair suitable bottoms) so the person is fully and properly dressed, with the product as the clear hero. NEVER stretch one garment over the entire body, NEVER pull a bottom garment up as a strapless wrap, NEVER place a garment in the wrong position, NEVER paste it on as a flat cut-out, and NEVER leave the model partially, oddly or impossibly dressed.";
 
@@ -740,6 +762,7 @@ export async function renderShot(args: {
   productManifest?: string; // every element on the pack (from analyzeProduct) — all must appear, legibly
   brandLook?: string; // how this brand shoots, read off their real feed at gen time (from describeBrandLook)
   noProduct?: boolean; // no product supplied → render an on-brand scene, never an invented hero product
+  cleanPlate?: boolean; // copy is overlaid later → the render must carry NO text of its own
   aspect?: string;
   imageSize?: string;
   finish?: FinishGrade; // brand grade for the deterministic finishing pass (defaults to NEUTRAL_GRADE)
@@ -795,7 +818,11 @@ export async function renderShot(args: {
     // PRODUCT_LOCK already requires reproducing any REAL text exactly.
     "inventing a brand label, woven tag, hangtag or care label the real product does not have", "garbled, gibberish, warped or fake lettering or text anywhere on the product",
     // Product photoshoot = product-only. Humans belong in the model shoot.
-    "any person, model or human in frame", "a hand, fingers, arm, leg, foot or any body part in frame", "the product being held, worn, touched or carried by a person"];
+    "any person, model or human in frame", "a hand, fingers, arm, leg, foot or any body part in frame", "the product being held, worn, touched or carried by a person",
+    // A product shoot never wants INVENTED scene text — and when copy is overlaid later, baked-in
+    // text collides with the real typography (the "two headlines" bug). The product's OWN printed
+    // text is unaffected: PRODUCT_LOCK still requires reproducing it exactly.
+    ...ADDED_TEXT_NEGATIVES];
   // With a CLIENT restage reference, the original hero + its serving vessel must be gone and
   // exactly ONE product (the client's) may remain — the "remove the ice cream AND the glass"
   // rule. Brand-look references depict the brand's OWN world, so this erase rule does not apply.
@@ -835,6 +862,7 @@ export async function renderShot(args: {
   let fullPrompt =
     `${PRODUCT_LOCK}${identityBlock}${angleLock}\n\n${scene}` +
     `\n\nAvoid: ${negatives.join(", ")}.` +
+    (args.cleanPlate ? `\n\n${CLEAN_PLATE}` : "") +
     `\n\n${REALISM_ANCHOR}` +
     `\n\n${PRODUCT_IMPERFECTION}` +
     `\n\n${PRODUCT_LEGIBILITY}${manifestBlock}${brandLookBlock}`;

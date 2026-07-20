@@ -1,74 +1,72 @@
-import { createClient, type Client, type InArgs, type InStatement } from "@libsql/client";
-import { join } from "node:path";
-import { readdirSync, readFileSync, statSync, existsSync } from "node:fs";
+import { Pool, type PoolClient } from "pg";
 
 /**
- * The store — libSQL (SQLite-compatible). ONE client, two homes:
+ * The store — Supabase Postgres (migrated off libSQL/Turso, Jul 2026). ONE pg Pool, cached on
+ * globalThis so Next's dev HMR reuses one handle and the schema init runs exactly once.
  *
- *   • local dev  → a local file (`file:data/tastebud.db`), same on-disk DB as before, so nothing
- *                  changes for you locally and the existing data/brains folders still seed in.
- *   • serverless → a hosted Turso database over HTTP when TURSO_DATABASE_URL is set — because
- *                  Vercel's filesystem is READ-ONLY + ephemeral, so a file-backed SQLite there
- *                  can't persist a single write. The SQL is identical; only the connection moves.
+ * The store modules were NOT rewritten: they still hand us SQLite-style SQL — `?` placeholders and
+ * `INSERT OR IGNORE`. A small dialect shim (`toPg`) rewrites those to Postgres (`$1/$2…` and
+ * `ON CONFLICT DO NOTHING`) at execution time, so every existing query string stayed put. The rest
+ * of the SQL in this app (TEXT/INTEGER/REAL columns, ISO-string timestamps, foreign keys, LIKE over
+ * lowercase prefixes, COALESCE/SUM) is already valid Postgres.
  *
- * The client is async (a network call on Turso), so every store function awaits its queries.
- * Cross-statement atomicity is relaxed vs. the old synchronous node:sqlite store (there is one
- * writer per brand in practice), but each individual write is still atomic, and pure-write
- * sequences use `batch()` which Turso commits all-or-nothing.
- *
- * Everything sits behind this module + the store/*.ts API, so the call sites never move.
+ * Connection: DATABASE_URL must be a Supabase POOLER url (…pooler.supabase.com) — the direct
+ * db.<ref>.supabase.co host is IPv6-only and unreachable from most networks and from Vercel.
  */
 
-const DATA_DIR = join(process.cwd(), "data");
-const DB_PATH = process.env.STORE_DB_PATH || join(DATA_DIR, "tastebud.db");
-
-/** Single tenant bucket until real accounts land. UNIQUE(account_id, slug) then lets two
- *  different customers both own a brand called "Nira" without colliding. */
+/** Single tenant bucket until every row is account-scoped. UNIQUE(account_id, slug) lets two
+ *  customers each own a brand called "Nira" without colliding. */
 export const DEFAULT_ACCOUNT = "default";
 
 export function nowISO(): string {
   return new Date().toISOString();
 }
 
-/** Stable, collision-resistant id — decouples a brand's identity from its (mutable) name. */
+/** Stable, collision-resistant id — decouples a row's identity from its (mutable) name. */
 export function genId(prefix: string): string {
   return `${prefix}_${Date.now().toString(36)}${Math.random().toString(36).slice(2, 9)}`;
 }
 
+export type Row = Record<string, unknown>;
+export type SqlArg = string | number | boolean | null | undefined;
+export type InArgs = SqlArg[];
+export type InStatement = { sql: string; args?: InArgs };
+
+// ── Dialect shim: SQLite SQL → Postgres ──────────────────────────────────────
 /**
- * Resolve a hosted libSQL/Turso connection. The Vercel Turso integration names its env vars with a
- * CUSTOM PREFIX (e.g. `DATABASE_SKY_WINDOW_URL` + `..._AUTH_TOKEN`), so besides the standard names
- * we DETECT the URL by its VALUE — any env var set to a `libsql://` URL — and pair it with the
- * matching-prefix auth token. That way the store just works whatever the integration called them.
- * Returns null when there's no remote DB configured (→ the local file for dev).
+ * Rewrite one statement:
+ *   • `?` positional placeholders → `$1, $2, …`  (quote-aware: a `?` inside a '…' or "…" literal
+ *     is left untouched — this codebase has none today, but the guard keeps it correct forever)
+ *   • `INSERT OR IGNORE INTO …` → `INSERT INTO … ON CONFLICT DO NOTHING`
  */
-function resolveConnection(): { url: string; authToken?: string } | null {
-  const env = process.env;
-  const stdUrl = env.TURSO_DATABASE_URL || env.DATABASE_URL;
-  if (stdUrl) return { url: stdUrl, authToken: env.TURSO_AUTH_TOKEN || env.DATABASE_AUTH_TOKEN };
-  const found = Object.entries(env).find(([, v]) => typeof v === "string" && /^libsql:\/\//i.test(v));
-  if (found) {
-    const [key, url] = found as [string, string];
-    const prefix = key.replace(/_?(DATABASE_)?URL$/i, "");
-    const token =
-      env[`${prefix}_AUTH_TOKEN`] || env[`${prefix}AUTH_TOKEN`] || env[`${prefix}_TOKEN`] ||
-      env.TURSO_AUTH_TOKEN || env.DATABASE_AUTH_TOKEN ||
-      Object.entries(env).find(([k, v]) => /token/i.test(k) && !/blob/i.test(k) && typeof v === "string" && v.length > 20 && (prefix ? k.startsWith(prefix) : true))?.[1];
-    return { url, authToken: token as string | undefined };
+export function toPg(sql: string): string {
+  let out = "";
+  let n = 0;
+  let inSingle = false;
+  let inDouble = false;
+  for (let i = 0; i < sql.length; i++) {
+    const ch = sql[i];
+    if (ch === "'" && !inDouble) inSingle = !inSingle;
+    else if (ch === '"' && !inSingle) inDouble = !inDouble;
+    if (ch === "?" && !inSingle && !inDouble) {
+      out += "$" + ++n;
+      continue;
+    }
+    out += ch;
   }
-  return null;
+  if (/^\s*INSERT\s+OR\s+IGNORE\s+INTO\s+/i.test(out)) {
+    out = out.replace(/^(\s*)INSERT\s+OR\s+IGNORE\s+INTO\s+/i, "$1INSERT INTO ");
+    if (!/ON\s+CONFLICT/i.test(out)) out = out.replace(/;?\s*$/, "") + " ON CONFLICT DO NOTHING";
+  }
+  return out;
 }
 
-/** Hosted Turso when configured; else the local file for dev. */
-function connectionConfig(): { url: string; authToken?: string } {
-  return resolveConnection() ?? { url: `file:${DB_PATH}`, authToken: undefined };
+/** pg rejects `undefined` params; map them (and nothing else) to NULL. */
+function cleanArgs(args: InArgs): unknown[] {
+  return args.map((a) => (a === undefined ? null : a));
 }
 
-/** True when pointed at a remote libSQL/Turso DB (vs. the local file) — gates local-only seeding. */
-function isRemote(): boolean {
-  return !!resolveConnection();
-}
-
+// ── Schema ───────────────────────────────────────────────────────────────────
 const SCHEMA = `
 CREATE TABLE IF NOT EXISTS _seed (key TEXT PRIMARY KEY, done_at TEXT NOT NULL);
 
@@ -150,51 +148,138 @@ CREATE TABLE IF NOT EXISTS credit_ledger (
   created_at    TEXT NOT NULL
 );
 CREATE INDEX IF NOT EXISTS idx_ledger_account ON credit_ledger (account_id, created_at DESC);
+
+-- Append-only audit of every verified payment (the visible money trail). The credit_ledger stays
+-- the source of truth for BALANCES; this records WHAT was paid, by WHOM, WHEN — one row per Dodo
+-- payment/subscription event, id = the Dodo payment_id (idempotent via the PK).
+CREATE TABLE IF NOT EXISTS payments (
+  id         TEXT PRIMARY KEY,
+  account_id TEXT NOT NULL,
+  kind       TEXT NOT NULL,
+  buyable    TEXT,
+  plan       TEXT,
+  meals      INTEGER NOT NULL DEFAULT 0,
+  amount_usd REAL,
+  status     TEXT NOT NULL,
+  event_type TEXT,
+  created_at TEXT NOT NULL
+);
+CREATE INDEX IF NOT EXISTS idx_payments_account ON payments (account_id, created_at DESC);
+
+-- Activity timeline: when people come in and what they did (signup / signin / brand_created /
+-- purchase / generate). The "who came, when" record.
+CREATE TABLE IF NOT EXISTS events (
+  id         TEXT PRIMARY KEY,
+  account_id TEXT NOT NULL,
+  type       TEXT NOT NULL,
+  detail     TEXT,
+  created_at TEXT NOT NULL
+);
+CREATE INDEX IF NOT EXISTS idx_events_account ON events (account_id, created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_events_type ON events (type, created_at DESC);
 `;
 
-export type Row = Record<string, unknown>;
-
-type WithClient = typeof globalThis & { __tastebudClient?: Client; __tastebudReady?: Promise<Client> };
-const g = globalThis as WithClient;
-
-async function init(client: Client): Promise<void> {
-  // Best-effort pragmas — a no-op / rejected on remote Turso, which is fine.
-  for (const p of ["PRAGMA journal_mode = WAL", "PRAGMA foreign_keys = ON", "PRAGMA busy_timeout = 5000"]) {
-    try { await client.execute(p); } catch { /* remote may reject; ignore */ }
-  }
-  await client.executeMultiple(SCHEMA);
-  // Guarded migration for DBs created before the plan column existed (SQLite allows ADD COLUMN
-  // with a constant default; the catch swallows the duplicate-column error on already-migrated DBs).
-  try { await client.execute("ALTER TABLE accounts ADD COLUMN plan TEXT NOT NULL DEFAULT 'free'"); } catch { /* column exists */ }
-  await client.execute({ sql: "INSERT OR IGNORE INTO accounts (id, name, created_at) VALUES (?, ?, ?)", args: [DEFAULT_ACCOUNT, "Default", nowISO()] });
-  await seedFromFilesystem(client);
-}
-
 /**
- * The process-wide libSQL client, cached on globalThis so Next's dev HMR reuses one handle and
- * the schema init runs exactly once (a shared in-flight promise dedupes concurrent first calls).
+ * CRM views — the "everything about who came" picture, refreshed on every boot (CREATE OR REPLACE).
+ * They read the base tables live, so they're always current in the Supabase Table Editor / SQL editor.
+ * Created AFTER the accounts profile columns are added (initSchema orders it), since they reference them.
  */
-export function getClient(): Promise<Client> {
-  if (g.__tastebudClient) return Promise.resolve(g.__tastebudClient);
-  if (!g.__tastebudReady) {
-    const { url, authToken } = connectionConfig();
-    // One-line startup signal in the server logs: on Vercel this MUST say REMOTE (Turso) — if it
-    // says LOCAL FILE, the Turso env vars weren't detected and writes will fail on the read-only FS.
-    console.log(`[store] libSQL → ${url.startsWith("file:") ? "LOCAL FILE (dev)" : `REMOTE ${(url.split("@").pop() || url).split("?")[0]}`}${url.startsWith("file:") ? "" : authToken ? " +token" : " (NO TOKEN!)"}`);
-    const client = createClient({ url, authToken });
-    g.__tastebudReady = init(client)
-      .then(() => { g.__tastebudClient = client; return client; })
-      .catch((e) => { g.__tastebudReady = undefined; throw e; }); // let a failed init retry next call
-  }
-  return g.__tastebudReady;
+const VIEWS = `
+CREATE OR REPLACE VIEW customer_overview AS
+SELECT
+  a.id                                        AS account,
+  a.email,
+  a.name,
+  a.first_name,
+  a.last_name,
+  a.provider,
+  a.plan,
+  a.created_at                                AS signed_up_at,
+  a.last_seen_at,
+  (SELECT COUNT(*) FROM brands b WHERE b.account_id = a.id)                              AS brand_count,
+  (SELECT string_agg(b.name, ', ' ORDER BY b.updated_at DESC) FROM brands b WHERE b.account_id = a.id) AS brands,
+  COALESCE((SELECT SUM(p.meals)      FROM payments p      WHERE p.account_id = a.id), 0) AS meals_bought,
+  COALESCE((SELECT SUM(p.amount_usd) FROM payments p      WHERE p.account_id = a.id), 0) AS total_spent_usd,
+  COALESCE((SELECT SUM(l.delta)      FROM credit_ledger l WHERE l.account_id = a.id), 0) AS meal_balance,
+  (SELECT MAX(e.created_at) FROM events e WHERE e.account_id = a.id)                     AS last_activity
+FROM accounts a
+WHERE a.id <> 'default';
+
+CREATE OR REPLACE VIEW brand_directory AS
+SELECT
+  b.id             AS brand_id,
+  b.name           AS brand,
+  b.slug,
+  b.account_id     AS owner_account,
+  a.email          AS owner_email,
+  a.name           AS owner_name,
+  b.origin,
+  b.has_research,
+  b.has_guidelines,
+  b.created_at,
+  b.updated_at
+FROM brands b
+LEFT JOIN accounts a ON a.id = b.account_id;
+`;
+
+// ── Pool lifecycle ───────────────────────────────────────────────────────────
+type G = typeof globalThis & { __pgPool?: Pool; __pgReady?: Promise<Pool> };
+const g = globalThis as G;
+
+function makePool(): Pool {
+  const connectionString = process.env.DATABASE_URL;
+  if (!connectionString) throw new Error("DATABASE_URL is unset — the Postgres store can't connect.");
+  const pool = new Pool({
+    connectionString,
+    ssl: { rejectUnauthorized: false }, // Supabase serves TLS; the pooler's chain isn't in Node's default store
+    max: Number(process.env.PG_POOL_MAX) || 10,
+    idleTimeoutMillis: 30_000,
+    connectionTimeoutMillis: 15_000,
+  });
+  pool.on("error", (e) => console.error("[store] pg pool error:", e.message));
+  return pool;
 }
 
-// ── Query helpers ────────────────────────────────────────────────────────────
+async function initSchema(pool: Pool): Promise<void> {
+  await pool.query(SCHEMA); // tables + indexes (multi-statement, no params → simple query protocol)
+  // Idempotent column adds (Postgres supports IF NOT EXISTS). Profile fields enrich `accounts` into
+  // the "who came / their name / how" record the CRM views read. Must precede VIEWS (they cite them).
+  for (const col of [
+    "plan TEXT NOT NULL DEFAULT 'free'",
+    "first_name TEXT",
+    "last_name TEXT",
+    "provider TEXT",
+    "last_seen_at TEXT",
+  ]) {
+    await pool.query(`ALTER TABLE accounts ADD COLUMN IF NOT EXISTS ${col}`);
+  }
+  await pool.query(VIEWS);
+  await pool.query("INSERT INTO accounts (id, name, created_at) VALUES ($1, $2, $3) ON CONFLICT DO NOTHING", [DEFAULT_ACCOUNT, "Default", nowISO()]);
+}
 
+/** The process-wide pool; schema init runs exactly once (a shared in-flight promise dedupes first calls). */
+export function getPool(): Promise<Pool> {
+  if (g.__pgPool) return Promise.resolve(g.__pgPool);
+  if (!g.__pgReady) {
+    const pool = makePool();
+    let host = "?";
+    try { host = new URL(process.env.DATABASE_URL as string).host; } catch { /* keep ? */ }
+    console.log(`[store] Postgres → ${host}`);
+    g.__pgReady = initSchema(pool)
+      .then(() => { g.__pgPool = pool; return pool; })
+      .catch((e) => { g.__pgReady = undefined; throw e; }); // let a failed init retry next call
+  }
+  return g.__pgReady;
+}
+
+/** Back-compat alias — a couple of call sites import getClient(). */
+export const getClient = getPool;
+
+// ── Query helpers (same signatures the store modules already call) ────────────
 /** All rows for a query. */
 export async function all<T = Row>(sql: string, args: InArgs = []): Promise<T[]> {
-  const client = await getClient();
-  const r = await client.execute({ sql, args });
+  const pool = await getPool();
+  const r = await pool.query(toPg(sql), cleanArgs(args));
   return r.rows as unknown as T[];
 }
 
@@ -205,81 +290,29 @@ export async function one<T = Row>(sql: string, args: InArgs = []): Promise<T | 
 
 /** A single write. */
 export async function run(sql: string, args: InArgs = []): Promise<void> {
-  const client = await getClient();
-  await client.execute({ sql, args });
+  const pool = await getPool();
+  await pool.query(toPg(sql), cleanArgs(args));
 }
 
-/** A batch of writes, committed all-or-nothing (the atomic replacement for the old `tx()`). */
+/** A batch of writes, committed all-or-nothing (transaction on one pooled connection). */
 export async function batch(stmts: InStatement[]): Promise<void> {
   if (!stmts.length) return;
-  const client = await getClient();
-  await client.batch(stmts, "write");
+  const pool = await getPool();
+  const client: PoolClient = await pool.connect();
+  try {
+    await client.query("BEGIN");
+    for (const s of stmts) await client.query(toPg(s.sql), cleanArgs(s.args ?? []));
+    await client.query("COMMIT");
+  } catch (e) {
+    try { await client.query("ROLLBACK"); } catch { /* connection already broken */ }
+    throw e;
+  } finally {
+    client.release();
+  }
 }
 
 /** Resolve a brand's stable id from its slug within an account (null if none). */
 export async function brandIdBySlug(slug: string, account = DEFAULT_ACCOUNT): Promise<string | null> {
   const row = await one<{ id: string }>("SELECT id FROM brands WHERE account_id = ? AND slug = ?", [account, slug]);
   return row?.id ?? null;
-}
-
-/**
- * One-time, IDEMPOTENT migration: read every data/brains/<slug>/ folder into the DB. Runs ONLY
- * against the local file DB — a remote Turso DB starts fresh (seeding it from bundled files on
- * every serverless cold start would be wrong). Reads the filesystem only; never writes back.
- * Guarded by a _seed marker so it runs once; delete that row to re-import.
- */
-async function seedFromFilesystem(client: Client): Promise<void> {
-  if (isRemote()) return;
-  try {
-    // Use the passed client DIRECTLY, never the public one()/all()/run() helpers — those await
-    // getClient(), which is still mid-init here, so routing seed queries through them deadlocks.
-    const already = await client.execute({ sql: "SELECT key FROM _seed WHERE key = ?", args: ["fs-brains-v1"] });
-    if (already.rows.length) return;
-
-    const brainsDir = join(DATA_DIR, "brains");
-    const readJson = <T>(p: string): T | null => {
-      try { return JSON.parse(readFileSync(p, "utf8")) as T; } catch { return null; }
-    };
-
-    const stmts: InStatement[] = [];
-    let slugs: string[] = [];
-    try { slugs = existsSync(brainsDir) ? readdirSync(brainsDir) : []; } catch { slugs = []; }
-    for (const slug of slugs) {
-      const d = join(brainsDir, slug);
-      try { if (!statSync(d).isDirectory()) continue; } catch { continue; }
-      const brain = readJson<Record<string, unknown>>(join(d, "brain.json"));
-      if (!brain) continue;
-      const meta = readJson<Record<string, unknown>>(join(d, "meta.json")) ?? {};
-      const guidelines = readJson<unknown>(join(d, "guidelines.json"));
-      const ts = (meta.updatedAt as string) || (meta.createdAt as string) || nowISO();
-      const brandId = genId("brd"); // we generate it, so we can wire campaign FKs without a lookup
-
-      stmts.push({
-        sql: `INSERT OR IGNORE INTO brands (id, account_id, slug, name, brain_json, guidelines_json, origin, email, has_research, has_guidelines, created_at, updated_at)
-              VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
-        args: [
-          brandId, DEFAULT_ACCOUNT, slug,
-          (brain.name as string) || (meta.name as string) || slug,
-          JSON.stringify(brain),
-          guidelines != null ? JSON.stringify(guidelines) : null,
-          (meta.origin as string) || "studio",
-          (meta.email as string) || null,
-          brain.research ? 1 : 0,
-          meta.hasGuidelines ? 1 : 0,
-          (meta.createdAt as string) || ts,
-          ts,
-        ],
-      });
-
-      const campaigns = readJson<Record<string, unknown>[]>(join(d, "campaigns.json")) ?? [];
-      for (const c of campaigns) {
-        if (!c || !c.id) continue;
-        stmts.push({ sql: "INSERT OR IGNORE INTO campaigns (id, brand_id, data_json, updated_at) VALUES (?, ?, ?, ?)", args: [String(c.id), brandId, JSON.stringify(c), (c.updatedAt as string) || ts] });
-      }
-    }
-    stmts.push({ sql: "INSERT OR IGNORE INTO _seed (key, done_at) VALUES (?, ?)", args: ["fs-brains-v1", nowISO()] });
-    if (stmts.length) await client.batch(stmts, "write");
-  } catch {
-    /* a bad folder must never take down the store */
-  }
 }
