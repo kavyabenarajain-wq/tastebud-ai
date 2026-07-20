@@ -16,12 +16,13 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        // ── Studio tool (monochrome) ──────────────────────────────────────────
-        canvas: "#FFFFFF",
-        surface: "#F5F5F7",
-        ink: "#1D1D1F",
-        muted: "#6E6E73",
-        hairline: "#D2D2D7",
+        // ── Studio tool — now the SAME warm-light world as the marketing site, so the app
+        //    behind login matches the front of house (was pure-white monochrome). ───────────
+        canvas: "#FAF9F5", // was #FFFFFF — warm paper
+        surface: "#F0EEE6", // was #F5F5F7 — warm cream
+        ink: "#1A1A17", // was #1D1D1F — warm ink
+        muted: "#5C5B53", // was #6E6E73 — warm muted
+        hairline: "#DCD9CE", // was #D2D2D7 — warm hairline
         "canvas-dk": "#000000",
         "surface-dk": "#0A0A0A",
         "hairline-dk": "#1F1F1F",
@@ -53,9 +54,9 @@ const config: Config = {
         acid: "#D8FF3E",
       },
       fontFamily: {
-        // Studio
+        // Studio — display now uses Bricolage (same as marketing) so type is consistent app-wide.
         sans: ["var(--font-inter)", "system-ui", "-apple-system", "sans-serif"],
-        serif: ["var(--font-fraunces)", "Georgia", "serif"],
+        serif: ["var(--font-edito)", "system-ui", "sans-serif"],
         // Marketing revamp
         display: ["var(--font-display)", "system-ui", "sans-serif"], // Bricolage Grotesque — architectural display
         edito: ["var(--font-edito)", "Georgia", "serif"], // Instrument Serif — editorial italic accents

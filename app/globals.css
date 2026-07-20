@@ -3,12 +3,12 @@
 @tailwind utilities;
 
 :root {
-  /* Studio tool (monochrome, white) — untouched */
-  --canvas: #ffffff;
-  --surface: #f5f5f7;
-  --ink: #1d1d1f;
-  --muted: #6e6e73;
-  --hairline: #d2d2d7;
+  /* Studio tool — warm-light, matching the marketing site */
+  --canvas: #faf9f5;
+  --surface: #f0eee6;
+  --ink: #1a1a17;
+  --muted: #5c5b53;
+  --hairline: #dcd9ce;
   /* Marketing (light, warm, monochrome) */
   --paper: #faf9f5;
   --cream: #f0eee6;
