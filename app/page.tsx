@@ -1,161 +1,174 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import Link from "next/link";
-import { motion, useScroll, useTransform, useMotionValueEvent } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
 import { SiteHeader } from "@/components/site/SiteHeader";
-import { SiteFooter } from "@/components/site/SiteFooter";
-
-const rise = {
-  initial: { opacity: 0, y: 14 },
-  whileInView: { opacity: 1, y: 0 },
-  viewport: { once: true, margin: "-80px" },
-  transition: { duration: 0.5, ease: [0.4, 0, 0.2, 1] },
-} as const;
+import { CTA } from "@/components/site/Button";
 
 /**
- * HOME — the marketing front door.
- * A full-screen "tastebud" intro that animates in and then fades/lifts away as you scroll
- * smoothly into the site; then the headline, the two doors, how-it-works, and the footer.
+ * HOME — a short, calm, light editorial site with a layered "reveal" scroll.
+ *
+ * The intro and the footer are two full "pages" pinned in place behind the content (z-0, sticky);
+ * the middle content sits on top (z-10, opaque) and scrolls between them. So the intro is revealed
+ * first and the content rises up over it, and at the end the content scrolls up to uncover the
+ * footer — it reads as scrolling *above* a footer that was already there.
+ *
+ * No images. No colour. No labels. Warm paper / cream, ink type.
  */
 export default function Home() {
-  const introRef = useRef<HTMLElement>(null);
-  // Scroll-linked: as the intro scrolls out (one viewport), fade + lift + gently shrink the
-  // "tastebud" wordmark so the pure brand screen dissolves into the site rather than cutting.
-  const { scrollYProgress } = useScroll({ target: introRef, offset: ["start start", "end start"] });
-  const wordOpacity = useTransform(scrollYProgress, [0, 0.55], [1, 0]);
-  const wordY = useTransform(scrollYProgress, [0, 1], [0, -90]);
-  const wordScale = useTransform(scrollYProgress, [0, 1], [1, 0.9]);
-  // The nav is absent on the pure "tastebud" screen and fades in as you scroll into the site.
-  const headerOpacity = useTransform(scrollYProgress, [0.55, 0.95], [0, 1]);
-  const [navOn, setNavOn] = useState(false);
-  useMotionValueEvent(scrollYProgress, "change", (v) => setNavOn(v > 0.55));
-
   return (
-    <main className="bg-cream text-ink">
-      {/* Header hidden on the intro screen; fades in (and becomes clickable) as you enter the site. */}
-      <motion.div style={{ opacity: headerOpacity }} className={navOn ? "" : "pointer-events-none"}>
-        <SiteHeader />
-      </motion.div>
+    <main className="relative bg-cream text-carbon">
+      <SiteHeader floatReveal />
 
-      {/* Intro — a whole screen, nothing but the word. Scroll and the motion carries you in. */}
-      <section ref={introRef} className="relative flex h-screen items-center justify-center overflow-hidden px-6 text-center">
-        <motion.div style={{ opacity: wordOpacity, y: wordY, scale: wordScale }}>
-          <motion.h1
-            initial={{ opacity: 0, y: 30, filter: "blur(12px)" }}
-            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            transition={{ duration: 1.2, ease: [0.22, 1, 0.36, 1] }}
-            className="font-site-serif text-7xl font-light leading-none tracking-tight text-ink sm:text-8xl md:text-[11rem]"
-          >
-            tastebud
-          </motion.h1>
-        </motion.div>
-      </section>
+      {/* The scrolling content — opaque, painted above the footer. Its one-screen bottom margin is
+          the gap the content scrolls up through to uncover the footer that's already sitting behind. */}
+      <div className="relative z-[1] mb-[100svh] bg-paper">
+        {/* Intro is pinned (sticky) behind the content below; the content rises up over it. */}
+        <section className="sticky top-0 z-0 flex h-[100svh] items-center justify-center overflow-hidden bg-paper px-6">
+          <Intro />
+        </section>
+        <div className="relative z-[1] bg-paper">
+          <Statement />
+          <Method />
+        </div>
+      </div>
 
-      {/* Hero — one headline, held on a clean field. */}
-      <section id="start" className="flex min-h-[92vh] scroll-mt-0 flex-col items-center justify-center px-6 pt-28 text-center">
-        <motion.p
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-          className="text-[12px] uppercase tracking-wide text-clay"
-        >
-          The brand studio
-        </motion.p>
-        <motion.h1
-          initial={{ opacity: 0, y: 16 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1], delay: 0.15 }}
-          className="mt-6 max-w-4xl font-site-serif text-5xl font-light leading-[1.05] tracking-tight md:text-7xl"
+      {/* Footer page — already there underneath (z-[-1]); the content scrolls up above it. */}
+      <footer className="fixed inset-x-0 bottom-0 z-[-1] h-[100svh]">
+        <FooterPage />
+      </footer>
+    </main>
+  );
+}
+
+const EASE = [0.22, 1, 0.36, 1] as const;
+const SCENE = "flex flex-col justify-center px-6 py-24 md:min-h-[100svh] md:py-20";
+
+/* ── Intro (pinned) ──────────────────────────────────────────────────────────*/
+function Intro() {
+  return (
+    <div className="flex flex-col items-center text-center">
+      <motion.p
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 1, delay: 0.9 }}
+        className="mb-6 text-[10px] uppercase tracking-[0.35em] text-clay md:mb-8 md:text-[11px] md:tracking-[0.4em]"
+      >
+        The brand studio
+      </motion.p>
+      <motion.h1
+        initial={{ opacity: 0, y: 24, filter: "blur(16px)" }}
+        animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+        transition={{ duration: 1.4, ease: EASE }}
+        className="font-edito text-[27vw] font-light leading-[0.85] tracking-tight text-carbon md:text-[15vw]"
+      >
+        tastebud
+      </motion.h1>
+    </div>
+  );
+}
+
+/* ── Statement ───────────────────────────────────────────────────────────────*/
+function Statement() {
+  return (
+    <section className={`${SCENE} bg-cream`}>
+      <div className="mx-auto max-w-4xl text-center">
+        <motion.h2
+          initial={{ opacity: 0, y: 22, filter: "blur(8px)" }}
+          whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+          viewport={{ once: true, margin: "-12%" }}
+          transition={{ duration: 1, ease: EASE }}
+          className="font-edito text-[2.15rem] font-light leading-[1.06] tracking-tight text-carbon sm:text-5xl md:text-[5.25rem]"
         >
           A studio that already knows your brand.
-        </motion.h1>
+        </motion.h2>
         <motion.p
-          initial={{ opacity: 0, y: 12 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: [0.4, 0, 0.2, 1], delay: 0.3 }}
-          className="mt-7 max-w-xl text-[17px] leading-relaxed text-clay"
+          initial={{ opacity: 0, y: 14 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-12%" }}
+          transition={{ duration: 0.9, delay: 0.12, ease: EASE }}
+          className="mx-auto mt-7 max-w-md text-[15px] leading-relaxed text-clay md:mt-9 md:max-w-xl md:text-[17px]"
         >
-          tastebud studies your brand — products, palette, voice — then art-directs
-          photoshoots, campaigns and ads that could only be yours.
+          tastebud studies your products, palette and voice — then art-directs photoshoots,
+          campaigns and ads that could only be yours.
         </motion.p>
-      </section>
+      </div>
+    </section>
+  );
+}
 
-      {/* The two doors. */}
-      <section className="mx-auto grid max-w-5xl gap-5 px-6 pb-28 md:grid-cols-2">
-        <motion.div {...rise}>
-          <Link
-            href="/discovery/book"
-            className="group flex h-full min-h-[380px] flex-col justify-between rounded-3xl border border-linen bg-paper p-10 transition-shadow duration-300 hover:shadow-card"
-          >
-            <span className="text-[11px] uppercase tracking-wide text-clay">Talk to us first</span>
-            <div>
-              <h2 className="font-site-serif text-3xl font-light tracking-tight md:text-4xl">
-                Book your first demo
-              </h2>
-              <p className="mt-4 max-w-sm text-[15px] leading-relaxed text-clay">
-                Thirty minutes with the studio. Bring your products; leave with a shoot
-                already underway and a plan for the rest.
-              </p>
-              <span className="mt-8 inline-block rounded-xl bg-carbon px-5 py-2.5 text-[14px] font-medium text-cream transition-opacity duration-300 group-hover:opacity-85">
-                Book a call
-              </span>
-            </div>
-          </Link>
-        </motion.div>
+/* ── Method ──────────────────────────────────────────────────────────────────*/
+const STEPS = [
+  { n: "01", t: "Paste your website", d: "The studio reads your site and builds your brand kit — products, palette, voice." },
+  { n: "02", t: "Approve your brand brain", d: "Everything it learned, laid out like a brand book. Correct it once; it remembers." },
+  { n: "03", t: "Ask for anything", d: "Product and model shoots, campaigns, ads, stories — finished, on-brand, in minutes." },
+];
 
-        <motion.div {...rise} transition={{ ...rise.transition, delay: 0.08 }}>
-          <Link
-            href="/asset-studio#pricing"
-            className="group flex h-full min-h-[380px] flex-col justify-between rounded-3xl bg-carbon p-10 text-cream transition-opacity duration-300 hover:opacity-95"
-          >
-            <span className="text-[11px] uppercase tracking-wide text-cream/50">Go straight in</span>
-            <div>
-              <h2 className="font-site-serif text-3xl font-light tracking-tight md:text-4xl">
-                Try our asset studio
-              </h2>
-              <p className="mt-4 max-w-sm text-[15px] leading-relaxed text-cream/70">
-                Create an account, see pricing in full, and make your first on-brand
-                photoshoot today. No call required.
-              </p>
-              <span className="mt-8 inline-block rounded-xl bg-cream px-5 py-2.5 text-[14px] font-medium text-carbon transition-opacity duration-300 group-hover:opacity-90">
-                See pricing
-              </span>
-            </div>
-          </Link>
-        </motion.div>
-      </section>
+function Method() {
+  return (
+    <section className={`${SCENE} bg-paper`}>
+      <div className="mx-auto w-full max-w-5xl">
+        <motion.h2
+          initial={{ opacity: 0, y: 18 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: "-10%" }}
+          transition={{ duration: 0.9, ease: EASE }}
+          className="max-w-2xl font-edito text-[2.15rem] font-light leading-[1.04] tracking-tight text-carbon sm:text-5xl md:text-6xl"
+        >
+          Three steps, start to finish.
+        </motion.h2>
 
-      {/* How it works — three quiet steps. */}
-      <section className="border-t border-linen bg-cream">
-        <div className="mx-auto grid max-w-5xl gap-12 px-6 py-24 md:grid-cols-3">
-          {[
-            {
-              n: "01",
-              t: "Paste your website",
-              d: "The studio reads your site, pulls your products, palette and voice, and builds your brand kit.",
-            },
-            {
-              n: "02",
-              t: "Approve your brand brain",
-              d: "Everything it learned, laid out like a brand book. Correct it once; it remembers forever.",
-            },
-            {
-              n: "03",
-              t: "Ask for anything",
-              d: "Product and model photoshoots, campaigns, Meta ads, stories — finished, on-brand, in minutes.",
-            },
-          ].map((s, i) => (
-            <motion.div key={s.n} {...rise} transition={{ ...rise.transition, delay: i * 0.08 }}>
-              <p className="font-site-serif text-[15px] text-terra">{s.n}</p>
-              <h3 className="mt-3 font-site-serif text-2xl font-light tracking-tight">{s.t}</h3>
-              <p className="mt-3 text-[15px] leading-relaxed text-clay">{s.d}</p>
+        <div className="mt-10 border-t border-linen md:mt-14">
+          {STEPS.map((s, i) => (
+            <motion.div
+              key={s.n}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-8%" }}
+              transition={{ duration: 0.7, delay: i * 0.08, ease: EASE }}
+              className="group grid grid-cols-1 gap-y-2 border-b border-linen py-7 md:grid-cols-12 md:items-baseline md:gap-8 md:py-8"
+            >
+              <div className="flex items-baseline gap-4 md:col-span-7 md:gap-5">
+                <span className="font-edito text-base italic text-clay md:text-lg">{s.n}</span>
+                <h3 className="font-edito text-[1.7rem] font-light leading-tight tracking-tight text-carbon transition-transform duration-500 ease-brand group-hover:translate-x-1.5 md:text-[2.5rem]">
+                  {s.t}
+                </h3>
+              </div>
+              <p className="pl-8 text-[14.5px] leading-relaxed text-clay md:col-span-5 md:pl-0 md:text-[15px]">{s.d}</p>
             </motion.div>
           ))}
         </div>
-      </section>
+      </div>
+    </section>
+  );
+}
 
-      <SiteFooter />
-    </main>
+/* ── Footer page (pinned) — the final CTA + footer, revealed from underneath ──*/
+function FooterPage() {
+  return (
+    <div className="flex h-full flex-col bg-cream px-6 py-10 md:px-10 md:py-14">
+      <div className="flex flex-1 items-center justify-center">
+        <div className="mx-auto w-full max-w-3xl text-center">
+          <h2 className="font-edito text-[2.4rem] font-light leading-[1.02] tracking-tight text-carbon sm:text-6xl md:text-[5.5rem]">
+            Make something only you could.
+          </h2>
+          <div className="mt-9 flex w-full flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center sm:gap-4">
+            <CTA href="/asset-studio#pricing" variant="solid" size="lg" className="w-full justify-center sm:w-auto">Start creating</CTA>
+            <CTA href="/discovery/book" variant="outline" size="lg" arrow={false} className="w-full justify-center sm:w-auto">Book a demo</CTA>
+          </div>
+        </div>
+      </div>
+
+      <div className="flex flex-col items-center justify-between gap-3 border-t border-linen pt-6 text-[11px] uppercase tracking-[0.16em] text-clay md:flex-row">
+        <span>© 2026 tastebud — studio, not software</span>
+        <div className="flex items-center gap-6">
+          <Link href="/brand-build" className="transition-colors hover:text-carbon">Brand build</Link>
+          <Link href="/asset-studio" className="transition-colors hover:text-carbon">Asset building</Link>
+          <Link href="/contact" className="transition-colors hover:text-carbon">Contact</Link>
+        </div>
+        <Link href="/" className="transition-colors hover:text-carbon">tastebud.studio</Link>
+      </div>
+    </div>
   );
 }

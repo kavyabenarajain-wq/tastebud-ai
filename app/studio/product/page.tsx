@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 import { Upload, X, ImageIcon, Loader2, RefreshCw, ArrowUp, SlidersHorizontal, Images, Sparkles, Brain } from "lucide-react";
 import { WorkBar } from "@/components/tastebud/WorkBar";
 import { MealsPill, refreshMeals } from "@/components/tastebud/MealsPill";
-import { DAILY_DRIP, mealsForImages, FREE_REDOS_PER_SHOT } from "@/lib/meals";
+import { mealsForImages, FREE_REDOS_PER_SHOT } from "@/lib/meals";
 import { ShootStage } from "@/components/tastebud/ShootStage";
 import { BrandBrainPanel } from "@/components/tastebud/BrandBrainPanel";
 import { ProductLibraryPanel } from "@/components/tastebud/ProductLibraryPanel";
@@ -173,8 +173,8 @@ export default function ProductWorkspace() {
         else if (m.type === "shotError") h.onError(m.id);
         else if (m.type === "meals") {
           if (m.event === "clamped") say("assistant", m.granted > 0
-            ? `You have ${m.balance} Meal${m.balance === 1 ? "" : "s"} left, so I'm shooting ${m.granted} of the ${m.wanted} images. ${DAILY_DRIP} free Meals arrive daily — or top up on the pricing page.`
-            : `You're out of Meals for today — ${DAILY_DRIP} free Meals arrive daily, or top up on the pricing page.`);
+            ? `You have ${m.balance} Meal${m.balance === 1 ? "" : "s"} left, so I'm shooting ${m.granted} of the ${m.wanted} images. Top up on the pricing page to shoot the rest.`
+            : `You're out of Meals — top up on the pricing page to keep creating.`);
           refreshMeals();
         }
       }

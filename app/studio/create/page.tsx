@@ -7,7 +7,7 @@ import { Upload, X, ImageIcon, Loader2, RefreshCw, ArrowUp, SlidersHorizontal, I
 import { WorkBar } from "@/components/tastebud/WorkBar";
 import { MealsPill, refreshMeals } from "@/components/tastebud/MealsPill";
 import { SignUpRequired } from "@/components/tastebud/StudioAuthGate";
-import { DAILY_DRIP, mealsForImages, FREE_REDOS_PER_SHOT } from "@/lib/meals";
+import { mealsForImages, FREE_REDOS_PER_SHOT } from "@/lib/meals";
 import { BrandSwitcher } from "@/components/tastebud/BrandSwitcher";
 import { BrandBrainPanel } from "@/components/tastebud/BrandBrainPanel";
 import { BrandKitCard } from "@/components/tastebud/BrandKitCard";
@@ -645,7 +645,7 @@ export default function CreateWorkspace() {
     const m = mealsRef.current;
     if (!m) return "ok"; // balance not loaded yet — let the server be the authority
     if (m.enforced && m.balance <= 0) {
-      say("assistant", `You're out of Meals, so I can't start a new shoot. ${DAILY_DRIP} free Meals arrive daily — or tap Buy Meals to keep creating now.`);
+      say("assistant", `You're out of Meals, so I can't start a new shoot. Tap Buy Meals to keep creating now.`);
       return "blocked";
     }
     return "ok";
@@ -692,8 +692,8 @@ export default function CreateWorkspace() {
         else if (m.type === "shotError") h.onError(m.id, m.error);
         else if (m.type === "meals") {
           if (m.event === "clamped") say("assistant", m.granted > 0
-            ? `You have ${m.balance} Meal${m.balance === 1 ? "" : "s"} left, so I'm making ${m.granted} of the ${m.wanted} images. ${DAILY_DRIP} free Meals arrive daily — or top up on the pricing page.`
-            : `You're out of Meals for today — ${DAILY_DRIP} free Meals arrive daily, or top up on the pricing page.`);
+            ? `You have ${m.balance} Meal${m.balance === 1 ? "" : "s"} left, so I'm making ${m.granted} of the ${m.wanted} images. Top up on the pricing page to make the rest.`
+            : `You're out of Meals — top up on the pricing page to keep creating.`);
           refreshMeals();
         }
         else if (m.type === "error") say("assistant", `Generation error: ${m.error}`);
@@ -734,7 +734,7 @@ export default function CreateWorkspace() {
     const surfaceGenError = (error?: string) => {
       if (errSurfaced || !error) return;
       errSurfaced = true;
-      if (/\bmeals?\b/i.test(error)) say("assistant", `You're out of Meals — ${DAILY_DRIP} free Meals arrive daily, or top up on the pricing page.`);
+      if (/\bmeals?\b/i.test(error)) say("assistant", `You're out of Meals — top up on the pricing page to keep creating.`);
       else if (/credit|billing|prepay|deplet|exhaust|quota|hard limit|spend/i.test(error)) say("assistant", "This isn’t your brief — the connected image-generation account has hit its billing / spend limit, so new renders are being refused. Raise the spend limit (or top up billing) on the image provider, then hit retry.");
       else say("assistant", `The shoot hit an error: ${error}`);
     };
@@ -1504,7 +1504,7 @@ export default function CreateWorkspace() {
             <div className={`mx-5 mb-2 flex items-center gap-3 rounded-card border px-3.5 py-2.5 text-[12px] ${outOfMeals ? "border-ink/25 bg-surface" : "border-hairline bg-canvas"}`}>
               <span className="flex-1 leading-relaxed text-ink">
                 {outOfMeals
-                  ? <>You&rsquo;re out of Meals. {DAILY_DRIP} free arrive daily — or buy more to keep creating now.</>
+                  ? <>You&rsquo;re out of Meals. Buy more to keep creating now.</>
                   : <>{meals!.balance} Meal{meals!.balance === 1 ? "" : "s"} left. Each image is 1 Meal — top up so a shoot doesn&rsquo;t run out.</>}
               </span>
               <a
