@@ -1,25 +1,22 @@
 import type { Metadata } from "next";
-import { Inter, Fraunces, Bricolage_Grotesque, Instrument_Serif, JetBrains_Mono, Bodoni_Moda, Cormorant, Syne } from "next/font/google";
+import { Inter, Fraunces, Bricolage_Grotesque, JetBrains_Mono } from "next/font/google";
+import localFont from "next/font/local";
 import "./globals.css";
 import { AuthSync } from "@/components/tastebud/AuthSync";
 
-// Studio tool type — quiet, neutral.
+// Studio tool + legacy tokens (unchanged).
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
 const fraunces = Fraunces({ subsets: ["latin"], variable: "--font-fraunces", display: "swap" });
-
-// Marketing revamp type system:
-//  • display — Bricolage Grotesque: architectural, characterful, variable weight.
-//  • edito   — Instrument Serif: high-contrast editorial serif for italic flourishes.
-//  • mono    — JetBrains Mono: technical labels, eyebrows, numbers, nav.
 const display = Bricolage_Grotesque({ subsets: ["latin"], variable: "--font-display", display: "swap" });
-// —— FONT SPECIMEN: swap the `edito` assignment below to try a display face ——
-const _instrument = Instrument_Serif({ subsets: ["latin"], weight: "400", style: ["normal", "italic"], variable: "--font-edito", display: "swap" });
-const _bodoni = Bodoni_Moda({ subsets: ["latin"], style: ["normal", "italic"], variable: "--font-edito", display: "swap" });
-const _cormorant = Cormorant({ subsets: ["latin"], weight: ["400", "500", "600", "700"], style: ["normal", "italic"], variable: "--font-edito", display: "swap" });
-const _bricolage = Bricolage_Grotesque({ subsets: ["latin"], variable: "--font-edito", display: "swap" });
-const _syne = Syne({ subsets: ["latin"], variable: "--font-edito", display: "swap" });
-const edito = _bricolage;
 const mono = JetBrains_Mono({ subsets: ["latin"], variable: "--font-mono", display: "swap" });
+
+// Marketing display face (`--font-edito`) — self-hosted Bricolage Grotesque (variable), so it
+// always loads regardless of Google Fonts. Drives every headline + the tastebud wordmark.
+const edito = localFont({
+  src: [{ path: "./fonts/Bricolage.woff2", weight: "200 800", style: "normal" }],
+  variable: "--font-edito",
+  display: "swap",
+});
 
 export const metadata: Metadata = {
   title: "tastebud — the studio that already knows your brand",
