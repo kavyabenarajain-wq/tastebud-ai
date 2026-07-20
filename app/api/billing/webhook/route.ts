@@ -1,7 +1,7 @@
 import type { NextRequest } from "next/server";
 import { buyableForProduct, BUYABLES, verifyWebhookSignature } from "@/lib/dodo";
-import { applyPlanPurchase, ensureAccount, normalizeAccount, setPlan, topUp } from "@/lib/store";
-import { PLANS, type PlanId } from "@/lib/meals";
+import { applyPlanPurchase, ensureAccount, normalizeAccount, recordPayment, setPlan, topUp } from "@/lib/store";
+import { PLANS, TOPUP_PACKS, type PlanId } from "@/lib/meals";
 
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
@@ -90,12 +90,27 @@ export async function POST(req: NextRequest) {
       if (data.subscription_id) {
         // A subscription cycle charge (first or renewal): make this month whole for the plan.
         const plan = planFrom(data);
-        if (plan) await applyPlanPurchase(account, plan);
+        if (plan) {
+          await applyPlanPurchase(account, plan);
+          // Record the actual charge (idempotent by payment_id). Only recorded here, on the real
+          // money event — the subscription.* status events below are state syncs, not charges.
+          if (data.payment_id) {
+            await recordPayment({
+              id: data.payment_id, account, kind: "plan", plan, buyable: data.metadata?.buyable ?? plan,
+              meals: PLANS[plan].monthlyMeals, amountUsd: PLANS[plan].priceUSD ?? null, status: type, eventType: type,
+            });
+          }
+        }
       } else {
         const meals = packMealsFrom(data);
         if (meals > 0 && data.payment_id) {
           await ensureAccount(account, data.customer?.email ?? undefined, data.customer?.name ?? undefined);
           await topUp(account, meals, `dodo:${data.payment_id}`, `led_dodo_${data.payment_id}`);
+          const pack = TOPUP_PACKS.find((p) => p.meals === meals);
+          await recordPayment({
+            id: data.payment_id, account, kind: "topup", buyable: data.metadata?.buyable ?? null,
+            meals, amountUsd: pack?.priceUSD ?? null, status: type, eventType: type,
+          });
           console.log(`[billing] +${meals} Meals → ${account} (${data.payment_id})`);
         }
       }

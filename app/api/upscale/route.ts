@@ -4,6 +4,7 @@ import { numberToAspect } from "@/lib/brief";
 import { enhanceEnabled, upscale } from "@/lib/enhance";
 import { enlargeInPlace } from "@/lib/finish";
 import { ensureGrants, charge, refund, normalizeAccount, DEFAULT_ACCOUNT } from "@/lib/store";
+import { sessionEmail } from "@/lib/supabase/account";
 import { MEAL_COSTS } from "@/lib/meals";
 
 export const runtime = "nodejs";
@@ -17,10 +18,10 @@ export async function POST(req: NextRequest) {
   const { url, aspect, face, account: rawAccount } = (await req.json()) as { url: string; aspect?: number; face?: boolean; account?: string };
   if (!url) return Response.json({ error: "no url" }, { status: 400 });
   // MEALS — a keeper upscale costs 1. Observe mode records it; enforced mode refuses at zero.
-  const account = normalizeAccount(rawAccount) ?? DEFAULT_ACCOUNT;
+  const account = (await sessionEmail()) ?? normalizeAccount(rawAccount) ?? DEFAULT_ACCOUNT;
   await ensureGrants(account).catch(() => {});
   const meal = await charge(account, MEAL_COSTS.upscale, "upscale").catch(() => ({ ok: true, balance: 0 }));
-  if (!meal.ok) return Response.json({ error: "Out of Meals — 3 free Meals arrive daily, or top up on the pricing page." }, { status: 402 });
+  if (!meal.ok) return Response.json({ error: "Out of Meals — top up on the pricing page to keep creating." }, { status: 402 });
   try {
     if (enhanceEnabled()) {
       const out = await upscale({ src: url, scale: 4, faceEnhance: !!face });

@@ -3,7 +3,7 @@
  *
  * The whole pricing model lives in this one const table so it is reviewable, versioned, and
  * renders on /pricing without NEXT_PUBLIC_ plumbing. CLIENT-SAFE by design: no imports from
- * lib/store (which pulls in @libsql/client) — workspace pages import this for cost previews.
+ * lib/store (which pulls in the pg driver) — workspace pages import this for cost previews.
  *
  * Unit economics (verified call-trace, July 2026): one delivered image costs ≈ $0.40 all-in —
  * gpt-image-1.5 render (high quality, high input-fidelity) ≈ $0.25, QC vision ≈ $0.02,
@@ -44,11 +44,18 @@ export const FREE_REDOS_PER_SHOT = 3;
  *  the 1st redo is index 0, so indices 0..FREE_REDOS_PER_SHOT-1 are free. */
 export const isRedoFree = (redoIndex: number): boolean => redoIndex < FREE_REDOS_PER_SHOT;
 
-/** Free Meals granted every day (UTC), use-or-lose. Env-overridable server-side (MEALS_DAILY_DRIP). */
-export const DAILY_DRIP = 3;
+/**
+ * Free trial — a one-time taste of the studio for a NEW free account: FREE_TRIAL_IMAGES delivered
+ * images, usable only within the first FREE_TRIAL_DAYS days of signup. This is NOT a daily drip and
+ * is NOT granted to paid plans — Starter / Chef's Table / Banquet get their monthly Meals only.
+ * Unused trial Meals expire the moment the window closes (use-it-in-3-days-or-lose-it). Env-
+ * overridable server-side (MEALS_FREE_TRIAL_IMAGES / MEALS_FREE_TRIAL_DAYS).
+ */
+export const FREE_TRIAL_IMAGES = 2;
+export const FREE_TRIAL_DAYS = 3;
 
 export const PLANS: Record<PlanId, { label: string; monthlyMeals: number; priceUSD: number | null; blurb: string; recommended?: boolean }> = {
-  free:    { label: "Tasting",      monthlyMeals: 0,   priceUSD: null, blurb: `${DAILY_DRIP} free Meals every day. Taste everything.` },
+  free:    { label: "Tasting",      monthlyMeals: 0,   priceUSD: null, blurb: `${FREE_TRIAL_IMAGES} free images to try the studio — your first ${FREE_TRIAL_DAYS} days.` },
   starter: { label: "Starter",      monthlyMeals: 20,  priceUSD: 29,   blurb: "For a founder shooting a campaign a week." },
   pro:     { label: "Chef's Table", monthlyMeals: 60,  priceUSD: 79,   blurb: "For brands shipping content every day.", recommended: true },
   studio:  { label: "Banquet",      monthlyMeals: 170, priceUSD: 199,  blurb: "For teams and agencies running many brands." },

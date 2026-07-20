@@ -4,6 +4,7 @@ import { complianceTail } from "@/lib/compliance";
 import { qcImage } from "@/lib/image";
 import type { ShotCompliance } from "@/lib/types";
 import { ensureGrants, charge, refund, normalizeAccount, DEFAULT_ACCOUNT } from "@/lib/store";
+import { sessionEmail } from "@/lib/supabase/account";
 import { MEAL_COSTS } from "@/lib/meals";
 
 export const runtime = "nodejs";
@@ -34,13 +35,13 @@ export async function POST(req: NextRequest) {
   // MEALS — an enhancer pass costs 1. Observe mode records it; enforced mode refuses at zero.
   // A directed satisfaction refine (`redo:true`, an "edit" from the chat refine after a shot's
   // free redos) is FREE — fixing a dish you already bought never costs another Meal.
-  const account = normalizeAccount(rawAccount) ?? DEFAULT_ACCOUNT;
+  const account = (await sessionEmail()) ?? normalizeAccount(rawAccount) ?? DEFAULT_ACCOUNT;
   await ensureGrants(account).catch(() => {});
   const freeRefine = redo === true && action === "edit";
   const meal = freeRefine
     ? { ok: true as const, balance: 0 }
     : await charge(account, MEAL_COSTS.enhance, `enhance:${action}`).catch(() => ({ ok: true, balance: 0 }));
-  if (!meal.ok) return Response.json({ error: "Out of Meals — 3 free Meals arrive daily, or top up on the pricing page." }, { status: 402 });
+  if (!meal.ok) return Response.json({ error: "Out of Meals — top up on the pricing page to keep creating." }, { status: 402 });
   const tail = complianceTail(compliance);
   try {
     let url: string;
