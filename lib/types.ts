@@ -280,6 +280,8 @@ export interface ShotMemory {
   panel?: Partial<PanelParams>;
   mode: ShootMode;
   decision: "keep" | "reject" | "hero";
+  reason?: string; // free-text "why" for a reject (UI-captured; feeds the kill-log)
+  failedBar?: string; // which bar it failed: product | model | feed | ad | taste
   at: string; // ISO
 }
 

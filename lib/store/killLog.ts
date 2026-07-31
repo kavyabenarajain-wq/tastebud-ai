@@ -19,8 +19,9 @@ export type KillLogInput = {
   slug?: string | null;
   shot: ShotMemory;
   imageId?: string | null; // durable images.id, when known
-  reason?: string | null; // free-text "why" (UI-captured; null until that path is wired)
+  reason?: string | null; // free-text "why" (human-captured, or the QC judge's reasons for a machine kill)
   failedBar?: string | null; // which bar it failed: product | model | feed | ad | taste
+  decision?: string | null; // overrides shot.decision — e.g. "qc-reject" for an automated rejection
 };
 
 /** Append one decision. Never throws. */
@@ -43,7 +44,7 @@ export async function recordKill(input: KillLogInput): Promise<void> {
         s.mode ?? null,
         s.angle ?? null,
         s.panel ? JSON.stringify(s.panel) : null,
-        s.decision,
+        input.decision ?? s.decision,
         input.reason ?? null,
         input.failedBar ?? null,
         s.prompt ?? null,

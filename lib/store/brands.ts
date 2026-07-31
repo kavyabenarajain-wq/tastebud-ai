@@ -156,7 +156,7 @@ export async function recordShotDecision(slug: string, entry: ShotMemory, accoun
   await snapshotBrain(row.id, row.brain_json, "recordShotDecision", slug);
   await run("UPDATE brands SET brain_json = ?, updated_at = ? WHERE id = ?", [JSON.stringify(brain), mem.updatedAt, row.id]);
   // Permanent, append-only taste signal — joinable to images, never capped (unlike the mem lists above).
-  await recordKill({ account, brandId: row.id, slug, shot: entry });
+  await recordKill({ account, brandId: row.id, slug, shot: entry, reason: entry.reason, failedBar: entry.failedBar });
   return mem;
 }
 

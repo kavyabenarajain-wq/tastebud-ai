@@ -15,7 +15,7 @@ import { brainToProfile } from "@/lib/onboard";
 import { buildCompliance, complianceToNegatives } from "@/lib/compliance";
 import { CREATIVE_TYPES, FORMATS, carouselDirective, isV2Type, type FormatId } from "@/lib/creativeTypes";
 import { saveCampaign, slugify } from "@/lib/brainStore";
-import { ensureGrants, chargeUpTo, refund, getBalance } from "@/lib/store";
+import { ensureGrants, chargeUpTo, refund, getBalance, recordKill } from "@/lib/store";
 import { currentAccount } from "@/lib/supabase/account";
 import { retrievePreferences } from "@/lib/memory";
 import { recordImage } from "@/lib/store/images"; // per-user gallery record for every delivered shot
@@ -409,6 +409,18 @@ export async function POST(req: NextRequest) {
             }
             const drift = !url && !!fallback; // rendered, but failed QC on every attempt
             if (drift && !qcGate) { url = fallback; } // legacy: ship the near-miss flagged; gate ON drops it
+            if (drift) {
+              // The machine's rejection is training data too — log WHY the QC judge killed it, whether
+              // the gate dropped the shot or shipped it flagged. Best-effort; never blocks the shoot.
+              void recordKill({
+                account,
+                slug: body.brand?.name ? slugify(body.brand.name) : null,
+                decision: "qc-reject",
+                reason: lastReasons.join("; ") || undefined,
+                failedBar: isModel ? "model" : "product",
+                shot: { id: stub.id, url: fallback ?? "", angle: shot.angle, prompt: shot.prompt, negatives: shot.negatives, mode: isModel ? "model-photoshoot" : "product-photoshoot", decision: "reject", at: new Date().toISOString() },
+              }).catch(() => {});
+            }
             if (url && spec && stub.aspect) {
               try { url = (await reformatImage({ src: url, targetAspect: stub.aspect })).url; }
               catch { /* keep the uncorrected plate rather than losing the shot */ }
