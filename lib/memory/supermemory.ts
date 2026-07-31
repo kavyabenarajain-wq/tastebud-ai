@@ -84,7 +84,11 @@ export async function smSearchMemories(p: {
         containerTag: p.containerTag,
         limit: p.limit ?? 6,
         rerank: p.rerank ?? false,
-        searchMode: p.searchMode ?? "memories",
+        // "hybrid", NOT "memories": we store distilled PROSE as documents, and verified against the
+        // live API that searchMode:"memories" returns nothing until the (much slower) graph-extraction
+        // phase runs — whereas "hybrid" surfaces the document chunk the moment it's indexed AND any
+        // extracted memory facts later. Our result mapping reads .memory ?? .chunk, so both land.
+        searchMode: p.searchMode ?? "hybrid",
       }),
       p.timeoutMs ?? 700,
     );

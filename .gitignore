@@ -15,3 +15,7 @@ data/tastebud.db-wal
 data/tastebud.db-shm
 .vercel
 .env*
+
+# Throwaway scratch/verification scripts — never commit
+_tmp_*
+*.tmp
