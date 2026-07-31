@@ -24,11 +24,12 @@ export { memoryEnabled };
 // ── Scoping ──────────────────────────────────────────────────────────────────
 // Two container tags per founder. Founder-level spans all their brands (cross-brand taste, profile);
 // brand-level is one brand. Container tags are supermemory's HARD namespace boundary, so founder-vs-
-// brand belongs in the tag, not in soft metadata. supermemory tags allow only alphanumerics, hyphens,
-// underscores and DOTS (no colons) — so we separate with dots; the email is SHA1'd (it's PII).
+// brand belongs in the tag, not in soft metadata. The LIVE API allows only [A-Za-z0-9_:-] (alphanumerics,
+// hyphens, underscores, COLONS — NO dots; verified against the 400 response, which contradicts the SDK's
+// .d.ts comment). We separate with colons; the email is SHA1'd (it's PII, and '@'/'.' are invalid anyway).
 const acctHash = (account: string) => createHash("sha1").update((account || "default").toLowerCase()).digest("hex").slice(0, 16);
-export const founderTag = (account: string) => `founder.${acctHash(account)}`;
-export const brandTag = (account: string, slug: string) => `brand.${acctHash(account)}.${slug}`;
+export const founderTag = (account: string) => `founder:${acctHash(account)}`;
+export const brandTag = (account: string, slug: string) => `brand:${acctHash(account)}:${slug}`;
 
 export type MemoryKind =
   | "research" | "founder_profile" | "founder_uses"
@@ -51,7 +52,7 @@ const baseMeta = (account: string, kind: MemoryKind, extra: SmMeta): SmMeta => (
  *  supermemory's project-wide customId space. */
 export async function rememberBrand(account: string, slug: string, kind: MemoryKind, content: string, meta: SmMeta = {}, docKey?: string): Promise<void> {
   if (!memoryEnabled() || !content?.trim() || !slug) return;
-  const customId = docKey ? `${docKey}.${acctHash(account)}.${slug}` : undefined;
+  const customId = docKey ? `${docKey}:${acctHash(account)}:${slug}` : undefined;
   await smAdd({ content, containerTag: brandTag(account, slug), customId, metadata: baseMeta(account, kind, { brandSlug: slug, ...meta }) });
 }
 
@@ -72,8 +73,8 @@ export async function captureFounderProfile(account: string, brain: Pick<BrandBr
   if (brain.brandType) bits.push(`company type: ${brain.brandType}`);
   if (brain.teamSize) bits.push(`team size: ${brain.teamSize}`);
   await Promise.all([
-    bits.length ? rememberFounder(account, "founder_profile", `Founder profile — ${bits.join(", ")}.`, {}, `founder-profile.${acctHash(account)}`) : Promise.resolve(),
-    brain.uses?.length ? rememberFounder(account, "founder_uses", `Founder uses tastebud for: ${brain.uses.join(", ")}.`, {}, `founder-uses.${acctHash(account)}`) : Promise.resolve(),
+    bits.length ? rememberFounder(account, "founder_profile", `Founder profile — ${bits.join(", ")}.`, {}, `founder-profile:${acctHash(account)}`) : Promise.resolve(),
+    brain.uses?.length ? rememberFounder(account, "founder_uses", `Founder uses tastebud for: ${brain.uses.join(", ")}.`, {}, `founder-uses:${acctHash(account)}`) : Promise.resolve(),
   ]);
 }
 

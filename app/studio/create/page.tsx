@@ -7,6 +7,7 @@ import { Upload, X, ImageIcon, Loader2, RefreshCw, ArrowUp, SlidersHorizontal, I
 import { WorkBar } from "@/components/tastebud/WorkBar";
 import { MealsPill, refreshMeals } from "@/components/tastebud/MealsPill";
 import { AccountMenu } from "@/components/tastebud/AccountMenu";
+import { MealsStatus } from "@/components/tastebud/MealsStatus";
 import { SignUpRequired } from "@/components/tastebud/StudioAuthGate";
 import { mealsForImages, FREE_REDOS_PER_SHOT } from "@/lib/meals";
 import { BrandSwitcher } from "@/components/tastebud/BrandSwitcher";
@@ -1177,12 +1178,6 @@ export default function CreateWorkspace() {
   // link across the sign-in round-trip so the creative type isn't silently lost.
   if (authed === false) return <SignUpRequired next={`/studio/create${typeof window !== "undefined" ? window.location.search : ""}`} />;
 
-  // Balance is out or low → a persistent banner above the composer so no one shoots into an empty
-  // wallet without a heads-up and a one-tap way to buy more. Both are gated on `enforced`: in
-  // observe mode nothing ever clamps, so "you'll run out" would be a false alarm.
-  const outOfMeals = !!meals && meals.enforced && meals.balance <= 0;
-  const lowOnMeals = !!meals && meals.enforced && meals.balance > 0 && meals.balance <= 2;
-
   return (
     <div className="flex h-screen flex-col bg-canvas text-ink">
       <WorkBar
@@ -1592,26 +1587,10 @@ export default function CreateWorkspace() {
             </div>
           )}
 
-          {/* Meals banner — out (enforced) or running low. Buy Meals opens /pricing in a NEW tab
-              (not a same-tab nav) so the live canvas, chat thread and uploads aren't torn down
-              mid-work; the balance re-fetches on tab focus when they return from checkout. */}
-          {(outOfMeals || lowOnMeals) && (
-            <div className={`mx-5 mb-2 flex items-center gap-3 rounded-card border px-3.5 py-2.5 text-[12px] ${outOfMeals ? "border-ink/25 bg-surface" : "border-hairline bg-canvas"}`}>
-              <span className="flex-1 leading-relaxed text-ink">
-                {outOfMeals
-                  ? <>You&rsquo;re out of Meals. Buy more to keep creating now.</>
-                  : <>{meals!.balance} Meal{meals!.balance === 1 ? "" : "s"} left. Each image is 1 Meal — top up so a shoot doesn&rsquo;t run out.</>}
-              </span>
-              <a
-                href="/pricing"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="shrink-0 rounded-full bg-ink px-3 py-1 font-medium text-canvas transition-opacity hover:opacity-90"
-              >
-                Buy Meals
-              </a>
-            </div>
-          )}
+          {/* Meals status — always-on "N left" + the motivational zero-state upsell, on the canvas.
+              Self-contained (own fetch, trial-aware); Buy links open /pricing in a NEW tab so the
+              live canvas, chat thread and uploads aren't torn down mid-work. */}
+          <MealsStatus />
 
           <div className="border-t border-hairline px-5 py-4">
             {/* What to make — one selector, always the same spot; the director can switch it too */}
