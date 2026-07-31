@@ -77,10 +77,23 @@ const DEFAULT_BOOK: Book = {
   neverDo: ["a floating product on a gradient void", "flat, even, sourceless light", "a plastic CGI-render look", "random scattered geometric props", "a concentric spotlight halo behind the subject"],
 };
 
+// The founder's hard-banned AI clichés — a universal floor merged into EVERY category book so a
+// Food or Jewellery render carries the same guard against a spotlight halo or confetti bokeh that
+// only the Home/Default books used to have. Rides downstream via extractPhotoRules → compliance.
+const UNIVERSAL_NEVER = [
+  "a floating or levitating product on a pedestal, podium, plinth or invisible stand",
+  "a seamless gradient void or infinite sourceless background",
+  "a concentric spotlight halo or vignette ring behind the subject",
+  "scattered geometric cubes, pebbles, rocks or crystals as filler props",
+  "fake confetti / bokeh light-dots floating in the air",
+  "a plastic, waxy, over-rendered CGI look",
+];
+
 /** The photography book for a brand's category (falls back to a sensible general book). */
 export function categoryBook(category?: string, productType?: string): Book {
   const t = `${category ?? ""} ${productType ?? ""}`.toLowerCase();
-  return BOOKS.find((b) => b.test.test(t)) ?? DEFAULT_BOOK;
+  const b = BOOKS.find((x) => x.test.test(t)) ?? DEFAULT_BOOK;
+  return { ...b, neverDo: Array.from(new Set([...b.neverDo, ...UNIVERSAL_NEVER])) };
 }
 
 const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
@@ -128,8 +141,11 @@ export async function extractPhotoRules(args: {
   const fallback = (): PhotoRules => ({
     category: book.label,
     grade: (args.aesthetic ?? "").trim() || undefined,
-    signatures: (args.aesthetic ?? "").trim() ? [args.aesthetic!.trim()] : undefined,
-    neverDo: book.neverDo,
+    // Carry the category book's REAL photographer craft (light/lens/surface/composition), not just
+    // the aesthetic blurb — the no-vision / no-photo path is the COMMON first-generation case, and
+    // this is the best category knowledge in the file. Camera-first direction should be default-on.
+    signatures: [book.rules, ...((args.aesthetic ?? "").trim() ? [args.aesthetic!.trim()] : [])],
+    neverDo: book.neverDo, // already merged with UNIVERSAL_NEVER via categoryBook
     colorGrade,
   });
 

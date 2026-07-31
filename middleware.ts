@@ -2,19 +2,40 @@ import { createServerClient } from "@supabase/ssr";
 import { NextResponse, type NextRequest } from "next/server";
 
 /**
- * Refreshes the Supabase auth token on every request and writes the rotated cookies onto the
- * response. Without this a session silently dies when its access token expires, because Server
- * Components can't set cookies themselves.
+ * Two jobs, in order:
+ *  1. AUTHENTICATE — refresh the Supabase token on every request and write the rotated cookies onto
+ *     the response (Server Components can't set cookies themselves, so without this a session
+ *     silently dies when its access token expires).
+ *  2. AUTHORIZE — sign-in is REQUIRED to use the studio and the data/metered APIs. The durable
+ *     COOKIE SESSION is the authority here (not the localStorage mirror the client keeps), so a
+ *     valid session survives refresh/tab-close and a missing one is bounced consistently.
  *
- * This middleware AUTHENTICATES but deliberately does not AUTHORIZE — it never redirects. Route
- * gating stays where it already lives (StudioAuthGate + the per-route Meals checks), so a misfire
- * here can't lock anyone out of the app.
+ * Fail-OPEN on a getUser() exception (network/Supabase blip): we only redirect/401 on a DEFINITIVE
+ * "no session" (getUser returned user:null with no throw), never on an inability to check — a
+ * provider hiccup must not lock everyone out.
  */
 
 const URL_ = process.env.NEXT_PUBLIC_SUPABASE_URL ?? "";
 const KEY_ = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? "";
 
+/** Pages that require a signed-in user. Everything else (marketing, /signin, /auth/callback) is open. */
+function isProtectedPage(pathname: string): boolean {
+  return pathname === "/studio" || pathname.startsWith("/studio/") || pathname === "/choose" || pathname.startsWith("/choose/");
+}
+
+/** API routes that MUST stay reachable without a session (payment webhook, public image serving,
+ *  and the profile-sync/self-checking endpoints that answer 401 on their own). */
+function isPublicApi(pathname: string): boolean {
+  return (
+    pathname.startsWith("/api/billing/") || // Dodo webhook has no user session (verified by signature)
+    pathname.startsWith("/api/img/") ||     // serves stored images
+    pathname === "/api/account/sync"        // reads the session itself, answers 401 when absent
+  );
+}
+
 export async function middleware(request: NextRequest) {
+  const { pathname } = request.nextUrl;
+
   // Not configured yet → pass straight through, so a missing env var can never 500 the whole site.
   if (!URL_ || !KEY_) return NextResponse.next({ request });
 
@@ -31,12 +52,35 @@ export async function middleware(request: NextRequest) {
     },
   });
 
-  // Touching getUser() is what triggers the refresh-and-set-cookie path. Failures are non-fatal:
-  // a request with no (or a bad) session simply continues as anonymous.
+  // Touching getUser() triggers the refresh-and-set-cookie path AND tells us who (if anyone) this is.
+  // `false` = definitively signed out; `undefined` = we couldn't check (blip) → fail open.
+  //
+  // CRITICAL: @supabase/auth-js does NOT throw on a network/5xx blip — it collapses BOTH "no session"
+  // (AuthSessionMissingError) and "couldn't reach Supabase" (AuthRetryableFetchError / AuthUnknownError)
+  // into the same `{ data: { user: null }, error }` shape. So we must read the ERROR, not just catch:
+  // enforce ONLY on a definitive no-session, and treat any transport/unknown error as "couldn't check"
+  // and FAIL OPEN — otherwise a transient Supabase outage would mass-log-out every signed-in user.
+  let signedIn: boolean | undefined;
   try {
-    await supabase.auth.getUser();
+    const { data, error } = await supabase.auth.getUser();
+    if (!error) signedIn = !!data.user;
+    else if (error.name === "AuthSessionMissingError") signedIn = false; // genuinely signed out
+    else signedIn = undefined; // AuthRetryableFetchError / AuthUnknownError / other → blip, fail open
   } catch {
-    /* offline / auth blip — continue unauthenticated */
+    signedIn = undefined; // lock timeout / unexpected throw — fail open
+  }
+
+  if (signedIn === false) {
+    const isApi = pathname.startsWith("/api/");
+    if (isApi && !isPublicApi(pathname)) {
+      return NextResponse.json({ error: "Sign in required." }, { status: 401 });
+    }
+    if (isProtectedPage(pathname)) {
+      const url = request.nextUrl.clone();
+      url.pathname = "/signin";
+      url.search = `?next=${encodeURIComponent(pathname + request.nextUrl.search)}`;
+      return NextResponse.redirect(url);
+    }
   }
 
   return response;

@@ -18,6 +18,7 @@ export type ProductCategory =
   | "apparel"
   | "jewellery"
   | "beauty"
+  | "wellness"
   | "furniture"
   | "tech"
   | "home"
@@ -31,6 +32,7 @@ export type InteractionMode =
   | "Poured"
   | "Worn"
   | "Applied"
+  | "Taken"
   | "SatOn"
   | "LoungedOn"
   | "SleptOn"
@@ -42,12 +44,13 @@ export type InteractionMode =
 
 /** Human-facing label + the sentence fragment the renderer gets, per mode. */
 const MODE: Record<InteractionMode, { label: string; action: string }> = {
-  Eaten: { label: "Eating it", action: "eating and biting into the product, mid-bite, enjoying it" },
-  Licked: { label: "Licking / tasting it", action: "licking or tasting the product" },
-  Sipped: { label: "Sipping it", action: "sipping the drink, the vessel raised toward the lips" },
-  Poured: { label: "Pouring it", action: "pouring the drink into a glass or to the lips" },
+  Eaten: { label: "Eating it", action: "caught mid-bite into the real product — a genuine bite mark, with crumb, melt, cheese-pull or filling showing where the food warrants it; shot close on the person's mouth and hands at the peak-appetite moment, the food fresh, glossy and just-made, never plastic or styled-stiff" },
+  Licked: { label: "Licking / tasting it", action: "tasting the product — tongue or lips just making contact, a bead, drip or gloss of it on the surface or the lip; close, warm and appetising, the food looking freshly made not set" },
+  Sipped: { label: "Sipping it", action: "sipping the drink — the vessel raised to the lips with real contact and a slight tilt that shows the liquid; condensation and cold beads on a chilled glass or a faint curl of steam on a hot one, caught mid-sip" },
+  Poured: { label: "Pouring it", action: "pouring the drink into a glass held in hand — a real falling stream with a small crown and live bubbles where it lands, the liquid in its true colour and viscosity, caught mid-pour" },
   Worn: { label: "Wearing it", action: "wearing the product on the body in its correct anatomical position" },
   Applied: { label: "Applying it", action: "applying the product to the skin, face, lips or hair" },
+  Taken: { label: "Taking it", action: "taking the supplement — a capsule, tablet, gummy or measured scoop at the open lips or resting in an open palm, or a scoop of powder stirred into a glass; calm daily-routine energy, natural and unforced" },
   SatOn: { label: "Sitting on it", action: "sitting on the product naturally, relaxed" },
   LoungedOn: { label: "Lounging on it", action: "lounging, reclining or leaning back on the product" },
   SleptOn: { label: "Resting / sleeping on it", action: "resting or lying asleep on the product" },
@@ -71,6 +74,7 @@ const CATEGORY: Record<ProductCategory, CategorySpec> = {
   apparel: { options: ["Worn", "InContext"], canWear: true },
   jewellery: { options: ["Worn", "Shown", "InContext"], canWear: true },
   beauty: { options: ["Applied", "Held", "Shown", "InContext"], canWear: false },
+  wellness: { options: ["Taken", "Held", "Shown", "InContext"], canWear: false },
   furniture: { options: ["SatOn", "LoungedOn", "SleptOn", "InContext"], canWear: false },
   tech: { options: ["Used", "Held", "Worn", "Shown", "InContext"], canWear: true },
   home: { options: ["Used", "Held", "InContext"], canWear: false },
@@ -84,8 +88,12 @@ const DETECT: { category: ProductCategory; test: RegExp }[] = [
   { category: "apparel", test: /\b(fashion|apparel|clothing|clothes|footwear|shoe|sneaker|boot|denim|jeans|streetwear|coat|dress|jacket|hoodie|knit|garment|shirt|tee|t-?shirt|blouse|pants|trouser|skirt|sock|lingerie|swimwear|bikini|activewear|legging|scarf|glove|hat|cap)\b/i },
   { category: "jewellery", test: /\b(jewel\w*|ring|rings|necklace|earring|bracelet|pendant|anklet|brooch|bangle|charm)\b/i },
   { category: "furniture", test: /\b(furniture|sofa|couch|settee|armchair|chair|recliner|bed|beds|bedframe|headboard|mattress|table|desk|dresser|nightstand|wardrobe|shelf|shelving|bookcase|ottoman|stool|bench|cabinet|futon|daybed|bean.?bag|hammock)\b/i },
-  { category: "food", test: /\b(food|snack|chocolate|bakery|meal|sauce|spice|candy|dessert|cereal|cookie|biscuit|cheese|pasta|honey|jam|granola|ice.?cream|gelato|popsicle|lolly|chips|crisp|pizza|burger|fruit|protein.?bar|energy.?bar|bar)\b/i },
-  { category: "drink", test: /\b(drink|beverage|soda|juice|coffee|tea|water|kombucha|smoothie|cola|seltzer|energy.?drink|latte|cocktail|wine|beer|spirit|whisky|vodka|milk|shake|lemonade|can|bottle)\b/i },
+  // Wellness BEFORE food so "protein powder" routes to wellness while "protein bar" stays food.
+  { category: "wellness", test: /\b(supplement|vitamin|multivitamin|probiotic|prebiotic|collagen|protein.?powder|nootropic|electrolyte|creatine|adaptogen|greens|capsule|softgel|pill|wellness)\b/i },
+  // NOTE: bare `bar` dropped (matched "soap bar", "bar cart") — use compound snack/granola-bar tokens.
+  { category: "food", test: /\b(food|snack|chocolate|bakery|meal|sauce|spice|candy|dessert|cereal|cookie|biscuit|cheese|pasta|honey|jam|granola|ice.?cream|gelato|popsicle|lolly|chips|crisp|pizza|burger|fruit|protein.?bar|energy.?bar|snack.?bar|granola.?bar|gummy|gummies)\b/i },
+  // NOTE: bare `can` (the modal verb) and `bottle` (perfume/serum bottle) dropped to stop catastrophic mislabels.
+  { category: "drink", test: /\b(drink|beverage|soda|juice|coffee|tea|water|kombucha|smoothie|cola|seltzer|energy.?drink|latte|cocktail|wine|beer|spirit|whisky|vodka|milk|shake|lemonade|soft.?drink|iced.?tea|sparkling.?water)\b/i },
   { category: "beauty", test: /\b(beauty|skincare|cosmetic|makeup|serum|cream|moisturi\w*|fragrance|perfume|lotion|balm|lipstick|lip|mascara|foundation|soap|shampoo|conditioner|haircare|hair|nail|cleanser|sunscreen|toner|mask)\b/i },
   { category: "tech", test: /\b(tech|electronic\w*|gadget|device|audio|headphone|earbud|earphone|speaker|phone|smartphone|laptop|tablet|camera|watch|smartwatch|charger|wearable|console|keyboard|drone)\b/i },
   { category: "home", test: /\b(candle|home|decor|homeware|ceramic|vase|mug|cup|plate|bowl|cutlery|kitchenware|utensil|interior|diffuser|incense|blanket|throw|rug|cushion|pillow|towel|linen|bedding|sheet|duvet|tableware)\b/i },
@@ -128,6 +136,7 @@ const ALIAS: Record<string, InteractionMode> = {
   slepton: "SleptOn", sleep: "SleptOn", resting: "SleptOn", lying: "SleptOn",
   used: "Used", use: "Used", using: "Used",
   shown: "Shown", show: "Shown", showing: "Shown", presenting: "Shown",
+  taken: "Taken", take: "Taken", taking: "Taken", swallow: "Taken", scoop: "Taken",
 };
 
 function toMode(v?: string | null): InteractionMode | undefined {

@@ -6,6 +6,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Upload, X, ImageIcon, Loader2, RefreshCw, ArrowUp, SlidersHorizontal, Images, Sparkles, Brain, UserPlus, ScanFace, Package, UserRound, Plus, Minus, Instagram, GalleryHorizontalEnd, Megaphone, RectangleVertical, Layers, Download, Type, AlignLeft, AlignCenter, AlignRight, Shuffle, Square, ChevronDown, Maximize2, Palette } from "lucide-react";
 import { WorkBar } from "@/components/tastebud/WorkBar";
 import { MealsPill, refreshMeals } from "@/components/tastebud/MealsPill";
+import { AccountMenu } from "@/components/tastebud/AccountMenu";
 import { SignUpRequired } from "@/components/tastebud/StudioAuthGate";
 import { mealsForImages, FREE_REDOS_PER_SHOT } from "@/lib/meals";
 import { BrandSwitcher } from "@/components/tastebud/BrandSwitcher";
@@ -41,7 +42,7 @@ type Decision = "keep" | "reject" | "hero";
 type Shot = { id: string; angle: string; prompt: string; url: string; negatives?: string[]; compliance?: ShotCompliance; aspect?: number; format?: string; seq?: number; groupId?: string; placement?: ShotPlacement; pending?: boolean; failed?: boolean; hires?: boolean; decision?: Decision; drift?: boolean; driftReasons?: string[]; saving?: boolean; redos?: number };
 type Run = { id: string; kind: CreativeType; label: string; shots: Shot[]; copy?: CampaignCopy };
 type CanvasSnapshot = { runs: Run[]; annos: Anno[] }; // one undo/redo entry — the whole canvas at a point in time
-type Msg = { role: "user" | "assistant"; content: string };
+type Msg = { role: "user" | "assistant"; content: string; cta?: { label: string; href: string } };
 type Panel = { background: string; surface: string; vibe: string; composition: string; lighting: string; styling: string; format: string; numAngles: number; shotsPerAngle: number };
 type Scene = { background: string; vibe: string; lighting: string; composition: string; format: string; numAngles: number; shotsPerAngle: number };
 type Brief = Partial<Panel> & { express?: string };
@@ -292,35 +293,65 @@ export default function CreateWorkspace() {
   panRef.current = pan;
   contentHRef.current = contentH;
 
-  // Hydrate the brand + seed products/type once from the shared session key.
+  // Hydrate the brand + seed products/type once. Same device → the shared session key; a fresh
+  // device / cleared cache → the server, since the brand kit is saved and scoped to the signed-in
+  // account. Either way a returning user lands here with their brand loaded and never re-enters the
+  // link — only a genuinely brand-less account is sent to onboarding.
   useEffect(() => {
+    let cancelled = false;
+
+    const hydrateFrom = (b: BrandBrain) => {
+      setBrain(b);
+      const chosen = (b.catalog ?? [])
+        .filter((p) => (b.selectedProductIds ?? []).includes(p.id))
+        .map((p) => ({ name: p.name, url: p.images[0] }))
+        .filter((p) => p.url);
+      if (chosen.length) setProducts(chosen);
+      // ?type= deep link — /studio/create?type=carousel etc. are the creative-type "pages".
+      const qp = new URLSearchParams(window.location.search).get("type")?.toLowerCase();
+      const QP_MAP: Record<string, CreativeType> = { product: "product", model: "model", instagram: "instagram", ig: "instagram", story: "story", stories: "story", carousel: "carousel", carousels: "carousel", ad: "ad", ads: "ad", "ad-campaign": "ad", campaign: "ad" };
+      const fromQuery = qp ? QP_MAP[qp] : undefined;
+      const uses = b.uses ?? [];
+      const initial: CreativeType = fromQuery ?? (uses.includes("Model photoshoots") && !uses.includes("Product photoshoots") ? "model" : "product");
+      setType(initial);
+      typeRef.current = initial;
+      setMessages([{ role: "assistant", content: opener(initial, b.name!, chosen.length) }]);
+    };
+
+    // Same device: the brand the user last worked on is mirrored in localStorage.
     try {
       const raw = localStorage.getItem("cc.activeBrand");
       if (raw) {
         const b = JSON.parse(raw) as BrandBrain;
-        if (b?.name) {
-          setBrain(b);
-          const chosen = (b.catalog ?? [])
-            .filter((p) => (b.selectedProductIds ?? []).includes(p.id))
-            .map((p) => ({ name: p.name, url: p.images[0] }))
-            .filter((p) => p.url);
-          if (chosen.length) setProducts(chosen);
-          // ?type= deep link — /studio/create?type=carousel etc. are the creative-type "pages".
-          const qp = new URLSearchParams(window.location.search).get("type")?.toLowerCase();
-          const QP_MAP: Record<string, CreativeType> = { product: "product", model: "model", instagram: "instagram", ig: "instagram", story: "story", stories: "story", carousel: "carousel", carousels: "carousel", ad: "ad", ads: "ad", "ad-campaign": "ad", campaign: "ad" };
-          const fromQuery = qp ? QP_MAP[qp] : undefined;
-          const uses = b.uses ?? [];
-          const initial: CreativeType = fromQuery ?? (uses.includes("Model photoshoots") && !uses.includes("Product photoshoots") ? "model" : "product");
-          setType(initial);
-          typeRef.current = initial;
-          setMessages([{ role: "assistant", content: opener(initial, b.name, chosen.length) }]);
-          return;
-        }
+        if (b?.name) { hydrateFrom(b); return; }
       }
     } catch {
       /* ignore */
     }
-    router.replace("/studio");
+
+    // Fresh device / cleared cache: pull the account's most-recent saved brand (server scopes
+    // /api/brains to the signed-in customer) and drop them straight in.
+    (async () => {
+      try {
+        const list = await fetch("/api/brains").then((r) => r.json());
+        const newest = (list?.brains ?? [])[0]; // listBrains returns newest-updated first
+        if (cancelled) return;
+        if (newest?.slug) {
+          const j = await fetch(`/api/brains/${newest.slug}`).then((r) => r.json());
+          const b = j?.brain as BrandBrain | undefined;
+          if (!cancelled && b?.name) {
+            try { localStorage.setItem("cc.activeBrand", JSON.stringify(b)); } catch { /* ignore */ }
+            hydrateFrom(b);
+            return;
+          }
+        }
+        if (!cancelled) router.replace("/studio"); // genuinely no saved brand → onboard
+      } catch {
+        if (!cancelled) router.replace("/studio");
+      }
+    })();
+
+    return () => { cancelled = true; };
   }, [router]);
 
   useEffect(() => { threadRef.current?.scrollTo({ top: threadRef.current.scrollHeight, behavior: "smooth" }); }, [messages, thinking]);
@@ -438,7 +469,7 @@ export default function CreateWorkspace() {
     return () => ro.disconnect();
   }, []);
 
-  const say = (role: Msg["role"], content: string) => setMessages((m) => [...m, { role, content }]);
+  const say = (role: Msg["role"], content: string, cta?: Msg["cta"]) => setMessages((m) => [...m, { role, content, cta }]);
   const setM = (patch: Partial<ModelSpec>) => setModel((m) => ({ ...m, ...patch }));
 
   // Shot lives inside a run — patch it by id wherever it is; append a sibling card into its run.
@@ -603,25 +634,35 @@ export default function CreateWorkspace() {
         const state = { modelReady: source === "build" || modelRefs.length > 0, modelSource: source, hasReference: modelRefs.length > 0, productCount: products.length };
         const r = await fetch("/api/model-chat", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ messages: next, state, brand: brain.name ? brain : undefined }) });
         const j = await r.json();
-        if (j.reply) say("assistant", j.reply);
+        // Same affordability guard as the product spine — don't promise a model shoot the account
+        // can't fully pay for; surface the billing CTA instead (enforced-only, so a no-op in prod).
+        const genA = (j.actions ?? []).find((a: { type?: string }) => a.type === "generate_model_shoot");
+        const afford = genA ? affordability(genA.brief ?? {}) : null;
+        if (afford?.blocked) sayInsufficientMeals(afford.cost, afford.balance);
+        else if (j.reply) say("assistant", j.reply);
         for (const a of j.actions ?? []) {
           if (a.type === "set_model_source") setSource(a.source === "reference" ? "reference" : "build");
           else if (a.type === "patch_model") setM(a.spec ?? {});
           else if (a.type === "request_reference_upload") { setSource("reference"); modelRefFileRef.current?.click(); }
           else if (a.type === "request_product_upload") fileRef.current?.click();
           else if (a.type === "show_scene") setShowScene(true);
-          else if (a.type === "generate_model_shoot") await generate(a.brief ?? {});
+          else if (a.type === "generate_model_shoot") { if (!afford?.blocked) await generate(a.brief ?? {}); }
         }
       } else {
         // product + all v2 creative types share the product-spine agent; the active
         // type rides in state so the director talks hooks/placements/frames natively.
         const r = await fetch("/api/chat", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ messages: next, state: { productCount: products.length, brandStatus: "have", creativeType: typeRef.current }, brand: brain }) });
         const j = await r.json();
-        if (j.reply) say("assistant", j.reply);
+        // If the director means to shoot but the account can't afford the whole bundle, don't let it
+        // promise a set it can't deliver — show the billing CTA in place of its reply (enforced-only).
+        const genA = (j.actions ?? []).find((a: { type?: string }) => a.type === "generate_shoot");
+        const afford = genA ? affordability(genA.brief ?? {}) : null;
+        if (afford?.blocked) sayInsufficientMeals(afford.cost, afford.balance);
+        else if (j.reply) say("assistant", j.reply);
         for (const a of j.actions ?? []) {
           if (a.type === "show_panel") setShowPanel(true);
           else if (a.type === "select_brand" && a.name) await switchBrand(slugify(a.name));
-          else if (a.type === "generate_shoot") await generate(a.brief ?? {});
+          else if (a.type === "generate_shoot") { if (!afford?.blocked) await generate(a.brief ?? {}); }
         }
       }
     } catch { say("assistant", "I hit a snag — try that again?"); }
@@ -636,19 +677,64 @@ export default function CreateWorkspace() {
     return false;
   }
 
-  // Meals gate ahead of a shoot. Enforced + empty balance → refuse client-side (never hit the
-  // server for nothing) and point them at Buy Meals. The low-but-nonzero case isn't warned here:
-  // the persistent banner already stands, and if the set out-runs the balance the server clamps
-  // it and reports the EXACT split ("making 2 of 6…") — so a chat warning here would just be a
-  // third, less-precise copy of that. Warn only about the hard stop.
-  function mealsGate(): "ok" | "blocked" {
-    const m = mealsRef.current;
-    if (!m) return "ok"; // balance not loaded yet — let the server be the authority
-    if (m.enforced && m.balance <= 0) {
-      say("assistant", `You're out of Meals, so I can't start a new shoot. Tap Buy Meals to keep creating now.`);
-      return "blocked";
+  // ── Meals affordability gate ─────────────────────────────────────────────
+  // The rule: create the shoot when the account holds enough Meals for the WHOLE requested bundle
+  // (the product/model set PLUS any companions like a Story made "with it"); otherwise don't start —
+  // surface a billing option instead. ENFORCED-ONLY: in observe mode (CREDITS_ENFORCED unset — the
+  // prod default) `enforced` is false, so this never blocks and production behaviour is unchanged
+  // until the flag is flipped. Owners report enforced:false from /api/meals, so they're never gated.
+  // Billing math is deterministic here — never delegated to the director LLM.
+
+  // Total Meals the requested bundle costs — mirrors the server's per-run image counts (1 Meal =
+  // 1 delivered image) and the whole-request MAX_IMAGES cap, including companion runs.
+  function shootCost(brief: Brief): number {
+    const kind = typeRef.current;
+    const num = typeof brief.numAngles === "number" ? brief.numAngles : (kind === "model" ? scene.numAngles : panel.numAngles);
+    const per = typeof brief.shotsPerAngle === "number" ? brief.shotsPerAngle : (kind === "model" ? scene.shotsPerAngle : panel.shotsPerAngle);
+    let primary: number;
+    if (kind === "ad") primary = Math.max(1, Math.min(3, concepts)) * (adFormats.length || FORMAT_IDS.length);
+    else if (kind === "carousel") primary = typeof brief.numAngles === "number" && brief.numAngles > 1 ? Math.max(3, Math.min(MAX_IMAGES, brief.numAngles)) : frames;
+    else if (kind === "instagram" || kind === "story") primary = Math.max(1, num);
+    else primary = Math.max(1, num) * Math.max(1, per); // product / model
+    // Companions ride the product spine only: a story/post → 3 options, an ad → its fan-out, a
+    // carousel → its default sequence. Matches app/api/generate/route.ts companion counts.
+    let extra = 0;
+    if (kind === "product") for (const c of companions) {
+      extra += c === "story" || c === "instagram" ? 3
+        : c === "ad" ? (CREATIVE_TYPES.ad.fanOutFormats?.length ?? 3)
+        : c === "carousel" ? CREATIVE_TYPES.carousel.frames!.def
+        : 1;
     }
-    return "ok";
+    return Math.min(MAX_IMAGES, primary + extra);
+  }
+
+  // A short human name for the bundle ("product shoot + story") for the billing line.
+  function bundleLabel(): string {
+    const nameFor = (t: CreativeType): string =>
+      t === "product" ? "product shoot" : t === "model" ? "model shoot" : t === "ad" ? "ad campaign"
+        : t === "carousel" ? "carousel" : t === "story" ? "story" : t === "instagram" ? "post" : "shoot";
+    const kind = typeRef.current;
+    return kind === "product" && companions.length ? `${nameFor(kind)} + ${companions.map(nameFor).join(" + ")}` : nameFor(kind);
+  }
+
+  // Enough Meals for the whole bundle? Enforced-only (observe mode / owners never block); the
+  // balance-not-loaded case defers to the server, which still charges + clamps as a backstop.
+  function affordability(brief: Brief): { blocked: boolean; cost: number; balance: number } {
+    const m = mealsRef.current;
+    const cost = shootCost(brief);
+    if (!m || !m.enforced) return { blocked: false, cost, balance: m?.balance ?? 0 };
+    return { blocked: m.balance < cost, cost, balance: m.balance };
+  }
+
+  // The co-pilot's own "not enough Meals" line + an inline Buy Meals CTA (→ /pricing in a new tab,
+  // so the live canvas and thread aren't torn down mid-work).
+  function sayInsufficientMeals(cost: number, balance: number) {
+    const meals = (n: number) => `${n} Meal${n === 1 ? "" : "s"}`;
+    say("assistant",
+      balance <= 0
+        ? `You're out of Meals, so I can't run this ${bundleLabel()} — it needs ${meals(cost)}. Top up and I'll shoot it right away.`
+        : `This ${bundleLabel()} needs ${meals(cost)} and you've got ${meals(balance)} — ${meals(cost - balance)} short. Top up and I'll run the whole set.`,
+      { label: "Buy Meals", href: "/pricing" });
   }
 
   function send() {
@@ -727,7 +813,8 @@ export default function CreateWorkspace() {
 
   async function generate(brief: Brief & { productUse?: string }) {
     if (!requireAccount()) return;               // signed-in account required to create images
-    if (mealsGate() === "blocked") return;       // out of Meals → refuse + offer Buy Meals
+    const afford = affordability(brief);         // enough Meals for the WHOLE bundle? (enforced-only)
+    if (afford.blocked) { sayInsufficientMeals(afford.cost, afford.balance); return; }
     const kind = typeRef.current;
     const runId = uid("run");
     let errSurfaced = false;
@@ -1104,6 +1191,7 @@ export default function CreateWorkspace() {
         right={
           <div className="flex items-center gap-3">
             <MealsPill />
+            <AccountMenu />
             <BrandSwitcher current={brain.name} onSelect={switchBrand} />
             <button onClick={() => router.push("/studio/campaigns")} className="flex items-center gap-1.5 rounded-full border border-hairline px-3 py-1 text-[12px] text-ink transition-colors hover:border-ink" title="Every campaign, carousel and creative this brand has produced">
               <Layers size={13} /> Campaigns
@@ -1459,7 +1547,14 @@ export default function CreateWorkspace() {
             {messages.map((m, i) => (
               <motion.div key={i} initial={{ opacity: 0, y: 6 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.25, ease: [0.4, 0, 0.2, 1] }}
                 className={m.role === "user" ? "flex justify-end" : "flex justify-start"}>
-                <div className={m.role === "user" ? "max-w-[88%] rounded-card bg-ink px-3.5 py-2 text-[14px] leading-relaxed text-canvas" : "max-w-[92%] text-[14px] leading-relaxed text-ink"}>{m.content}</div>
+                <div className={m.role === "user" ? "max-w-[88%] rounded-card bg-ink px-3.5 py-2 text-[14px] leading-relaxed text-canvas" : "max-w-[92%] text-[14px] leading-relaxed text-ink"}>
+                  {m.content}
+                  {m.cta && (
+                    <div className="mt-2">
+                      <a href={m.cta.href} target="_blank" rel="noopener noreferrer" className="inline-flex items-center rounded-full bg-ink px-3 py-1 text-[12px] font-medium text-canvas transition-opacity hover:opacity-90">{m.cta.label}</a>
+                    </div>
+                  )}
+                </div>
               </motion.div>
             ))}
             {thinking && <div className="flex items-center gap-2 text-muted"><Loader2 size={15} className="animate-spin" /><span className="text-sm">{status || "Thinking…"}</span></div>}

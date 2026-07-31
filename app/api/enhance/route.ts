@@ -3,8 +3,8 @@ import { enhanceEnabled, removeBackground, relight, editImage, upscale } from "@
 import { complianceTail } from "@/lib/compliance";
 import { qcImage } from "@/lib/image";
 import type { ShotCompliance } from "@/lib/types";
-import { ensureGrants, charge, refund, normalizeAccount, DEFAULT_ACCOUNT } from "@/lib/store";
-import { sessionEmail } from "@/lib/supabase/account";
+import { ensureGrants, charge, refund, recordImage } from "@/lib/store";
+import { currentAccount } from "@/lib/supabase/account";
 import { MEAL_COSTS } from "@/lib/meals";
 
 export const runtime = "nodejs";
@@ -19,7 +19,6 @@ type Body = {
   productRef?: string; // the original product image, for the post-edit fidelity re-check
   brand?: string;
   redo?: boolean; // a directed satisfaction refine of an already-paid shot — free, not charged (see lib/meals)
-  account?: string; // the signed-in email — bills that ledger; absent → shared default bucket
 };
 
 // Capability probe — the UI shows enhancer buttons only when this is enabled.
@@ -29,13 +28,15 @@ export async function GET() {
 
 // Open-source creative enhancers (Replicate). One route, switched by `action`.
 export async function POST(req: NextRequest) {
-  const { action, src, prompt, face, compliance, productRef, brand, redo, account: rawAccount } = (await req.json()) as Body;
+  const { action, src, prompt, face, compliance, productRef, brand, redo } = (await req.json()) as Body;
   if (!src) return Response.json({ error: "no src" }, { status: 400 });
   if (!enhanceEnabled()) return Response.json({ error: "Enhancers are off — set REPLICATE_API_TOKEN to enable." }, { status: 503 });
   // MEALS — an enhancer pass costs 1. Observe mode records it; enforced mode refuses at zero.
   // A directed satisfaction refine (`redo:true`, an "edit" from the chat refine after a shot's
   // free redos) is FREE — fixing a dish you already bought never costs another Meal.
-  const account = (await sessionEmail()) ?? normalizeAccount(rawAccount) ?? DEFAULT_ACCOUNT;
+  // Identity is the VERIFIED session ONLY (never a client-supplied email) — currentAccount()
+  // degrades to the shared default bucket for an anonymous/blip caller, never a named victim.
+  const account = await currentAccount();
   await ensureGrants(account).catch(() => {});
   const freeRefine = redo === true && action === "edit";
   const meal = freeRefine
@@ -61,6 +62,8 @@ export async function POST(req: NextRequest) {
       drift = !verdict.pass;
       driftReasons = verdict.reasons;
     }
+    // Record the enhanced image under the signed-in account (fire-and-forget; never blocks delivery).
+    void recordImage({ account, url, kind: "enhance", meta: { action } }).catch(() => {});
     return Response.json({ url, drift, driftReasons });
   } catch (err) {
     await refund(account, MEAL_COSTS.enhance, `refund:enhance:${action}`).catch(() => {});

@@ -222,29 +222,36 @@ export function buildCopyLayout(args: { copy: CampaignCopy; treatment?: CopyTrea
   // can never run past its band into the product / the CTA / the opposite safe zone.
   const maxWApprox = layout === "side-rail" ? 0.52 : layout === "center" ? 0.84 : layout === "mega" ? 0.9 : 1 - 2 * mx;
   const heightBudget = layout === "center" ? 0.52 : layout === "side-rail" ? 0.62 : layout === "lower-third" ? 0.42 : layout === "split" ? 0.4 : 0.46;
+  const headlineTracking = kase === "upper" ? 0.03 : -0.02; // caps breathe, display tightens
   while (headline && scaleKey !== "minimal") {
     const hp = SCALE_PCT[scaleKey];
-    const lines = Math.max(1, Math.ceil((headline.length * 0.52 * (hp / 100)) / maxWApprox)); // ~0.52em avg glyph advance
+    // UPPER-case caps are materially wider per glyph; counting their +0.03 tracking stops the
+    // guard under-estimating wraps and letting a caps headline overrun its band onto the product.
+    const adv = 0.52 + Math.max(0, headlineTracking);
+    const lines = Math.max(1, Math.ceil((headline.length * adv * (hp / 100)) / maxWApprox));
     if (lines * (hp / 100) * 1.05 * aspect <= heightBudget) break; // block height as a fraction of frame HEIGHT
     scaleKey = SCALE_ORDER[SCALE_ORDER.indexOf(scaleKey) - 1];
   }
   const hPct = SCALE_PCT[scaleKey];
 
   const headlineTransform: LayoutBlock["transform"] = kase;
-  const headlineTracking = kase === "upper" ? 0.03 : -0.02; // caps breathe, display tightens
 
   const mkBlocks = (which: { headline?: boolean; subline?: boolean; cta?: boolean }): LayoutBlock[] => {
     const out: LayoutBlock[] = [];
     if (which.headline && headline)
       out.push({ role: "headline", text: headline, family: "display", fontPct: hPct, weight: bold ? 700 : 600, tracking: headlineTracking, lineHeight: 1.05, transform: headlineTransform });
     if (which.subline && subline)
-      out.push({ role: "subline", text: subline, family: "text", fontPct: Math.min(2.7, Math.max(2.0, hPct * 0.45)), weight: 400, tracking: 0, lineHeight: 1.3, transform: "none" });
+      // Floor tied to scale so a minimal/luxury headline (3.4) keeps real headline↔subline contrast
+      // instead of sitting beside a 2.0 subline; standard/impact/hero unchanged.
+      out.push({ role: "subline", text: subline, family: "text", fontPct: Math.min(2.7, Math.max(scaleKey === "minimal" ? 1.6 : 2.0, hPct * 0.42)), weight: 400, tracking: 0, lineHeight: 1.3, transform: "none" });
     if (which.cta && cta)
       out.push({
         role: "cta",
         text: cta,
         family: "text",
-        fontPct: 2.05,
+        // Scale the CTA to the resolved headline so a hero headline no longer dwarfs it and a
+        // minimal headline no longer competes with it (hero 9.0→2.6, standard/minimal→floor 1.85).
+        fontPct: Math.min(2.6, Math.max(1.85, hPct * 0.32)),
         weight: 500,
         tracking: ctaStyle === "text-link" ? 0.02 : 0.01,
         lineHeight: 1,

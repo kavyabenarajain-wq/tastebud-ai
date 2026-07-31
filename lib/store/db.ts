@@ -177,6 +177,23 @@ CREATE TABLE IF NOT EXISTS events (
 );
 CREATE INDEX IF NOT EXISTS idx_events_account ON events (account_id, created_at DESC);
 CREATE INDEX IF NOT EXISTS idx_events_type ON events (type, created_at DESC);
+
+-- Every delivered image, owned by the account that made it. This is the durable record of "the
+-- images a customer has made" — the Blob object itself is public and carries no owner metadata, so
+-- ownership lives HERE. brand_id/slug are nullable (a plain product/model shoot has no campaign row).
+CREATE TABLE IF NOT EXISTS images (
+  id         TEXT PRIMARY KEY,
+  account_id TEXT NOT NULL,
+  brand_id   TEXT,
+  slug       TEXT,
+  kind       TEXT NOT NULL,
+  url        TEXT NOT NULL,
+  prompt     TEXT,
+  meta_json  TEXT,
+  created_at TEXT NOT NULL
+);
+CREATE INDEX IF NOT EXISTS idx_images_account ON images (account_id, created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_images_brand ON images (brand_id, created_at DESC);
 `;
 
 /**
@@ -185,6 +202,12 @@ CREATE INDEX IF NOT EXISTS idx_events_type ON events (type, created_at DESC);
  * Created AFTER the accounts profile columns are added (initSchema orders it), since they reference them.
  */
 const VIEWS = `
+-- DROP first: CREATE OR REPLACE VIEW can't insert/reorder columns of an EXISTING view (only append
+-- at the end), and we add avatar_url/image_count mid-list. Dropping makes the shape free to change.
+-- Safe: nothing depends on these CRM views, so no CASCADE is needed.
+DROP VIEW IF EXISTS customer_overview;
+DROP VIEW IF EXISTS brand_directory;
+
 CREATE OR REPLACE VIEW customer_overview AS
 SELECT
   a.id                                        AS account,
@@ -193,10 +216,12 @@ SELECT
   a.first_name,
   a.last_name,
   a.provider,
+  a.avatar_url,
   a.plan,
   a.created_at                                AS signed_up_at,
   a.last_seen_at,
   (SELECT COUNT(*) FROM brands b WHERE b.account_id = a.id)                              AS brand_count,
+  (SELECT COUNT(*) FROM images i WHERE i.account_id = a.id)                              AS image_count,
   (SELECT string_agg(b.name, ', ' ORDER BY b.updated_at DESC) FROM brands b WHERE b.account_id = a.id) AS brands,
   COALESCE((SELECT SUM(p.meals)      FROM payments p      WHERE p.account_id = a.id), 0) AS meals_bought,
   COALESCE((SELECT SUM(p.amount_usd) FROM payments p      WHERE p.account_id = a.id), 0) AS total_spent_usd,
@@ -249,6 +274,7 @@ async function initSchema(pool: Pool): Promise<void> {
     "first_name TEXT",
     "last_name TEXT",
     "provider TEXT",
+    "avatar_url TEXT",
     "last_seen_at TEXT",
   ]) {
     await pool.query(`ALTER TABLE accounts ADD COLUMN IF NOT EXISTS ${col}`);

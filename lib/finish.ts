@@ -23,6 +23,15 @@ export const NEUTRAL_GRADE: FinishGrade = {
 const clamp = (v: number, lo: number, hi: number) => Math.min(hi, Math.max(lo, v));
 
 /**
+ * A skin-safe variant of a grade: keep the film texture (contrast, grain, sharpen) but drop the
+ * per-channel colour cast to neutral so a brand's hue can NEVER shift a model's skin tone. Used on
+ * every model / on-model render — colour unification is for product surfaces, never for a person.
+ */
+export function modelSafeGrade(grade: FinishGrade): FinishGrade {
+  return { ...grade, rMul: 1, gMul: 1, bMul: 1, saturation: Math.min(grade.saturation ?? 1, 1.03) };
+}
+
+/**
  * Read a brand's OWN photos and distil a gentle numeric grade from their average tone:
  * the colour cast (per-channel, kept within ±6% so product colour survives) and a modest
  * saturation read. Contrast / grain / sharpen stay filmic constants — those are the
@@ -88,9 +97,14 @@ export async function derivePalette(imageUrls: string[], max = 6): Promise<{ hex
   // Rank by pixel count WEIGHTED by saturation — a brand's signature colour is the VIVID one, so a
   // saturated red beats a muted beige even when beige covers more pixels (skin/background). Muted
   // greys score ~0.35×, fully-saturated hues score full count.
-  const scored = [...buckets.values()]
-    .map((e) => ({ count: e.count, r: Math.round(e.r / e.count), g: Math.round(e.g / e.count), b: Math.round(e.b / e.count) }))
-    .map((c) => ({ ...c, score: c.count * (0.35 + 0.65 * (sat(c) / 255)) * (skinBeige(c) ? 0.4 : 1) }))
+  const plain = [...buckets.values()]
+    .map((e) => ({ count: e.count, r: Math.round(e.r / e.count), g: Math.round(e.g / e.count), b: Math.round(e.b / e.count) }));
+  // Only demote warm-neutral (skin/tan) buckets when a clearly more saturated hue is competing —
+  // so a brand whose signature IS a warm neutral (sage+beige, oat/latte, tan leather) keeps its
+  // real palette colour, while a brand with a real accent still gets skin/backdrop suppressed.
+  const hasVivid = plain.some((c) => sat(c) > 90);
+  const scored = plain
+    .map((c) => ({ ...c, score: c.count * (0.35 + 0.65 * (sat(c) / 255)) * (skinBeige(c) && hasVivid ? 0.55 : 1) }))
     .sort((a, b) => b.score - a.score);
   const strong = scored.filter((c) => !nearWhite(c) && !nearGrey(c)); // the real brand hues
   const pool = strong.length >= 3 ? strong : scored;
@@ -142,7 +156,7 @@ export async function applyFinish(buf: Buffer, grade: FinishGrade): Promise<Buff
  *
  * Target long edge is env-tunable (FINISH_TARGET_LONG_EDGE) — drop it if disk/latency bites.
  */
-export async function enlargeInPlace(servedPath: string, targetLongEdge?: number): Promise<void> {
+export async function enlargeInPlace(servedPath: string, targetLongEdge?: number, sharpen = 0.6): Promise<void> {
   if (!servedPath || servedPath.startsWith("data:")) return; // data-URI mock → nothing to enlarge
   const target = targetLongEdge || Number(process.env.FINISH_TARGET_LONG_EDGE) || 3840;
   try {
@@ -154,7 +168,9 @@ export async function enlargeInPlace(servedPath: string, targetLongEdge?: number
     const scale = target / long;
     const out = await sharp(buf)
       .resize(Math.round(w * scale), Math.round(h * scale), { kernel: "lanczos3" })
-      .sharpen({ sigma: 0.6 }) // re-crisp edges/text after interpolation — gentle, no HDR halos
+      // Re-crisp edges/text after interpolation — but honour the brand's own softness/crispness
+      // (a soft-filmic brand should not be crunched to a clinical-digital look). Gentle, no HDR halos.
+      .sharpen({ sigma: clamp(sharpen, 0.35, 0.9) })
       .png()
       .toBuffer();
     await overwriteImage(servedPath, out);

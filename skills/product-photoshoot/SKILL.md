@@ -22,8 +22,18 @@ Non-negotiable:
 - Correct contact. The product sits *on* the surface with a real contact shadow and, where relevant, a faint reflection. It never floats.
 - Real depth of field. A lens, an aperture, a focal plane. Background falls off the way optics actually behave.
 - No plastic skin on the product either: no over-smoothed, waxy, CGI-render look. If it looks rendered, it is rejected.
+- One honest imperfection. A real photograph is never sterile: a faint fingerprint on glass, a stray crumb beside the plate, a soft dust mote in the light, a slightly uneven pour, a single water bead out of place. Add exactly one small truthful flaw so the frame reads captured, not rendered — never enough to look messy.
 
 If an output fails this test, it is regenerated, not shipped. See the checklist at the end.
+
+**Hard-banned AI clichés — automatic reject, even if the brief seems to imply them:**
+
+- Product floating on a pedestal, podium, plinth or invisible stand. It sits on a real surface with a real contact shadow.
+- Seamless gradient-void backgrounds and the concentric spotlight / halo glow ringed behind the product.
+- Scattered geometric cubes, pebbles, floating stones or random props that have no reason to be in the scene.
+- Fake confetti or bokeh sparkle, plastic CGI-render sheen, and any waxy, over-smoothed surface.
+
+These are the fastest tells that a machine made the image. If one appears, regenerate — do not ship it.
 
 ---
 
@@ -111,8 +121,12 @@ This is where taste and realism live. The substance is the point of the shot.
 **Temperature and freshness cues.**
 - Cold or fresh products carry condensation and small water beads. Warm products (a candle just lit, a hot drink) carry a faint trace of steam or a soft glow. Use these to sell realism, never to clutter.
 
-**Food and drink.**
-- Freshness signals: crumb, gloss, a crisp edge, a pour with bubbles, garnish that looks just placed. Nothing looks plastic or set too long.
+**Food and drink — appetite is the whole job.**
+- The image has to make someone hungry or thirsty. Shoot the peak-appetite moment: cheese pulling, chocolate mid-melt, a crumb still falling, a fresh-cut cross-section, glaze or syrup catching the light, a drink poured with live bubbles and a foam crown.
+- Freshness cues, real and specific: crumb and flake, a crisp fried edge, herbs and garnish that look *just* placed (never wilted, never perfectly symmetrical), condensation and slow-running beads on a cold glass, a thread of steam off something hot.
+- Texture is lit, not described. A low, raking side light rakes across crust, sugar, grain and sear to reveal texture; a soft top light keeps a drink clean and jewel-clear. Get in close — macro on the crumb, the pour, the bite.
+- Real food behaves: ice melts and sweats, foam settles, sauces pool and drip, a bite leaves a real bite mark. No glue-and-toothpick food styling, no spray-shine, no lacquered or set-too-long look.
+- Colour stays true to the actual product — never punch saturation into a fake, candied look.
 
 **Soft goods (fabric, leather, paper).**
 - Real weave, grain, and drape. Stitching reads. Leather has pores and a slight sheen. Paper has weight and a believable fold.
@@ -130,7 +144,7 @@ Unless the client specifies otherwise, a full product shoot covers **six purpose
 3. **Side profile** — the silhouette and true form. Shows depth, cap, pump, proportions.
 4. **Top-down, overhead (90°)** — the editorial flat-lay and arrangement view. Strong for negative space and styling.
 5. **Macro close-up** — texture, material, label detail, the droplet or swatch. Where the realism is won.
-6. **Low hero angle, looking up** — makes the product monumental and premium. Slight upward tilt, product towering.
+6. **Low hero angle, looking up** — a slight upward tilt so the product towers in frame and reads larger than life. Shoot close to the base on a wide-ish lens with a low, motivated key; sell the scale with perspective and light, not with the words "premium" or "luxury".
 
 These extend the front / side / close-up coverage the brief asks for. When the client requests fewer angles or a specific number, honour that and pick the angles that best serve the product. Keep light, surface, and treatment consistent across the set so the six read as one shoot, not six unrelated images.
 
@@ -171,6 +185,8 @@ Write the prompt as a photographer's brief, not a keyword soup. In order:
 6. Lens and depth-of-field language (focal length feel, shallow or deep).
 7. Brand-correctness cues (palette, mood, negative space).
 8. Realism anchors: photographic, true materials, legible label, natural shadow.
+
+**Photoreal comes from the camera, not from adjectives.** Name real hardware and optics — a body and lens (100mm macro, 50mm, 85mm), an aperture (roughly f/2.8–f/11), a film or sensor character, and one *motivated* light source (a window, a softbox, hard raking sun). Do NOT reach for "premium", "luxurious", "stunning", "high-end", "beautiful" — those adjectives only fetch the renderer its most generic average image. Let the lens, the light and the true materials carry the class.
 
 Carry an explicit **negative list**: no warped or invented text, no extra caps or pumps, no melted geometry, no plastic/CGI look, no floating product, no duplicated logos, no impossible reflections.
 

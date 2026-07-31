@@ -322,7 +322,8 @@ export interface ModelSpec {
   bodyType?: string; // Slim / Athletic / Curvy / Plus / Tall / Petite
   vibe?: string; // model energy — Editorial / Girl-next-door / High-fashion / Sporty …
   expression?: string; // Serene / Soft smile / Confident / Candid laugh
-  productUse?: string; // how the product is used — Worn / Held / Applied / In-context / None
+  distinctive?: string; // one honest human imperfection/signature feature (freckles, gap teeth, a mole, laugh lines) — the anti-AI-average anchor
+  productUse?: string; // how the product is used — Worn / Held / Applied / Taken / In-context / None
 }
 
 /**

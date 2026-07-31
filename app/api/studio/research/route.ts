@@ -1,6 +1,10 @@
 import type { NextRequest } from "next/server";
 import { researchBrand } from "@/lib/research";
-import { saveBrain } from "@/lib/brainStore";
+import { saveBrain, slugify } from "@/lib/brainStore";
+import { DEFAULT_ACCOUNT } from "@/lib/store";
+import { currentAccount } from "@/lib/supabase/account";
+import { rememberBrand, brandResearchDigest } from "@/lib/memory";
+import { background } from "@/lib/memory/bg";
 import type { BrandBrain } from "@/lib/types";
 
 export const runtime = "nodejs";
@@ -20,6 +24,9 @@ export const maxDuration = 60;
  */
 export async function POST(req: NextRequest) {
   const { name, category, website } = (await req.json().catch(() => ({}))) as { name?: string; category?: string; website?: string };
+  // Scope the researched brand to the signed-in customer so it stays private to them. Resolved
+  // here (in request scope) and captured by the stream closure below.
+  const account = await currentAccount();
   const enc = new TextEncoder();
 
   const stream = new ReadableStream<Uint8Array>({
@@ -54,8 +61,15 @@ export async function POST(req: NextRequest) {
         const { intelligence, catalog, ...research } = full;
         const finalBrain: BrandBrain = { ...brain, research, intelligence, catalog, ready: true };
 
-        // Persist to the brand's own folder so research done once is reused everywhere.
-        try { await saveBrain(finalBrain, { origin: "studio" }); } catch { /* non-fatal */ }
+        // Persist to the brand's own folder (scoped to this account) so research done once is reused.
+        try { await saveBrain(finalBrain, { origin: "studio", account, email: account !== DEFAULT_ACCOUNT ? account : undefined }); } catch { /* non-fatal */ }
+
+        // Seed the external memory layer with a distilled brand dossier (idempotent per brand, so a
+        // re-research updates rather than duplicates). Fire-and-forget; no-op unless memory is keyed.
+        try {
+          const digest = brandResearchDigest(finalBrain);
+          if (digest) background(rememberBrand(account, slugify(finalBrain.name || "brand"), "research", digest, { foundReal: !!finalBrain.research?.foundReal }, "research"));
+        } catch { /* memory never blocks onboarding */ }
 
         send({ type: "done", brain: finalBrain });
       } catch (err) {

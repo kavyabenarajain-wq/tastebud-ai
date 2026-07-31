@@ -6,18 +6,36 @@ function briefCategory(b: ResolvedBrief) {
   return detectCategory(b.brand?.category, b.brand?.productType, b.brand?.name, b.express);
 }
 
-/** Category-specific art direction — what makes THIS kind of product look its best. */
-export function categoryDirective(b?: BrandBrain): string | undefined {
-  const t = `${b?.category ?? ""} ${b?.productType ?? ""}`.toLowerCase();
-  if (/food|snack|chocolate|bakery|bar\b|meal|sauce|spice|candy|dessert|cereal|cookie|coffee bean|nut|cheese|pasta/.test(t))
-    return "APPETITE APPEAL — make it look utterly delicious and freshly made: rich appetising texture, moist / melty / crisp cues, crumbs, garnish, glossy or steamy where right, perfect colour. It should make the viewer hungry.";
-  if (/drink|beverage|soda|juice|coffee|tea|water|kombucha|smoothie|cola|seltzer|can\b|bottle|energy|latte|cocktail/.test(t))
-    return "BEVERAGE APPEAL — make the drink look vibrant, fresh and crave-able in THIS brand's OWN style. Do NOT default to ice, water beads, condensation or splashes — those are occasional accents for a genuine cold-serve moment only, NEVER on every frame and never unless the brand and this specific shot truly call for it. Most shots should be clean, styled and on-brand with NO ice or water at all. Let the brand's real look lead.";
-  if (/fashion|apparel|clothing|wear|footwear|shoe|sneaker|accessor|bag|jewel|denim|streetwear|textile|watch|eyewear/.test(t))
-    return "FABRIC TRUTH — let the cloth behave: real drape, fold, weight and weave with wrinkles left in; directional daylight or a hard editorial flash that carves the silhouette and throws a graphic shadow; texture over gloss so you can feel the material. Never ironed-flat, over-retouched catalogue perfection.";
-  if (/beauty|skincare|cosmetic|makeup|serum|cream|fragrance|perfume|lotion|balm|lipstick|mascara/.test(t))
-    return "MATERIAL & TEXTURE — sculpt with one soft directional source so a real shadow falls (dimension, not clinical flatness); go macro on the substance — the cream's peak, a serum drip, a swatch dragged across skin, glass refracting light; dewy over glossy, true skin with pores when skin shows. Never a waxy, shadowless, poreless render.";
-  return undefined;
+/**
+ * Category-specific art direction — what makes THIS kind of product look its best.
+ * Routes through the CANONICAL detectCategory (single source of truth in productCategory.ts)
+ * instead of a divergent copy, reads the client's express words too (so a category typed only
+ * in the prompt still earns its direction), and covers every category, not just four.
+ */
+export function categoryDirective(b?: BrandBrain, extra?: string): string | undefined {
+  const category = detectCategory(b?.category, b?.productType, b?.name, extra);
+  switch (category) {
+    case "food":
+      return "APPETITE APPEAL — make it look utterly delicious and freshly made: rich appetising texture, moist / melty / crisp cues, crumbs, garnish, glossy or steamy where right, perfect natural colour. It should make the viewer hungry. Never a dried-out, over-styled, plastic-glossed hero.";
+    case "drink":
+      return "BEVERAGE APPEAL — make the drink look vibrant, fresh and crave-able in THIS brand's OWN style. Do NOT default to ice, water beads, condensation or splashes — those are occasional accents for a genuine cold-serve moment only, NEVER on every frame. Most shots should be clean, styled and on-brand with NO ice or water at all. Let the brand's real look lead.";
+    case "apparel":
+      return "FABRIC TRUTH — let the cloth behave: real drape, fold, weight and weave with wrinkles left in; directional daylight or a hard editorial flash that carves the silhouette and throws a graphic shadow; texture over gloss so you can feel the material. Never ironed-flat, over-retouched catalogue perfection.";
+    case "beauty":
+      return "MATERIAL & TEXTURE — sculpt with one soft directional source so a real shadow falls (dimension, not clinical flatness); go macro on the substance — the cream's peak, a serum drip, a swatch dragged across skin, glass refracting light; dewy over glossy, true skin with pores when skin shows. Never a waxy, shadowless, poreless render.";
+    case "jewellery":
+      return "METAL & STONE TRUTH — shoot for genuine specular life: one hard controlled key plus a soft fill or bounce card so metal reads as metal — crisp catch-lights travelling the band, warm reflections in gold, cool in silver/platinum — and faceted stones throw real refracted sparkle and tiny internal fire, never a flat painted-on glint. Go macro so the setting, prongs and hallmark are sharp with the far facets falling soft; show real weight and scale against skin or a tactile surface. Never a plastic CGI gem or a uniform airbrushed shine.";
+    case "wellness":
+      return "CLEAN & TRUSTWORTHY — read the real form honestly (capsule, tablet, gummy, powder, tincture): controlled soft directional light with a real shadow for dimension, true material behaviour (matte capsule, glossy gummy, fine loose powder), a calm considered surface in the brand's world, macro on the texture where it helps. Never a clinical shadowless void or a fake supplement-ad glow.";
+    case "tech":
+      return "PRECISION & MATERIAL — read the real materials honestly: brushed aluminium, matte soft-touch, glass with a true reflection (not a glowing fake UI). Light with clean controlled speculars from a soft strip or softbox so machined edges and seams catch a crisp highlight; deep but open shadow for dimension; ports, buttons and texture kept sharp; a cool-neutral grade. Never a plastic render, rainbow gradient glow or floating hologram.";
+    case "furniture":
+      return "FORM, MATERIAL & SCALE — light the piece so its material tells the truth: the grain of wood, the weave and nap of upholstery, the seam and stitch, its weight resting on the floor with a real contact shadow. Soft directional daylight (window or overcast) raking across the surface to reveal texture and silhouette, in a believable room with real depth and human scale. Never a floating object on a void or flat catalogue light that kills the material.";
+    case "home":
+      return "TACTILE & ATMOSPHERE — make the object feel hand-made and lived-with: real material (ceramic glaze, wax, glass, linen) under soft directional light that rakes the surface for texture and a true cast shadow. For a candle, a real warm flame and the soft glow it throws with a little pooled wax — never a fake CGI flame. Styled in the brand's world with restraint and one honest imperfection. Never a plastic, shadowless render.";
+    default:
+      return undefined;
+  }
 }
 
 // The four special backgrounds carry intent; every other value is a colour the
@@ -66,23 +84,25 @@ const LIGHTING_MAP: Record<string, string> = {
   "Dramatic single-source": "one dramatic hard key light, strong falloff, sculpted form",
   "Backlit / rim light": "backlight / rim light giving the product a bright separating edge",
   "Neon / coloured gels": "coloured gel lighting, neon accents, a vivid colour wash",
-  "Gradient glow": "a soft gradient glow behind the product, a halo of light",
+  "Gradient glow": "a soft graduated background tone falling from light into shade behind the product, created by a real bounce or flag raking in from one side — motivated and directional, NOT a symmetrical spotlight ring or halo around the subject",
   "Natural window light": "directional natural window light with soft falloff",
   "Direct flash": "hard direct flash, punchy highlights, a bold contemporary look",
 };
 
+// Like VIBE_MAP, each composition is expressed as CAMERA decisions — lens, height, distance,
+// aperture/DoF — not a bare layout label the planner has to guess how to shoot.
 const COMPOSITION_MAP: Record<string, string> = {
-  "Centered hero": "centered hero composition, product dead-center, balanced",
-  "Rule of thirds": "rule-of-thirds placement, dynamic off-center balance",
-  "Generous negative space": "generous negative space, product small within a calm frame",
-  "Tight crop": "tight crop, the product filling the frame, intimate",
-  "Overhead flat-lay": "overhead flat-lay, top-down, a styled arrangement",
-  "Floating / levitation": "the product floating / levitating, weightless and dynamic",
-  "Grouped still life": "a grouped still-life with considered supporting props",
-  Symmetrical: "perfectly symmetrical, formal, architectural balance",
-  "Diagonal / dynamic": "a diagonal, dynamic composition with energy and motion",
-  "Single subject, minimal": "a single subject, minimal, nothing extraneous",
-  "Layered depth": "layered depth — foreground / background separation with bokeh",
+  "Centered hero": "a centered hero frame shot at product height with a normal-to-short-tele lens (~50-85mm equiv) for honest proportions, the product dead-centre, symmetrical and calm",
+  "Rule of thirds": "the product placed on a third, shot slightly off-axis so the frame has dynamic balance and lead room, a normal lens keeping proportions true",
+  "Generous negative space": "the product small within a wide calm frame with a lot of intentional empty space around it (and a clean band where overlaid copy can later sit), shot from a respectful distance",
+  "Tight crop": "a tight macro crop with a macro lens filling the frame with the product's surface and detail, shallow focus falling off just behind the point of sharpness",
+  "Overhead flat-lay": "a true top-down flat-lay, camera directly overhead and parallel to the surface so there is no perspective keystone, everything laid out and evenly readable and sharp",
+  "Floating / levitation": "a real editorial suspension — the product caught mid-air as if just tossed or dropped, with genuine motion cues (a slight tilt, a trailing ingredient / droplet / fabric, and a real soft drop-shadow on the surface below) frozen by a fast shutter. A believable photographed instant, NOT a product hovering statically on an invisible pedestal or plinth",
+  "Grouped still life": "a grouped still-life with considered supporting props at varied heights, shot at a low three-quarter angle for depth, the hero clearly foremost and sharpest",
+  Symmetrical: "a formal, architecturally symmetrical frame, camera square-on and level, balanced left to right",
+  "Diagonal / dynamic": "a diagonal composition with the product on a strong leading line, a slightly tilted or low angle giving energy and motion",
+  "Single subject, minimal": "a single subject alone, nothing extraneous, shot clean at product height with quiet space around it",
+  "Layered depth": "layered fore/mid/background separation with a REAL shallow depth of field — an out-of-focus element close to camera and soft background fall-off from a wide aperture, not fake gaussian blur",
 };
 
 const STYLING_MAP: Record<string, string> = {
@@ -91,6 +111,7 @@ const STYLING_MAP: Record<string, string> = {
   "Maximal — prop-rich": "a MAXIMAL, abundant editorial scene — surround the product with a generous, energetic but tasteful scatter of its OWN real, relevant supporting elements (for food/drink: fresh produce, whole spices, citrus halves, herbs, garnish — only add ice or a splash if the brand genuinely calls for it; for beauty: botanicals, raw ingredients, swatches) arranged with rhythm. The product stays the clear hero, every prop crisp and identifiable. Vibrant and abundant — never messy or cluttered",
   "Ingredient scatter": "the product surrounded by an artful scatter of its key real ingredients laid across the surface in front and around it, like a deconstructed recipe, each one sharp and identifiable",
   "Bold colour-block": "a bold, saturated colour-blocked set — a vivid background wall meeting a contrasting coloured surface (two-tone), high-contrast and punchy, the product popping against the colour",
+  "In use / real hands": "a candid in-use moment — a real hand (natural skin with pores, correct fingers, a believable everyday manicure) holding, opening or using the product the way a person actually would, at true scale with real contact, occlusion and a soft contact shadow; the product stays the hero and every word of its label stays readable. Never a stiff, over-posed hand-model pose.",
 };
 
 const expand = (map: Record<string, string>, v?: string) => (v?.trim() ? map[v] ?? v : undefined);
@@ -102,14 +123,14 @@ export function buildBrief(b: ResolvedBrief): string {
   if (b.express?.trim()) lines.push(`★ WHAT THE CLIENT ASKED FOR, IN THEIR OWN WORDS — the single most important instruction, execute it precisely: "${b.express.trim()}". This is the primary direction for the shoot. Deliver EXACTLY this. It OVERRIDES the brand's usual look, signature and defaults wherever they differ — the only things that outrank it are reproducing the real product exactly and the brand's do-not list. Do not replace their request with the brand's default aesthetic; build their idea, applying the brand's craft within it.`);
   const field = (label: string, v?: string) => { if (v?.trim()) lines.push(`${label}: ${v.trim()}`); };
   field("Background", bgPhrase(p.background));
-  field("Surface the product sits on", p.surface);
+  if (p.surface?.trim()) lines.push(`Surface the product sits on: a real ${p.surface.trim()} surface — honour its true material behaviour (its texture, how light rakes across it, and the reflection or contact shadow it casts), never a flat printed texture.`);
   field("Vibe", expand(VIBE_MAP, p.vibe));
   field("Lighting", expand(LIGHTING_MAP, p.lighting));
   field("Composition", expand(COMPOSITION_MAP, p.composition));
   field("Styling", expand(STYLING_MAP, p.styling));
   field("Output format", p.format);
-  field("Must include", p.include);
-  const cat = categoryDirective(b.brand);
+  if (p.include?.trim()) lines.push(`Must include: ${p.include.trim()} — include ONLY this, in a small, restrained amount, and add NOTHING that was not asked for. Do not invent extra props to fill space.`);
+  const cat = categoryDirective(b.brand, b.express);
   if (cat) lines.push(cat);
   if (b.references?.length) lines.push(`STYLE REFERENCE PROVIDED (${b.references.length} image${b.references.length > 1 ? "s" : ""}) — match its look: background, palette, prop styling, lighting and composition. This drives the art direction; treat the panel as secondary.`);
   // Name the REAL product(s) so the (otherwise blind) planner keys the scene to them and never
@@ -162,8 +183,11 @@ function describeModel(m: NonNullable<ResolvedBrief["model"]>): string {
   const who = bits.length ? `A real, specific ${bits.join(", ")}` : "A real, specific model cast for this brand";
   const vibe = m.vibe?.trim() ? ` Casting energy: ${m.vibe.trim().toLowerCase()}.` : "";
   const expr = m.expression?.trim() ? ` Expression: ${m.expression.trim().toLowerCase()}.` : "";
+  // One honest, specific feature is the strongest single de-averaging anchor — it's what stops a
+  // built face collapsing into a symmetrical AI composite. Held identical across the set.
+  const mark = m.distinctive?.trim() ? ` ONE honest, specific feature that makes them unmistakably a real person, not an AI average — kept in every frame: ${m.distinctive.trim().toLowerCase()}.` : " Give them ONE honest, specific human feature (a few freckles, faint laugh lines, a small mole, a slight asymmetry) so they never read as a flawless AI average.";
   return (
-    `BUILD THE MODEL as one consistent individual (not a generic stock face): ${who}.${vibe}${expr} ` +
+    `BUILD THE MODEL as one consistent individual (not a generic stock face): ${who}.${vibe}${expr}${mark} ` +
     "Lock this same person — same face, same body — across every frame so the set reads as one shoot."
   );
 }
@@ -211,6 +235,7 @@ function personBits(spec?: ModelSpec): string {
   if (hair) bits.push(`${hair} hair`.toLowerCase());
   if (spec?.eyes?.trim()) bits.push(`${spec.eyes.trim().toLowerCase()} eyes`);
   if (spec?.bodyType?.trim()) bits.push(`${spec.bodyType.trim().toLowerCase()} build`);
+  if (spec?.distinctive?.trim()) bits.push(`with ${spec.distinctive.trim().toLowerCase()}`);
   return bits.length ? `a real, specific ${bits.join(", ")}` : "a real, specific model cast for this brand";
 }
 
@@ -267,6 +292,11 @@ export function buildModelBrief(b: ResolvedBrief): string {
 
   if ((b.products?.length ?? 0) > 0) lines.push(`Product uploaded: ${b.products!.length}. It is the client's REAL product — reproduce it exactly (shape, cut, fabric, wash/colour, label, every word of text) and place it in the shot with the model at true real-world scale with real contact, occlusion and shadow, used in the category-appropriate way described above. ONLY IF IT IS CLOTHING / APPAREL is it the FIXED WARDROBE HERO the model wears in every frame, identical across the whole set — do NOT invent, substitute, recolour or restyle the clothing; style only around it (other layers, accessories, setting, hair).`);
   if (b.references?.length) lines.push(`STYLE REFERENCE PROVIDED (${b.references.length}) — match its art direction: wardrobe register, set, palette, lighting and composition. It is a LOOK reference only — never copy any person or product from it.`);
+
+  // Material truth still applies when a human is in frame — fabric must drape, a serum/cream must
+  // read as substance on skin — so the on-model shoot keeps the category's material half of the bar.
+  const cat = categoryDirective(b.brand, b.express);
+  if (cat) lines.push(cat);
 
   lines.push(
     "HUMAN-REALISM IS THE BAR: real skin with pores and subsurface light, alive catch-lit eyes, natural hands with correct fingers, believable hair with flyaways, slight human asymmetry — never a waxy, plastic, airbrushed AI face. Wardrobe, styling, set and grade all bend to the brand. Honour every scene choice above; fill only the blanks from the Brand Profile."

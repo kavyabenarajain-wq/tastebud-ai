@@ -39,7 +39,7 @@ export default function InternalDeckTool() {
 
   async function refreshList() {
     try {
-      const r = await fetch("/api/brains");
+      const r = await fetch("/api/brains?scope=internal");
       const j = await r.json();
       setBrains(j.brains ?? []);
     } catch {
@@ -56,7 +56,7 @@ export default function InternalDeckTool() {
     setSpec(null);
     setError("");
     try {
-      const r = await fetch(`/api/brains/${slug}`);
+      const r = await fetch(`/api/brains/${slug}?scope=internal`);
       const j = await r.json();
       if (j.brain?.name) setName(j.brain.name);
     } catch {
@@ -76,7 +76,7 @@ export default function InternalDeckTool() {
 
   async function openInStudio(slug: string) {
     try {
-      const r = await fetch(`/api/brains/${slug}`);
+      const r = await fetch(`/api/brains/${slug}?scope=internal`);
       const j = await r.json();
       const brain = j.brain as BrandBrain;
       if (brain?.name) {

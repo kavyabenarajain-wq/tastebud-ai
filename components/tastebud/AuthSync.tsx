@@ -34,6 +34,9 @@ export function AuthSync() {
             firstName: str(meta.given_name) || firstFromFull,
             lastName: str(meta.family_name) || restOfFull.join(" "),
             email: user.email,
+            // Google returns the profile photo as avatar_url (and/or picture) — capture it so the
+            // header/greeting can show it. Previously dropped end to end.
+            avatarUrl: str(meta.avatar_url) || str(meta.picture),
             createdAt: user.created_at ?? new Date().toISOString(),
           }),
         );

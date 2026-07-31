@@ -33,17 +33,23 @@ export function buildCompliance(args: {
   observedColors?: { name: string; hex: string; role?: string }[];
   isModel?: boolean;
 }): ShotCompliance {
+  // The curated per-category anti-cliché list (floating pedestal, gradient void, CGI look, …) lives
+  // on photoRules.neverDo. Merge it so it RIDES WITH the asset and is re-injected on every downstream
+  // reshoot / edit / relight / resize — the whole reason compliance exists — instead of dying at the
+  // first planner prompt. Slice bumped 16→20 so category bans aren't truncated by profile do-nots.
+  const rbNeverDo = (((args.profile.rulebook ?? {}) as Record<string, unknown>).photoRules as { neverDo?: string[] } | undefined)?.neverDo ?? [];
   const doNot = Array.from(
     new Set(
       [
         ...(args.profile.doNot ?? []),
+        ...rbNeverDo,
         ...extractIndustryDoNot(args.industry?.content),
         ...(args.planNegatives ?? []),
       ]
         .map((s) => (typeof s === "string" ? s.trim() : ""))
         .filter(Boolean)
     )
-  ).slice(0, 16);
+  ).slice(0, 20);
 
   const palette = (args.profile.palette ?? []).map((c) => [c.hex, c.name].filter(Boolean).join(" ")).filter(Boolean);
   const rb = (args.profile.rulebook ?? {}) as Record<string, unknown>;

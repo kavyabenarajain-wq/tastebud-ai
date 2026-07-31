@@ -14,8 +14,10 @@ import { brainToProfile } from "@/lib/onboard";
 import { buildCompliance, complianceToNegatives } from "@/lib/compliance";
 import { CREATIVE_TYPES, FORMATS, carouselDirective, isV2Type, type FormatId } from "@/lib/creativeTypes";
 import { saveCampaign, slugify } from "@/lib/brainStore";
-import { ensureGrants, chargeUpTo, refund, getBalance, normalizeAccount, DEFAULT_ACCOUNT } from "@/lib/store";
-import { sessionEmail } from "@/lib/supabase/account";
+import { ensureGrants, chargeUpTo, refund, getBalance } from "@/lib/store";
+import { currentAccount } from "@/lib/supabase/account";
+import { retrievePreferences } from "@/lib/memory";
+import { recordImage } from "@/lib/store/images"; // per-user gallery record for every delivered shot
 
 export const runtime = "nodejs";
 export const maxDuration = 300;
@@ -58,10 +60,13 @@ type CreativeSpec = (typeof CREATIVE_TYPES)[CreativeTypeId] | undefined;
 
 export async function POST(req: NextRequest) {
   const body = (await req.json()) as ResolvedBrief;
-  // The signed-in email rides the brief; absent → the shared default bucket (never blocks).
-  // Identity comes from the VERIFIED Supabase session first; the client-sent email is only a
-  // fallback for requests made before auth rolled out (and for the shared anonymous bucket).
-  const account = (await sessionEmail()) ?? normalizeAccount((body as { account?: unknown }).account) ?? DEFAULT_ACCOUNT;
+  // Identity is the VERIFIED Supabase session ONLY (else the shared anonymous bucket). We must NOT
+  // trust a client-supplied email here: this account keys the brand-scoped saveCampaign write (and
+  // the Meal ledger), so honouring body.account would let an unauthenticated caller inject campaigns
+  // into another tenant's brand and spend their Meals. Middleware already 401s a signed-out request
+  // to this route; currentAccount() is the belt-and-suspenders that keeps a client claim from ever
+  // becoming a write key even on the fail-open auth-blip path.
+  const account = await currentAccount();
   const mode = body.mode === "model-photoshoot" ? "model-photoshoot" : "product-photoshoot";
   // A v2 creative type (instagram / story / carousel / ad) rides the product spine with
   // its own directive, aspect(s), copy and fan-out. Absent → exactly today's behaviour.
@@ -148,8 +153,20 @@ export async function POST(req: NextRequest) {
         // off now so its latency hides behind the planner; awaited per-run in the render loop.
         const brandPhotos = (body.brand?.research?.productImages ?? []).filter(Boolean);
         const brandLookPromise: Promise<string | null> = brandPhotos.length ? describeBrandLook(brandPhotos.slice(0, 4)).catch(() => null) : Promise.resolve(null);
-        // Brand memory — the "sharper every campaign" loop, compacted for the planner.
-        const memory = compactMemory(body.brand);
+        // Brand memory — the "sharper every campaign" loop, compacted for the planner. Augmented
+        // with taste RECALLED from the external memory layer (this brand + cross-brand founder taste,
+        // scoped to the signed-in account, keyed to this scene). This is what finally populates the
+        // planner's learned-preferences from real founder history. No-op / instant when unkeyed.
+        const compact = compactMemory(body.brand);
+        const memSlug = body.brand?.name ? slugify(body.brand.name) : null;
+        const recalledPrefs = await retrievePreferences(account, memSlug, sceneBrief).catch(() => []);
+        const memory = compact || recalledPrefs.length
+          ? {
+              approved: compact?.approved ?? [],
+              rejected: compact?.rejected ?? [],
+              preferences: Array.from(new Set([...(compact?.preferences ?? []), ...recalledPrefs])).slice(0, 8),
+            }
+          : undefined;
         if (memory) send({ type: "status", phase: "memory", approved: memory.approved.length, rejected: memory.rejected.length });
         const modelRefs = body.modelRefs ?? [];
         // Product category → whether a human can genuinely WEAR it. Non-wearables (food,
@@ -157,6 +174,9 @@ export async function POST(req: NextRequest) {
         // "worn" so a model is never made to wear an ice cream or a sofa.
         const modelCategory = detectCategory(body.brand?.category, body.brand?.productType, body.brand?.name, body.express);
         const productWearable = canWear(modelCategory);
+        // Food/drink products get the appetite-appeal freshness directive on the render (same seam
+        // as wearable). Gated so non-food products are unaffected.
+        const appetiteCategory = modelCategory === "food" || modelCategory === "drink";
         // Multi-model: 2+ DISTINCT people in one frame. `renderPeople` carries only the people
         // who have a reference photo (used to build the per-person identity lock); `isGroup`
         // also covers built-attribute groups so the single-identity QC doesn't false-fail them.
@@ -361,7 +381,7 @@ export async function POST(req: NextRequest) {
                   // cleanPlate: this creative's headline/CTA are overlaid later as real typography,
                   // so the RENDER must carry no text of its own — otherwise the model bakes the
                   // headline into the set and the overlay prints it again on top.
-                  : await renderShot({ id: stub.id, prompt: shot.prompt, angle: shot.angle, negatives: shot.negatives, extraNegatives, products, references, referencesAreBrand, refScene: refScene ?? undefined, productIdentity, productManifest, brandLook: brandLook ?? undefined, noProduct, cleanPlate: !!spec?.needsCopy, aspect: stub.aspect, imageSize: "2K", finish });
+                  : await renderShot({ id: stub.id, prompt: shot.prompt, angle: shot.angle, negatives: shot.negatives, extraNegatives, products, references, referencesAreBrand, refScene: refScene ?? undefined, productIdentity, productManifest, brandLook: brandLook ?? undefined, noProduct, cleanPlate: !!spec?.needsCopy, appetite: appetiteCategory, aspect: stub.aspect, imageSize: "2K", finish });
                 fallback = candidate;
                 if (gateFidelity) {
                   const restage = !isModel && references.length > 0;
@@ -369,7 +389,7 @@ export async function POST(req: NextRequest) {
                   // would false-fail people 2..N. Skip the single-identity gate for groups —
                   // per-person likeness is enforced by the prompt lock + negatives instead.
                   const modelRef = isModel && !isGroup ? modelRefs.filter(Boolean)[0] : undefined;
-                  const verdict = await qcImage({ url: candidate, checklist: isModel ? MODEL_CHECKLIST : [], brand: profile.name, productRef: heroRef, modelRef, restage, manifest: inspection?.elements });
+                  const verdict = await qcImage({ url: candidate, checklist: isModel ? MODEL_CHECKLIST : [], brand: profile.name, productRef: heroRef, modelRef, restage, manifest: inspection?.elements, cleanPlate: !!spec?.needsCopy });
                   if (!verdict.pass) {
                     lastReasons = verdict.reasons;
                     send({ type: "qc", id: stub.id, reasons: verdict.reasons, attempt: attempt + 1, of: MAX_ATTEMPTS });
@@ -392,10 +412,19 @@ export async function POST(req: NextRequest) {
               // Always-on free 4K: enlarge + re-sharpen the accepted plate in place so the
               // downloadable original and every derived thumbnail are crisp at ~4K. Real
               // super-resolution stays the opt-in keeper upgrade (/api/upscale).
-              await enlargeInPlace(finalUrl);
+              await enlargeInPlace(finalUrl, undefined, finish?.sharpen);
               send({ type: "shot", run: runKey, shot: { id: stub.id, angle: shot.angle, prompt: shot.prompt, negatives: shot.negatives, compliance, url: finalUrl, aspect: stub.aspect, format: stub.format, seq: stub.seq, groupId: stub.groupId, drift: drift || undefined, driftReasons: drift ? lastReasons : undefined, brandGeneric: noProduct || undefined } });
               const output: CampaignOutput = { id: stub.id, url: finalUrl, format: stub.format, aspect: stub.aspect, angle: shot.angle, seq: stub.seq, at: new Date().toISOString() };
               outputs.push(output);
+              // Persist this delivered image under the signed-in account — the durable "my images"
+              // record (the public Blob object carries no owner). Fire-and-forget; never delays the shoot.
+              void recordImage({
+                account,
+                url: finalUrl,
+                kind: isModel ? "model" : spec ? "campaign" : "product",
+                slug: body.brand?.name ? slugify(body.brand.name) : null,
+                prompt: shot.prompt,
+              }).catch(() => {});
               // Image-aware copy placement runs OFF the render lane — the shot pixels are already
               // shown; this only decides WHERE the overlay copy sits (clear of the product), and it
               // writes the hint back onto the saved output. Detached so it never delays the next shot.
@@ -421,7 +450,7 @@ export async function POST(req: NextRequest) {
           if (spec && slug && campaignId && outputs.length) {
             const copy = await copyPromise;
             const at = new Date().toISOString();
-            await saveCampaign(slug, { id: campaignId, name: campaignName, type: spec.id, brief: body.express?.trim() || undefined, copy, outputs, createdAt: at, updatedAt: at }).catch(() => {});
+            await saveCampaign(slug, { id: campaignId, name: campaignName, type: spec.id, brief: body.express?.trim() || undefined, copy, outputs, createdAt: at, updatedAt: at }, account).catch(() => {});
           }
           } finally {
             // MEALS reconciliation — refund every paid-for image that was never delivered

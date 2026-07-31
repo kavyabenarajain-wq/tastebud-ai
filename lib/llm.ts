@@ -317,7 +317,7 @@ export async function campaignCopy(args: {
     : "";
   const user =
     `The creative brief for the imagery (write copy that belongs to this exact concept):\n${args.brief.slice(0, 2000)}\n\n` +
-    `Write the copy for ${kind}: a HEADLINE (≤ 7 words, no full stop), an optional SUBLINE (≤ 12 words), a CTA (2–4 words in the brand's voice, e.g. "Shop the ritual"), and a CAPTION (1–2 sentences, the brand talking; at most 2 tasteful hashtags, never a hashtag wall).${variantsAsk}${framesAsk}${treatmentAsk}\n\n` +
+    `Write the copy for ${kind}: a HEADLINE (≤ 7 words, no full stop), an optional SUBLINE (≤ 12 words), a CTA (2–4 words in the brand's voice, e.g. "Shop the ritual") — it must sound like THIS brand and no other; never a stock default ("Shop Now", "Learn More", "Buy Now", "Get Started", "Order Today") unless the brand genuinely speaks that flatly — and a CAPTION (1–2 sentences, the brand talking; at most 2 tasteful hashtags, never a hashtag wall).${variantsAsk}${framesAsk}${treatmentAsk}\n\n` +
     `Return STRICT JSON ONLY: {"headline":"...","subline":"...","cta":"...","caption":"..."${variantsJson}${framesJson}${treatmentJson}}`;
   try {
     const parsed = CopySchema.parse(JSON.parse(stripFences(await chat(system, user))));

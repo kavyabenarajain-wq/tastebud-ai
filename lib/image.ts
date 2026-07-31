@@ -2,7 +2,7 @@ import { readFile } from "node:fs/promises";
 import { join, basename } from "node:path";
 import OpenAI, { toFile } from "openai";
 import { runReplicate, firstUrl } from "./replicate";
-import { finishInPlace, NEUTRAL_GRADE } from "./finish";
+import { finishInPlace, NEUTRAL_GRADE, modelSafeGrade } from "./finish";
 import { chatComplete } from "./openaiClient";
 import { putImage } from "./storage";
 import type { FinishGrade } from "./types";
@@ -281,7 +281,7 @@ async function visionJudge(prompt: string, imageSrcs: string[]): Promise<string 
   return null;
 }
 
-export async function qcImage(args: { url: string; checklist: string[]; brand: string; productRef?: string; modelRef?: string; restage?: boolean; manifest?: string[] }): Promise<{ pass: boolean; reasons: string[] }> {
+export async function qcImage(args: { url: string; checklist: string[]; brand: string; productRef?: string; modelRef?: string; restage?: boolean; manifest?: string[]; cleanPlate?: boolean }): Promise<{ pass: boolean; reasons: string[] }> {
   try {
     // Ordered reference images → "IMAGE 1..N"; the GENERATED frame under review is ALWAYS last.
     const refSrcs: string[] = [];
@@ -296,6 +296,10 @@ export async function qcImage(args: { url: string; checklist: string[]; brand: s
     const manifestClause = args.productRef && args.manifest?.length
       ? `EVERY ONE of these elements is printed on the REAL product and must be PRESENT, complete and LEGIBLE in the generated photo — FAIL if any visible one is missing, cut off, blurred, garbled, misspelled, translated or altered: ${args.manifest.slice(0, 20).join(" | ")}. (Ignore only an element on a face of the pack genuinely not visible at this camera angle.)\n`
       : "";
+    // Anti-cliché + clean-plate backstops — the render prompt bans these, but without a gate a
+    // floating-on-a-plinth-in-a-void frame or a baked-in headline would sail through QC.
+    const cliches = "Also FAIL on any tell of cheap AI staging in the generated image: the product floating on a pedestal/podium/plinth, a seamless gradient-void background, a concentric spotlight halo, random scattered cubes/spheres/pebbles, fake confetti bokeh, or a plastic/CGI-render look — a real photograph has a real surface, a real contact shadow and physically plausible light.\n";
+    const cleanPlateClause = args.cleanPlate ? "CLEAN PLATE — copy is overlaid later, so the render itself must carry NO added text: FAIL if the generated image contains ANY headline, tagline, slogan, caption, sign, sticker, badge, watermark or word spelled out of any material anywhere in the scene. The ONLY text permitted is the text physically printed on the product itself.\n" : "";
     let prompt: string;
     if (args.modelRef) {
       const productClause = args.productRef
@@ -333,14 +337,17 @@ export async function qcImage(args: { url: string; checklist: string[]; brand: s
           `IMAGE 1 may also contain a hand, fingers, nails, props or a background — IGNORE all of that and compare ONLY the product object itself.\n` +
           `FAIL if the PRODUCT in IMAGE 2 differs from the product in IMAGE 1 in shape, silhouette, proportions, cap/closure, label, logo, any text/wording, or colours — it must be the SAME product, only in a new setting.\n` +
           manifestClause +
+          cliches +
+          cleanPlateClause +
           `Also fail if IMAGE 2 looks distorted, fake, melted or obviously AI-generated, OR if it reproduces a hand/fingers/background copied from IMAGE 1. Do NOT penalise a different camera angle, background or lighting.${extra}` +
           `When the product clearly matches and the photo is clean, pass.\n` +
           `Return STRICT JSON ONLY: {"pass":true|false,"reasons":["short reason", ...]}`;
     } else {
       prompt =
         `You are a STRICT product-photography QC reviewer for the brand "${args.brand}". Judge ONE image on its own merits against:\n` +
-        checklist.map((c, i) => `${i + 1}. ${c}`).join("\n") +
-        `\nFail ONLY if the product looks distorted, fake, warped, melted, mislabelled, or obviously AI-generated. When in doubt, pass.\n` +
+        checklist.map((c, i) => `${i + 1}. ${c}`).join("\n") + "\n" +
+        cliches + cleanPlateClause +
+        `Fail ONLY if the product looks distorted, fake, warped, melted, mislabelled, or obviously AI-generated. When in doubt, pass.\n` +
         `Return STRICT JSON ONLY: {"pass":true|false,"reasons":["short reason", ...]}`;
     }
     const raw = await visionJudge(prompt, [...refSrcs, args.url]);
@@ -532,7 +539,7 @@ const PRODUCT_LOCK =
   "ABSOLUTE RULE — ISOLATE THE PRODUCT, THEN REPRODUCE IT EXACTLY. The first attached image contains the product. LOOK ONLY AT THE PRODUCT OBJECT ITSELF. If that image also shows a hand, fingers, fingernails, other objects, props, text overlays, or a background, IGNORE ALL OF IT — do NOT reproduce the hand, fingers, nails, or the original background. Mentally cut the product out cleanly and reproduce ONLY the product with 100% fidelity: identical shape, silhouette, proportions, cap/closure, label, logo, typography, every word of text, colours and materials. Do NOT redraw, restyle, relabel, recolour, reshape, reinvent or 'improve' the product in ANY way. Then place that exact, isolated product into the NEW scene described below. The product must look pixel-faithful to the real product; everything around it (background, surface, props, lighting, angle) comes only from the brief.";
 
 const REALISM_ANCHOR =
-  "CAMERA-FIRST — describe HOW this was photographed, not how nice it looks. A REAL photograph on a full-frame body (Canon EOS R5 / Sony A7 IV) with a prime or macro lens, shot fairly open (≈f/2.8–f/5.6) for a natural, shallow depth of field; Kodak Portra 400 / Fujifilm colour — gentle highlight roll-off, fine organic grain, NO digital over-sharpening, NO HDR clarity. ONE motivated light source with a believable direction and a real, hard-edged-or-soft contact shadow; true material behaviour (glass refracts, metal speculars, matte stays matte). A specific, designed background/surface with real texture — never a flat generic void. Never a 3D, CGI, plastic, waxy or AI-render look.";
+  "CAMERA-FIRST — describe HOW this was photographed, not how nice it looks. A REAL photograph on a full-frame body (Canon EOS R5 / Sony A7 IV) with a prime or macro lens, at the aperture the shot actually calls for — opened up (≈f/2–f/4) for a lifestyle or in-context frame so the background falls softly away, or stopped DOWN (≈f/8–f/16) for a packshot, flat-lay or detail shot so the WHOLE product stays sharp edge to edge and the surface reads flat and true; never a uniformly blurred, floaty background on a clean packshot or an overhead flat-lay. Kodak Portra 400 / Fujifilm colour — gentle highlight roll-off, fine organic grain, NO digital over-sharpening, NO HDR clarity. ONE motivated light source with a believable direction and a real, hard-edged-or-soft contact shadow; true material behaviour (glass refracts, metal speculars, matte stays matte). A specific, designed background/surface with real texture — never a flat generic void. Never a 3D, CGI, plastic, waxy or AI-render look.";
 
 // The single deliberate flaw. AI images look fake because they are TOO clean — nothing a
 // camera ever produced. One honest imperfection is what makes a creative director's eye
@@ -546,6 +553,12 @@ const PRODUCT_IMPERFECTION =
 // banned digital over-sharpening / HDR clarity look.
 const PRODUCT_LEGIBILITY =
   "TACK-SHARP, FULLY LEGIBLE PRODUCT (non-negotiable): the product itself — and every part of its label, printed text, logo, wordmark and fine print — must be perfectly in focus, crisp and completely readable, as if shot on a high-resolution full-frame sensor with the product on the plane of focus. Reproduce every word of the real text exactly and legibly; never blur, soften, smear, garble or throw the product or its text out of focus. Any shallow depth of field or soft focus applies ONLY to the background and surroundings, NEVER to the product or its text. Real optical clarity — NOT digital over-sharpening, edge halos or an HDR look.";
+
+// Appetite appeal for FOOD & DRINK products (gated per-category by the caller, same seam as
+// `wearable`). Freshness cues are physical camera facts, not marketer adjectives; the "physically
+// true, never invent toppings" clause keeps it inside absolute product fidelity.
+const FOOD_APPETITE =
+  "APPETITE APPEAL (food & drink) — shoot the product at its most tempting, just-served moment. Render true, mouth-watering surface cues appropriate to what it actually is: a moist crumb, a molten or glossy centre, a crisp golden edge, fresh sheen, natural herbs or garnish exactly as the real product has them; for a cold drink, real condensation beading and slow drips down the glass, fresh ice, a natural foam or head; for anything hot, a faint wisp of real steam. Everything reads fresh and just-made — never dried out, congealed, waxy, plastic or like a stale food-styling prop. Enhance FRESHNESS only: keep every garnish, topping and texture PHYSICALLY TRUE to the real product; never invent ingredients or toppings it does not have.";
 
 // Build the "restage the product into the reference's world" directive. Used when the
 // client attaches a STYLE reference — they want THEIR product shot in THAT scene's look.
@@ -611,7 +624,7 @@ function multiPersonLock(people: { name?: string; refs: string[] }[]): string {
   return (
     `MULTIPLE DISTINCT PEOPLE — this frame contains ${people.length} DIFFERENT human beings, one identity per person. The first ${idx} attached image(s) are their likeness references, in this order:\n` +
     lines.join("\n") + "\n" +
-    "Keep every person clearly DISTINCT and unmistakably themselves — NEVER blend, merge, average, duplicate, clone or swap their faces or bodies, and never collapse them toward one generic look. Each person appears EXACTLY ONCE. Compose them together as a believable group in one shot: natural spacing, real eyelines and interaction, consistent scale, one shared light and grade."
+    "Keep every person clearly DISTINCT and unmistakably themselves — NEVER blend, merge, average, duplicate, clone or swap their faces or bodies, and never collapse them toward one generic look. Each person appears EXACTLY ONCE. Compose them together as a believable group in one shot: natural spacing, real eyelines and interaction, consistent scale, one shared light and grade. Shoot stopped down enough (around f/4–f/5.6) that ALL of them sit inside the depth of field and every face reads tack-sharp — never the front person sharp with the rest melting into blur."
   );
 }
 
@@ -621,7 +634,7 @@ function multiPersonLock(people: { name?: string; refs: string[] }[]): string {
  */
 function builtGroupLock(n: number): string {
   return (
-    `GROUP OF PEOPLE — this frame shows EXACTLY ${n} DIFFERENT people together, a real group of ${n}. Cast ${n} distinct individuals, each with their OWN face, body, age, skin tone, hair and styling — a varied, diverse, natural group, never ${n} copies of the same person and never blended into one look. ALL ${n} of them are clearly visible together in EVERY frame, at consistent scale under one shared light, interacting naturally (real spacing, eyelines and body language). NEVER drop to a single person or a solo portrait — there must be ${n} people.`
+    `GROUP OF PEOPLE — this frame shows EXACTLY ${n} DIFFERENT people together, a real group of ${n}. Cast ${n} distinct individuals, each with their OWN face, body, age, skin tone, hair and styling — a varied, diverse, natural group, never ${n} copies of the same person and never blended into one look. ALL ${n} of them are clearly visible together in EVERY frame, at consistent scale under one shared light, interacting naturally (real spacing, eyelines and body language). NEVER drop to a single person or a solo portrait — there must be ${n} people. Shoot stopped down enough (around f/4–f/5.6) that ALL of the people sit inside the depth of field and every face reads tack-sharp — never the front person sharp with the rest melting into blur.`
   );
 }
 
@@ -654,7 +667,8 @@ const CLEAN_PLATE =
   "CLEAN PLATE — THIS PHOTOGRAPH IS A BACKGROUND. All headlines, sublines and CTAs are overlaid afterwards in real fonts, so the render itself must contain ZERO added text. " +
   "Do NOT write, letter, emboss, deboss, engrave, carve, paint, print, stencil, stamp, arrange or spell out ANY word, headline, tagline, slogan, caption, sign, label, sticker, badge or watermark anywhere in the scene — not on the backdrop, surface, wall, table, packaging tissue, ribbon or any prop, and not formed out of petals, powder, cream or any material. " +
   "The ONLY text permitted anywhere in the entire frame is the text physically printed on the product itself, reproduced exactly as it really is. " +
-  "The reserved negative space must be left GENUINELY EMPTY — empty is correct, not an unfinished look to decorate with type.";
+  "The reserved negative space must be left GENUINELY EMPTY — empty is correct, not an unfinished look to decorate with type. " +
+  "COMPOSE FOR THE OVERLAY: deliberately weight the product and all staging into one side or one third of the frame, leaving a generous, uncluttered, evenly-lit expanse of plain background — clean of props, busy texture and important detail — where the headline and CTA will later be set in real type. Treat that empty band as a designed part of the shot, sized for a few lines of large type, and keep the product well clear of it so overlaid copy never touches the product.";
 
 /** Text the model must never invent into the frame. Scoped so the PRODUCT's own printed text
  *  (required by PRODUCT_LOCK) stays mandatory — only ADDED scene text is banned. */
@@ -745,8 +759,23 @@ export async function renderModelShot(args: {
   // Force input_fidelity HIGH when a likeness reference is in play so the OpenAI/Azure
   // edit path holds the EXACT face true — never let a global speed setting soften it.
   const inputFidelity = modelRefs.length ? "high" : undefined;
-  return dispatch(args.id, fullPrompt, refs, { aspect: args.aspect, imageSize: args.imageSize, multiSubject: true, inputFidelity, finish: args.finish });
+  // Skin-safe grade: strip the brand's colour cast so the finishing pass can never tint the
+  // model's skin toward the brand hue — film texture (contrast/grain/sharpen) still seats.
+  return dispatch(args.id, fullPrompt, refs, { aspect: args.aspect, imageSize: args.imageSize, multiSubject: true, inputFidelity, finish: modelSafeGrade(args.finish ?? NEUTRAL_GRADE) });
 }
+
+// Maps an angle label to the ONE viewpoint instruction that applies. Feeding gpt-image a single
+// clear viewpoint (instead of a seven-item contradictory menu) is the biggest lever on the #1
+// product-set complaint — every planned "angle" coming back as the same front view.
+const ANGLE_GUIDE: { test: RegExp; line: string }[] = [
+  { test: /three-quarter|45/i, line: "THREE-QUARTER / 45° — turn the product ~45° so TWO faces are visible at once and the front label wraps toward the receding edge; clearly not face-on." },
+  { test: /top-down|flat.?lay|overhead/i, line: "TOP-DOWN / OVERHEAD / FLAT-LAY — lay the product FLAT on the surface and shoot from DIRECTLY ABOVE looking straight down; it must read as a bird's-eye flat-lay, NEVER a standing product." },
+  { test: /\bside\b|profile/i, line: "SIDE / PROFILE — the narrow side edge toward camera, showing the product's depth/thickness, the label seen edge-on." },
+  { test: /low angle|looking up/i, line: "LOW ANGLE — camera near the surface looking UP so the product looms tall against the space above it." },
+  { test: /high angle|looking down/i, line: "HIGH ANGLE — camera raised, looking down onto the product at roughly 45°." },
+  { test: /\bback\b|\brear\b|base|underside|bottom/i, line: "BACK / BASE — rotate to show the rear or the underside." },
+  { test: /macro|detail/i, line: "MACRO / DETAIL — fill the frame with ONE region (cap, label, texture) at very close distance." },
+];
 
 export async function renderShot(args: {
   id: string;
@@ -763,6 +792,7 @@ export async function renderShot(args: {
   brandLook?: string; // how this brand shoots, read off their real feed at gen time (from describeBrandLook)
   noProduct?: boolean; // no product supplied → render an on-brand scene, never an invented hero product
   cleanPlate?: boolean; // copy is overlaid later → the render must carry NO text of its own
+  appetite?: boolean; // food/drink product → inject the appetite-appeal freshness directive
   aspect?: string;
   imageSize?: string;
   finish?: FinishGrade; // brand grade for the deterministic finishing pass (defaults to NEUTRAL_GRADE)
@@ -778,7 +808,7 @@ export async function renderShot(args: {
   // How this brand actually shoots, read off their real feed at generation time — applied to the
   // render directly (the researched rulebook only ever reached the planner as prose before).
   const brandLookBlock = args.brandLook
-    ? `\n\nBRAND PHOTOGRAPHIC WORLD — the finished shot must look like it belongs in this brand's real feed. Reproduce THIS brand's photographic signature (backgrounds, surfaces, light quality & direction, colour grade, palette, styling/prop density, camera feel and crop), but do NOT copy any product, label or text from it — the product comes only from the attached product image(s):\n${args.brandLook}`
+    ? `\n\nBRAND PHOTOGRAPHIC WORLD — the finished shot must look like it belongs in this brand's real feed. Reproduce THIS brand's photographic signature (backgrounds, surfaces, light quality & direction, colour grade, palette, styling/prop density, camera feel and crop), but do NOT copy any product, label or text from it — the product comes only from the attached product image(s). Where this brand's real signature differs from the generic film/camera recipe elsewhere in this brief — its grade, contrast, warmth, hardness of light or depth of field — THIS brand's actual look WINS; match what they really shoot, not the default:\n${args.brandLook}`
     : "";
   // NO-HERO-PRODUCT branch — the client gave no product, so we NEVER invent one. Produce an
   // on-brand atmospheric scene from the brand world + look, with product-lock rules omitted.
@@ -838,16 +868,11 @@ export async function renderShot(args: {
   // BUT when a STYLE reference is driving the shot, ITS composition is the whole point —
   // forcing a different angle would fight the look the client asked us to reproduce, so the
   // angle lock stands down and the reference scene (below) governs framing.
+  const matchedAngle = args.angle ? ANGLE_GUIDE.find((a) => a.test.test(args.angle!)) : undefined;
   const angleLock = args.angle && !args.refScene
-    ? `\n\nCAMERA ANGLE — MANDATORY, NON-NEGOTIABLE: this shot MUST be photographed from a genuinely DIFFERENT viewpoint — ${args.angle}. Do NOT reproduce the uploaded photo's upright straight-on framing; the product's ON-SCREEN SILHOUETTE must visibly CHANGE from a plain front view. Physically move the camera AND re-orient the product to present this exact viewpoint:\n` +
-      `• THREE-QUARTER / 45° — turn the product ~45° so TWO faces are visible at once and the front label wraps toward the receding edge; clearly not face-on.\n` +
-      `• TOP-DOWN / OVERHEAD / FLAT-LAY — lay the product FLAT on the surface and shoot from DIRECTLY ABOVE looking straight down; it must read as a bird's-eye flat-lay, NEVER a standing product.\n` +
-      `• SIDE / PROFILE — the narrow side edge toward camera, showing the product's depth/thickness, the label seen edge-on.\n` +
-      `• LOW ANGLE — camera near the surface looking UP so the product looms tall against the space above it.\n` +
-      `• HIGH ANGLE — camera raised, looking down onto the product at roughly 45°.\n` +
-      `• BACK / BASE — rotate to show the rear or the underside.\n` +
-      `• MACRO / DETAIL — fill the frame with ONE region (cap, label, texture) at very close distance.\n` +
-      `Only the CAMERA and the product's ORIENTATION change — its identity, exact shape, label text, colours and material stay 100% fixed (the product-lock rules above still govern identity). The result must be UNMISTAKABLY a different angle from every other shot in the set — not the same front shot with a different background, shadow or crop.`
+    ? `\n\nCAMERA ANGLE — MANDATORY, NON-NEGOTIABLE: this shot MUST be photographed from a genuinely DIFFERENT viewpoint — ${args.angle}. Do NOT reproduce the uploaded photo's upright straight-on framing; the product's ON-SCREEN SILHOUETTE must visibly CHANGE from a plain front view. Physically move the camera AND re-orient the product to present THIS ONE viewpoint:\n` +
+      `• ${matchedAngle ? matchedAngle.line : args.angle}\n` +
+      `Only the CAMERA and the product's ORIENTATION change — its identity, exact shape, label text, colours and material stay 100% fixed (the product-lock rules above still govern identity). The result must be UNMISTAKABLY this angle — not the same front shot with a different background, shadow or crop.`
     : "";
   // When a STYLE reference drives the shoot, the reference's WORLD must win. The planner
   // never saw the reference image, so its invented scene (args.prompt) describes the BRAND
@@ -865,7 +890,7 @@ export async function renderShot(args: {
     (args.cleanPlate ? `\n\n${CLEAN_PLATE}` : "") +
     `\n\n${REALISM_ANCHOR}` +
     `\n\n${PRODUCT_IMPERFECTION}` +
-    `\n\n${PRODUCT_LEGIBILITY}${manifestBlock}${brandLookBlock}`;
+    `\n\n${PRODUCT_LEGIBILITY}${args.appetite ? "\n\n" + FOOD_APPETITE : ""}${manifestBlock}${brandLookBlock}`;
   if (references.length) {
     const which = references.length === 1 ? "the LAST attached image is" : `the LAST ${references.length} attached images are`;
     fullPrompt += args.referencesAreBrand

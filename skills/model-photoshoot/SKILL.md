@@ -128,25 +128,24 @@ Keep the same person, wardrobe, light, and grade across the set so it reads as o
 ## Posing, wardrobe, styling, set
 
 - **Posing**: natural weight, relaxed hands, a believable gaze and expression. Avoid stiff, symmetrical, mannequin poses. Micro-asymmetry in stance reads human.
-- **Wardrobe**: from the brand vocabulary, fitted and styled with intent, real fabric behaviour (drape, fold, sheen). It should never compete with the product.
+- **Wardrobe**: sampled from the brand's OWN world — the colours, fabrics and textures that already appear in the brand's product photos and feed, not an LLM-invented palette. Fitted and styled with intent, real fabric behaviour (drape, fold, sheen), and never competing with the product.
 - **Set and grade**: brand light language, brand palette in the environment, a colour grade consistent across the set.
-- **Casting**: serve the brand's audience and register honestly and respectfully. Represent real, varied people well; keep features true and dignified, never caricatured.
+- **Casting**: cast the brand's ACTUAL customer, not a high-fashion agency default. Anchor age, body and register to who really buys this brand; serve its audience honestly and respectfully, represent real, varied people well, keep features true, dignified and specific — never caricatured, never a flawless symmetrical composite.
 
 ---
 
 ## Constructing the generation prompt
 
-Write it as a photographer's brief, in order:
+Write it as a photographer's brief, and lead with the capture — this skill's own rule is that the frame is described *before* the subject:
 
-1. The model: specific identity (from builder attributes, the saved model, or the reference), with the realism anchors — real skin texture, catchlit eyes, natural hands.
-2. Product interaction: exactly how it is worn/held/applied, at true scale.
-3. Pose, expression, and framing for this specific shot.
-4. Wardrobe and styling (from brand).
-5. Set and environment (from brand).
-6. Light setup: direction, quality, key, how it falls on skin.
-7. Lens and depth-of-field feel.
-8. Brand-correctness and grade cues (palette, mood, negative space).
-9. Realism anchors: photographic, real skin, natural hands, legible product label.
+1. **Capture first**: name the body + lens matched to the frame (e.g. Sony A7 IV, 85mm f/1.4, shot wide open ~f/1.8), a film stock (Kodak Portra 400 / Fuji Pro 400H), and the motivated light source and its quality (soft overcast window, low golden-hour sun in a real room). No flat, sourceless light.
+2. **The model**: specific identity (builder attributes / saved model / reference), with the realism anchors baked in — real skin texture and pores, catchlit living eyes, natural hands, and the ONE honest imperfection on record (freckles, gap tooth, laugh lines).
+3. **Product interaction**: exactly how it is worn/held/applied, at true scale, with real contact, occlusion and shadow.
+4. **Pose, expression, and framing** for this specific shot — relaxed, candid, micro-asymmetric.
+5. **Wardrobe and styling** (from the brand's own palette and textures).
+6. **Set and environment** (from brand).
+7. **Depth-of-field feel and grade** (palette, mood, reserved negative space).
+8. Close with the explicit **negative list**.
 
 Carry an explicit **negative list**: no extra or missing fingers, no warped hands, no fused limbs, no waxy/plastic skin, no dead or mismatched eyes, no uniform tile teeth, no helmet hair, no warped product label, no floating product, no uncanny symmetry.
 

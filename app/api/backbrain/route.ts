@@ -1,6 +1,7 @@
 import type { NextRequest } from "next/server";
 import { runBackBrain } from "@/lib/backbrain";
 import { saveBrain, saveGuidelines, slugify } from "@/lib/brainStore";
+import { isOperator } from "@/lib/supabase/account";
 import type { BrandBrain } from "@/lib/types";
 
 // Internal-only: the operator's "behind-the-brain" deck builder. Paste call notes +
@@ -10,6 +11,10 @@ export const runtime = "nodejs";
 export const maxDuration = 300;
 
 export async function POST(req: NextRequest) {
+  // Operator-only. This never-customer-facing tool runs an expensive research/LLM pipeline and
+  // writes into the internal bucket, so it must be gated to the allowlist (OPS_OWNER_EMAILS /
+  // MEALS_OWNER_EMAIL) — not merely "any signed-in user". Empty allowlist → nobody, by design.
+  if (!(await isOperator())) return Response.json({ error: "Forbidden — operator only." }, { status: 403 });
   const body = (await req.json()) as { notes?: string; name?: string; slug?: string; exBranding?: string; referenceNotes?: string; references?: string[] };
   const notes = (body.notes ?? "").trim();
   const exBranding = (body.exBranding ?? "").trim() || undefined; // existing brand doc → rebrand context

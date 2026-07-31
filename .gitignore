@@ -13,3 +13,5 @@ generated/
 data/tastebud.db
 data/tastebud.db-wal
 data/tastebud.db-shm
+.vercel
+.env*

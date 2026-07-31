@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { ArrowRight, Check, Upload, ImageIcon } from "lucide-react";
@@ -22,10 +22,45 @@ export default function ProductLibrary() {
   const router = useRouter();
   const { brain, hydrated, catalog, selectedIds, toggleProduct, selectAll, clearSelection, patch } = useStudio();
   const fileRef = useRef<HTMLInputElement>(null);
+  const [failed, setFailed] = useState<Set<string>>(new Set());
+  const [healing, setHealing] = useState(false);
+  const healRan = useRef(false);
 
   useEffect(() => {
     if (hydrated && !brain.name) router.replace("/studio");
   }, [hydrated, brain.name, router]);
+
+  // Self-heal a catalogue that came back as names with NO photos (e.g. a Shopify site whose saved
+  // URL carried a `?srsltid=` tracking query that used to break harvesting). If most products lack
+  // an image and we know the site, re-harvest it straight from the live site — this time WITH images
+  // (and clean names) — and swap the library in. Runs once; a healthy catalogue is left untouched.
+  useEffect(() => {
+    if (!hydrated || healRan.current) return;
+    const cat = brain.catalog ?? [];
+    if (!cat.length) return;
+    const withImg = cat.filter((p) => p.images?.[0]).length;
+    const site = brain.website || brain.research?.website;
+    if (!site || withImg / cat.length >= 0.5) return; // healthy enough, or nowhere to re-harvest
+    healRan.current = true;
+    setHealing(true);
+    fetch("/api/studio/catalog/refresh", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify({ website: site }),
+    })
+      .then((r) => (r.ok ? r.json() : null))
+      .then((data: { catalog?: StudioProduct[]; logo?: string } | null) => {
+        const fresh = data?.catalog ?? [];
+        const freshWith = fresh.filter((p) => p.images?.[0]).length;
+        // Only replace if the re-harvest genuinely recovered more photos than we had.
+        if (fresh.length && freshWith > withImg) {
+          setFailed(new Set());
+          patch({ catalog: fresh, selectedProductIds: [] });
+        }
+      })
+      .catch(() => {})
+      .finally(() => setHealing(false));
+  }, [hydrated, brain.catalog, brain.website, brain.research?.website, patch]);
 
   function addUploads(files: FileList | null) {
     const list = Array.from(files ?? []).filter((f) => f.type.startsWith("image/"));
@@ -64,7 +99,9 @@ export default function ProductLibrary() {
             <span className="text-[11px] uppercase tracking-wide text-muted">{brain.name} · library</span>
             <h1 className="mt-3 font-serif text-4xl font-light tracking-tight text-ink md:text-5xl">Your products</h1>
             <p className="mt-3 max-w-lg text-[15px] leading-relaxed text-muted">
-              {catalog.length > 0
+              {healing
+                ? "Fetching your product photos from your site…"
+                : catalog.length > 0
                 ? "Pulled straight from your site — no uploads. Pick the ones you want to create with."
                 : "I couldn't pull products automatically. Drop a few in and we'll shoot those."}
             </p>
@@ -83,7 +120,7 @@ export default function ProductLibrary() {
           <div className="grid grid-cols-2 gap-4 md:grid-cols-3 xl:grid-cols-4">
             {catalog.map((p, i) => {
               const on = selectedIds.includes(p.id);
-              const img = p.images[0];
+              const img = failed.has(p.id) ? undefined : p.images[0];
               return (
                 <motion.button
                   key={p.id}
@@ -96,7 +133,7 @@ export default function ProductLibrary() {
                   <div className="relative aspect-square w-full overflow-hidden bg-surface">
                     {img ? (
                       // eslint-disable-next-line @next/next/no-img-element
-                      <img src={thumb(img)} alt={p.name} loading="lazy" decoding="async" className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]" />
+                      <img src={thumb(img)} alt={p.name} loading="lazy" decoding="async" onError={() => setFailed((s) => new Set(s).add(p.id))} className="h-full w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]" />
                     ) : (
                       <div className="flex h-full w-full items-center justify-center text-hairline"><ImageIcon size={26} strokeWidth={1.5} /></div>
                     )}

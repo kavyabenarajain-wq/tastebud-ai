@@ -11,6 +11,7 @@ export type ProfileInput = {
   firstName?: string | null;
   lastName?: string | null;
   name?: string | null;
+  avatarUrl?: string | null; // Google profile photo (avatar_url / picture)
   provider?: string | null; // 'google' | 'email' | …
 };
 
@@ -24,9 +25,9 @@ export async function upsertProfile(p: ProfileInput): Promise<{ created: boolean
   const existing = await one<{ id: string }>("SELECT id FROM accounts WHERE id = ?", [id]);
   if (!existing) {
     await run(
-      `INSERT OR IGNORE INTO accounts (id, email, name, first_name, last_name, provider, plan, created_at, last_seen_at)
-       VALUES (?, ?, ?, ?, ?, ?, 'free', ?, ?)`,
-      [id, p.email, full, p.firstName ?? null, p.lastName ?? null, p.provider ?? null, nowISO(), nowISO()],
+      `INSERT OR IGNORE INTO accounts (id, email, name, first_name, last_name, avatar_url, provider, plan, created_at, last_seen_at)
+       VALUES (?, ?, ?, ?, ?, ?, ?, 'free', ?, ?)`,
+      [id, p.email, full, p.firstName ?? null, p.lastName ?? null, p.avatarUrl ?? null, p.provider ?? null, nowISO(), nowISO()],
     );
     return { created: true };
   }
@@ -36,10 +37,11 @@ export async function upsertProfile(p: ProfileInput): Promise<{ created: boolean
        name         = COALESCE(?, name),
        first_name   = COALESCE(?, first_name),
        last_name    = COALESCE(?, last_name),
+       avatar_url   = COALESCE(?, avatar_url),
        provider     = COALESCE(?, provider),
        last_seen_at = ?
      WHERE id = ?`,
-    [p.email, full, p.firstName ?? null, p.lastName ?? null, p.provider ?? null, nowISO(), id],
+    [p.email, full, p.firstName ?? null, p.lastName ?? null, p.avatarUrl ?? null, p.provider ?? null, nowISO(), id],
   );
   return { created: false };
 }

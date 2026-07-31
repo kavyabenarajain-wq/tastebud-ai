@@ -1,6 +1,5 @@
-import type { NextRequest } from "next/server";
-import { mealsSnapshot, normalizeAccount, ensureAccount, DEFAULT_ACCOUNT } from "@/lib/store";
-import { sessionEmail } from "@/lib/supabase/account";
+import { mealsSnapshot, ensureAccount, DEFAULT_ACCOUNT } from "@/lib/store";
+import { currentAccount } from "@/lib/supabase/account";
 
 export const runtime = "nodejs";
 // Never statically optimized — grants must land per-request, not once at build time.
@@ -9,13 +8,13 @@ export const dynamic = "force-dynamic";
 /**
  * GET /api/meals — the balance pill's data source. Calling it also lands the free-trial grant and
  * the month's plan grant (grant-on-first-touch; deterministic PKs make double-grants impossible).
- * The account is the VERIFIED Supabase session email when signed in; the ?account= query param is
- * only a pre-auth fallback, and no identity at all → the shared default bucket.
+ * The account is the VERIFIED Supabase session email ONLY (currentAccount) — a client-supplied
+ * ?account= is never trusted, so nobody can read another account's billing snapshot. No session →
+ * the shared default bucket (and the middleware already 401s anonymous callers in the normal case).
  */
-export async function GET(req: NextRequest) {
+export async function GET() {
   try {
-    const account =
-      (await sessionEmail()) ?? normalizeAccount(req.nextUrl.searchParams.get("account")) ?? DEFAULT_ACCOUNT;
+    const account = await currentAccount();
     if (account !== DEFAULT_ACCOUNT) await ensureAccount(account);
     const snap = await mealsSnapshot(account);
     return Response.json(snap, { headers: { "cache-control": "no-store" } });

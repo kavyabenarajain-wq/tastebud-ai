@@ -1,13 +1,14 @@
 import type { NextRequest } from "next/server";
 import { getCampaigns, saveCampaign } from "@/lib/brainStore";
+import { currentAccount } from "@/lib/supabase/account";
 import type { Campaign } from "@/lib/types";
 
 export const runtime = "nodejs";
 
-// GET /api/campaigns/<slug> → every campaign for the brand, newest first.
+// GET /api/campaigns/<slug> → every campaign for THIS account's brand, newest first.
 // Campaigns that never produced an asset (abandoned generations) are pruned from the list.
 export async function GET(_req: NextRequest, { params }: { params: { slug: string } }) {
-  const campaigns = (await getCampaigns(params.slug)).filter((c) => (c.outputs ?? []).length > 0);
+  const campaigns = (await getCampaigns(params.slug, await currentAccount())).filter((c) => (c.outputs ?? []).length > 0);
   return Response.json({ campaigns });
 }
 
@@ -18,6 +19,6 @@ export async function POST(req: NextRequest, { params }: { params: { slug: strin
   if (!body.campaign?.id || !body.campaign?.type) {
     return Response.json({ error: "Bad campaign" }, { status: 400 });
   }
-  const campaign = await saveCampaign(params.slug, body.campaign);
+  const campaign = await saveCampaign(params.slug, body.campaign, await currentAccount());
   return Response.json({ ok: true, campaign });
 }

@@ -78,6 +78,23 @@ const absolutize = (src: string, base: string): string | null => {
   try { return new URL(src, base).toString(); } catch { return null; }
 };
 
+/**
+ * The bare scheme+host ORIGIN of a URL — no path, no query. Shopify's /products.json,
+ * /products/<handle>, etc. live at the store ORIGIN, so a stored site that carries a path or a
+ * tracking query (e.g. `?srsltid=…` appended by Google Shopping) MUST be reduced to its origin
+ * before we append those paths. Otherwise we build `https://brand.com/?srsltid=…/products.json`,
+ * which 200s with the homepage HTML and silently yields ZERO products — the exact reason a
+ * Shopify brand's library came back as names with no images.
+ */
+function siteOrigin(url: string): string {
+  try {
+    const u = new URL(/^https?:/i.test(url) ? url : `https://${url.replace(/^\/+/, "")}`);
+    return u.origin;
+  } catch {
+    return url.replace(/[?#].*$/, "").replace(/\/+$/, "");
+  }
+}
+
 async function isImageUrl(url: string): Promise<boolean> {
   try {
     const r = await withTimeout(url, { method: "HEAD" }, 5000);
@@ -89,8 +106,13 @@ async function isImageUrl(url: string): Promise<boolean> {
 
 const UA = { "user-agent": "Mozilla/5.0 (compatible; BrandKitBot/1.0)" };
 const fetchText = async (url: string, ms = 7000): Promise<string> => (await withTimeout(url, { headers: UA }, ms)).text();
-const cleanName = (t: string): string =>
-  t.replace(/<[^>]+>/g, " ").replace(/\s+/g, " ").trim().split(/\s+[|–—-]\s+/)[0].trim().slice(0, 80);
+const cleanName = (t: string): string => {
+  const s = t.replace(/<[^>]+>/g, " ").replace(/&[a-z]+;/gi, " ").replace(/\s+/g, " ").trim()
+    // A product-CARD anchor tacks price/sale noise onto the title ("Slay Rug Regular price Rs. 1,490.00 …").
+    // Cut everything from the first price marker so the library shows the real product name.
+    .split(/\s+(?:Regular price|Sale price|Unit price|From\s+(?:Rs|₹|\$)|Rs\.?\s|₹\s?\d|\$\s?\d)/i)[0].trim();
+  return s.split(/\s+[|–—-]\s+/)[0].trim().slice(0, 80);
+};
 const stripHtml = (t: string): string => t.replace(/<[^>]+>/g, " ").replace(/&[a-z]+;/gi, " ").replace(/\s+/g, " ").trim();
 const slug = (t: string): string => t.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 48) || "product";
 
@@ -119,9 +141,13 @@ export function upscaleLogo(url: string, size = 480): string {
  */
 async function tryShopifyCatalog(base: string): Promise<StudioProduct[]> {
   try {
-    const root = base.replace(/\/$/, "");
+    const root = siteOrigin(base); // NOT base.replace(/\/$/) — a stored site can carry a path/query.
     const r = await withTimeout(`${root}/products.json?limit=250`, { headers: UA }, 9000);
-    if (!r.ok) return [];
+    // A non-Shopify site answers /products.json with a 200 HTML page (or a redirect to one), so
+    // only trust a genuine JSON body — otherwise `r.json()` throws and we'd wrongly treat the store
+    // as having no catalogue (falling back to name-only, imageless product links).
+    const ct = r.headers.get("content-type") || "";
+    if (!r.ok || !/json/i.test(ct)) return [];
     const j: any = await r.json();
     const items = Array.isArray(j?.products) ? j.products : [];
     return items.map((p: any): StudioProduct | null => {
@@ -249,7 +275,8 @@ async function harvestBrandSite(website: string, onCatalog?: (partial: { catalog
     for (const p of await tryShopifyCatalog(base)) add(p); // 1) Shopify — the whole catalogue at once
     for (const p of jsonLdProducts(html, base)) add(p); //     2) JSON-LD on the homepage
     const links = productLinks(html, base);
-    for (const l of links) if (l.text) add({ id: slug(l.text), name: l.text, images: [] }); // 3) names from product links
+    // Keep the page URL on link-derived products so the image backfill below can open their page.
+    for (const l of links) if (l.text) add({ id: slug(l.text), name: l.text, url: l.url, images: [] }); // 3) names from product links
 
     // 4) If still thin, fetch a handful of product pages for their JSON-LD / og data.
     if (catalog.size < 8 && links.length) {
@@ -265,6 +292,25 @@ async function harvestBrandSite(website: string, onCatalog?: (partial: { catalog
         for (const p of r.value.ld) add(p);
         if (r.value.name) add({ id: slug(r.value.name), name: r.value.name, url: r.value.url, images: r.value.image ? [r.value.image] : [] });
       }
+    }
+
+    // 5) IMAGE BACKFILL — the crux of the "no product picture" fix. After every source has run, any
+    //    product that STILL has no image but knows its page URL gets that page opened and its
+    //    og:image / JSON-LD image attached. This rescues non-Shopify sites (and any product the
+    //    catalogue JSON missed) from showing an empty placeholder in the library. For a healthy
+    //    Shopify store every product already has an image, so this list is empty and adds no latency.
+    //    Bounded + parallel so it never blows the serverless budget.
+    const needImg = [...catalog.values()].filter((p) => !(p.images && p.images.length) && p.url).slice(0, 20);
+    if (needImg.length) {
+      await Promise.allSettled(needImg.map(async (p) => {
+        try {
+          const h = await fetchText(p.url as string, 6000);
+          const ldImg = jsonLdProducts(h, p.url as string).find((x) => x.images.length)?.images?.[0];
+          const og = h.match(/<meta[^>]+(?:property|name)=["'](?:og:image|twitter:image)["'][^>]*content=["']([^"']+)["']/i)?.[1];
+          const img = ldImg || (og ? absolutize(og, p.url as string) : null);
+          if (img) p.images = [img]; // p is the stored object (by reference) — mutate it directly.
+        } catch { /* leave imageless — the UI shows a clean placeholder */ }
+      }));
     }
 
     const products = [...catalog.values()].slice(0, 60);
@@ -295,6 +341,19 @@ async function harvestBrandSite(website: string, onCatalog?: (partial: { catalog
   } catch {
     return { productImages: [], catalog: [] };
   }
+}
+
+/**
+ * Re-harvest ONLY the product catalogue from a brand's live site — no LLM, no dossier, just the
+ * fast site crawl (Shopify /products.json → JSON-LD → product links → image backfill). Used to
+ * REPAIR brands whose stored library came back with names but no images (e.g. a Shopify site whose
+ * saved URL carried a `?srsltid=` tracking query, which used to break catalogue harvesting). Cheap
+ * and network-only, so it can run on demand from the product library to self-heal.
+ */
+export async function refreshCatalog(website: string): Promise<{ catalog: StudioProduct[]; logo?: string; productImages: string[] }> {
+  const site = /^https?:/i.test(website) ? website : `https://${website.replace(/^\/+/, "")}`;
+  const { catalog, logo, productImages } = await harvestBrandSite(site);
+  return { catalog, logo, productImages };
 }
 
 /**
