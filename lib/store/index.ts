@@ -4,6 +4,8 @@
  */
 export { getClient, one, all, run, batch, nowISO, genId, DEFAULT_ACCOUNT, brandIdBySlug } from "./db";
 export * from "./brands";
+export * from "./brainSnapshots";
+export * from "./killLog";
 export * from "./campaigns";
 export * from "./agentMemory";
 export * from "./credits";

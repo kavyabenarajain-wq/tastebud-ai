@@ -7,6 +7,7 @@ import { reformatImage } from "@/lib/reformat";
 import { enlargeInPlace } from "@/lib/finish";
 import { detectCategory, canWear } from "@/lib/productCategory";
 import { analyzePlacement } from "@/lib/placement";
+import { compositeRealProduct, productCompositeEnabled } from "@/lib/composite";
 import { normHex, defaultBgColor } from "@/lib/copyLayout";
 import type { ResolvedBrief, BrandProfile, CampaignCopy, CampaignOutput, CreativeTypeId, ModelPerson, PaletteColor } from "@/lib/types";
 import { buildBrief, buildModelBrief, counts, formatToAspect, parsePeopleCount, MAX_IMAGES } from "@/lib/brief";
@@ -14,7 +15,7 @@ import { brainToProfile } from "@/lib/onboard";
 import { buildCompliance, complianceToNegatives } from "@/lib/compliance";
 import { CREATIVE_TYPES, FORMATS, carouselDirective, isV2Type, type FormatId } from "@/lib/creativeTypes";
 import { saveCampaign, slugify } from "@/lib/brainStore";
-import { ensureGrants, chargeUpTo, refund, getBalance } from "@/lib/store";
+import { ensureGrants, chargeUpTo, refund, getBalance, recordKill } from "@/lib/store";
 import { currentAccount } from "@/lib/supabase/account";
 import { retrievePreferences } from "@/lib/memory";
 import { recordImage } from "@/lib/store/images"; // per-user gallery record for every delivered shot
@@ -370,6 +371,11 @@ export async function POST(req: NextRequest) {
             const heroRef = (products ?? []).filter(Boolean)[0];
             const gateFidelity = isModel || !!heroRef; // model → human bar; product → match-the-upload
             const MAX_ATTEMPTS = Math.max(1, Number(process.env.QC_MAX_ATTEMPTS) || 2);
+            // QC GATE (default OFF): when on, a shot that fails the vision judge on EVERY attempt is
+            // DROPPED instead of shipped with a soft "drift" badge — so the objective failure classes
+            // (wrong product / drift / text-on-product / wrong person) never reach the founder. The
+            // Meal is refunded by the finally-reconciliation, exactly like any other undelivered shot.
+            const qcGate = process.env.QC_GATE === "1";
             let url: string | null = null;
             let fallback: string | null = null;
             let lastReasons: string[] = [];
@@ -401,14 +407,32 @@ export async function POST(req: NextRequest) {
                 lastErr = (err as Error).message;
               }
             }
-            const drift = !url && !!fallback;
-            if (drift) { url = fallback; }
+            const drift = !url && !!fallback; // rendered, but failed QC on every attempt
+            if (drift && !qcGate) { url = fallback; } // legacy: ship the near-miss flagged; gate ON drops it
+            if (drift) {
+              // The machine's rejection is training data too — log WHY the QC judge killed it, whether
+              // the gate dropped the shot or shipped it flagged. Best-effort; never blocks the shoot.
+              void recordKill({
+                account,
+                slug: body.brand?.name ? slugify(body.brand.name) : null,
+                decision: "qc-reject",
+                reason: lastReasons.join("; ") || undefined,
+                failedBar: isModel ? "model" : "product",
+                shot: { id: stub.id, url: fallback ?? "", angle: shot.angle, prompt: shot.prompt, negatives: shot.negatives, mode: isModel ? "model-photoshoot" : "product-photoshoot", decision: "reject", at: new Date().toISOString() },
+              }).catch(() => {});
+            }
             if (url && spec && stub.aspect) {
               try { url = (await reformatImage({ src: url, targetAspect: stub.aspect })).url; }
               catch { /* keep the uncorrected plate rather than losing the shot */ }
             }
             if (url) {
-              const finalUrl = url;
+              // GUARANTEE FIDELITY (flag PRODUCT_COMPOSITE, off by default): drop the client's REAL
+              // product cutout onto the rendered scene so the hero pixels ARE their product. Product
+              // shoots with a hero upload only; best-effort — a failure returns the render unchanged.
+              const base: string = url; // const so the non-null narrowing holds inside the catch closure
+              const finalUrl = !isModel && heroRef && productCompositeEnabled()
+                ? await compositeRealProduct({ renderUrl: base, productSrc: heroRef }).catch(() => base)
+                : base;
               // Always-on free 4K: enlarge + re-sharpen the accepted plate in place so the
               // downloadable original and every derived thumbnail are crisp at ~4K. Real
               // super-resolution stays the opt-in keeper upgrade (/api/upscale).
@@ -435,7 +459,11 @@ export async function POST(req: NextRequest) {
                   })
                 );
               }
-            } else send({ type: "shotError", id: stub.id, angle: shot.angle, error: lastErr });
+            } else send({
+              type: "shotError", id: stub.id, angle: shot.angle,
+              error: drift ? "Couldn't match your product closely enough — dropped by QC" : lastErr,
+              reasons: drift ? lastReasons : undefined, qcDropped: drift || undefined,
+            });
           };
 
           // Every shot renders in parallel (pool). The OpenAI SDK backs off on any 429 so extra

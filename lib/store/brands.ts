@@ -1,9 +1,11 @@
 import type { BrandBrain, BrandMemory, ShotMemory } from "../types";
 import { one, all, run, batch, nowISO, genId, DEFAULT_ACCOUNT, brandIdBySlug } from "./db";
 import { logEvent } from "./customers";
+import { snapshotBrain } from "./brainSnapshots";
+import { recordKill } from "./killLog";
 
 /**
- * Brand store — the per-tenant brain + its learned memory, over libSQL (SQLite / Turso).
+ * Brand store — the per-tenant brain + its learned memory, over Supabase Postgres (see ./db).
  *
  * Every function is async. Keyed by slug WITHIN an account (single default account until auth).
  * The stable `id` column decouples identity from the mutable name, and UNIQUE(account_id, slug)
@@ -105,6 +107,8 @@ export async function saveBrain(
   const hasGuidelines = prev?.has_guidelines ?? 0;
 
   if (prev) {
+    // Safety net: copy the prior brain into history before this in-place overwrite.
+    await snapshotBrain(prev.id, prev.brain_json, "saveBrain", slug);
     await run("UPDATE brands SET name = ?, brain_json = ?, origin = ?, email = ?, has_research = ?, updated_at = ? WHERE id = ?",
       [name, JSON.stringify(merged), origin, email, hasResearch, ts, prev.id]);
     return { slug, name, origin, email: email ?? undefined, createdAt: prev.created_at, updatedAt: ts, hasResearch: !!hasResearch, hasGuidelines: !!hasGuidelines };
@@ -148,7 +152,11 @@ export async function recordShotDecision(slug: string, entry: ShotMemory, accoun
   mem.updatedAt = nowISO();
   brain.memory = mem;
 
+  // Safety net: snapshot the prior brain before the in-place overwrite.
+  await snapshotBrain(row.id, row.brain_json, "recordShotDecision", slug);
   await run("UPDATE brands SET brain_json = ?, updated_at = ? WHERE id = ?", [JSON.stringify(brain), mem.updatedAt, row.id]);
+  // Permanent, append-only taste signal — joinable to images, never capped (unlike the mem lists above).
+  await recordKill({ account, brandId: row.id, slug, shot: entry, reason: entry.reason, failedBar: entry.failedBar });
   return mem;
 }
 

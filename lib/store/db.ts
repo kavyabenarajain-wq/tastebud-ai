@@ -194,6 +194,44 @@ CREATE TABLE IF NOT EXISTS images (
 );
 CREATE INDEX IF NOT EXISTS idx_images_account ON images (account_id, created_at DESC);
 CREATE INDEX IF NOT EXISTS idx_images_brand ON images (brand_id, created_at DESC);
+
+-- Pre-write snapshots of the brand brain — the safety net. brain_json is overwritten IN PLACE on
+-- every saveBrain / recordShotDecision and the live store keeps no other history; before each
+-- overwrite the PRIOR brain is copied here, so a bad write is always recoverable. Append-only, pruned
+-- to the last N per (brand, reason) by lib/store/brainSnapshots.ts.
+CREATE TABLE IF NOT EXISTS brain_snapshots (
+  id         TEXT PRIMARY KEY,
+  brand_id   TEXT NOT NULL,
+  slug       TEXT,
+  reason     TEXT,
+  brain_json TEXT NOT NULL,
+  created_at TEXT NOT NULL
+);
+CREATE INDEX IF NOT EXISTS idx_brain_snap_brand ON brain_snapshots (brand_id, reason, created_at DESC);
+
+-- The kill-log — every creative decision (keep / reject / hero) as an append-only row, joinable to
+-- the images table by url. Unlike the brain's memory lists (capped at 24, lossy) this never forgets:
+-- it is the permanent training signal — what the human kept, what they killed, and WHY.
+CREATE TABLE IF NOT EXISTS kill_log (
+  id             TEXT PRIMARY KEY,
+  account_id     TEXT,
+  brand_id       TEXT,
+  slug           TEXT,
+  image_id       TEXT,
+  shot_id        TEXT,
+  url            TEXT,
+  mode           TEXT,
+  angle          TEXT,
+  panel          TEXT,
+  decision       TEXT NOT NULL,
+  reason         TEXT,
+  failed_bar     TEXT,
+  prompt         TEXT,
+  negatives_json TEXT,
+  created_at     TEXT NOT NULL
+);
+CREATE INDEX IF NOT EXISTS idx_killlog_brand ON kill_log (brand_id, created_at DESC);
+CREATE INDEX IF NOT EXISTS idx_killlog_decision ON kill_log (decision, created_at DESC);
 `;
 
 /**

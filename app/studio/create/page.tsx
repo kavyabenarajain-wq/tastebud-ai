@@ -242,6 +242,7 @@ export default function CreateWorkspace() {
   const [copyDraft, setCopyDraft] = useState({ headline: "", cta: "" }); // typed copy — wins over generated
   const [overlayOff, setOverlayOff] = useState<Record<string, boolean>>({}); // per-run copy-overlay toggle
   const [adapting, setAdapting] = useState<string | null>(null); // shot id with the format menu open
+  const [rejectReason, setRejectReason] = useState<string | null>(null); // shot id with the "why?" reason chips open
 
   // Shared subject: products (the subjects in product mode; the optional on-model product in model mode).
   const [products, setProducts] = useState<Img[]>([]);
@@ -1089,6 +1090,19 @@ export default function CreateWorkspace() {
     } catch { /* optimistic UI already applied */ }
   }
 
+  // Annotate a reject with an optional "why" — updates the kill-log row, records no new decision.
+  async function annotateReason(shot: Shot, reason: string, failedBar: string) {
+    if (!brain.name) return;
+    setRejectReason(null);
+    try {
+      await fetch(`/api/brains/${slugify(brain.name)}`, {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ annotate: { id: shot.id, reason, failedBar } }),
+      });
+    } catch { /* best-effort — the reject itself is already recorded */ }
+  }
+
   // Discrete zoom (buttons / reset): multiplicative step + a snappy animated transition.
   // Zoom toward a viewport point, keeping that point fixed under the cursor.
   const zoomToward = (nzRaw: number, cx: number, cy: number) => {
@@ -1445,6 +1459,7 @@ export default function CreateWorkspace() {
                 // (frame k gets its own line, the last frame gets the CTA).
                 const cardProps = {
                   type: run.kind, enhanceOn, brandFonts, overlayFonts, onSave: saveWithCopy, editing, setEditing, adapting, setAdapting,
+                  rejectReason, setRejectReason, onReason: annotateReason,
                   onDecide: decide, onReshoot: reshoot, onApplyChange: applyChange, onUpscale: upscale, onEnhance: enhance, onAdapt: adapt,
                 } as const;
                 return (
@@ -1942,6 +1957,15 @@ function CopyOverlay({ copy, aspect, placement, fonts }: { copy: CampaignCopy; a
   );
 }
 
+// Optional "why" presets shown after a reject — feeds the kill-log's reason/failedBar.
+const REJECT_REASONS: { label: string; bar: string }[] = [
+  { label: "off-brand", bar: "taste" },
+  { label: "wrong product", bar: "product" },
+  { label: "lighting", bar: "product" },
+  { label: "composition", bar: "taste" },
+  { label: "looks AI", bar: "product" },
+];
+
 type ShotCardProps = {
   s: Shot;
   type: CreativeType;
@@ -1954,6 +1978,9 @@ type ShotCardProps = {
   setEditing: (e: { id: string; text: string } | null) => void;
   adapting: string | null;
   setAdapting: (id: string | null) => void;
+  rejectReason: string | null;
+  setRejectReason: (id: string | null) => void;
+  onReason: (s: Shot, reason: string, failedBar: string) => void;
   onDecide: (s: Shot, d: Decision) => void;
   onReshoot: (s: Shot) => void;
   onApplyChange: (s: Shot, t: string) => void;
@@ -1962,7 +1989,7 @@ type ShotCardProps = {
   onAdapt: (s: Shot, f: FormatId) => void;
 };
 
-function ShotCard({ s, type, enhanceOn, copy, brandFonts, overlayFonts, onSave, editing, setEditing, adapting, setAdapting, onDecide, onReshoot, onApplyChange, onUpscale, onEnhance, onAdapt }: ShotCardProps) {
+function ShotCard({ s, type, enhanceOn, copy, brandFonts, overlayFonts, onSave, editing, setEditing, adapting, setAdapting, rejectReason, setRejectReason, onReason, onDecide, onReshoot, onApplyChange, onUpscale, onEnhance, onAdapt }: ShotCardProps) {
   const formatBadge = s.format ? FORMATS[s.format as FormatId]?.label ?? s.format : undefined;
   return (
     <motion.div initial={{ opacity: 0, scale: 0.985, y: 6 }} animate={{ opacity: 1, scale: 1, y: 0 }} transition={{ duration: 0.3, ease: [0.4, 0, 0.2, 1] }}
@@ -1998,7 +2025,7 @@ function ShotCard({ s, type, enhanceOn, copy, brandFonts, overlayFonts, onSave, 
           <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1 text-[12px]">
             <button onClick={() => onDecide(s, "keep")} className={s.decision === "keep" ? "text-ink" : "text-muted transition-colors hover:text-ink"} title="Keep — teach the brand this worked">Keep</button>
             <button onClick={() => onDecide(s, "hero")} className={s.decision === "hero" ? "text-ink" : "text-muted transition-colors hover:text-ink"} title="Hero — the standout of the set">Hero</button>
-            <button onClick={() => onDecide(s, "reject")} className={s.decision === "reject" ? "text-ink" : "text-muted transition-colors hover:text-ink"} title="Reject — steer future shoots away from this">Reject</button>
+            <button onClick={() => { onDecide(s, "reject"); setRejectReason(s.id); }} className={s.decision === "reject" ? "text-ink" : "text-muted transition-colors hover:text-ink"} title="Reject — steer future shoots away from this">Reject</button>
             <span className="h-3 w-px bg-hairline" />
             {(s.redos ?? 0) < FREE_REDOS_PER_SHOT ? (
               <>
@@ -2022,6 +2049,16 @@ function ShotCard({ s, type, enhanceOn, copy, brandFonts, overlayFonts, onSave, 
                 {s.saving ? <Loader2 size={12} className="animate-spin" /> : <Download size={12} />}{copy?.headline || copy?.cta ? "Save w/ text" : "Save"}
               </button>
             </span>
+          </div>
+        )}
+        {rejectReason === s.id && s.url && !s.pending && (
+          <div className="mt-2 flex flex-wrap items-center gap-1.5">
+            <span className="text-[11px] text-muted">why? (optional)</span>
+            {REJECT_REASONS.map((r) => (
+              <button key={r.label} onClick={() => onReason(s, r.label, r.bar)} className="rounded-full border border-hairline px-2.5 py-1 text-[11px] text-muted transition-colors hover:border-ink hover:text-ink">
+                {r.label}
+              </button>
+            ))}
           </div>
         )}
         {adapting === s.id && s.url && !s.pending && (
