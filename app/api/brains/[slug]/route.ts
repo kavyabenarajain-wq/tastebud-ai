@@ -1,6 +1,6 @@
 import type { NextRequest } from "next/server";
 import { getBrain, getMeta, getGuidelines, recordShotDecision } from "@/lib/brainStore";
-import { DEFAULT_ACCOUNT } from "@/lib/store";
+import { DEFAULT_ACCOUNT, annotateLatestKill } from "@/lib/store";
 import { currentAccount, isOperator } from "@/lib/supabase/account";
 import { rememberBrand, rememberFounder } from "@/lib/memory";
 import { background } from "@/lib/memory/bg";
@@ -28,7 +28,13 @@ export async function GET(req: NextRequest, { params }: { params: { slug: string
 // POST /api/brains/<slug> → record one shot decision into the brand's memory.
 // Body: { decision: ShotMemory }. Returns { ok, memory }.
 export async function POST(req: NextRequest, { params }: { params: { slug: string } }) {
-  const body = (await req.json().catch(() => ({}))) as { decision?: ShotMemory };
+  const body = (await req.json().catch(() => ({}))) as { decision?: ShotMemory; annotate?: { id: string; reason?: string; failedBar?: string } };
+  // Lightweight path: annotate the human "why" onto the most-recent kill-log row for a shot
+  // (no new decision — the reject was already recorded on the decision POST).
+  if (body.annotate?.id) {
+    await annotateLatestKill(body.annotate.id, body.annotate.reason, body.annotate.failedBar);
+    return Response.json({ ok: true });
+  }
   const decision = body.decision;
   if (!decision?.id || !decision?.decision) {
     return Response.json({ error: "Bad decision" }, { status: 400 });

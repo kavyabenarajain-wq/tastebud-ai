@@ -104,3 +104,23 @@ export async function killStats(
   const keep = by("keep"), reject = by("reject"), hero = by("hero");
   return { keep, reject, hero, total: keep + reject + hero };
 }
+
+/** Annotate the human "why" onto the most-recent kill row for a shot — no new row (the reject was
+ *  already logged on the decision). Best-effort; never throws. */
+export async function annotateLatestKill(
+  shotId: string,
+  reason?: string | null,
+  failedBar?: string | null,
+): Promise<void> {
+  if (!shotId) return;
+  try {
+    await run(
+      `UPDATE kill_log SET reason = ?, failed_bar = ? WHERE id = (
+         SELECT id FROM kill_log WHERE shot_id = ? ORDER BY created_at DESC, id DESC LIMIT 1
+       )`,
+      [reason ?? null, failedBar ?? null, shotId],
+    );
+  } catch (e) {
+    console.error("[store] annotateLatestKill failed (non-fatal):", (e as Error).message);
+  }
+}
