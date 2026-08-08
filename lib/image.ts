@@ -978,28 +978,74 @@ async function renderOpenRouter(id: string, prompt: string, refs: string[], opts
   throw new Error(`OpenRouter returned no image (after retries): ${lastErr}`);
 }
 
+type DispatchOpts = { aspect?: string; imageSize?: string; multiSubject?: boolean; preferGemini?: boolean; inputFidelity?: string; finish?: FinishGrade };
+
+// A pure TRANSPORT failure — the request never reached the provider (DNS / socket / TLS / a
+// reset before any HTTP status came back). The OpenAI SDK surfaces this as APIConnectionError
+// (message "Connection error.") / APIConnectionTimeoutError; a raw fetch (Gemini/OpenRouter)
+// surfaces it as a TypeError "fetch failed" with an undici cause. Crucially it is NOT a billing,
+// quota, or "returned no image" error — those carry an HTTP status and would fail IDENTICALLY on
+// any provider, so they must never trigger failover.
+function isTransportError(e: unknown): boolean {
+  const err = e as { name?: string; code?: string; message?: string; status?: number; cause?: { code?: string; message?: string } } | undefined;
+  if (!err) return false;
+  if (typeof err.status === "number") return false;               // got an HTTP response → provider was reached
+  const name = err.name ?? "";
+  const text = `${err.code ?? ""} ${err.message ?? ""} ${err.cause?.code ?? ""} ${err.cause?.message ?? ""}`;
+  if (/APIConnectionError|APIConnectionTimeoutError|FetchError/i.test(name)) return true;
+  return /connection error|fetch failed|network|socket hang ?up|timed out|und_err|ECONNRESET|ECONNREFUSED|ENOTFOUND|ETIMEDOUT|EAI_AGAIN|EPIPE/i.test(text);
+}
+
+// Ordered renderers to attempt: the chosen one first, then OTHER configured multi-image APIs on a
+// DIFFERENT host — so a blip reaching one provider (api.openai.com resets) transparently retries
+// on Azure / Gemini instead of failing the shot. Higgsfield & Replicate stay primary-only (premium
+// / single-subject); they aren't failover TARGETS. multiSubject frames never fall onto Replicate.
+function renderChain(chosen: Renderer, _multiSubject: boolean): Renderer[] {
+  const configured: Partial<Record<Renderer, boolean>> = {
+    "azure-image": azureImageEnabled(),
+    openai: !!process.env.OPENAI_API_KEY,
+    gemini: !!process.env.GEMINI_API_KEY,
+    openrouter: !!process.env.OPENROUTER_API_KEY,
+  };
+  const order: Renderer[] = ["azure-image", "openai", "gemini", "openrouter"];
+  return [chosen, ...order.filter((r) => r !== chosen && configured[r])];
+}
+
+function renderWith(r: Renderer, id: string, prompt: string, refs: string[], opts: DispatchOpts): Promise<string> {
+  switch (r) {
+    case "higgsfield": return renderHiggsfield(id, prompt, refs);
+    case "replicate": return renderReplicate(id, prompt, refs, { aspect: opts.aspect });
+    case "azure-image": return renderAzureImage(id, prompt, refs, { aspect: opts.aspect, inputFidelity: opts.inputFidelity });
+    case "openai": return renderOpenAI(id, prompt, refs, { aspect: opts.aspect, inputFidelity: opts.inputFidelity });
+    case "openrouter": return renderOpenRouter(id, prompt, refs, { aspect: opts.aspect });
+    case "gemini": return renderGemini(id, prompt, refs, opts);
+    default: return Promise.resolve(mockPlaceholder(id, prompt.slice(0, 40)));
+  }
+}
+
 /** Shared renderer dispatch — provider-swappable, used by both product and model paths. */
-async function dispatch(id: string, prompt: string, refs: string[], opts: { aspect?: string; imageSize?: string; multiSubject?: boolean; preferGemini?: boolean; inputFidelity?: string; finish?: FinishGrade }): Promise<string> {
+async function dispatch(id: string, prompt: string, refs: string[], opts: DispatchOpts): Promise<string> {
   // A restage shot prefers Gemini (see renderShot) — but never override a real Higgsfield
   // production renderer, which handles multi-image itself.
   const chosen = opts.preferGemini && activeRenderer() !== "higgsfield" ? "gemini" : pickRenderer(opts.multiSubject ?? false);
-  let url: string;
-  switch (chosen) {
-    case "higgsfield":
-      url = await renderHiggsfield(id, prompt, refs); break;
-    case "replicate":
-      url = await renderReplicate(id, prompt, refs, { aspect: opts.aspect }); break;
-    case "azure-image":
-      url = await renderAzureImage(id, prompt, refs, { aspect: opts.aspect, inputFidelity: opts.inputFidelity }); break;
-    case "openai":
-      url = await renderOpenAI(id, prompt, refs, { aspect: opts.aspect, inputFidelity: opts.inputFidelity }); break;
-    case "openrouter":
-      url = await renderOpenRouter(id, prompt, refs, { aspect: opts.aspect }); break;
-    case "gemini":
-      url = await renderGemini(id, prompt, refs, opts); break;
-    default:
-      return mockPlaceholder(id, prompt.slice(0, 40)); // mock is a data URI — nothing to grade
+  if (chosen === "mock") return mockPlaceholder(id, prompt.slice(0, 40)); // data URI — nothing to grade
+  const chain = renderChain(chosen, opts.multiSubject ?? false);
+  let url: string | undefined;
+  let lastErr: unknown;
+  for (let i = 0; i < chain.length; i++) {
+    try { url = await renderWith(chain[i], id, prompt, refs, opts); break; }
+    catch (e) {
+      lastErr = e;
+      // Only a pure transport failure is worth retrying on a DIFFERENT host — anything else
+      // (billing, quota, no-image) would fail the same way everywhere, so re-throw immediately.
+      if (i < chain.length - 1 && isTransportError(e)) {
+        console.warn(`[render] ${chain[i]} unreachable (${(e as Error)?.message}); failing over to ${chain[i + 1]}`);
+        continue;
+      }
+      throw e;
+    }
   }
+  if (url === undefined) throw lastErr ?? new Error("no renderer produced an image");
   // FINISHING PASS — the single choke point every real render passes through. The brand's
   // grade (from their own photos) is applied here by sharp, AFTER the model, so the final
   // colour never comes from the image model and the whole set reads as one photographer.

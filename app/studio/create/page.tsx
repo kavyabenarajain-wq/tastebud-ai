@@ -825,6 +825,8 @@ export default function CreateWorkspace() {
       errSurfaced = true;
       if (/\bmeals?\b/i.test(error)) say("assistant", `You're out of Meals — top up on the pricing page to keep creating.`);
       else if (/credit|billing|prepay|deplet|exhaust|quota|hard limit|spend/i.test(error)) say("assistant", "This isn’t your brief — the connected image-generation account has hit its billing / spend limit, so new renders are being refused. Raise the spend limit (or top up billing) on the image provider, then hit retry.");
+      // Pure transport blip — the render never reached the image service (not your brief, no Meal spent). A retry almost always clears it.
+      else if (/connection error|fetch failed|network|timed out|timeout|socket hang ?up|ECONNRESET|ECONNREFUSED|ENOTFOUND|ETIMEDOUT|EAI_AGAIN/i.test(error)) say("assistant", "Couldn’t reach the image service just then — a brief network blip on their side, not your brief. Hit retry and it should go straight through.");
       else say("assistant", `The shoot hit an error: ${error}`);
     };
 
