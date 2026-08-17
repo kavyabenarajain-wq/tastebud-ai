@@ -21,7 +21,9 @@ export const runtime = "nodejs";
  */
 
 const RESEND_API_KEY = process.env.RESEND_API_KEY || "";
-const NOTIFY_TO = process.env.BOOKING_NOTIFY_EMAIL || "admin@aitastebud.com";
+// Owner notification always goes here. Defaults to the Resend account inbox so it works even
+// before a domain is verified (and even if the env var isn't set in production).
+const NOTIFY_TO = process.env.BOOKING_NOTIFY_EMAIL || "aikavyajain@gmail.com";
 const FROM = process.env.BOOKING_FROM_EMAIL || "tastebud <onboarding@resend.dev>";
 // A reusable Google Meet room. Create one at meet.google.com → New meeting → "Create a meeting
 // for later" → copy the link, then set BOOKING_MEET_LINK in .env. (Fallback opens a fresh meeting.)
