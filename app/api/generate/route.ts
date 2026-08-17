@@ -2,14 +2,14 @@ import type { NextRequest } from "next/server";
 import { readSkill, loadIndustryPlaybook } from "@/lib/skills";
 import { loadBrandProfile } from "@/lib/brand";
 import { artDirect, activeBrain, fallbackPlan, campaignCopy, STANDARD_PRODUCT_ANGLES, DETAIL_SHOTS } from "@/lib/llm";
-import { renderShot, renderModelShot, activeRenderer, qcImage, analyzeProduct, describeReferenceScene, describeBrandLook } from "@/lib/image";
+import { renderShot, renderModelShot, activeRenderer, qcImage, analyzeProduct, analyzeModelRef, modelManifestText, describeReferenceCampaign, describeBrandLook, renderSpeed, styleTransferEnabled } from "@/lib/image";
 import { reformatImage } from "@/lib/reformat";
 import { enlargeInPlace } from "@/lib/finish";
-import { detectCategory, canWear } from "@/lib/productCategory";
+import { detectCategory, canWear, coerceCategory } from "@/lib/productCategory";
 import { analyzePlacement } from "@/lib/placement";
 import { compositeRealProduct, productCompositeEnabled } from "@/lib/composite";
 import { normHex, defaultBgColor } from "@/lib/copyLayout";
-import type { ResolvedBrief, BrandProfile, CampaignCopy, CampaignOutput, CreativeTypeId, ModelPerson, PaletteColor } from "@/lib/types";
+import type { ResolvedBrief, BrandProfile, CampaignCopy, CampaignOutput, CreativeTypeId, ModelPerson, PaletteColor, ReferenceDNA } from "@/lib/types";
 import { buildBrief, buildModelBrief, counts, formatToAspect, parsePeopleCount, MAX_IMAGES } from "@/lib/brief";
 import { brainToProfile } from "@/lib/onboard";
 import { buildCompliance, complianceToNegatives } from "@/lib/compliance";
@@ -170,14 +170,22 @@ export async function POST(req: NextRequest) {
           : undefined;
         if (memory) send({ type: "status", phase: "memory", approved: memory.approved.length, rejected: memory.rejected.length });
         const modelRefs = body.modelRefs ?? [];
-        // Product category → whether a human can genuinely WEAR it. Non-wearables (food,
-        // drink, furniture, an object) tell the renderer to suppress wardrobe prose and ban
-        // "worn" so a model is never made to wear an ice cream or a sofa.
+        // INTERACTION context — can a human WEAR it, and is it food/drink (appetite prose)? Brand +
+        // scene text, exactly as before. This only tunes prose/wardrobe, never the hard object-class
+        // lock below, so the scene brief here is benign.
         const modelCategory = detectCategory(body.brand?.category, body.brand?.productType, body.brand?.name, body.express);
         const productWearable = canWear(modelCategory);
         // Food/drink products get the appetite-appeal freshness directive on the render (same seam
         // as wearable). Gated so non-food products are unaffected.
         const appetiteCategory = modelCategory === "food" || modelCategory === "drink";
+        // OBJECT-CLASS LOCK category — the class that hard-locks the render + QC (clothing stays
+        // clothing, never a bottle/cup). Derived ONLY from the ACTUAL product image (per the
+        // identity-from-product-images rule). The vision read wins; an inconclusive / "general" read
+        // or no product → "general" = NO lock (fail-open). Brand text and the scene brief NEVER drive
+        // it: a prop word ("on a marble table") must not relabel a serum as furniture, and a fashion
+        // brand can still ship a bottle. (This is the fix for the review's category-poisoning findings.)
+        const visionCategory = coerceCategory(inspection?.category);
+        const lockCategory = visionCategory && visionCategory !== "general" ? visionCategory : "general";
         // Multi-model: 2+ DISTINCT people in one frame. `renderPeople` carries only the people
         // who have a reference photo (used to build the per-person identity lock); `isGroup`
         // also covers built-attribute groups so the single-identity QC doesn't false-fail them.
@@ -190,15 +198,26 @@ export async function POST(req: NextRequest) {
         const finish = body.brand?.research?.photoRules?.colorGrade;
         // Style references are the client's EXPLICIT look references. They belong ONLY to a plain
         // product/model shoot (the primary run when it is not a v2 type) — never to a v2 companion,
-        // whose look is driven by the brand world + copy. Kick describeReferenceScene off NOW so its
-        // 3–6s hides entirely behind analyzeProduct + the planner instead of serializing after them.
+        // whose look is driven by the brand world + copy. We distil the reference(s) into a reusable
+        // CAMPAIGN DNA (the reference fix): the planner designs a VARIED, brand-rooted set in that
+        // vibe, and the renderer applies it as a per-shot style layer — never one cloned scene.
+        // Kicked off NOW (multi-image) so its latency hides behind analyzeProduct + the planner.
         const primaryReferences = creative ? [] : (body.references ?? []).filter(Boolean);
-        const refScenePromise: Promise<string | null> = primaryReferences.length
-          ? describeReferenceScene(primaryReferences[0]).catch(() => null)
+        const refDNAPromise: Promise<ReferenceDNA | null> = primaryReferences.length
+          ? describeReferenceCampaign(primaryReferences.slice(0, 4)).catch(() => null)
+          : Promise.resolve(null);
+        // FORENSIC LIKENESS + FLAW READ — when the client pasted ONE reference person, read their
+        // exact face and EVERY real mark/flaw so the renderer reproduces THEM (flaws visible, never
+        // beautified). Kicked off here so its latency hides behind analyzeProduct + the planner; a
+        // group (per-person locks already) and built models (no reference) don't need it.
+        const singleModelRef = isModel && !isGroup ? modelRefs.filter(Boolean)[0] : undefined;
+        const modelInspectPromise = singleModelRef
+          ? analyzeModelRef(singleModelRef).catch(() => null)
           : Promise.resolve(null);
         const MODEL_CHECKLIST = [
           "A real photographed human, not a 3D/CGI/plastic/doll/AI render",
-          "Skin has real texture and pores, never waxy or airbrushed",
+          "Skin has real texture, pores and natural imperfections — never smoothed, airbrushed, evened-out or beautified",
+          "Vivid, bright and well-graded — rich contrast, deep blacks, luminous highlights; never flat, hazy, muddy or washed-out",
           "Hands have correct natural fingers; no distortion",
           "Eyes are alive with catchlights; teeth and hair look natural",
           "Anatomy and proportions are correct; believable human asymmetry",
@@ -238,6 +257,15 @@ export async function POST(req: NextRequest) {
             perAngle = 1;
             total = angles;
           }
+          // REFERENCE CAMPAIGN — a reference is a request for a full campaign, not one match. When the
+          // client attached a reference and did NOT explicitly ask for a shot count, default the plain
+          // primary run to a full varied set (MAX_IMAGES shots) so they get "6–7 angles in the vibe"
+          // instead of a single frame. An explicit numAngles>1 (or a v2 type) always wins.
+          if (isPrimary && !spec && primaryReferences.length > 0 && (body.panel?.numAngles ?? 1) <= 1) {
+            angles = MAX_IMAGES;
+            perAngle = 1;
+            total = MAX_IMAGES;
+          }
           // Product angle direction: the STANDARD angles guarantee camera VARIETY across the set,
           // a coverage backbone (not a rigid catalogue). The art director leads with editorial taste.
           const angleGuide = isModel
@@ -265,9 +293,14 @@ export async function POST(req: NextRequest) {
             (typeDirective ? `\n\n${typeDirective}` : "") +
             setDirective;
 
+          // The client reference's reusable CAMPAIGN DNA (the reference fix). Resolved BEFORE the
+          // planner so it becomes the art-direction spine: the planner designs a VARIED, brand-rooted
+          // set in this vibe. It then rides the render as a per-shot STYLE LAYER (below). A v2
+          // companion never carries a reference. Awaits the shared promise (hidden behind the pre-passes).
+          const refDNA = spec ? null : await refDNAPromise;
           let plan;
           try {
-            plan = await artDirect({ skill, profile, brief, industry, productColors: observed?.colors, productMaterial: observed?.material, forModel: isModel, memory });
+            plan = await artDirect({ skill, profile, brief, industry, productColors: observed?.colors, productMaterial: observed?.material, forModel: isModel, memory, referenceDNA: refDNA ?? undefined });
           } catch {
             // Brain unreachable → deterministic plan so the shoot still renders.
             plan = fallbackPlan(sceneBrief, angles, perAngle, mode);
@@ -326,20 +359,20 @@ export async function POST(req: NextRequest) {
           try {
           send({ type: "plan", run: runKey, angles: plan.angles, count: stubs.length, qc: plan.qc, aspect, creativeType: spec?.id, campaignId, shots: stubs.map((st) => ({ id: st.id, angle: st.angle, aspect: st.aspect, format: st.format, seq: st.seq })) });
 
-          // Style references + the described reference scene apply only to a plain product/model
-          // primary run (v2 companions force references=[]). refScene resolves from the promise
-          // kicked off in the shared block, so it's already hidden behind the planner.
-          // When the client gave NO explicit look reference, hand a PRODUCT shoot the brand's OWN
-          // feed photos as a LOOK reference (product stays pixel-locked; only the brand's world is
-          // borrowed). Client references always win; model shoots keep today's behaviour.
+          // Attach the client reference IMAGES only for the OPEN-SOURCE style-transfer path; on the
+          // live OpenAI path the vibe rides as WORDS (gpt-image clones a 2nd image or ignores it, and
+          // can double the reference's product). Falls back to the brand's OWN feed photos as a LOOK
+          // reference when the client gave none (product stays pixel-locked; only the world is borrowed).
+          const attachClientRefs = !!refDNA && !spec && styleTransferEnabled();
           const usingBrandRefs = !isModel && !spec && primaryReferences.length === 0 && brandPhotos.length > 0;
-          const references = spec ? [] : (primaryReferences.length ? primaryReferences : (usingBrandRefs ? brandPhotos.slice(0, 2) : []));
+          const references = spec ? [] : (attachClientRefs ? primaryReferences.slice(0, 3) : (usingBrandRefs ? brandPhotos.slice(0, 2) : []));
           const referencesAreBrand = usingBrandRefs;
-          const refScene = spec ? null : await refScenePromise;
-          if (refScene && isPrimary) send({ type: "status", phase: "reference", matched: true });
-          // How this brand shoots (words), applied to the render — only on a plain product run with
-          // no client reference of its own (a client's explicit look wins, so we don't fight it).
-          const brandLook = (!isModel && !spec && primaryReferences.length === 0) ? await brandLookPromise : null;
+          if (refDNA && isPrimary) send({ type: "status", phase: "reference", matched: true });
+          // How this brand shoots (words), applied to the render. This now rides ALONGSIDE a client
+          // reference too (not only when there's none): the reference owns composition/set/light, the
+          // brand owns grade/palette/styling — which is what "my product in this reference, in MY
+          // brand style" actually means. renderShot scopes the block to grade/styling on a restage.
+          const brandLook = (!isModel && !spec) ? await brandLookPromise : null;
           if (referencesAreBrand && isPrimary) send({ type: "status", phase: "brand-look", matched: true });
 
           // Copy (headline / CTA / caption), written in parallel with the renders and streamed as
@@ -360,6 +393,10 @@ export async function POST(req: NextRequest) {
           // Best-effort copy-placement jobs run OFF the render lane (they only produce an overlay
           // hint) so they never hold a pool worker or delay the next shot; awaited once before save.
           const placementJobs: Promise<void>[] = [];
+          // The always-on 4K enlarge also runs OFF the critical path — the founder sees the rendered
+          // plate the instant it's ready, and enlargeInPlace overwrites the SAME url in place (stable
+          // url, no second render), so the grid upgrades to ~4K underneath. Awaited before save.
+          const enlargeJobs: Promise<void>[] = [];
 
           // Render one shot: regenerate once, plus once more if the QC vision pass rejects it.
           const renderOne = async (idx: number): Promise<void> => {
@@ -370,34 +407,48 @@ export async function POST(req: NextRequest) {
             const extraNegatives = complianceToNegatives(compliance);
             const heroRef = (products ?? []).filter(Boolean)[0];
             const gateFidelity = isModel || !!heroRef; // model → human bar; product → match-the-upload
-            const MAX_ATTEMPTS = Math.max(1, Number(process.env.QC_MAX_ATTEMPTS) || 2);
+            // A QC failure RE-RENDERS the shot — a second full render on the hot path, the biggest
+            // single source of latency variance. In fast mode we cap at ONE render: the shot ships
+            // immediately (flagged if it drifts) instead of paying for a retry. Balanced/quality keep
+            // the retry. An explicit QC_MAX_ATTEMPTS still overrides.
+            const MAX_ATTEMPTS = Math.max(1, Number(process.env.QC_MAX_ATTEMPTS) || (renderSpeed() === "fast" ? 1 : 2));
             // QC GATE (default OFF): when on, a shot that fails the vision judge on EVERY attempt is
             // DROPPED instead of shipped with a soft "drift" badge — so the objective failure classes
             // (wrong product / drift / text-on-product / wrong person) never reach the founder. The
             // Meal is refunded by the finally-reconciliation, exactly like any other undelivered shot.
             const qcGate = process.env.QC_GATE === "1";
+            // CATEGORY GATE — fail-CLOSED on object-class drift: a clothing product rendered as a
+            // bottle/cup is regenerated, then DROPPED if still wrong, even when the soft QC gate is
+            // off. Default OFF in code (prod-live safety); set CATEGORY_GATE=1 to enforce (local .env
+            // ships it on). Category misses are high-precision, so false drops are rare.
+            const categoryGate = process.env.CATEGORY_GATE === "1";
             let url: string | null = null;
             let fallback: string | null = null;
             let lastReasons: string[] = [];
+            let categoryDrift = false; // last failing verdict was specifically an object-class miss
             let lastErr = "render failed";
             for (let attempt = 0; attempt < MAX_ATTEMPTS && !url; attempt++) {
               try {
                 const candidate = isModel
-                  ? await renderModelShot({ id: stub.id, prompt: shot.prompt, negatives: shot.negatives, extraNegatives, modelRefs, people: modelPeople, groupCount: isGroup ? groupModels.length : undefined, products, references, referencesAreBrand, wearable: productWearable, aspect: stub.aspect, imageSize: "2K", finish })
+                  ? await renderModelShot({ id: stub.id, prompt: shot.prompt, negatives: shot.negatives, extraNegatives, modelRefs, people: modelPeople, groupCount: isGroup ? groupModels.length : undefined, products, productIdentity, productManifest, category: lockCategory, references, referencesAreBrand, refDNA: refDNA ?? undefined, wearable: productWearable, aspect: stub.aspect, imageSize: "2K", finish })
                   // cleanPlate: this creative's headline/CTA are overlaid later as real typography,
                   // so the RENDER must carry no text of its own — otherwise the model bakes the
                   // headline into the set and the overlay prints it again on top.
-                  : await renderShot({ id: stub.id, prompt: shot.prompt, angle: shot.angle, negatives: shot.negatives, extraNegatives, products, references, referencesAreBrand, refScene: refScene ?? undefined, productIdentity, productManifest, brandLook: brandLook ?? undefined, noProduct, cleanPlate: !!spec?.needsCopy, appetite: appetiteCategory, aspect: stub.aspect, imageSize: "2K", finish });
+                  : await renderShot({ id: stub.id, prompt: shot.prompt, angle: shot.angle, negatives: shot.negatives, extraNegatives, products, references, referencesAreBrand, refDNA: refDNA ?? undefined, productIdentity, productManifest, category: lockCategory, brandLook: brandLook ?? undefined, noProduct, cleanPlate: !!spec?.needsCopy, appetite: appetiteCategory, aspect: stub.aspect, imageSize: "2K", finish });
                 fallback = candidate;
                 if (gateFidelity) {
-                  const restage = !isModel && references.length > 0;
+                  // Restage QC is LENIENT (allows re-forming). Brand-OWN photos and a campaign-vibe
+                  // reference both keep the product PIXEL-LOCKED (only the world/grade changes), so they
+                  // QC STRICTLY — a restage only applies to the legacy literal-restage image path.
+                  const restage = !isModel && references.length > 0 && !referencesAreBrand && !refDNA;
                   // A group frame has several faces; comparing the whole shot to ONE reference
                   // would false-fail people 2..N. Skip the single-identity gate for groups —
                   // per-person likeness is enforced by the prompt lock + negatives instead.
                   const modelRef = isModel && !isGroup ? modelRefs.filter(Boolean)[0] : undefined;
-                  const verdict = await qcImage({ url: candidate, checklist: isModel ? MODEL_CHECKLIST : [], brand: profile.name, productRef: heroRef, modelRef, restage, manifest: inspection?.elements, cleanPlate: !!spec?.needsCopy });
+                  const verdict = await qcImage({ url: candidate, checklist: isModel ? MODEL_CHECKLIST : [], brand: profile.name, productRef: heroRef, modelRef, restage, manifest: inspection?.elements, cleanPlate: !!spec?.needsCopy, category: lockCategory });
                   if (!verdict.pass) {
                     lastReasons = verdict.reasons;
+                    categoryDrift = verdict.categoryOk === false; // remember whether THIS miss was a category miss
                     send({ type: "qc", id: stub.id, reasons: verdict.reasons, attempt: attempt + 1, of: MAX_ATTEMPTS });
                     continue;
                   }
@@ -408,7 +459,10 @@ export async function POST(req: NextRequest) {
               }
             }
             const drift = !url && !!fallback; // rendered, but failed QC on every attempt
-            if (drift && !qcGate) { url = fallback; } // legacy: ship the near-miss flagged; gate ON drops it
+            // A CATEGORY miss is fail-closed when the category gate is on: never restore the fallback,
+            // so a wrong-object-class shot (clothing shown as a bottle) is DROPPED, not shipped flagged.
+            const dropForCategory = drift && categoryDrift && categoryGate;
+            if (drift && !qcGate && !dropForCategory) { url = fallback; } // legacy: ship the near-miss flagged; gate ON (or a category miss) drops it
             if (drift) {
               // The machine's rejection is training data too — log WHY the QC judge killed it, whether
               // the gate dropped the shot or shipped it flagged. Best-effort; never blocks the shoot.
@@ -433,11 +487,12 @@ export async function POST(req: NextRequest) {
               const finalUrl = !isModel && heroRef && productCompositeEnabled()
                 ? await compositeRealProduct({ renderUrl: base, productSrc: heroRef }).catch(() => base)
                 : base;
-              // Always-on free 4K: enlarge + re-sharpen the accepted plate in place so the
-              // downloadable original and every derived thumbnail are crisp at ~4K. Real
-              // super-resolution stays the opt-in keeper upgrade (/api/upscale).
-              await enlargeInPlace(finalUrl, undefined, finish?.sharpen);
+              // Deliver the plate NOW — the founder sees the shot the instant it renders, not after
+              // the enlarge. The always-on free 4K enlarge (lanczos + re-sharpen, in place, same url,
+              // no second render) is detached and awaited before save, so the download/thumbnail
+              // still land at ~4K. Real super-resolution stays the opt-in keeper upgrade (/api/upscale).
               send({ type: "shot", run: runKey, shot: { id: stub.id, angle: shot.angle, prompt: shot.prompt, negatives: shot.negatives, compliance, url: finalUrl, aspect: stub.aspect, format: stub.format, seq: stub.seq, groupId: stub.groupId, drift: drift || undefined, driftReasons: drift ? lastReasons : undefined, brandGeneric: noProduct || undefined } });
+              enlargeJobs.push(enlargeInPlace(finalUrl, undefined, finish?.sharpen).catch(() => {}));
               const output: CampaignOutput = { id: stub.id, url: finalUrl, format: stub.format, aspect: stub.aspect, angle: shot.angle, seq: stub.seq, at: new Date().toISOString() };
               outputs.push(output);
               // Persist this delivered image under the signed-in account — the durable "my images"
@@ -461,7 +516,9 @@ export async function POST(req: NextRequest) {
               }
             } else send({
               type: "shotError", id: stub.id, angle: shot.angle,
-              error: drift ? "Couldn't match your product closely enough — dropped by QC" : lastErr,
+              error: dropForCategory
+                ? "Rendered as the wrong kind of product (category mismatch) — dropped"
+                : drift ? "Couldn't match your product closely enough — dropped by QC" : lastErr,
               reasons: drift ? lastReasons : undefined, qcDropped: drift || undefined,
             });
           };
@@ -473,8 +530,9 @@ export async function POST(req: NextRequest) {
           let cursor = 0;
           const worker = async () => { while (cursor < allIdx.length) { await renderOne(allIdx[cursor++]); } };
           await Promise.all(Array.from({ length: Math.min(CONCURRENCY, allIdx.length) }, worker));
-          // Let the detached placement passes finish so the persisted outputs carry their hints.
-          await Promise.all(placementJobs);
+          // Let the detached placement + 4K-enlarge passes finish so the persisted outputs carry
+          // their hints and land at full resolution before the run saves / closes the stream.
+          await Promise.all([...placementJobs, ...enlargeJobs]);
           if (spec && slug && campaignId && outputs.length) {
             const copy = await copyPromise;
             const at = new Date().toISOString();

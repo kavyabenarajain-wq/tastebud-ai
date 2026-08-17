@@ -1,20 +1,25 @@
 "use client";
 
 import Link from "next/link";
+import { ChevronLeft } from "lucide-react";
 import { motion } from "framer-motion";
-import { Wordmark } from "@/components/tastebud/Wordmark";
-import { BackLink } from "@/components/tastebud/BackLink";
+import { ThemeToggle } from "@/components/site/theme";
 
 /**
- * PAGE 4 — Book the call (CTA).
- * One headline, one line of support, one button. The cleanest possible promise screen.
+ * BOOK THE CALL (CTA) — one headline, one line of support, one button. The cleanest possible
+ * promise screen; forwards into the personalized booking flow. Theme-aware.
  */
 export default function BookCallCTA() {
   return (
-    <main className="flex min-h-screen flex-col bg-cream">
-      <header className="flex items-center justify-between px-8 py-8">
-        <Wordmark size="sm" href="/" />
-        <BackLink href="/discovery" />
+    <main className="flex min-h-screen flex-col bg-cream text-carbon">
+      <header className="flex items-center justify-between px-6 py-6 md:px-8 md:py-8">
+        <Link href="/" className="font-edito text-[20px] tracking-tight text-accent transition-opacity duration-300 hover:opacity-60">tastebud</Link>
+        <div className="flex items-center gap-3">
+          <ThemeToggle />
+          <Link href="/discovery" className="inline-flex items-center gap-1 text-[11px] uppercase tracking-[0.14em] text-clay transition-colors duration-300 hover:text-carbon">
+            <ChevronLeft size={13} /> Back
+          </Link>
+        </div>
       </header>
 
       <div className="flex flex-1 flex-col items-center justify-center px-6 pb-24 text-center">
@@ -22,7 +27,7 @@ export default function BookCallCTA() {
           initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, ease: [0.4, 0, 0.2, 1] }}
-          className="max-w-2xl font-serif text-4xl font-light leading-tight tracking-tight text-ink md:text-5xl"
+          className="max-w-2xl font-edito text-4xl font-light leading-tight tracking-tight text-carbon md:text-5xl"
         >
           Book a 30-minute call and get your brand sorted in a day.
         </motion.h1>
@@ -36,14 +41,10 @@ export default function BookCallCTA() {
           One conversation. A complete brand, delivered.
         </motion.p>
 
-        <motion.div
-          initial={{ opacity: 0, y: 8 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.35 }}
-        >
+        <motion.div initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.7, delay: 0.35 }}>
           <Link
             href="/discovery/book"
-            className="mt-10 inline-block rounded-full bg-carbon px-9 py-3.5 text-sm font-medium text-cream transition-opacity duration-300 ease-brand hover:opacity-90"
+            className="mt-10 inline-block rounded-full bg-carbon px-9 py-3.5 text-sm font-medium text-paper transition-opacity duration-300 ease-brand hover:opacity-90"
           >
             Choose a time
           </Link>

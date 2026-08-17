@@ -1,6 +1,6 @@
 import { z } from "zod";
 import type { BrandBrain, BrandResearch, BrandIntelligence, StudioProduct } from "./types";
-import { chatClients, chatComplete } from "./openaiClient";
+import { chatClients, chatComplete, webSearchComplete, webSearchAvailable } from "./openaiClient";
 import { parseLenient } from "./coerce";
 import { extractPhotoRules } from "./photoRules";
 import { derivePalette } from "./finish";
@@ -97,14 +97,20 @@ function siteOrigin(url: string): string {
 
 async function isImageUrl(url: string): Promise<boolean> {
   try {
-    const r = await withTimeout(url, { method: "HEAD" }, 5000);
+    const r = await withTimeout(url, { method: "HEAD", headers: UA }, 5000);
     const ct = r.headers.get("content-type") || "";
     const len = Number(r.headers.get("content-length") || "0");
     return ct.startsWith("image/") && (len === 0 || len > 4000); // skip tiny tracking pixels when size is known
   } catch { return false; }
 }
 
-const UA = { "user-agent": "Mozilla/5.0 (compatible; BrandKitBot/1.0)" };
+// A REAL browser UA (+ browser Accept headers). A bot-looking UA ("BrandKitBot") makes many brand
+// sites answer 403 / a challenge page, which silently emptied both the domain probe and the crawl.
+const UA = {
+  "user-agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+  "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
+  "accept-language": "en-US,en;q=0.9",
+};
 const fetchText = async (url: string, ms = 7000): Promise<string> => (await withTimeout(url, { headers: UA }, ms)).text();
 const cleanName = (t: string): string => {
   const s = t.replace(/<[^>]+>/g, " ").replace(/&[a-z]+;/gi, " ").replace(/\s+/g, " ").trim()
@@ -247,16 +253,124 @@ function collectImages(html: string, base: string): Set<string> {
   return urls;
 }
 
+// ── REAL BRAND COPY — the grounding material ─────────────────────────────────────────────────
+// The dossier used to be written from the model's MEMORY of the brand (generic, often a
+// same-named different company). These helpers pull the brand's OWN words off their site — meta
+// description, hero headlines, body copy, the About page, and their social handles — so the
+// structuring model summarises the ACTUAL brand voice, "nothing more, nothing less."
+
+/** First matching <meta> content for any of the given property/name keys (order = priority). */
+function metaContent(html: string, keys: string[]): string {
+  for (const k of keys) {
+    const esc = k.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const m = html.match(new RegExp(`<meta[^>]+(?:property|name)=["']${esc}["'][^>]*content=["']([^"']*)["']`, "i"))
+      || html.match(new RegExp(`<meta[^>]+content=["']([^"']*)["'][^>]*(?:property|name)=["']${esc}["']`, "i"));
+    const v = m?.[1] ? stripHtml(m[1]).trim() : "";
+    if (v) return v;
+  }
+  return "";
+}
+
+/** Heading text (h1–h3) — the taglines and section headers that carry the brand's voice. */
+function headings(html: string): string[] {
+  const out: string[] = [];
+  for (const m of html.matchAll(/<h[1-3][^>]*>([\s\S]*?)<\/h[1-3]>/gi)) {
+    const t = stripHtml(m[1]);
+    if (t.length >= 3 && t.length <= 180) out.push(t);
+  }
+  return Array.from(new Set(out)).slice(0, 24);
+}
+
+/** Meaningful body paragraphs (skips nav/label fragments by requiring real sentence length). */
+function paragraphs(html: string): string[] {
+  const out: string[] = [];
+  for (const m of html.matchAll(/<p[^>]*>([\s\S]*?)<\/p>/gi)) {
+    const t = stripHtml(m[1]);
+    if (t.length >= 40 && t.length <= 600) out.push(t);
+  }
+  return Array.from(new Set(out)).slice(0, 30);
+}
+
+const SOCIAL_HOSTS: { platform: string; re: RegExp; at: boolean }[] = [
+  { platform: "Instagram", re: /https?:\/\/(?:www\.)?instagram\.com\/([A-Za-z0-9_.]+)/i, at: true },
+  { platform: "TikTok", re: /https?:\/\/(?:www\.)?tiktok\.com\/@([A-Za-z0-9_.]+)/i, at: true },
+  { platform: "YouTube", re: /https?:\/\/(?:www\.)?youtube\.com\/((?:@|channel\/|c\/|user\/)[A-Za-z0-9_\-]+)/i, at: false },
+  { platform: "Facebook", re: /https?:\/\/(?:www\.)?facebook\.com\/([A-Za-z0-9_.\-]+)/i, at: false },
+  { platform: "X", re: /https?:\/\/(?:www\.)?(?:twitter|x)\.com\/([A-Za-z0-9_]+)/i, at: true },
+  { platform: "LinkedIn", re: /https?:\/\/(?:www\.)?linkedin\.com\/(company\/[A-Za-z0-9_\-]+)/i, at: false },
+  { platform: "Pinterest", re: /https?:\/\/(?:[a-z]+\.)?pinterest\.[a-z.]+\/([A-Za-z0-9_\-]+)/i, at: false },
+];
+const SOCIAL_SKIP = /\/(share|intent|sharer|dialog|plugins|tr|embed|hashtag|explore|p|reel|policy|help|about|legal|status)\b|^(?:www|home|share|intent)$/i;
+
+/** Social profile links the brand links to from their own site — one per platform. */
+function extractSocials(html: string): { platform: string; url: string; handle: string }[] {
+  const out: { platform: string; url: string; handle: string }[] = [];
+  const seen = new Set<string>();
+  for (const { platform, re, at } of SOCIAL_HOSTS) {
+    if (seen.has(platform)) continue;
+    for (const m of html.matchAll(new RegExp(re, "ig"))) {
+      const url = m[0].replace(/[)"'.,]+$/, "");
+      const slug = (m[1] || "").replace(/[)"'.,/]+$/, "");
+      if (!slug || SOCIAL_SKIP.test(slug) || SOCIAL_SKIP.test(url)) continue;
+      const handle = at ? `@${slug.replace(/^@/, "")}` : slug;
+      out.push({ platform, url, handle });
+      seen.add(platform);
+      break;
+    }
+  }
+  return out;
+}
+
+/**
+ * Gather the brand's OWN copy off their live site: title, meta description, hero headlines,
+ * body paragraphs, the About page, and their social handles. The result is a compact, high-signal
+ * text block that ANCHORS the dossier to the real brand — the fix for generic/wrong-brand research.
+ */
+async function gatherSiteCopy(base: string, homeHtml: string): Promise<{ siteText: string; socials: { platform: string; url: string; handle: string }[]; title: string; description: string }> {
+  const origin = siteOrigin(base);
+  const title = (homeHtml.match(/<title[^>]*>([^<]+)<\/title>/i)?.[1] || "").replace(/\s+/g, " ").trim();
+  const description = metaContent(homeHtml, ["description", "og:description", "twitter:description"]);
+  const siteName = metaContent(homeHtml, ["og:site_name", "application-name"]);
+  const socials = extractSocials(homeHtml);
+  const homeHeads = headings(homeHtml);
+  const homeParas = paragraphs(homeHtml);
+
+  // The About / story page — the single richest source of positioning, mission and voice. Try the
+  // common paths in PARALLEL (each bounded) and keep the one with the most real prose.
+  const aboutPaths = ["/pages/about", "/pages/about-us", "/pages/our-story", "/about", "/about-us"];
+  const abouts = await Promise.allSettled(aboutPaths.map((p) => fetchText(origin + p, 5000)));
+  let aboutParas: string[] = [];
+  for (const r of abouts) {
+    if (r.status !== "fulfilled" || !/<\/?[a-z]/i.test(r.value)) continue;
+    const ps = paragraphs(r.value);
+    if (ps.join(" ").length > aboutParas.join(" ").length) aboutParas = ps.slice(0, 14);
+  }
+
+  const parts: string[] = [];
+  if (siteName || title) parts.push(`SITE TITLE: ${siteName || title}`);
+  if (description) parts.push(`META DESCRIPTION: ${description}`);
+  if (socials.length) parts.push(`SOCIAL: ${socials.map((s) => `${s.platform} ${s.handle}`).join(" · ")}`);
+  if (homeHeads.length) parts.push(`HEADLINES (their own words):\n${homeHeads.map((h) => `• ${h}`).join("\n")}`);
+  if (homeParas.length) parts.push(`HOMEPAGE COPY:\n${homeParas.slice(0, 12).join("\n")}`);
+  if (aboutParas.length) parts.push(`ABOUT / STORY PAGE:\n${aboutParas.join("\n")}`);
+
+  return { siteText: parts.join("\n\n").slice(0, 6000), socials, title, description };
+}
+
 /**
  * Crawl the brand's OWN website to understand their real catalogue and shoot style: the
  * full product LINE-UP (rich StudioProducts) and a pool of their real product photos +
  * logo. Tries the Shopify catalogue first (richest), then JSON-LD and product-page links.
  * Best-effort and defensive: returns whatever resolves, or empty on any failure.
  */
-async function harvestBrandSite(website: string, onCatalog?: (partial: { catalog: StudioProduct[]; logo?: string }) => void): Promise<{ logo?: string; productImages: string[]; catalog: StudioProduct[] }> {
+type SocialLink = { platform: string; url: string; handle: string };
+async function harvestBrandSite(website: string, onCatalog?: (partial: { catalog: StudioProduct[]; logo?: string }) => void): Promise<{ logo?: string; productImages: string[]; catalog: StudioProduct[]; siteText?: string; socials?: SocialLink[]; description?: string }> {
   try {
     const base = /^https?:/i.test(website) ? website : `https://${website.replace(/^\/+/, "")}`;
     const html = await fetchText(base);
+    // Pull the brand's real copy (headlines, About page, socials) in the background while the
+    // catalogue is parsed — it grounds the dossier without holding up the (streamed-early) products.
+    const copyPromise = gatherSiteCopy(base, html).catch(() => ({ siteText: "", socials: [] as SocialLink[], title: "", description: "" }));
 
     // Product catalogue, deduped by lowercased name (richer entry wins on merge).
     const catalog = new Map<string, StudioProduct>();
@@ -337,7 +451,8 @@ async function harvestBrandSite(website: string, onCatalog?: (partial: { catalog
     const checked = await Promise.allSettled(ordered.map(async (u) => ((await isImageUrl(u)) ? u : null)));
     const productImages = Array.from(new Set(checked.flatMap((r) => (r.status === "fulfilled" && r.value ? [r.value] : [])))).slice(0, 12);
 
-    return { logo, productImages, catalog: products };
+    const copy = await copyPromise;
+    return { logo, productImages, catalog: products, siteText: copy.siteText, socials: copy.socials, description: copy.description };
   } catch {
     return { productImages: [], catalog: [] };
   }
@@ -368,6 +483,9 @@ async function resolveWebsite(name: string): Promise<string> {
   const hyphen = name.toLowerCase().replace(/&/g, "and").replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "");
   if (!compact) return "";
   const hosts = Array.from(new Set([compact, hyphen].filter(Boolean)));
+  // Conservative guesses only. A same-named .shop/.store/.in can be a DIFFERENT company or a
+  // password-locked placeholder store, which then crawls the wrong brand — so we keep this tight and
+  // let the brand-anchored dossier URL correct any wrong guess via the re-crawl in researchBrand.
   const candidates = hosts.flatMap((h) => [`https://www.${h}.com`, `https://${h}.com`, `https://www.${h}.co`, `https://${h}.in`]);
   const checked = await Promise.all(candidates.map(async (url) => {
     try { const r = await withTimeout(url, { headers: UA, redirect: "follow" }, 5000); return r.ok ? (r.url || url) : null; }
@@ -493,11 +611,11 @@ const CombinedSchema = z.object({ research: ResearchSchema, intelligence: Intell
 async function structureAll(dossier: string, brain: BrandBrain): Promise<{ research: z.infer<typeof ResearchSchema>; intelligence: z.infer<typeof IntelligenceSchema> }> {
   try {
     const content = await chatComplete({
-      max_completion_tokens: 2200,
-      reasoning_effort: "none",
+      max_completion_tokens: 2600,
+      reasoning_effort: "low",
       messages: [
         { role: "system", content:
-          `Convert this brand into STRICT JSON with EXACTLY two top-level keys: "research" and "intelligence". Fill everything from YOUR KNOWLEDGE of the brand — be concrete and confident, never say info is missing. Keep every field TIGHT (a sentence or two, not essays) so the whole object is compact.\n\n` +
+          `Convert this brand into STRICT JSON with EXACTLY two top-level keys: "research" and "intelligence". When the prompt includes THE BRAND'S OWN WORDS (copy scraped from their site), that is the SOURCE OF TRUTH — ground every field in it and voice "toneOfVoice"/"voice" by echoing their real register and vocabulary, nothing more, nothing less. Otherwise fall back to your knowledge of the brand. Be concrete and confident, never say info is missing. Keep every field TIGHT (a sentence or two, not essays) so the whole object is compact.\n\n` +
           `"research" keys: summary, essence, voice, competitors (array of brand names), instagram (string), website (string root URL), palette (array of {hex, role}), aesthetic (string), foundReal (boolean). The "aesthetic" is a concrete, reproducible PHOTOGRAPHY SIGNATURE — backgrounds & surfaces, colour grade, styling, lighting, crops, product-only vs models. For palette: ${brain.palette ? `the founder stated colours — use THOSE as hex: ${brain.palette}` : "the brand's REAL colours from their packaging/site (recall them)"}; ALWAYS 4-8 real hex codes, never empty.\n\n` +
           `"intelligence" keys (keep each SHORT): overview (2 sentences), positioning (one sharp line), audience, persona (2-3 sentences), toneOfVoice (short), personality (array), values (array), typography {display, text, note}, photographyStyle (concrete & reproducible), visualIdentity (one line), competitors (array of {name, note}), insights (array of 3-5 sharp takeaways). Leave purpose, mission, vision, story, logoSystem, packagingStyle, campaigns, social, press, ambassadors and socialProof as "" or [] (skipped here for speed).\n\n` +
           `Every string must be plain text (not an object). Return JSON only.` },
@@ -550,7 +668,7 @@ export async function researchBrand(brain: BrandBrain, opts: ResearchOpts = {}):
   //    moment it lands (a "products" stage) so the library fills immediately. `done` still
   //    carries the full catalogue as the source of truth.
   const crawlSite = brain.website?.trim() || (await resolveWebsite(brain.name ?? ""));
-  const emptyHarvest = { productImages: [] as string[], logo: undefined as string | undefined, catalog: [] as StudioProduct[] };
+  const emptyHarvest: Awaited<ReturnType<typeof harvestBrandSite>> = { productImages: [], logo: undefined, catalog: [], siteText: undefined, socials: undefined, description: undefined };
   // Fire the product library the INSTANT the catalogue parses (before image verification /
   // the whole research pass), so products stop "taking a lot of time" to appear. productImages
   // is omitted here (undefined) so the client keeps what it has until the enriched pass lands.
@@ -570,18 +688,37 @@ export async function researchBrand(brain: BrandBrain, opts: ResearchOpts = {}):
   //    EXACT brand. Without this anchor the model was describing a DIFFERENT company that shares the
   //    name (the "wrong brand" bug). Still fast: the crawl runs while nothing blocks, and the
   //    trimmed single structuring call is ~25s, so the whole pass stays well inside 60s.
-  const harvested = await harvestPromise;
+  let harvested = await harvestPromise;
   const site = crawlSite || brain.website?.trim() || "";
+  // A URL the USER pasted is the source of truth; a GUESSED domain (resolveWebsite) is only a
+  // CANDIDATE — it can be a different same-named company or a placeholder store, so we must NOT
+  // hard-anchor the dossier to it, or the model just confirms the wrong brand and the re-crawl below
+  // can't correct it. Guessed → the model verifies the candidate and returns the REAL brand's URL.
+  const userPasted = !!brain.website?.trim();
+  const trusted = userPasted && !!site;
   const productNames = harvested.catalog.map((p) => p.name).filter(Boolean).slice(0, 20);
+  const siteBlock = !site
+    ? `First FIND this brand's REAL official website (its own domain) and research THAT exact company — never a bigger, better-known, or same-named DIFFERENT company.\n`
+    : trusted
+    ? `Official website — the SOURCE OF TRUTH (the user gave it): ${site}. Research the specific company that owns ${site}; ignore any other same-named company.\n`
+    : `A candidate website was found by GUESSING the domain: ${site}. It MIGHT be this brand — or a DIFFERENT company that merely shares the name "${brain.name}". VERIFY: if ${site}${productNames.length ? ` and its products (${productNames.slice(0, 6).join(", ")})` : ""} are genuinely ${brain.name}${brain.category ? ` (${brain.category})` : ""}, use them. If they are a DIFFERENT company, IGNORE ${site} entirely and research the REAL ${brain.name} — and return its TRUE official website URL.\n`;
+  // The brand's OWN words, scraped live — the anchor that makes the dossier describe THIS brand
+  // (and voice their real tone) instead of a generic recall. Only trusted when the crawled site is
+  // the one the user pasted (a guessed domain could be a different same-named company).
+  const ownCopy = trusted ? (harvested.siteText || "").trim() : "";
+  const socialLine = trusted && harvested.socials?.length ? harvested.socials.map((s) => `${s.platform} ${s.handle}`).join(", ") : "";
   const dossier =
-    `Research THIS EXACT brand — the real company that owns ${site || "the products listed below"}, NOT a different, bigger, or better-known company that merely shares the name.\n` +
-    `Brand: ${brain.name}${brain.category ? ` — ${brain.category}` : ""}${brain.productType ? ` (${brain.productType})` : ""}.` +
-    (site ? `\nOfficial website (the source of truth): ${site}.` : "") +
-    (productNames.length ? `\nTheir ACTUAL products, scraped LIVE from their own site (this is unmistakably the real brand): ${productNames.join(", ")}.` : "") +
-    (brain.audience ? `\nAudience: ${brain.audience}.` : "") +
-    (brain.vibe ? `\nVibe: ${brain.vibe}.` : "") +
-    (brain.palette ? `\nFounder-stated colours: ${brain.palette}.` : "") +
-    `\n\nUsing the site + real products above as the GROUND TRUTH for which brand this is, fill the dossier: positioning, audience, tone of voice, visual identity, COLOUR PALETTE (real hex codes true to THEIR packaging/site), photography signature, competitors and insights. If you don't recognise them, infer confidently from their real products + category — but NEVER substitute or describe a different same-named brand, and NEVER say information is missing.`;
+    `Research the real company behind the brand "${brain.name}"${brain.category ? ` — ${brain.category}` : ""}${brain.productType ? ` (${brain.productType})` : ""}.\n` +
+    siteBlock +
+    (productNames.length && trusted ? `Their ACTUAL products, scraped LIVE from their own site: ${productNames.join(", ")}.\n` : "") +
+    (socialLine ? `Their linked social profiles: ${socialLine}.\n` : "") +
+    (brain.audience ? `Audience: ${brain.audience}.\n` : "") +
+    (brain.vibe ? `Vibe: ${brain.vibe}.\n` : "") +
+    (brain.palette ? `Founder-stated colours: ${brain.palette}.\n` : "") +
+    (ownCopy
+      ? `\n════ THE BRAND'S OWN WORDS — scraped live from their site. This is the SOURCE OF TRUTH. Ground every field in THIS, and voice the tone of voice by echoing their real phrasing — nothing more, nothing less. Do NOT invent a generic brand: ════\n${ownCopy}\n════ end of their copy ════\n`
+      : "") +
+    `\nFill the dossier: the official WEBSITE url (the brand's own domain), positioning, audience, TONE OF VOICE (drawn from their real copy above — their actual register, cadence and vocabulary), visual identity, COLOUR PALETTE (real hex codes true to THEIR packaging/site), photography signature, competitors and insights. Infer confidently from their real products + copy + category where needed — but NEVER describe a different same-named brand, and NEVER say information is missing.`;
   const sources = 0;
   const inferred = true;
   const structurePromise = structureAll(dossier, brain);
@@ -594,8 +731,31 @@ export async function researchBrand(brain: BrandBrain, opts: ResearchOpts = {}):
   ]);
 
   const { research: structured, intelligence: intel } = await structurePromise;
-  // The site actually crawled (pasted URL) wins for storage; fall back to the LLM's URL.
-  const website = crawlSite || brain.website?.trim() || structured.website?.trim() || "";
+
+  // RE-CRAWL RESCUE / CORRECTION — the first crawl runs off the PASTED url or a GUESSED domain. A
+  // guessed domain can be EMPTY (couldn't guess / bot-blocked) OR the WRONG same-named company (e.g.
+  // a "poppi.in" or a password-locked "olipop.shop"). The grounded dossier is brand-anchored, so its
+  // discovered URL wins: re-crawl it (once) when it differs by host — ALWAYS for a guessed domain,
+  // and as a rescue when a pasted URL came back empty. This is the fix for "scrape the company → the
+  // brand book is empty / wrong". A no-op when the guess already matched the real site (same host).
+  let crawledSite = crawlSite;
+  const discovered = structured.website?.trim();
+  const crawlEmpty = harvested.catalog.length === 0 && harvested.productImages.length === 0 && !harvested.logo;
+  if (discovered && siteHost(discovered) !== siteHost(crawledSite) && (crawlEmpty || !userPasted)) {
+    const retry = await harvestBrandSite(discovered).catch(() => null);
+    // Only REPLACE if the discovered site actually yields data, so a stray/wrong dossier URL can
+    // never wipe a good guess-crawl down to nothing.
+    if (retry && (retry.catalog.length || retry.productImages.length || retry.logo)) {
+      harvested = retry;
+      crawledSite = discovered;
+      onStage("website", { website: discovered });
+      onStage("catalog", { count: retry.catalog.length });
+      onStage("products", { catalog: retry.catalog, productImages: retry.productImages, logo: retry.logo, website: discovered });
+    }
+  }
+
+  // The site actually crawled (pasted URL, or the dossier URL we rescued with) wins for storage.
+  const website = crawledSite || brain.website?.trim() || structured.website?.trim() || "";
   // PALETTE — sample the REAL colours from their actual product photos and PREFER them over the
   // model's guess (which was wrong for lesser-known brands). Keep the model's role labels where we
   // have them; fall back to the model palette only if sampling didn't find enough distinct hues.
@@ -606,8 +766,28 @@ export async function researchBrand(brain: BrandBrain, opts: ResearchOpts = {}):
   onStage("images", { count: harvested.productImages.length, palette });
   const photoRules = await photoRulesPromise;
 
+  // REAL socials scraped off their own site are ground truth (platform + handle + url). Merge them
+  // with the model's social read so the handle/URL are always correct and the model only adds notes.
+  const mergedSocial = (() => {
+    const byKey = new Map<string, { platform: string; handle: string; url: string; note: string }>();
+    for (const s of harvested.socials ?? []) byKey.set(s.platform.toLowerCase(), { platform: s.platform, handle: s.handle, url: s.url, note: "" });
+    for (const s of intel.social ?? []) {
+      if (!s.platform) continue;
+      const k = s.platform.toLowerCase();
+      const ex = byKey.get(k);
+      if (ex) { ex.note = s.note || ex.note; ex.handle = ex.handle || s.handle; ex.url = ex.url || s.url; }
+      else byKey.set(k, { platform: s.platform, handle: s.handle || "", url: s.url || "", note: s.note || "" });
+    }
+    return [...byKey.values()];
+  })();
+  const realInstagram = harvested.socials?.find((s) => s.platform === "Instagram")?.handle || "";
+  // A real crawled site (products or substantial copy) is proof the brand is real, whatever the model says.
+  const reallyFound = structured.foundReal || harvested.catalog.length > 0 || (harvested.siteText?.length ?? 0) > 200;
+  // Never let the dossier come back blank — the hero always has at least a line to render.
+  const overviewFloor = intel.overview || structured.summary || harvested.description || `${brain.name}${brain.category ? ` — ${brain.category}` : ""}.`;
+
   const intelligence: BrandIntelligence = {
-    overview: intel.overview || structured.summary,
+    overview: overviewFloor,
     purpose: intel.purpose,
     mission: intel.mission,
     vision: intel.vision,
@@ -626,16 +806,16 @@ export async function researchBrand(brain: BrandBrain, opts: ResearchOpts = {}):
     packagingStyle: intel.packagingStyle,
     visualIdentity: intel.visualIdentity,
     competitors: (intel.competitors?.length ? intel.competitors : (structured.competitors ?? []).map((name) => ({ name }))).filter((c) => c.name),
-    social: (intel.social ?? []).filter((s) => s.platform),
+    social: mergedSocial.filter((s) => s.platform),
     press: (intel.press ?? []).filter((p) => p.title),
     insights: intel.insights,
     campaigns: (intel.campaigns ?? []).filter((c) => c.title),
     ambassadors: (intel.ambassadors ?? []).filter((a) => a.name),
     socialProof: (intel.socialProof ?? []).filter((p) => p.text),
     website,
-    instagram: structured.instagram,
+    instagram: realInstagram || structured.instagram,
     sources,
-    foundReal: structured.foundReal,
+    foundReal: reallyFound,
     inferred,
   };
   onStage("intelligence", { ready: true });
@@ -646,11 +826,11 @@ export async function researchBrand(brain: BrandBrain, opts: ResearchOpts = {}):
     voice: structured.voice ?? "",
     competitors: structured.competitors ?? [],
     ambassadors: structured.ambassadors ?? [],
-    instagram: structured.instagram ?? "",
+    instagram: realInstagram || structured.instagram || "",
     website,
     palette: palette ?? [],
     aesthetic: structured.aesthetic ?? "",
-    foundReal: structured.foundReal ?? false,
+    foundReal: reallyFound,
     logo: harvested.logo,
     productImages: harvested.productImages,
     products: harvested.catalog.map((p) => ({ name: p.name, image: p.images[0] })),
@@ -659,4 +839,92 @@ export async function researchBrand(brain: BrandBrain, opts: ResearchOpts = {}):
   };
 
   return { ...research, intelligence, catalog: harvested.catalog };
+}
+
+/** The off-site fields the deep web pass fills — the ones the fast dossier deliberately leaves for enrichment. */
+const EnrichSchema = z.object({
+  campaigns: IntelligenceSchema.shape.campaigns,
+  ambassadors: IntelligenceSchema.shape.ambassadors,
+  socialProof: IntelligenceSchema.shape.socialProof,
+  press: IntelligenceSchema.shape.press,
+  insights: z.array(z.string()).default([]),
+});
+export type IntelligenceEnrichment = z.infer<typeof EnrichSchema>;
+
+/**
+ * DEEP, off-site enrichment — the progressive "get into Instagram, press, Reddit and the Meta Ad
+ * Library" pass. Runs AFTER the fast dossier is already on screen (it's slower and reaches the live
+ * web), then merges its findings back onto the saved brain. Two steps: (1) a live web search that
+ * returns real, source-cited material; (2) a structuring call that folds it into the schema. Every
+ * item keeps its source URL. A no-op (returns {}) when no web-search key is configured, so the fast
+ * path never depends on it.
+ */
+export async function enrichIntelligence(brain: BrandBrain): Promise<IntelligenceEnrichment> {
+  const empty: IntelligenceEnrichment = { campaigns: [], ambassadors: [], socialProof: [], press: [], insights: [] };
+  const name = brain.name?.trim();
+  if (!name || !webSearchAvailable()) return empty;
+  const site = brain.research?.website || brain.website || brain.intelligence?.website || "";
+  const ig = brain.intelligence?.instagram || brain.research?.instagram || "";
+  const cat = brain.category || brain.productType || "";
+  const anchor = `${name}${cat ? ` (${cat})` : ""}${site ? `, official site ${site}` : ""}${ig ? `, Instagram ${ig}` : ""}`;
+
+  // 1) LIVE web search — real, source-cited material off the brand's own site.
+  const raw = await webSearchComplete({
+    max_tokens: 1800,
+    timeoutMs: 45_000,
+    messages: [
+      { role: "system", content: "You are a brand research analyst. Search the live web and report ONLY verifiable, source-cited facts about the EXACT brand named — never a different same-named company. Every claim needs a real source URL. If you cannot verify something, omit it; never invent." },
+      { role: "user", content:
+        `Research ${anchor}. Find, each with a SOURCE URL:\n` +
+        `1) MARKETING CAMPAIGNS — real past/current campaigns. Check the Meta Ad Library (facebook.com/ads/library), their Instagram, and press. For each: title/theme, approx year, channel, one-line description, who fronted it.\n` +
+        `2) AMBASSADORS / FACES — creators, celebrities, athletes, founders or investors who represent them (name, @handle, what they did).\n` +
+        `3) SOCIAL PROOF — awards, notable press features, follower counts per platform, viral moments, celebrity/UGC endorsements, retail stockists, standout reviews.\n` +
+        `4) COMMUNITY SENTIMENT — what real customers say on Reddit, TikTok and review sites: the recurring praise AND the recurring complaints, with a source.\n` +
+        `Be specific and factual. Cite sources inline as URLs.` },
+    ],
+  });
+  if (!raw || raw.trim().length < 40) return empty;
+
+  // 2) Structure the sourced material into the schema (a plain, reliable JSON pass).
+  try {
+    const content = await chatComplete({
+      max_completion_tokens: 2200,
+      reasoning_effort: "low",
+      messages: [
+        { role: "system", content:
+          `Convert this sourced web research into STRICT JSON with these keys: ` +
+          `campaigns (array of {title, year, channel, description, fronted, url}), ` +
+          `ambassadors (array of {name, handle, note}), ` +
+          `socialProof (array of {type, text, source, url} — type is one of award/press/followers/viral/endorsement/stockist/review), ` +
+          `press (array of {title, source, url}), ` +
+          `insights (array of short community-sentiment takeaways — the recurring praise and complaints real customers voice). ` +
+          `Keep ONLY items backed by the research; drop anything vague or unsourced; preserve every source URL exactly. Return JSON only.` },
+        { role: "user", content: raw.slice(0, 6500) },
+      ],
+    });
+    const parsed = parseLenient(EnrichSchema, content);
+    return {
+      campaigns: (parsed.campaigns ?? []).filter((c) => c.title),
+      ambassadors: (parsed.ambassadors ?? []).filter((a) => a.name),
+      socialProof: (parsed.socialProof ?? []).filter((p) => p.text),
+      press: (parsed.press ?? []).filter((p) => p.title),
+      insights: (parsed.insights ?? []).filter(Boolean),
+    };
+  } catch {
+    return empty;
+  }
+}
+
+/** Merge a deep enrichment onto an existing intelligence object (enrichment wins where it has data). */
+export function mergeEnrichment(intel: BrandIntelligence | undefined, e: IntelligenceEnrichment): BrandIntelligence {
+  const base: BrandIntelligence = intel ?? {};
+  const dedupeInsights = Array.from(new Set([...(base.insights ?? []), ...(e.insights ?? [])])).slice(0, 8);
+  return {
+    ...base,
+    campaigns: e.campaigns.length ? e.campaigns : base.campaigns,
+    ambassadors: e.ambassadors.length ? e.ambassadors : base.ambassadors,
+    socialProof: e.socialProof.length ? e.socialProof : base.socialProof,
+    press: e.press.length ? e.press : (base.press ?? []),
+    insights: dedupeInsights.length ? dedupeInsights : base.insights,
+  };
 }

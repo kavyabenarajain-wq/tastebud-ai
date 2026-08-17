@@ -67,6 +67,10 @@ export function SignUpRequired({ next = "/studio" }: { next?: string }) {
  * gets SignUpRequired instead. Re-checks on cross-tab storage changes and a same-tab `tb:auth`
  * event (fired by sign-in / sign-out), so gaining or losing an account flips the gate live.
  */
+// Local-dev only: skip the "create an account" wall so the studio opens without signing in.
+// Double-guarded (explicit opt-in + non-production build), so the live site is never affected.
+const DEV_NO_AUTH = process.env.NODE_ENV !== "production" && process.env.NEXT_PUBLIC_DEV_NO_AUTH === "1";
+
 export function StudioAuthGate({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const [authed, setAuthed] = useState<boolean | null>(null);
@@ -82,6 +86,8 @@ export function StudioAuthGate({ children }: { children: React.ReactNode }) {
     };
   }, []);
 
+  // Local-dev with auth off → the studio just opens, no account needed.
+  if (DEV_NO_AUTH) return <>{children}</>;
   // Undetermined (first tick, pre-hydration) → hold the field blank so signed-in users never
   // flash the gate and signed-out users never flash the workspace.
   if (authed === null) return <main className="min-h-screen bg-cream" />;

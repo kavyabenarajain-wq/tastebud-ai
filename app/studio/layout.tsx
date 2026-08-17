@@ -14,9 +14,14 @@ import { StudioAuthGate } from "@/components/tastebud/StudioAuthGate";
  * to a real email). So opening the studio, or landing in it via a direct link, requires login.
  */
 export default function StudioLayout({ children }: { children: React.ReactNode }) {
+  // `.tb-force-light` pins the marketing tokens back to their light values for the whole studio
+  // subtree, so a visitor who turned on dark mode out front never drags it into the live workspace
+  // (the studio has its own fixed light palette and isn't part of the themed front-of-house).
   return (
-    <StudioAuthGate>
-      <StudioProvider>{children}</StudioProvider>
-    </StudioAuthGate>
+    <div className="tb-force-light">
+      <StudioAuthGate>
+        <StudioProvider>{children}</StudioProvider>
+      </StudioAuthGate>
+    </div>
   );
 }

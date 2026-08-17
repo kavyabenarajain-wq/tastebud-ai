@@ -9,7 +9,7 @@ export default function Choose() {
   return (
     <main className="flex min-h-screen flex-col bg-paper text-carbon">
       <header className="flex items-center justify-between px-8 py-8">
-        <Link href="/" className="font-edito text-[20px] tracking-tight text-carbon transition-opacity duration-300 hover:opacity-60">tastebud</Link>
+        <Link href="/" className="font-edito text-[20px] tracking-tight text-accent transition-opacity duration-300 hover:opacity-60">tastebud</Link>
         <Link href="/" className="inline-flex items-center gap-1 text-[11px] uppercase tracking-[0.14em] text-clay transition-colors duration-300 hover:text-carbon">
           <ChevronLeft size={13} /> Back
         </Link>

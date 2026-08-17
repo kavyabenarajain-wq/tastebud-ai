@@ -4,19 +4,20 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion, useMotionValueEvent, useScroll } from "framer-motion";
+import { ThemeToggle } from "./theme";
 
-const NAV = [
+const NAV: { href: string; label: string; soon?: boolean }[] = [
   { href: "/", label: "Home" },
-  { href: "/brand-build", label: "Brand build" },
-  { href: "/asset-studio", label: "Asset building" },
+  { href: "/brand-discovery", label: "Brand Discovery" },
+  { href: "/asset-studio", label: "Asset Studio", soon: true },
   { href: "/contact", label: "Contact" },
 ];
 
 /**
  * Floating pill nav — a rounded, shadowed capsule that sits on top of the page (frosted paper,
- * carbon type, in our light monochrome palette). Wordmark left + centred links, Sign in and a
- * filled "Book a demo" pill right; collapses to a hamburger on mobile. `floatReveal` (home intro)
- * keeps it hidden over the opening screen and fades it in once you scroll in.
+ * carbon type). Fully theme-aware via the marketing tokens. Wordmark left + centred links, a
+ * theme toggle, Log in and a filled "Book a demo" pill right; collapses to a hamburger on mobile.
+ * `floatReveal` (home intro) keeps it hidden over the opening screen and fades it in on scroll.
  */
 export function SiteHeader({ floatReveal = false }: { floatReveal?: boolean }) {
   const pathname = usePathname();
@@ -40,9 +41,9 @@ export function SiteHeader({ floatReveal = false }: { floatReveal?: boolean }) {
       transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
       className={`fixed inset-x-0 top-0 z-50 px-4 pt-4 md:pt-5 ${past ? "" : "pointer-events-none"}`}
     >
-      <div className="relative mx-auto flex max-w-5xl items-center justify-between rounded-full border border-linen bg-paper/80 py-2.5 pl-6 pr-2.5 shadow-[0_18px_50px_-24px_rgba(25,25,23,0.28)] backdrop-blur-xl">
+      <div className="relative mx-auto flex max-w-5xl items-center justify-between rounded-full border border-linen bg-paper/80 py-2.5 pl-6 pr-2.5 shadow-[0_18px_50px_-24px_rgba(0,0,0,0.28)] backdrop-blur-xl">
         {/* Left — wordmark */}
-        <Link href="/" className="font-edito text-[21px] leading-none tracking-tight text-carbon transition-opacity duration-300 hover:opacity-60">
+        <Link href="/" className="font-edito text-[21px] leading-none tracking-tight text-accent transition-opacity duration-300 hover:opacity-60">
           tastebud
         </Link>
 
@@ -64,17 +65,23 @@ export function SiteHeader({ floatReveal = false }: { floatReveal?: boolean }) {
                   <motion.span
                     layoutId="nav-pill"
                     transition={{ type: "spring", stiffness: 420, damping: 36 }}
-                    className="absolute inset-0 -z-10 rounded-full bg-carbon/[0.055]"
+                    className="absolute inset-0 -z-10 rounded-full bg-carbon/[0.06]"
                   />
                 )}
                 <span className={isActive ? "text-carbon" : "text-clay hover:text-carbon"}>{n.label}</span>
+                {n.soon && (
+                  <span className="ml-1.5 rounded-full border border-linen px-1.5 py-0.5 align-middle text-[8.5px] font-medium uppercase tracking-[0.14em] text-clay">
+                    Soon
+                  </span>
+                )}
               </Link>
             );
           })}
         </nav>
 
-        {/* Right — sign in + book a demo */}
+        {/* Right — theme toggle + sign in + book a demo */}
         <div className="flex items-center gap-2">
+          <ThemeToggle />
           <Link
             href="/signin"
             className="hidden rounded-full px-4 py-2 text-[14.5px] text-clay transition-colors duration-300 hover:text-carbon md:block"
@@ -107,15 +114,20 @@ export function SiteHeader({ floatReveal = false }: { floatReveal?: boolean }) {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.28, ease: [0.22, 1, 0.36, 1] }}
-            className="mx-auto mt-2 max-w-5xl overflow-hidden rounded-3xl border border-linen bg-paper/95 p-2 shadow-[0_18px_50px_-24px_rgba(25,25,23,0.28)] backdrop-blur-xl md:hidden"
+            className="mx-auto mt-2 max-w-5xl overflow-hidden rounded-3xl border border-linen bg-paper/95 p-2 shadow-[0_18px_50px_-24px_rgba(0,0,0,0.3)] backdrop-blur-xl md:hidden"
           >
             {NAV.map((n) => (
               <Link
                 key={n.href}
                 href={n.href}
-                className={`block rounded-2xl px-4 py-3 text-[15px] ${pathname === n.href ? "bg-carbon/[0.05] text-carbon" : "text-clay"}`}
+                className={`flex items-center justify-between rounded-2xl px-4 py-3 text-[15px] ${pathname === n.href ? "bg-carbon/[0.05] text-carbon" : "text-clay"}`}
               >
                 {n.label}
+                {n.soon && (
+                  <span className="rounded-full border border-linen px-2 py-0.5 text-[9px] font-medium uppercase tracking-[0.14em] text-clay">
+                    Soon
+                  </span>
+                )}
               </Link>
             ))}
             <div className="mt-1 grid grid-cols-2 gap-2 p-1">

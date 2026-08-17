@@ -13,6 +13,7 @@ export interface FinishGrade {
   contrast: number;   // S-curve slope around mid-grey (~1.0–1.12)
   grain: number;      // 0–1 subtle film grain amount
   sharpen: number;    // unsharp-mask sigma (~0.5–1.2)
+  clarity?: number;   // 0–1 local-contrast "pop" (edge emphasis on the unsharp pass) — vivid without HDR halos
 }
 
 /**
@@ -366,6 +367,27 @@ export interface ResolvedBrief {
 
 export interface PlannedShot { angle: string; prompt: string; negatives?: string[]; }
 export interface ShootPlan { angles: string[]; shots: PlannedShot[]; qc: string[]; }
+
+/**
+ * REFERENCE CAMPAIGN DNA — the reusable photoshoot VIBE distilled from a client's reference
+ * image(s) (e.g. "make my perfume campaign feel like Tom Ford"). It is the SEPARATION of a
+ * reference's reusable STYLE from its own specific product/subject: the light, grade, palette,
+ * set language, styling, camera feel and finish that make the reference read as ONE campaign —
+ * plus a handful of DISTINCT shot ideas that live in that world. The planner uses it to design a
+ * VARIED, brand-rooted set (not one cloned scene); the renderer applies it as a per-shot style
+ * layer while each frame keeps its own composition. Never carries the reference's product, label
+ * or text — those must never be copied onto the client's product.
+ */
+export interface ReferenceDNA {
+  vibe: string;         // one line — the campaign's emotional / editorial register
+  light: string;        // lighting philosophy: quality, direction, contrast, key/fill
+  palette: string;      // colour grade + palette feel (as a grade, never the reference's product colours)
+  set: string;          // set / environment / surfaces / world language
+  styling: string;      // prop & styling density and philosophy
+  camera: string;       // lens, crop, distance, depth-of-field and compositional habits
+  finish: string;       // texture, grain, film / digital finish
+  shotIdeas: string[];  // distinct shot concepts that share this world (variety seeds)
+}
 
 /**
  * Compliance minted at generate time and STAMPED onto every shot so brand do-not /

@@ -18,6 +18,13 @@ import { NextResponse, type NextRequest } from "next/server";
 const URL_ = process.env.NEXT_PUBLIC_SUPABASE_URL ?? "";
 const KEY_ = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY ?? "";
 
+/**
+ * Local-dev only: turn OFF the sign-in wall for the WHOLE app so it can be used without logging in.
+ * Double-guarded — needs the explicit NEXT_PUBLIC_DEV_NO_AUTH=1 opt-in (local .env only) AND a
+ * non-production build — so it can NEVER unlock the live site (Vercel always builds as production).
+ */
+const DEV_NO_AUTH = process.env.NODE_ENV !== "production" && process.env.NEXT_PUBLIC_DEV_NO_AUTH === "1";
+
 /** Pages that require a signed-in user. Everything else (marketing, /signin, /auth/callback) is open. */
 function isProtectedPage(pathname: string): boolean {
   return pathname === "/studio" || pathname.startsWith("/studio/") || pathname === "/choose" || pathname.startsWith("/choose/");
@@ -36,8 +43,9 @@ function isPublicApi(pathname: string): boolean {
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // Not configured yet → pass straight through, so a missing env var can never 500 the whole site.
-  if (!URL_ || !KEY_) return NextResponse.next({ request });
+  // Not configured yet, OR local-dev with auth turned off → pass straight through (no session
+  // needed anywhere). DEV_NO_AUTH is non-production only, so the live site is never affected.
+  if (!URL_ || !KEY_ || DEV_NO_AUTH) return NextResponse.next({ request });
 
   let response = NextResponse.next({ request });
 

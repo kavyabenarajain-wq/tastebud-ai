@@ -132,7 +132,7 @@ export function buildBrief(b: ResolvedBrief): string {
   if (p.include?.trim()) lines.push(`Must include: ${p.include.trim()} — include ONLY this, in a small, restrained amount, and add NOTHING that was not asked for. Do not invent extra props to fill space.`);
   const cat = categoryDirective(b.brand, b.express);
   if (cat) lines.push(cat);
-  if (b.references?.length) lines.push(`STYLE REFERENCE PROVIDED (${b.references.length} image${b.references.length > 1 ? "s" : ""}) — match its look: background, palette, prop styling, lighting and composition. This drives the art direction; treat the panel as secondary.`);
+  if (b.references?.length) lines.push(`REFERENCE CAMPAIGN PROVIDED (${b.references.length} image${b.references.length > 1 ? "s" : ""}) — the client wants their campaign shot in THIS reference's photoshoot VIBE: its light, colour grade, palette, set / world, styling density and camera feel. Carry that vibe across the WHOLE set as GENUINELY DIFFERENT shots (vary the angle, distance, composition and moment) — never one frame cloned. Keep every frame rooted in this brand's real palette, voice and product, and NEVER copy the reference's own product, label, text or product colours. This drives the art direction; treat the panel as secondary.`);
   // Name the REAL product(s) so the (otherwise blind) planner keys the scene to them and never
   // drifts to a generic or different item — the strongest text-side product-identity lock.
   const info = (b.productInfo ?? []).filter((pp) => pp && (pp.name || pp.category));
@@ -291,7 +291,7 @@ export function buildModelBrief(b: ResolvedBrief): string {
   field("Must include", p.include);
 
   if ((b.products?.length ?? 0) > 0) lines.push(`Product uploaded: ${b.products!.length}. It is the client's REAL product — reproduce it exactly (shape, cut, fabric, wash/colour, label, every word of text) and place it in the shot with the model at true real-world scale with real contact, occlusion and shadow, used in the category-appropriate way described above. ONLY IF IT IS CLOTHING / APPAREL is it the FIXED WARDROBE HERO the model wears in every frame, identical across the whole set — do NOT invent, substitute, recolour or restyle the clothing; style only around it (other layers, accessories, setting, hair).`);
-  if (b.references?.length) lines.push(`STYLE REFERENCE PROVIDED (${b.references.length}) — match its art direction: wardrobe register, set, palette, lighting and composition. It is a LOOK reference only — never copy any person or product from it.`);
+  if (b.references?.length) lines.push(`REFERENCE CAMPAIGN PROVIDED (${b.references.length}) — shoot in THIS reference's photoshoot VIBE: its wardrobe register, set / world, palette, colour grade, lighting and mood. Carry that vibe across the whole set as GENUINELY DIFFERENT frames (vary angle, distance and moment) — never one frame cloned. It is a LOOK reference ONLY — never copy any person, product, label or text from it, and keep the model's likeness and the product exact.`);
 
   // Material truth still applies when a human is in frame — fabric must drape, a serum/cream must
   // read as substance on skin — so the on-model shoot keeps the category's material half of the bar.

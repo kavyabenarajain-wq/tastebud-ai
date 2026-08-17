@@ -5,10 +5,10 @@ import type { Config } from "tailwindcss";
  *
  * Two worlds live in this file:
  *  1. The STUDIO tool — monochrome, Apple-grade, the UI recedes so the generated work is the
- *     only colour (canvas/surface/ink/muted/hairline). Untouched.
- *  2. The MARKETING site — a high-contrast, warm-dark, motion-first front of house. A near-black
- *     "void" canvas, bone type, and one iridescent signature (flame → pink → plasma) that carries
- *     the whole site. This is the revamped world.
+ *     only colour (canvas/surface/ink/muted/hairline).
+ *  2. The MARKETING site — calm, light, warm monochrome: near-black ink on warm paper/cream
+ *     (carbon/paper/cream/clay/linen). (Older "warm-dark" tokens — void/bone/flame — kept below
+ *     but UNUSED; that direction was dropped.)
  */
 const config: Config = {
   darkMode: "class",
@@ -28,13 +28,17 @@ const config: Config = {
         "hairline-dk": "#1F1F1F",
         "ink-dk": "#F5F5F7",
 
-        // ── Marketing (legacy beige, kept for any un-migrated surface) ─────────
-        cream: "#F0EEE6",
-        paper: "#FAF9F5",
-        carbon: "#191917",
-        clay: "#5C5B53",
-        linen: "#DCD9CE",
-        terra: "#D97757",
+        // ── Marketing (LIVE): warm monochrome, now THEME-AWARE — the whole front of house.
+        //    Backed by CSS vars (see globals.css) so `.dark` on <html> flips paper↔ink while every
+        //    `bg-carbon/80`, `border-linen`, `text-clay` keeps its opacity modifier. ──────────────
+        cream: "rgb(var(--cream) / <alpha-value>)",
+        paper: "rgb(var(--paper) / <alpha-value>)",
+        carbon: "rgb(var(--carbon) / <alpha-value>)",
+        clay: "rgb(var(--clay) / <alpha-value>)",
+        linen: "rgb(var(--linen) / <alpha-value>)",
+        terra: "rgb(var(--terra) / <alpha-value>)",
+        // The single restrained brand accent (the brand blue). Themed via --accent.
+        accent: "rgb(var(--accent) / <alpha-value>)",
 
         // ── Marketing (revamp: warm-dark, high-contrast) ──────────────────────
         void: "#0A0A0C", // page canvas — warm near-black

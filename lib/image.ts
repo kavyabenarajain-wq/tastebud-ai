@@ -2,10 +2,11 @@ import { readFile } from "node:fs/promises";
 import { join, basename } from "node:path";
 import OpenAI, { toFile } from "openai";
 import { runReplicate, firstUrl } from "./replicate";
-import { finishInPlace, NEUTRAL_GRADE, modelSafeGrade } from "./finish";
+import { finishInPlace, NEUTRAL_GRADE, editorialModelGrade } from "./finish";
 import { chatComplete } from "./openaiClient";
 import { putImage } from "./storage";
-import type { FinishGrade } from "./types";
+import { categoryLock, categoryNegatives, categoryLabel, type ProductCategory } from "./productCategory";
+import type { FinishGrade, ReferenceDNA } from "./types";
 
 /**
  * The renderer. Renders one shot from a photographer's prompt + the uploaded
@@ -171,27 +172,52 @@ async function toUploadable(ref: string) {
   return toFile(Buffer.from(data, "base64"), `ref.${ext}`, { type: mimeType });
 }
 
+// ── RENDER SPEED PROFILE ──────────────────────────────────────────────────────────────────
+// gpt-image's wall-clock is dominated by TWO levers: output `quality` and `input_fidelity`.
+// input_fidelity:"high" sends ~22× the input-image tokens, which BOTH slows every call AND eats
+// the account's per-minute token budget — so a batch of concurrent hero renders queues behind the
+// rate limit instead of running in parallel. That is the single biggest reason a 6-shot set takes
+// minutes rather than ~one render's worth of wall-clock. RENDER_SPEED picks the trade for the
+// interactive grid; a keeper can always be re-rendered at max fidelity via /api/upscale.
+//   fast     → low / low       — draft grade, fastest, fits the whole set in parallel
+//   balanced → medium / medium — the snappy-grid default the pipeline was designed around
+//   quality  → high / high     — maximum product fidelity (the old always-on behaviour)
+// A per-call opts.inputFidelity (model-likeness forces "high", restage/rotation forces "low") and
+// the explicit OPENAI_IMAGE_QUALITY / OPENAI_INPUT_FIDELITY env vars still override the profile.
+export function renderSpeed(): "fast" | "balanced" | "quality" {
+  const v = (process.env.RENDER_SPEED ?? "balanced").toLowerCase();
+  return v === "fast" || v === "quality" ? v : "balanced";
+}
+function speedProfile(): { quality: "low" | "medium" | "high"; fidelity: string } {
+  switch (renderSpeed()) {
+    case "fast": return { quality: "low", fidelity: "low" };
+    case "quality": return { quality: "high", fidelity: "high" };
+    default: return { quality: "medium", fidelity: "medium" };
+  }
+}
+
 // Core image render over the OpenAI SDK — shared by the platform and Azure paths
 // (Azure's v1 endpoint speaks the same images API; only client + model differ).
 async function renderImageSDK(client: OpenAI, model: string, id: string, prompt: string, products: string[], opts: { aspect?: string; inputFidelity?: string }): Promise<string> {
   const size = openaiSize(opts.aspect);
-  // Default to "high" — the brand bar is "you can read every single thing". "high" renders
-  // markedly more micro-detail and crisper label text than "medium". Env-tunable back down
-  // (OPENAI_IMAGE_QUALITY=medium) if grid latency/cost ever needs it.
-  const quality = (process.env.OPENAI_IMAGE_QUALITY ?? "high") as "low" | "medium" | "high" | "auto";
+  const prof = speedProfile();
+  // Quality follows the speed profile (balanced → "medium", the snappy-grid default). An explicit
+  // OPENAI_IMAGE_QUALITY still wins, and RENDER_SPEED=quality restores "high" everywhere for the
+  // "you can read every single thing" bar on a final hero render.
+  const quality = (process.env.OPENAI_IMAGE_QUALITY ?? prof.quality) as "low" | "medium" | "high" | "auto";
   const refs = products.filter(Boolean);
   // Edit FROM the attached subject image(s) so the real subject is preserved exactly.
   // input_fidelity:"high" is gpt-image-1's lever to hold that subject TRUE — the EXACT face of a
   // pasted model reference (reproduce the person, don't reinterpret them) and the exact product
-  // shape/label. ~22× the input-image tokens vs "low", but fidelity is the product's #1 rule.
-  // Env-tunable (OPENAI_INPUT_FIDELITY=low) to trade fidelity for cost.
+  // shape/label. ~22× the input-image tokens vs "low" — the main speed tax, so it now follows the
+  // RENDER_SPEED profile by default (balanced → "medium") instead of always paying full price.
   // The mini model is the SPEED tier: it doesn't take the high-fidelity lever (and would be
   // slower if it did), so we omit input_fidelity for it — it defaults to low = fastest.
   const isMini = /mini/i.test(model);
-  // Per-call override wins: a RESTAGE shot passes "low" so the model rebuilds the
-  // reference's scene instead of clinging to the product photo's own background; normal
-  // shoots keep "high" to hold the product true. Falls back to the env, then "high".
-  const inputFidelity = (opts.inputFidelity || process.env.OPENAI_INPUT_FIDELITY || "high").toLowerCase();
+  // Per-call override wins: a RESTAGE shot passes "low" so the model rebuilds the reference's scene
+  // instead of clinging to the product photo's own background; a model-likeness shot forces "high"
+  // to hold the face true. Falls back to the env, then the speed profile.
+  const inputFidelity = (opts.inputFidelity || process.env.OPENAI_INPUT_FIDELITY || prof.fidelity).toLowerCase();
   let d: { b64_json?: string; url?: string } | undefined;
   if (refs.length) {
     const image = await Promise.all(refs.map(toUploadable));
@@ -281,7 +307,7 @@ async function visionJudge(prompt: string, imageSrcs: string[]): Promise<string 
   return null;
 }
 
-export async function qcImage(args: { url: string; checklist: string[]; brand: string; productRef?: string; modelRef?: string; restage?: boolean; manifest?: string[]; cleanPlate?: boolean }): Promise<{ pass: boolean; reasons: string[] }> {
+export async function qcImage(args: { url: string; checklist: string[]; brand: string; productRef?: string; modelRef?: string; restage?: boolean; manifest?: string[]; cleanPlate?: boolean; category?: ProductCategory }): Promise<{ pass: boolean; reasons: string[]; categoryOk?: boolean }> {
   try {
     // Ordered reference images → "IMAGE 1..N"; the GENERATED frame under review is ALWAYS last.
     const refSrcs: string[] = [];
@@ -296,6 +322,15 @@ export async function qcImage(args: { url: string; checklist: string[]; brand: s
     const manifestClause = args.productRef && args.manifest?.length
       ? `EVERY ONE of these elements is printed on the REAL product and must be PRESENT, complete and LEGIBLE in the generated photo — FAIL if any visible one is missing, cut off, blurred, garbled, misspelled, translated or altered: ${args.manifest.slice(0, 20).join(" | ")}. (Ignore only an element on a face of the pack genuinely not visible at this camera angle.)\n`
       : "";
+    // OBJECT-CLASS gate — the client's product must still be the SAME KIND of object. This is a hard
+    // fail even in restage mode (where shape/arrangement may otherwise change). Emits categoryOk so
+    // the caller can fail-CLOSED on a category miss (drop the shot) even when the soft QC gate is off.
+    const categoryClause = args.productRef && args.category && categoryLabel(args.category)
+      ? `OBJECT-CLASS CHECK — the client's product IS ${categoryLabel(args.category)}. The hero product in the generated photo MUST still be that same class of object. FAIL, and set "categoryOk":false, if it has been turned into a DIFFERENT kind of object (e.g. a garment rendered as a bottle, cup, jar or perfume; a drink rendered as a solid food; a product rendered as furniture). Otherwise set "categoryOk":true. This applies even in restage mode. Include "categoryOk" in your JSON.\n`
+      : "";
+    // When the object-class check is active, put categoryOk in the return-JSON SCHEMA too — otherwise the
+    // judge follows the template and drops the field, and the fail-closed gate silently fails open.
+    const catField = categoryClause ? `"categoryOk":true|false,` : "";
     // Anti-cliché + clean-plate backstops — the render prompt bans these, but without a gate a
     // floating-on-a-plinth-in-a-void frame or a baked-in headline would sail through QC.
     const cliches = "Also FAIL on any tell of cheap AI staging in the generated image: the product floating on a pedestal/podium/plinth, a seamless gradient-void background, a concentric spotlight halo, random scattered cubes/spheres/pebbles, fake confetti bokeh, or a plastic/CGI-render look — a real photograph has a real surface, a real contact shadow and physically plausible light.\n";
@@ -313,10 +348,12 @@ export async function qcImage(args: { url: string; checklist: string[]; brand: s
         `IMAGE 1 is a LIKENESS REFERENCE of the client's model — the real person who must appear in the shoot. IMAGE ${genIdx} is the GENERATED photo under review.\n` +
         `THE CENTRAL TEST — LIKENESS: the person in IMAGE ${genIdx} must be UNMISTAKABLY THE SAME INDIVIDUAL as in IMAGE 1. Compare face shape, eye shape and spacing, nose bridge and tip, lips and mouth width, jawline and chin, brow, hairline and hair, skin tone, and any distinguishing marks (freckles, moles, facial hair). A different-looking person — even a more conventionally attractive or more on-brand one — is a FAIL. A mere resemblance or "same vibe" is a FAIL.\n` +
         `IGNORE differences in expression, pose, camera angle, distance, lighting, wardrobe, hair styling and background — those are ALLOWED to change; judge only whether it is the same human being.\n` +
+        `FLAWS PRESERVED: the person's real skin texture and distinguishing marks from IMAGE 1 — pores, freckles, moles, scars, a cut or blemish, fine lines, under-eye shadows and natural asymmetry — must be PRESERVED. FAIL if they have been smoothed away, airbrushed, healed, evened-out or beautified into a cleaner, more symmetrical or more flawless face; a visibly retouched, poreless or idealised version of the person is NOT the same person.\n` +
         productClause +
+        categoryClause +
         `Also fail if IMAGE ${genIdx} looks distorted, waxy, plastic or obviously AI-generated, or has broken hands or anatomy.${checks}` +
         `When the person is clearly the same individual${args.productRef ? " and the product matches" : ""} and the photo is clean, pass.\n` +
-        `Return STRICT JSON ONLY: {"pass":true|false,"reasons":["short reason", ...]}`;
+        `Return STRICT JSON ONLY: {"pass":true|false,${catField}"reasons":["short reason", ...]}`;
     } else if (args.productRef) {
       const extra = args.checklist.length ? `\nADDITIONALLY, for IMAGE 2 ALL of the following must be TRUE — fail if any is false:\n` + args.checklist.map((c, i) => `${i + 1}. ${c}`).join("\n") + `\n` : "";
       // Restage mode (a style reference is driving the shot): the product may be legitimately
@@ -330,32 +367,35 @@ export async function qcImage(args: { url: string; checklist: string[]; brand: s
           `This is a RESTAGE: the product MAY be re-formed to suit the new scene (e.g. bedding shown as stacked pillows, a garment folded or draped), and it MAY appear at a different size, count, fold or arrangement — do NOT fail on any of that, nor on a different camera angle, background, lighting or number of items.\n` +
           `FAIL ONLY if the product's IDENTITY changed: its pattern, print, motif, check/stripe, colourway, material/weave, logo or any text/wording differs from IMAGE 1, OR the print looks recoloured or restyled to match the reference, OR IMAGE 2 looks distorted, fake, melted or obviously AI-generated.\n` +
           `ALSO FAIL if IMAGE 2 shows a SECOND, DIFFERENT hero product that is not the client's, or keeps a serving vessel/holder (glass, cup, cone, bowl, plate, saucer, tray, stand, jar, wrapper) that belongs to some OTHER product rather than the client's — the client's product must be the SOLE hero, with no foreign product and no leftover serving-ware from the reference. (This does NOT apply to the client's OWN product legitimately re-formed into multiple pieces, e.g. bedding shown as several pillows — that is fine.)\n` +
+          categoryClause +
           `When the SAME fabric/print/colourway clearly appears in IMAGE 2 and the photo is clean, pass.\n` +
-          `Return STRICT JSON ONLY: {"pass":true|false,"reasons":["short reason", ...]}`
+          `Return STRICT JSON ONLY: {"pass":true|false,${catField}"reasons":["short reason", ...]}`
         : `You are a STRICT photography QC reviewer for the brand "${args.brand}".\n` +
           `IMAGE 1 is the ORIGINAL product the client uploaded. IMAGE 2 is a generated photo of it in a new scene.\n` +
           `IMAGE 1 may also contain a hand, fingers, nails, props or a background — IGNORE all of that and compare ONLY the product object itself.\n` +
           `FAIL if the PRODUCT in IMAGE 2 differs from the product in IMAGE 1 in shape, silhouette, proportions, cap/closure, label, logo, any text/wording, or colours — it must be the SAME product, only in a new setting.\n` +
           manifestClause +
+          categoryClause +
           cliches +
           cleanPlateClause +
           `Also fail if IMAGE 2 looks distorted, fake, melted or obviously AI-generated, OR if it reproduces a hand/fingers/background copied from IMAGE 1. Do NOT penalise a different camera angle, background or lighting.${extra}` +
           `When the product clearly matches and the photo is clean, pass.\n` +
-          `Return STRICT JSON ONLY: {"pass":true|false,"reasons":["short reason", ...]}`;
+          `Return STRICT JSON ONLY: {"pass":true|false,${catField}"reasons":["short reason", ...]}`;
     } else {
       prompt =
         `You are a STRICT product-photography QC reviewer for the brand "${args.brand}". Judge ONE image on its own merits against:\n` +
         checklist.map((c, i) => `${i + 1}. ${c}`).join("\n") + "\n" +
         cliches + cleanPlateClause +
         `Fail ONLY if the product looks distorted, fake, warped, melted, mislabelled, or obviously AI-generated. When in doubt, pass.\n` +
-        `Return STRICT JSON ONLY: {"pass":true|false,"reasons":["short reason", ...]}`;
+        `Return STRICT JSON ONLY: {"pass":true|false,${catField}"reasons":["short reason", ...]}`;
     }
     const raw = await visionJudge(prompt, [...refSrcs, args.url]);
     if (!raw) return { pass: true, reasons: [] }; // no vision provider → don't block the shoot
     const m = raw.match(/\{[\s\S]*\}/);
     if (!m) return { pass: true, reasons: [] };
     const parsed = JSON.parse(m[0]);
-    return { pass: !!parsed.pass, reasons: Array.isArray(parsed.reasons) ? parsed.reasons : [] };
+    const categoryOk = typeof parsed.categoryOk === "boolean" ? parsed.categoryOk : undefined;
+    return { pass: !!parsed.pass, reasons: Array.isArray(parsed.reasons) ? parsed.reasons : [], categoryOk };
   } catch {
     return { pass: true, reasons: [] };
   }
@@ -380,6 +420,7 @@ export type ProductObservation = {
   material: string;
   summary: string;
   identity?: string;    // one line — what this product actually is (form, size/volume, category)
+  category?: string;    // the object CLASS read off the image (apparel/beauty/food/…), for the category lock
   elements?: string[];  // every distinct on-pack element (text reproduced verbatim), for the must-appear manifest
   parts?: string[];     // physical packaging parts (cap/closure, front panel, back panel, base) + which carry text
 };
@@ -388,6 +429,7 @@ const PRODUCT_INSPECT_PROMPT =
   `You are a forensic product-packaging analyst prepping a photoshoot. Look ONLY at the product/packaging in the image(s) — IGNORE any hand, fingers, prop, surface or background around it. Report, precisely and LITERALLY, everything that is ON the product so a photographer can reproduce it EXACTLY and omit nothing. Reproduce any text VERBATIM. Report ONLY what you can actually see — never guess, invent or flatter.\n` +
   `Return STRICT JSON ONLY:\n` +
   `{"identity":"one line — what this product actually is: form factor, printed size/volume if shown, category (e.g. '250ml frosted-glass bottle of cold-pressed green juice')",` +
+  `"category":"the single best object-CLASS label for this product from EXACTLY this list — apparel (clothing/footwear/worn accessory), jewellery, beauty (cosmetics/skincare/fragrance), wellness (supplements), food, drink, furniture, tech (electronics), home (homeware/decor), or general if genuinely none fit. Judge by what the OBJECT physically IS, not by branding.",` +
   `"colors":[{"name":"plain colour name","hex":"#RRGGBB","role":"primary|accent|cap|text|background"}],` +
   `"material":"main material/finish (e.g. frosted glass, matte aluminium tube, glossy carton)",` +
   `"elements":["EVERY distinct thing printed or embossed on the pack, each as its own short item, text in double quotes — the brand wordmark, the product name, the variant/flavour, every tagline/claim, certifications & seals, net weight/volume, ingredient or benefit callouts, icons/symbols, and any legible fine print"],` +
@@ -413,9 +455,10 @@ export async function analyzeProduct(productRef: string | string[]): Promise<Pro
     const elements = arr(parsed.elements).slice(0, 30);
     const parts = arr(parsed.parts).slice(0, 12);
     const identity = str(parsed.identity) || undefined;
+    const category = str(parsed.category) || undefined;
     // A run with no colours AND no manifest saw nothing usable → null (caller falls back).
     if (!colors.length && !elements.length && !identity) return null;
-    return { colors, material: str(parsed.material), summary: str(parsed.summary), identity, elements: elements.length ? elements : undefined, parts: parts.length ? parts : undefined };
+    return { colors, material: str(parsed.material), summary: str(parsed.summary), identity, category, elements: elements.length ? elements : undefined, parts: parts.length ? parts : undefined };
   };
   try {
     if (process.env.OPENAI_API_KEY || process.env.AZURE_OPENAI_API_KEY) {
@@ -444,6 +487,82 @@ export async function analyzeProduct(productRef: string | string[]): Promise<Pro
   } catch {
     return null;
   }
+}
+
+/**
+ * MODEL LIKENESS + FLAW MANIFEST — the person-facing twin of analyzeProduct. When the client pastes
+ * a reference photo of a real person, LOOK at them and report, forensically, their exact likeness AND
+ * every real distinguishing mark and imperfection (a small cut, scar, blemish, mole, freckles, pores,
+ * fine lines, under-eye texture, asymmetry, …) so the renderer reproduces THAT exact individual —
+ * flaws included, VISIBLE, never beautified into a cleaner stranger. In-context pixel editors
+ * (gpt-image edit / FLUX Kontext) carry the real pixels; this manifest is the belt-and-braces that
+ * stops the model quietly healing and idealising the face at high fidelity. Best-effort: null on any
+ * failure (the render still leans on the identity-lock prose + input_fidelity:high).
+ */
+export type ModelObservation = {
+  likeness: string;    // the exact face + head geometry, hair, build — one dense paragraph
+  features: string[];  // exhaustive manifest of every distinguishing mark, texture and flaw to reproduce visibly
+  summary?: string;
+};
+
+const MODEL_INSPECT_PROMPT =
+  `You are a forensic portrait analyst prepping a photoshoot that must reproduce THIS EXACT person with total fidelity — a precise likeness, NEVER a flattering lookalike. Look ONLY at the person; IGNORE the background, clothing, props and anything they are holding or wearing. Report, precisely and literally, everything that makes them unmistakably themselves so a photographer can reproduce them EXACTLY and beautify NOTHING. Report ONLY what you can actually see — never guess, invent or flatter, and never omit an unflattering detail.\n` +
+  `Return STRICT JSON ONLY:\n` +
+  `{"likeness":"2-4 dense sentences: exact face and head shape; hairline, hair colour/texture/length/parting; forehead; brow shape, thickness and spacing; eye shape/size/spacing/colour and lids; nose bridge, width and tip; cheekbones; lips shape and mouth width; jawline; chin; ears; neck; skin tone and undertone; apparent age; build",` +
+  `"features":["EVERY distinct distinguishing mark, texture and IMPERFECTION, each as its own short item, and note WHERE it is — e.g. 'a small healing cut on the left eyebrow', 'a mole below the right corner of the mouth', 'freckles scattered across the nose and cheeks', 'visible pores and slight redness on the cheeks', 'faint under-eye shadows', 'fine forehead lines', 'a small chickenpox-type scar on the chin', 'stubble along the jaw', 'a chipped upper-left tooth', 'the left eye sits slightly lower than the right'. Include: scars, cuts, grazes, healing scabs, stitches, bruises, blemishes, spots/acne, moles, birthmarks, freckles, pores and skin texture, fine lines and wrinkles, under-eye bags/shadows, tan lines, uneven skin tone or redness, facial hair/stubble, stray/flyaway hairs, eyebrow gaps, gap/crooked/chipped teeth, dimples, piercings, tattoos and their exact placement, glasses, and every visible left-right asymmetry. Be EXHAUSTIVE and unflinching — list the unflattering details, never skip them"],` +
+  `"summary":"one line — who this person is at a glance"}\n` +
+  `Be EXHAUSTIVE on "features": a real face carries many, and missing them is exactly what turns a render into a different, beautified person.`;
+
+export async function analyzeModelRef(modelRef: string | string[]): Promise<ModelObservation | null> {
+  const refs = (Array.isArray(modelRef) ? modelRef : [modelRef]).filter(Boolean).slice(0, 2);
+  if (!refs.length) return null;
+  const parseInto = (raw: string): ModelObservation | null => {
+    const m = raw.match(/\{[\s\S]*\}/);
+    if (!m) return null;
+    let parsed: any;
+    try { parsed = JSON.parse(m[0]); } catch { return null; }
+    const str = (v: unknown) => String(v ?? "").trim();
+    const features = (Array.isArray(parsed.features) ? parsed.features : []).map((x: unknown) => str(x)).filter(Boolean).slice(0, 30);
+    const likeness = str(parsed.likeness);
+    if (!likeness && !features.length) return null; // saw nothing usable → caller degrades to prose lock
+    return { likeness, features, summary: str(parsed.summary) || undefined };
+  };
+  try {
+    if (process.env.OPENAI_API_KEY || process.env.AZURE_OPENAI_API_KEY) {
+      const imgs = await Promise.all(refs.map((r) => toDataUri(r)));
+      const content = [
+        { type: "text", text: MODEL_INSPECT_PROMPT },
+        ...imgs.map((url) => ({ type: "image_url", image_url: { url } })),
+      ] as unknown as OpenAI.Chat.ChatCompletionUserMessageParam["content"];
+      const out = await chatComplete({ messages: [{ role: "user", content }], max_completion_tokens: 1200, reasoning_effort: "low" });
+      const res = parseInto(out ?? "");
+      if (res) return res;
+    }
+  } catch {
+    /* fall through to Gemini */
+  }
+  if (!process.env.GEMINI_API_KEY) return null;
+  try {
+    const key = process.env.GEMINI_API_KEY!;
+    const model = process.env.GEMINI_QC_MODEL ?? "gemini-2.5-flash";
+    const parts = await Promise.all(refs.map(toInline));
+    const body = { contents: [{ parts: [{ text: MODEL_INSPECT_PROMPT }, ...parts.map((p) => ({ inline_data: { mime_type: p.mimeType, data: p.data } }))] }] };
+    const j = await geminiCall(`https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${key}`, body, 2);
+    const text: string = (j.candidates?.[0]?.content?.parts ?? []).map((p: any) => p.text ?? "").join("");
+    return parseInto(text);
+  } catch {
+    return null;
+  }
+}
+
+/** Format a ModelObservation into the manifest string renderModelShot injects (likeness + flaws). */
+export function modelManifestText(obs: ModelObservation | null): string | undefined {
+  if (!obs) return undefined;
+  const parts: string[] = [];
+  if (obs.likeness) parts.push(`FACE & BUILD: ${obs.likeness}`);
+  if (obs.features.length) parts.push(`MARKS & FLAWS TO KEEP VISIBLE:\n- ${obs.features.join("\n- ")}`);
+  const out = parts.join("\n");
+  return out.trim().length ? out : undefined;
 }
 
 /**
@@ -507,12 +626,115 @@ export async function describeReferenceScene(ref: string): Promise<string | null
       { type: "text", text: prompt },
       { type: "image_url", image_url: { url: dataUri } },
     ] as unknown as OpenAI.Chat.ChatCompletionUserMessageParam["content"];
-    const out = await chatComplete({ messages: [{ role: "user", content }], max_completion_tokens: 1600 });
+    const out = await chatComplete({ messages: [{ role: "user", content }], max_completion_tokens: 1600, reasoning_effort: "low" });
     const t = (out ?? "").trim();
     return t.length > 20 ? t : null;
   } catch {
     return null;
   }
+}
+
+/**
+ * REFERENCE CAMPAIGN DNA — the fix for "references are shitty". The old path collapsed a
+ * reference into ONE literal scene and cloned it across the whole set, so a "Tom Ford"
+ * reference produced six near-identical frames instead of a campaign. This studies the
+ * client's reference image(s) and distils their reusable photoshoot VIBE — light, grade,
+ * palette, set, styling, camera, finish — plus a handful of DISTINCT shot concepts that live
+ * in that world. The planner then designs a VARIED, brand-rooted set from it; the renderer
+ * applies it as a per-shot style layer while each frame keeps its own composition.
+ *
+ * It deliberately SEPARATES the reusable style from the reference's own product/subject: the
+ * DNA never carries the reference's product, label, text or its specific product colours — only
+ * the world around it — so the client's real product/brand palette is never overwritten.
+ * Reads MULTIPLE references (up to 4) so a whole moodboard resolves to one coherent campaign.
+ * Runs on the funded OpenAI/Azure vision client (Gemini is disabled). Best-effort: null on any
+ * failure → the caller falls back to the brand's own look.
+ */
+const REFERENCE_CAMPAIGN_PROMPT =
+  "You are the art director of a world-class advertising campaign. The client handed you these REFERENCE image(s) and said: \"make my brand's campaign feel like THIS\". Study them together and distil the ONE reusable PHOTOSHOOT VIBE they share — the campaign's signature — so a DIFFERENT brand and a DIFFERENT product can be shot in the same world.\n" +
+  "SEPARATE STYLE FROM SUBJECT. Describe ONLY the reusable art direction — never the reference's own hero product, its label, wording, logo or its specific product colours. A different product will take its place, so its colours and identity are irrelevant; capture the WORLD around it, not the thing itself.\n" +
+  "Write in a photographer's concrete language — real cameras, lenses, light behaviour, surfaces, grades — never marketing words like 'premium', 'luxury' or 'high quality'. Be specific and executable.\n" +
+  "Return STRICT JSON ONLY:\n" +
+  "{" +
+  "\"vibe\":\"one vivid line naming the campaign's emotional / editorial register and era (e.g. 'dark, sensual, high-contrast fragrance editorial with 90s film grain')\"," +
+  "\"light\":\"the lighting philosophy: quality (hard/soft), direction, contrast ratio, key-to-fill, how shadows fall and where highlights sit\"," +
+  "\"palette\":\"the COLOUR GRADE and palette feel as a grade a colourist could dial in — warmth, saturation, black point, dominant and accent tones of the WORLD (never the reference product's own colours)\"," +
+  "\"set\":\"the set / environment / surfaces / world: where it is shot, the materials and backdrops, the sense of place and depth\"," +
+  "\"styling\":\"the prop and styling density and philosophy — minimal and sculptural, or rich and layered — and what kind of supporting elements belong\"," +
+  "\"camera\":\"the camera language: lens and focal length feel, distance, crop habits, depth of field, and the recurring compositional moves\"," +
+  "\"finish\":\"the texture / grain / film-or-digital finish and any signature post-treatment\"," +
+  "\"shotIdeas\":[\"6-7 DISTINCT shot concepts that all live in this exact world but are genuinely different from each other — vary the angle, distance, composition and moment (e.g. a tight sensual macro, a wide atmospheric environmental frame, a dramatic low hero, a hand-in-scene detail, a flat-lay still-life). Each item is one concrete sentence describing the framing + moment, NOT the product.\"]" +
+  "}";
+
+export async function describeReferenceCampaign(refs: string[]): Promise<ReferenceDNA | null> {
+  const imgs = (refs ?? []).filter(Boolean).slice(0, 4);
+  if (!imgs.length) return null;
+  if (!process.env.OPENAI_API_KEY && !process.env.AZURE_OPENAI_API_KEY) return null;
+  const parse = (raw: string): ReferenceDNA | null => {
+    const m = raw.match(/\{[\s\S]*\}/);
+    if (!m) return null;
+    let p: any;
+    try { p = JSON.parse(m[0]); } catch { return null; }
+    const s = (v: unknown) => String(v ?? "").trim();
+    const ideas = (Array.isArray(p.shotIdeas) ? p.shotIdeas : []).map((x: unknown) => s(x)).filter(Boolean).slice(0, 8);
+    const dna: ReferenceDNA = {
+      vibe: s(p.vibe), light: s(p.light), palette: s(p.palette), set: s(p.set),
+      styling: s(p.styling), camera: s(p.camera), finish: s(p.finish), shotIdeas: ideas,
+    };
+    // Nothing usable read → null so the caller falls back to the brand's own look.
+    if (!dna.vibe && !dna.light && !dna.set && !ideas.length) return null;
+    return dna;
+  };
+  try {
+    const dataUris = await Promise.all(imgs.map((r) => toDataUri(r)));
+    const content = [
+      { type: "text", text: REFERENCE_CAMPAIGN_PROMPT },
+      ...dataUris.map((url) => ({ type: "image_url", image_url: { url } })),
+    ] as unknown as OpenAI.Chat.ChatCompletionUserMessageParam["content"];
+    const out = await chatComplete({ messages: [{ role: "user", content }], max_completion_tokens: 1600, reasoning_effort: "low" });
+    return parse(out ?? "");
+  } catch {
+    return null;
+  }
+}
+
+/** The reference DNA as tight prose lines — shared by the planner (art-direction spine) and the renderer (style layer). */
+export function referenceDNALines(dna: ReferenceDNA): string {
+  const L: string[] = [];
+  if (dna.vibe) L.push(`• VIBE: ${dna.vibe}`);
+  if (dna.light) L.push(`• LIGHT: ${dna.light}`);
+  if (dna.palette) L.push(`• COLOUR GRADE: ${dna.palette}`);
+  if (dna.set) L.push(`• SET / WORLD: ${dna.set}`);
+  if (dna.styling) L.push(`• STYLING: ${dna.styling}`);
+  if (dna.camera) L.push(`• CAMERA: ${dna.camera}`);
+  if (dna.finish) L.push(`• FINISH: ${dna.finish}`);
+  return L.join("\n");
+}
+
+/**
+ * The renderer-facing STYLE LAYER built from the reference DNA. Unlike the old refScene block
+ * (which rebuilt ONE scene and demoted the planned shot), this rides ON TOP of the planned,
+ * per-shot composition: it dictates only the campaign's light / grade / palette / set-feel /
+ * styling / camera-feel / finish, so the set stays VARIED while every frame unmistakably shares
+ * the reference's vibe. The product stays pixel-locked; the reference's own product is never copied.
+ */
+function referenceDNABlock(dna: ReferenceDNA, forModel: boolean): string {
+  const subject = forModel ? "the model and product" : "the product";
+  return (
+    `\n\nREFERENCE CAMPAIGN LOOK — the client gave a reference and asked for a campaign in ITS photoshoot vibe. This shot MUST feel like it belongs to that campaign. Apply this signature to the WORLD of the frame — its light, colour grade, palette, set feel, styling density, camera feel and finish — while keeping THIS shot's own composition, angle and moment (from the brief above): do NOT collapse the set toward one repeated frame.\n${referenceDNALines(dna)}\n` +
+    `Where this campaign look and the generic film/camera recipe elsewhere in this brief disagree on grade, contrast, warmth, hardness of light or depth of field, THIS campaign look WINS. But it governs only the LOOK — it must NEVER change ${subject}'s identity, and you must NOT copy the reference's own hero product, its shape, label, wording, logo or its specific product colours into this frame; the product comes only from the attached product image, reproduced exactly, and its colours stay its own. Root the result in this brand: keep the brand's real palette and voice inside the reference's grade.`
+  );
+}
+
+/**
+ * Open-source style-transfer path for references (FLUX Kontext / an IP-adapter style model on
+ * Replicate). It ATTACHES the reference image so an image-conditioned open model transfers the
+ * look directly — where OpenAI's gpt-image barely conditions on a second image and would rather
+ * clone or ignore it. Dormant by default (needs REPLICATE_API_TOKEN); opt-in via
+ * REFERENCE_RENDERER=replicate so the live OpenAI path (DNA-as-words) stays the default.
+ */
+export function styleTransferEnabled(): boolean {
+  return !!process.env.REPLICATE_API_TOKEN && process.env.REFERENCE_RENDERER?.trim().toLowerCase() === "replicate";
 }
 
 /** Re-render a finished shot at 4K, faithfully — a high-res "upscale" for keepers. */
@@ -594,17 +816,27 @@ const ANTI_CLICHE_NEGATIVES = [
 const CAPTURE_FIRST =
   "CAMERA-FIRST — describe HOW this was photographed before anything else. This is a REAL photograph, not a render or illustration. " +
   "Captured on professional full-frame mirrorless hardware: a Canon EOS R5 or Sony A7 IV with an 85mm f/1.4 portrait prime for beauty and three-quarter frames, a 35–50mm prime for full-length, or an iPhone 16 Pro for a candid lifestyle moment — shot wide open (around f/1.8–f/2.8) for a genuinely shallow depth of field, the subject tack-sharp while the background falls softly out of focus. " +
-  "Colour and tonality of Kodak Portra 400 / Fujifilm Pro 400H film: gentle highlight roll-off, true-to-life skin tones, fine organic film grain, and NO digital over-sharpening, no HDR clarity, no plastic gloss. " +
-  "Light is MOTIVATED and physical — soft overcast daylight through a window, warm low golden-hour sun, or a single soft directional source in a real room — never flat, even, sourceless light. " +
+  "GRADED LIKE A PUNCHY MODERN EDITORIAL — vivid, bright and full of life, NOT a flat, muted, hazy or washed-out scan: rich deep blacks and a strong tonal range, clean luminous highlights that keep their detail, vibrant saturated true-to-life colour, and crisp micro-contrast so the image is bright, three-dimensional and pops off the screen. Keep fine organic film grain and genuinely REAL skin (visible pores, texture and subsurface warmth) — vivid means richly graded and contrasty, it does NOT mean plastic, waxy, over-smoothed, HDR-haloed, over-sharpened or orange/sunburnt. " +
+  "Light is MOTIVATED, physical and PLENTIFUL — bright soft daylight through a big window, warm low golden-hour sun, or a strong soft directional key in a real room, well-exposed with confident contrast and shape; never flat, even, sourceless, murky or underexposed light. " +
   "Embrace natural imperfection, because real life is imperfect: a few flyaway hairs, visible skin pores and real skin texture, faint smile and expression lines, a relaxed unposed posture, a candid in-between-moments expression, and subtle natural asymmetry. The frame must read as one real shot from an editorial photoshoot a person actually took.";
 
 const HUMAN_REALISM =
   "Render as REAL photography of a REAL human being, shot on a full-frame camera with a portrait prime lens. The person MUST pass as genuinely photographed: skin has visible pores, fine texture, peach fuzz and true subsurface scattering (never airbrushed, waxy or plastic); eyes are alive with real catchlights, correct iris and moisture; hands have exactly five natural fingers with believable grip; teeth vary naturally; hair has real strands, flyaways and a believable hairline; the face and body carry slight human asymmetry. One coherent light source falling believably on skin, shallow depth of field, true skin colour. Never a 3D, CGI, doll, plastic or AI-render look — the single fastest way to break the brand is a model who looks like AI.";
 
+// The VIVID grade instruction — the prompt half of the "model shots look flat / AI" fix (the
+// deterministic finishing pass is the pixel half). Steers gpt-image toward a bright, punchy,
+// richly-graded editorial frame instead of the muted, hazy, low-contrast default. It is careful
+// to define "vivid" as rich contrast + clarity + saturation, NOT the over-saturated, HDR-haloed,
+// orange-skin look that is itself an AI tell — because over-cooked colour reads as fake, not real.
+const VIVID_GRADE =
+  "COLOUR & CONTRAST — VIVID, BRIGHT, EDITORIAL, ALIVE. Grade this like a punchy modern editorial cover, not a flat, muddy, hazy or washed-out capture: rich, deep, true blacks and a full tonal range; clean, luminous, well-exposed highlights that keep their detail; vibrant, saturated, true-to-life colour; and crisp micro-contrast so the frame is bright and reads three-dimensional and full of life, popping off the screen. " +
+  "Keep the skin utterly REAL while doing it — pores, texture, subsurface warmth and every real mark stay intact. VIVID means richly graded, contrasty and saturated; it does NOT mean plastic, waxy, over-smoothed, HDR-haloed, blown-out or orange/sunburnt skin. A rich, confident, professionally-colour-graded photograph — never flat and never garish.";
+
 const MODEL_REF_LOCK =
   "IDENTITY LOCK — the FIRST attached image(s) are a LIKENESS REFERENCE of the MODEL: a real person the client wants in the shoot. Take ONLY the PERSON from it and reproduce THAT EXACT INDIVIDUAL, recognisably, in every frame — the goal is a precise match, not a lookalike or someone with the same vibe. " +
   "Match their specific facial geometry: face and head shape, eye shape, colour and spacing, brow shape, nose bridge and tip, lip shape and mouth width, jawline, chin, cheekbones, ears, hairline, hair colour/texture/length, skin tone and undertone, apparent age, body type, and any distinguishing marks (freckles, moles, scars, facial hair, glasses). Someone seeing the result must say it is unmistakably the same person. " +
-  "Do NOT beautify them away: do not slim, lighten, smooth, de-age, or swap them for a more conventional or symmetrical face. Only expression, pose, camera angle, lighting, wardrobe and hair styling may change; the identity stays fixed and identical across the whole set. " +
+  "PRESERVE EVERY REAL FLAW, EXACTLY AND VISIBLY — this is what makes it truly them and not a beautified stranger. Reproduce, and keep clearly visible, every imperfection present in the reference: any small cut, graze or healing scab, scar, stitches, bruise, blemish, spot or acne, mole, birthmark, freckles (in their real pattern and place), enlarged pores and real skin texture, fine lines and wrinkles, under-eye shadows or bags, tan lines, uneven skin tone or redness, stubble or stray facial hair, flyaway hairs, chipped or uneven nails, a gap or crooked or chipped tooth, and every natural asymmetry between the two sides of the face. If the reference shows a cut on the face, the render shows that SAME cut, in the same place, clearly. " +
+  "Do NOT beautify, heal, clean up, smooth, even-out, retouch, cover, airbrush, slim, lighten, de-age, symmetrise, or swap them for a more conventional or attractive face — removing a real flaw changes who they are and is a failure. Only expression, pose, camera angle, lighting, wardrobe and hair styling may change; the identity, including every flaw, stays fixed and identical across the whole set. " +
   "CRITICAL — THIS IS NOT A PRODUCT REFERENCE: ignore ANYTHING the person is wearing, holding, applying or using in this image, and ignore any garment, logo, label, packaging, bottle, can or branding visible in it. NONE of that is the product, and none of it may appear in the result. The clothing, props and styling are yours to redesign for the brand. You may re-light, re-dress and re-stage the person freely — only the human likeness stays fixed and consistent across the set.";
 
 /**
@@ -693,11 +925,17 @@ export async function renderModelShot(args: {
   negatives?: string[];
   extraNegatives?: string[]; // stored compliance do-not, re-injected on every (re)render
   modelRefs?: string[]; // reference photo(s) of the person to reproduce (first in the stack)
+  modelManifest?: string; // forensic likeness + FLAW manifest of the reference person (from analyzeModelRef) — every mark must be reproduced, visibly, never beautified away
   people?: { name?: string; refs: string[] }[]; // 3–4 DISTINCT people (≥2) WITH reference photos — builds a per-person identity lock
   groupCount?: number; // 3–4 DISTINCT people from BUILT/described casting (no photos) — forces N people in frame
   products?: string[]; // optional product to place on the model
+  productIdentity?: string; // what the product actually IS — locks on-model reproduction to the real item
+  productManifest?: string; // every element on the pack — all camera-facing ones must appear, legibly
+  category?: ProductCategory; // the product's object class — clothing stays clothing, never a bottle/cup/…
   references?: string[]; // optional style/look references
   referencesAreBrand?: boolean; // true when references are the brand's OWN published photos
+  refScene?: string; // words describing a SCENE reference (from describeReferenceScene) — rebuild its SET, keep the person + product (legacy literal-restage)
+  refDNA?: ReferenceDNA; // the client reference's reusable campaign VIBE — applied as a per-frame style layer while each frame keeps its own composition
   wearable?: boolean; // false → the product is NOT clothing (food/drink/furniture/object): suppress wardrobe prose, ban "worn"
   aspect?: string;
   imageSize?: string;
@@ -720,12 +958,23 @@ export async function renderModelShot(args: {
   if (products.length && args.wearable !== false) negatives.push("garment stretched over the whole body", "a bottom garment pulled up as a strapless wrap", "clothing worn in the wrong anatomical position", "a flat cut-out garment pasted onto the body", "model left partially, oddly or impossibly dressed", "distorted or unrealistic garment fit");
   // A non-wearable (food, drink, furniture, an object) must NEVER be worn — the "you cannot wear an ice cream" rule at the pixel level.
   if (products.length && args.wearable === false) negatives.push("the model wearing, draping, putting on or dressing in the product as if it were clothing", "the product stretched, worn or wrapped over the body", "treating a non-clothing product (food, drink, furniture, an object) as a garment or outfit");
+  // Object-class lock — the on-model product can never drift into a different KIND of object.
+  if (products.length && args.category) negatives.push(...categoryNegatives(args.category));
 
   const blocks: string[] = [];
   blocks.push(CAPTURE_FIRST); // lead camera-first — this is what kills the AI look
   if (multiPerson) blocks.push(multiPersonLock(people));
   else if (groupCount >= 2) blocks.push(builtGroupLock(groupCount));
-  else if (modelRefs.length) blocks.push(MODEL_REF_LOCK);
+  else if (modelRefs.length) {
+    blocks.push(MODEL_REF_LOCK);
+    // The forensic likeness + FLAW manifest read off the reference (analyzeModelRef). gpt-image
+    // at high fidelity still tends to quietly smooth and beautify — this is the belt-and-braces
+    // that forces every real cut / scar / blemish / asymmetry to survive, exactly as the product
+    // manifest forces every printed element to survive. Only present when we have ONE reference.
+    if (args.modelManifest) blocks.push(
+      `EXACT LIKENESS — THIS PERSON'S REAL FEATURES & FLAWS (read from the reference). Reproduce EVERY one of these faithfully and keep it clearly VISIBLE in the render; do NOT heal, smooth, clean up, retouch, even-out, cover, airbrush or beautify ANY of them — a flaw in the reference is a flaw in the result, in the same place:\n${args.modelManifest}`
+    );
+  }
   if (products.length) {
     const ordinal = modelRefs.length ? "NEXT" : "FIRST";
     const onlySource = modelRefs.length
@@ -736,20 +985,37 @@ export async function renderModelShot(args: {
       `IF THE PRODUCT IS CLOTHING / APPAREL, IT IS THE WARDROBE: the model wears THIS EXACT garment, reproduced faithfully and kept IDENTICAL in every frame of the set — same cut, fit, wash, colour, seams, pockets, hardware and labels. Do NOT design a different garment, restyle it, recolour it, or swap it between frames; you may only add complementary layers/accessories that never hide or alter it. ` +
       `Place the product on the model at its TRUE real-world scale, with real contact, occlusion where fingers or body cover it, and a real contact shadow. Ignore any hand, prop or background in that image — reproduce only the product object. Never restyle, relabel, recolour or reinvent it.`
     );
+    // Same identity / class / manifest anchors the PRODUCT path uses, so on-model reproduction is
+    // as faithful as a packshot — the model path previously got none of these.
+    if (args.productIdentity) blocks.push(`THIS PRODUCT — the ONE real item to reproduce on the model is: ${args.productIdentity}. Render THIS exact product; never substitute, swap in or invent a different product, variant, flavour, size, shape or design.`);
+    if (args.category) blocks.push(categoryLock(args.category));
+    if (args.productManifest) blocks.push(`EVERYTHING ON THE PRODUCT — the real product carries these exact elements, and EVERY one that faces the camera must appear, complete and legible; do NOT omit, shorten, translate, garble or invent any of them:\n${args.productManifest}`);
   }
-  blocks.push(args.prompt);
+  // SCENE reference (a look to recreate around the model) rebuilds the reference's SET but keeps the
+  // person + product — distinct from a STYLE reference (mood only) and from the person likeness ref.
+  if (args.refScene) {
+    blocks.push(
+      `SCENE REFERENCE — rebuild the SET from the attached reference, but KEEP the model and place the client's product on/with them. Recreate ONLY the reference's environment: composition and crop, camera angle and distance, background, surface, staging props, lighting direction and quality, shadows, colour grade and mood. Remove any person or hero product that appears in the reference — the model (from the likeness reference) is the sole human subject and carries the client's product. Reference scene:\n${args.refScene}\n\n(The brand's general scene direction below is SECONDARY and must never override the reference's set, composition or lighting: ${args.prompt})`
+    );
+  } else {
+    blocks.push(args.prompt);
+  }
   if (products.length && args.wearable !== false) blocks.push(WARDROBE_REALISM);
   if (products.length) blocks.push(PRODUCT_LEGIBILITY);
   blocks.push(`Avoid: ${negatives.join(", ")}.`);
   blocks.push(HUMAN_REALISM);
+  blocks.push(VIVID_GRADE);
   blocks.push(CLEAN_FRAME);
-  if (references.length) {
+  if (references.length && !(args.refScene && !args.referencesAreBrand)) {
     blocks.push(
       args.referencesAreBrand
         ? `BRAND LOOK — the LAST attached image(s) are this brand's OWN published photography (their real website / feed). Match their visual signature so this frame belongs in THAT feed: wardrobe register and styling, set and palette, colour grade, lighting quality and direction, mood and crop. Do NOT copy any person, face or product from them — only the art-direction and taste.`
         : `STYLE REFERENCE — the LAST attached image(s) are a LOOK reference only (wardrobe register, set, palette, lighting, mood). Match that art direction, but do NOT copy any person, face or product from it.`
     );
   }
+  // Campaign-vibe style layer: colour the whole frame with the reference's photoshoot signature
+  // while keeping the model, product and this frame's own composition. Rides last, above the scene.
+  if (args.refDNA && !args.referencesAreBrand) blocks.push(referenceDNABlock(args.refDNA, true));
   const fullPrompt = blocks.join("\n\n");
 
   // Order: model identity first, then product, then style references.
@@ -759,9 +1025,10 @@ export async function renderModelShot(args: {
   // Force input_fidelity HIGH when a likeness reference is in play so the OpenAI/Azure
   // edit path holds the EXACT face true — never let a global speed setting soften it.
   const inputFidelity = modelRefs.length ? "high" : undefined;
-  // Skin-safe grade: strip the brand's colour cast so the finishing pass can never tint the
-  // model's skin toward the brand hue — film texture (contrast/grain/sharpen) still seats.
-  return dispatch(args.id, fullPrompt, refs, { aspect: args.aspect, imageSize: args.imageSize, multiSubject: true, inputFidelity, finish: modelSafeGrade(args.finish ?? NEUTRAL_GRADE) });
+  // VIVID, skin-safe grade: NEUTRAL per-channel cast (the brand hue can never tint the model's
+  // skin) but a real editorial lift in contrast, vibrance, exposure and local-contrast clarity —
+  // the fix for the flat, muted, "AI-generated" model look. Env-tunable via MODEL_VIVID_INTENSITY.
+  return dispatch(args.id, fullPrompt, refs, { aspect: args.aspect, imageSize: args.imageSize, multiSubject: true, inputFidelity, finish: editorialModelGrade(args.finish) });
 }
 
 // Maps an angle label to the ONE viewpoint instruction that applies. Feeding gpt-image a single
@@ -786,9 +1053,11 @@ export async function renderShot(args: {
   products: string[];
   references?: string[]; // style/look references to emulate (NOT the product)
   referencesAreBrand?: boolean; // true when references are the brand's OWN published photos
-  refScene?: string; // words describing the reference's scene (from describeReferenceScene) — the authoritative look to recreate on the OpenAI path
+  refScene?: string; // words describing the reference's scene (from describeReferenceScene) — the authoritative look to recreate on the OpenAI path (legacy literal-restage)
+  refDNA?: ReferenceDNA; // the client reference's reusable campaign VIBE (from describeReferenceCampaign) — applied as a per-shot style layer while each frame keeps its own composition
   productIdentity?: string; // what the product actually IS — locks against rendering a different product/variant
   productManifest?: string; // every element on the pack (from analyzeProduct) — all must appear, legibly
+  category?: ProductCategory; // the product's object class — locks it (clothing stays clothing, never a bottle/cup/…)
   brandLook?: string; // how this brand shoots, read off their real feed at gen time (from describeBrandLook)
   noProduct?: boolean; // no product supplied → render an on-brand scene, never an invented hero product
   cleanPlate?: boolean; // copy is overlaid later → the render must carry NO text of its own
@@ -804,11 +1073,23 @@ export async function renderShot(args: {
   // reference's hero + vessel" restage rules, must NOT demote the planner's scene, and must NOT
   // drop the product to low fidelity — the product stays pixel-true; only the look is borrowed.
   const brandRefs = !!args.referencesAreBrand;
-  const clientRestage = references.length > 0 && !brandRefs;
+  // CAMPAIGN-VIBE path (the reference fix): a client reference is present as reusable DNA. Its
+  // light/grade/mood/set/styling ride as a per-shot STYLE LAYER on top of the planned, VARIED
+  // composition — never a single cloned scene. This supersedes the legacy literal-restage below,
+  // so a reference never again demotes the plan or forces every frame to the same viewpoint.
+  const dnaCampaign = !!args.refDNA && !brandRefs;
+  // Legacy literal-restage — only when there is NO DNA (kept for compatibility): rebuild the ONE
+  // reference scene and swap the product in. The route no longer routes here by default.
+  const clientRestage = !dnaCampaign && references.length > 0 && !brandRefs;
   // How this brand actually shoots, read off their real feed at generation time — applied to the
   // render directly (the researched rulebook only ever reached the planner as prose before).
   const brandLookBlock = args.brandLook
-    ? `\n\nBRAND PHOTOGRAPHIC WORLD — the finished shot must look like it belongs in this brand's real feed. Reproduce THIS brand's photographic signature (backgrounds, surfaces, light quality & direction, colour grade, palette, styling/prop density, camera feel and crop), but do NOT copy any product, label or text from it — the product comes only from the attached product image(s). Where this brand's real signature differs from the generic film/camera recipe elsewhere in this brief — its grade, contrast, warmth, hardness of light or depth of field — THIS brand's actual look WINS; match what they really shoot, not the default:\n${args.brandLook}`
+    ? clientRestage
+      // A client reference is driving composition/set/light — so the brand look rides ALONGSIDE it
+      // as the GRADE/PALETTE/STYLING layer only, never overriding the reference's framing. This is
+      // what makes "my product in this reference, in MY brand style" true instead of a bare restage.
+      ? `\n\nBRAND STYLE LAYER (applied ON TOP of the reference scene) — give the shot THIS brand's colour grade, palette, styling / wardrobe register, prop density and finishing feel so it unmistakably reads as this brand's work. But do NOT let it change the reference's composition, camera angle, set, surface or lighting DIRECTION — the reference owns those. Rule when they disagree: brand wins on GRADE, PALETTE and STYLING; the reference wins on COMPOSITION, SET and CAMERA. Do NOT copy any product, label or text from the brand's photos:\n${args.brandLook}`
+      : `\n\nBRAND PHOTOGRAPHIC WORLD — the finished shot must look like it belongs in this brand's real feed. Reproduce THIS brand's photographic signature (backgrounds, surfaces, light quality & direction, colour grade, palette, styling/prop density, camera feel and crop), but do NOT copy any product, label or text from it — the product comes only from the attached product image(s). Where this brand's real signature differs from the generic film/camera recipe elsewhere in this brief — its grade, contrast, warmth, hardness of light or depth of field — THIS brand's actual look WINS; match what they really shoot, not the default:\n${args.brandLook}`
     : "";
   // NO-HERO-PRODUCT branch — the client gave no product, so we NEVER invent one. Produce an
   // on-brand atmospheric scene from the brand world + look, with product-lock rules omitted.
@@ -835,6 +1116,9 @@ export async function renderShot(args: {
   const manifestBlock = args.productManifest
     ? `\n\nEVERYTHING ON THE PRODUCT — the real product carries these exact elements, and EVERY one that faces the camera in this shot must appear, complete, unbroken and fully legible; do NOT omit, drop, shorten, merge, translate, re-order or invent any of them:\n${args.productManifest}`
     : "";
+  // Object-class lock — clothing stays clothing, a bottle stays a bottle. Holds even in restage /
+  // low-fidelity mode (the reference can never turn the product into a different kind of object).
+  const categoryBlock = args.category ? `\n\n${categoryLock(args.category)}` : "";
   // With a STYLE reference the product may be legitimately RE-FORMED to fit the reference's
   // arrangement (a duvet cased into pillows, a garment folded/stacked) — so the identity to
   // protect is its colour/pattern/print/text, NOT its folded shape (rigid-shape protection
@@ -843,6 +1127,7 @@ export async function renderShot(args: {
     ? "changing the product's colour, pattern, print or text"
     : "changing the product's shape, colour or text";
   const negatives = [...(args.negatives ?? []), ...(args.extraNegatives ?? []), ...ANTI_CLICHE_NEGATIVES, "altering, redrawing, restyling or relabelling the product", identityNegative, "inventing a different product",
+    ...(args.category ? categoryNegatives(args.category) : []),
     // Fidelity tell seen on the fast/low-fidelity path: it hallucinates a woven brand label
     // or tag with garbled lettering that isn't on the real product. Ban invented/fake text;
     // PRODUCT_LOCK already requires reproducing any REAL text exactly.
@@ -861,6 +1146,13 @@ export async function renderShot(args: {
     "showing two products at once",
     "placing the client's product inside or replacing the contents of the reference's vessel",
     "any leftover remnant, silhouette, outline, shadow or reflection of the reference's original hero or its vessel",
+  );
+  // Campaign-vibe path: borrow the reference's LOOK, never its subject — so its own product,
+  // colours or text can never bleed onto the client's product.
+  if (dnaCampaign) negatives.push(
+    "copying the reference's own product, its shape, label, wording, logo or branding",
+    "recolouring or re-tinting the client's product to match the reference's product colours",
+    "showing the reference's hero item or a second product anywhere in frame",
   );
   // Camera angle is enforced HERE, not just in the art-director prose: in edit mode the
   // model anchors to the reference photo's framing, so we explicitly move the camera and
@@ -885,16 +1177,24 @@ export async function renderShot(args: {
     ? `MOOD / TASTE ONLY (SECONDARY) — the following is the brand's general taste, NOT the scene to build. Where it conflicts with the STYLE REFERENCE described below, the REFERENCE WINS: do NOT let it override the reference's composition, background, surface, palette, arrangement, lighting or crop.\n${args.prompt}`
     : args.prompt;
   let fullPrompt =
-    `${PRODUCT_LOCK}${identityBlock}${angleLock}\n\n${scene}` +
+    `${PRODUCT_LOCK}${identityBlock}${categoryBlock}${angleLock}\n\n${scene}` +
     `\n\nAvoid: ${negatives.join(", ")}.` +
     (args.cleanPlate ? `\n\n${CLEAN_PLATE}` : "") +
     `\n\n${REALISM_ANCHOR}` +
     `\n\n${PRODUCT_IMPERFECTION}` +
-    `\n\n${PRODUCT_LEGIBILITY}${args.appetite ? "\n\n" + FOOD_APPETITE : ""}${manifestBlock}${brandLookBlock}`;
+    `\n\n${PRODUCT_LEGIBILITY}${args.appetite ? "\n\n" + FOOD_APPETITE : ""}${manifestBlock}${brandLookBlock}` +
+    // The campaign-vibe style layer rides LAST so it colours everything above without demoting
+    // the planned, per-shot composition (which the angle lock still governs).
+    (dnaCampaign ? referenceDNABlock(args.refDNA!, false) : "");
   if (references.length) {
     const which = references.length === 1 ? "the LAST attached image is" : `the LAST ${references.length} attached images are`;
     fullPrompt += args.referencesAreBrand
       ? `\n\nBRAND LOOK — ${which} this brand's OWN published photography, pulled from their real website / feed. This is the visual signature the result MUST belong to: study and match their background and palette, surface and set, prop / styling density, colour grade, lighting quality and direction, depth of field, mood and crop. The new shot should look like it could sit in THIS brand's actual feed next to these — same photographic world, same taste. Do NOT copy the product, label, text or branding from these images; the product comes only from the first image(s) and the scene from the brief.`
+      : dnaCampaign
+      // Campaign-vibe with the reference image attached (open-source style-transfer path): treat it
+      // as a pure LOOK reference — match its light/grade/mood/palette, keep THIS shot's own
+      // composition, and never copy its product or subject.
+      ? `\n\nSTYLE REFERENCE (LOOK ONLY) — ${which} the client's campaign reference. Match ONLY its photographic look — light, colour grade, palette, contrast, mood, styling density and finish — and let it colour this frame. Do NOT copy its hero product, subject, composition or crop; this shot keeps its own composition from the brief, and the product comes only from the first image(s), reproduced exactly.`
       : styleRestageBlock(which);
   }
   // Product image(s) first (the subject), style references last (the look).
@@ -912,6 +1212,11 @@ export async function renderShot(args: {
     clientRestage &&
     process.env.RESTAGE_RENDERER?.trim().toLowerCase() === "gemini" &&
     !!process.env.GEMINI_API_KEY;
+  // OPEN-SOURCE reference path: when the campaign-vibe reference is present and the open model is
+  // opted in (REFERENCE_RENDERER=replicate + REPLICATE_API_TOKEN), render the product on the
+  // open-source model with the campaign vibe carried as words. Dormant otherwise — the live
+  // OpenAI path (DNA-as-words) stays the default, so nothing changes without the token + flag.
+  const preferReplicate = dnaCampaign && styleTransferEnabled();
   // CAMERA VARIETY vs fidelity: at input_fidelity="high" gpt-image CLONES the uploaded
   // photo's exact framing, so every planned "angle" comes back as the same front view —
   // the #1 complaint about product sets. A genuine new VIEWPOINT (three-quarter, overhead,
@@ -926,7 +1231,7 @@ export async function renderShot(args: {
     clientRestage ? (process.env.OPENAI_RESTAGE_FIDELITY || "low")
     : rotationAngle ? (process.env.OPENAI_ANGLE_FIDELITY || "low")
     : undefined; // brand-look refs, hero, macro / detail → renderImageSDK default "high" (identity pixel-true)
-  return dispatch(args.id, fullPrompt, refs, { aspect: args.aspect, imageSize: args.imageSize, multiSubject, preferGemini, inputFidelity, finish: args.finish });
+  return dispatch(args.id, fullPrompt, refs, { aspect: args.aspect, imageSize: args.imageSize, multiSubject, preferGemini, preferReplicate, inputFidelity, finish: args.finish });
 }
 
 // ── OpenRouter renderer (NEW — additive; existing renderers are untouched) ──
@@ -978,7 +1283,7 @@ async function renderOpenRouter(id: string, prompt: string, refs: string[], opts
   throw new Error(`OpenRouter returned no image (after retries): ${lastErr}`);
 }
 
-type DispatchOpts = { aspect?: string; imageSize?: string; multiSubject?: boolean; preferGemini?: boolean; inputFidelity?: string; finish?: FinishGrade };
+type DispatchOpts = { aspect?: string; imageSize?: string; multiSubject?: boolean; preferGemini?: boolean; preferReplicate?: boolean; inputFidelity?: string; finish?: FinishGrade };
 
 // A pure TRANSPORT failure — the request never reached the provider (DNS / socket / TLS / a
 // reset before any HTTP status came back). The OpenAI SDK surfaces this as APIConnectionError
@@ -1026,8 +1331,12 @@ function renderWith(r: Renderer, id: string, prompt: string, refs: string[], opt
 /** Shared renderer dispatch — provider-swappable, used by both product and model paths. */
 async function dispatch(id: string, prompt: string, refs: string[], opts: DispatchOpts): Promise<string> {
   // A restage shot prefers Gemini (see renderShot) — but never override a real Higgsfield
-  // production renderer, which handles multi-image itself.
-  const chosen = opts.preferGemini && activeRenderer() !== "higgsfield" ? "gemini" : pickRenderer(opts.multiSubject ?? false);
+  // production renderer, which handles multi-image itself. A campaign-vibe reference can opt into
+  // the open-source model (preferReplicate); it too defers to a configured Higgsfield.
+  const chosen =
+    opts.preferReplicate && process.env.REPLICATE_API_TOKEN && activeRenderer() !== "higgsfield" ? "replicate"
+    : opts.preferGemini && activeRenderer() !== "higgsfield" ? "gemini"
+    : pickRenderer(opts.multiSubject ?? false);
   if (chosen === "mock") return mockPlaceholder(id, prompt.slice(0, 40)); // data URI — nothing to grade
   const chain = renderChain(chosen, opts.multiSubject ?? false);
   let url: string | undefined;

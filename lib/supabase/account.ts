@@ -48,8 +48,17 @@ const OPS_OWNERS = new Set(
     .filter(Boolean),
 );
 
-/** True only for a VERIFIED session whose email is in the operator allowlist. */
+/**
+ * Local-dev escape hatch: run the whole app WITHOUT signing in (no login wall, operator unlocked).
+ * Double-guarded so it can NEVER open the live site — it needs BOTH an explicit opt-in
+ * (NEXT_PUBLIC_DEV_NO_AUTH=1, only in local .env, never on Vercel) AND a non-production build
+ * (Vercel always builds as production). Shared with middleware.ts + StudioAuthGate.tsx.
+ */
+export const DEV_NO_AUTH = process.env.NODE_ENV !== "production" && process.env.NEXT_PUBLIC_DEV_NO_AUTH === "1";
+
+/** True for a VERIFIED session whose email is in the operator allowlist — or the local dev bypass. */
 export async function isOperator(): Promise<boolean> {
+  if (DEV_NO_AUTH) return true;
   const email = await sessionEmail();
   return !!email && OPS_OWNERS.has(email);
 }

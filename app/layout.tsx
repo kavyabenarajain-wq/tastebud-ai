@@ -3,6 +3,7 @@ import { Inter, Fraunces, Bricolage_Grotesque, JetBrains_Mono } from "next/font/
 import localFont from "next/font/local";
 import "./globals.css";
 import { AuthSync } from "@/components/tastebud/AuthSync";
+import { ThemeProvider, NO_FLASH_SCRIPT } from "@/components/site/theme";
 
 // Studio tool + legacy tokens (unchanged).
 const inter = Inter({ subsets: ["latin"], variable: "--font-inter", display: "swap" });
@@ -27,11 +28,18 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html
       lang="en"
+      suppressHydrationWarning
       className={`${inter.variable} ${fraunces.variable} ${display.variable} ${edito.variable} ${mono.variable}`}
     >
+      <head>
+        {/* Set the theme class before first paint so there's no light→dark flash. */}
+        <script dangerouslySetInnerHTML={{ __html: NO_FLASH_SCRIPT }} />
+      </head>
       <body className="font-sans antialiased">
-        <AuthSync />
-        {children}
+        <ThemeProvider>
+          <AuthSync />
+          {children}
+        </ThemeProvider>
       </body>
     </html>
   );

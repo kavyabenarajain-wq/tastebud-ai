@@ -32,6 +32,33 @@ export function modelSafeGrade(grade: FinishGrade): FinishGrade {
 }
 
 /**
+ * The VIVID EDITORIAL grade for model / on-model renders — the fix for "model shots look flat and
+ * AI-generated". Skin-safe like modelSafeGrade (NEUTRAL per-channel cast, so the brand hue can never
+ * tint a person's skin), but instead of the old near-flat model look it deliberately LIFTS contrast,
+ * vibrance, exposure and local-contrast CLARITY so the frame reads rich, punchy, bright and alive.
+ * Every lever here is hue-NEUTRAL — an S-curve pivoted on grey, global saturation/brightness, and
+ * edge clarity — so it adds photographic "pop" WITHOUT shifting skin toward any brand colour.
+ *
+ * Intensity is env-tunable via MODEL_VIVID_INTENSITY (0 = essentially off … 1 = default vivid …
+ * up to ~1.6 for extra punch), so the whole look can be dialled without a code change. Any brand
+ * grade passed in only contributes its grain/sharpen texture — never its colour cast.
+ */
+export function editorialModelGrade(base?: FinishGrade): FinishGrade {
+  const raw = Number(process.env.MODEL_VIVID_INTENSITY);
+  const k = clamp(Number.isFinite(raw) ? raw : 1, 0, 2);
+  const b = base ?? NEUTRAL_GRADE;
+  return {
+    rMul: 1, gMul: 1, bMul: 1,                             // neutral cast — never tint skin toward the brand
+    saturation: clamp(1 + 0.14 * k, 1, 1.24),             // real vibrance (the muted model look was ≤1.03)
+    brightness: clamp(1 + 0.035 * k, 1, 1.08),            // gentle luminosity / exposure lift
+    contrast: clamp(1.06 + 0.1 * k, 1, 1.26),             // deeper blacks + cleaner, brighter highlights
+    grain: Math.min(b.grain ?? 0.28, 0.2),                // keep grain fine so pores / skin detail stay crisp
+    sharpen: Math.max(b.sharpen ?? 0.8, 0.85 + 0.15 * k), // crisp micro-detail
+    clarity: clamp(0.45 * k, 0, 0.8),                     // local-contrast pop, no HDR halos
+  };
+}
+
+/**
  * Read a brand's OWN photos and distil a gentle numeric grade from their average tone:
  * the colour cast (per-channel, kept within ±6% so product colour survives) and a modest
  * saturation read. Contrast / grain / sharpen stay filmic constants — those are the
@@ -120,7 +147,10 @@ export async function derivePalette(imageUrls: string[], max = 6): Promise<{ hex
 
 /** Apply the grade to one image buffer and return the finished PNG buffer. */
 export async function applyFinish(buf: Buffer, grade: FinishGrade): Promise<Buffer> {
-  const c = clamp(grade.contrast ?? 1, 0.9, 1.2);
+  // Ceilings are wide enough for the VIVID model grade (deep contrast, real vibrance, an
+  // exposure lift) but the PRODUCT grades all request values well below these, so raising the
+  // caps never changes product output — it only lets the model path actually get punchy.
+  const c = clamp(grade.contrast ?? 1, 0.9, 1.28);
   // One linear pass carries BOTH the colour cast and the contrast S-curve pivoted on mid-grey:
   // channel a = mul × slope, b = 128 × (1 − slope) so grey stays grey while contrast lifts.
   const a = [grade.rMul * c, grade.gMul * c, grade.bMul * c];
@@ -130,8 +160,13 @@ export async function applyFinish(buf: Buffer, grade: FinishGrade): Promise<Buff
   // EVERY render (incl. QC-rejected attempts), pixels unchanged (sharpen still precedes grain).
   const meta = await sharp(buf).metadata();
   const w = meta.width ?? 0, h = meta.height ?? 0;
-  let pipe = sharp(buf).removeAlpha().linear(a, b).modulate({ saturation: clamp(grade.saturation ?? 1, 0.85, 1.15), brightness: clamp(grade.brightness ?? 1, 0.95, 1.05) });
-  if ((grade.sharpen ?? 0) > 0) pipe = pipe.sharpen({ sigma: clamp(grade.sharpen, 0.3, 1.5) });
+  let pipe = sharp(buf).removeAlpha().linear(a, b).modulate({ saturation: clamp(grade.saturation ?? 1, 0.85, 1.26), brightness: clamp(grade.brightness ?? 1, 0.94, 1.08) });
+  // Unsharp with an optional CLARITY lift: clarity widens the radius and boosts the edge
+  // (jagged-area) response so mid-tone local contrast "pops" — the vivid, three-dimensional
+  // editorial look — without the halo'd HDR-clarity tell. clarity 0 keeps the plain unsharp.
+  const sh = clamp(grade.sharpen ?? 0, 0, 1.6);
+  const cl = clamp(grade.clarity ?? 0, 0, 1);
+  if (sh > 0) pipe = pipe.sharpen({ sigma: clamp(sh * (1 + 0.6 * cl), 0.3, 2.4), m1: 1, m2: 2 + 2.5 * cl });
 
   // Film grain — one honest imperfection at the pixel level. A gaussian-noise grey plate
   // in soft-light barely moves mid-tones (grey ≈ no-op) but seats a fine, even grain over

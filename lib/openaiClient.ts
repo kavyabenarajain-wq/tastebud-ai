@@ -91,3 +91,42 @@ export async function chatComplete(params: {
   });
   return r.choices[0]?.message?.content ?? "";
 }
+
+/** True when the live-web search path is configured (an OpenRouter key). */
+export const webSearchAvailable = (): boolean => !!process.env.OPENROUTER_API_KEY;
+
+/**
+ * LIVE web search completion — the grounded pass that actually reaches Instagram, press, Reddit,
+ * review sites and the Meta Ad Library. Routed through OpenRouter's `:online` models, which run a
+ * real web search and fold the results (with source URLs) into the model's context before it
+ * answers. Best-effort by design: returns "" when no OpenRouter key is set or the call fails, so
+ * the (already-complete) fast dossier is never blocked or broken by an enrichment miss.
+ *
+ * `OPENROUTER_SEARCH_MODEL` overrides the model (default a cheap `:online` variant).
+ */
+export async function webSearchComplete(params: {
+  messages: OpenAI.Chat.ChatCompletionMessageParam[];
+  max_tokens?: number;
+  timeoutMs?: number;
+}): Promise<string> {
+  const key = process.env.OPENROUTER_API_KEY;
+  if (!key) return "";
+  const model = process.env.OPENROUTER_SEARCH_MODEL ?? "openai/gpt-4o-mini:online";
+  const ctrl = new AbortController();
+  const t = setTimeout(() => ctrl.abort(), params.timeoutMs ?? 45_000);
+  try {
+    const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+      method: "POST",
+      headers: { authorization: `Bearer ${key}`, "content-type": "application/json" },
+      body: JSON.stringify({ model, messages: params.messages, max_tokens: params.max_tokens ?? 1200 }),
+      signal: ctrl.signal,
+    });
+    if (!res.ok) return "";
+    const j = (await res.json()) as { choices?: { message?: { content?: string } }[] };
+    return j.choices?.[0]?.message?.content ?? "";
+  } catch {
+    return "";
+  } finally {
+    clearTimeout(t);
+  }
+}

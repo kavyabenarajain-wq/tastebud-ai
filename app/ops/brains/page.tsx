@@ -31,6 +31,7 @@ export default function InternalDeckTool() {
   const refFileRef = useRef<HTMLInputElement>(null);
   const docFileRef = useRef<HTMLInputElement>(null); // upload a notes / brand document (read as text)
   const [busy, setBusy] = useState(false);
+  const [docBusy, setDocBusy] = useState(false); // extracting text from an uploaded PDF / DOCX
   const [status, setStatus] = useState("");
   const [error, setError] = useState("");
   const [pptx, setPptx] = useState("");
@@ -131,13 +132,36 @@ export default function InternalDeckTool() {
     }
   }
 
-  // Upload a document (notes / brief / brand book) — read text files straight into the notes.
-  function addDoc(files: FileList | null) {
+  // Upload a document (notes / brief / brand book). Plain-text files are read straight into the
+  // notes; PDF / DOCX go to the operator-gated extractor route so their text lands there too.
+  async function addDoc(files: FileList | null) {
     const f = files?.[0];
+    if (docFileRef.current) docFileRef.current.value = ""; // allow re-picking the same file
     if (!f) return;
-    const rd = new FileReader();
-    rd.onload = () => setNotes((cur) => (cur.trim() ? cur + "\n\n" : "") + String(rd.result));
-    rd.readAsText(f);
+    const append = (t: string) => setNotes((cur) => (cur.trim() ? cur + "\n\n" : "") + t);
+    const isText = /\.(txt|text|md|markdown|csv|json|rtf|log|tsv)$/i.test(f.name) ||
+      (f.type.startsWith("text/") && !/\.(pdf|docx?)$/i.test(f.name));
+    if (isText) {
+      const rd = new FileReader();
+      rd.onload = () => append(String(rd.result));
+      rd.readAsText(f);
+      return;
+    }
+    // PDF / DOCX (or anything non-text) → extract server-side.
+    setError("");
+    setDocBusy(true);
+    try {
+      const fd = new FormData();
+      fd.append("file", f);
+      const r = await fetch("/api/extract-doc", { method: "POST", body: fd });
+      const j = await r.json();
+      if (!r.ok || !j.text) throw new Error(j.error || "Couldn't read that document.");
+      append(String(j.text));
+    } catch (e) {
+      setError((e as Error).message);
+    } finally {
+      setDocBusy(false);
+    }
   }
 
   function download() {
@@ -209,9 +233,9 @@ export default function InternalDeckTool() {
 
           <div className="mt-5 flex items-center justify-between">
             <label className="block text-[11px] font-medium uppercase tracking-wide text-muted">Call notes + answers</label>
-            <button onClick={() => docFileRef.current?.click()} className="text-[11px] text-ink transition-opacity hover:opacity-60">＋ upload document</button>
+            <button onClick={() => docFileRef.current?.click()} disabled={docBusy} className="text-[11px] text-ink transition-opacity hover:opacity-60 disabled:opacity-40">{docBusy ? "reading…" : "＋ upload document"}</button>
           </div>
-          <input ref={docFileRef} type="file" accept=".txt,.md,.markdown,.csv,.json,.rtf,.text,text/*" hidden onChange={(e) => addDoc(e.target.files)} />
+          <input ref={docFileRef} type="file" accept=".txt,.md,.markdown,.csv,.json,.rtf,.text,.pdf,.docx,text/*,application/pdf,application/vnd.openxmlformats-officedocument.wordprocessingml.document" hidden onChange={(e) => addDoc(e.target.files)} />
           <textarea
             value={notes}
             onChange={(e) => setNotes(e.target.value)}
@@ -219,6 +243,7 @@ export default function InternalDeckTool() {
             rows={15}
             className="mt-2 w-full resize-y rounded-control border border-hairline bg-surface px-3 py-2 font-mono text-[13px] leading-relaxed outline-none focus:border-ink"
           />
+          <p className="mt-1.5 text-[11px] leading-relaxed text-muted">Paste directly, or upload a document — PDF, Word (.docx) or plain text (.txt / .md). We pull the text in for you, and OCR scanned / image-only PDFs automatically.</p>
 
           <label className="mt-5 block text-[11px] font-medium uppercase tracking-wide text-muted">Existing branding · optional (for a rebrand)</label>
           <textarea

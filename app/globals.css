@@ -2,37 +2,95 @@
 @tailwind components;
 @tailwind utilities;
 
+/*
+ * THEME TOKENS
+ * ============
+ * The MARKETING front-of-house is fully theme-aware. The tokens below are stored as
+ * space-separated RGB channels so Tailwind's `/<alpha-value>` opacity modifiers keep working
+ * (e.g. `bg-carbon/80`, `border-linen`, `text-clay/70`). `.dark` on <html> flips the whole
+ * front of house to "warm ink" — the same calm, warm monochrome, simply inverted. The only
+ * colour on the page comes from the framed generated-work photos, in either mode.
+ *
+ * The STUDIO tool (behind login) keeps its own FIXED light tokens (--canvas/--surface/--ink/…)
+ * and is wrapped in `.tb-force-light`, so toggling dark on the marketing site never touches the
+ * live workspace.
+ */
 :root {
-  /* Studio tool — warm-light, matching the marketing site */
+  color-scheme: light;
+
+  /* ── Marketing — LIGHT (warm paper / ink) ── */
+  --paper: 250 249 245; /* #FAF9F5 */
+  --cream: 240 238 230; /* #F0EEE6 */
+  --carbon: 25 25 23; /* #191917 */
+  --clay: 92 91 83; /* #5C5B53 */
+  --linen: 220 217 206; /* #DCD9CE */
+  --terra: 217 119 87; /* #D97757 (legacy, unused) */
+  /* The ONE restrained brand accent — the brand blue (a touch deeper for light mode). */
+  --accent: 24 93 151; /* #185D97 */
+
+  /* ── Studio tool — FIXED warm-light (never themed) ── */
   --canvas: #faf9f5;
   --surface: #f0eee6;
   --ink: #1a1a17;
   --muted: #5c5b53;
   --hairline: #dcd9ce;
-  /* Marketing (light, warm, monochrome) */
-  --paper: #faf9f5;
-  --cream: #f0eee6;
-  --carbon: #1a1a17;
+}
+
+/* ── Marketing — DARK (warm ink) ───────────────────────────────────────────── */
+:root.dark {
+  color-scheme: dark;
+  /* Clean, NEUTRAL dark (no warm/brown cast — that read as terracotta). Pairs with the brand blue. */
+  --paper: 15 16 18; /* #0F1012 — neutral near-black */
+  --cream: 24 25 28; /* #18191C — raised surface */
+  --carbon: 244 245 247; /* #F4F5F7 — clean off-white text / inverted fills */
+  --clay: 154 156 163; /* #9A9CA3 — neutral muted */
+  --linen: 42 44 49; /* #2A2C31 — neutral hairline */
+  --terra: 231 141 105; /* legacy, unused */
+  --accent: 79 160 224; /* #4FA0E0 — brand blue, brightened for contrast on near-black */
+}
+
+/* Force the marketing tokens back to LIGHT for any subtree that opts in (the studio shell). */
+.tb-force-light {
+  color-scheme: light;
+  --paper: 250 249 245;
+  --cream: 240 238 230;
+  --carbon: 25 25 23;
+  --clay: 92 91 83;
+  --linen: 220 217 206;
+  --terra: 217 119 87;
+  --accent: 24 93 151;
 }
 
 html {
   scroll-behavior: smooth;
-  background: var(--paper);
+  background: rgb(var(--paper));
   -webkit-text-size-adjust: 100%;
 }
 html,
 body {
-  color: var(--carbon);
-  background: var(--paper);
+  color: rgb(var(--carbon));
+  background: rgb(var(--paper));
 }
 body {
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
 
+/* A brief, tasteful cross-fade applied only while the theme is switching (added/removed by the
+   toggle). We don't leave this on permanently — that would slow every hover. */
+html.theme-anim,
+html.theme-anim *,
+html.theme-anim *::before,
+html.theme-anim *::after {
+  transition:
+    background-color 0.42s cubic-bezier(0.4, 0, 0.2, 1),
+    border-color 0.42s cubic-bezier(0.4, 0, 0.2, 1),
+    color 0.42s cubic-bezier(0.4, 0, 0.2, 1),
+    fill 0.42s cubic-bezier(0.4, 0, 0.2, 1) !important;
+}
+
 /* Full-screen snap — scoped to the home page only (the home page toggles `.snap` on <html>).
-   OFF on phones: mobile is a normal, comfortably-spaced continuous scroll (full-screen scenes
-   leave big empty gaps on a small screen). Firm "new screen rises up" snap only from tablet up. */
+   OFF on phones: mobile is a normal, comfortably-spaced continuous scroll. */
 html.snap {
   scroll-snap-type: none;
 }
@@ -44,14 +102,28 @@ html.snap {
 
 /* Keyboard focus ring — ink outline, not clipped by overflow. */
 *:focus-visible {
-  outline: 1.5px solid var(--carbon);
+  outline: 1.5px solid rgb(var(--carbon));
   outline-offset: 3px;
   border-radius: 3px;
 }
 
 ::selection {
-  background: var(--carbon);
-  color: var(--paper);
+  background: rgb(var(--carbon));
+  color: rgb(var(--paper));
+}
+
+/* Warm, unobtrusive scrollbar that reads correctly in both modes. */
+::-webkit-scrollbar {
+  width: 11px;
+  height: 11px;
+}
+::-webkit-scrollbar-thumb {
+  background: rgb(var(--linen));
+  border: 3px solid rgb(var(--paper));
+  border-radius: 999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: rgb(var(--clay) / 0.6);
 }
 
 /* A hairline that grows from the left as it scrolls into view. */
@@ -71,5 +143,9 @@ html.snap {
   }
   html.snap {
     scroll-snap-type: none;
+  }
+  html.theme-anim,
+  html.theme-anim * {
+    transition-duration: 0.01ms !important;
   }
 }

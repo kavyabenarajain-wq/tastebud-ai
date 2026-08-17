@@ -55,7 +55,7 @@ export default function Contact() {
             </p>
             <div className="mt-10 flex flex-wrap items-center justify-center gap-4">
               <CTA href="/" variant="outline" size="md" arrow={false}>Back home</CTA>
-              <CTA href="/asset-studio#pricing" variant="solid" size="md">Try the studio while you wait</CTA>
+              <CTA href="/brand-discovery" variant="solid" size="md">Explore Brand Discovery</CTA>
             </div>
           </motion.div>
         ) : (
@@ -119,7 +119,7 @@ export default function Contact() {
                 Book the call
               </button>
               <p className="text-center text-[13px] text-clay">
-                Prefer email? Write to <span className="text-carbon">hello@tastebud.studio</span>
+                Prefer email? Write to <span className="text-carbon">admin@aitastebud.com</span>
               </p>
             </motion.form>
           </div>

@@ -1,10 +1,9 @@
 import { redirect } from "next/navigation";
 
 /**
- * There is no standalone pricing page anymore — pricing lives in the Asset building page
- * (`/asset-studio#pricing`). This stub just forwards any old link / bookmark / checkout return
- * there so nothing 404s.
+ * The self-serve pricing lives inside the Asset Studio, which is coming soon. Forward any old
+ * link / bookmark / checkout return to the Asset Studio page so nothing 404s.
  */
 export default function PricingRedirect() {
-  redirect("/asset-studio#pricing");
+  redirect("/asset-studio");
 }

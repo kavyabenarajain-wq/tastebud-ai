@@ -1,5 +1,5 @@
 import { z } from "zod";
-import type { BrandProfile, CampaignCopy, PhotoRules, ShootPlan } from "./types";
+import type { BrandProfile, CampaignCopy, PhotoRules, ShootPlan, ReferenceDNA } from "./types";
 import { chatCreate } from "./openaiClient";
 import { photoRulesDirective } from "./photoRules";
 
@@ -114,6 +114,11 @@ function stripFences(t: string): string {
 async function viaOpenAI(system: string, user: string): Promise<string> {
   const r = await chatCreate({
     max_completion_tokens: 8000, // gpt-5.5 is a reasoning model; leave room for reasoning + the JSON
+    // SPEED: cap the hidden reasoning. gpt-5.5 otherwise defaults to heavy reasoning and burns tens of
+    // seconds on the planner BEFORE the first shot can render — the single biggest source of latency.
+    // "low" plans fast and is plenty for structured shot-JSON; raise PLANNER_EFFORT (minimal|low|medium
+    // |high) to trade speed for more deliberate art direction.
+    reasoning_effort: ((process.env.PLANNER_EFFORT?.trim().toLowerCase() as "low") || "low"),
     messages: [
       { role: "system", content: system },
       { role: "user", content: user },
@@ -400,6 +405,19 @@ function brandLookDossier(p: BrandProfile): { text: string; hasSignature: boolea
   return { text: `${header}\n${L.join("\n")}`, hasSignature };
 }
 
+/** The reference campaign DNA as a tight, readable dossier for the planner. */
+function referenceDNADossier(dna: ReferenceDNA): string {
+  const L: string[] = [];
+  if (dna.vibe) L.push(`VIBE: ${dna.vibe}`);
+  if (dna.light) L.push(`LIGHT: ${dna.light}`);
+  if (dna.palette) L.push(`COLOUR GRADE: ${dna.palette}`);
+  if (dna.set) L.push(`SET / WORLD: ${dna.set}`);
+  if (dna.styling) L.push(`STYLING: ${dna.styling}`);
+  if (dna.camera) L.push(`CAMERA: ${dna.camera}`);
+  if (dna.finish) L.push(`FINISH: ${dna.finish}`);
+  return L.map((l) => `  • ${l}`).join("\n");
+}
+
 export async function artDirect(args: {
   skill: string;
   profile: BrandProfile;
@@ -409,6 +427,7 @@ export async function artDirect(args: {
   productMaterial?: string;
   forModel?: boolean;
   memory?: { approved: string[]; rejected: string[]; preferences?: string[] };
+  referenceDNA?: ReferenceDNA; // the client reference's reusable campaign VIBE — the art-direction spine for a VARIED, brand-rooted set
 }): Promise<ShootPlan> {
   const look = brandLookDossier(args.profile);
   // Brand memory — a SOFT steer learned from shoots the founder kept / rejected. Ranked
@@ -429,13 +448,26 @@ export async function artDirect(args: {
     ? `\n\n---\nOBSERVED PRODUCT COLOURS — a vision pass LOOKED at the actual uploaded packaging and read these colours (primary first): ${pc.map((c) => [c.name, c.hex, c.role && `[${c.role}]`].filter(Boolean).join(" ")).join(", ")}.${args.productMaterial ? ` Material/finish: ${args.productMaterial}.` : ""} These are the REAL product's colours.\n` +
       `COLOUR HARMONY IS MANDATORY (this is the #1 fix — past shoots clashed): the scene palette MUST be built in deliberate harmony with the product's OWN packaging colour${primary ? ` — above all its PRIMARY colour ${[primary.name, primary.hex].filter(Boolean).join(" ")}` : ""}. By DEFAULT — and ESPECIALLY on the first / hero shot — key the surface, background, props and colour grade to that primary colour: a considered complementary, a deeper or lighter tone, or a clean colour-block of it — WITH CLEAR TONAL CONTRAST so the product visibly SEPARATES and POPS off the background. NEVER a same-tone monochrome where the product melts into the ground (a beige product on a beige sweep, a charcoal product on a charcoal sweep) — harmony is a designed, high-contrast relationship, not camouflage. If the product itself is PALE, NEUTRAL or MONOCHROME, do NOT sit it on its own pale tone — ground it on a DEEPER, CONTRASTING colour drawn from the BRAND PALETTE (e.g. a sand/beige sneaker on a deep charcoal, burgundy, indigo or espresso ground), or in a real textured environment, so it reads with real punch. NEVER put the product on a background that garishly clashes with its packaging colour. The product's colour leads the scene's colour; the brand palette and mood refine WITHIN that harmony, never against it. Only break from the product's colour world if the client's panel explicitly names a different background/surface. Never recolour the product itself — only build the scene around these colours.`
     : "";
+  // REFERENCE CAMPAIGN — the client handed a reference (e.g. "make it feel like Tom Ford") and we
+  // distilled its reusable photoshoot VIBE. This is the ART-DIRECTION SPINE: the whole set is
+  // designed IN this world, but as GENUINELY DIFFERENT shots (each a distinct angle/composition/
+  // moment), all rooted in THIS brand's palette, voice and real product. It outranks the brand's
+  // DEFAULT signature (the client asked for THIS look) but never product fidelity, the do-not list,
+  // or the client's own-words ★ request. The reference's own product/colours are never copied.
+  const dna = args.referenceDNA;
+  const referenceBlock = dna
+    ? `\n\n---\nREFERENCE CAMPAIGN (the client's reference look — the SPINE of this shoot). The client wants their campaign shot in the VIBE of a reference they provided. Match this photoshoot signature across the WHOLE set — its light, colour grade, palette feel, set/world, styling density, camera language and finish — so every frame unmistakably belongs to ONE campaign:\n` +
+      referenceDNADossier(dna) +
+      `\nHOW TO USE IT: design ${args.forModel ? "frames" : "shots"} that ALL live in this campaign's world but are GENUINELY DIFFERENT from each other — vary the angle, distance, composition and moment (a tight sensual macro, a wide atmospheric environmental frame, a dramatic low hero, an intimate detail, a still-life), NEVER the same frame repeated with a new background. Root every frame in THIS brand: keep the brand's real palette and voice and reproduce the client's REAL product exactly. Do NOT copy the reference's own product, its colours, label or text.` +
+      (dna.shotIdeas.length ? `\nSHOT SEEDS from the reference's world (adapt each to THIS brand + product, keep the vibe, make them distinct — do not copy verbatim): ${dna.shotIdeas.map((s, i) => `${i + 1}) ${s}`).join("  ")}` : "")
+    : "";
   const industryBlock = args.industry
     ? (args.forModel
         ? `\n\n---\nINDUSTRY PLAYBOOK — ${args.industry.label} (category CONTEXT for a MODEL shoot). Use it for the category's palette/surface logic, substance behaviour, colour world, mood and do-not list, and to keep the product true to its category. The model-photoshoot skill above GOVERNS the framing, posing, wardrobe and human realism — do NOT switch to product-only packshot archetypes from this playbook; adapt its taste to a shoot with a person. Never overrides the realism bar, brand-lock, or the brand's do-not list.\n${args.industry.content}`
         : `\n\n---\nINDUSTRY PLAYBOOK — ${args.industry.label}. This product is in this category, so this playbook is LAW for the shoot: use its shot archetypes, palette/surface logic, substance focus and category do-not list. It OVERRIDES the master skill's generic defaults, but NEVER overrides the realism bar, brand-lock, or the brand's do-not list. Combine it with the brand's own photography signature above — the playbook is the category's craft, the signature is THIS brand's specific take on it.\n${args.industry.content}`)
     : "";
   const system =
-    `${args.skill}${industryBlock}\n\n---\n${look.text}${productColorBlock}${memoryBlock}\n\n---\n` +
+    `${args.skill}${industryBlock}\n\n---\n${look.text}${productColorBlock}${memoryBlock}${referenceBlock}\n\n---\n` +
     `(Full Brand Profile JSON, for any field not spelled out above — the floor for every blank; never violate the do-not list:\n${JSON.stringify(args.profile)})`;
   // Product photoshoot = product-only. Humans belong in the Model photoshoot.
   const productOnlyBlock = args.forModel
@@ -446,7 +478,10 @@ export async function artDirect(args: {
     `PRIORITY OF DIRECTION — obey in THIS order and never invert it:\n` +
     `  1) PRODUCT FIDELITY (reproduce the real product exactly) and the brand's DO-NOT list are absolute.\n` +
     `  2) THE CLIENT'S OWN-WORDS REQUEST (marked ★ in the brief above, if present) is the HIGHEST creative authority. If the client asked for a specific scene, setting, place, mood, colour, prop, story or idea, DELIVER EXACTLY THAT — even when it departs from the brand's usual signature. Read their words literally and build precisely what they described; do not swap it for the brand's default look. If they named a setting (e.g. a beach, a kitchen, a street), the shot happens THERE.\n` +
-    `  3) The brand's photography signature and palette fill EVERY blank the client did NOT direct. It is the default, never an override of an explicit request.\n` +
+    (dna
+      ? `  2b) THE REFERENCE CAMPAIGN (in the dossier above) is the SET'S ART-DIRECTION SPINE — the client explicitly asked for THIS photoshoot vibe. Design the WHOLE set in its light/grade/palette/world/styling/camera signature, as ${args.forModel ? "frames" : "shots"} that are GENUINELY DIFFERENT from one another (vary angle, distance, composition, moment — never the same frame with a new background). It ranks ABOVE the brand's default signature but BELOW 1 and 2, and stays rooted in the brand's real palette, voice and product. Never copy the reference's own product, colours, label or text.\n`
+      : "") +
+    `  3) The brand's photography signature and palette fill EVERY blank the client did NOT direct${dna ? " and the reference campaign does not dictate" : ""}. It is the default, never an override of an explicit request.\n` +
     `  4) THIS BRAND'S LEARNED TASTE (above, if present) is a SOFT default BENEATH 1–3: for anything the client did not direct, lean toward what was kept/hero and away from what was rejected — but never let it override product fidelity, the do-not list, or the client's ★ request.\n` +
     `Whatever the client wrote, it MUST be clearly visible in the resulting shots. Failing to reflect their request is the worst possible outcome.\n\n` +
     `Act as a WORLD-CLASS commercial photographer and art director with real taste — the level of a Kinfolk / Aesop / top-fashion-house campaign. Make every shot genuinely creative, considered and editorial — a campaign image, never a flat boring catalogue packshot.\n\n` +

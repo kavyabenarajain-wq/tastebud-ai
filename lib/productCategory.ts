@@ -200,3 +200,75 @@ export function naturalActions(category: ProductCategory): string {
 export function isWear(mode: InteractionMode): boolean {
   return mode === "Worn";
 }
+
+// ── OBJECT-CLASS LOCK ────────────────────────────────────────────────────────
+// The category rules above govern the human VERB (can a person wear it?). This
+// section governs the object CLASS itself: a clothing product must only ever be
+// rendered AS clothing — never restyled into a perfume bottle, a cup, furniture,
+// a snack or any other kind of object. It reaches BOTH renderers (product + model)
+// and the QC judge, so cross-category drift is caught at prompt-time and at review.
+
+export const ALL_CATEGORIES: ProductCategory[] = [
+  "food", "drink", "apparel", "jewellery", "beauty", "wellness", "furniture", "tech", "home", "general",
+];
+
+/** What each category IS (its object class) and the classes it must NEVER become. */
+const CATEGORY_CLASS: Record<ProductCategory, { is: string; never: string[] }> = {
+  apparel: { is: "a wearable garment / apparel item (clothing, footwear or a worn accessory)", never: ["a bottle", "a jar", "a tube", "a can", "a cup", "a perfume or fragrance bottle", "a food item", "a drink", "a piece of furniture", "an electronic device", "any non-garment object"] },
+  jewellery: { is: "a piece of jewellery", never: ["a garment or clothing", "a bottle", "a jar", "a food item", "a drink", "furniture", "an electronic device"] },
+  beauty: { is: "a beauty / cosmetic product in its real container (bottle, jar, tube, compact, stick or pump)", never: ["a garment or clothing", "a food item", "a drink", "a snack", "a piece of furniture", "an electronic device"] },
+  wellness: { is: "a wellness / supplement product in its real container (bottle, jar, tub, sachet, blister or capsule)", never: ["a garment or clothing", "a snack food", "a drink in a glass", "a piece of furniture", "a perfume or fragrance bottle"] },
+  food: { is: "a food item / edible product", never: ["a garment or clothing", "a drink in a glass", "a cosmetic or beauty product", "a bottle of perfume", "a piece of furniture", "an electronic device"] },
+  drink: { is: "a drink / beverage in its real vessel", never: ["a garment or clothing", "a solid food item", "a cosmetic or beauty product", "a piece of furniture", "an electronic device"] },
+  furniture: { is: "a piece of furniture", never: ["a garment or clothing", "a food item", "a drink", "a small handheld product", "a bottle", "a cosmetic"] },
+  tech: { is: "an electronic device / gadget", never: ["a food item", "a drink", "a garment (unless it is genuinely wearable tech)", "a cosmetic or beauty product", "a piece of furniture"] },
+  home: { is: "a homeware / decor object", never: ["a garment or clothing", "a food item", "a drink", "a cosmetic or beauty product"] },
+  general: { is: "", never: [] },
+};
+
+/**
+ * Map any free-text category guess (e.g. from the product-image vision pass) onto the
+ * canonical enum. Exact enum match first, else route the words through detectCategory.
+ * Returns undefined when nothing confident is found (caller keeps its own fallback).
+ */
+export function coerceCategory(v?: string | null): ProductCategory | undefined {
+  if (!v) return undefined;
+  const k = v.trim().toLowerCase();
+  const exact = ALL_CATEGORIES.find((c) => c === k);
+  if (exact) return exact;
+  const d = detectCategory(v);
+  return d === "general" ? undefined : d;
+}
+
+/** The object-class noun for a category ("a wearable garment", …) — used by the QC judge. */
+export function categoryLabel(category: ProductCategory): string {
+  return CATEGORY_CLASS[category].is;
+}
+
+/** Per-category "never render it as …" negatives, for the renderer's Avoid list. Empty for "general". */
+export function categoryNegatives(category: ProductCategory): string[] {
+  const spec = CATEGORY_CLASS[category];
+  if (!spec.is || !spec.never.length) return [];
+  return [
+    `rendering the product as ${spec.never.join(", ")}, or any other class of object`,
+    "changing the product's fundamental object type, category or form factor",
+    "substituting a different KIND of product for the client's",
+  ];
+}
+
+/**
+ * THE OBJECT-CLASS LOCK block. Asserts the product's category is fixed and it must never be
+ * turned into another kind of object. Holds even when matching a reference or at reduced
+ * fidelity. Returns "" for "general" (no confident category → no lock, so we never wrongly
+ * constrain an unknown product).
+ */
+export function categoryLock(category: ProductCategory): string {
+  const spec = CATEGORY_CLASS[category];
+  if (!spec.is) return "";
+  return (
+    `PRODUCT CATEGORY LOCK — the client's product IS ${spec.is}, and the generated image MUST keep it as exactly that. ` +
+    `It must NEVER be turned into ${spec.never.join(", ")}, or any other class of object. ` +
+    `Its real-world object type, form factor and function are FIXED and non-negotiable — only the scene, camera angle, styling and (for a model) how it is worn/held may change. ` +
+    `This holds even when matching a reference image and even at reduced fidelity: if a reference shows a DIFFERENT kind of object, the client's product still keeps ITS own category, never the reference's.`
+  );
+}

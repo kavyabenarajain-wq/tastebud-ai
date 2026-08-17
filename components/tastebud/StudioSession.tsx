@@ -1,7 +1,7 @@
 "use client";
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
-import type { BrandBrain, StudioProduct } from "@/lib/types";
+import type { BrandBrain, BrandIntelligence, StudioProduct } from "@/lib/types";
 
 /**
  * The Asset Studio onboarding session — the working Brand Brain carried across the
@@ -32,6 +32,8 @@ export type ResearchState = {
   running: boolean;
   done: boolean;
   error: boolean;
+  /** The deep off-site pass (campaigns, ambassadors, social proof) running after the fast book renders. */
+  enriching: boolean;
   details: ResearchDetails;
 };
 
@@ -67,7 +69,7 @@ export function StudioProvider({ children }: { children: React.ReactNode }) {
   const [brain, setBrainState] = useState<BrandBrain>({});
   const [hydrated, setHydrated] = useState(false);
   const [research, setResearch] = useState<ResearchState>({
-    started: false, running: false, done: false, error: false, details: {},
+    started: false, running: false, done: false, error: false, enriching: false, details: {},
   });
   const researchRan = useRef(false);
   const researchKeyRef = useRef("");                        // host we're currently researching — one run per site
@@ -118,7 +120,7 @@ export function StudioProvider({ children }: { children: React.ReactNode }) {
     cancelResearch();
     researchRan.current = false;
     researchKeyRef.current = "";
-    setResearch({ started: false, running: false, done: false, error: false, details: {} });
+    setResearch({ started: false, running: false, done: false, error: false, enriching: false, details: {} });
     setBrainState((b) => ({ role: b.role, brandType: b.brandType, teamSize: b.teamSize }));
   }, [cancelResearch]);
 
@@ -193,7 +195,25 @@ export function StudioProvider({ children }: { children: React.ReactNode }) {
               const fb = m.brain as BrandBrain;
               // MERGE — never replace: the user's questionnaire answers landed after research started.
               setBrainState((b) => ({ ...b, research: fb.research, intelligence: fb.intelligence, catalog: fb.catalog, ready: true }));
-              setResearch((r) => ({ ...r, running: false, done: true }));
+              setResearch((r) => ({ ...r, running: false, done: true, enriching: true }));
+              // PROGRESSIVE DEEP PASS — the fast book is on screen; now dig into the live web
+              // (campaigns, ambassadors, social proof, press, community sentiment) and fill those
+              // sections in. Out-of-band and best-effort: a miss never disturbs the finished dossier.
+              (async () => {
+                try {
+                  const er = await fetch("/api/studio/research/enrich", {
+                    method: "POST",
+                    headers: { "content-type": "application/json" },
+                    body: JSON.stringify({ brain: fb }),
+                    signal: controller.signal,
+                  });
+                  const data = (await er.json()) as { intelligence?: BrandIntelligence };
+                  if (live() && data?.intelligence) {
+                    setBrainState((b) => ({ ...b, intelligence: { ...(b.intelligence ?? {}), ...data.intelligence } }));
+                  }
+                } catch { /* enrichment is optional — the fast dossier stands on its own */ }
+                finally { if (live()) setResearch((r) => ({ ...r, enriching: false })); }
+              })();
             } else if (m.type === "error") {
               setResearch((r) => ({ ...r, running: false, done: true, error: true }));
             }
@@ -219,7 +239,7 @@ export function StudioProvider({ children }: { children: React.ReactNode }) {
     researchRan.current = false;                  // re-arm so startResearch actually runs
     researchKeyRef.current = key;
     const name = nameFromUrl(website);
-    setResearch({ started: false, running: false, done: false, error: false, details: {} });
+    setResearch({ started: false, running: false, done: false, error: false, enriching: false, details: {} });
     // New site → clear the previous brand but keep user-level facts, then set identity + go.
     setBrainState((b) => ({ role: b.role, brandType: b.brandType, teamSize: b.teamSize, website, name, skippedResearch: false }));
     startResearch({ website, name });
