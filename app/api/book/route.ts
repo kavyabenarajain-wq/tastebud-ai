@@ -73,7 +73,8 @@ function formatWhen(bk: Booking): string {
   }
 }
 
-function ownerHtml(bk: Booking, when: string) {
+function ownerHtml(bk: Booking, when: string, meetLink?: string, eventLink?: string) {
+  const meet = meetLink || MEET_LINK;
   const row = (k: string, v?: string) =>
     v ? `<tr><td style="padding:6px 16px 6px 0;color:#6b7280;font-size:13px">${k}</td><td style="padding:6px 0;color:#111827;font-size:14px">${esc(v)}</td></tr>` : "";
   return `
@@ -89,7 +90,8 @@ function ownerHtml(bk: Booking, when: string) {
       ${row("Wants", bk.goal)}
       ${row("Notes", bk.notes)}
     </table>
-    <p style="font-size:14px;color:#111827;margin:18px 0 0">Google Meet: <a href="${MEET_LINK}" style="color:#185D97">${esc(MEET_LINK)}</a></p>
+    <p style="font-size:14px;color:#111827;margin:18px 0 4px">Google Meet: <a href="${meet}" style="color:#185D97">${esc(meet)}</a></p>
+    ${eventLink ? `<p style="font-size:13px;color:#6b7280;margin:0">It's on your calendar — <a href="${eventLink}" style="color:#185D97">open the event</a>.</p>` : ""}
   </div>`;
 }
 
@@ -132,16 +134,26 @@ export async function POST(req: NextRequest) {
   const calendar = googleCalendarConfigured() ? await createBookingEvent(bk) : null;
   if (googleCalendarConfigured() && !calendar) console.error("[book] Google Calendar event failed — falling back to Resend");
 
-  let owner: { sent: boolean; reason?: string } = { sent: false };
+  const when = formatWhen(bk);
+  // ALWAYS email the OWNER a heads-up. A Google Calendar event alone does NOT email the organizer
+  // (it just lands on their calendar), so without this the founder gets no ping when someone books.
+  // On the Calendar-success path we pass the real per-event Meet + event link into the email.
+  const owner = await sendEmail(
+    NOTIFY_TO,
+    `New discovery call — ${bk.brand || bk.name} · ${when}`,
+    ownerHtml(bk, when, calendar?.meetLink ?? undefined, calendar?.htmlLink ?? undefined),
+    bk.email,
+  );
+  if (!owner.sent && owner.reason) console.error(`[book] owner email failed: ${owner.reason}`);
+
+  // The GUEST only needs a Resend email on the FALLBACK path — on Calendar success Google already
+  // sent them the native Yes/Maybe/No invite.
   let guest: { sent: boolean; reason?: string } = { sent: false };
   if (!calendar) {
-    const when = formatWhen(bk);
-    owner = await sendEmail(NOTIFY_TO, `New discovery call — ${bk.brand || bk.name} · ${when}`, ownerHtml(bk, when), bk.email);
     try {
       const brandSub = (bk.brand || bk.name || "your brand").toLowerCase();
       guest = await sendEmail(bk.email, `tastebud × ${brandSub}`, guestHtml(bk, when));
     } catch {}
-    if (!owner.sent && owner.reason) console.error(`[book] owner email failed: ${owner.reason}`);
     if (!guest.sent && guest.reason) console.error(`[book] guest email failed: ${guest.reason}`);
   }
 
