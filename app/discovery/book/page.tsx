@@ -51,6 +51,7 @@ export default function BookDiscovery() {
 
   const [selected, setSelected] = useState<Date | null>(null); // chosen day
   const [slot, setSlot] = useState<Date | null>(null); // chosen start time
+  const [error, setError] = useState<string | null>(null); // submission error — never fake a confirmation
 
   function toSchedule() {
     if (!valid || busy) return;
@@ -61,6 +62,7 @@ export default function BookDiscovery() {
   async function confirm() {
     if (!slot || busy) return;
     setBusy(true);
+    setError(null);
     const booking = {
       ...form,
       startISO: slot.toISOString(),
@@ -72,14 +74,24 @@ export default function BookDiscovery() {
       localStorage.setItem("tb.booking", JSON.stringify(booking));
     } catch {}
     try {
-      // Persists the lead AND emails the owner + guest (once RESEND_API_KEY is set).
-      await fetch("/api/book", {
+      // Creates the Google Calendar event (native invite + Meet link) and saves the lead.
+      const res = await fetch("/api/book", {
         method: "POST",
         headers: { "content-type": "application/json" },
         body: JSON.stringify({ booking }),
       });
+      const data = await res.json().catch(() => null);
+      // Do NOT fake a confirmation on failure — a silent 401/500 used to show "You're booked"
+      // while nothing was actually created. Surface it so the founder can retry.
+      if (!res.ok || !data?.ok) {
+        setBusy(false);
+        setError("We couldn't confirm your booking just now. Please try again in a moment.");
+        return;
+      }
     } catch {
-      /* the booking still confirms in-UI even if the notify call hiccups */
+      setBusy(false);
+      setError("Couldn't reach us to confirm your booking — check your connection and try again.");
+      return;
     }
     setBusy(false);
     setPhase("done");
@@ -190,6 +202,7 @@ export default function BookDiscovery() {
                 onBack={() => setPhase("context")}
                 onConfirm={confirm}
                 busy={busy}
+                error={error}
               />
             </motion.div>
           )}
@@ -211,6 +224,7 @@ function Scheduler({
   onBack,
   onConfirm,
   busy,
+  error,
 }: {
   firstName: string;
   brand: string;
@@ -222,6 +236,7 @@ function Scheduler({
   onBack: () => void;
   onConfirm: () => void;
   busy: boolean;
+  error: string | null;
 }) {
   const today = useMemo(() => startOfDay(new Date()), []);
   const [view, setView] = useState(() => ({ y: today.getFullYear(), m: today.getMonth() }));
@@ -382,6 +397,11 @@ function Scheduler({
               {busy ? "Confirming…" : `Confirm ${fmtTime(slot)}`} <ArrowRight size={14} />
             </motion.button>
           )}
+          {error && (
+            <p className="mt-3 text-[13px] leading-relaxed text-red-600" role="alert">
+              {error}
+            </p>
+          )}
         </div>
       </div>
     </div>
@@ -430,9 +450,10 @@ function Confirmed({ form, slot, tz }: { form: Form; slot: Date | null; tz: stri
       <p className="mt-5 max-w-sm text-[16px] leading-relaxed text-carbon">{when}</p>
       <p className="mt-2 text-[13px] uppercase tracking-[0.14em] text-clay">{tz.replace(/_/g, " ")}</p>
       <p className="mx-auto mt-6 max-w-sm text-[15px] leading-relaxed text-clay">
-        A calendar invite is on its way to <span className="text-carbon">{form.email}</span>. We&rsquo;ve started a
-        folder for <span className="text-carbon">{form.brand.trim() || "your brand"}</span> — we&rsquo;ll have your
-        world ready to build the moment we talk.
+        A Google Calendar invite with a Meet link is on its way to <span className="text-carbon">{form.email}</span> —
+        just hit <span className="text-carbon">Yes</span> to confirm. We&rsquo;ve started a folder for{" "}
+        <span className="text-carbon">{form.brand.trim() || "your brand"}</span> — we&rsquo;ll have your world ready to
+        build the moment we talk.
       </p>
       <div className="mt-9 flex flex-wrap items-center justify-center gap-4">
         <Link href="/" className="rounded-full border border-carbon/25 px-6 py-3 text-[12px] font-medium uppercase tracking-[0.14em] text-carbon transition-colors duration-300 hover:bg-carbon hover:text-paper">
