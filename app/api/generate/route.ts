@@ -543,10 +543,11 @@ export async function POST(req: NextRequest) {
                 );
               }
             } else send({
+              // Customer-facing copy is decided entirely client-side (a single warm line) — keep the
+              // wire message NEUTRAL so no internal mechanic (QC / category / "dropped") can ever leak.
+              // `reasons`/`qcDropped` stay for internal logs / the kill-log, not for display.
               type: "shotError", id: stub.id, angle: shot.angle,
-              error: dropForCategory
-                ? "Rendered as the wrong kind of product (category mismatch) — dropped"
-                : drift ? "Couldn't match your product closely enough — dropped by QC" : lastErr,
+              error: (dropForCategory || drift) ? "reshoot" : lastErr,
               reasons: drift ? lastReasons : undefined, qcDropped: drift || undefined,
             });
           };

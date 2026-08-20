@@ -182,7 +182,7 @@ export default function ModelWorkspace() {
         else if (m.type === "qc") h.onReshoot(m.id);
         else if (m.type === "shot") h.onShot(m.shot);
         else if (m.type === "shotError") h.onError(m.id);
-        else if (m.type === "error") { say("assistant", `Generation error: ${m.error}`); }
+        else if (m.type === "error") { say("assistant", "Hmm — that one didn’t land the way I want. Give it another go and I’ll get it right."); }
       }
     }
   }
@@ -225,7 +225,7 @@ export default function ModelWorkspace() {
           onError: (id) => id && setShots((cur) => cur.map((x) => (x.id === id ? { ...x, pending: false, failed: true } : x))),
         }
       );
-    } catch (e) { say("assistant", `Generation hit an error: ${(e as Error).message}`); }
+    } catch (e) { say("assistant", "Hmm — that one didn’t land the way I want. Give it another go and I’ll get it right."); }
     setBusy(false); setStatus("");
   }
 
@@ -281,7 +281,7 @@ export default function ModelWorkspace() {
         const tag = action === "cutout" ? "cutout" : "relit";
         setShots((cur) => [...cur, { id: `${shot.id}-${tag}-${Math.random().toString(36).slice(2, 6)}`, angle: `${shot.angle} · ${tag}`, prompt: "", url: j.url, aspect: shot.aspect }]);
       } else { say("assistant", j.error || `${action} failed.`); }
-    } catch (e) { say("assistant", `${action} hit an error: ${(e as Error).message}`); }
+    } catch (e) { say("assistant", "Hmm — that one didn’t land the way I want. Give it another go and I’ll get it right."); }
     setBusy(false); setStatus("");
   }
 

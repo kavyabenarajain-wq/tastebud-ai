@@ -784,7 +784,7 @@ export default function CreateWorkspace() {
             : `You're out of Meals — top up on the pricing page to keep creating.`);
           refreshMeals();
         }
-        else if (m.type === "error") say("assistant", `Generation error: ${m.error}`);
+        else if (m.type === "error") say("assistant", "Hmm — that one didn’t land the way I want. Give it another go and I’ll get it right.");
       }
     }
   }
@@ -823,11 +823,11 @@ export default function CreateWorkspace() {
     const surfaceGenError = (error?: string) => {
       if (errSurfaced || !error) return;
       errSurfaced = true;
-      if (/\bmeals?\b/i.test(error)) say("assistant", `You're out of Meals — top up on the pricing page to keep creating.`);
-      else if (/credit|billing|prepay|deplet|exhaust|quota|hard limit|spend/i.test(error)) say("assistant", "This isn’t your brief — the connected image-generation account has hit its billing / spend limit, so new renders are being refused. Raise the spend limit (or top up billing) on the image provider, then hit retry.");
-      // Pure transport blip — the render never reached the image service (not your brief, no Meal spent). A retry almost always clears it.
-      else if (/connection error|fetch failed|network|timed out|timeout|socket hang ?up|ECONNRESET|ECONNREFUSED|ENOTFOUND|ETIMEDOUT|EAI_AGAIN/i.test(error)) say("assistant", "Couldn’t reach the image service just then — a brief network blip on their side, not your brief. Hit retry and it should go straight through.");
-      else say("assistant", `The shoot hit an error: ${error}`);
+      // CUSTOMER-FACING — never expose the machinery. No QC/drift, no "error", no image-provider,
+      // no billing/credits/quota. Meals is OUR currency, so that one stays (soft); everything else
+      // becomes a single warm, in-character line that simply invites another go.
+      if (/\bmeals?\b/i.test(error)) say("assistant", "You’re out of Meals for now — top up whenever you like and I’ll pick the shoot right back up.");
+      else say("assistant", "Hmm — that one didn’t land the way I want. Give it another go and I’ll get it right.");
     };
 
     if (kind === "model") {
@@ -852,7 +852,7 @@ export default function CreateWorkspace() {
         }, ac.signal);
       } catch (e) {
         if ((e as Error)?.name === "AbortError" || ac.signal.aborted) stopped = true;
-        else say("assistant", `Generation hit an error: ${(e as Error).message}`);
+        else say("assistant", "Hmm — that one didn’t land the way I want. Give it another go and I’ll get it right.");
       }
       genAbort.current = null;
       (stopped ? stopPending : failPending)(runId);
@@ -925,7 +925,7 @@ export default function CreateWorkspace() {
       }, ac.signal);
     } catch (e) {
       if ((e as Error)?.name === "AbortError" || ac.signal.aborted) stopped = true;
-      else say("assistant", `Generation hit an error: ${(e as Error).message}`);
+      else say("assistant", "Hmm — that one didn’t land the way I want. Give it another go and I’ll get it right.");
     }
     genAbort.current = null;
     // Stop → keep what landed, drop the rest. Otherwise fail any still-pending skeletons across
@@ -991,8 +991,8 @@ export default function CreateWorkspace() {
       const r = await fetch("/api/reformat", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ src: shot.url, format, compliance: shot.compliance, productRef: products[0]?.url, brand: brain.name }) });
       const j = await r.json();
       if (j.url) appendCardOf(shot.id, { id: `${shot.id}-${format}-${Math.random().toString(36).slice(2, 6)}`, angle: `${shot.angle} · ${FORMATS[format].label}`, prompt: "", url: j.url, aspect: aspectNum(j.aspect), format, compliance: shot.compliance, drift: !!j.drift, driftReasons: j.driftReasons ?? [] });
-      else say("assistant", j.error || "Adapting failed.");
-    } catch (e) { say("assistant", `Adapting hit an error: ${(e as Error).message}`); }
+      else say("assistant", "Hmm — that one didn’t land the way I want. Give it another go and I’ll get it right.");
+    } catch (e) { say("assistant", "Hmm — that one didn’t land the way I want. Give it another go and I’ll get it right."); }
     setBusy(false); setStatus("");
   }
 
@@ -1005,8 +1005,8 @@ export default function CreateWorkspace() {
       if (j.url) {
         const tag = action === "cutout" ? "cutout" : "relit";
         appendCardOf(shot.id, { id: `${shot.id}-${tag}-${Math.random().toString(36).slice(2, 6)}`, angle: `${shot.angle} · ${tag}`, prompt: "", url: j.url, aspect: shot.aspect });
-      } else { say("assistant", j.error || `${action} failed.`); }
-    } catch (e) { say("assistant", `${action} hit an error: ${(e as Error).message}`); }
+      } else { say("assistant", "Hmm — that one didn’t land the way I want. Give it another go and I’ll get it right."); }
+    } catch (e) { say("assistant", "Hmm — that one didn’t land the way I want. Give it another go and I’ll get it right."); }
     setBusy(false); setStatus(""); refreshMeals();
   }
 
@@ -1015,7 +1015,7 @@ export default function CreateWorkspace() {
     try {
       const r = await fetch("/api/upscale", { method: "POST", headers: { "content-type": "application/json" }, body: JSON.stringify({ url: shot.url, aspect: shot.aspect, account: activeAccount().email ?? undefined }) });
       const j = await r.json();
-      if (r.status === 402) say("assistant", j.error || "Out of Meals — top up on the pricing page.");
+      if (r.status === 402) say("assistant", "You’re out of Meals for now — top up whenever you like and I’ll get straight back to it.");
       patchShot(shot.id, { url: j.url || shot.url, hires: Boolean(j.url), pending: false });
     } catch {
       patchShot(shot.id, { pending: false });
@@ -2008,7 +2008,7 @@ function ShotCard({ s, type, enhanceOn, copy, brandFonts, overlayFonts, onSave, 
             {s.decision === "hero" && !s.pending && <span className="absolute right-2 top-2 rounded-full bg-ink px-2 py-0.5 text-[10px] text-canvas">Hero</span>}
             {s.decision === "keep" && !s.pending && <span className="absolute right-2 top-2 h-2 w-2 rounded-full bg-ink" title="Kept" />}
             {s.decision === "reject" && !s.pending && <span className="absolute left-2 bottom-2 rounded-full bg-ink/70 px-2 py-0.5 text-[10px] text-canvas">rejected</span>}
-            {s.drift && !s.pending && <span title={(s.driftReasons ?? []).join("; ") || "This edit may have drifted off-brand"} className="absolute right-2 bottom-2 rounded-full bg-ink/70 px-2 py-0.5 text-[10px] text-canvas">check brand</span>}
+            {s.drift && !s.pending && <span title="Give this one a quick look before you use it" className="absolute right-2 bottom-2 rounded-full bg-ink/70 px-2 py-0.5 text-[10px] text-canvas">take a look</span>}
           </>
         ) : s.failed ? (
           <button onClick={() => onReshoot(s)} className="flex h-full w-full flex-col items-center justify-center gap-1.5 text-muted transition-colors hover:text-ink"><RefreshCw size={18} /><span className="text-xs">failed · retry</span></button>
