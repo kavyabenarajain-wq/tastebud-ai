@@ -27,6 +27,16 @@ The human-realism bar, in detail:
 
 Anything that drifts into uncanny is rejected and regenerated. See the checklist at the end.
 
+### Camera-first prompting (the single biggest realism lever)
+
+Describe **how the frame was photographed before you describe the subject**. AI defaults to a flat, plastic, evenly-lit render; naming the capture forces a photograph.
+
+- **Hardware**: name a real body + lens matched to the frame — Canon EOS R5 / Sony A7 IV with an **85mm f/1.4** for beauty and three-quarter portraits, a **35–50mm** prime for full-length, an **iPhone 16 Pro** for a candid lifestyle moment. Shoot **wide open (≈f/1.8–f/2.8)** for a genuinely shallow depth of field — subject tack-sharp, background softly gone.
+- **Colour & contrast — vivid, bright, editorial**: grade like a punchy modern editorial cover, **not** a flat, muted, hazy scan. Rich, deep, true blacks and a full tonal range; clean, luminous, well-exposed highlights; vibrant, saturated, true-to-life colour; crisp micro-contrast so the frame is bright and reads three-dimensional and pops. Keep fine organic grain and genuinely real skin (pores, texture, subsurface warmth) — vivid means **richly graded and contrasty, never** plastic, waxy, over-smoothed, HDR-haloed, blown-out or orange/sunburnt. Flat, grey, washed-out output is the #1 "looks AI" tell; over-saturated orange skin is the #2 — land between them.
+- **Light as a real environment**: "bright soft window light", "low golden-hour sun", "a strong soft source in a real room" — motivated, physical and **plentiful**, well-exposed with confident contrast and shape; never "realistic lighting", never flat, even, sourceless, murky or underexposed light.
+- **Natural imperfection**: real life is perfectly imperfect. Flyaway hairs, visible pores and skin texture, faint smile/expression lines, a relaxed unposed posture, a candid in-between-moments expression, slight asymmetry. These tells are what separate a photo from a render.
+- **Upscale keepers**: finish true-to-life texture by upscaling the final to 4K so skin, fabric and hair sharpen without going plastic.
+
 ---
 
 ## Step 0 — Inherit the Brand Profile
@@ -57,9 +67,10 @@ The client picks an existing model. Reproduce that exact person — same face, s
 **This is a faithfulness task, not a beauty task.** When a client uploads a reference of their own model:
 
 - Reproduce **that person**: their features, face shape, skin tone, hair, and body, kept true to the reference.
-- **Do not beautify the identity away.** Do not slim them, lighten them, change their features, or swap them for a more conventional face. The point is *their* model, recognisably.
+- **Preserve every real flaw, visibly — this is what makes it truly them.** Read the reference forensically and reproduce every distinguishing mark and imperfection, clearly visible: a small cut, graze or healing scab, scars, bruises, blemishes and spots, moles, birthmarks, freckles (in their real pattern), enlarged pores and skin texture, fine lines, under-eye shadows, uneven skin tone or redness, stray hairs, and natural left–right asymmetry. **If the reference has a cut on the face, the render shows that same cut, in the same place.** (The engine reads this automatically into a likeness + flaw manifest and enforces it on every frame.)
+- **Do not beautify the identity away.** Do not heal, smooth, retouch, even-out, airbrush, slim, lighten, de-age, symmetrise, change their features, or swap them for a more conventional or flawless face — removing a real flaw makes them a different person. The point is *their* model, recognisably, flaws and all.
 - Place the product on them at correct scale, with correct contact, occlusion, and shadow, so it reads as genuinely worn, held, or applied.
-- Match the new lighting and grade to the brand while keeping the likeness intact.
+- Match the new lighting and grade to the brand while keeping the likeness — and every flaw — intact.
 
 For B and C especially, use the **Higgsfield Soul / reference-element** path to hold identity stable shot to shot. Build the reference once, then drive every frame from it.
 
@@ -118,25 +129,24 @@ Keep the same person, wardrobe, light, and grade across the set so it reads as o
 ## Posing, wardrobe, styling, set
 
 - **Posing**: natural weight, relaxed hands, a believable gaze and expression. Avoid stiff, symmetrical, mannequin poses. Micro-asymmetry in stance reads human.
-- **Wardrobe**: from the brand vocabulary, fitted and styled with intent, real fabric behaviour (drape, fold, sheen). It should never compete with the product.
+- **Wardrobe**: sampled from the brand's OWN world — the colours, fabrics and textures that already appear in the brand's product photos and feed, not an LLM-invented palette. Fitted and styled with intent, real fabric behaviour (drape, fold, sheen), and never competing with the product.
 - **Set and grade**: brand light language, brand palette in the environment, a colour grade consistent across the set.
-- **Casting**: serve the brand's audience and register honestly and respectfully. Represent real, varied people well; keep features true and dignified, never caricatured.
+- **Casting**: cast the brand's ACTUAL customer, not a high-fashion agency default. Anchor age, body and register to who really buys this brand; serve its audience honestly and respectfully, represent real, varied people well, keep features true, dignified and specific — never caricatured, never a flawless symmetrical composite.
 
 ---
 
 ## Constructing the generation prompt
 
-Write it as a photographer's brief, in order:
+Write it as a photographer's brief, and lead with the capture — this skill's own rule is that the frame is described *before* the subject:
 
-1. The model: specific identity (from builder attributes, the saved model, or the reference), with the realism anchors — real skin texture, catchlit eyes, natural hands.
-2. Product interaction: exactly how it is worn/held/applied, at true scale.
-3. Pose, expression, and framing for this specific shot.
-4. Wardrobe and styling (from brand).
-5. Set and environment (from brand).
-6. Light setup: direction, quality, key, how it falls on skin.
-7. Lens and depth-of-field feel.
-8. Brand-correctness and grade cues (palette, mood, negative space).
-9. Realism anchors: photographic, real skin, natural hands, legible product label.
+1. **Capture first**: name the body + lens matched to the frame (e.g. Sony A7 IV, 85mm f/1.4, shot wide open ~f/1.8), a film stock (Kodak Portra 400 / Fuji Pro 400H), and the motivated light source and its quality (soft overcast window, low golden-hour sun in a real room). No flat, sourceless light.
+2. **The model**: specific identity (builder attributes / saved model / reference), with the realism anchors baked in — real skin texture and pores, catchlit living eyes, natural hands, and the ONE honest imperfection on record (freckles, gap tooth, laugh lines).
+3. **Product interaction**: exactly how it is worn/held/applied, at true scale, with real contact, occlusion and shadow.
+4. **Pose, expression, and framing** for this specific shot — relaxed, candid, micro-asymmetric.
+5. **Wardrobe and styling** (from the brand's own palette and textures).
+6. **Set and environment** (from brand).
+7. **Depth-of-field feel and grade** (palette, mood, reserved negative space).
+8. Close with the explicit **negative list**.
 
 Carry an explicit **negative list**: no extra or missing fingers, no warped hands, no fused limbs, no waxy/plastic skin, no dead or mismatched eyes, no uniform tile teeth, no helmet hair, no warped product label, no floating product, no uncanny symmetry.
 
@@ -152,9 +162,10 @@ Check every frame. Fail on any line means regenerate.
 - **Face**: real skin texture, no plastic smoothing; alive, correctly placed, matched eyes; natural teeth; believable hair and hairline; slight, human asymmetry.
 - **Anatomy**: correct proportion, no extra/missing/fused parts, no impossible bends.
 - **Likeness** (reference/saved model): the person is recognisably themselves, features true, identity not beautified away.
+- **Flaws preserved** (reference model): the reference's real marks — pores, freckles, moles, scars, a cut or blemish, fine lines, under-eye texture, asymmetry — are all present and visible. A smoothed, airbrushed, evened-out or idealised version of them is a FAIL — it's a different person.
 - **Identity consistency**: the same person across the whole set.
 - **Product**: true scale, real grip, correct contact and occlusion, legible undistorted label, identical product every frame.
-- **Light and grade**: one coherent logic across the set; light falls on skin believably.
+- **Light and grade**: one coherent logic across the set; light falls on skin believably; **vivid, bright and well-graded — rich contrast, deep blacks, luminous highlights — never flat, hazy, muddy or washed-out** (and never over-saturated/orange skin).
 - **Brand-lock**: styling, set, palette, mood, and negative space match the Brand Profile; nothing from the do-not list.
 - **Set coherence**: the frames read as one shoot.
 

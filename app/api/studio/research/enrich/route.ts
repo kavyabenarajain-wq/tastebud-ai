@@ -24,8 +24,14 @@ export async function POST(req: NextRequest) {
   const account = await currentAccount();
   try {
     // Prefer the freshest STORED brain (the fast pass just persisted it) so we enrich against the
-    // real research, and never regress it with a stale client copy.
-    const stored = (await getBrain(slugify(brain.name), account).catch(() => null)) ?? brain;
+    // real research. A DB READ ERROR must NOT be mistaken for "brand not found" and silently fall
+    // back to the stale client copy (which we'd then re-save) — bail cleanly on a read failure.
+    let stored: BrandBrain;
+    try {
+      stored = (await getBrain(slugify(brain.name), account)) ?? brain;
+    } catch {
+      return Response.json({ enrichment: empty, intelligence: brain.intelligence ?? {} });
+    }
     const base: BrandBrain = { ...brain, ...stored, research: stored.research ?? brain.research, intelligence: stored.intelligence ?? brain.intelligence };
 
     const enrichment = await enrichIntelligence(base);

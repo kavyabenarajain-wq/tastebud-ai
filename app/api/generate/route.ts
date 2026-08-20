@@ -2,7 +2,7 @@ import type { NextRequest } from "next/server";
 import { readSkill, loadIndustryPlaybook } from "@/lib/skills";
 import { loadBrandProfile } from "@/lib/brand";
 import { artDirect, activeBrain, fallbackPlan, campaignCopy, STANDARD_PRODUCT_ANGLES, DETAIL_SHOTS } from "@/lib/llm";
-import { renderShot, renderModelShot, activeRenderer, qcImage, analyzeProduct, analyzeModelRef, modelManifestText, describeReferenceCampaign, describeBrandLook, renderSpeed, styleTransferEnabled } from "@/lib/image";
+import { renderShot, renderModelShot, activeRenderer, qcImage, qcGroupLikeness, analyzeProduct, analyzeModelRef, modelManifestText, describeReferenceCampaign, describeBrandLook, renderSpeed, styleTransferEnabled } from "@/lib/image";
 import { reformatImage } from "@/lib/reformat";
 import { enlargeInPlace } from "@/lib/finish";
 import { detectCategory, canWear, coerceCategory } from "@/lib/productCategory";
@@ -15,7 +15,7 @@ import { brainToProfile } from "@/lib/onboard";
 import { buildCompliance, complianceToNegatives } from "@/lib/compliance";
 import { CREATIVE_TYPES, FORMATS, carouselDirective, isV2Type, type FormatId } from "@/lib/creativeTypes";
 import { saveCampaign, slugify } from "@/lib/brainStore";
-import { ensureGrants, chargeUpTo, refund, getBalance, recordKill } from "@/lib/store";
+import { ensureGrants, chargeUpTo, chargeRedo, refund, getBalance, recordKill } from "@/lib/store";
 import { currentAccount } from "@/lib/supabase/account";
 import { retrievePreferences } from "@/lib/memory";
 import { recordImage } from "@/lib/store/images"; // per-user gallery record for every delivered shot
@@ -298,6 +298,9 @@ export async function POST(req: NextRequest) {
           // set in this vibe. It then rides the render as a per-shot STYLE LAYER (below). A v2
           // companion never carries a reference. Awaits the shared promise (hidden behind the pre-passes).
           const refDNA = spec ? null : await refDNAPromise;
+          // The reference person's likeness + flaw manifest (single-reference model shoots only),
+          // resolved once and passed to every frame so each render reproduces THEM, flaws visible.
+          const modelManifest = modelManifestText(await modelInspectPromise);
           let plan;
           try {
             plan = await artDirect({ skill, profile, brief, industry, productColors: observed?.colors, productMaterial: observed?.material, forModel: isModel, memory, referenceDNA: refDNA ?? undefined });
@@ -336,12 +339,21 @@ export async function POST(req: NextRequest) {
           // Undelivered shots are refunded in the finally-reconciliation after the pool drains.
           //
           // SATISFACTION REDO — a redo/refine of one already-paid shot rides this same route with
-          // `redo:true` and is FREE: no debit, so also no refund to reconcile (see lib/meals
-          // FREE_REDOS_PER_SHOT). Changing the ENTIRE thing is a normal run and charges as usual.
+          // `redo:true`. The FIRST FREE_REDOS_PER_SHOT redos of a shot are free; beyond that a redo
+          // charges like a normal image (chargeRedo counts prior redos of this shot off the ledger —
+          // no client counter needed). `redoWasFree` is remembered so the finally only refunds a redo
+          // that was actually charged. Changing the ENTIRE thing is a normal run and charges as usual.
           const isRedo = body.redo === true;
-          const paid = isRedo
-            ? { granted: stubs.length, balance: 0 }
-            : await chargeUpTo(account, stubs.length, `shoot:${runKey}:${stamp.toString(36)}`).catch(() => ({ granted: stubs.length, balance: 0 }));
+          let redoWasFree = false;
+          let paid: { granted: number; balance: number };
+          if (isRedo) {
+            const shotKey = heroProduct || `${runKey}:${stamp.toString(36)}`; // the redone shot's url is the key
+            const r = await chargeRedo(account, shotKey).catch(() => ({ free: true, granted: stubs.length, balance: 0 }));
+            redoWasFree = r.free;
+            paid = { granted: r.free ? stubs.length : r.granted, balance: r.balance };
+          } else {
+            paid = await chargeUpTo(account, stubs.length, `shoot:${runKey}:${stamp.toString(36)}`).catch(() => ({ granted: stubs.length, balance: 0 }));
+          }
           if (paid.granted < stubs.length) {
             send({ type: "meals", event: "clamped", wanted: stubs.length, granted: paid.granted, balance: paid.balance });
             imageBudget += stubs.length - paid.granted; // return the unshot budget to later runs
@@ -372,7 +384,11 @@ export async function POST(req: NextRequest) {
           // reference too (not only when there's none): the reference owns composition/set/light, the
           // brand owns grade/palette/styling — which is what "my product in this reference, in MY
           // brand style" actually means. renderShot scopes the block to grade/styling on a restage.
-          const brandLook = (!isModel && !spec) ? await brandLookPromise : null;
+          // Now applies to MODEL shoots too (not only product) — the brand's photographic signature
+          // should reach on-model pixels as well; only a v2-campaign companion is excluded (its look
+          // is driven by the brand world + copy). renderModelShot scopes the block to set/light/grade/
+          // styling and never copies the brand's product or faces.
+          const brandLook = !spec ? await brandLookPromise : null;
           if (referencesAreBrand && isPrimary) send({ type: "status", phase: "brand-look", matched: true });
 
           // Copy (headline / CTA / caption), written in parallel with the renders and streamed as
@@ -393,10 +409,6 @@ export async function POST(req: NextRequest) {
           // Best-effort copy-placement jobs run OFF the render lane (they only produce an overlay
           // hint) so they never hold a pool worker or delay the next shot; awaited once before save.
           const placementJobs: Promise<void>[] = [];
-          // The always-on 4K enlarge also runs OFF the critical path — the founder sees the rendered
-          // plate the instant it's ready, and enlargeInPlace overwrites the SAME url in place (stable
-          // url, no second render), so the grid upgrades to ~4K underneath. Awaited before save.
-          const enlargeJobs: Promise<void>[] = [];
 
           // Render one shot: regenerate once, plus once more if the QC vision pass rejects it.
           const renderOne = async (idx: number): Promise<void> => {
@@ -427,14 +439,20 @@ export async function POST(req: NextRequest) {
             let lastReasons: string[] = [];
             let categoryDrift = false; // last failing verdict was specifically an object-class miss
             let lastErr = "render failed";
+            // A restage/campaign-vibe shot deliberately renders at LOW fidelity so the camera can move;
+            // escalating it would re-clone the reference. Every OTHER shot (plain hero, macro, on-model)
+            // that fails QC gets its RESHOOT bumped to HIGH input_fidelity — so the retry can actually
+            // fix product/label/likeness drift instead of re-rolling at the same fidelity that caused it.
+            const isRestageShot = !isModel && references.length > 0 && !referencesAreBrand && !refDNA;
+            const retryFidelity = (attempt: number): "high" | undefined => (attempt > 0 && !isRestageShot ? "high" : undefined);
             for (let attempt = 0; attempt < MAX_ATTEMPTS && !url; attempt++) {
               try {
                 const candidate = isModel
-                  ? await renderModelShot({ id: stub.id, prompt: shot.prompt, negatives: shot.negatives, extraNegatives, modelRefs, people: modelPeople, groupCount: isGroup ? groupModels.length : undefined, products, productIdentity, productManifest, category: lockCategory, references, referencesAreBrand, refDNA: refDNA ?? undefined, wearable: productWearable, aspect: stub.aspect, imageSize: "2K", finish })
+                  ? await renderModelShot({ id: stub.id, prompt: shot.prompt, negatives: shot.negatives, extraNegatives, modelRefs, modelManifest: modelManifest ?? undefined, people: modelPeople, groupCount: isGroup ? groupModels.length : undefined, products, productIdentity, productManifest, category: lockCategory, references, referencesAreBrand, refDNA: refDNA ?? undefined, brandLook: brandLook ?? undefined, wearable: productWearable, aspect: stub.aspect, imageSize: "2K", inputFidelity: retryFidelity(attempt), finish })
                   // cleanPlate: this creative's headline/CTA are overlaid later as real typography,
                   // so the RENDER must carry no text of its own — otherwise the model bakes the
                   // headline into the set and the overlay prints it again on top.
-                  : await renderShot({ id: stub.id, prompt: shot.prompt, angle: shot.angle, negatives: shot.negatives, extraNegatives, products, references, referencesAreBrand, refDNA: refDNA ?? undefined, productIdentity, productManifest, category: lockCategory, brandLook: brandLook ?? undefined, noProduct, cleanPlate: !!spec?.needsCopy, appetite: appetiteCategory, aspect: stub.aspect, imageSize: "2K", finish });
+                  : await renderShot({ id: stub.id, prompt: shot.prompt, angle: shot.angle, negatives: shot.negatives, extraNegatives, products, references, referencesAreBrand, refDNA: refDNA ?? undefined, productIdentity, productManifest, category: lockCategory, brandLook: brandLook ?? undefined, noProduct, cleanPlate: !!spec?.needsCopy, appetite: appetiteCategory, aspect: stub.aspect, imageSize: "2K", inputFidelity: retryFidelity(attempt), finish });
                 fallback = candidate;
                 if (gateFidelity) {
                   // Restage QC is LENIENT (allows re-forming). Brand-OWN photos and a campaign-vibe
@@ -446,10 +464,14 @@ export async function POST(req: NextRequest) {
                   // per-person likeness is enforced by the prompt lock + negatives instead.
                   const modelRef = isModel && !isGroup ? modelRefs.filter(Boolean)[0] : undefined;
                   const verdict = await qcImage({ url: candidate, checklist: isModel ? MODEL_CHECKLIST : [], brand: profile.name, productRef: heroRef, modelRef, restage, manifest: inspection?.elements, cleanPlate: !!spec?.needsCopy, category: lockCategory });
-                  if (!verdict.pass) {
-                    lastReasons = verdict.reasons;
+                  // A group frame skips the single-identity gate above — so run a dedicated per-person
+                  // roster check (all N references vs the group shot) to catch a blended/duplicated/
+                  // missing/mismatched face, which nothing else verifies. Fail-open, best-effort.
+                  const groupVerdict = isGroup && modelPeople ? await qcGroupLikeness({ url: candidate, people: modelPeople, brand: profile.name }) : { pass: true, reasons: [] as string[] };
+                  if (!verdict.pass || !groupVerdict.pass) {
+                    lastReasons = [...verdict.reasons, ...groupVerdict.reasons];
                     categoryDrift = verdict.categoryOk === false; // remember whether THIS miss was a category miss
-                    send({ type: "qc", id: stub.id, reasons: verdict.reasons, attempt: attempt + 1, of: MAX_ATTEMPTS });
+                    send({ type: "qc", id: stub.id, reasons: lastReasons, attempt: attempt + 1, of: MAX_ATTEMPTS });
                     continue;
                   }
                 }
@@ -487,12 +509,15 @@ export async function POST(req: NextRequest) {
               const finalUrl = !isModel && heroRef && productCompositeEnabled()
                 ? await compositeRealProduct({ renderUrl: base, productSrc: heroRef }).catch(() => base)
                 : base;
-              // Deliver the plate NOW — the founder sees the shot the instant it renders, not after
-              // the enlarge. The always-on free 4K enlarge (lanczos + re-sharpen, in place, same url,
-              // no second render) is detached and awaited before save, so the download/thumbnail
-              // still land at ~4K. Real super-resolution stays the opt-in keeper upgrade (/api/upscale).
+              // Always-on free 4K: enlarge + re-sharpen the accepted plate IN PLACE (same url, no
+              // second render) BEFORE the url is exposed to the client — so the very first fetch, the
+              // grid thumbnail and the keeper download all serve the ~4K bytes. (Enlarging AFTER the
+              // send lets the browser/CDN cache the 2K first-fetch under Blob's immutable cache-control,
+              // masking the in-place overwrite — the download would then serve stale 2K.) The lanczos
+              // pass is deterministic + local (~a few seconds, parallel across the pool). Real
+              // super-resolution stays the opt-in keeper upgrade (/api/upscale).
+              await enlargeInPlace(finalUrl, undefined, finish?.sharpen);
               send({ type: "shot", run: runKey, shot: { id: stub.id, angle: shot.angle, prompt: shot.prompt, negatives: shot.negatives, compliance, url: finalUrl, aspect: stub.aspect, format: stub.format, seq: stub.seq, groupId: stub.groupId, drift: drift || undefined, driftReasons: drift ? lastReasons : undefined, brandGeneric: noProduct || undefined } });
-              enlargeJobs.push(enlargeInPlace(finalUrl, undefined, finish?.sharpen).catch(() => {}));
               const output: CampaignOutput = { id: stub.id, url: finalUrl, format: stub.format, aspect: stub.aspect, angle: shot.angle, seq: stub.seq, at: new Date().toISOString() };
               outputs.push(output);
               // Persist this delivered image under the signed-in account — the durable "my images"
@@ -530,9 +555,8 @@ export async function POST(req: NextRequest) {
           let cursor = 0;
           const worker = async () => { while (cursor < allIdx.length) { await renderOne(allIdx[cursor++]); } };
           await Promise.all(Array.from({ length: Math.min(CONCURRENCY, allIdx.length) }, worker));
-          // Let the detached placement + 4K-enlarge passes finish so the persisted outputs carry
-          // their hints and land at full resolution before the run saves / closes the stream.
-          await Promise.all([...placementJobs, ...enlargeJobs]);
+          // Let the detached placement passes finish so the persisted outputs carry their hints.
+          await Promise.all(placementJobs);
           if (spec && slug && campaignId && outputs.length) {
             const copy = await copyPromise;
             const at = new Date().toISOString();
@@ -542,9 +566,12 @@ export async function POST(req: NextRequest) {
             // MEALS reconciliation — refund every paid-for image that was never delivered
             // (shotError, thrown worker, client abort closing the stream). You pay per plated
             // dish, never per attempt in the kitchen. A free redo charged nothing, so there is
-            // nothing to refund — skip it, or we'd CREDIT Meals that were never spent.
+            // nothing to refund — skip it, or we'd CREDIT Meals that were never spent. A PAID redo
+            // (beyond the free allowance) IS charged, so it reconciles like a normal run; only a FREE
+            // redo is skipped.
             const undelivered = paid.granted - outputs.length;
-            if (!isRedo && undelivered > 0) await refund(account, undelivered, `refund:shoot:${runKey}`).catch(() => {});
+            const chargedRun = !isRedo || !redoWasFree;
+            if (chargedRun && undelivered > 0) await refund(account, undelivered, `refund:shoot:${runKey}`).catch(() => {});
           }
         };
 

@@ -1,5 +1,5 @@
 import { one, run, nowISO, genId, DEFAULT_ACCOUNT } from "./db";
-import { FREE_TRIAL_IMAGES, FREE_TRIAL_DAYS, PLANS, MEAL_COSTS, type PlanId } from "../meals";
+import { FREE_TRIAL_IMAGES, FREE_TRIAL_DAYS, PLANS, MEAL_COSTS, isRedoFree, type PlanId } from "../meals";
 
 /**
  * Meals — the usage ledger (né credits). 1 Meal = 1 delivered image.
@@ -120,6 +120,40 @@ export async function chargeUpTo(account: string, want: number, reason: string):
   const granted = enforcedFor(account) ? Math.max(0, Math.min(want, cur)) : want;
   if (granted > 0) await insertLedger(account, -granted, reason);
   return { granted, balance: await currentBalance(account) };
+}
+
+/** Short deterministic hash of a shot key (e.g. its url) — safe for the ledger `reason` LIKE match. */
+function redoKeyHash(s: string): string {
+  let h = 5381;
+  for (let i = 0; i < s.length; i++) h = ((h << 5) + h + s.charCodeAt(i)) >>> 0; // djb2
+  return h.toString(36);
+}
+
+/**
+ * SATISFACTION REDO charge — the fix for the uncapped free-redo money leak. Each delivered shot
+ * gets FREE_REDOS_PER_SHOT free re-shoots; beyond that a redo charges like a normal image. The redo
+ * index is counted from prior redo markers on the ledger keyed by the shot (no client redo-counter
+ * needed). A FREE redo writes a zero-delta marker (deterministic id → idempotent) so the NEXT redo
+ * counts correctly. HARD INVARIANT: on ANY error this returns free — it must NEVER overcharge a
+ * user; the worst case degrades to the old "every redo free" behaviour.
+ */
+export async function chargeRedo(account: string, shotKey: string): Promise<{ free: boolean; granted: number; balance: number }> {
+  try {
+    const key = redoKeyHash(shotKey || "shot");
+    const prior = await one<{ n: number }>(
+      "SELECT COUNT(*) AS n FROM credit_ledger WHERE account_id = ? AND reason LIKE ?",
+      [account, `redo:${key}:%`],
+    );
+    const idx = Number(prior?.n ?? 0); // 0-based index of THIS redo
+    if (isRedoFree(idx)) {
+      await insertLedger(account, 0, `redo:${key}:free:${idx}`, `led_redo_${account}_${key}_${idx}`);
+      return { free: true, granted: 1, balance: await currentBalance(account) };
+    }
+    const res = await chargeUpTo(account, 1, `redo:${key}:paid:${idx}`);
+    return { free: false, granted: res.granted, balance: res.balance };
+  } catch {
+    return { free: true, granted: 1, balance: 0 }; // never overcharge on uncertainty
+  }
 }
 
 /** Net Meals spent on a UTC day: debits minus refunds, grants/expiries excluded. */

@@ -167,7 +167,8 @@ function describeModel(m: NonNullable<ResolvedBrief["model"]>): string {
   if (m.source === "reference") {
     return (
       "THE MODEL IS PROVIDED AS A LIKENESS REFERENCE PHOTO (attached). Reproduce THAT exact person faithfully — their face shape, features, skin tone, hair and body kept true to the reference. " +
-      "Do NOT beautify the identity away: do not slim them, lighten their skin, sharpen their features, or swap them for a more conventional face. It must be recognisably THEM, only re-lit and re-styled for this brand. Hold the identity stable across every frame of the set. " +
+      "PRESERVE EVERY REAL FLAW, VISIBLY — keep every mark exactly as it is in the reference: any small cut, scar, healing scab, bruise, blemish or spot, mole, birthmark, freckles, enlarged pores and real skin texture, fine lines, under-eye shadows, uneven skin tone, stray hairs and natural asymmetry. If the reference shows a cut on the face, the result shows that same cut, clearly. " +
+      "Do NOT beautify the identity away: do not heal, smooth, retouch, even-out, airbrush, slim, lighten, sharpen their features, or swap them for a more conventional or flawless face — removing a real flaw makes them a different person. It must be recognisably THEM, only re-lit and re-styled for this brand. Hold the identity stable across every frame of the set. " +
       "The reference is for the PERSON ONLY — ignore whatever they are wearing or holding in it and any branding visible; the product (if any) comes solely from the separate product image, reproduced exactly."
     );
   }

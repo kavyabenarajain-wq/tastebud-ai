@@ -1,5 +1,6 @@
 import { NextRequest } from "next/server";
 import { createDiscoveryBrain } from "@/lib/brainStore";
+import { googleCalendarConfigured, createBookingEvent } from "@/lib/googleCalendar";
 
 export const runtime = "nodejs";
 
@@ -124,22 +125,53 @@ export async function POST(req: NextRequest) {
     await createDiscoveryBrain(bk.brand?.trim() || bk.name.trim(), bk.email.trim());
   } catch {}
 
-  // 2) Notify.
-  const when = formatWhen(bk);
-  const owner = await sendEmail(NOTIFY_TO, `New discovery call — ${bk.brand || bk.name} · ${when}`, ownerHtml(bk, when), bk.email);
-  let guest: { sent: boolean; reason?: string } = { sent: false };
-  try {
-    const brandSub = (bk.brand || bk.name || "your brand").toLowerCase();
-    guest = await sendEmail(bk.email, `tastebud × ${brandSub}`, guestHtml(bk, when));
-  } catch {}
+  // 2) Notify. PRIMARY: create a real Google Calendar event → Google mails the guest a NATIVE
+  //    Yes/Maybe/No invite + a Meet link, and the call lands on the owner's own calendar. FALLBACK:
+  //    when Calendar is unconfigured or the insert fails, fall back to the Resend owner+guest emails
+  //    so a booking is never silent.
+  const calendar = googleCalendarConfigured() ? await createBookingEvent(bk) : null;
+  if (googleCalendarConfigured() && !calendar) console.error("[book] Google Calendar event failed — falling back to Resend");
 
-  if (!owner.sent && "reason" in owner) console.error(`[book] owner email failed: ${owner.reason}`);
+  let owner: { sent: boolean; reason?: string } = { sent: false };
+  let guest: { sent: boolean; reason?: string } = { sent: false };
+  if (!calendar) {
+    const when = formatWhen(bk);
+    owner = await sendEmail(NOTIFY_TO, `New discovery call — ${bk.brand || bk.name} · ${when}`, ownerHtml(bk, when), bk.email);
+    try {
+      const brandSub = (bk.brand || bk.name || "your brand").toLowerCase();
+      guest = await sendEmail(bk.email, `tastebud × ${brandSub}`, guestHtml(bk, when));
+    } catch {}
+    if (!owner.sent && owner.reason) console.error(`[book] owner email failed: ${owner.reason}`);
+    if (!guest.sent && guest.reason) console.error(`[book] guest email failed: ${guest.reason}`);
+  }
+
+  // Notes apply ONLY to the Resend fallback path (when Calendar ran, the guest is already invited).
+  // A guest confirmation can't deliver while the Resend sender is the SHARED TEST address
+  // (onboarding@resend.dev) — it only reaches the account owner. Surface that actionably.
+  const usingTestSender = /onboarding@resend\.dev/i.test(FROM);
+  const guestBlockedByTestSender = !calendar && RESEND_API_KEY !== "" && !guest.sent && usingTestSender;
+  const note = calendar
+    ? undefined
+    : !RESEND_API_KEY
+    ? "Saved, but nothing notified — set the GOOGLE_CALENDAR_* vars (calendar invites) or RESEND_API_KEY (fallback emails)."
+    : guestBlockedByTestSender
+    ? "Fell back to Resend and notified the owner, but the GUEST confirmation was NOT sent: Resend's test sender only reaches your own inbox. Finish the Google Calendar setup (GOOGLE_CALENDAR_*) so guests get a native invite, or verify a Resend domain + set BOOKING_FROM_EMAIL."
+    : undefined;
+
+  const debug =
+    [
+      !owner.sent && owner.reason ? `owner: ${String(owner.reason).slice(0, 300)}` : "",
+      !guest.sent && guest.reason ? `guest: ${String(guest.reason).slice(0, 300)}` : "",
+    ]
+      .filter(Boolean)
+      .join(" · ") || undefined;
 
   return Response.json({
     ok: true,
+    calendar: calendar ? { id: calendar.id, htmlLink: calendar.htmlLink, meetLink: calendar.meetLink } : null,
     emailed: owner.sent,
     guestEmailed: guest.sent,
-    note: RESEND_API_KEY ? undefined : "Saved. No email sent — set RESEND_API_KEY to notify " + NOTIFY_TO + ".",
-    debug: !owner.sent && "reason" in owner ? String(owner.reason).slice(0, 400) : undefined,
+    note,
+    debug,
   });
 }

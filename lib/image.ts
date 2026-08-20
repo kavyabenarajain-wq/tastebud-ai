@@ -179,20 +179,24 @@ async function toUploadable(ref: string) {
 // rate limit instead of running in parallel. That is the single biggest reason a 6-shot set takes
 // minutes rather than ~one render's worth of wall-clock. RENDER_SPEED picks the trade for the
 // interactive grid; a keeper can always be re-rendered at max fidelity via /api/upscale.
-//   fast     → low / low       — draft grade, fastest, fits the whole set in parallel
-//   balanced → medium / medium — the snappy-grid default the pipeline was designed around
-//   quality  → high / high     — maximum product fidelity (the old always-on behaviour)
+// gpt-image's `input_fidelity` is BINARY — the API accepts only "high" or "low" (a 400 on
+// anything else); "high" is the 22× tax. So the speed axis is fidelity high↔low, and `quality`
+// (low/medium/high) is the second, independent grade knob:
+//   fast     → low quality  / low fidelity   — draft grade, fastest, whole set truly parallel
+//   balanced → medium quality / low fidelity  — DEFAULT: parallel-fast render, medium detail;
+//                                               product drift is caught by the QC reshoot (2 attempts)
+//   quality  → high quality / high fidelity   — maximum product fidelity (the old always-on behaviour)
 // A per-call opts.inputFidelity (model-likeness forces "high", restage/rotation forces "low") and
 // the explicit OPENAI_IMAGE_QUALITY / OPENAI_INPUT_FIDELITY env vars still override the profile.
 export function renderSpeed(): "fast" | "balanced" | "quality" {
   const v = (process.env.RENDER_SPEED ?? "balanced").toLowerCase();
   return v === "fast" || v === "quality" ? v : "balanced";
 }
-function speedProfile(): { quality: "low" | "medium" | "high"; fidelity: string } {
+function speedProfile(): { quality: "low" | "medium" | "high"; fidelity: "high" | "low" } {
   switch (renderSpeed()) {
     case "fast": return { quality: "low", fidelity: "low" };
     case "quality": return { quality: "high", fidelity: "high" };
-    default: return { quality: "medium", fidelity: "medium" };
+    default: return { quality: "medium", fidelity: "low" };
   }
 }
 
@@ -204,7 +208,10 @@ async function renderImageSDK(client: OpenAI, model: string, id: string, prompt:
   // Quality follows the speed profile (balanced → "medium", the snappy-grid default). An explicit
   // OPENAI_IMAGE_QUALITY still wins, and RENDER_SPEED=quality restores "high" everywhere for the
   // "you can read every single thing" bar on a final hero render.
-  const quality = (process.env.OPENAI_IMAGE_QUALITY ?? prof.quality) as "low" | "medium" | "high" | "auto";
+  // Validate the env override against the values the API accepts (mirrors the fidelity clamp) — an
+  // empty string or a typo like "hd"/"standard" would otherwise 400 every render. Falls to the profile.
+  const qEnv = process.env.OPENAI_IMAGE_QUALITY?.toLowerCase();
+  const quality = (qEnv && ["low", "medium", "high", "auto"].includes(qEnv) ? qEnv : prof.quality) as "low" | "medium" | "high" | "auto";
   const refs = products.filter(Boolean);
   // Edit FROM the attached subject image(s) so the real subject is preserved exactly.
   // input_fidelity:"high" is gpt-image-1's lever to hold that subject TRUE — the EXACT face of a
@@ -216,8 +223,11 @@ async function renderImageSDK(client: OpenAI, model: string, id: string, prompt:
   const isMini = /mini/i.test(model);
   // Per-call override wins: a RESTAGE shot passes "low" so the model rebuilds the reference's scene
   // instead of clinging to the product photo's own background; a model-likeness shot forces "high"
-  // to hold the face true. Falls back to the env, then the speed profile.
-  const inputFidelity = (opts.inputFidelity || process.env.OPENAI_INPUT_FIDELITY || prof.fidelity).toLowerCase();
+  // to hold the face true. Falls back to the env, then the speed profile. CLAMPED to the only two
+  // values the API accepts — anything but "high" (incl. a stray env "medium") becomes "low", so a
+  // bad value can never 400 the whole render.
+  const rawFidelity = (opts.inputFidelity || process.env.OPENAI_INPUT_FIDELITY || prof.fidelity).toLowerCase();
+  const inputFidelity = rawFidelity === "high" ? "high" : "low";
   let d: { b64_json?: string; url?: string } | undefined;
   if (refs.length) {
     const image = await Promise.all(refs.map(toUploadable));
@@ -307,6 +317,35 @@ async function visionJudge(prompt: string, imageSrcs: string[]): Promise<string 
   return null;
 }
 
+/**
+ * GROUP CASTING QC — the fix for "3–4 person shots get ZERO likeness verification". The single-
+ * identity gate in qcImage is skipped for groups (comparing N faces to one reference would false-
+ * fail people 2..N), so a blended, duplicated, missing or mismatched face used to sail through with
+ * nothing but prompt negatives. This runs ONE vision call with every person's reference (in order)
+ * plus the generated group shot, and fails if the roster is wrong. Best-effort / fail-OPEN (a vision
+ * hiccup never drops a good group shot) and retried once, matching qcImage's philosophy.
+ */
+export async function qcGroupLikeness(args: { url: string; people: { name?: string; refs: string[] }[]; brand: string }): Promise<{ pass: boolean; reasons: string[] }> {
+  const people = args.people.map((p) => ({ name: p.name, ref: (p.refs ?? []).filter(Boolean)[0] })).filter((p) => p.ref);
+  if (people.length < 2) return { pass: true, reasons: [] };
+  const n = people.length;
+  const roster = people.map((p, i) => `PERSON ${i + 1}${p.name ? ` (${p.name})` : ""} = IMAGE ${i + 1}`).join("; ");
+  const prompt =
+    `You are a STRICT casting QC reviewer for the brand "${args.brand}". IMAGES 1..${n} are the reference photos of ${n} DISTINCT people: ${roster}. IMAGE ${n + 1} is a generated GROUP photo that must show ALL ${n} of those SAME people together.\n` +
+    `FAIL if: any of the ${n} reference people is MISSING; any face is BLENDED, averaged, duplicated, cloned or swapped between people; the same person appears more than once; there are more or fewer than ${n} people; or any person does not clearly match their own reference (face, and where visible hair, build and skin tone).\n` +
+    `Do NOT penalise a different pose, wardrobe, background, camera angle or lighting. When all ${n} distinct people are clearly present and each matches their reference, pass.\n` +
+    `Return STRICT JSON ONLY: {"pass":true|false,"reasons":["short reason", ...]}`;
+  try {
+    for (let vAttempt = 0; vAttempt < 2; vAttempt++) {
+      const raw = await visionJudge(prompt, [...people.map((p) => p.ref), args.url]);
+      const m = raw?.match(/\{[\s\S]*\}/);
+      if (!m) continue;
+      try { const parsed = JSON.parse(m[0]); return { pass: !!parsed.pass, reasons: Array.isArray(parsed.reasons) ? parsed.reasons : [] }; } catch { /* garbled — retry */ }
+    }
+  } catch { /* fall through to fail-open */ }
+  return { pass: true, reasons: [] };
+}
+
 export async function qcImage(args: { url: string; checklist: string[]; brand: string; productRef?: string; modelRef?: string; restage?: boolean; manifest?: string[]; cleanPlate?: boolean; category?: ProductCategory }): Promise<{ pass: boolean; reasons: string[]; categoryOk?: boolean }> {
   try {
     // Ordered reference images → "IMAGE 1..N"; the GENERATED frame under review is ALWAYS last.
@@ -389,13 +428,21 @@ export async function qcImage(args: { url: string; checklist: string[]; brand: s
         `Fail ONLY if the product looks distorted, fake, warped, melted, mislabelled, or obviously AI-generated. When in doubt, pass.\n` +
         `Return STRICT JSON ONLY: {"pass":true|false,${catField}"reasons":["short reason", ...]}`;
     }
-    const raw = await visionJudge(prompt, [...refSrcs, args.url]);
-    if (!raw) return { pass: true, reasons: [] }; // no vision provider → don't block the shoot
-    const m = raw.match(/\{[\s\S]*\}/);
-    if (!m) return { pass: true, reasons: [] };
-    const parsed = JSON.parse(m[0]);
-    const categoryOk = typeof parsed.categoryOk === "boolean" ? parsed.categoryOk : undefined;
-    return { pass: !!parsed.pass, reasons: Array.isArray(parsed.reasons) ? parsed.reasons : [], categoryOk };
+    // Try the vision judge up to TWICE before failing open. A transient null reply or a garbled,
+    // non-JSON answer (the judge runs at reasoning_effort "low") should NOT silently pass a bad
+    // shot on the first hiccup — retry once. Only when BOTH tries yield nothing usable do we fail
+    // open (an unreachable / persistently-garbled judge must never block a whole shoot).
+    for (let vAttempt = 0; vAttempt < 2; vAttempt++) {
+      const raw = await visionJudge(prompt, [...refSrcs, args.url]);
+      const m = raw?.match(/\{[\s\S]*\}/);
+      if (!m) continue; // null or no JSON object → retry
+      try {
+        const parsed = JSON.parse(m[0]);
+        const categoryOk = typeof parsed.categoryOk === "boolean" ? parsed.categoryOk : undefined;
+        return { pass: !!parsed.pass, reasons: Array.isArray(parsed.reasons) ? parsed.reasons : [], categoryOk };
+      } catch { /* garbled JSON — fall through and retry once */ }
+    }
+    return { pass: true, reasons: [] }; // judge unreachable / garbled on both tries → don't block the shoot
   } catch {
     return { pass: true, reasons: [] };
   }
@@ -936,9 +983,11 @@ export async function renderModelShot(args: {
   referencesAreBrand?: boolean; // true when references are the brand's OWN published photos
   refScene?: string; // words describing a SCENE reference (from describeReferenceScene) — rebuild its SET, keep the person + product (legacy literal-restage)
   refDNA?: ReferenceDNA; // the client reference's reusable campaign VIBE — applied as a per-frame style layer while each frame keeps its own composition
+  brandLook?: string; // how this brand shoots (from describeBrandLook) — applies their photographic signature (set/light/grade/styling) to the on-model frame; never copies their product/face
   wearable?: boolean; // false → the product is NOT clothing (food/drink/furniture/object): suppress wardrobe prose, ban "worn"
   aspect?: string;
   imageSize?: string;
+  inputFidelity?: "high" | "low"; // caller override (e.g. a QC reshoot escalating to "high" to fix likeness/product drift); wins over the internal default
   finish?: FinishGrade; // brand grade for the deterministic finishing pass (defaults to NEUTRAL_GRADE)
 }): Promise<string> {
   // Multi-person: 2+ DISTINCT people, each with their own reference photo(s). Their refs are
@@ -1016,6 +1065,14 @@ export async function renderModelShot(args: {
   // Campaign-vibe style layer: colour the whole frame with the reference's photoshoot signature
   // while keeping the model, product and this frame's own composition. Rides last, above the scene.
   if (args.refDNA && !args.referencesAreBrand) blocks.push(referenceDNABlock(args.refDNA, true));
+  // BRAND PHOTOGRAPHIC WORLD (from describeBrandLook, read off the brand's OWN feed) — the fix for
+  // "the brand's look never reaches MODEL pixels". Apply their real photographic signature (set,
+  // surfaces, light quality & direction, colour grade, palette, styling / prop density, crop) so an
+  // on-model frame belongs in this brand's feed — WITHOUT copying any product, face or text from
+  // their photos (person comes from the likeness ref, product from the product image).
+  if (args.brandLook) blocks.push(
+    `BRAND PHOTOGRAPHIC WORLD — reproduce THIS brand's photographic signature so the shot belongs in their real feed: their backgrounds and surfaces, light quality and direction, colour grade and palette, styling / wardrobe register, prop density, camera feel and crop. Do NOT copy any product, face, person or text from the brand's photos — only their art-direction and taste; the person comes from the likeness reference and the product from the product image:\n${args.brandLook}`
+  );
   const fullPrompt = blocks.join("\n\n");
 
   // Order: model identity first, then product, then style references.
@@ -1024,7 +1081,7 @@ export async function renderModelShot(args: {
   // the proven multi-image renderer, not the single-image Replicate editor.
   // Force input_fidelity HIGH when a likeness reference is in play so the OpenAI/Azure
   // edit path holds the EXACT face true — never let a global speed setting soften it.
-  const inputFidelity = modelRefs.length ? "high" : undefined;
+  const inputFidelity = args.inputFidelity ?? (modelRefs.length ? "high" : undefined);
   // VIVID, skin-safe grade: NEUTRAL per-channel cast (the brand hue can never tint the model's
   // skin) but a real editorial lift in contrast, vibrance, exposure and local-contrast clarity —
   // the fix for the flat, muted, "AI-generated" model look. Env-tunable via MODEL_VIVID_INTENSITY.
@@ -1064,6 +1121,7 @@ export async function renderShot(args: {
   appetite?: boolean; // food/drink product → inject the appetite-appeal freshness directive
   aspect?: string;
   imageSize?: string;
+  inputFidelity?: "high" | "low"; // caller override (e.g. a QC reshoot escalating to "high" to fix product drift); wins over the internal restage/rotation/profile default
   finish?: FinishGrade; // brand grade for the deterministic finishing pass (defaults to NEUTRAL_GRADE)
 }): Promise<string> {
   const products = (args.products ?? []).filter(Boolean);
@@ -1227,10 +1285,15 @@ export async function renderShot(args: {
   const rotationAngle = !!args.angle && /three-quarter|45\s*°|45°|\b45\b|top-down|flat.?lay|overhead|\bside\b|profile|low angle|looking up|high angle|looking down|\bback\b|\brear\b|bottom|\bbase\b|underside/i.test(args.angle);
   // On the OpenAI path, a restage also needs LOW input_fidelity so the model stops cloning
   // the product photo's own background and rebuilds the reference's scene. Both env-tunable.
+  // ORDER MATTERS: a restage or rotation/flat-lay shot MUST stay LOW even when the caller passes a
+  // "high" override — a QC-reshoot escalation forcing high would re-clone the product photo's own
+  // framing and SNAP THE CAMERA BACK to the front view, defeating the whole point of the angle. So
+  // restage/rotation win; only a PLAIN hero/macro/brand-look shot honours args.inputFidelity, then
+  // falls to the RENDER_SPEED profile (balanced/fast → "low", quality → "high").
   const inputFidelity =
     clientRestage ? (process.env.OPENAI_RESTAGE_FIDELITY || "low")
     : rotationAngle ? (process.env.OPENAI_ANGLE_FIDELITY || "low")
-    : undefined; // brand-look refs, hero, macro / detail → renderImageSDK default "high" (identity pixel-true)
+    : (args.inputFidelity ?? undefined);
   return dispatch(args.id, fullPrompt, refs, { aspect: args.aspect, imageSize: args.imageSize, multiSubject, preferGemini, preferReplicate, inputFidelity, finish: args.finish });
 }
 
@@ -1241,12 +1304,20 @@ export async function renderShot(args: {
 // image back, and the model returns it inline as a data URL. Key + model are env-ONLY
 // (OPENROUTER_API_KEY / OPENROUTER_IMAGE_MODEL) so swapping either is a pure .env change —
 // nothing in code moves, and reverting to the original OpenAI path is just IMAGE_PROVIDER.
-async function renderOpenRouter(id: string, prompt: string, refs: string[], opts: { aspect?: string }): Promise<string> {
+async function renderOpenRouter(id: string, prompt: string, refs: string[], opts: { aspect?: string; inputFidelity?: string }): Promise<string> {
   const key = process.env.OPENROUTER_API_KEY;
   if (!key) throw new Error("OPENROUTER_API_KEY is not set");
   const model = process.env.OPENROUTER_IMAGE_MODEL ?? "openai/gpt-5-image";
   const imgs = await Promise.all(refs.filter(Boolean).map(toInline));
-  const text = opts.aspect ? `${prompt}\n\nRender the final image at a ${opts.aspect} aspect ratio.` : prompt;
+  // OpenRouter's chat-completions image path has NO input_fidelity lever, so when this render
+  // needed HIGH fidelity (a product/face lock that would be set on the native OpenAI path) we
+  // compensate in the PROMPT — an explicit pixel-exact reproduction clause — so a failover onto
+  // this host doesn't silently drop the subject lock. (opts.inputFidelity is "high" only when the
+  // caller/profile asked for it; "low"/undefined shots are unaffected.)
+  const fidelityClause = opts.inputFidelity === "high" && refs.filter(Boolean).length
+    ? "\n\nCRITICAL — reproduce the attached subject(s) EXACTLY, pixel-for-pixel: the same shape, proportions, colours, materials and EVERY word of on-pack or on-garment text, and (for a person) the exact face, features and skin. Do NOT reinterpret, restyle, beautify or relabel the subject; only the scene around it may change."
+    : "";
+  const text = (opts.aspect ? `${prompt}\n\nRender the final image at a ${opts.aspect} aspect ratio.` : prompt) + fidelityClause;
   const content: unknown[] = [
     { type: "text", text },
     ...imgs.map((im) => ({ type: "image_url", image_url: { url: `data:${im.mimeType};base64,${im.data}` } })),
@@ -1322,7 +1393,7 @@ function renderWith(r: Renderer, id: string, prompt: string, refs: string[], opt
     case "replicate": return renderReplicate(id, prompt, refs, { aspect: opts.aspect });
     case "azure-image": return renderAzureImage(id, prompt, refs, { aspect: opts.aspect, inputFidelity: opts.inputFidelity });
     case "openai": return renderOpenAI(id, prompt, refs, { aspect: opts.aspect, inputFidelity: opts.inputFidelity });
-    case "openrouter": return renderOpenRouter(id, prompt, refs, { aspect: opts.aspect });
+    case "openrouter": return renderOpenRouter(id, prompt, refs, { aspect: opts.aspect, inputFidelity: opts.inputFidelity });
     case "gemini": return renderGemini(id, prompt, refs, opts);
     default: return Promise.resolve(mockPlaceholder(id, prompt.slice(0, 40)));
   }

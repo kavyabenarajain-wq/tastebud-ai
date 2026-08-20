@@ -746,7 +746,7 @@ export default function CreateWorkspace() {
     if (!text) {
       if (type === "model") { startModelShoot(); return; }
       if (!products.length) { say("assistant", "Add your product photo first — use the upload button."); fileRef.current?.click(); return; }
-      say("assistant", references.length ? "Generating — matching your reference." : "Generating your shoot."); generate({}); return;
+      say("assistant", references.length ? "Reading your reference — I'll shoot a full set in that campaign's vibe, in your brand." : "Generating your shoot."); generate({}); return;
     }
     setInput(""); createTurn(text);
   }

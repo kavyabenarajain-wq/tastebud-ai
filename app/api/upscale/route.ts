@@ -28,7 +28,15 @@ export async function POST(req: NextRequest) {
     let out = url;
     let via = "native";
     if (enhanceEnabled()) {
-      out = await upscale({ src: url, scale: 4, faceEnhance: !!face });
+      // FACE-ENHANCE IS OFF BY DEFAULT. GFPGAN/CodeFormer-style face restoration RE-SYNTHESISES the
+      // face and smooths away exactly the real flaws (cuts, scars, blemishes, pores, asymmetry) we
+      // fight to preserve — it would beautify a reference person into a cleaner stranger. Only honour
+      // the client's `face` request when a deployment has explicitly opted in via UPSCALE_FACE_ENHANCE=1
+      // (e.g. for a genuinely broken AI face); otherwise the identity-safe SUPIR/Real-ESRGAN texture
+      // upscale runs without it. The env-selectable REPLICATE_UPSCALE_MODEL (SUPIR / crystal-upscaler)
+      // adds real skin texture at high fidelity without inventing a new face.
+      const allowFaceEnhance = process.env.UPSCALE_FACE_ENHANCE === "1";
+      out = await upscale({ src: url, scale: 4, faceEnhance: !!face && allowFaceEnhance });
       via = "replicate";
     } else if (process.env.GEMINI_API_KEY) {
       const id = `${Date.now()}-up-${Math.random().toString(36).slice(2, 7)}`;

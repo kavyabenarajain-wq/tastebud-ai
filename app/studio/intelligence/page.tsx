@@ -3,10 +3,23 @@
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
-import { ArrowRight, Sparkles } from "lucide-react";
+import { ArrowRight, ArrowUpRight, Sparkles } from "lucide-react";
 import { OnboardHeader } from "@/components/tastebud/OnboardHeader";
 import { useStudio } from "@/components/tastebud/StudioSession";
 import type { BrandIntelligence } from "@/lib/types";
+
+/** A social handle may arrive as "@name", "name", or a full profile URL — normalise for display + link. */
+const fmtHandle = (h?: string): string => {
+  if (!h) return "";
+  if (/^https?:/i.test(h)) {
+    try { const seg = new URL(h).pathname.replace(/\/+$/, "").split("/").filter(Boolean).pop(); return seg ? `@${seg.replace(/^@/, "")}` : h; }
+    catch { return h; }
+  }
+  return h.startsWith("@") ? h : `@${h.replace(/^@/, "")}`;
+};
+const hrefOf = (h?: string): string | undefined => (h && /^https?:/i.test(h) ? h : undefined);
+/** A safe external href — a schemeless URL ("brand.com/x") gets https:// so it can't become a same-origin relative link. */
+const extHref = (u?: string): string | undefined => (u ? (/^https?:/i.test(u) ? u : `https://${u.replace(/^\/+/, "")}`) : undefined);
 
 /**
  * STEP 4 — Brand Intelligence.
@@ -35,7 +48,7 @@ const bigLogo = (url?: string): string | undefined => {
 
 export default function Intelligence() {
   const router = useRouter();
-  const { brain, hydrated } = useStudio();
+  const { brain, hydrated, research } = useStudio();
 
   useEffect(() => {
     if (hydrated && !brain.name) router.replace("/studio");
@@ -43,6 +56,9 @@ export default function Intelligence() {
 
   const intel: BrandIntelligence = brain.intelligence ?? {};
   const productCount = brain.catalog?.length ?? 0;
+  // The deep off-site pass is still filling campaigns / faces / proof — show a quiet live note
+  // (only while those sections are genuinely still empty, so it disappears the moment they land).
+  const enriching = research.enriching && !has(intel.campaigns) && !has(intel.ambassadors) && !has(intel.socialProof);
 
   return (
     <main className="flex min-h-screen flex-col bg-canvas">
@@ -95,7 +111,7 @@ export default function Intelligence() {
         {has(intel.values) && (
           <Section kicker="Core Values">
             <div className="flex flex-wrap gap-2">
-              {intel.values!.map((v) => <span key={v} className="rounded-full border border-hairline px-3.5 py-1.5 text-[14px] text-ink">{v}</span>)}
+              {intel.values!.map((v, i) => <span key={i} className="rounded-full border border-hairline px-3.5 py-1.5 text-[14px] text-ink">{v}</span>)}
             </div>
           </Section>
         )}
@@ -115,7 +131,7 @@ export default function Intelligence() {
               {has(intel.toneOfVoice) && <div><div className="text-[11px] uppercase tracking-wide text-muted">Tone of Voice</div><p className="mt-2 text-[15px] leading-relaxed text-ink">{intel.toneOfVoice}</p></div>}
               {has(intel.personality) && (
                 <div><div className="text-[11px] uppercase tracking-wide text-muted">Brand Personality</div>
-                  <div className="mt-2 flex flex-wrap gap-2">{intel.personality!.map((p) => <span key={p} className="rounded-full bg-surface px-3 py-1 text-[13px] text-ink">{p}</span>)}</div>
+                  <div className="mt-2 flex flex-wrap gap-2">{intel.personality!.map((p, i) => <span key={i} className="rounded-full bg-surface px-3 py-1 text-[13px] text-ink">{p}</span>)}</div>
                 </div>
               )}
             </div>
@@ -215,17 +231,88 @@ export default function Intelligence() {
           </Section>
         )}
 
+        {has(intel.campaigns) && (
+          <Section kicker="Campaigns">
+            <div className="space-y-7">
+              {intel.campaigns!.map((c, i) => (
+                <div key={i} className="border-l border-hairline pl-5">
+                  <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+                    <span className="font-serif text-lg font-light text-ink">{c.title}</span>
+                    {(c.year || c.channel) && <span className="text-[11px] uppercase tracking-wide text-muted">{[c.year, c.channel].filter(Boolean).join(" · ")}</span>}
+                  </div>
+                  {c.description && <p className="mt-1.5 max-w-2xl text-[14px] leading-relaxed text-muted">{c.description}</p>}
+                  {(c.fronted || c.url) && (
+                    <div className="mt-2 flex flex-wrap items-center gap-x-4 gap-y-1 text-[13px]">
+                      {c.fronted && <span className="text-ink">Fronted by {c.fronted}</span>}
+                      {c.url && <a href={extHref(c.url)} target="_blank" rel="noreferrer" className="inline-flex items-center gap-0.5 text-muted underline-offset-2 hover:text-ink hover:underline">Source <ArrowUpRight size={12} /></a>}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </Section>
+        )}
+
+        {has(intel.ambassadors) && (
+          <Section kicker="The Faces">
+            <div className="grid gap-4 sm:grid-cols-2">
+              {intel.ambassadors!.map((a, i) => {
+                const href = hrefOf(a.handle);
+                return (
+                  <div key={i} className="rounded-card border border-hairline p-5">
+                    <div className="flex items-baseline justify-between gap-3">
+                      <span className="font-serif text-lg font-light text-ink">{a.name}</span>
+                      {a.handle && (href
+                        ? <a href={href} target="_blank" rel="noreferrer" className="inline-flex items-center gap-0.5 text-[13px] text-muted hover:text-ink">{fmtHandle(a.handle)} <ArrowUpRight size={12} /></a>
+                        : <span className="text-[13px] text-muted">{fmtHandle(a.handle)}</span>)}
+                    </div>
+                    {a.note && <p className="mt-2 text-[14px] leading-relaxed text-muted">{a.note}</p>}
+                  </div>
+                );
+              })}
+            </div>
+          </Section>
+        )}
+
+        {has(intel.socialProof) && (
+          <Section kicker="Traction">
+            <div className="grid gap-3 sm:grid-cols-2">
+              {intel.socialProof!.map((s, i) => (
+                <div key={i} className="rounded-card border border-hairline p-4">
+                  {s.type && <div className="text-[10px] uppercase tracking-widest text-muted">{s.type}</div>}
+                  <p className="mt-1 text-[14px] leading-relaxed text-ink">{s.text}</p>
+                  {(s.source || s.url) && (
+                    <div className="mt-1.5 text-[12px] text-muted">
+                      {s.url ? <a href={extHref(s.url)} target="_blank" rel="noreferrer" className="inline-flex items-center gap-0.5 underline-offset-2 hover:text-ink hover:underline">{s.source || "Source"} <ArrowUpRight size={11} /></a> : s.source}
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+          </Section>
+        )}
+
         {has(intel.press) && (
           <Section kicker="Press & Perception">
             <ul className="space-y-3">
               {intel.press!.map((p, i) => (
                 <li key={i} className="flex items-baseline gap-3">
-                  <span className="text-[15px] leading-relaxed text-ink">{p.url ? <a href={p.url} target="_blank" rel="noreferrer" className="underline-offset-2 hover:underline">{p.title}</a> : p.title}</span>
+                  <span className="text-[15px] leading-relaxed text-ink">{p.url ? <a href={extHref(p.url)} target="_blank" rel="noreferrer" className="underline-offset-2 hover:underline">{p.title}</a> : p.title}</span>
                   {p.source && <span className="text-[13px] text-muted">— {p.source}</span>}
                 </li>
               ))}
             </ul>
           </Section>
+        )}
+
+        {enriching && (
+          <div className="flex items-center gap-3 border-b border-hairline py-8 text-[13px] text-muted">
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-ink/40" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-ink/60" />
+            </span>
+            Digging into their campaigns, ambassadors and press…
+          </div>
         )}
 
         {has(intel.insights) && (

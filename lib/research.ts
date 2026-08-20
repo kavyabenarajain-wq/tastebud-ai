@@ -67,12 +67,12 @@ const IntelligenceSchema = z.object({
   socialProof: z.array(z.object({ type: z.string().default(""), text: z.string().default(""), source: z.string().default(""), url: z.string().default("") })).default([]),
 });
 
-const withTimeout = async (url: string, init: RequestInit, ms: number): Promise<Response> => {
-  const ctrl = new AbortController();
-  const t = setTimeout(() => ctrl.abort(), ms);
-  try { return await fetch(url, { ...init, signal: ctrl.signal }); }
-  finally { clearTimeout(t); }
-};
+// Bind the timeout to the WHOLE exchange (headers AND body). A manual controller cleared in a
+// `finally` after `await fetch()` stops timing the moment HEADERS arrive, leaving the later
+// `.text()`/`.json()` body read unbounded — a trickled/stalled body then hangs the whole research
+// pass. AbortSignal.timeout stays armed until the body is fully read (or the deadline fires).
+const withTimeout = async (url: string, init: RequestInit, ms: number): Promise<Response> =>
+  fetch(url, { ...init, signal: AbortSignal.timeout(ms) });
 
 const absolutize = (src: string, base: string): string | null => {
   try { return new URL(src, base).toString(); } catch { return null; }
@@ -111,7 +111,20 @@ const UA = {
   "accept": "text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,*/*;q=0.8",
   "accept-language": "en-US,en;q=0.9",
 };
-const fetchText = async (url: string, ms = 7000): Promise<string> => (await withTimeout(url, { headers: UA }, ms)).text();
+// A non-OK response (403 bot-challenge, 5xx, soft redirect to an error page) is NOT content: return
+// empty so a blocked/failed crawl can never be mistaken for real brand copy (which would wrongly set
+// foundReal) or parsed for phantom products.
+const fetchText = async (url: string, ms = 7000): Promise<string> => {
+  const r = await withTimeout(url, { headers: UA }, ms);
+  return r.ok ? r.text() : "";
+};
+/** Fetch a page AND report the URL it actually resolved to (after redirects). A store on the apex
+ *  domain (brand.com) that 301s to www.brand.com must be crawled at the RESOLVED origin, or
+ *  `/products.json` is built off the wrong host and silently returns zero products. */
+const fetchPage = async (url: string, ms = 7000): Promise<{ url: string; html: string }> => {
+  const r = await withTimeout(url, { headers: UA }, ms);
+  return { url: r.url || url, html: r.ok ? await r.text() : "" };
+};
 const cleanName = (t: string): string => {
   const s = t.replace(/<[^>]+>/g, " ").replace(/&[a-z]+;/gi, " ").replace(/\s+/g, " ").trim()
     // A product-CARD anchor tacks price/sale noise onto the title ("Slay Rug Regular price Rs. 1,490.00 …").
@@ -121,6 +134,45 @@ const cleanName = (t: string): string => {
 };
 const stripHtml = (t: string): string => t.replace(/<[^>]+>/g, " ").replace(/&[a-z]+;/gi, " ").replace(/\s+/g, " ").trim();
 const slug = (t: string): string => t.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-+|-+$/g, "").slice(0, 48) || "product";
+
+// ── PRODUCTS ONLY — keep the real product line-up clean ──────────────────────────────────────
+// The library must show PRODUCTS, "nothing else — not the logo, not the discount code." Shopify
+// stores carry non-product SKUs (gift cards, shipping/route protection, warranties, donations,
+// deposits) and their pages leak non-product IMAGES (the logo, sale/discount banners, trust badges,
+// payment icons) into a product's photo via the og:image backfill. These two guards strip both.
+
+/** True when a SKU is not a real physical product (gift card, shipping protection, …). Two tiers:
+ *  STRONG compound tokens are unambiguous anywhere; WEAK single words (warranty, deposit, donation,
+ *  gratuity) only disqualify when they ARE essentially the whole product name — so a real "Deposit
+ *  Bottle" or "Donation Box" (physical goods) is kept, while a "Bottle Deposit" / "Warranty" SKU is dropped. */
+const NON_PRODUCT_RE = /\b(gift[\s-]*cards?|e-?gift|gift[\s-]*vouchers?|shipping[\s-]*(protection|insurance|guarantee)|route[\s-]*(insurance|protection)|(package|order|shipment)[\s-]*protection|seel[\s-]*protection|carbon[\s-]*(removal|offset)|protection[\s-]*plan|store[\s-]*credit|test[\s-]*product|sample[\s-]*credit)\b/i;
+const NON_PRODUCT_NAME_RE = /^(?:(?:extended\s+)?warranty|bottle\s*deposit|deposit(?:\s*(?:fee|charge))?|donations?|donate|gratuity|tip|insurance)$/i;
+/** Generic navigation / CTA anchor text that a product-link crawl mistakes for a product name
+ *  ("Shop Now", "View all", "Learn more"). These are duplicates of the real, correctly-named products
+ *  that come from the Shopify/JSON-LD catalogue, so drop the CTA stub. */
+const GENERIC_CTA_RE = /^(?:shop(?:\s+(?:all|now|the\s+\w+|by\s+\w+))?|view(?:\s+(?:all|more|product))?|learn\s*more|buy\s*now|add\s*to\s*(?:cart|bag)|see\s*(?:more|all)|discover|explore|read\s*more|get\s*started|order\s*now|subscribe|quick\s*(?:view|add|shop)|sold\s*out|coming\s*soon|new|sale|bestsellers?|on\s*sale|new\s*arrivals?)$/i;
+const isGenericLinkText = (t: string): boolean => GENERIC_CTA_RE.test(t.trim());
+const isNonProduct = (p: { name?: string; category?: string; collection?: string; url?: string }): boolean =>
+  NON_PRODUCT_RE.test(`${p.name ?? ""} ${p.category ?? ""} ${p.collection ?? ""} ${(p.url ?? "").split("/").pop() ?? ""}`)
+  || NON_PRODUCT_NAME_RE.test((p.name ?? "").trim());
+
+/** A human collection/type label, not an operational Shopify tag. Stores tag products with machine
+ *  noise ("upc-850…", "spo-enabled", "rebuy-30-off", "9g Fiber", "product::x") that must NOT show as
+ *  a product's subtitle. Prefer the product_type; fall back to the first genuinely human-looking tag. */
+const JUNK_TAG = /^(?:upc|sku|gid|spo|id|ph|utm)[-_:]|(?:^|[-_ ])(?:enabled|disabled|hidden?|exclude|rebuy|badge|bogo|preorder|hide|show|new|bestseller|featured)(?:$|[-_ ])|::|^\d|\d{3,}|\b\d+\s*g\b|-off\b|\bfiber\b/i;
+const cleanTag = (t?: string): string => (t && /[a-z]/i.test(t) && t.length <= 28 && !JUNK_TAG.test(t) ? t.trim() : "");
+function pickCollection(rawType: string, tags: string[]): string | undefined {
+  return cleanTag(rawType) || tags.map(cleanTag).find(Boolean) || undefined;
+}
+
+/** Reject an image URL that is UNAMBIGUOUSLY site chrome — a favicon, sprite, placeholder, a
+ *  payment/trust badge, or a logo used as a standalone filename (site-logo.png). Deliberately narrow:
+ *  Shopify keeps the MERCHANT'S filename (e.g. logo-hoodie_1080x.jpg is a real "Logo Hoodie" photo),
+ *  so token words like logo/star/banner mid-filename must NOT disqualify a genuine product image.
+ *  Only used on the LEAK vectors (og:image backfill + homepage image pool), never on a product's own
+ *  structured gallery images, which are trusted as-is. */
+const NON_PRODUCT_IMG_RE = /(?:^|[\/_?&=-])(?:favicons?|sprites?|placeholders?|payments?|visa|mastercard|amex|paypal|klarna|afterpay|apple-?pay|google-?pay|trust-?badge|trustpilot|guarantee-?badge)(?:[\/_.?&=-]|$)|(?:^|\/)(?:site[-_]?|header[-_]?|nav[-_]?)?logos?\.(?:png|jpe?g|svg|webp|gif)(?:\?|$)/i;
+const isProductImage = (url?: string): boolean => !!url && /^https?:/i.test(url) && !/\.svg(\?|$)/i.test(url) && !NON_PRODUCT_IMG_RE.test(url);
 
 /**
  * Shopify (and most modern CDNs) hand out tiny favicon-sized logos via ?width=32&height=32.
@@ -145,50 +197,71 @@ export function upscaleLogo(url: string, size = 480): string {
  * real product data: names, descriptions, variants, prices, options (sizes/colours) and
  * every image. Map it straight into our StudioProduct so nothing needs re-uploading.
  */
-async function tryShopifyCatalog(base: string): Promise<StudioProduct[]> {
+/** An origin plus its www/apex sibling. A Shopify store often serves the catalogue on only ONE of
+ *  them — the apex 200s a landing page while its /products.json redirects to the homepage, and www
+ *  serves the real JSON (or vice-versa). Trying both rescues the "apex URL → zero products" case. */
+function originVariants(root: string): string[] {
   try {
-    const root = siteOrigin(base); // NOT base.replace(/\/$/) — a stored site can carry a path/query.
-    const r = await withTimeout(`${root}/products.json?limit=250`, { headers: UA }, 9000);
-    // A non-Shopify site answers /products.json with a 200 HTML page (or a redirect to one), so
-    // only trust a genuine JSON body — otherwise `r.json()` throws and we'd wrongly treat the store
-    // as having no catalogue (falling back to name-only, imageless product links).
-    const ct = r.headers.get("content-type") || "";
-    if (!r.ok || !/json/i.test(ct)) return [];
-    const j: any = await r.json();
-    const items = Array.isArray(j?.products) ? j.products : [];
-    return items.map((p: any): StudioProduct | null => {
-      const name = cleanName(String(p?.title ?? ""));
-      if (!name) return null;
-      const options: any[] = Array.isArray(p?.options) ? p.options : [];
-      const opt = (re: RegExp): string[] => {
-        const o = options.find((x) => re.test(String(x?.name ?? "")));
-        return Array.isArray(o?.values) ? o.values.map((v: any) => String(v)).filter(Boolean) : [];
-      };
-      const variants: string[] = Array.isArray(p?.variants)
-        ? p.variants.map((v: any) => String(v?.title ?? "")).filter((t: string) => t && t !== "Default Title")
-        : [];
-      const tags: string[] = Array.isArray(p?.tags) ? p.tags.map(String) : typeof p?.tags === "string" ? p.tags.split(",").map((s: string) => s.trim()) : [];
-      const images: string[] = Array.isArray(p?.images)
-        ? p.images.map((im: any) => (im?.src ? absolutize(String(im.src), base) : null)).filter(Boolean).slice(0, 8) as string[]
-        : [];
-      const price = p?.variants?.[0]?.price != null ? String(p.variants[0].price) : undefined;
-      return {
-        id: p?.id ? `shopify-${p.id}` : slug(name),
-        name,
-        category: p?.product_type ? String(p.product_type) : undefined,
-        collection: tags[0] || (p?.product_type ? String(p.product_type) : undefined),
-        description: p?.body_html ? stripHtml(String(p.body_html)).slice(0, 480) : undefined,
-        variants: variants.length ? variants.slice(0, 20) : undefined,
-        sizes: opt(/size/i).length ? opt(/size/i) : undefined,
-        colours: opt(/colou?r/i).length ? opt(/colou?r/i) : undefined,
-        price,
-        url: p?.handle ? `${root}/products/${p.handle}` : undefined,
-        images,
-      };
-    }).filter(Boolean) as StudioProduct[];
+    const u = new URL(root);
+    const alt = u.hostname.startsWith("www.") ? u.hostname.slice(4) : `www.${u.hostname}`;
+    return [root, `${u.protocol}//${alt}`];
   } catch {
-    return [];
+    return [root];
   }
+}
+
+async function tryShopifyCatalog(base: string): Promise<StudioProduct[]> {
+  for (const root of originVariants(siteOrigin(base))) { // NOT base.replace(/\/$/) — a stored site can carry a path/query.
+    try {
+      const r = await withTimeout(`${root}/products.json?limit=250`, { headers: UA }, 9000);
+      // A non-Shopify site (or the wrong host of a www/apex pair) answers /products.json with a 200
+      // HTML page (or a redirect to one), so only trust a genuine JSON body — otherwise `r.json()`
+      // throws and we'd wrongly treat the store as having no catalogue. A miss falls through to the
+      // sibling host before giving up.
+      const ct = r.headers.get("content-type") || "";
+      if (!r.ok || !/json/i.test(ct)) continue;
+      const j: any = await r.json();
+      const items = Array.isArray(j?.products) ? j.products : [];
+      const mapped = items.map((p: any): StudioProduct | null => {
+        const name = cleanName(String(p?.title ?? ""));
+        if (!name) return null;
+        const rawType = p?.product_type ? String(p.product_type) : "";
+        const handle = p?.handle ? String(p.handle) : "";
+        // Products only — drop gift cards, shipping/route protection, warranties, donations, etc.
+        if (isNonProduct({ name, category: rawType, collection: (Array.isArray(p?.tags) ? p.tags.join(" ") : String(p?.tags ?? "")), url: handle })) return null;
+        const options: any[] = Array.isArray(p?.options) ? p.options : [];
+        const opt = (re: RegExp): string[] => {
+          const o = options.find((x) => re.test(String(x?.name ?? "")));
+          return Array.isArray(o?.values) ? o.values.map((v: any) => String(v)).filter(Boolean) : [];
+        };
+        const variants: string[] = Array.isArray(p?.variants)
+          ? p.variants.map((v: any) => String(v?.title ?? "")).filter((t: string) => t && t !== "Default Title")
+          : [];
+        const tags: string[] = Array.isArray(p?.tags) ? p.tags.map(String) : typeof p?.tags === "string" ? p.tags.split(",").map((s: string) => s.trim()) : [];
+        const images: string[] = Array.isArray(p?.images)
+          ? (p.images.map((im: any) => (im?.src ? absolutize(String(im.src), root) : null)).filter(Boolean) as string[]).slice(0, 8)
+          : [];
+        const price = p?.variants?.[0]?.price != null ? String(p.variants[0].price) : undefined;
+        return {
+          id: p?.id ? `shopify-${p.id}` : slug(name),
+          name,
+          category: p?.product_type ? String(p.product_type) : undefined,
+          collection: pickCollection(rawType, tags),
+          description: p?.body_html ? stripHtml(String(p.body_html)).slice(0, 480) : undefined,
+          variants: variants.length ? variants.slice(0, 20) : undefined,
+          sizes: opt(/size/i).length ? opt(/size/i) : undefined,
+          colours: opt(/colou?r/i).length ? opt(/colou?r/i) : undefined,
+          price,
+          url: p?.handle ? `${root}/products/${p.handle}` : undefined,
+          images,
+        };
+      }).filter(Boolean) as StudioProduct[];
+      if (mapped.length) return mapped; // the host that actually serves the store wins
+    } catch {
+      /* try the sibling host before giving up */
+    }
+  }
+  return [];
 }
 
 /** Pull Product entries out of JSON-LD structured data (name + description + price + images). */
@@ -203,6 +276,7 @@ function jsonLdProducts(html: string, base: string): StudioProduct[] {
         const isProduct = t === "Product" || (Array.isArray(t) && t.includes("Product"));
         if (!isProduct || !n?.name) continue;
         const name = cleanName(String(n.name));
+        if (isNonProduct({ name, category: n?.category ? String(n.category) : "" })) continue;
         const imgs = (Array.isArray(n.image) ? n.image : [n.image])
           .map((im: any) => (typeof im === "object" ? im?.url : im))
           .filter((s: any) => typeof s === "string")
@@ -366,8 +440,12 @@ async function gatherSiteCopy(base: string, homeHtml: string): Promise<{ siteTex
 type SocialLink = { platform: string; url: string; handle: string };
 async function harvestBrandSite(website: string, onCatalog?: (partial: { catalog: StudioProduct[]; logo?: string }) => void): Promise<{ logo?: string; productImages: string[]; catalog: StudioProduct[]; siteText?: string; socials?: SocialLink[]; description?: string }> {
   try {
-    const base = /^https?:/i.test(website) ? website : `https://${website.replace(/^\/+/, "")}`;
-    const html = await fetchText(base);
+    const base0 = /^https?:/i.test(website) ? website : `https://${website.replace(/^\/+/, "")}`;
+    // Follow the homepage redirect and crawl at the CANONICAL origin (apex → www), so
+    // /products.json is always built off the host that actually serves the store.
+    const page = await fetchPage(base0);
+    const base = /^https?:/i.test(page.url) ? siteOrigin(page.url) : base0;
+    const html = page.html;
     // Pull the brand's real copy (headlines, About page, socials) in the background while the
     // catalogue is parsed — it grounds the dossier without holding up the (streamed-early) products.
     const copyPromise = gatherSiteCopy(base, html).catch(() => ({ siteText: "", socials: [] as SocialLink[], title: "", description: "" }));
@@ -390,7 +468,23 @@ async function harvestBrandSite(website: string, onCatalog?: (partial: { catalog
     for (const p of jsonLdProducts(html, base)) add(p); //     2) JSON-LD on the homepage
     const links = productLinks(html, base);
     // Keep the page URL on link-derived products so the image backfill below can open their page.
-    for (const l of links) if (l.text) add({ id: slug(l.text), name: l.text, url: l.url, images: [] }); // 3) names from product links
+    // Skip generic CTA anchors ("Shop Now", "View all") — they're nav, not products, and the real
+    // product arrives correctly named from the catalogue/JSON-LD anyway.
+    for (const l of links) if (l.text && !isGenericLinkText(l.text)) add({ id: slug(l.text), name: l.text, url: l.url, images: [] }); // 3) names from product links
+
+    // Logo — resolved BEFORE the image backfill so the backfill can reject a page whose only
+    // "product" image is really the site logo or its social share card. Prefer a high-res
+    // apple-touch-icon (usually the clean mark), then og:logo, then the favicon; upscale Shopify.
+    const apple = html.match(/<link[^>]+rel=["'][^"']*apple-touch-icon[^"']*["'][^>]*href=["']([^"']+)["']/i)?.[1]
+      || html.match(/<link[^>]+href=["']([^"']+)["'][^>]*rel=["'][^"']*apple-touch-icon[^"']*["']/i)?.[1];
+    const ogLogo = html.match(/<meta[^>]+property=["']og:logo["'][^>]*content=["']([^"']+)["']/i)?.[1];
+    const icon = html.match(/<link[^>]+rel=["'][^"']*icon[^"']*["'][^>]*href=["']([^"']+)["']/i)?.[1];
+    const pick = apple || ogLogo || icon;
+    let logo: string | undefined;
+    if (pick) { const abs = absolutize(pick, base); if (abs) logo = upscaleLogo(abs); }
+    const logoBase = logo ? logo.split("?")[0] : "";
+    // A backfill image is trusted only if it looks like a product photo AND isn't the logo/share card.
+    const okBackfill = (u?: string | null): u is string => isProductImage(u ?? undefined) && (!logoBase || (u as string).split("?")[0] !== logoBase);
 
     // 4) If still thin, fetch a handful of product pages for their JSON-LD / og data.
     if (catalog.size < 8 && links.length) {
@@ -400,11 +494,12 @@ async function harvestBrandSite(website: string, onCatalog?: (partial: { catalog
         const h = await fetchText(l.url, 6000);
         const og = h.match(/<meta[^>]+property=["']og:title["'][^>]*content=["']([^"']+)["']/i)?.[1] || h.match(/<title[^>]*>([^<]+)<\/title>/i)?.[1];
         const ogImg = h.match(/<meta[^>]+property=["']og:image["'][^>]*content=["']([^"']+)["']/i)?.[1];
-        return { ld: jsonLdProducts(h, l.url), name: og ? cleanName(og) : "", image: ogImg ? absolutize(ogImg, l.url) || undefined : undefined, url: l.url };
+        const imgAbs = ogImg ? absolutize(ogImg, l.url) : null;
+        return { ld: jsonLdProducts(h, l.url), name: og ? cleanName(og) : "", image: okBackfill(imgAbs) ? imgAbs : undefined, url: l.url };
       }));
       for (const r of fetched) if (r.status === "fulfilled") {
         for (const p of r.value.ld) add(p);
-        if (r.value.name) add({ id: slug(r.value.name), name: r.value.name, url: r.value.url, images: r.value.image ? [r.value.image] : [] });
+        if (r.value.name && !isGenericLinkText(r.value.name)) add({ id: slug(r.value.name), name: r.value.name, url: r.value.url, images: r.value.image ? [r.value.image] : [] });
       }
     }
 
@@ -413,7 +508,9 @@ async function harvestBrandSite(website: string, onCatalog?: (partial: { catalog
     //    og:image / JSON-LD image attached. This rescues non-Shopify sites (and any product the
     //    catalogue JSON missed) from showing an empty placeholder in the library. For a healthy
     //    Shopify store every product already has an image, so this list is empty and adds no latency.
-    //    Bounded + parallel so it never blows the serverless budget.
+    //    Bounded + parallel so it never blows the serverless budget. The og:image is TRUSTED only
+    //    if it's a real product photo and not the logo/share card (okBackfill) — the fix for banners
+    //    and discount graphics leaking in as a product's hero.
     const needImg = [...catalog.values()].filter((p) => !(p.images && p.images.length) && p.url).slice(0, 20);
     if (needImg.length) {
       await Promise.allSettled(needImg.map(async (p) => {
@@ -422,22 +519,25 @@ async function harvestBrandSite(website: string, onCatalog?: (partial: { catalog
           const ldImg = jsonLdProducts(h, p.url as string).find((x) => x.images.length)?.images?.[0];
           const og = h.match(/<meta[^>]+(?:property|name)=["'](?:og:image|twitter:image)["'][^>]*content=["']([^"']+)["']/i)?.[1];
           const img = ldImg || (og ? absolutize(og, p.url as string) : null);
-          if (img) p.images = [img]; // p is the stored object (by reference) — mutate it directly.
+          if (okBackfill(img)) p.images = [img]; // p is the stored object (by reference) — mutate it directly.
         } catch { /* leave imageless — the UI shows a clean placeholder */ }
       }));
     }
 
-    const products = [...catalog.values()].slice(0, 60);
-
-    // Logo: prefer a high-res apple-touch-icon (usually the clean logo mark), then og:logo,
-    // then the favicon as a last resort. Upscale Shopify thumbnails so it's actually visible.
-    const apple = html.match(/<link[^>]+rel=["'][^"']*apple-touch-icon[^"']*["'][^>]*href=["']([^"']+)["']/i)?.[1]
-      || html.match(/<link[^>]+href=["']([^"']+)["'][^>]*rel=["'][^"']*apple-touch-icon[^"']*["']/i)?.[1];
-    const ogLogo = html.match(/<meta[^>]+property=["']og:logo["'][^>]*content=["']([^"']+)["']/i)?.[1];
-    const icon = html.match(/<link[^>]+rel=["'][^"']*icon[^"']*["'][^>]*href=["']([^"']+)["']/i)?.[1];
-    const pick = apple || ogLogo || icon;
-    let logo: string | undefined;
-    if (pick) { const abs = absolutize(pick, base); if (abs) logo = upscaleLogo(abs); }
+    // Final line-up — products only (drop any gift-card/protection SKU that slipped in via a link
+    // stub), images scrubbed of leaked logos/badges/banners, and IDs made UNIQUE (two different
+    // product names can slugify to the same id — e.g. "Peaches & Cream" / "Peaches Cream" — which
+    // would collide as React keys and silently drop a product from the library grid).
+    const seenIds = new Set<string>();
+    const products = [...catalog.values()]
+      .filter((p) => !isNonProduct(p))
+      .map((p) => {
+        let id = p.id || slug(p.name);
+        if (seenIds.has(id)) { let n = 2; while (seenIds.has(`${id}-${n}`)) n++; id = `${id}-${n}`; }
+        seenIds.add(id);
+        return { ...p, id };
+      })
+      .slice(0, 60);
 
     // Stream the catalogue + logo NOW — the product library only needs these, and they're
     // ready before the (slower) homepage-image HEAD verification below. So the library fills
@@ -446,7 +546,7 @@ async function harvestBrandSite(website: string, onCatalog?: (partial: { catalog
 
     // Real product photos: catalogue hero images first, then a pass over homepage imagery.
     const fromCatalog = products.flatMap((p) => p.images.slice(0, 1));
-    const fromHome = [...collectImages(html, base)].filter((u) => /^https?:/i.test(u) && !/\.svg(\?|$)/i.test(u) && !/sprite|icon|logo|favicon|placeholder/i.test(u));
+    const fromHome = [...collectImages(html, base)].filter(isProductImage);
     const ordered = Array.from(new Set([...fromCatalog, ...fromHome])).slice(0, 24);
     const checked = await Promise.allSettled(ordered.map(async (u) => ((await isImageUrl(u)) ? u : null)));
     const productImages = Array.from(new Set(checked.flatMap((r) => (r.status === "fulfilled" && r.value ? [r.value] : [])))).slice(0, 12);
@@ -766,21 +866,24 @@ export async function researchBrand(brain: BrandBrain, opts: ResearchOpts = {}):
   onStage("images", { count: harvested.productImages.length, palette });
   const photoRules = await photoRulesPromise;
 
-  // REAL socials scraped off their own site are ground truth (platform + handle + url). Merge them
-  // with the model's social read so the handle/URL are always correct and the model only adds notes.
+  // REAL socials scraped off their own site are ground truth (platform + handle + url) — but ONLY
+  // when we crawled the site the USER pasted; a GUESSED same-named domain's handles must not leak in.
+  // Merge with the model's social read (canonicalising twitter→x so a platform never doubles up).
+  const canonPlatform = (p: string): string => { const k = p.trim().toLowerCase(); return k === "twitter" ? "x" : k; };
+  const trustedSocials = trusted ? (harvested.socials ?? []) : [];
   const mergedSocial = (() => {
     const byKey = new Map<string, { platform: string; handle: string; url: string; note: string }>();
-    for (const s of harvested.socials ?? []) byKey.set(s.platform.toLowerCase(), { platform: s.platform, handle: s.handle, url: s.url, note: "" });
+    for (const s of trustedSocials) byKey.set(canonPlatform(s.platform), { platform: s.platform, handle: s.handle, url: s.url, note: "" });
     for (const s of intel.social ?? []) {
       if (!s.platform) continue;
-      const k = s.platform.toLowerCase();
+      const k = canonPlatform(s.platform);
       const ex = byKey.get(k);
       if (ex) { ex.note = s.note || ex.note; ex.handle = ex.handle || s.handle; ex.url = ex.url || s.url; }
       else byKey.set(k, { platform: s.platform, handle: s.handle || "", url: s.url || "", note: s.note || "" });
     }
     return [...byKey.values()];
   })();
-  const realInstagram = harvested.socials?.find((s) => s.platform === "Instagram")?.handle || "";
+  const realInstagram = trustedSocials.find((s) => s.platform === "Instagram")?.handle || "";
   // A real crawled site (products or substantial copy) is proof the brand is real, whatever the model says.
   const reallyFound = structured.foundReal || harvested.catalog.length > 0 || (harvested.siteText?.length ?? 0) > 200;
   // Never let the dossier come back blank — the hero always has at least a line to render.
@@ -915,16 +1018,29 @@ export async function enrichIntelligence(brain: BrandBrain): Promise<Intelligenc
   }
 }
 
-/** Merge a deep enrichment onto an existing intelligence object (enrichment wins where it has data). */
+/** Merge a deep enrichment onto an existing intelligence object. UNIONs each list (deduped, capped)
+ *  rather than replacing — a later live-search pass returning a smaller/different set must never drop
+ *  findings a previous pass already captured. */
 export function mergeEnrichment(intel: BrandIntelligence | undefined, e: IntelligenceEnrichment): BrandIntelligence {
   const base: BrandIntelligence = intel ?? {};
-  const dedupeInsights = Array.from(new Set([...(base.insights ?? []), ...(e.insights ?? [])])).slice(0, 8);
+  const uniq = <T,>(arr: T[], key: (x: T) => string, cap: number): T[] => {
+    const seen = new Set<string>();
+    const out: T[] = [];
+    for (const x of arr) {
+      const k = key(x).trim().toLowerCase();
+      if (!k || seen.has(k)) continue;
+      seen.add(k);
+      out.push(x);
+      if (out.length >= cap) break;
+    }
+    return out;
+  };
   return {
     ...base,
-    campaigns: e.campaigns.length ? e.campaigns : base.campaigns,
-    ambassadors: e.ambassadors.length ? e.ambassadors : base.ambassadors,
-    socialProof: e.socialProof.length ? e.socialProof : base.socialProof,
-    press: e.press.length ? e.press : (base.press ?? []),
-    insights: dedupeInsights.length ? dedupeInsights : base.insights,
+    campaigns: uniq([...(base.campaigns ?? []), ...e.campaigns], (c) => `${c.title}|${c.year}`, 12),
+    ambassadors: uniq([...(base.ambassadors ?? []), ...e.ambassadors], (a) => a.name, 16),
+    socialProof: uniq([...(base.socialProof ?? []), ...e.socialProof], (s) => s.text, 12),
+    press: uniq([...(base.press ?? []), ...e.press], (p) => p.url || p.title, 12),
+    insights: uniq([...(base.insights ?? []), ...e.insights], (s) => s, 8),
   };
 }

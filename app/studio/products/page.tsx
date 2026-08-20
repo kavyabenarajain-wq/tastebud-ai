@@ -1,29 +1,51 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import { motion } from "framer-motion";
 import { ArrowRight, Check, Upload, ImageIcon } from "lucide-react";
 import { OnboardHeader } from "@/components/tastebud/OnboardHeader";
 import { useStudio } from "@/components/tastebud/StudioSession";
 import { thumb } from "@/lib/thumb";
+import { detectCategory, coerceCategory, type ProductCategory } from "@/lib/productCategory";
 import type { StudioProduct } from "@/lib/types";
 
 /**
  * STEP 5 — Product Library.
- * Every product the AI scraped, ready to shoot — no upload needed. Select one or many;
- * the choices become the assets for generation. If nothing was found on the site, a
- * quiet upload fallback keeps the flow moving.
+ * Every product the AI scraped, ready to shoot — no upload needed. Products only (the scraper drops
+ * gift cards, shipping protection and the like) and cleanly categorised, so the library reads as an
+ * ordered catalogue. Select one or many; the choices become the assets for generation. If nothing
+ * was found on the site, a quiet upload fallback keeps the flow moving.
  */
 
 const uid = (): string => (typeof crypto !== "undefined" && crypto.randomUUID ? crypto.randomUUID() : `up-${Math.random().toString(36).slice(2)}`);
 
+/** Short, human display labels for the filter chips (the enum is the source of truth). */
+const CAT_LABEL: Record<ProductCategory, string> = {
+  food: "Food", drink: "Drinks", apparel: "Apparel", jewellery: "Jewellery", beauty: "Beauty",
+  wellness: "Wellness", furniture: "Furniture", tech: "Tech", home: "Home", general: "Other",
+};
+
+/** Hard, physically-distinct categories — a merch tee in a soda store is genuinely apparel; a flavour
+ *  called "Peaches & Cream" is NOT beauty. Only these override the brand's own category. */
+const HARD_GOODS = new Set<ProductCategory>(["apparel", "jewellery", "furniture", "tech", "home"]);
+
+/** The clean category a product belongs to, biased to the BRAND's category. Consumable-brand flavour
+ *  collisions (cream→beauty, crisp→food, prebiotic→wellness) collapse to the brand category; only a
+ *  genuinely different HARD good (merch) keeps its own. Fed just name + type (not the noisy copy). */
+const catOfWith = (p: StudioProduct, brandCat?: ProductCategory): ProductCategory => {
+  const d = detectCategory(p.name, p.category);
+  if (!brandCat) return d;
+  return d !== brandCat && HARD_GOODS.has(d) ? d : brandCat;
+};
+
 export default function ProductLibrary() {
   const router = useRouter();
-  const { brain, hydrated, catalog, selectedIds, toggleProduct, selectAll, clearSelection, patch } = useStudio();
+  const { brain, hydrated, catalog, selectedIds, toggleProduct, clearSelection, patch } = useStudio();
   const fileRef = useRef<HTMLInputElement>(null);
   const [failed, setFailed] = useState<Set<string>>(new Set());
   const [healing, setHealing] = useState(false);
+  const [activeCat, setActiveCat] = useState<ProductCategory | "all">("all");
   const healRan = useRef(false);
 
   useEffect(() => {
@@ -62,20 +84,52 @@ export default function ProductLibrary() {
       .finally(() => setHealing(false));
   }, [hydrated, brain.catalog, brain.website, brain.research?.website, patch]);
 
+  const brandCat = useMemo(() => coerceCategory(brain.category), [brain.category]);
+  const catFor = useMemo(() => {
+    const cache = new Map<string, ProductCategory>();
+    return (p: StudioProduct): ProductCategory => {
+      const hit = cache.get(p.id);
+      if (hit) return hit;
+      const c = catOfWith(p, brandCat);
+      cache.set(p.id, c);
+      return c;
+    };
+  }, [brandCat]);
+
+  // Clean category buckets, ordered by size — the filter rail + the "categorised" read.
+  const cats = useMemo(() => {
+    const count = new Map<ProductCategory, number>();
+    for (const p of catalog) count.set(catFor(p), (count.get(catFor(p)) ?? 0) + 1);
+    return [...count.entries()].sort((a, b) => b[1] - a[1]);
+  }, [catalog, catFor]);
+
+  const shown = useMemo(
+    () => (activeCat === "all" ? catalog : catalog.filter((p) => catFor(p) === activeCat)),
+    [catalog, activeCat, catFor],
+  );
+
+  // If the catalog changes (upload, self-heal) and the active category no longer has any products,
+  // fall back to "All" so the grid never goes blank on a stale filter.
+  useEffect(() => {
+    if (activeCat !== "all" && !catalog.some((p) => catFor(p) === activeCat)) setActiveCat("all");
+  }, [catalog, activeCat, catFor]);
+
   function addUploads(files: FileList | null) {
     const list = Array.from(files ?? []).filter((f) => f.type.startsWith("image/"));
     if (!list.length) return;
     let pending = list.length;
     const added: StudioProduct[] = [];
+    // Commit whatever read successfully once every file has resolved OR errored — a single
+    // unreadable file must not leave `pending` above zero and silently drop the whole batch.
+    const finish = () => {
+      if (--pending > 0) return;
+      if (added.length) patch({ catalog: [...(brain.catalog ?? []), ...added], selectedProductIds: [...(brain.selectedProductIds ?? []), ...added.map((p) => p.id)] });
+      setActiveCat("all"); // show the freshly-added items even if a category was filtered
+    };
     list.forEach((f) => {
       const rd = new FileReader();
-      rd.onload = () => {
-        added.push({ id: uid(), name: f.name.replace(/\.[^.]+$/, ""), images: [String(rd.result)] });
-        if (--pending === 0) {
-          const nextCatalog = [...(brain.catalog ?? []), ...added];
-          patch({ catalog: nextCatalog, selectedProductIds: [...(brain.selectedProductIds ?? []), ...added.map((p) => p.id)] });
-        }
-      };
+      rd.onload = () => { added.push({ id: uid(), name: f.name.replace(/\.[^.]+$/, ""), images: [String(rd.result)] }); finish(); };
+      rd.onerror = finish;
       rd.readAsDataURL(f);
     });
   }
@@ -88,6 +142,7 @@ export default function ProductLibrary() {
   }
 
   const count = selectedIds.length;
+  const showFilters = catalog.length > 0 && cats.length > 1;
 
   return (
     <main className="flex min-h-screen flex-col bg-canvas">
@@ -110,23 +165,42 @@ export default function ProductLibrary() {
             <div className="flex items-center gap-4 text-[14px]">
               <button onClick={() => fileRef.current?.click()} className="text-muted transition-colors hover:text-ink">Add your own</button>
               <span className="text-hairline">·</span>
-              <button onClick={selectAll} className="text-muted transition-colors hover:text-ink">Select all</button>
+              {/* Scoped to the visible set — "Select all" while a category is filtered selects only that category. */}
+              <button onClick={() => patch({ selectedProductIds: Array.from(new Set([...selectedIds, ...shown.map((p) => p.id)])) })} className="text-muted transition-colors hover:text-ink">
+                {activeCat === "all" ? "Select all" : "Select these"}
+              </button>
               {count > 0 && <button onClick={clearSelection} className="text-muted transition-colors hover:text-ink">Clear</button>}
             </div>
           )}
         </motion.div>
 
+        {/* Category filter rail — the clean, derived categorisation (only when it earns its place). */}
+        {showFilters && (
+          <div className="-mx-1 mb-8 flex flex-wrap gap-2">
+            <FilterChip active={activeCat === "all"} onClick={() => setActiveCat("all")} label="All" n={catalog.length} />
+            {cats.map(([c, n]) => (
+              <FilterChip key={c} active={activeCat === c} onClick={() => setActiveCat(c)} label={CAT_LABEL[c]} n={n} />
+            ))}
+          </div>
+        )}
+
         {catalog.length > 0 ? (
           <div className="grid grid-cols-2 gap-4 md:grid-cols-3 xl:grid-cols-4">
-            {catalog.map((p, i) => {
+            {shown.map((p, i) => {
               const on = selectedIds.includes(p.id);
               const img = failed.has(p.id) ? undefined : p.images[0];
+              // Subtitle = the real, clean collection/type only (never the junk Shopify tags); blank
+              // otherwise — the name carries the card, and the filter rail carries the category.
+              const meta = p.collection || "";
               return (
                 <motion.button
                   key={p.id}
+                  layout
                   initial={{ opacity: 0, y: 12 }}
                   animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.4, delay: Math.min(i, 12) * 0.03, ease: [0.4, 0, 0.2, 1] }}
+                  // Enter animation staggers; the layout reflow (on filter change) must NOT inherit
+                  // that per-card delay, or cards cascade sluggishly into place when a filter flips.
+                  transition={{ duration: 0.4, delay: Math.min(i, 12) * 0.03, ease: [0.4, 0, 0.2, 1], layout: { duration: 0.35, ease: [0.4, 0, 0.2, 1] } }}
                   onClick={() => toggleProduct(p.id)}
                   className={`group overflow-hidden rounded-card border bg-canvas text-left transition-all duration-200 ease-brand hover:shadow-card ${on ? "border-ink ring-1 ring-ink" : "border-hairline"}`}
                 >
@@ -143,9 +217,7 @@ export default function ProductLibrary() {
                   </div>
                   <div className="px-3.5 py-3">
                     <div className="truncate text-[14px] font-medium text-ink">{p.name}</div>
-                    <div className="mt-0.5 truncate text-[12px] text-muted">
-                      {[p.collection, p.category].filter(Boolean).join(" · ") || (p.price ? p.price : " ")}
-                    </div>
+                    <div className="mt-0.5 min-h-[1rem] truncate text-[12px] text-muted">{meta}</div>
                   </div>
                 </motion.button>
               );
@@ -181,5 +253,20 @@ export default function ProductLibrary() {
         </div>
       </div>
     </main>
+  );
+}
+
+/** A quiet, hairline filter pill with a count — active state fills ink. */
+function FilterChip({ active, onClick, label, n }: { active: boolean; onClick: () => void; label: string; n: number }) {
+  return (
+    <button
+      onClick={onClick}
+      className={`inline-flex items-center gap-1.5 rounded-full border px-3.5 py-1.5 text-[13px] transition-all duration-200 ease-brand ${
+        active ? "border-ink bg-ink text-canvas" : "border-hairline text-muted hover:border-ink hover:text-ink"
+      }`}
+    >
+      {label}
+      <span className={active ? "text-canvas/60" : "text-muted/60"}>{n}</span>
+    </button>
   );
 }
