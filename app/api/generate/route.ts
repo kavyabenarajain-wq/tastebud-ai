@@ -217,6 +217,9 @@ export async function POST(req: NextRequest) {
         const MODEL_CHECKLIST = [
           "A real photographed human, not a 3D/CGI/plastic/doll/AI render",
           "Skin has real texture, pores and natural imperfections — never smoothed, airbrushed, evened-out or beautified",
+          "Skin shows distinct, unevenly-distributed pores + fine peach fuzz, and a soft DIRECTIONAL sheen — never a flat, even, poreless all-over glow",
+          "Hair shows individual strands with a few soft flyaways and organic highlights — not a smooth molded helmet",
+          "Eyes: iris has a natural colour gradient (not a flat disc), lashes are separated with a natural curl (not clumped), eyebrows show individual hairs; lips have real texture, subtle colour variation and soft edges (not one flat tone with a drawn outline)",
           "Vivid, bright and well-graded — rich contrast, deep blacks, luminous highlights; never flat, hazy, muddy or washed-out",
           "Hands have correct natural fingers; no distortion",
           "Eyes are alive with catchlights; teeth and hair look natural",

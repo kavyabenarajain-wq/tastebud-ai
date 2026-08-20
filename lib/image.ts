@@ -879,6 +879,18 @@ const VIVID_GRADE =
   "COLOUR & CONTRAST — VIVID, BRIGHT, EDITORIAL, ALIVE. Grade this like a punchy modern editorial cover, not a flat, muddy, hazy or washed-out capture: rich, deep, true blacks and a full tonal range; clean, luminous, well-exposed highlights that keep their detail; vibrant, saturated, true-to-life colour; and crisp micro-contrast so the frame is bright and reads three-dimensional and full of life, popping off the screen. " +
   "Keep the skin utterly REAL while doing it — pores, texture, subsurface warmth and every real mark stay intact. VIVID means richly graded, contrasty and saturated; it does NOT mean plastic, waxy, over-smoothed, HDR-haloed, blown-out or orange/sunburnt skin. A rich, confident, professionally-colour-graded photograph — never flat and never garish.";
 
+// HUMAN MICRO-DETAIL — the feature-by-feature realism spec. gpt-image defaults to a smooth,
+// evenly-lit "AI face"; these explicit per-feature cues force the skin-level detail that reads as a
+// real photograph. Applied to EVERY model render (below), and mirrored in the model QC checklist so
+// a smooth/waxy result is caught and reshot. This must survive the grade and any retouch.
+const MICRO_REALISM =
+  "HUMAN MICRO-DETAIL — resolve the face at true skin level so it reads as a real photograph, never a smooth render. Hold ALL of the following:\n" +
+  "• SKIN — pores are distinctly visible and UNEVENLY distributed, with subtle variation in size and tone; fine vellus hair (peach fuzz) catches the light along the cheeks, jaw and upper lip; tiny natural bumps, a hint of natural oil/shine through the T-zone, and a fine skin grain; light GLANCES off the skin as a soft, DIRECTIONAL sheen with a believable falloff — never a flat, even, all-over glow; true subsurface warmth where the skin is thin.\n" +
+  "• HAIR — individual strands are visible, not a molded solid mass or helmet; a few soft flyaways and slight frizz break the outline; highlights sit soft and organic, running along the strands with subtle light reflection; a natural, slightly irregular hairline.\n" +
+  "• EYES — the iris shows a natural colour GRADIENT and fine radial fibres, never a flat solid disc; a live catchlight and real moisture on the eye; individual eyebrow hairs with small natural gaps; eyelashes are separated with a natural curl, never clumped, thick or drawn-on; where eye make-up is present its sheen reflects light realistically; fine lines and visible pores around the eyes.\n" +
+  "• MOUTH / LIPS — a natural lip shape with real vertical texture and fine lines; subtle colour VARIATION across the lips, never one flat uniform tone; SOFT transitions where the lip meets the skin (no hard drawn outline); fine vellus or facial hair around the mouth as appropriate to the person; a realistic soft shadow in the philtrum and beneath the lower lip.\n" +
+  "The single fastest tell of an AI face is smooth poreless skin, a flat even glow, molded strand-less hair, flat solid irises, clumped lashes and featureless one-tone lips — avoid every one of these.";
+
 const MODEL_REF_LOCK =
   "IDENTITY LOCK — the FIRST attached image(s) are a LIKENESS REFERENCE of the MODEL: a real person the client wants in the shoot. Take ONLY the PERSON from it and reproduce THAT EXACT INDIVIDUAL, recognisably, in every frame — the goal is a precise match, not a lookalike or someone with the same vibe. " +
   "Match their specific facial geometry: face and head shape, eye shape, colour and spacing, brow shape, nose bridge and tip, lip shape and mouth width, jawline, chin, cheekbones, ears, hairline, hair colour/texture/length, skin tone and undertone, apparent age, body type, and any distinguishing marks (freckles, moles, scars, facial hair, glasses). Someone seeing the result must say it is unmistakably the same person. " +
@@ -920,9 +932,11 @@ function builtGroupLock(n: number): string {
 const HUMAN_NEGATIVES = [
   "extra or missing fingers", "warped, fused or distorted hands", "deformed or duplicated limbs",
   "waxy, plastic, airbrushed or CGI skin", "over-smoothed, beauty-filtered or retouched-poreless skin",
+  "poreless skin with a flat even all-over glow instead of a soft directional sheen",
   "over-sharpened HDR clarity look", "glossy Instagram-filter sheen", "flat, even, sourceless lighting",
-  "dead, glassy or mismatched eyes", "uniform tile-white teeth",
-  "helmet-like or unnatural hair", "uncanny perfect symmetry", "doll-like or mannequin face",
+  "dead, glassy or mismatched eyes", "flat solid-colour iris with no gradient or fibres", "clumped, thick or drawn-on eyelashes", "uniform tile-white teeth",
+  "smooth featureless lips with no texture, no colour variation or a hard drawn outline",
+  "molded helmet hair with no visible individual strands or flyaways", "helmet-like or unnatural hair", "uncanny perfect symmetry", "doll-like or mannequin face",
   "stiff over-posed catalogue posture", "3D render or video-game character look",
   "floating product", "warped or invented product label",
   "visible studio lighting equipment", "softbox, light panel, light stand or c-stand in frame",
@@ -1053,6 +1067,7 @@ export async function renderModelShot(args: {
   if (products.length) blocks.push(PRODUCT_LEGIBILITY);
   blocks.push(`Avoid: ${negatives.join(", ")}.`);
   blocks.push(HUMAN_REALISM);
+  blocks.push(MICRO_REALISM);
   blocks.push(VIVID_GRADE);
   blocks.push(CLEAN_FRAME);
   if (references.length && !(args.refScene && !args.referencesAreBrand)) {
