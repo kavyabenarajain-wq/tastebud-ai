@@ -104,18 +104,17 @@ export async function createBookingEvent(
     const end = new Date(start.getTime() + CALL_MINUTES * 60 * 1000);
     const tz = safeTimeZone(booking.tz);
     const title = esc(booking.brand) || esc(booking.name) || "your brand";
+    const firstName = ((booking.name || "").trim().split(/\s+/)[0] || "there").toLowerCase();
 
-    const description = [
-      "Brand discovery call with tastebud.",
-      "",
-      booking.name ? `Name: ${esc(booking.name)}` : "",
-      booking.brand ? `Brand: ${esc(booking.brand)}` : "",
-      booking.website ? `Website: ${esc(booking.website)}` : "",
-      booking.goal ? `Wants: ${esc(booking.goal)}` : "",
-      booking.notes ? `Notes: ${esc(booking.notes)}` : "",
-    ]
-      .filter((l) => l !== "")
-      .join("\n");
+    // Guest-facing warm note (attendees see this on their invite). Short, crisp, lowercase brand —
+    // this is what carries the welcome to real prospects before the Resend welcome email is switched
+    // on (which needs a verified domain). The owner gets the full booking details by email.
+    const description =
+      `hi ${firstName},\n\n` +
+      `your discovery call for ${title.toLowerCase()} is confirmed. we'll meet on the google meet link on this invite. ` +
+      `feel free to bring your products or any links you'd like us to see.\n\n` +
+      `looking forward to speaking with you.\n\n` +
+      `warm regards,\nkavya · tastebud`;
 
     // Deterministic conference request id → a network retry of the SAME booking reuses one Meet room
     // instead of minting a second. (Does not dedupe the event itself — acceptable for v1.)

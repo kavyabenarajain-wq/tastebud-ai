@@ -95,20 +95,19 @@ function ownerHtml(bk: Booking, when: string, meetLink?: string, eventLink?: str
   </div>`;
 }
 
-// The guest confirmation — deliberately all-lowercase (the tastebud brand voice).
-function guestHtml(bk: Booking, when: string) {
+// The guest confirmation — short, crisp, a touch formal; lowercase brand (the tastebud voice).
+function guestHtml(bk: Booking, when: string, meetLink?: string) {
   const brand = (bk.brand || bk.name || "your brand").toLowerCase();
-  const w = when.toLowerCase();
+  const firstName = ((bk.name || "").trim().split(/\s+/)[0] || "there").toLowerCase();
+  const meet = meetLink || MEET_LINK;
   return `
-  <div style="font-family:ui-sans-serif,system-ui,sans-serif;max-width:540px;margin:0 auto;color:#1a1a17">
-    <p style="font-size:20px;font-weight:600;color:#185D97;margin:0 0 22px;letter-spacing:-0.01em">tastebud × ${esc(brand)}</p>
-    <h1 style="font-size:21px;font-weight:600;color:#111827;margin:0 0 18px">brand discovery call scheduled with tastebud</h1>
-    <p style="font-size:15px;line-height:1.65;color:#374151;margin:0 0 14px">hey! we've scheduled a call with ${esc(brand)} on <strong style="color:#111827">${esc(w)}</strong>.</p>
-    <p style="font-size:15px;line-height:1.65;color:#374151;margin:0 0 22px">be prepared for it — bring your products (or just a link to them) and the questions you've been sitting on. we'll come with your world half-built and ready to shape.</p>
-    <a href="${MEET_LINK}" style="display:inline-block;background:#185D97;color:#ffffff;text-decoration:none;font-size:14px;font-weight:600;padding:12px 22px;border-radius:999px">join on google meet →</a>
-    <p style="font-size:13px;color:#6b7280;margin:12px 0 24px">or open this link: <a href="${MEET_LINK}" style="color:#185D97">${esc(MEET_LINK)}</a></p>
-    <p style="font-size:15px;line-height:1.65;color:#374151;margin:0 0 28px">we can't wait to build ${esc(brand)} with you.</p>
-    <p style="font-size:15px;line-height:1.65;color:#374151;margin:0">thanks,<br/>kavya benara jain<br/>founder @tastebud</p>
+  <div style="font-family:ui-sans-serif,system-ui,sans-serif;max-width:520px;margin:0 auto;color:#1a1a17">
+    <p style="font-size:18px;font-weight:600;color:#185D97;margin:0 0 26px;letter-spacing:-0.01em">tastebud</p>
+    <p style="font-size:15px;line-height:1.7;color:#374151;margin:0 0 16px">hi ${esc(firstName)},</p>
+    <p style="font-size:15px;line-height:1.7;color:#374151;margin:0 0 16px">your discovery call for <strong style="color:#111827">${esc(brand)}</strong> is confirmed — <strong style="color:#111827">${esc(when)}</strong>. we'll meet on google meet; the link is in your calendar invite.</p>
+    <p style="font-size:15px;line-height:1.7;color:#374151;margin:0 0 20px">feel free to bring your products or any links you'd like us to see. looking forward to speaking with you.</p>
+    <p style="font-size:14px;color:#6b7280;margin:0 0 28px"><a href="${meet}" style="color:#185D97">join on google meet</a></p>
+    <p style="font-size:15px;line-height:1.7;color:#374151;margin:0">warm regards,<br/>kavya<br/>tastebud</p>
   </div>`;
 }
 
@@ -146,22 +145,21 @@ export async function POST(req: NextRequest) {
   );
   if (!owner.sent && owner.reason) console.error(`[book] owner email failed: ${owner.reason}`);
 
-  // The GUEST only needs a Resend email on the FALLBACK path — on Calendar success Google already
-  // sent them the native Yes/Maybe/No invite.
+  // GUEST WELCOME email on EVERY booking — a short, warm confirmation alongside the calendar invite
+  // (the invite is functional; this is the personal note). NOTE: with Resend's shared TEST sender it
+  // only reaches your own inbox — it reaches real prospects once a domain is verified + BOOKING_FROM_EMAIL
+  // is set. Until then the same warmth rides in the calendar invite's description (see lib/googleCalendar).
   let guest: { sent: boolean; reason?: string } = { sent: false };
-  if (!calendar) {
-    try {
-      const brandSub = (bk.brand || bk.name || "your brand").toLowerCase();
-      guest = await sendEmail(bk.email, `tastebud × ${brandSub}`, guestHtml(bk, when));
-    } catch {}
-    if (!guest.sent && guest.reason) console.error(`[book] guest email failed: ${guest.reason}`);
-  }
+  try {
+    guest = await sendEmail(bk.email, "your discovery call with tastebud is confirmed", guestHtml(bk, when, calendar?.meetLink ?? undefined));
+  } catch {}
+  if (!guest.sent && guest.reason) console.error(`[book] guest welcome email failed: ${guest.reason}`);
 
   // Notes apply ONLY to the Resend fallback path (when Calendar ran, the guest is already invited).
   // A guest confirmation can't deliver while the Resend sender is the SHARED TEST address
   // (onboarding@resend.dev) — it only reaches the account owner. Surface that actionably.
   const usingTestSender = /onboarding@resend\.dev/i.test(FROM);
-  const guestBlockedByTestSender = !calendar && RESEND_API_KEY !== "" && !guest.sent && usingTestSender;
+  const guestBlockedByTestSender = RESEND_API_KEY !== "" && !guest.sent && usingTestSender;
   const note = calendar
     ? undefined
     : !RESEND_API_KEY
