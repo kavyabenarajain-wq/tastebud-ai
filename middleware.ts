@@ -36,6 +36,7 @@ function isPublicApi(pathname: string): boolean {
   return (
     pathname.startsWith("/api/billing/") || // Dodo webhook has no user session (verified by signature)
     pathname.startsWith("/api/img/") ||     // serves stored images
+    pathname === "/api/book" ||             // discovery-call booking from ANONYMOUS prospects (public /discovery/book form)
     pathname === "/api/account/sync"        // reads the session itself, answers 401 when absent
   );
 }
